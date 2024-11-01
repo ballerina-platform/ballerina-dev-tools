@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.central;
+package io.ballerina.centralconnector.response;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * @param data the data in the response
  * @since 1.4.0
  */
-public record FunctionResponse(Data data) {
+public record FunctionsResponse(Data data) {
 
     public record Data(ApiDocs apiDocs) { }
 
@@ -34,5 +34,5 @@ public record FunctionResponse(Data data) {
 
     public record DocsData(List<Module> modules) { }
 
-    public record Module(Function functions) { }
+    public record Module(List<Function> functions) { }
 }

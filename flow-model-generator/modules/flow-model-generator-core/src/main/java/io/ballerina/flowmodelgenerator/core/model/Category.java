@@ -99,6 +99,19 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return builder;
         }
 
+        public Builder stepIn(String name, String description, String icon) {
+            Builder builder = this.childBuilders.get(name);
+            if (builder == null) {
+                builder = new Builder(this).metadata()
+                        .label(name)
+                        .description(description)
+                        .icon(icon)
+                        .stepOut();
+                this.childBuilders.put(name, builder);
+            }
+            return builder;
+        }
+
         public Builder stepIn(String childName) {
             Builder builder = this.childBuilders.get(childName);
             if (builder == null) {

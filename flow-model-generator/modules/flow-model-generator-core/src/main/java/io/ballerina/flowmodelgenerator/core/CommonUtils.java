@@ -38,7 +38,6 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
@@ -61,6 +60,8 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class CommonUtils {
+
+    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
 
     /**
      * Removes the quotes from the given string.
@@ -278,8 +279,9 @@ public class CommonUtils {
      * @param queryMap the query map to check
      * @return true if the query map has no keyword, false otherwise
      */
-    public static boolean hasNoKeyword(Map<String, String> queryMap) {
-        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty();
+    public static boolean hasNoKeyword(Map<String, String> queryMap, String keyName) {
+        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey(keyName) ||
+                queryMap.get(keyName).isEmpty();
     }
 
     /**
@@ -307,13 +309,6 @@ public class CommonUtils {
         return typeDescriptor;
     }
 
-    public static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
-        return switch (typeName) {
-            case "inclusion" -> param.inclusionType();
-            default -> typeName;
-        };
-    }
-
     /**
      * Retrieves the document from the given project and location.
      *
@@ -327,7 +322,6 @@ public class CommonUtils {
                         project.sourceRoot().resolve(location.lineRange().fileName()));
         return project.currentPackage().getDefaultModule().document(documentId);
     }
-
 
     /***
      * Check whether the given line range is within a do clause.
@@ -356,5 +350,17 @@ public class CommonUtils {
         } catch (Throwable t) {
             return false;
         }
+    }
+
+    /**
+     * Generates the URL for the icon in the Ballerina central.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param versionName the version name
+     * @return the URL for the icon
+     */
+    public static String generateIcon(String orgName, String packageName, String versionName) {
+        return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
     }
 }

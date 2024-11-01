@@ -12,7 +12,7 @@
     "id": "31",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n"
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -26,43 +26,44 @@
       "msg": {
         "metadata": {
           "label": "msg",
-          "description": "The message to be logged\n"
+          "description": "The message to be logged"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "'error": {
         "metadata": {
           "label": "'error",
-          "description": "The error struct to be logged\n"
+          "description": "The error struct to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "error",
-        "value": "()",
+        "valueTypeConstraint": "error|()",
+        "value": "",
         "optional": true,
         "editable": true
       },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
+          "description": "The error stack trace to be logged"
         },
         "valueType": "EXPRESSION",
-        "value": "()",
+        "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+        "value": "",
         "optional": true,
         "editable": true
       },
       "keyValues": {
         "metadata": {
           "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
+          "description": "The key-value pairs to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "KeyValues",
-        "value": "\"\"",
+        "valueTypeConstraint": "log:KeyValues",
+        "value": "",
         "optional": false,
         "editable": true
       }

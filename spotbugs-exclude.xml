@@ -22,4 +22,9 @@
     <Match>
         <Bug pattern="BC_UNCONFIRMED_CAST"/>
     </Match>
+    <Match>
+        <Class name="io.ballerina.indexgenerator.DatabaseManager"/>
+        <Method name="createDatabase"/>
+        <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+    </Match>
 </FindBugsFilter>

@@ -20,16 +20,15 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorsResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
-import org.ballerinalang.central.client.model.Package;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,37 +47,37 @@ public class ConnectorGenerator {
     }
 
     public JsonArray getConnectors(Map<String, String> queryMap) {
-        // Get the popular connectors by default
-        if (queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty()) {
-            return gson.toJsonTree(LocalIndexCentral.getInstance().getConnectors()).getAsJsonArray();
+        Map<String, String> modifiedQueryMap = new HashMap<>(queryMap);
+        if (CommonUtils.hasNoKeyword(queryMap, "limit")) {
+            modifiedQueryMap.put("limit", "20");
         }
+        if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
+            modifiedQueryMap.put("offset", "0");
+        }
+        DatabaseManager dbManager = new DatabaseManager();
 
-        // Filter the connectors published by ballerina and ballerinax
-        Map<String, String> newQueryMap = new HashMap<>(queryMap);
-        newQueryMap.put("org", "ballerina,ballerinax");
+        List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
+                dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR) :
+                dbManager.searchFunctions(modifiedQueryMap, DatabaseManager.FunctionKind.CONNECTOR);
 
-        // Get the connectors from the central
-        ConnectorsResponse connectorsResponse = RemoteCentral.getInstance().connectors(newQueryMap);
-        List<AvailableNode> connectors = connectorsResponse.connectors().stream()
-                .filter(connector -> connector.name.equals(NewConnection.CLIENT_SYMBOL))
-                .map(connector -> {
-                    Package packageInfo = connector.packageInfo;
-                    Metadata metadata = new Metadata.Builder<>(null)
-                            .label(connector.moduleName)
-                            .description(packageInfo.getSummary())
-                            .keywords(packageInfo.getKeywords())
-                            .icon(connector.icon).build();
-                    Codedata codedata = new Codedata.Builder<>(null)
-                            .node(NodeKind.NEW_CONNECTION)
-                            .org(packageInfo.getOrganization())
-                            .module(packageInfo.getName())
-                            .object(connector.name)
-                            .symbol(NewConnection.INIT_SYMBOL)
-                            .id(connector.id)
-                            .build();
-                    return new AvailableNode(metadata, codedata, true);
-                }).toList();
+        List<AvailableNode> connectors = new ArrayList<>();
+        for (FunctionResult connectorResult : connectorResults) {
+            Metadata metadata = new Metadata.Builder<>(null)
+                    .label(connectorResult.packageName())
+                    .description(connectorResult.description())
+                    .icon(CommonUtils.generateIcon(connectorResult.org(), connectorResult.packageName(),
+                            connectorResult.version()))
+                    .build();
+            Codedata codedata = new Codedata.Builder<>(null)
+                    .node(NodeKind.NEW_CONNECTION)
+                    .org(connectorResult.org())
+                    .module(connectorResult.packageName())
+                    .object(NewConnection.CLIENT_SYMBOL)
+                    .symbol(NewConnection.INIT_SYMBOL)
+                    .id(connectorResult.functionId())
+                    .build();
+            connectors.add(new AvailableNode(metadata, codedata, true));
+        }
         return gson.toJsonTree(connectors).getAsJsonArray();
-
     }
 }

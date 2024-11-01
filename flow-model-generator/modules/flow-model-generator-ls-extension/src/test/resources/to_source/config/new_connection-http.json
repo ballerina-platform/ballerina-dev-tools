@@ -2,10 +2,11 @@
   "source": "new_connection-http/main.bal",
   "description": "Sample diagram node",
   "diagram": {
+    "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -13,6 +14,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
+      "id": 3077,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -27,42 +29,13 @@
     },
     "returning": false,
     "properties": {
-      "scope": {
-        "metadata": {
-          "label": "Connection Scope",
-          "description": "Scope of the connection, Global or Local"
-        },
-        "valueType": "Enum",
-        "value": "Global",
-        "optional": false,
-        "editable": false
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "connection",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the connection"
-        },
-        "valueType": "Type",
-        "value": "ClientError",
-        "optional": false,
-        "editable": false
-      },
       "url": {
         "metadata": {
           "label": "url",
-          "description": "URL of the target service\n"
+          "description": "URL of the target service"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
         "value": "",
         "optional": false,
         "editable": true
@@ -70,15 +43,46 @@
       "config": {
         "metadata": {
           "label": "config",
-          "description": "The configurations to be used when initializing the `client`\n"
+          "description": "The configurations to be used when initializing the `client`"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientConfiguration",
         "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "http:Client|http:ClientError",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "new_connection-http/connections.bal": [
@@ -106,7 +110,7 @@
             "character": 0
           }
         },
-        "newText": "ClientError connection = check new (, );"
+        "newText": "http:Client|http:ClientError item = check new (, );"
       }
     ]
   }

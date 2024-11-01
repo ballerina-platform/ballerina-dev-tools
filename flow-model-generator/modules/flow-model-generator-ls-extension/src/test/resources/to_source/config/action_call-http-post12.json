@@ -5,8 +5,8 @@
     "id": "65774",
     "metadata": {
       "label": "post",
-      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
@@ -14,6 +14,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
+      "version": "2.12.2",
       "lineRange": {
         "fileName": "http_post_node.bal",
         "startLine": {
@@ -24,7 +25,8 @@
           "line": 34,
           "offset": 54
         }
-      }
+      },
+      "sourceCode": "return foodClient->post(\"/bananas\", \"banana\");"
     },
     "returning": true,
     "properties": {
@@ -41,7 +43,7 @@
       "path": {
         "metadata": {
           "label": "path",
-          "description": "Resource path\n"
+          "description": "Resource path"
         },
         "valueType": "EXPRESSION",
         "value": "\"/bananas\"",
@@ -51,7 +53,7 @@
       "message": {
         "metadata": {
           "label": "message",
-          "description": "An HTTP outbound request or any allowed payload\n"
+          "description": "An HTTP outbound request or any allowed payload"
         },
         "valueType": "EXPRESSION",
         "value": "\"banana\"",
@@ -61,7 +63,7 @@
       "headers": {
         "metadata": {
           "label": "headers",
-          "description": "The entity headers\n"
+          "description": "The entity headers"
         },
         "valueType": "EXPRESSION",
         "optional": true,
@@ -70,16 +72,7 @@
       "mediaType": {
         "metadata": {
           "label": "mediaType",
-          "description": "The MIME type header of the request entity\n"
-        },
-        "valueType": "EXPRESSION",
-        "optional": true,
-        "editable": true
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+          "description": "The MIME type header of the request entity"
         },
         "valueType": "EXPRESSION",
         "optional": true,

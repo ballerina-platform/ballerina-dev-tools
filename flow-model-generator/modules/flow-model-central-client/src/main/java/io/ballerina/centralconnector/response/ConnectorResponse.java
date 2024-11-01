@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.central;
+package io.ballerina.centralconnector.response;
 
 import com.google.gson.annotations.SerializedName;
 

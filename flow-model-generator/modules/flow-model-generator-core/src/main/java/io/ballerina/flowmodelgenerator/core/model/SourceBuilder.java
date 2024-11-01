@@ -264,7 +264,8 @@ public class SourceBuilder {
      */
     public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties) {
         tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
-        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
+        Map<String, Property> properties = nodeTemplate.properties();
+        Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
 
         boolean hasEmptyParam = false;

@@ -20,225 +20,391 @@
             {
               "metadata": {
                 "label": "post",
-                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "post"
+                "symbol": "post",
+                "parentSymbol": "moduleClient",
+                "id": 3079
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "put",
-                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "put"
+                "symbol": "put",
+                "parentSymbol": "moduleClient",
+                "id": 3081
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "patch",
-                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP PATCH requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "patch"
+                "symbol": "patch",
+                "parentSymbol": "moduleClient",
+                "id": 3082
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "patch",
+                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "patch",
+                "parentSymbol": "moduleClient",
+                "id": 3083
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "delete",
-                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP DELETE requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "delete"
+                "symbol": "delete",
+                "parentSymbol": "moduleClient",
+                "id": 3084
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "delete",
+                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "delete",
+                "parentSymbol": "moduleClient",
+                "id": 3085
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "head",
-                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP HEAD requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "head"
+                "symbol": "head",
+                "parentSymbol": "moduleClient",
+                "id": 3086
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "head",
+                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "head",
+                "parentSymbol": "moduleClient",
+                "id": 3087
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "get",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "get"
+                "symbol": "get",
+                "parentSymbol": "moduleClient",
+                "id": 3089
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "options",
-                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP OPTIONS requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "options"
+                "symbol": "options",
+                "parentSymbol": "moduleClient",
+                "id": 3090
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "options",
+                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "options",
+                "parentSymbol": "moduleClient",
+                "id": 3091
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "execute",
-                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Invokes an HTTP call with the specified HTTP verb.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "execute"
+                "symbol": "execute",
+                "parentSymbol": "moduleClient",
+                "id": 3092
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "forward",
-                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "forward"
+                "symbol": "forward",
+                "parentSymbol": "moduleClient",
+                "id": 3093
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "submit",
-                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "submit"
+                "symbol": "submit",
+                "parentSymbol": "moduleClient",
+                "id": 3094
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getResponse",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getResponse"
+                "symbol": "getResponse",
+                "parentSymbol": "moduleClient",
+                "id": 3095
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hasPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "hasPromise"
+                "symbol": "hasPromise",
+                "parentSymbol": "moduleClient",
+                "id": 3096
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getNextPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getNextPromise"
+                "symbol": "getNextPromise",
+                "parentSymbol": "moduleClient",
+                "id": 3097
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getPromisedResponse",
-                "description": "Passes the request to an actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Passes the request to an actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getPromisedResponse"
+                "symbol": "getPromisedResponse",
+                "parentSymbol": "moduleClient",
+                "id": 3098
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rejectPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "rejectPromise"
+                "symbol": "rejectPromise",
+                "parentSymbol": "moduleClient",
+                "id": 3099
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getCookieStore",
+                "description": "Retrieves the cookie store of the client.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getCookieStore",
+                "parentSymbol": "moduleClient",
+                "id": 3100
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "circuitBreakerForceClose",
+                "description": "The circuit breaker client related method to force the circuit into a closed state in which it will allow\nrequests regardless of the error percentage until the failure threshold exceeds.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "circuitBreakerForceClose",
+                "parentSymbol": "moduleClient",
+                "id": 3101
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "circuitBreakerForceOpen",
+                "description": "The circuit breaker client related method to force the circuit into a open state in which it will suspend all\nrequests until `resetTime` interval exceeds.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "circuitBreakerForceOpen",
+                "parentSymbol": "moduleClient",
+                "id": 3102
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getCircuitBreakerCurrentState",
+                "description": "The circuit breaker client related method to provides the `http:CircuitState` of the circuit breaker.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getCircuitBreakerCurrentState",
+                "parentSymbol": "moduleClient",
+                "id": 3103
               },
               "enabled": true
             }
@@ -252,7 +418,7 @@
             {
               "metadata": {
                 "label": "append",
-                "description": "Append a value to a key.\n\n",
+                "description": "Append a value to a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -260,14 +426,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "append"
+                "symbol": "append",
+                "parentSymbol": "redisClient",
+                "id": 17
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bitCount",
-                "description": "Count set bits in a string.\n\n",
+                "description": "Count set bits in a string.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -275,14 +443,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bitCount"
+                "symbol": "bitCount",
+                "parentSymbol": "redisClient",
+                "id": 18
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bitOpAnd",
-                "description": "Perform bitwise AND between strings.\n\n",
+                "description": "Perform bitwise AND between strings.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -290,14 +460,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bitOpAnd"
+                "symbol": "bitOpAnd",
+                "parentSymbol": "redisClient",
+                "id": 19
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bitOpOr",
-                "description": "Perform bitwise OR between strings.\n\n",
+                "description": "Perform bitwise OR between strings.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -305,14 +477,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bitOpOr"
+                "symbol": "bitOpOr",
+                "parentSymbol": "redisClient",
+                "id": 20
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bitOpNot",
-                "description": "Perform bitwise NOT on a string.\n\n",
+                "description": "Perform bitwise NOT on a string.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -320,14 +494,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bitOpNot"
+                "symbol": "bitOpNot",
+                "parentSymbol": "redisClient",
+                "id": 21
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bitOpXor",
-                "description": "Perform bitwise XOR between strings.\n\n",
+                "description": "Perform bitwise XOR between strings.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -335,14 +511,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bitOpXor"
+                "symbol": "bitOpXor",
+                "parentSymbol": "redisClient",
+                "id": 22
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "decr",
-                "description": "Decrement integer value of a key by one.\n\n",
+                "description": "Decrement integer value of a key by one.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -350,14 +528,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "decr"
+                "symbol": "decr",
+                "parentSymbol": "redisClient",
+                "id": 23
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "decrBy",
-                "description": "Decrement integer value of a key by the given number.\n\n",
+                "description": "Decrement integer value of a key by the given number.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -365,14 +545,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "decrBy"
+                "symbol": "decrBy",
+                "parentSymbol": "redisClient",
+                "id": 24
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getBit",
-                "description": "Returns bit value at offset in the string value stored at key.\n\n",
+                "description": "Returns bit value at offset in the string value stored at key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -380,14 +562,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "getBit"
+                "symbol": "getBit",
+                "parentSymbol": "redisClient",
+                "id": 25
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getRange",
-                "description": "Get substring of string stored at a key.\n\n",
+                "description": "Get substring of string stored at a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -395,14 +579,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "getRange"
+                "symbol": "getRange",
+                "parentSymbol": "redisClient",
+                "id": 26
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getSet",
-                "description": "Set string value of key and return its existing value.\n\n",
+                "description": "Set string value of key and return its existing value.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -410,14 +596,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "getSet"
+                "symbol": "getSet",
+                "parentSymbol": "redisClient",
+                "id": 27
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "get",
-                "description": "Get value of key.\n\n",
+                "description": "Get value of key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -425,14 +613,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "get"
+                "symbol": "get",
+                "parentSymbol": "redisClient",
+                "id": 28
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "incr",
-                "description": "Increment integer value of a key by one.\n\n",
+                "description": "Increment integer value of a key by one.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -440,14 +630,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "incr"
+                "symbol": "incr",
+                "parentSymbol": "redisClient",
+                "id": 29
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "incrBy",
-                "description": "Increment integer value of key by the given amount.\n\n",
+                "description": "Increment integer value of key by the given amount.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -455,14 +647,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "incrBy"
+                "symbol": "incrBy",
+                "parentSymbol": "redisClient",
+                "id": 30
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "incrByFloat",
-                "description": "Increment integer value of key by the given float.\n\n",
+                "description": "Increment integer value of key by the given float.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -470,14 +664,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "incrByFloat"
+                "symbol": "incrByFloat",
+                "parentSymbol": "redisClient",
+                "id": 31
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "mGet",
-                "description": "Get values of all given keys.\n\n",
+                "description": "Get values of all given keys.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -485,14 +681,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "mGet"
+                "symbol": "mGet",
+                "parentSymbol": "redisClient",
+                "id": 32
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "mSet",
-                "description": "Set multiple keys to multiple values.\n\n",
+                "description": "Set multiple keys to multiple values.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -500,14 +698,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "mSet"
+                "symbol": "mSet",
+                "parentSymbol": "redisClient",
+                "id": 33
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "mSetNx",
-                "description": "Set multiple keys to multiple values, only if none of the keys exist.\n\n",
+                "description": "Set multiple keys to multiple values, only if none of the keys exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -515,14 +715,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "mSetNx"
+                "symbol": "mSetNx",
+                "parentSymbol": "redisClient",
+                "id": 34
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "pSetEx",
-                "description": "Set value and expiration in milliseconds of a key.\n\n",
+                "description": "Set value and expiration in milliseconds of a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -530,14 +732,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "pSetEx"
+                "symbol": "pSetEx",
+                "parentSymbol": "redisClient",
+                "id": 35
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "set",
-                "description": "Set the value of a key.\n\n",
+                "description": "Set the value of a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -545,14 +749,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "set"
+                "symbol": "set",
+                "parentSymbol": "redisClient",
+                "id": 36
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "setBit",
-                "description": "Sets or clears the bit at offset in the string value stored at key.\n\n",
+                "description": "Sets or clears the bit at offset in the string value stored at key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -560,14 +766,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "setBit"
+                "symbol": "setBit",
+                "parentSymbol": "redisClient",
+                "id": 37
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "setEx",
-                "description": "Set the value and expiration of a key.\n\n",
+                "description": "Set the value and expiration of a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -575,14 +783,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "setEx"
+                "symbol": "setEx",
+                "parentSymbol": "redisClient",
+                "id": 38
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "setNx",
-                "description": "Set value of a key, only if key does not exist.\n\n",
+                "description": "Set value of a key, only if key does not exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -590,14 +800,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "setNx"
+                "symbol": "setNx",
+                "parentSymbol": "redisClient",
+                "id": 39
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "setRange",
-                "description": "Overwrite part of string at key starting at the specified offset.\n\n",
+                "description": "Overwrite part of string at key starting at the specified offset.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -605,14 +817,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "setRange"
+                "symbol": "setRange",
+                "parentSymbol": "redisClient",
+                "id": 40
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "strLen",
-                "description": "Get length of value stored in a key.\n\n",
+                "description": "Get length of value stored in a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -620,14 +834,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "strLen"
+                "symbol": "strLen",
+                "parentSymbol": "redisClient",
+                "id": 41
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lPush",
-                "description": "Prepend one or multiple values to list.\n\n",
+                "description": "Prepend one or multiple values to list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -635,14 +851,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lPush"
+                "symbol": "lPush",
+                "parentSymbol": "redisClient",
+                "id": 42
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lPop",
-                "description": "Remove and get the first element in a list.\n\n",
+                "description": "Remove and get the first element in a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -650,14 +868,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lPop"
+                "symbol": "lPop",
+                "parentSymbol": "redisClient",
+                "id": 43
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lPushX",
-                "description": "Prepend one or multiple values to a list, only if the list exists.\n\n",
+                "description": "Prepend one or multiple values to a list, only if the list exists.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -665,14 +885,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lPushX"
+                "symbol": "lPushX",
+                "parentSymbol": "redisClient",
+                "id": 44
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bLPop",
-                "description": "Remove and get the first element in a list, or block until one is available.\n\n",
+                "description": "Remove and get the first element in a list, or block until one is available.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -680,14 +902,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bLPop"
+                "symbol": "bLPop",
+                "parentSymbol": "redisClient",
+                "id": 45
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "bRPop",
-                "description": "Remove and get the last element in a list, or block until one is available.\n\n",
+                "description": "Remove and get the last element in a list, or block until one is available.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -695,14 +919,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "bRPop"
+                "symbol": "bRPop",
+                "parentSymbol": "redisClient",
+                "id": 46
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lIndex",
-                "description": "Get an element from list by its index.\n\n",
+                "description": "Get an element from list by its index.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -710,14 +936,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lIndex"
+                "symbol": "lIndex",
+                "parentSymbol": "redisClient",
+                "id": 47
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lInsert",
-                "description": "Insert an element before or after another element in a list.\n\n",
+                "description": "Insert an element before or after another element in a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -725,14 +953,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lInsert"
+                "symbol": "lInsert",
+                "parentSymbol": "redisClient",
+                "id": 48
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lLen",
-                "description": "Get length of a list.\n\n",
+                "description": "Get length of a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -740,14 +970,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lLen"
+                "symbol": "lLen",
+                "parentSymbol": "redisClient",
+                "id": 49
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lRange",
-                "description": "Get a range of elements from a list.\n\n",
+                "description": "Get a range of elements from a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -755,14 +987,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lRange"
+                "symbol": "lRange",
+                "parentSymbol": "redisClient",
+                "id": 50
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lRem",
-                "description": "Remove elements from list.\n\n",
+                "description": "Remove elements from list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -770,14 +1004,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lRem"
+                "symbol": "lRem",
+                "parentSymbol": "redisClient",
+                "id": 51
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lSet",
-                "description": "Set the value of an element in a list by its index.\n\n",
+                "description": "Set the value of an element in a list by its index.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -785,14 +1021,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lSet"
+                "symbol": "lSet",
+                "parentSymbol": "redisClient",
+                "id": 52
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "lTrim",
-                "description": "Trim list to the specified range.\n\n",
+                "description": "Trim list to the specified range.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -800,14 +1038,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "lTrim"
+                "symbol": "lTrim",
+                "parentSymbol": "redisClient",
+                "id": 53
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rPop",
-                "description": "Remove and get the last element in a list.\n\n",
+                "description": "Remove and get the last element in a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -815,14 +1055,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "rPop"
+                "symbol": "rPop",
+                "parentSymbol": "redisClient",
+                "id": 54
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rPopLPush",
-                "description": "Remove the last element in a list, append it to another list and return it.\n\n",
+                "description": "Remove the last element in a list, append it to another list and return it.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -830,14 +1072,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "rPopLPush"
+                "symbol": "rPopLPush",
+                "parentSymbol": "redisClient",
+                "id": 55
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rPush",
-                "description": "Append one or multiple values to a list.\n\n",
+                "description": "Append one or multiple values to a list.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -845,14 +1089,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "rPush"
+                "symbol": "rPush",
+                "parentSymbol": "redisClient",
+                "id": 56
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rPushX",
-                "description": "Append one or multiple values to a list, only if the list exists.\n\n",
+                "description": "Append one or multiple values to a list, only if the list exists.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -860,14 +1106,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "rPushX"
+                "symbol": "rPushX",
+                "parentSymbol": "redisClient",
+                "id": 57
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sAdd",
-                "description": "Add one or more members to a set.\n\n",
+                "description": "Add one or more members to a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -875,14 +1123,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sAdd"
+                "symbol": "sAdd",
+                "parentSymbol": "redisClient",
+                "id": 58
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sCard",
-                "description": "Get the number of members in a set\n\n",
+                "description": "Get the number of members in a set\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -890,14 +1140,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sCard"
+                "symbol": "sCard",
+                "parentSymbol": "redisClient",
+                "id": 59
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sDiff",
-                "description": "Return set resulting from the difference between the first set and all the successive sets\n\n",
+                "description": "Return set resulting from the difference between the first set and all the successive sets\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -905,14 +1157,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sDiff"
+                "symbol": "sDiff",
+                "parentSymbol": "redisClient",
+                "id": 60
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sDiffStore",
-                "description": "Obtain the set resulting from the difference between the first set and all the successive.\nsets and store at the provided destination.\n\n",
+                "description": "Obtain the set resulting from the difference between the first set and all the successive.\nsets and store at the provided destination.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -920,14 +1174,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sDiffStore"
+                "symbol": "sDiffStore",
+                "parentSymbol": "redisClient",
+                "id": 61
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sInter",
-                "description": "Return the intersection of the provided sets.\n\n",
+                "description": "Return the intersection of the provided sets.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -935,14 +1191,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sInter"
+                "symbol": "sInter",
+                "parentSymbol": "redisClient",
+                "id": 62
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sInterStore",
-                "description": "Obtain the intersection of the provided sets and store at the provided destination.\n\n",
+                "description": "Obtain the intersection of the provided sets and store at the provided destination.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -950,14 +1208,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sInterStore"
+                "symbol": "sInterStore",
+                "parentSymbol": "redisClient",
+                "id": 63
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sIsMember",
-                "description": "Determine if a given value is a member of a set.\n\n",
+                "description": "Determine if a given value is a member of a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -965,14 +1225,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sIsMember"
+                "symbol": "sIsMember",
+                "parentSymbol": "redisClient",
+                "id": 64
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sMembers",
-                "description": "Get all members in a set.\n\n",
+                "description": "Get all members in a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -980,14 +1242,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sMembers"
+                "symbol": "sMembers",
+                "parentSymbol": "redisClient",
+                "id": 65
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sMove",
-                "description": "Move a member from one set to another.\n\n",
+                "description": "Move a member from one set to another.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -995,14 +1259,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sMove"
+                "symbol": "sMove",
+                "parentSymbol": "redisClient",
+                "id": 66
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sPop",
-                "description": "Remove and return a random member from a set.\n\n",
+                "description": "Remove and return a random member from a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1010,14 +1276,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sPop"
+                "symbol": "sPop",
+                "parentSymbol": "redisClient",
+                "id": 67
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sRandMember",
-                "description": "Get one or multiple random members from a set.\n\n",
+                "description": "Get one or multiple random members from a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1025,14 +1293,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sRandMember"
+                "symbol": "sRandMember",
+                "parentSymbol": "redisClient",
+                "id": 68
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sRem",
-                "description": "Remove one or more members from a set.\n\n",
+                "description": "Remove one or more members from a set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1040,14 +1310,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sRem"
+                "symbol": "sRem",
+                "parentSymbol": "redisClient",
+                "id": 69
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sUnion",
-                "description": "Return the union of multiple sets.\n\n",
+                "description": "Return the union of multiple sets.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1055,14 +1327,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sUnion"
+                "symbol": "sUnion",
+                "parentSymbol": "redisClient",
+                "id": 70
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sUnionStore",
-                "description": "Return the union of multiple sets.\n\n",
+                "description": "Return the union of multiple sets.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1070,14 +1344,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sUnionStore"
+                "symbol": "sUnionStore",
+                "parentSymbol": "redisClient",
+                "id": 71
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zAdd",
-                "description": "Add one or more members to a sorted set, or update its score if it already exist.\n\n",
+                "description": "Add one or more members to a sorted set, or update its score if it already exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1085,14 +1361,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zAdd"
+                "symbol": "zAdd",
+                "parentSymbol": "redisClient",
+                "id": 72
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zCard",
-                "description": "Get the number of members in a sorted set.\n\n",
+                "description": "Get the number of members in a sorted set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1100,14 +1378,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zCard"
+                "symbol": "zCard",
+                "parentSymbol": "redisClient",
+                "id": 73
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zCount",
-                "description": "Count the members in a sorted set with scores within the given range.\n\n",
+                "description": "Count the members in a sorted set with scores within the given range.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1115,14 +1395,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zCount"
+                "symbol": "zCount",
+                "parentSymbol": "redisClient",
+                "id": 74
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zIncrBy",
-                "description": "Increment the score of a member in a sorted set.\n\n",
+                "description": "Increment the score of a member in a sorted set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1130,14 +1412,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zIncrBy"
+                "symbol": "zIncrBy",
+                "parentSymbol": "redisClient",
+                "id": 75
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zInterStore",
-                "description": "Intersect multiple sorted sets and store the resulting sorted set in a new key.\n\n",
+                "description": "Intersect multiple sorted sets and store the resulting sorted set in a new key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1145,14 +1429,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zInterStore"
+                "symbol": "zInterStore",
+                "parentSymbol": "redisClient",
+                "id": 76
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zLexCount",
-                "description": "Count the members in a sorted set within the given lexicographical range.\n\n",
+                "description": "Count the members in a sorted set within the given lexicographical range.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1160,14 +1446,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zLexCount"
+                "symbol": "zLexCount",
+                "parentSymbol": "redisClient",
+                "id": 77
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRange",
-                "description": "Return a range of members in a sorted set, by index.\n\n",
+                "description": "Return a range of members in a sorted set, by index.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1175,14 +1463,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRange"
+                "symbol": "zRange",
+                "parentSymbol": "redisClient",
+                "id": 78
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRangeByLex",
-                "description": "Return a range of members in a sorted set, by lexicographical range from lowest to highest.\n\n",
+                "description": "Return a range of members in a sorted set, by lexicographical range from lowest to highest.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1190,14 +1480,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRangeByLex"
+                "symbol": "zRangeByLex",
+                "parentSymbol": "redisClient",
+                "id": 79
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRevRangeByLex",
-                "description": "Return a range of members in a sorted set, by lexicographical range ordered from highest to\nlowest.\n\n",
+                "description": "Return a range of members in a sorted set, by lexicographical range ordered from highest to\nlowest.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1205,14 +1497,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRevRangeByLex"
+                "symbol": "zRevRangeByLex",
+                "parentSymbol": "redisClient",
+                "id": 80
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRangeByScore",
-                "description": "Return a range of members in a sorted set, by score from lowest to highest.\n\n",
+                "description": "Return a range of members in a sorted set, by score from lowest to highest.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1220,14 +1514,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRangeByScore"
+                "symbol": "zRangeByScore",
+                "parentSymbol": "redisClient",
+                "id": 81
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRank",
-                "description": "Determine index of a member in a sorted set.\n\n",
+                "description": "Determine index of a member in a sorted set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1235,14 +1531,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRank"
+                "symbol": "zRank",
+                "parentSymbol": "redisClient",
+                "id": 82
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRem",
-                "description": "Remove one or more members from a sorted set\n\n",
+                "description": "Remove one or more members from a sorted set\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1250,14 +1548,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRem"
+                "symbol": "zRem",
+                "parentSymbol": "redisClient",
+                "id": 83
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRemRangeByLex",
-                "description": "Remove all members in a sorted set between the given lexicographical range.\n\n",
+                "description": "Remove all members in a sorted set between the given lexicographical range.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1265,14 +1565,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRemRangeByLex"
+                "symbol": "zRemRangeByLex",
+                "parentSymbol": "redisClient",
+                "id": 84
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRemRangeByRank",
-                "description": "Remove all members in a sorted set within the given indices.\n\n",
+                "description": "Remove all members in a sorted set within the given indices.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1280,14 +1582,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRemRangeByRank"
+                "symbol": "zRemRangeByRank",
+                "parentSymbol": "redisClient",
+                "id": 85
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRemRangeByScore",
-                "description": "Remove all members in a sorted set within the given scores.\n\n",
+                "description": "Remove all members in a sorted set within the given scores.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1295,14 +1599,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRemRangeByScore"
+                "symbol": "zRemRangeByScore",
+                "parentSymbol": "redisClient",
+                "id": 86
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRevRange",
-                "description": "Return a range of members in a sorted set, by index, ordered highest to lowest.\n\n",
+                "description": "Return a range of members in a sorted set, by index, ordered highest to lowest.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1310,14 +1616,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRevRange"
+                "symbol": "zRevRange",
+                "parentSymbol": "redisClient",
+                "id": 87
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRevRangeByScore",
-                "description": "Return a range of members in a sorted set, by score from highest to lowest.\n\n",
+                "description": "Return a range of members in a sorted set, by score from highest to lowest.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1325,14 +1633,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRevRangeByScore"
+                "symbol": "zRevRangeByScore",
+                "parentSymbol": "redisClient",
+                "id": 88
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zRevRank",
-                "description": "Determine the index of a member in a sorted set\n\n",
+                "description": "Determine the index of a member in a sorted set\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1340,14 +1650,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zRevRank"
+                "symbol": "zRevRank",
+                "parentSymbol": "redisClient",
+                "id": 89
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zScore",
-                "description": "Determine the score of a member in a sorted set\n\n",
+                "description": "Determine the score of a member in a sorted set\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1355,14 +1667,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zScore"
+                "symbol": "zScore",
+                "parentSymbol": "redisClient",
+                "id": 90
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "zUnionStore",
-                "description": "Return the union of multiple sorted sets\n\n",
+                "description": "Return the union of multiple sorted sets\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1370,14 +1684,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "zUnionStore"
+                "symbol": "zUnionStore",
+                "parentSymbol": "redisClient",
+                "id": 91
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hDel",
-                "description": "Delete one or more hash fields.\n\n",
+                "description": "Delete one or more hash fields.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1385,14 +1701,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hDel"
+                "symbol": "hDel",
+                "parentSymbol": "redisClient",
+                "id": 92
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hExists",
-                "description": "Determine if a hash field exists.\n\n",
+                "description": "Determine if a hash field exists.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1400,14 +1718,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hExists"
+                "symbol": "hExists",
+                "parentSymbol": "redisClient",
+                "id": 93
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hGet",
-                "description": "Get the value of a hash field.\n\n",
+                "description": "Get the value of a hash field.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1415,14 +1735,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hGet"
+                "symbol": "hGet",
+                "parentSymbol": "redisClient",
+                "id": 94
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hGetAll",
-                "description": "Get the all values of a hash.\n\n",
+                "description": "Get the all values of a hash.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1430,14 +1752,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hGetAll"
+                "symbol": "hGetAll",
+                "parentSymbol": "redisClient",
+                "id": 95
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hIncrBy",
-                "description": "Increment the integer value of a hash field by the given number.\n\n",
+                "description": "Increment the integer value of a hash field by the given number.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1445,14 +1769,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hIncrBy"
+                "symbol": "hIncrBy",
+                "parentSymbol": "redisClient",
+                "id": 96
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hIncrByFloat",
-                "description": "Increment the float value of a hash field by the given number.\n\n",
+                "description": "Increment the float value of a hash field by the given number.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1460,14 +1786,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hIncrByFloat"
+                "symbol": "hIncrByFloat",
+                "parentSymbol": "redisClient",
+                "id": 97
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hKeys",
-                "description": "Get all the fields in a hash.\n\n",
+                "description": "Get all the fields in a hash.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1475,14 +1803,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hKeys"
+                "symbol": "hKeys",
+                "parentSymbol": "redisClient",
+                "id": 98
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hLen",
-                "description": "Get the number of fields in a hash.\n\n",
+                "description": "Get the number of fields in a hash.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1490,14 +1820,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hLen"
+                "symbol": "hLen",
+                "parentSymbol": "redisClient",
+                "id": 99
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hMGet",
-                "description": "Get the values of all the given hash fields.\n\n",
+                "description": "Get the values of all the given hash fields.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1505,14 +1837,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hMGet"
+                "symbol": "hMGet",
+                "parentSymbol": "redisClient",
+                "id": 100
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hMSet",
-                "description": "Set multiple hash fields to multiple values.\n\n",
+                "description": "Set multiple hash fields to multiple values.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1520,14 +1854,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hMSet"
+                "symbol": "hMSet",
+                "parentSymbol": "redisClient",
+                "id": 101
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hSet",
-                "description": "Set the string value of a hash field.\n\n",
+                "description": "Set the string value of a hash field.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1535,14 +1871,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hSet"
+                "symbol": "hSet",
+                "parentSymbol": "redisClient",
+                "id": 102
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hSetNx",
-                "description": "Set the string value of a hash field, only if the field does not exist.\n\n",
+                "description": "Set the string value of a hash field, only if the field does not exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1550,14 +1888,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hSetNx"
+                "symbol": "hSetNx",
+                "parentSymbol": "redisClient",
+                "id": 103
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hStrLen",
-                "description": "Get the string length of the field value in a hash.\n\n",
+                "description": "Get the string length of the field value in a hash.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1565,14 +1905,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hStrLen"
+                "symbol": "hStrLen",
+                "parentSymbol": "redisClient",
+                "id": 104
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hVals",
-                "description": "Get all the values in a hash.\n\n",
+                "description": "Get all the values in a hash.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1580,14 +1922,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "hVals"
+                "symbol": "hVals",
+                "parentSymbol": "redisClient",
+                "id": 105
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "del",
-                "description": "Delete one or more keys.\n\n",
+                "description": "Delete one or more keys.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1595,14 +1939,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "del"
+                "symbol": "del",
+                "parentSymbol": "redisClient",
+                "id": 106
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "exists",
-                "description": "Determine how many keys exist.\n\n",
+                "description": "Determine how many keys exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1610,14 +1956,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "exists"
+                "symbol": "exists",
+                "parentSymbol": "redisClient",
+                "id": 107
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "expire",
-                "description": "Set a key's time to live in seconds.\n\n",
+                "description": "Set a key's time to live in seconds.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1625,14 +1973,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "expire"
+                "symbol": "expire",
+                "parentSymbol": "redisClient",
+                "id": 108
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "keys",
-                "description": "Find all keys matching the given pattern.\n\n",
+                "description": "Find all keys matching the given pattern.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1640,14 +1990,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "keys"
+                "symbol": "keys",
+                "parentSymbol": "redisClient",
+                "id": 109
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "move",
-                "description": "Move a key to another database.\n\n",
+                "description": "Move a key to another database.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1655,14 +2007,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "move"
+                "symbol": "move",
+                "parentSymbol": "redisClient",
+                "id": 110
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "persist",
-                "description": "Remove the expiration from a key.\n\n",
+                "description": "Remove the expiration from a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1670,14 +2024,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "persist"
+                "symbol": "persist",
+                "parentSymbol": "redisClient",
+                "id": 111
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "pExpire",
-                "description": "Set a key's time to live in milliseconds.\n\n",
+                "description": "Set a key's time to live in milliseconds.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1685,14 +2041,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "pExpire"
+                "symbol": "pExpire",
+                "parentSymbol": "redisClient",
+                "id": 112
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "pTtl",
-                "description": "Get the time to live for a key in milliseconds.\n\n",
+                "description": "Get the time to live for a key in milliseconds.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1700,14 +2058,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "pTtl"
+                "symbol": "pTtl",
+                "parentSymbol": "redisClient",
+                "id": 113
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "randomKey",
-                "description": "Return a random key from the keyspace.\n\n",
+                "description": "Return a random key from the keyspace.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1715,14 +2075,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "randomKey"
+                "symbol": "randomKey",
+                "parentSymbol": "redisClient",
+                "id": 114
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rename",
-                "description": "Rename a key.\n\n",
+                "description": "Rename a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1730,14 +2092,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "rename"
+                "symbol": "rename",
+                "parentSymbol": "redisClient",
+                "id": 115
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "renameNx",
-                "description": "Rename a key, only if the new key does not exist.\n\n",
+                "description": "Rename a key, only if the new key does not exist.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1745,14 +2109,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "renameNx"
+                "symbol": "renameNx",
+                "parentSymbol": "redisClient",
+                "id": 116
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "sort",
-                "description": "Sort elements in a list, set or sorted set.\n\n",
+                "description": "Sort elements in a list, set or sorted set.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1760,14 +2126,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "sort"
+                "symbol": "sort",
+                "parentSymbol": "redisClient",
+                "id": 117
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "ttl",
-                "description": "Get the time to live for a key.\n\n",
+                "description": "Get the time to live for a key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1775,14 +2143,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "ttl"
+                "symbol": "ttl",
+                "parentSymbol": "redisClient",
+                "id": 118
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "redisType",
-                "description": "Determine the type stored at key.\n\n",
+                "description": "Determine the type stored at key.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1790,14 +2160,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "redisType"
+                "symbol": "redisType",
+                "parentSymbol": "redisClient",
+                "id": 119
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "clusterInfo",
-                "description": "Retrieve information and statistics about the cluster observed by the current node.\nThis command is exclusively available in cluster mode. If the connection is in a non-clustered mode,\nthe API will return a `redis:Error`. Other errors will also be appropriately handled.\n\n",
+                "description": "Retrieve information and statistics about the cluster observed by the current node.\nThis command is exclusively available in cluster mode. If the connection is in a non-clustered mode,\nthe API will return a `redis:Error`. Other errors will also be appropriately handled.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1805,14 +2177,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "clusterInfo"
+                "symbol": "clusterInfo",
+                "parentSymbol": "redisClient",
+                "id": 120
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "ping",
-                "description": "Ping the server.\n\n",
+                "description": "Ping the server.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1820,14 +2194,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "ping"
+                "symbol": "ping",
+                "parentSymbol": "redisClient",
+                "id": 121
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "auth",
-                "description": "Authenticate to the server.\n\n",
+                "description": "Authenticate to the server.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1835,14 +2211,16 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "auth"
+                "symbol": "auth",
+                "parentSymbol": "redisClient",
+                "id": 122
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "echo",
-                "description": "Echo the given string.\n\n",
+                "description": "Echo the given string.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
@@ -1850,7 +2228,26 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
-                "symbol": "echo"
+                "symbol": "echo",
+                "parentSymbol": "redisClient",
+                "id": 123
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "close",
+                "description": "Close the connection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "redis",
+                "object": "Client",
+                "symbol": "close",
+                "parentSymbol": "redisClient",
+                "id": 124
               },
               "enabled": true
             }

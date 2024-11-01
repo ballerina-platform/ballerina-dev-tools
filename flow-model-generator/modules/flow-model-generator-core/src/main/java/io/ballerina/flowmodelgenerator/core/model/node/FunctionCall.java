@@ -1,5 +1,24 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
@@ -9,10 +28,10 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.central.Function;
-import io.ballerina.flowmodelgenerator.core.central.FunctionResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.TypeUtils;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -34,6 +53,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
+
+    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -89,9 +110,15 @@ public class FunctionCall extends NodeBuilder {
             return;
         }
 
-        FunctionResponse functionResponse = RemoteCentral.getInstance()
-                .function(codedata.org(), codedata.module(), codedata.version(), codedata.symbol());
-        Function function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
+        DatabaseManager dbManager = new DatabaseManager();
+        Optional<FunctionResult> functionResult =
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.FUNCTION);
+
+        if (functionResult.isEmpty()) {
+            throw new RuntimeException("Function not found: " + codedata.symbol());
+        }
+        FunctionResult function = functionResult.get();
 
         metadata()
                 .label(function.name())
@@ -104,19 +131,15 @@ public class FunctionCall extends NodeBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        for (Function.Parameter parameter : function.parameters()) {
-            String typeName = parameter.type().name();
-            String defaultValue = parameter.defaultValue();
-            String defaultString = defaultValue != null ? escapeDefaultValue(defaultValue) :
-                    CommonUtils.getDefaultValueForType(typeName);
-            boolean optional = defaultValue != null && !defaultValue.isEmpty();
-            properties().custom(parameter.name(), parameter.name(), parameter.description(),
-                    Property.ValueType.EXPRESSION, typeName, defaultString, optional);
+        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        for (ParameterResult paramResult : functionParameters) {
+            properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                    Property.ValueType.EXPRESSION, paramResult.type(), "",
+                    paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        List<Function.ReturnParameter> returnParameters = function.returnParameters();
-        if (!returnParameters.isEmpty()) {
-            properties().type(returnParameters.get(0).type().name()).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            properties().type(function.returnType()).data(null);
         }
     }
 
@@ -142,7 +165,7 @@ public class FunctionCall extends NodeBuilder {
                     .build();
         }
 
-        FlowNode nodeTemplate = getNodeTemplate(codedata);
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
         if (nodeTemplate == null) {
             throw new IllegalStateException("Function call node template not found");
         }
@@ -160,23 +183,16 @@ public class FunctionCall extends NodeBuilder {
                 .build();
     }
 
-    public static FlowNode getNodeTemplate(Codedata codedata) {
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
-        }
-        return nodeTemplate;
-    }
-
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
-        FunctionResponse functionResponse = RemoteCentral.getInstance()
-                .function(codedata.org(), codedata.module(), codedata.version(), codedata.symbol());
-        Function function;
-        try {
-            function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
-        } catch (Exception e) {
-            return null;
+        DatabaseManager dbManager = new DatabaseManager();
+        Optional<FunctionResult> functionResult =
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.FUNCTION);
+
+        if (functionResult.isEmpty()) {
+            throw new RuntimeException("Function not found: " + codedata.symbol());
         }
+        FunctionResult function = functionResult.get();
 
         nodeBuilder.metadata()
                 .label(function.name())
@@ -189,25 +205,17 @@ public class FunctionCall extends NodeBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        for (Function.Parameter parameter : function.parameters()) {
-            String typeName = parameter.type().name();
-            String defaultValue = parameter.defaultValue();
-            String defaultString = defaultValue != null ? escapeDefaultValue(defaultValue) :
-                    CommonUtils.getDefaultValueForType(typeName);
-            boolean optional = defaultValue != null && !defaultValue.isEmpty();
-            nodeBuilder.properties().custom(parameter.name(), parameter.name(), parameter.description(),
-                    Property.ValueType.EXPRESSION, typeName, defaultString, optional);
+        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        for (ParameterResult paramResult : functionParameters) {
+            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                    Property.ValueType.EXPRESSION, paramResult.type(), "",
+                    paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        List<Function.ReturnParameter> returnParameters = function.returnParameters();
-        if (!returnParameters.isEmpty()) {
-            nodeBuilder.properties().type(returnParameters.get(0).type().name()).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
         }
         return nodeBuilder.build();
-    }
-
-    private static String escapeDefaultValue(String value) {
-        return value.isEmpty() ? "\"\"" : value;
     }
 
     public boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {

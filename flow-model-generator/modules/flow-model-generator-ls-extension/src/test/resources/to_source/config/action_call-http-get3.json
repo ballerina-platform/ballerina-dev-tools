@@ -5,8 +5,8 @@
     "id": "47942",
     "metadata": {
       "label": "get",
-      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
@@ -14,6 +14,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
+      "version": "2.12.2",
       "lineRange": {
         "fileName": "http_get_node.bal",
         "startLine": {
@@ -24,7 +25,8 @@
           "line": 16,
           "offset": 78
         }
-      }
+      },
+      "sourceCode": "_ = check foodClient->get(\"/apples\", targetType = json, headers = ());"
     },
     "returning": false,
     "properties": {
@@ -41,7 +43,7 @@
       "path": {
         "metadata": {
           "label": "path",
-          "description": "Request path\n"
+          "description": "Request path"
         },
         "valueType": "EXPRESSION",
         "value": "\"/apples\"",
@@ -51,20 +53,10 @@
       "headers": {
         "metadata": {
           "label": "headers",
-          "description": "The entity headers\n"
+          "description": "The entity headers"
         },
         "valueType": "EXPRESSION",
         "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-        },
-        "valueType": "EXPRESSION",
-        "value": "json",
         "optional": true,
         "editable": true
       }
@@ -97,7 +89,7 @@
             "character": 78
           }
         },
-        "newText": "check foodClient->get(\"/apples\");"
+        "newText": "check foodClient->get(\"/apples\", ());"
       }
     ]
   }

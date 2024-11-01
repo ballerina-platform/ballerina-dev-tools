@@ -2,9 +2,10 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
+    "id": "31",
     "metadata": {
       "label": "get",
-      "description": "Get value of key.\n\n",
+      "description": "Get value of key.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
@@ -13,6 +14,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
+      "id": 28,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -27,48 +29,50 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
+      "key": {
         "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
+          "label": "key",
+          "description": "Key referring to a value"
         },
-        "valueType": "Identifier",
-        "value": "connection",
-        "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
+          "label": "Variable Type",
+          "description": "Type of the variable"
         },
-        "valueType": "Type",
-        "value": "string",
+        "valueType": "TYPE",
+        "value": "string|redis:Error|()",
         "optional": false,
-        "editable": false
+        "editable": true
       },
-      "key": {
+      "variable": {
         "metadata": {
-          "label": "key",
-          "description": "Key referring to a value\n"
+          "label": "Variable Name",
+          "description": "Name of the variable"
         },
-        "valueType": "Expression",
-        "value": "",
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:Client",
+        "value": "rc",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -96,7 +100,7 @@
             "character": 0
           }
         },
-        "newText": "string res = check connection->get();"
+        "newText": "string|redis:Error|() item = rc->get();"
       }
     ]
   }

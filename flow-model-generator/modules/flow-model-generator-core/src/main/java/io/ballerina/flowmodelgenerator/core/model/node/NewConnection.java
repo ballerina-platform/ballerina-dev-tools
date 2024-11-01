@@ -18,11 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.TypeUtils;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -58,26 +60,15 @@ public class NewConnection extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate != null) {
-            this.cachedFlowNode = nodeTemplate;
-        } else {
-            fetchNodeTemplate(this, codedata);
-        }
+        fetchNodeTemplate(this, codedata);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
-
-        // Fetch the information from the central if there is a cache miss.
-        if (nodeTemplate == null) {
-            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
-                    sourceBuilder.flowNode.codedata());
-        }
-
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
+                sourceBuilder.flowNode.codedata());
         if (nodeTemplate == null) {
             throw new IllegalStateException("Node template is not available for the new connection node");
         }
@@ -101,47 +92,40 @@ public class NewConnection extends NodeBuilder {
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
-        if (codedata.id() != null) {
-            ConnectorResponse connector = RemoteCentral.getInstance().connector(codedata.id());
-            Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
-                    .filter(function -> function.name().equals(INIT_SYMBOL))
-                    .findFirst();
-            nodeBuilder.metadata()
-                    .label(connector.moduleName())
-                    .keywords(connector.packageInfo().keywords())
-                    .icon(connector.icon())
-                    .description(connector.documentation());
-            nodeBuilder.codedata()
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(connector.packageInfo().organization())
-                    .module(connector.moduleName())
-                    .object(connector.name())
-                    .id(String.valueOf(connector.id()))
-                    .symbol(INIT_SYMBOL);
-
-            if (initFunction.isPresent()) {
-                for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
-                    nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
-                            Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
-                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
-                }
-
-                String returnType = initFunction.get().returnType().typeName();
-                if (returnType != null) {
-                    nodeBuilder.properties().type(connector.moduleName() + ":" + connector.name()).data(null);
-                }
-            }
-            nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
-            return nodeBuilder.build();
+        DatabaseManager dbManager = new DatabaseManager();
+        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.CONNECTOR);
+        if (functionResult.isEmpty()) {
+            return null;
         }
-        return null;
-        //TODO: Obtain the connector from the codedata information if id doesn't exist.
-    }
 
-    private static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
-        return switch (typeName) {
-            case "inclusion" -> param.inclusionType();
-            default -> typeName;
-        };
+        FunctionResult function = functionResult.get();
+        nodeBuilder
+                .metadata()
+                    .label(function.packageName())
+                    .description(function.description())
+                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.NEW_CONNECTION)
+                    .org(function.org())
+                    .module(function.packageName())
+                    .object(CLIENT_SYMBOL)
+                    .symbol(INIT_SYMBOL)
+                    .id(function.functionId());
+
+        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        for (ParameterResult paramResult : functionParameters) {
+            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                    Property.ValueType.EXPRESSION, paramResult.type(), "",
+                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+        }
+
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
+        }
+        nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
+        return nodeBuilder.build();
     }
 }

@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.central;
+package io.ballerina.centralconnector;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +26,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.centralconnector.response.ConnectorApiResponse;
+import io.ballerina.centralconnector.response.Function;
+import io.ballerina.centralconnector.response.FunctionResponse;
+import io.ballerina.centralconnector.response.FunctionsResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;

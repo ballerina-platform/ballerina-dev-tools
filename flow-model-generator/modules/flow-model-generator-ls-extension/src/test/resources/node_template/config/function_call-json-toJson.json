@@ -12,7 +12,7 @@
     "id": "31",
     "metadata": {
       "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n"
+      "description": "Converts a value of type `anydata` to `json`.\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -26,11 +26,11 @@
       "v": {
         "metadata": {
           "label": "v",
-          "description": "Source anydata value\n"
+          "description": "Source anydata value"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
-        "value": "\"\"",
+        "value": "",
         "optional": false,
         "editable": true
       },
@@ -40,6 +40,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
+        "value": "json|data.jsondata:Error",
         "optional": false,
         "editable": true
       },
