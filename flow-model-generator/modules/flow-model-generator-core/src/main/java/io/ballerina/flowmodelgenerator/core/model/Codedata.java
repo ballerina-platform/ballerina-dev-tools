@@ -66,7 +66,7 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private LineRange lineRange;
         private String sourceCode;
         private String parentSymbol;
-        private int id;
+        private Integer id;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
