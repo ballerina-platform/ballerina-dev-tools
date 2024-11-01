@@ -20,23 +20,6 @@
             {
               "metadata": {
                 "label": "post",
-                "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "ACTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "object": "Client",
-                "symbol": "post",
-                "parentSymbol": "moduleClient",
-                "id": 3078
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "post",
                 "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
@@ -48,23 +31,6 @@
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
                 "id": 3079
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "put",
-                "description": "The client resource function to send HTTP PUT requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "ACTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "object": "Client",
-                "symbol": "put",
-                "parentSymbol": "moduleClient",
-                "id": 3080
               },
               "enabled": true
             },
@@ -184,23 +150,6 @@
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
                 "id": 3087
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "get",
-                "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "ACTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "object": "Client",
-                "symbol": "get",
-                "parentSymbol": "moduleClient",
-                "id": 3088
               },
               "enabled": true
             },

@@ -116,7 +116,7 @@
             "character": 0
           }
         },
-        "newText": "string value = check log:printInfo(\"\", keyValues = {});"
+        "newText": "string value = check log:printInfo(\"\", (), (), {});"
       }
     ]
   }

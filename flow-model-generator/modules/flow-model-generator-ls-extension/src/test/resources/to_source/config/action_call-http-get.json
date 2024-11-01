@@ -14,7 +14,6 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 3088,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -111,7 +110,7 @@
             "character": 0
           }
         },
-        "newText": "http:targetType|http:ClientError item = httpClient->get(headers = );"
+        "newText": "http:targetType|http:ClientError item = httpClient->get();"
       }
     ]
   }

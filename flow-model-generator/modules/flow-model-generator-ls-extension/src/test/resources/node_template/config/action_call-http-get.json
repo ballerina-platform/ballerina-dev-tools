@@ -13,7 +13,7 @@
     "id": "31",
     "metadata": {
       "label": "get",
-      "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
@@ -22,10 +22,21 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 3088
+      "id": 3089
     },
     "returning": false,
     "properties": {
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Request path"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
       "headers": {
         "metadata": {
           "label": "headers",
@@ -37,24 +48,13 @@
         "optional": true,
         "editable": true
       },
-      "params": {
-        "metadata": {
-          "label": "params",
-          "description": "The query parameters"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:QueryParams",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "http:targetType|http:ClientError",
+        "value": "json|http:ClientError",
         "optional": false,
         "editable": true
       },

@@ -14,7 +14,6 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 3078,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -133,7 +132,7 @@
             "character": 0
           }
         },
-        "newText": "http:targetType|http:ClientError item = httpClient->post(message = , , );"
+        "newText": "http:targetType|http:ClientError item = httpClient->post(message = );"
       }
     ]
   }

@@ -89,7 +89,7 @@
             "character": 78
           }
         },
-        "newText": "check foodClient->get(\"/apples\");"
+        "newText": "check foodClient->get(\"/apples\", ());"
       }
     ]
   }
