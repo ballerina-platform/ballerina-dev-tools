@@ -32,8 +32,7 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum",
-            "id": 0
+            "symbol": "sum"
           },
           "enabled": true
         },
@@ -44,8 +43,7 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum",
-            "id": 0
+            "symbol": "prefixSum"
           },
           "enabled": true
         }
@@ -81,8 +79,7 @@
                 "org": "ballerina",
                 "module": "lang.decimal",
                 "symbol": "sum",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             }
@@ -106,8 +103,7 @@
                 "org": "ballerina",
                 "module": "lang.int",
                 "symbol": "sum",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             }
@@ -131,8 +127,7 @@
                 "org": "ballerina",
                 "module": "lang.float",
                 "symbol": "sum",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             }
@@ -156,8 +151,7 @@
                 "org": "ballerina",
                 "module": "task",
                 "symbol": "resumeAllJobs",
-                "version": "2.5.0",
-                "id": 0
+                "version": "2.5.0"
               },
               "enabled": true
             },
@@ -172,8 +166,7 @@
                 "org": "ballerina",
                 "module": "task",
                 "symbol": "resumeJob",
-                "version": "2.5.0",
-                "id": 0
+                "version": "2.5.0"
               },
               "enabled": true
             }

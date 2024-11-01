@@ -57,8 +57,7 @@
                 "org": "ballerinax",
                 "module": "redis",
                 "symbol": "close",
-                "version": "3.0.2",
-                "id": 0
+                "version": "3.0.2"
               },
               "enabled": true
             }
@@ -82,8 +81,7 @@
                 "org": "ballerinax",
                 "module": "snowflake",
                 "symbol": "close",
-                "version": "2.0.0",
-                "id": 0
+                "version": "2.0.0"
               },
               "enabled": true
             }
@@ -107,8 +105,7 @@
                 "org": "ballerinax",
                 "module": "postgresql",
                 "symbol": "close",
-                "version": "1.13.1",
-                "id": 0
+                "version": "1.13.1"
               },
               "enabled": true
             }
@@ -132,8 +129,7 @@
                 "org": "ballerinax",
                 "module": "persist.redis",
                 "symbol": "getConstraintViolationError",
-                "version": "0.2.0",
-                "id": 0
+                "version": "0.2.0"
               },
               "enabled": true
             },
@@ -148,8 +144,7 @@
                 "org": "ballerinax",
                 "module": "persist.redis",
                 "symbol": "getAlreadyExistsError",
-                "version": "0.2.0",
-                "id": 0
+                "version": "0.2.0"
               },
               "enabled": true
             }
@@ -173,8 +168,7 @@
                 "org": "ballerinax",
                 "module": "googleapis.calendar",
                 "symbol": "prepareUrlWithEventsOptionalParams",
-                "version": "3.2.0",
-                "id": 0
+                "version": "3.2.0"
               },
               "enabled": true
             }
@@ -198,8 +192,7 @@
                 "org": "ballerinax",
                 "module": "java.jdbc",
                 "symbol": "close",
-                "version": "1.12.1",
-                "id": 0
+                "version": "1.12.1"
               },
               "enabled": true
             }
@@ -223,8 +216,7 @@
                 "org": "ballerinax",
                 "module": "mysql",
                 "symbol": "close",
-                "version": "1.13.1",
-                "id": 0
+                "version": "1.13.1"
               },
               "enabled": true
             }
@@ -248,8 +240,7 @@
                 "org": "ballerinax",
                 "module": "googleapis.sheets",
                 "symbol": "createRandomUUIDWithoutHyphens",
-                "version": "3.5.1",
-                "id": 0
+                "version": "3.5.1"
               },
               "enabled": true
             },
@@ -264,8 +255,7 @@
                 "org": "ballerinax",
                 "module": "googleapis.sheets",
                 "symbol": "getA1RangeString",
-                "version": "3.5.1",
-                "id": 0
+                "version": "3.5.1"
               },
               "enabled": true
             }
@@ -289,8 +279,7 @@
                 "org": "ballerinax",
                 "module": "mssql",
                 "symbol": "close",
-                "version": "1.13.1",
-                "id": 0
+                "version": "1.13.1"
               },
               "enabled": true
             }
@@ -314,8 +303,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "length",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -330,8 +318,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "iterator",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -346,8 +333,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "concat",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -362,8 +348,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "getCodePoint",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -378,8 +363,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "substring",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -394,8 +378,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "codePointCompare",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             },
@@ -410,8 +393,7 @@
                 "org": "ballerina",
                 "module": "lang.string",
                 "symbol": "'join",
-                "version": "0.0.0",
-                "id": 0
+                "version": "0.0.0"
               },
               "enabled": true
             }
@@ -435,8 +417,7 @@
                 "org": "ballerina",
                 "module": "data.jsondata",
                 "symbol": "parseAsType",
-                "version": "0.2.0",
-                "id": 0
+                "version": "0.2.0"
               },
               "enabled": true
             },
@@ -451,8 +432,7 @@
                 "org": "ballerina",
                 "module": "data.jsondata",
                 "symbol": "parseString",
-                "version": "0.2.0",
-                "id": 0
+                "version": "0.2.0"
               },
               "enabled": true
             }

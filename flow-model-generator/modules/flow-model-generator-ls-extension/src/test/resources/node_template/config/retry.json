@@ -10,8 +10,7 @@
       "description": "Retry block."
     },
     "codedata": {
-      "node": "RETRY",
-      "id": 0
+      "node": "RETRY"
     },
     "returning": false,
     "branches": [
@@ -19,8 +18,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
-          "node": "BODY",
-          "id": 0
+          "node": "BODY"
         },
         "repeatable": "ONE",
         "children": []
@@ -29,8 +27,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
-          "node": "ON_FAILURE",
-          "id": 0
+          "node": "ON_FAILURE"
         },
         "repeatable": "ZERO_OR_ONE",
         "properties": {

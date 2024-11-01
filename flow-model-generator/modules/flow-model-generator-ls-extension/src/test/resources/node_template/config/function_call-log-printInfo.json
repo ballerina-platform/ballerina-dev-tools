@@ -19,8 +19,7 @@
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0",
-      "id": 0
+      "version": "2.10.0"
     },
     "returning": false,
     "properties": {

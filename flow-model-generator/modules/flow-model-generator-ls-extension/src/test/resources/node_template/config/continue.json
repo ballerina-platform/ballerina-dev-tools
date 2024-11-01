@@ -10,8 +10,7 @@
       "description": "Skip the current iteration and continue with the next one"
     },
     "codedata": {
-      "node": "CONTINUE",
-      "id": 0
+      "node": "CONTINUE"
     },
     "returning": false,
     "flags": 0

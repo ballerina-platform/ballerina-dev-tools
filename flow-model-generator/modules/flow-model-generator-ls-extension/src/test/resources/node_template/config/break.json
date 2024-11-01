@@ -10,8 +10,7 @@
       "description": "Exit the current loop"
     },
     "codedata": {
-      "node": "BREAK",
-      "id": 0
+      "node": "BREAK"
     },
     "returning": false,
     "flags": 0

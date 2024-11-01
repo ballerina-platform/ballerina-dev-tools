@@ -10,8 +10,7 @@
       "description": "Switches the data flow based on the value of an expression."
     },
     "codedata": {
-      "node": "MATCH",
-      "id": 0
+      "node": "MATCH"
     },
     "returning": false,
     "branches": [
@@ -19,8 +18,7 @@
         "label": "case",
         "kind": "BLOCK",
         "codedata": {
-          "node": "CONDITIONAL",
-          "id": 0
+          "node": "CONDITIONAL"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -41,8 +39,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
-          "node": "ON_FAILURE",
-          "id": 0
+          "node": "ON_FAILURE"
         },
         "repeatable": "ZERO_OR_ONE",
         "properties": {

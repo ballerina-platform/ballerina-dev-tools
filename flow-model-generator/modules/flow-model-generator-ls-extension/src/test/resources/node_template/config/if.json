@@ -10,8 +10,7 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF",
-      "id": 0
+      "node": "IF"
     },
     "returning": false,
     "branches": [
@@ -19,8 +18,7 @@
         "label": "Then",
         "kind": "BLOCK",
         "codedata": {
-          "node": "CONDITIONAL",
-          "id": 0
+          "node": "CONDITIONAL"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -41,8 +39,7 @@
         "label": "Else",
         "kind": "BLOCK",
         "codedata": {
-          "node": "ELSE",
-          "id": 0
+          "node": "ELSE"
         },
         "repeatable": "ZERO_OR_ONE",
         "children": []

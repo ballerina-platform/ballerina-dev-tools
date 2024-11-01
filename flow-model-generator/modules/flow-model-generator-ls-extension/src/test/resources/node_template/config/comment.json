@@ -9,8 +9,7 @@
       "label": "Comment"
     },
     "codedata": {
-      "node": "COMMENT",
-      "id": 0
+      "node": "COMMENT"
     },
     "returning": false,
     "properties": {
