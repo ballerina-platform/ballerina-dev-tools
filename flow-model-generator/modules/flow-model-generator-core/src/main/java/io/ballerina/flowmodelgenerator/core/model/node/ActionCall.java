@@ -23,7 +23,6 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -71,14 +70,8 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
-        if (nodeTemplate == null) {
-            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
-                    sourceBuilder.flowNode.codedata());
-        }
-        if (nodeTemplate == null) {
-            throw new IllegalStateException("Action call node template not found");
-        }
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
+                sourceBuilder.flowNode.codedata());
 
         Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
@@ -140,14 +133,6 @@ public class ActionCall extends NodeBuilder {
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
         return nodeBuilder.build();
-    }
-
-    public static FlowNode getNodeTemplate(Codedata codedata) {
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL), codedata);
-        }
-        return nodeTemplate;
     }
 
     @Override

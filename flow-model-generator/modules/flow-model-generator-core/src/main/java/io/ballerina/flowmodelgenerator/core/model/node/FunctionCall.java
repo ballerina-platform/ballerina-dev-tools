@@ -29,7 +29,6 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -166,7 +165,7 @@ public class FunctionCall extends NodeBuilder {
                     .build();
         }
 
-        FlowNode nodeTemplate = getNodeTemplate(codedata);
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
         if (nodeTemplate == null) {
             throw new IllegalStateException("Function call node template not found");
         }
@@ -182,14 +181,6 @@ public class FunctionCall extends NodeBuilder {
                 .textEdit(false)
                 .acceptImport()
                 .build();
-    }
-
-    public static FlowNode getNodeTemplate(Codedata codedata) {
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
-        }
-        return nodeTemplate;
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
@@ -225,10 +216,6 @@ public class FunctionCall extends NodeBuilder {
             nodeBuilder.properties().type(function.returnType()).data(null);
         }
         return nodeBuilder.build();
-    }
-
-    private static String escapeDefaultValue(String value) {
-        return value.isEmpty() ? "\"\"" : value;
     }
 
     public boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {

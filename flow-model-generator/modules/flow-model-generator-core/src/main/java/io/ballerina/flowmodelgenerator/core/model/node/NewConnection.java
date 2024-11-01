@@ -22,7 +22,6 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -68,14 +67,8 @@ public class NewConnection extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
-
-        // Fetch the information from the central if there is a cache miss.
-        if (nodeTemplate == null) {
-            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
-                    sourceBuilder.flowNode.codedata());
-        }
-
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
+                sourceBuilder.flowNode.codedata());
         if (nodeTemplate == null) {
             throw new IllegalStateException("Node template is not available for the new connection node");
         }
