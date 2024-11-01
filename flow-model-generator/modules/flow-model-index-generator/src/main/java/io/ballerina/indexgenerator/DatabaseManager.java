@@ -22,7 +22,7 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -34,15 +34,21 @@ import java.util.logging.Logger;
 
 public class DatabaseManager {
 
-    private static final String DB_URL =
-            "jdbc:sqlite:flow-model-generator/modules/flow-model-generator-ls-extension/src/main/resources/" +
-                    "central-index.sqlite";
-    private static final String CENTRAL_INDEX_SQL =
-            "/Users/nipunaf/projects/ballerina/ballerina-dev-tools/flow-model-generator/modules/" +
-                    "flow-model-index-generator/src/main/resources/central-index.sql";
+    private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
+    private static final String INDEX_FILE_NAME = "central-index.sqlite";
+    private static final String CREATE_INDEX_SQL = "create-index.sql";
+    private static final String dbPath = getDatabasePath();
+
+    private static String getDatabasePath() {
+        String destinationPath =
+                Path.of("flow-model-generator/modules/flow-model-generator-ls-extension/src/main/resources")
+                        .resolve(INDEX_FILE_NAME)
+                        .toString();
+        return "jdbc:sqlite:" + destinationPath;
+    }
 
     private static int insertEntry(String sql, Object[] params) {
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);
@@ -56,28 +62,30 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException e) {
-            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            LOGGER.severe("Error executing query: " + e.getMessage());
             return -1;
         }
     }
 
-    private static void executeQuery(String sql) {
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(sql);
-            System.out.println("Query executed successfully.");
-            stmt.getGeneratedKeys();
-        } catch (SQLException e) {
-            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+    public static void createDatabase() {
+        Path destinationPath =
+                Path.of("flow-model-generator/modules/flow-model-index-generator/src/main/resources")
+                        .resolve(CREATE_INDEX_SQL);
+        try {
+            String sql = Files.readString(destinationPath);
+            executeQuery(sql);
+        } catch (IOException e) {
+            LOGGER.severe("Error reading SQL file: " + e.getMessage());
         }
     }
 
-    public static void createDatabase() {
-        try {
-            String sql = new String(Files.readAllBytes(Paths.get(CENTRAL_INDEX_SQL)));
-            executeQuery(sql);
-        } catch (IOException e) {
-            Logger.getGlobal().severe("Error reading SQL file: " + e.getMessage());
+    private static void executeQuery(String sql) {
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             Statement stmt = conn.createStatement()) { // Use Statement instead
+            stmt.executeUpdate(sql);
+            LOGGER.info("Database created successfully");
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
         }
     }
 

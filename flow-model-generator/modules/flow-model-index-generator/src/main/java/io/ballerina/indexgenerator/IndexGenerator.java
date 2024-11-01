@@ -54,22 +54,23 @@ import io.ballerina.projects.repos.TempDirCompilationCache;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
 public class IndexGenerator {
 
-    private static final Path PROJECT_PATH =
-            Path.of("/Users/nipunaf/projects/ballerina/ballerina-dev-tools/flow-model-generator/modules/flow-model" +
-                    "-index-generator/src/main/resources/sample");
-
+    private static final String PROJECT_NAME = "sample";
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
 
@@ -77,11 +78,15 @@ public class IndexGenerator {
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
+        // TODO: Set the distribution home √ia build.gradle
         System.setProperty("ballerina.home", "/Library/Ballerina/distributions/ballerina-2201.10.0");
-        BuildProject buildProject = BuildProject.load(PROJECT_PATH);
+        Path projectPath = Paths.get(
+                Objects.requireNonNull(IndexGenerator.class.getClassLoader().getResource(PROJECT_NAME)).getFile());
+        BuildProject buildProject = BuildProject.load(projectPath);
 
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader(PackageListGenerator.PACKAGE_JSON_PATH)) {
+        URL resource = IndexGenerator.class.getClassLoader().getResource(PackageListGenerator.PACKAGE_JSON_FILE);
+        try (FileReader reader = new FileReader(Objects.requireNonNull(resource).getFile(), StandardCharsets.UTF_8)) {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());

@@ -7,6 +7,8 @@ import io.ballerina.centralconnector.response.PackageResponse;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -16,9 +18,7 @@ import java.util.stream.Collectors;
 public class PackageListGenerator {
 
     private static final int LIMIT = 50;
-    public static final String PACKAGE_JSON_PATH =
-            "/Users/nipunaf/projects/ballerina/ballerina-dev-tools/flow-model-generator/modules/flow-model-index" +
-                    "-generator/src/main/resources/packages.json";
+    public static final String PACKAGE_JSON_FILE = "packages.json";
 
     public static void main(String[] args) {
         List<PackageMetadataInfo> ballerinaPackages = getPackageList("ballerina");
@@ -27,7 +27,11 @@ public class PackageListGenerator {
         Map<String, List<PackageMetadataInfo>> packagesMap =
                 Map.of("ballerina", ballerinaPackages, "ballerinax", ballerinaxPackages);
         Gson gson = new Gson();
-        try (FileWriter writer = new FileWriter(PACKAGE_JSON_PATH)) {
+
+        String destinationPath = Path.of("flow-model-generator/modules/flow-model-index-generator/src/main/resources")
+                .resolve(PACKAGE_JSON_FILE)
+                .toString();
+        try (FileWriter writer = new FileWriter(destinationPath, StandardCharsets.UTF_8)) {
             gson.toJson(packagesMap, writer);
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE, "Failed to write packages to JSON file", e);
