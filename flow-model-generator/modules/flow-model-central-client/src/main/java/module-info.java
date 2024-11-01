@@ -18,8 +18,6 @@
 
 module io.ballerina.centralconnector {
     requires io.ballerina.lang;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.parser;
     requires io.ballerina.diagram.util;
     requires io.ballerina.central.client;
     requires com.google.gson;

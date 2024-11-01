@@ -22,12 +22,11 @@ apply plugin: "java"
 
 description = 'Index generator for the flow model extension'
 
-configurations.all {
+configurations.configureEach {
     resolutionStrategy.preferProjectModules()
 }
 
 configurations {
-    balTools
     dist {
         transitive true
     }
@@ -39,53 +38,8 @@ dependencies {
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:diagram-util:${ballerinaLangVersion}"
     implementation "org.ballerinalang:toml-parser:${ballerinaLangVersion}"
-    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    implementation "org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
-}
-
-def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")
-task jBallerinaPack() {
-    doLast {
-        configurations.balTools.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-            copy {
-                from project.zipTree(artifact.getFile())
-                into new File(project.buildDir, "extracted-distribution/")
-            }
-        }
-    }
-    outputs.dir balDistribution
-}
-
-task unpackStdLibs() {
-    dependsOn(jBallerinaPack)
-    doLast {
-        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-            copy {
-                from project.zipTree(artifact.getFile())
-                into new File("${project.buildDir}/extracted-stdlibs/" + artifact.name + "-zip")
-            }
-        }
-    }
-}
-
-task copyStdlibs() {
-    dependsOn(unpackStdLibs)
-    doLast {
-        /* Standard Libraries */
-        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-            def artifactExtractedPath = "${project.buildDir}/extracted-stdlibs/" + artifact.name + '-zip'
-            project.copy {
-                def ballerinaDist = "build/extracted-distribution/jballerina-tools-${project.ballerinaLangVersion}"
-                into ballerinaDist
-                into('repo/bala') {
-                    from "${artifactExtractedPath}/bala"
-                }
-                into('repo/cache') {
-                    from "${artifactExtractedPath}/cache"
-                }
-            }
-        }
-    }
 }
 
 tasks.register('runIndexGenerator', JavaExec) {
@@ -97,28 +51,7 @@ tasks.register('runIndexGenerator', JavaExec) {
     ]
 }
 
-build {
-//    println "Running tests with ballerina.home: ${balDistribution}"
-}
-
-test {
-    println "Running tests with ballerina.home: ${balDistribution}"
-    dependsOn {
-        copyStdlibs
-        runIndexGenerator
-    }
-    systemProperty "ballerina.home", balDistribution
-}
-
 ext.moduleName = 'io.ballerina.indexgenerator'
-
-jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    dependsOn configurations.dist
-    from { configurations.dist.collect { it.isDirectory() ? it : zipTree(it) } } {
-        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
-    }
-}
 
 compileJava {
     doFirst {
