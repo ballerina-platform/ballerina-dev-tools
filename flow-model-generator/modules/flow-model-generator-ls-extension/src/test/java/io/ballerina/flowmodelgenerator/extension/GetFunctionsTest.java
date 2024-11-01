@@ -23,7 +23,6 @@ import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

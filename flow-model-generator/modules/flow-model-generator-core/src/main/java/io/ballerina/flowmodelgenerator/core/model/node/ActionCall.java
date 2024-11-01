@@ -155,8 +155,4 @@ public class ActionCall extends NodeBuilder {
         Codedata codedata = context.codedata();
         this.cachedFlowNode = fetchNodeTemplate(this, codedata);
     }
-
-    private static String escapeDefaultValue(String value) {
-        return value.isEmpty() ? "\"\"" : value;
-    }
 }

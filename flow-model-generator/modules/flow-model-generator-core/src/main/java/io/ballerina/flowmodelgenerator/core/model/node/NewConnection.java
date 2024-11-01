@@ -22,7 +22,6 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
@@ -121,8 +120,7 @@ public class NewConnection extends NodeBuilder {
                     .module(function.packageName())
                     .object(CLIENT_SYMBOL)
                     .symbol(INIT_SYMBOL)
-                    .id(function.functionId())
-                    .stepOut();
+                    .id(function.functionId());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
@@ -136,12 +134,5 @@ public class NewConnection extends NodeBuilder {
         }
         nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
         return nodeBuilder.build();
-    }
-
-    private static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
-        return switch (typeName) {
-            case "inclusion" -> param.inclusionType();
-            default -> typeName;
-        };
     }
 }
