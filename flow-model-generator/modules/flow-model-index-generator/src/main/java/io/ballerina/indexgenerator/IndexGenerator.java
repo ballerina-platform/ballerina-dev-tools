@@ -38,6 +38,7 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
@@ -60,11 +61,12 @@ class IndexGenerator {
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
 
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
+    private static final String TARGET_TYPE_NAME = "targetType";
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
         // TODO: Set the distribution home √ia build.gradle
-        BuildProject buildProject = ModuleUtil.getSampleProject();
+        BuildProject buildProject = PackageUtil.getSampleProject();
 
         Gson gson = new Gson();
         URL resource = IndexGenerator.class.getClassLoader().getResource(PackageListGenerator.PACKAGE_JSON_FILE);
@@ -82,7 +84,7 @@ class IndexGenerator {
 
     private static void resolvePackage(BuildProject buildProject, String org,
                                        PackageListGenerator.PackageMetadataInfo packageMetadataInfo) {
-        Package resolvedPackage = ModuleUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
+        Package resolvedPackage = PackageUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
                 packageMetadataInfo.version());
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
@@ -193,19 +195,21 @@ class IndexGenerator {
                         functionType.name());
 
         // Handle the parameters of the function
-        Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-        if (params.isEmpty()) {
-            return packageId;
-        }
-        for (ParameterSymbol paramSymbol : params.get()) {
-            String paramName = paramSymbol.getName().orElse("");
-            String paramType = getTypeSignature(paramSymbol.typeDescriptor());
-            String paramDescription = documentationMap.get(paramName);
-            ParameterKind parameterKind = paramSymbol.paramKind();
-            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
-                    parameterKind);
-        }
+        functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
+                processParameterSymbol(paramSymbol, documentationMap, functionId)));
+        functionTypeSymbol.restParam().ifPresent(paramSymbol ->
+                processParameterSymbol(paramSymbol, documentationMap, functionId));
         return functionId;
+    }
+
+    private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
+                                               int functionId) {
+        String paramName = paramSymbol.getName().orElse("");
+        String paramType = getTypeSignature(paramSymbol.typeDescriptor());
+        String paramDescription = documentationMap.get(paramName);
+        ParameterKind parameterKind = paramSymbol.paramKind();
+        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+                parameterKind);
     }
 
     private static String getDescription(Documentable documentable) {
@@ -215,6 +219,11 @@ class IndexGenerator {
     private static String getTypeSignature(TypeSymbol typeSymbol) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
+                // TODO: Improve the handling of dependable types.
+                // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
+                if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
+                    yield "json";
+                }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()

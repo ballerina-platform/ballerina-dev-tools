@@ -4,22 +4,6 @@
   "categories": [
     {
       "metadata": {
-        "label": "postgresql",
-        "description": "Represents a PostgreSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "postgresql",
-        "object": "Client",
-        "symbol": "init",
-        "id": 132
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "azure.sqldb",
         "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
@@ -30,7 +14,23 @@
         "module": "azure.sqldb",
         "object": "Client",
         "symbol": "init",
-        "id": 201
+        "id": 31
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "postgresql",
+        "description": "Represents a PostgreSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "postgresql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 290
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 444
+        "id": 499
       },
       "enabled": true
     },
@@ -62,7 +62,7 @@
         "module": "mssql",
         "object": "Client",
         "symbol": "init",
-        "id": 689
+        "id": 542
       },
       "enabled": true
     }
