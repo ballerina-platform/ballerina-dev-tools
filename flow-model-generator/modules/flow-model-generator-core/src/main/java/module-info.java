@@ -30,6 +30,8 @@ module io.ballerina.flow.model.generator {
     requires com.graphqljava;
     requires io.ballerina.openapi.core;
     requires io.swagger.v3.oas.models;
+    requires jakarta.persistence;
+    requires org.xerial.sqlitejdbc;
 
     exports io.ballerina.flowmodelgenerator.core;
 }

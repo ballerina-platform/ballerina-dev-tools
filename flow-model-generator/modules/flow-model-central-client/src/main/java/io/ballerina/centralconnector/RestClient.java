@@ -16,11 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.central;
+package io.ballerina.centralconnector;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.ballerina.centralconnector.response.ConnectorResponse;
+import io.ballerina.centralconnector.response.ConnectorsResponse;
+import io.ballerina.centralconnector.response.PackageResponse;
+import io.ballerina.centralconnector.response.SymbolResponse;
 import io.ballerina.projects.Settings;
 import io.ballerina.projects.internal.model.Central;
 import io.ballerina.projects.internal.model.Proxy;

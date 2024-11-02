@@ -2,9 +2,10 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
+    "id": "31",
     "metadata": {
       "label": "set",
-      "description": "Set the value of a key.\n\n",
+      "description": "Set the value of a key.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
@@ -13,6 +14,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
+      "id": 36,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -30,60 +32,58 @@
       "key": {
         "metadata": {
           "label": "key",
-          "description": "Key referring to a value\n"
+          "description": "Key referring to a value"
         },
         "valueType": "EXPRESSION",
-        "value": "\"\"",
+        "valueTypeConstraint": "string",
+        "value": "",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": true
       },
       "value": {
         "metadata": {
           "label": "value",
-          "description": "Values\n"
+          "description": "Values"
         },
         "valueType": "EXPRESSION",
-        "value": "\"\"",
+        "valueTypeConstraint": "string",
+        "value": "",
         "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
-        },
-        "valueType": "Identifier",
-        "value": "value",
-        "optional": false,
-        "editable": false,
-        "advanced": false
+        "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Type",
+          "label": "Variable Type",
           "description": "Type of the variable"
         },
-        "valueType": "Type",
-        "value": "string",
+        "valueType": "TYPE",
+        "value": "string|redis:Error",
         "optional": false,
-        "editable": false,
-        "advanced": false
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
       },
       "connection": {
         "metadata": {
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "Identifier",
-        "value": "connection",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:Client",
+        "value": "redisCl",
         "optional": false,
-        "editable": false,
-        "advanced": true
+        "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -111,7 +111,7 @@
             "character": 0
           }
         },
-        "newText": "string value = check connection->set(\"\", \"\");"
+        "newText": "string|redis:Error item = redisCl->set(, );"
       }
     ]
   }

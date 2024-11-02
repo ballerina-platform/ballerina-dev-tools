@@ -6,13 +6,13 @@
     "module": "covid19",
     "object": "Client",
     "symbol": "getStatusByCountry",
-    "id": "6267"
+    "parentSymbol": "covid19Client"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "getStatusByCountry",
-      "description": "Get COVID-19 totals for a specific country\n\n",
+      "description": "Get COVID-19 totals for a specific country\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
     },
     "codedata": {
@@ -21,74 +21,64 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": "6267"
+      "id": 230
     },
     "returning": false,
     "properties": {
       "country": {
         "metadata": {
           "label": "country",
-          "description": "A country name, iso2, iso3, or country ID code \n"
+          "description": "A country name, iso2, iso3, or country ID code "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "\"\"",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": true
       },
       "yesterday": {
         "metadata": {
           "label": "yesterday",
-          "description": "Enter `true`(1) to receive data reported a day ago. Default is `false`(0) \n"
+          "description": "Enter `true`(1) to receive data reported a day ago. Default is `false`(0) "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "\"\"",
         "optional": true,
-        "editable": true,
-        "advanced": true
+        "editable": true
       },
       "twoDaysAgo": {
         "metadata": {
           "label": "twoDaysAgo",
-          "description": "Enter `true`(1) to receive data reported two days ago. Default is `false`(0) \n"
+          "description": "Enter `true`(1) to receive data reported two days ago. Default is `false`(0) "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "\"\"",
         "optional": true,
-        "editable": true,
-        "advanced": true
+        "editable": true
       },
       "strict": {
         "metadata": {
           "label": "strict",
-          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) \n"
+          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false
+        "optional": true,
+        "editable": true
       },
       "allowNull": {
         "metadata": {
           "label": "allowNull",
-          "description": "By default, value is 0. Enter `1` to allow nulls to be returned \n"
+          "description": "By default, value is 0. Enter `1` to allow nulls to be returned "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "\"\"",
         "optional": true,
-        "editable": true,
-        "advanced": true
+        "editable": true
       },
       "type": {
         "metadata": {
@@ -96,10 +86,9 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "union",
+        "value": "covid19:CovidCountry|error",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": true
       },
       "variable": {
         "metadata": {
@@ -107,24 +96,20 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "item",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": true
       },
       "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.\n"
+          "label": "Connection",
+          "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "",
-        "placeholder": "Client",
+        "value": "covid19Client",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": true
       }
     },
     "flags": 0

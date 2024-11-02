@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -37,7 +38,6 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
@@ -46,9 +46,11 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,6 +60,8 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class CommonUtils {
+
+    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
 
     /**
      * Removes the quotes from the given string.
@@ -275,8 +279,9 @@ public class CommonUtils {
      * @param queryMap the query map to check
      * @return true if the query map has no keyword, false otherwise
      */
-    public static boolean hasNoKeyword(Map<String, String> queryMap) {
-        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty();
+    public static boolean hasNoKeyword(Map<String, String> queryMap, String keyName) {
+        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey(keyName) ||
+                queryMap.get(keyName).isEmpty();
     }
 
     /**
@@ -304,13 +309,6 @@ public class CommonUtils {
         return typeDescriptor;
     }
 
-    public static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
-        return switch (typeName) {
-            case "inclusion" -> param.inclusionType();
-            default -> typeName;
-        };
-    }
-
     /**
      * Retrieves the document from the given project and location.
      *
@@ -323,5 +321,46 @@ public class CommonUtils {
                 project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
                         project.sourceRoot().resolve(location.lineRange().fileName()));
         return project.currentPackage().getDefaultModule().document(documentId);
+    }
+
+    /***
+     * Check whether the given line range is within a do clause.
+     *
+     * @param workspaceManager the workspace manager
+     * @param filePath the file path
+     * @param lineRange the line range
+     * @return true if the line range is within a do clause, false otherwise
+     */
+    public static boolean withinDoClause(WorkspaceManager workspaceManager, Path filePath, LineRange lineRange) {
+        try {
+            workspaceManager.loadProject(filePath);
+            Document document = workspaceManager.document(filePath).orElseThrow();
+            int startPos = document.textDocument().textPositionFrom(lineRange.startLine());
+            int endPos = document.textDocument().textPositionFrom(lineRange.endLine());
+            ModulePartNode node = document.syntaxTree().rootNode();
+            NonTerminalNode currentNode = node.findNode(TextRange.from(startPos, endPos - startPos),
+                    true);
+            while (currentNode != null) {
+                if (currentNode.kind() == SyntaxKind.DO_STATEMENT) {
+                    return ((DoStatementNode) currentNode).onFailClause().isPresent();
+                }
+                currentNode = currentNode.parent();
+            }
+            return false;
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    /**
+     * Generates the URL for the icon in the Ballerina central.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param versionName the version name
+     * @return the URL for the icon
+     */
+    public static String generateIcon(String orgName, String packageName, String versionName) {
+        return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
     }
 }

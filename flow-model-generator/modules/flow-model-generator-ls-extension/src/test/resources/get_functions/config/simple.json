@@ -41,15 +41,55 @@
       "items": [
         {
           "metadata": {
+            "label": "lang.float",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "log",
+                "description": "Returns the natural logarithm of a float value.\n\nCorresponds to IEEE log operation.\n\n```ballerina\nfloat f = 234.56;\nf.log() ⇒ 5.4577114186982865\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "log10",
+                "description": "Returns the base 10 logarithm of a float value.\n\nCorresponds to IEEE log10 operation.\n\n```ballerina\nfloat f = 0.1;\nf.log10() ⇒ -1.0\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log10",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "log",
-            "description": "This package provides APIs to log information when running applications.",
+            "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "printDebug",
-                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n"
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
@@ -63,7 +103,8 @@
             {
               "metadata": {
                 "label": "printError",
-                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n"
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
@@ -77,7 +118,8 @@
             {
               "metadata": {
                 "label": "printInfo",
-                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n"
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
@@ -91,7 +133,8 @@
             {
               "metadata": {
                 "label": "printWarn",
-                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n"
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
@@ -105,7 +148,8 @@
             {
               "metadata": {
                 "label": "setOutputFile",
-                "description": "Set the log output to a file. Note that all the subsequent logs of the entire application will be written to this file.\n```ballerina\nvar result = log:setOutputFile(\"./resources/myfile.log\");\nvar result = log:setOutputFile(\"./resources/myfile.log\", log:OVERWRITE);\n```\n\n"
+                "description": "Set the log output to a file. Note that all the subsequent logs of the entire application will be written to this file.\n```ballerina\nvar result = log:setOutputFile(\"./resources/myfile.log\");\nvar result = log:setOutputFile(\"./resources/myfile.log\", log:OVERWRITE);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
@@ -113,43 +157,6 @@
                 "module": "log",
                 "symbol": "setOutputFile",
                 "version": "2.10.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "graphql",
-            "description": "This package provides APIs for connecting and interacting with GraphQL endpoints.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "__addError",
-                "description": "Adds an error to the GraphQL response. Using this to add an error is not recommended.\n\n"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "__addError",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getSdlString",
-                "description": "Obtains the schema representation of a federated subgraph, expressed in the SDL format.\n"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "getSdlString",
-                "version": "1.14.0"
               },
               "enabled": true
             }

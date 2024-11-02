@@ -8,9 +8,10 @@
     "symbol": "init"
   },
   "output": {
+    "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection",
+      "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
@@ -18,55 +19,53 @@
       "org": "ballerinax",
       "module": "redis",
       "object": "Client",
-      "symbol": "init"
+      "symbol": "init",
+      "id": 16
     },
     "returning": false,
     "properties": {
       "config": {
         "metadata": {
           "label": "config",
-          "description": "configuration for the connector\n"
+          "description": "configuration for the connector"
         },
         "valueType": "EXPRESSION",
-        "value": "{}",
+        "valueTypeConstraint": "redis:ConnectionConfig",
+        "value": "",
         "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
-        },
-        "valueType": "Identifier",
-        "value": "value",
-        "optional": false,
-        "editable": false,
-        "advanced": false
+        "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Type",
+          "label": "Variable Type",
           "description": "Type of the variable"
         },
-        "valueType": "Type",
-        "value": "redis:Client",
+        "valueType": "TYPE",
+        "value": "redis:Client|redis:Error",
         "optional": false,
-        "editable": false,
-        "advanced": false
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
       },
       "scope": {
         "metadata": {
-          "label": "Scope",
-          "description": "Scope of the connection"
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
         },
-        "valueType": "Enum",
+        "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": false,
-        "advanced": true
+        "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   }
 }

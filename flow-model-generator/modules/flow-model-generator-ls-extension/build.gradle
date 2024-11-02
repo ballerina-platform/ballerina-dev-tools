@@ -99,21 +99,38 @@ task copyStdlibs() {
 }
 
 // TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-tasks.register('pullBallerinaRedisModule') {
-    doLast {
-        if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-            exec {
-                commandLine 'cmd', '/c', 'bal', 'pull', 'ballerinax/redis'
-            }
-        } else {
-            exec {
-                commandLine 'bal', 'pull', 'ballerinax/redis'
+def pullBallerinaModule(String packageName) {
+    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
+        doLast {
+            if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+                exec {
+                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
+                }
+            } else {
+                exec {
+                    commandLine 'bal', 'pull', packageName
+                }
             }
         }
     }
 }
 
-test.dependsOn pullBallerinaRedisModule
+// TODO: This should be removed once https://github.com/ballerina-platform/ballerina-distribution/issues/5811 is completed
+shadowJar {
+    archiveBaseName.set(project.name)
+    archiveClassifier.set('')
+    archiveVersion.set(project.version.toString())
+    configurations = [project.configurations.runtimeClasspath]
+    dependencies {
+        include(dependency("org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"))
+        exclude('META-INF/*.SF')
+        exclude('META-INF/*.DSA')
+        exclude('META-INF/*.RSA')
+    }
+}
+
+test.dependsOn pullBallerinaModule('ballerinax/redis')
+test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 
 test {
     dependsOn {
@@ -127,7 +144,6 @@ test {
 }
 
 ext.moduleName = 'io.ballerina.flowmodelgenerator.extension'
-
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     dependsOn configurations.dist
@@ -143,4 +159,8 @@ compileJava {
         ]
         classpath = files()
     }
+}
+
+artifacts {
+    archives shadowJar
 }

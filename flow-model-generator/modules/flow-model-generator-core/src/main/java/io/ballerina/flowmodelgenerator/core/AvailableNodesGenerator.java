@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -34,9 +35,8 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -205,19 +205,7 @@ public class AvailableNodesGenerator {
             }
 
             ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
-            Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(moduleSymbol.id().orgName())
-                    .module(moduleSymbol.getName().orElseThrow())
-                    .version(moduleSymbol.id().version())
-                    .object("Client")
-                    .symbol("init")
-                    .build();
-            List<Item> connections = LocalIndexCentral.getInstance().getConnectorActions(codedata);
-
-            if (connections == null) {
-                connections = fetchConnections(codedata);
-            }
+            List<Item> connections = fetchConnections(moduleSymbol.id(), symbol.getName().orElse(""));
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())
@@ -228,31 +216,38 @@ public class AvailableNodesGenerator {
         }
     }
 
-    private static List<Item> fetchConnections(Codedata codedata) {
-        List<Item> connectorActions = new ArrayList<>();
-        ConnectorResponse connector = RemoteCentral.getInstance()
-                .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
-        for (ConnectorResponse.Function function : connector.functions()) {
-            if (function.name().equals(NewConnection.INIT_SYMBOL)) {
-                continue;
-            }
+    private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        Optional<FunctionResult> connectorResult =
+                dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnection.INIT_SYMBOL,
+                        DatabaseManager.FunctionKind.CONNECTOR);
+        if (connectorResult.isEmpty()) {
+            return List.of();
+        }
+
+        FunctionResult connector = connectorResult.get();
+        List<FunctionResult> connectorActions = dbManager.getConnectorActions(connector.functionId());
+
+        List<Item> availableNodes = new ArrayList<>();
+        for (FunctionResult connectorAction : connectorActions) {
             NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
             actionBuilder
                     .metadata()
-                        .label(function.name())
-                        .icon(connector.icon())
-                        .description(function.documentation())
+                        .label(connectorAction.name())
+                        .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                        .description(connectorAction.description())
                         .stepOut()
                     .codedata()
                         .node(NodeKind.ACTION_CALL)
-                        .org(codedata.org())
-                        .module(codedata.module())
-                        .object(codedata.object())
-                        .id(String.valueOf(connector.id()))
-                        .symbol(function.name());
-            connectorActions.add(actionBuilder.buildAvailableNode());
+                        .org(connector.org())
+                        .module(connector.packageName())
+                        .object(NewConnection.CLIENT_SYMBOL)
+                        .symbol(connectorAction.name())
+                        .parentSymbol(parentSymbol)
+                        .id(connectorAction.functionId());
+            availableNodes.add(actionBuilder.buildAvailableNode());
         }
-        return connectorActions;
+        return availableNodes;
     }
 
 }
