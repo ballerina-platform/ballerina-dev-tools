@@ -58,6 +58,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Match;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
+import io.ballerina.flowmodelgenerator.core.model.node.ResourceActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Retry;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
@@ -124,6 +125,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.PANIC, Panic::new);
         put(NodeKind.EVENT_START, EventStart::new);
         put(NodeKind.ACTION_CALL, ActionCall::new);
+        put(NodeKind.RESOURCE_ACTION_CALL, ResourceActionCall::new);
         put(NodeKind.NEW_CONNECTION, NewConnection::new);
         put(NodeKind.START, Start::new);
         put(NodeKind.TRANSACTION, Transaction::new);
