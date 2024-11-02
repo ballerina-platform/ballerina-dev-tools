@@ -75,7 +75,7 @@
             "character": 61
           }
         },
-        "newText": "decimal d = check decimal:fromString();"
+        "newText": "decimal d = check decimal:fromString(\"11.11\");"
       }
     ]
   }
