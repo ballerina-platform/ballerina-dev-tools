@@ -110,6 +110,6 @@ public class If extends NodeBuilder {
                 .codedata().node(NodeKind.CONDITIONAL).stepOut();
         thenBranchBuilder.properties().condition(null);
 
-        this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, NodeKind.ELSE));
+        this.branches = List.of(thenBranchBuilder.build());
     }
 }
