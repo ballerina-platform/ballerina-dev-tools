@@ -102,14 +102,21 @@ task copyStdlibs() {
 def pullBallerinaModule(String packageName) {
     tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
         doLast {
-            if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                exec {
+            def output = new ByteArrayOutputStream()
+            def errOutput = new ByteArrayOutputStream()
+            exec {
+                ignoreExitValue = true
+                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
                     commandLine 'cmd', '/c', 'bal', 'pull', packageName
-                }
-            } else {
-                exec {
+                } else {
                     commandLine 'bal', 'pull', packageName
                 }
+                standardOutput = output
+                errorOutput = errOutput
+            }
+            def combinedOutput = output.toString() + errOutput.toString()
+            if (!combinedOutput.contains("package already exists in the home repository")) {
+                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
             }
         }
     }
