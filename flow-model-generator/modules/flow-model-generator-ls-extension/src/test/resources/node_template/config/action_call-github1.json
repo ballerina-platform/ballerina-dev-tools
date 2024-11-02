@@ -34,7 +34,8 @@
         "valueType": "TYPE",
         "value": "github:ManifestConversions|error",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -42,9 +43,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -53,9 +56,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "github:Client",
-        "value": "githubClient",
+        "value": "",
+        "placeholder": "githubClient",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "resourcePath": {
         "metadata": {
@@ -65,7 +70,8 @@
         "valueType": "EXPRESSION",
         "value": "/app\\-manifests/[string]/conversions",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

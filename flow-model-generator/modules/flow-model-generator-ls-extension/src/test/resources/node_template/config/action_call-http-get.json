@@ -52,17 +52,6 @@
         "editable": true,
         "advanced": false
       },
-      "params": {
-        "metadata": {
-          "label": "params",
-          "description": "The query parameters"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:QueryParams",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
