@@ -31,6 +31,7 @@ import java.util.List;
  * @param description The description of the component
  * @param keywords    The keywords of the component
  * @param icon        The icon of the component
+ * @param functionKind The kind of the function
  * @since 1.5.0
  */
 public record Metadata(String label, String description, List<String> keywords, String icon, String functionKind) {
