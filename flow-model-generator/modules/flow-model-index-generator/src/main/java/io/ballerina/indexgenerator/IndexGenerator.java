@@ -177,7 +177,7 @@ class IndexGenerator {
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol) {
         StringBuilder pathBuilder = new StringBuilder();
-        if (functionType == FunctionType.RESOURCE && !packageName.equals("http")) {
+        if (functionType == FunctionType.RESOURCE) {
             ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
             ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
             switch (resourcePath.kind()) {
