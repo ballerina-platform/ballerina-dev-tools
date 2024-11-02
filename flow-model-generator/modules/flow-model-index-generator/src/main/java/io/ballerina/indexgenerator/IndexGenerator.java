@@ -38,6 +38,7 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
@@ -65,7 +66,7 @@ class IndexGenerator {
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
         // TODO: Set the distribution home √ia build.gradle
-        BuildProject buildProject = ModuleUtil.getSampleProject();
+        BuildProject buildProject = PackageUtil.getSampleProject();
 
         Gson gson = new Gson();
         URL resource = IndexGenerator.class.getClassLoader().getResource(PackageListGenerator.PACKAGE_JSON_FILE);
@@ -83,7 +84,7 @@ class IndexGenerator {
 
     private static void resolvePackage(BuildProject buildProject, String org,
                                        PackageListGenerator.PackageMetadataInfo packageMetadataInfo) {
-        Package resolvedPackage = ModuleUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
+        Package resolvedPackage = PackageUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
                 packageMetadataInfo.version());
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
