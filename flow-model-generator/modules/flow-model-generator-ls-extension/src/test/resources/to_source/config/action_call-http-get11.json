@@ -38,7 +38,8 @@
         "valueType": "EXPRESSION",
         "value": "/apples/[varRef]/[12 + 3]",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {

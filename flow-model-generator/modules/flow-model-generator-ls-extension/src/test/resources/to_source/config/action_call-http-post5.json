@@ -30,17 +30,17 @@
     },
     "returning": false,
     "properties": {
-      "properties": {
-        "resourcePath": {
-          "metadata": {
-            "label": "Resource Path",
-            "description": "Resource Path"
-          },
-          "valueType": "EXPRESSION",
-          "value": "/",
-          "optional": false,
-          "editable": true
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
         },
+        "valueType": "EXPRESSION",
+        "value": "/",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "connection": {
         "metadata": {
           "label": "Connection",
@@ -155,7 +155,7 @@
             "character": 60
           }
         },
-        "newText": "json res4 = check foodClient->post(\"green apple\");"
+        "newText": "json res4 = check foodClient->/.post(\"green apple\");"
       }
     ]
   }

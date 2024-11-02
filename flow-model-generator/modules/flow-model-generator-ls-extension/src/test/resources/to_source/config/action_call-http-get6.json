@@ -38,7 +38,8 @@
         "valueType": "EXPRESSION",
         "value": "/",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {

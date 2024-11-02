@@ -38,7 +38,8 @@
         "valueType": "EXPRESSION",
         "value": "/western/apples",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
