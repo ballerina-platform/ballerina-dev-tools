@@ -33,9 +33,6 @@
           "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -210,15 +207,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res1'"
-            }
-          ]
-        },
         "flags": 1
       },
       {
@@ -292,15 +280,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res2'"
-            }
-          ]
         },
         "flags": 2
       },
@@ -376,15 +355,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res3'"
-            }
-          ]
-        },
         "flags": 5
       },
       {
@@ -458,15 +428,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res4'"
-            }
-          ]
         },
         "flags": 6
       }
