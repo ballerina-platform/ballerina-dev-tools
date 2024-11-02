@@ -36,6 +36,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
@@ -230,24 +231,53 @@ public class AvailableNodesGenerator {
 
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
-            NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
-            actionBuilder
-                    .metadata()
-                        .label(connectorAction.name())
-                        .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                        .description(connectorAction.description())
-                        .stepOut()
-                    .codedata()
-                        .node(NodeKind.ACTION_CALL)
-                        .org(connector.org())
-                        .module(connector.packageName())
-                        .object(NewConnection.CLIENT_SYMBOL)
-                        .symbol(connectorAction.name())
-                        .parentSymbol(parentSymbol)
-                        .id(connectorAction.functionId());
+            NodeBuilder actionBuilder = connectorAction.kind() == Function.Kind.RESOURCE ?
+                    getResourceActionNode(connectorAction, connector, parentSymbol)
+                    : getActionNode(connectorAction, connector, parentSymbol);
             availableNodes.add(actionBuilder.buildAvailableNode());
         }
         return availableNodes;
+    }
+
+    private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,
+                                             String parentSymbol) {
+        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
+        actionBuilder
+                .metadata()
+                    .label(connectorAction.name())
+                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                    .description(connectorAction.description())
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.ACTION_CALL)
+                    .org(connector.org())
+                    .module(connector.packageName())
+                    .object(NewConnection.CLIENT_SYMBOL)
+                    .symbol(connectorAction.name())
+                    .parentSymbol(parentSymbol)
+                    .id(connectorAction.functionId());
+        return actionBuilder;
+    }
+
+    private static NodeBuilder getResourceActionNode(FunctionResult connectorAction, FunctionResult connector,
+                                                     String parentSymbol) {
+        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
+        actionBuilder
+                .metadata()
+                    .label(connectorAction.name() + ":" + connectorAction.resourcePath())
+                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                    .description(connectorAction.description())
+                    .keywords(List.of(Function.Kind.RESOURCE.name()))
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.ACTION_CALL)
+                    .org(connector.org())
+                    .module(connector.packageName())
+                    .object(NewConnection.CLIENT_SYMBOL)
+                    .symbol(connectorAction.name())
+                    .parentSymbol(parentSymbol)
+                    .id(connectorAction.functionId());
+        return actionBuilder;
     }
 
 }
