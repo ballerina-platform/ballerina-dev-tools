@@ -34,15 +34,6 @@
           }
         },
         "children": []
-      },
-      {
-        "label": "Else",
-        "kind": "BLOCK",
-        "codedata": {
-          "node": "ELSE"
-        },
-        "repeatable": "ZERO_OR_ONE",
-        "children": []
       }
     ],
     "flags": 0

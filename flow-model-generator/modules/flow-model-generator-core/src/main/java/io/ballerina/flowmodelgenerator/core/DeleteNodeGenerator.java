@@ -20,9 +20,12 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
@@ -89,7 +92,11 @@ public class DeleteNodeGenerator {
             }
         }
 
-        TextEdit textEdit = new TextEdit(CommonUtils.toRange(lineRange), "");
+        LineRange nodeRangeToDelete = checkElseToDelete(document, startTextPosition, endTextPosition);
+        if (nodeRangeToDelete == null) {
+            nodeRangeToDelete = lineRange;
+        }
+        TextEdit textEdit = new TextEdit(CommonUtils.toRange(nodeRangeToDelete), "");
         textEdits.add(textEdit);
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(filePath, textEdits);
@@ -104,5 +111,20 @@ public class DeleteNodeGenerator {
             }
         }
         throw new IllegalStateException("There should be an import node");
+    }
+
+    private LineRange checkElseToDelete(Document document, int nodeStart, int nodeEnd) {
+        ModulePartNode modulePartNode = document.syntaxTree().rootNode();
+        NonTerminalNode node = modulePartNode.findNode(TextRange.from(nodeStart, nodeEnd - nodeStart)).parent();
+        if (node.kind() == SyntaxKind.BLOCK_STATEMENT) {
+            BlockStatementNode blockStatementNode = (BlockStatementNode) node;
+            if (blockStatementNode.statements().size() == 1) {
+                NonTerminalNode parent = node.parent();
+                if (parent.kind() == SyntaxKind.ELSE_BLOCK) {
+                    return parent.lineRange();
+                }
+            }
+        }
+        return null;
     }
 }
