@@ -112,16 +112,16 @@ public class ResourceActionCall extends NodeBuilder {
         FunctionResult function = functionResult.get();
         nodeBuilder
                 .metadata()
-                .label(function.name())
-                .description(function.description())
-                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                .stepOut()
+                    .label(function.name())
+                    .description(function.description())
+                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
+                    .stepOut()
                 .codedata()
-                .org(function.org())
-                .module(function.packageName())
-                .object(NewConnection.CLIENT_SYMBOL)
-                .id(function.functionId())
-                .symbol(function.name());
+                    .org(function.org())
+                    .module(function.packageName())
+                    .object(NewConnection.CLIENT_SYMBOL)
+                    .id(function.functionId())
+                    .symbol(function.name());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
