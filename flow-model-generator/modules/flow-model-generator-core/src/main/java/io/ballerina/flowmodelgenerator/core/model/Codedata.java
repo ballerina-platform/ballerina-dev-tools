@@ -127,6 +127,11 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> resourcePath(String resourcePath) {
+            this.resourcePath = resourcePath;
+            return this;
+        }
+
         public Builder<T> id(int id) {
             this.id = id;
             return this;

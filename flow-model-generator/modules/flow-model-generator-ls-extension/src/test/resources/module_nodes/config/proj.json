@@ -10,7 +10,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -18,7 +18,7 @@
           "module": "grpc",
           "object": "Client",
           "symbol": "init",
-          "version": "1.11.0",
+          "version": "1.12.1",
           "lineRange": {
             "fileName": "connections.bal",
             "startLine": {
@@ -98,7 +98,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -106,7 +106,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {

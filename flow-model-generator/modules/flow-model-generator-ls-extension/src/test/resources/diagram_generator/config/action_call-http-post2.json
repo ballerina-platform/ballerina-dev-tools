@@ -181,7 +181,8 @@
               "offset": 69
             }
           },
-          "sourceCode": "json|http:ClientError res2 = foodClient->/pears.post(\"pear\");"
+          "sourceCode": "json|http:ClientError res2 = foodClient->/pears.post(\"pear\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {

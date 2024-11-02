@@ -276,6 +276,7 @@ public class AvailableNodesGenerator {
                     .object(NewConnection.CLIENT_SYMBOL)
                     .symbol(connectorAction.name())
                     .parentSymbol(parentSymbol)
+                    .resourcePath(connectorAction.resourcePath())
                     .id(connectorAction.functionId());
         return actionBuilder;
     }

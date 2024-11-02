@@ -30,7 +30,7 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 16
+        "id": 7
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 125
+        "id": 81
       },
       "enabled": true
     },
@@ -84,22 +84,6 @@
     },
     {
       "metadata": {
-        "label": "workday.payroll",
-        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "workday.payroll",
-        "object": "Client",
-        "symbol": "init",
-        "id": 186
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "azure.sqldb",
         "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
@@ -110,23 +94,23 @@
         "module": "azure.sqldb",
         "object": "Client",
         "symbol": "init",
-        "id": 201
+        "id": 186
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "azure.datalake",
-        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
+        "label": "workday.payroll",
+        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "azure.datalake",
+        "module": "workday.payroll",
         "object": "Client",
         "symbol": "init",
-        "id": 215
+        "id": 193
       },
       "enabled": true
     },
@@ -142,23 +126,23 @@
         "module": "covid19",
         "object": "Client",
         "symbol": "init",
-        "id": 221
+        "id": 215
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "googleapis.calendar",
-        "description": "Ballerina Google Calendar connector provides the capability to access Google Calendar API.\nThe connector let you perform calendar and event management operations.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
+        "label": "azure.datalake",
+        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "googleapis.calendar",
+        "module": "azure.datalake",
         "object": "Client",
         "symbol": "init",
-        "id": 255
+        "id": 217
       },
       "enabled": true
     },
@@ -174,23 +158,23 @@
         "module": "slack",
         "object": "Client",
         "symbol": "init",
-        "id": 271
+        "id": 226
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "twitter",
-        "description": "Twitter API v2 available endpoints",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twitter_4.0.0.png"
+        "label": "googleapis.calendar",
+        "description": "Ballerina Google Calendar connector provides the capability to access Google Calendar API.\nThe connector let you perform calendar and event management operations.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "twitter",
+        "module": "googleapis.calendar",
         "object": "Client",
         "symbol": "init",
-        "id": 310
+        "id": 290
       },
       "enabled": true
     },
@@ -206,55 +190,23 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 366
+        "id": 411
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mysql",
-        "description": "Represents a MySQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+        "label": "twitter",
+        "description": "Twitter API v2 available endpoints",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twitter_4.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mysql",
+        "module": "twitter",
         "object": "Client",
         "symbol": "init",
         "id": 444
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "googleapis.sheets",
-        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.sheets",
-        "object": "Client",
-        "symbol": "init",
-        "id": 563
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "worldbank",
-        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "worldbank",
-        "object": "Client",
-        "symbol": "init",
-        "id": 587
       },
       "enabled": true
     },
@@ -270,23 +222,39 @@
         "module": "discord",
         "object": "Client",
         "symbol": "init",
-        "id": 603
+        "id": 476
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "shorten.rest",
-        "description": "This is a generated connector for [Shorten.REST v1.0](https://docs.shorten.rest/) OpenAPI Specification.\nThe Shorten.REST API allows you to programmatically create short URLs for longer URL.\nEach alias you create can be used to redirect the end user (person clicking on the link) to one or more destination URLs\nA default destination is always set and specific destinations can be set to redirect the end user to preferred destinations based on the user's geographical location (country) and device Operating System.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_shorten.rest_1.5.1.png"
+        "label": "googleapis.sheets",
+        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "shorten.rest",
+        "module": "googleapis.sheets",
         "object": "Client",
         "symbol": "init",
-        "id": 633
+        "id": 550
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "worldbank",
+        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "worldbank",
+        "object": "Client",
+        "symbol": "init",
+        "id": 599
       },
       "enabled": true
     },
@@ -302,23 +270,55 @@
         "module": "notion",
         "object": "Client",
         "symbol": "init",
-        "id": 665
+        "id": 602
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mssql",
-        "description": "Represents an MSSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+        "label": "mysql",
+        "description": "Represents a MySQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mssql",
+        "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 689
+        "id": 687
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "twilio",
+        "description": "This is the public Twilio REST API.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_4.0.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "twilio",
+        "object": "Client",
+        "symbol": "init",
+        "id": 695
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mongodb",
+        "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mongodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 712
       },
       "enabled": true
     }

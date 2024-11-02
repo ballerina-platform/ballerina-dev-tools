@@ -272,8 +272,9 @@ class CodeAnalyzer extends NodeVisitor {
                 argumentNodes, params, documentationMap, methodSymbol.external()));
     }
 
-    private void handleResourceActionNode(ClientResourceAccessActionNode actionNode, String methodName, ExpressionNode expressionNode,
-                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+    private void handleResourceActionNode(ClientResourceAccessActionNode actionNode, String methodName,
+                                          ExpressionNode expressionNode,
+                                          SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
@@ -290,6 +291,8 @@ class CodeAnalyzer extends NodeVisitor {
         String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
         String fullPath = "/" + resourcePath;
 
+        String resourcePathTemplate = CommonUtils.buildResourcePathTemplate(methodSymbol);
+
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode)
                 .symbolInfo(methodSymbol)
                 .metadata()
@@ -299,6 +302,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata()
                 .object("Client")
                 .symbol(methodName)
+                .resourcePath(resourcePathTemplate)
                 .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)

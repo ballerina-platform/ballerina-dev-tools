@@ -19,7 +19,10 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -28,6 +31,9 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
@@ -46,6 +52,7 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
@@ -362,5 +369,40 @@ public class CommonUtils {
      */
     public static String generateIcon(String orgName, String packageName, String versionName) {
         return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
+    }
+
+    public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
+        StringBuilder pathBuilder = new StringBuilder();
+        ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
+        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        switch (resourcePath.kind()) {
+            case PATH_SEGMENT_LIST -> {
+                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
+                for (Symbol pathSegment : pathSegmentList.list()) {
+                    pathBuilder.append("/");
+                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+                        String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
+                                .signature();
+                        pathBuilder.append("[").append(type).append("]");
+                    } else {
+                        pathBuilder.append(pathSegment.getName().orElse(""));
+                    }
+                }
+                ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
+                    String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
+                            .signature();
+                    pathBuilder.append("[").append(type).append("...]");
+                });
+            }
+            case PATH_REST_PARAM -> {
+                String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
+                        .typeDescriptor()).signature();
+                pathBuilder.append("[").append(type).append("...]");
+            }
+            case DOT_RESOURCE_PATH -> {
+                pathBuilder.append(".");
+            }
+        }
+        return pathBuilder.toString();
     }
 }

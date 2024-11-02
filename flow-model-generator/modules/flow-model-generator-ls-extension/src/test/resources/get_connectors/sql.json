@@ -30,7 +30,7 @@
         "module": "azure.sqldb",
         "object": "Client",
         "symbol": "init",
-        "id": 201
+        "id": 186
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 444
+        "id": 687
       },
       "enabled": true
     },
@@ -62,7 +62,7 @@
         "module": "mssql",
         "object": "Client",
         "symbol": "init",
-        "id": 689
+        "id": 714
       },
       "enabled": true
     }

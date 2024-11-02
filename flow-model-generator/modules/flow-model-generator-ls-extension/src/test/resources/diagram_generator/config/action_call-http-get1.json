@@ -289,7 +289,8 @@
               "offset": 60
             }
           },
-          "sourceCode": "json res2 = check foodClient->/western/apples.get();"
+          "sourceCode": "json res2 = check foodClient->/western/apples.get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -395,7 +396,8 @@
               "offset": 52
             }
           },
-          "sourceCode": "json res3 = check foodClient->/apples.get();"
+          "sourceCode": "json res3 = check foodClient->/apples.get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -501,7 +503,8 @@
               "offset": 46
             }
           },
-          "sourceCode": "json res4 = check foodClient->/.get();"
+          "sourceCode": "json res4 = check foodClient->/.get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -607,7 +610,8 @@
               "offset": 68
             }
           },
-          "sourceCode": "var res5 = check foodClient->/apples.get(targetType = json);"
+          "sourceCode": "var res5 = check foodClient->/apples.get(targetType = json);",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -713,7 +717,8 @@
               "offset": 52
             }
           },
-          "sourceCode": "json res6 = check foodClient->/apples.get();"
+          "sourceCode": "json res6 = check foodClient->/apples.get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -819,7 +824,8 @@
               "offset": 11
             }
           },
-          "sourceCode": "json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
+          "sourceCode": "json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -926,7 +932,8 @@
               "offset": 52
             }
           },
-          "sourceCode": "Food res8 = check foodClient->/apples.get();"
+          "sourceCode": "Food res8 = check foodClient->/apples.get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -1032,7 +1039,8 @@
               "offset": 70
             }
           },
-          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();"
+          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {

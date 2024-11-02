@@ -33,6 +33,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3078
               },
               "enabled": true
@@ -70,6 +71,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3080
               },
               "enabled": true
@@ -107,6 +109,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3082
               },
               "enabled": true
@@ -144,6 +147,7 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3084
               },
               "enabled": true
@@ -181,6 +185,7 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3086
               },
               "enabled": true
@@ -218,6 +223,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3088
               },
               "enabled": true
@@ -255,6 +261,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
                 "id": 3090
               },
               "enabled": true

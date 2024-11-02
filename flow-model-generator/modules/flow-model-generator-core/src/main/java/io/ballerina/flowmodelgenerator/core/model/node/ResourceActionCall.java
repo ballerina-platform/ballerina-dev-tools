@@ -83,7 +83,8 @@ public class ResourceActionCall extends NodeBuilder {
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(nodeTemplate,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
+                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
