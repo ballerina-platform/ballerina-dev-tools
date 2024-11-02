@@ -136,6 +136,7 @@ shadowJar {
 
 test.dependsOn pullBallerinaModule('ballerinax/redis')
 test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
+test.dependsOn pullBallerinaModule('ballerinax/github')
 
 test {
     dependsOn {
