@@ -193,19 +193,21 @@ class IndexGenerator {
                         functionType.name());
 
         // Handle the parameters of the function
-        Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-        if (params.isEmpty()) {
-            return packageId;
-        }
-        for (ParameterSymbol paramSymbol : params.get()) {
-            String paramName = paramSymbol.getName().orElse("");
-            String paramType = getTypeSignature(paramSymbol.typeDescriptor());
-            String paramDescription = documentationMap.get(paramName);
-            ParameterKind parameterKind = paramSymbol.paramKind();
-            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
-                    parameterKind);
-        }
+        functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
+                processParameterSymbol(paramSymbol, documentationMap, functionId)));
+        functionTypeSymbol.restParam().ifPresent(paramSymbol ->
+                processParameterSymbol(paramSymbol, documentationMap, functionId));
         return functionId;
+    }
+
+    private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
+                                               int functionId) {
+        String paramName = paramSymbol.getName().orElse("");
+        String paramType = getTypeSignature(paramSymbol.typeDescriptor());
+        String paramDescription = documentationMap.get(paramName);
+        ParameterKind parameterKind = paramSymbol.paramKind();
+        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+                parameterKind);
     }
 
     private static String getDescription(Documentable documentable) {
