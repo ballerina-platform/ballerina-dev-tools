@@ -233,29 +233,36 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getAction(String org, String module, String symbol) {
-        String sql = "SELECT " +
-                "f.function_id, " +
-                "f.name AS function_name, " +
-                "f.description AS function_description, " +
-                "f.return_type, " +
-                "f.resource_path, " +
-                "f.kind, " +
-                "p.name AS package_name, " +
-                "p.org, " +
-                "p.version " +
-                "FROM Function f " +
-                "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE (f.kind = 'REMOTE' OR f.kind = 'RESOURCE') " +
-                "AND p.org = ? " +
-                "AND p.name = ? " +
-                "AND f.name = ?;";
-
+    public Optional<FunctionResult> getAction(String org, String module, String symbol, String resourcePath) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append("f.function_id, ");
+        sql.append("f.name AS function_name, ");
+        sql.append("f.description AS function_description, ");
+        sql.append("f.return_type, ");
+        sql.append("f.resource_path, ");
+        sql.append("f.kind, ");
+        sql.append("p.name AS package_name, ");
+        sql.append("p.org, ");
+        sql.append("p.version ");
+        sql.append("FROM Function f ");
+        sql.append("JOIN Package p ON f.package_id = p.package_id ");
+        sql.append("AND p.org = ? ");
+        sql.append("AND p.name = ? ");
+        if (resourcePath != null) {
+            sql.append("AND f.name = ? ");
+            sql.append("AND f.resource_path = ?;");
+        } else {
+            sql.append("AND f.name = ?;");
+        }
+        
         try (Connection conn = DriverManager.getConnection(dbPath);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             stmt.setString(1, org);
             stmt.setString(2, module);
             stmt.setString(3, symbol);
+            if (resourcePath != null) {
+                stmt.setString(4, resourcePath);
+            }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return Optional.of(new FunctionResult(

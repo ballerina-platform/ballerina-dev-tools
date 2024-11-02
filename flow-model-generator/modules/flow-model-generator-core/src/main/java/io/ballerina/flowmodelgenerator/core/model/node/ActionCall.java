@@ -95,7 +95,7 @@ public class ActionCall extends NodeBuilder {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol());
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), null);
         if (functionResult.isEmpty()) {
             return null;
         }

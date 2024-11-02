@@ -33,11 +33,13 @@ import io.ballerina.tools.text.LineRange;
  * @param lineRange    The line range of the component
  * @param sourceCode   The source code of the component
  * @param parentSymbol The parent symbol of the component
+ * @param resourcePath The path of the resource function
  * @param id           The unique identifier of the component if exists
  * @since 1.5.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
-                       String version, LineRange lineRange, String sourceCode, String parentSymbol, Integer id) {
+                       String version, LineRange lineRange, String sourceCode, String parentSymbol,
+                       String resourcePath, Integer id) {
 
     @Override
     public String toString() {
@@ -67,6 +69,7 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private LineRange lineRange;
         private String sourceCode;
         private String parentSymbol;
+        private String resourcePath;
         private Integer id;
 
         public Builder(T parentBuilder) {
@@ -129,8 +132,14 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> resourcePath(String resourcePath) {
+            this.resourcePath = resourcePath;
+            return this;
+        }
+
         public Codedata build() {
-            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol, id);
+            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
+                    resourcePath, id);
         }
     }
 }

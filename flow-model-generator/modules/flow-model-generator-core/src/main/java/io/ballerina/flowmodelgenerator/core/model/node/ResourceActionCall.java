@@ -100,7 +100,7 @@ public class ResourceActionCall extends NodeBuilder {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol());
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath());
         if (functionResult.isEmpty()) {
             return null;
         }
@@ -117,7 +117,8 @@ public class ResourceActionCall extends NodeBuilder {
                 .module(function.packageName())
                 .object(NewConnection.CLIENT_SYMBOL)
                 .id(function.functionId())
-                .symbol(function.name());
+                .symbol(function.name())
+                .resourcePath(function.resourcePath());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
