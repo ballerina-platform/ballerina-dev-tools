@@ -249,7 +249,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -280,6 +280,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/western/apples",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -366,7 +376,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -397,6 +407,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -484,7 +504,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -515,6 +535,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -601,7 +631,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -632,6 +662,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -718,7 +758,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -749,6 +789,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -836,7 +886,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -867,6 +917,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -953,7 +1013,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -984,6 +1044,16 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples/[varRef]/[12 + 3]",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {

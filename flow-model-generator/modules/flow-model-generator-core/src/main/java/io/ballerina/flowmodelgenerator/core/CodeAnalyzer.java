@@ -237,7 +237,7 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = clientResourceAccessActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
                 clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
-        handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
+        handleResourceActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
         nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
     }
 
@@ -268,6 +268,42 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                     .callExpression(expressionNode, Property.CONNECTION_KEY)
                     .variable(this.typedBindingPatternNode);
+        methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
+                argumentNodes, params, documentationMap, methodSymbol.external()));
+    }
+
+    private void handleResourceActionNode(ClientResourceAccessActionNode actionNode, String methodName, ExpressionNode expressionNode,
+                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        Optional<Symbol> symbol = semanticModel.symbol(actionNode);
+        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
+                symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+            handleExpressionNode(actionNode);
+            return;
+        }
+
+        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
+        Optional<Documentation> documentation = methodSymbol.documentation();
+        String description = documentation.flatMap(Documentation::description).orElse("");
+        Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
+
+        SeparatedNodeList<Node> nodes = actionNode.resourceAccessPath();
+        String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
+        String fullPath = "/" + resourcePath;
+
+        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode)
+                .symbolInfo(methodSymbol)
+                .metadata()
+                .label(methodName)
+                .description(description)
+                .stepOut()
+                .codedata()
+                .object("Client")
+                .symbol(methodName)
+                .stepOut()
+                .properties()
+                .callExpression(expressionNode, Property.CONNECTION_KEY)
+                .resourcePath(fullPath, Property.RESOURCE_PATH_KEY)
+                .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
     }

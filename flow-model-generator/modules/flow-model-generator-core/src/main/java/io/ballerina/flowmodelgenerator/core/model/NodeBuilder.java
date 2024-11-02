@@ -482,6 +482,20 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
+        public PropertiesBuilder<T> resourcePath(String path, String key) {
+            Property.Builder.getInstance()
+                    .metadata()
+                    .label(Property.RESOURCE_PATH_LABEL)
+                    .description(Property.RESOURCE_PATH_DOC)
+                    .stepOut()
+                    .type(Property.ValueType.EXPRESSION)
+                    .value(path)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable();
+            addProperty(key);
+            return this;
+        }
+
         // TODO: Think how we can reuse this logic with the functionArguments method
         public PropertiesBuilder<T> inputs(SeparatedNodeList<FunctionArgumentNode> arguments,
                                            List<ParameterSymbol> parameterSymbols) {
