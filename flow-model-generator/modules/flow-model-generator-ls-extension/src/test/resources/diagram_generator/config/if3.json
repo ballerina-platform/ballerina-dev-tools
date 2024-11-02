@@ -85,8 +85,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "food.price < 100 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -121,7 +123,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -131,7 +134,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -167,7 +171,8 @@
                     "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -201,8 +206,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "food.price < 200 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -256,8 +263,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "food.remaining > 0 ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -292,7 +301,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"fresh; \"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -302,7 +312,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -360,7 +371,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"expired; \"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -370,7 +382,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -411,7 +424,8 @@
                     "valueType": "EXPRESSION",
                     "value": "food.comment += \"moderate\";",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -447,7 +461,8 @@
                     "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -505,7 +520,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"expensive\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -515,7 +531,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -551,7 +568,8 @@
                     "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -600,7 +618,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -610,7 +629,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -619,7 +639,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -628,8 +649,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -638,8 +661,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

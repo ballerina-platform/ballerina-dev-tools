@@ -79,7 +79,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 1
@@ -128,7 +129,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 2
@@ -177,7 +179,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -186,8 +189,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -196,8 +201,10 @@
             },
             "valueType": "TYPE",
             "value": "boolean",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -246,7 +253,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -255,8 +263,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -265,8 +275,10 @@
             },
             "valueType": "TYPE",
             "value": "boolean",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 2
@@ -315,7 +327,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -324,8 +337,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res3",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -334,8 +349,10 @@
             },
             "valueType": "TYPE",
             "value": "boolean",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 5
@@ -384,7 +401,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -393,8 +411,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res4",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -403,8 +423,10 @@
             },
             "valueType": "TYPE",
             "value": "boolean",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 6

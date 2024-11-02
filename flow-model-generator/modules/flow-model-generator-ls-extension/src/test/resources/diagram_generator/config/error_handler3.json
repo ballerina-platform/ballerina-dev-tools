@@ -118,7 +118,8 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -127,8 +128,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "path": {
                     "metadata": {
@@ -138,7 +141,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"/western/pineapples\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "headers": {
                     "metadata": {
@@ -147,7 +151,8 @@
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
-                    "editable": true
+                    "editable": true,
+                    "advanced": true
                   },
                   "type": {
                     "metadata": {
@@ -156,8 +161,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "json",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -193,7 +200,8 @@
                     "valueType": "EXPRESSION",
                     "value": "res.toString()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -228,7 +236,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -237,8 +246,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "err ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -247,8 +258,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "http:ClientError",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -283,7 +296,8 @@
                     "valueType": "EXPRESSION",
                     "value": "err.message()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -332,7 +346,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -342,7 +357,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -351,7 +367,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -360,8 +377,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -370,8 +389,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

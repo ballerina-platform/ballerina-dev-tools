@@ -93,7 +93,8 @@
             "valueType": "STRING",
             "value": "Unreachable code",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -148,8 +149,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(true) ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -183,8 +186,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"s\"",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -193,8 +197,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "s",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -203,8 +209,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {

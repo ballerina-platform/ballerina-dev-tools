@@ -6,7 +6,7 @@
     "metadata": {
       "label": "get",
       "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
@@ -14,7 +14,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "version": "2.12.2",
+      "version": "2.12.1",
       "lineRange": {
         "fileName": "http_get_node.bal",
         "startLine": {
@@ -38,7 +38,8 @@
         "valueType": "EXPRESSION",
         "value": "foodClient",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -47,8 +48,10 @@
         },
         "valueType": "IDENTIFIER",
         "value": "res2",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "path": {
         "metadata": {
@@ -58,7 +61,8 @@
         "valueType": "EXPRESSION",
         "value": "\"/pears\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "headers": {
         "metadata": {
@@ -67,7 +71,8 @@
         },
         "valueType": "EXPRESSION",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "type": {
         "metadata": {
@@ -76,8 +81,10 @@
         },
         "valueType": "TYPE",
         "value": "json",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "diagnostics": {

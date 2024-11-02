@@ -96,10 +96,11 @@ public class FunctionCall extends NodeBuilder {
                     if (name.isEmpty()) {
                         continue;
                     }
+                    boolean optional = param.paramKind() != ParameterKind.REQUIRED;
                     properties().custom(name.get(), name.get(), "", Property.ValueType.EXPRESSION,
                             param.typeDescriptor().signature(),
                             DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""),
-                            param.paramKind() != ParameterKind.REQUIRED);
+                            optional, optional);
                 }
             }
 
@@ -133,9 +134,9 @@ public class FunctionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
+            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
             properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
@@ -146,76 +147,37 @@ public class FunctionCall extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
 
         // TODO: Make this condition and once we get the correct flag using index
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
+        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
                 || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                sourceBuilder.flowNode.codedata().lineRange())) {
+                flowNode.codedata().lineRange())) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Codedata codedata = sourceBuilder.flowNode.codedata();
+        Codedata codedata = flowNode.codedata();
         if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
             return sourceBuilder.token()
                     .name(codedata.symbol())
                     .stepOut()
-                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type", "view"))
+                    .functionParameters(flowNode, Set.of("variable", "type", "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();
         }
 
-        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
-        if (nodeTemplate == null) {
-            throw new IllegalStateException("Function call node template not found");
-        }
-
-        String module = nodeTemplate.codedata().module();
+        String module = flowNode.codedata().module();
         String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
-        String methodCall = methodCallPrefix + nodeTemplate.metadata().label();
+        String methodCall = methodCallPrefix + flowNode.metadata().label();
 
         return sourceBuilder.token()
                 .name(methodCall)
                 .stepOut()
-                .functionParameters(nodeTemplate, Set.of("variable", "type", "view"))
+                .functionParameters(flowNode, Set.of("variable", "type", "view"))
                 .textEdit(false)
                 .acceptImport()
                 .build();
-    }
-
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                        DatabaseManager.FunctionKind.FUNCTION);
-
-        if (functionResult.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
-        FunctionResult function = functionResult.get();
-
-        nodeBuilder.metadata()
-                .label(function.name())
-                .description(function.description());
-        nodeBuilder.codedata()
-                .node(NodeKind.FUNCTION_CALL)
-                .org(codedata.org())
-                .module(codedata.module())
-                .object(codedata.object())
-                .version(codedata.version())
-                .symbol(codedata.symbol());
-
-        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
-        for (ParameterResult paramResult : functionParameters) {
-            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
-        }
-
-        if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
-        }
-        return nodeBuilder.build();
     }
 
     public boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {

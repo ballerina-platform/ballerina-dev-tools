@@ -68,7 +68,8 @@
             "valueType": "EXPRESSION",
             "value": "\"Alice\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -88,7 +89,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -97,8 +99,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "greeting",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -107,8 +111,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -146,7 +152,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "exponent": {
             "metadata": {
@@ -154,7 +161,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "view": {
             "metadata": {
@@ -174,7 +182,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -183,8 +192,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "squared",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -193,8 +204,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -232,7 +245,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "exponent": {
             "metadata": {
@@ -241,7 +255,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "view": {
             "metadata": {
@@ -261,7 +276,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -270,8 +286,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "cubed",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -280,8 +298,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -360,7 +380,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -369,8 +390,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "total",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -379,8 +402,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -418,7 +443,8 @@
             "valueType": "EXPRESSION",
             "value": "6",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "b": {
             "metadata": {
@@ -427,7 +453,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "func": {
             "metadata": {
@@ -436,7 +463,8 @@
             "valueType": "EXPRESSION",
             "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -456,7 +484,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -465,8 +494,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "result",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -475,8 +506,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -585,7 +618,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 0
@@ -629,7 +663,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -639,7 +674,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -648,7 +684,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -657,8 +694,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -667,8 +706,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

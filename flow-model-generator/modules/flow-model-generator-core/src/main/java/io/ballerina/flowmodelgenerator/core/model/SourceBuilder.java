@@ -272,10 +272,8 @@ public class SourceBuilder {
         boolean firstParamAdded = false;
         for (String key : keys) {
             Optional<Property> property = flowNode.getProperty(key);
-            Optional<Property> templateProperty = nodeTemplate.getProperty(key);
-
-            if (property.isEmpty() || templateProperty.isEmpty() || property.get().value() == null ||
-                    (property.get().optional() && property.get().value().equals(templateProperty.get().value()))) {
+            if (property.isEmpty() || property.get().value() == null ||
+                    (property.get().optional() && property.get().value().toString().isEmpty())) {
                 hasEmptyParam = true;
                 continue;
             }

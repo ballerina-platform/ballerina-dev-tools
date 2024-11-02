@@ -111,8 +111,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "0",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -121,8 +122,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "i",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -131,8 +134,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {

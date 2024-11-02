@@ -31,18 +31,21 @@
         },
         "valueType": "EXPRESSION",
         "value": "{\"name\": \"John\", \"age\": 34}",
-        "optional": false,
-        "editable": true
+        "optional": true,
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
+          "label": "Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
         "value": "j1",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -51,9 +54,20 @@
         },
         "valueType": "TYPE",
         "value": "json",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'j1'"
+        }
+      ]
     },
     "flags": 0
   },

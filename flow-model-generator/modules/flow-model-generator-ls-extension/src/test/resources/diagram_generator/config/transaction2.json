@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "i",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -78,8 +79,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -88,8 +91,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -167,8 +172,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -177,8 +184,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "()",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -273,8 +282,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -283,8 +294,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "()",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -337,7 +350,8 @@
             "valueType": "EXPRESSION",
             "value": "x",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

@@ -42,8 +42,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "2",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -52,8 +53,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -62,8 +65,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -98,8 +103,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "1.2f",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -108,8 +114,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "f",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -118,8 +126,10 @@
             },
             "valueType": "TYPE",
             "value": "float",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -163,8 +173,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "100000.0d",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -173,8 +184,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "d",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -183,8 +196,10 @@
             },
             "valueType": "TYPE",
             "value": "decimal",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -219,8 +234,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "d",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -229,8 +245,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "d1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -239,8 +257,10 @@
             },
             "valueType": "TYPE",
             "value": "decimal",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -284,8 +304,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "3",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -294,8 +315,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -304,8 +327,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -340,8 +365,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "i + j",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -350,8 +376,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "k",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -360,8 +388,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -396,8 +426,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "i + j",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -406,8 +437,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "l",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -416,8 +449,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -452,8 +487,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "k + l",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -462,8 +498,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "_",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -472,8 +510,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

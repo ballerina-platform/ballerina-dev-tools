@@ -88,8 +88,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "i == 3 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": []
@@ -121,8 +123,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "i == 5 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -157,7 +161,8 @@
                     "valueType": "STRING",
                     "value": "This is a comment for i = 0",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -192,8 +197,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "0",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -202,8 +208,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -212,8 +220,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -258,7 +268,8 @@
                     "valueType": "STRING",
                     "value": "This is a comment for if-else body",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -316,7 +327,8 @@
                     "valueType": "STRING",
                     "value": "This is a comment for x = 0",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -351,8 +363,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "0",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -361,8 +374,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -371,8 +386,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -417,7 +434,8 @@
                     "valueType": "STRING",
                     "value": "This is a comment for else body",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

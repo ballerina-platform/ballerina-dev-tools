@@ -66,7 +66,8 @@
             "valueType": "EXPRESSION",
             "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

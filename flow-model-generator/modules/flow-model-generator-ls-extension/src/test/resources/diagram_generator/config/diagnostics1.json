@@ -82,7 +82,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -126,8 +127,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"12\"",
-            "optional": false,
+            "optional": true,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -145,8 +147,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -155,8 +159,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -194,8 +200,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"12\"",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -204,8 +211,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -214,8 +223,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -254,6 +265,7 @@
             "value": "i",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -272,6 +284,7 @@
             "value": "s",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -289,7 +302,8 @@
             "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "j": {
             "metadata": {
@@ -299,6 +313,7 @@
             "value": "[]",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -327,7 +342,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -365,8 +381,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "12",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -375,8 +392,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -385,8 +404,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -421,8 +442,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "i  MISSING[+]j",
-            "optional": false,
+            "optional": true,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -440,8 +462,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "k",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -450,8 +474,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -489,8 +515,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "1.5  MISSING[+]\"b\"",
-            "optional": false,
+            "optional": true,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -508,8 +535,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "l",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -518,8 +547,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -577,8 +608,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(s == 12) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
+                "advanced": false,
                 "diagnostics": {
                   "hasDiagnostics": true,
                   "diagnostics": [
@@ -641,8 +674,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "(i == \"12\") ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
+                        "advanced": false,
                         "diagnostics": {
                           "hasDiagnostics": true,
                           "diagnostics": [
@@ -691,8 +726,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(s == 12) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
+                "advanced": false,
                 "diagnostics": {
                   "hasDiagnostics": true,
                   "diagnostics": [
@@ -742,8 +779,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "-9223372036854775808",
-            "optional": false,
+            "optional": true,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -761,8 +799,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "num2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -771,8 +811,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -812,6 +854,7 @@
             "value": "i == s",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -859,7 +902,8 @@
             "valueType": "EXPRESSION",
             "value": "\"h\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -870,6 +914,7 @@
             "value": "c",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -916,8 +961,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "12",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -926,8 +972,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -945,8 +993,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {

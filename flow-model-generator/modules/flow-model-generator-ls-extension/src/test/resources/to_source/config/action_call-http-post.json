@@ -5,7 +5,7 @@
     "id": "31",
     "metadata": {
       "label": "post",
-      "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
@@ -14,6 +14,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
+      "id": 3079,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -28,6 +29,19 @@
     },
     "returning": false,
     "properties": {
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Resource path"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "message": {
         "metadata": {
           "label": "message",
@@ -36,8 +50,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:RequestMessage",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "headers": {
         "metadata": {
@@ -47,8 +63,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "mediaType": {
         "metadata": {
@@ -58,19 +76,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
-      },
-      "params": {
-        "metadata": {
-          "label": "params",
-          "description": "The query parameters"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:QueryParams",
-        "value": "",
-        "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -78,9 +87,10 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "http:targetType|http:ClientError",
+        "value": "json|http:ClientError",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -88,9 +98,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -99,9 +111,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
-        "value": "httpClient",
+        "value": "",
+        "placeholder": "httpClient",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
@@ -132,7 +146,7 @@
             "character": 0
           }
         },
-        "newText": "http:targetType|http:ClientError item = httpClient->post(message = );"
+        "newText": "json|http:ClientError item = httpClient->post(, );"
       }
     ]
   }

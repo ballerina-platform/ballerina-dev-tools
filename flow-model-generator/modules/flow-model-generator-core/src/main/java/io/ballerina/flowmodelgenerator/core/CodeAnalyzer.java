@@ -443,7 +443,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                         .description(Assign.DESCRIPTION)
                         .stepOut()
-                    .properties().expression(null);
+                    .properties().expression(null, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -455,7 +455,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .metadata()
                             .description(Assign.DESCRIPTION)
                             .stepOut()
-                        .properties().expression(initializerNode);
+                        .properties().expression(initializerNode, true);
             }
         }
 

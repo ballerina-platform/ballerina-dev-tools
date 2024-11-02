@@ -66,7 +66,8 @@
             "valueType": "STRING",
             "value": "Initialize `x`\nwith new lines",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -101,8 +102,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "0",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -111,8 +113,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -121,8 +125,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -201,7 +207,8 @@
                     "valueType": "STRING",
                     "value": "Increment `x`",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -237,7 +244,8 @@
                     "valueType": "EXPRESSION",
                     "value": "x + 1",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -247,7 +255,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "x",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -283,7 +292,8 @@
                     "valueType": "STRING",
                     "value": "Precess `x`",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -300,7 +310,8 @@
             "valueType": "EXPRESSION",
             "value": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

@@ -118,7 +118,8 @@
                     "valueType": "EXPRESSION",
                     "value": "asiri",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -127,8 +128,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "j",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "path": {
                     "metadata": {
@@ -138,7 +141,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"/doctors/kandy\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "headers": {
                     "metadata": {
@@ -147,7 +151,8 @@
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
-                    "editable": true
+                    "editable": true,
+                    "advanced": true
                   },
                   "type": {
                     "metadata": {
@@ -156,8 +161,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "json",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -175,6 +182,7 @@
             "value": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }",
             "optional": false,
             "editable": true,
+            "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -230,7 +238,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -240,7 +249,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -249,7 +259,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -258,8 +269,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "asiri",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -268,8 +281,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

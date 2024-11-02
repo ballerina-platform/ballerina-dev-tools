@@ -75,7 +75,8 @@
             "valueType": "EXPRESSION",
             "value": "moduleCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -84,8 +85,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleVal",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -95,7 +98,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -104,7 +108,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -113,8 +118,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -165,7 +172,8 @@
             "valueType": "EXPRESSION",
             "value": "    myModuleCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -200,8 +208,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "check new (\"http://localhost:8080\")",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -210,8 +219,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -220,8 +231,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -263,7 +276,8 @@
             "valueType": "EXPRESSION",
             "value": "localCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -272,8 +286,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localVal",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -283,7 +299,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -292,7 +309,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -301,8 +319,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -346,8 +366,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -356,8 +377,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myLocalCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -366,8 +389,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -409,7 +434,8 @@
             "valueType": "EXPRESSION",
             "value": "    myLocalCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -445,7 +471,8 @@
             "valueType": "STRING",
             "value": "\nvar myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -489,7 +516,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -499,7 +527,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -508,7 +537,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -517,8 +547,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -527,8 +559,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -563,8 +597,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new MyClient()",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -573,8 +608,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myExplicitModuleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -583,8 +620,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -619,8 +658,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -629,8 +669,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myModuleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -639,8 +681,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "check new (\"/drink\")",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -75,8 +76,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "drinkClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -85,8 +88,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -128,7 +133,8 @@
             "valueType": "EXPRESSION",
             "value": "drinkClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -138,7 +144,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/milkshake\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -148,7 +155,8 @@
             "valueType": "EXPRESSION",
             "value": "\"mixed fruit\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -157,7 +165,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -166,7 +175,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           }
         },
         "flags": 0
@@ -210,7 +220,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -220,7 +231,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -229,7 +241,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -238,8 +251,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -248,8 +263,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

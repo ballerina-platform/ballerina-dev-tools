@@ -19,9 +19,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -31,7 +33,8 @@
         "valueType": "TYPE",
         "value": "xml",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "expression": {
         "metadata": {
@@ -41,7 +44,8 @@
         "valueType": "EXPRESSION",
         "value": "xml `<dummy>Dummy XML value</dummy>`",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

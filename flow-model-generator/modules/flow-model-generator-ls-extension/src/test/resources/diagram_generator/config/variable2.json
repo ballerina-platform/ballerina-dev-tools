@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"Hello world\"",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -78,8 +79,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "str1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -88,8 +91,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -124,8 +129,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "string `${str1} ${str1}`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -134,8 +140,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "str2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -144,8 +152,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {

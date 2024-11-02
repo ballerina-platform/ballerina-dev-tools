@@ -69,7 +69,8 @@
             "valueType": "EXPRESSION",
             "value": "sum(40, 50)",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -113,8 +114,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "start sum(40, 50)",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -123,8 +125,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "futureVar",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -133,8 +137,10 @@
             },
             "valueType": "TYPE",
             "value": "future<int>",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

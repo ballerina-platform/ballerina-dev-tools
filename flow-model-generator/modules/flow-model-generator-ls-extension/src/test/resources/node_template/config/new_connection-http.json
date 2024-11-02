@@ -32,8 +32,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "config": {
         "metadata": {
@@ -43,8 +45,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:ClientConfiguration",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -54,7 +58,8 @@
         "valueType": "TYPE",
         "value": "http:Client|http:ClientError",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -62,9 +67,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "scope": {
         "metadata": {
@@ -74,7 +81,8 @@
         "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -364,11 +364,12 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(implicit ? Property.DATA_IMPLICIT_TYPE_LABEL : Property.DATA_TYPE_LABEL)
                         .description(Property.DATA_TYPE_DOC)
                         .stepOut()
+                    .placeholder("var")
                     .type(Property.ValueType.TYPE)
                     .editable();
 
             if (node == null) {
-                propertyBuilder.value("var");
+                propertyBuilder.value("");
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
@@ -411,7 +412,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
-                    .value(node == null ? "item" : CommonUtils.getVariableName(node))
+                    .placeholder("item")
+                    .value(node == null ? "" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             addProperty(Property.DATA_VARIABLE_KEY, node);
@@ -598,7 +600,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .editable()
-                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                        .defaultable(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                 if (paramValue != null) {
                     propertyBuilder.value(paramValue.toSourceCode());
@@ -649,7 +651,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .editable()
-                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                        .defaultable(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                 if (paramValue != null) {
                     propertyBuilder.value(paramValue.toSourceCode());
@@ -667,7 +669,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(Property.CONDITION_LABEL)
                         .description(Property.CONDITION_DOC)
                         .stepOut()
-                    .value(expressionNode == null ? "true" : expressionNode.toSourceCode())
+                    .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                    .placeholder("true")
                     .type(Property.ValueType.EXPRESSION)
                     .editable();
             addProperty(Property.CONDITION_KEY, expressionNode);
@@ -693,6 +696,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
+            return expression(expr, expressionDoc, false);
+        }
+
+        public PropertiesBuilder<T> expression(String expr, String expressionDoc, boolean optional) {
             propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_DOC)
@@ -700,6 +707,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .value(expr)
                     .type(Property.ValueType.EXPRESSION)
+                    .optional(optional)
                     .editable();
             addProperty(Property.EXPRESSION_KEY);
             return this;
@@ -732,6 +740,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
+            return expression(expressionNode, false);
+        }
+
+        public PropertiesBuilder<T> expression(ExpressionNode expressionNode, boolean optional) {
             propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_LABEL)
@@ -739,6 +751,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .editable()
                     .value(expressionNode == null ? "" : expressionNode.toString())
+                    .optional(optional)
                     .type(Property.ValueType.EXPRESSION);
             addProperty(Property.EXPRESSION_KEY, expressionNode);
             return this;
@@ -802,15 +815,16 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(Property.ON_ERROR_VARIABLE_LABEL)
                         .description(Property.ON_ERROR_VARIABLE_DOC)
                         .stepOut()
-                    .value(typedBindingPatternNode == null ? "err" :
+                    .value(typedBindingPatternNode == null ? "" :
                             typedBindingPatternNode.bindingPattern().toString())
+                    .placeholder("err")
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             addProperty(Property.ON_ERROR_VARIABLE_KEY,
                     typedBindingPatternNode == null ? null : typedBindingPatternNode.bindingPattern());
 
             if (typedBindingPatternNode == null) {
-                propertyBuilder.value("error");
+                propertyBuilder.value("");
             } else {
                 CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                         .ifPresent(typeSymbol -> propertyBuilder.value(
@@ -821,6 +835,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(Property.ON_ERROR_TYPE_LABEL)
                         .description(Property.ON_ERROR_TYPE_DOC)
                         .stepOut()
+                    .placeholder("error")
                     .editable()
                     .type(Property.ValueType.TYPE);
             addProperty(Property.ON_ERROR_TYPE_KEY);
@@ -843,7 +858,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value, boolean optional) {
+                                           Object typeConstraint, String value, boolean optional, boolean advanced) {
             propertyBuilder
                     .metadata()
                         .label(label)
@@ -851,12 +866,19 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .type(type)
                     .typeConstraint(typeConstraint)
-                    .value(value)
+                    .value("")
+                    .placeholder(value)
                     .editable()
-                    .optional(optional);
+                    .optional(optional)
+                    .advanced(advanced);
 
             addProperty(key);
             return this;
+        }
+
+        public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
+                                           Object typeConstraint, String value, boolean optional) {
+            return custom(key, label, description, type, typeConstraint, value, optional, false);
         }
 
         public PropertiesBuilder<T> scope(String scope) {
@@ -891,7 +913,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .description(Property.COLLECTION_DOC)
                         .stepOut()
                     .editable()
-                    .value(expressionNode == null ? "[]" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                    .placeholder("[]")
+                    .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION);
             addProperty(Property.COLLECTION_KEY, expressionNode);

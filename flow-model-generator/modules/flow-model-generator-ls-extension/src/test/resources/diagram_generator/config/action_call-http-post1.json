@@ -75,7 +75,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -84,8 +85,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -95,7 +98,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -105,7 +109,8 @@
             "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -114,7 +119,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -123,7 +129,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -132,8 +139,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -184,7 +193,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -194,7 +204,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -204,7 +215,8 @@
             "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -213,7 +225,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -222,7 +235,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           }
         },
         "flags": 1
@@ -264,7 +278,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -273,8 +288,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -284,7 +301,8 @@
             "valueType": "EXPRESSION",
             "value": "\"western red apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -293,7 +311,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -302,7 +321,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -311,7 +331,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -320,8 +341,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -372,7 +395,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -381,8 +405,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res3",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -392,7 +418,8 @@
             "valueType": "EXPRESSION",
             "value": "{\"type\": \"red apple\"}",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -401,7 +428,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -411,7 +439,8 @@
             "valueType": "EXPRESSION",
             "value": "\"application/json\"",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -420,7 +449,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -429,8 +459,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -481,7 +513,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -490,8 +523,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res4",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -501,7 +536,8 @@
             "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -510,7 +546,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -519,7 +556,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -528,7 +566,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -537,8 +576,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -589,7 +630,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -598,8 +640,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res5",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -609,7 +653,8 @@
             "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -618,7 +663,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -627,7 +673,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -636,7 +683,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -645,8 +693,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -697,7 +747,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -706,8 +757,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res7",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -717,7 +770,8 @@
             "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -727,7 +781,8 @@
             "valueType": "EXPRESSION",
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -736,7 +791,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -745,7 +801,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -754,8 +811,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -806,7 +865,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -815,8 +875,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res8",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -826,7 +888,8 @@
             "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -835,7 +898,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -844,7 +908,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -853,7 +918,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -862,8 +928,10 @@
             },
             "valueType": "TYPE",
             "value": "Food",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -914,7 +982,8 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -923,8 +992,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res9",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "message": {
             "metadata": {
@@ -934,7 +1005,8 @@
             "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -943,7 +1015,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "mediaType": {
             "metadata": {
@@ -952,7 +1025,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "params": {
             "metadata": {
@@ -961,7 +1035,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -970,8 +1045,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -1024,7 +1101,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -1034,7 +1112,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -1043,7 +1122,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -1052,8 +1132,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -1062,8 +1144,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

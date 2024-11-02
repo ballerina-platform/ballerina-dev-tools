@@ -67,17 +67,11 @@ public class NewConnection extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
-                sourceBuilder.flowNode.codedata());
-        if (nodeTemplate == null) {
-            throw new IllegalStateException("Node template is not available for the new connection node");
-        }
-
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
-                .functionParameters(nodeTemplate,
+                .functionParameters(sourceBuilder.flowNode,
                         Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY));
 
         Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);
@@ -117,9 +111,9 @@ public class NewConnection extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
+            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
             nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {

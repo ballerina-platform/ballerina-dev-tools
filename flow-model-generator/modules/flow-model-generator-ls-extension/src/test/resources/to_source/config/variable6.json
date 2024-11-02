@@ -31,18 +31,21 @@
         },
         "valueType": "EXPRESSION",
         "value": "i + j",
-        "optional": false,
-        "editable": true
+        "optional": true,
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
+          "label": "Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
         "value": "k",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -51,8 +54,10 @@
         },
         "valueType": "TYPE",
         "value": "int",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -78,8 +79,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "a",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -88,8 +91,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -133,8 +138,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -143,8 +149,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -153,8 +161,10 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -198,8 +208,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -208,8 +219,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -218,8 +231,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -263,8 +278,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -273,8 +289,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -283,8 +301,10 @@
             },
             "valueType": "TYPE",
             "value": "xml",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -329,7 +349,8 @@
             "valueType": "EXPRESSION",
             "value": "5",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -339,7 +360,8 @@
             "valueType": "IDENTIFIER",
             "value": "a",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -375,7 +397,8 @@
             "valueType": "EXPRESSION",
             "value": "\"Ballerina\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -385,7 +408,8 @@
             "valueType": "IDENTIFIER",
             "value": "s",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -421,7 +445,8 @@
             "valueType": "EXPRESSION",
             "value": "{\"key\": \"value\"}",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -431,7 +456,8 @@
             "valueType": "IDENTIFIER",
             "value": "j",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

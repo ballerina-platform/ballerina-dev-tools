@@ -25,9 +25,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "functionName": {
         "metadata": {
@@ -35,9 +37,11 @@
           "description": "Name of the data mapper function"
         },
         "valueType": "IDENTIFIER",
-        "value": "transform",
+        "value": "",
+        "placeholder": "transform",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "inputs": {
         "metadata": {
@@ -51,8 +55,10 @@
           "http:Client cl"
         ],
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "output": {
         "metadata": {
@@ -70,8 +76,10 @@
           "Person"
         ],
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

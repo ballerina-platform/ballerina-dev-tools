@@ -101,7 +101,7 @@
             "character": 28
           }
         },
-        "newText": "int cubed = power(3);"
+        "newText": "int cubed = power(3, 3);"
       }
     ]
   }
