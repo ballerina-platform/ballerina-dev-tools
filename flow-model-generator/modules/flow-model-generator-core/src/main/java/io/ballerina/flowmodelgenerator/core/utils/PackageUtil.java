@@ -39,6 +39,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -54,9 +55,9 @@ public class PackageUtil {
         // Obtain the Ballerina distribution path
         String ballerinaHome = System.getProperty(BALLERINA_HOME_PROPERTY);
         if (ballerinaHome == null || ballerinaHome.isEmpty()) {
-            Path currentPath = Paths.get(
-                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            Path distributionPath = currentPath.getParent().getParent().getParent();
+            Path currentPath = getPath(Paths.get(
+                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
+            Path distributionPath = getParentPath(getParentPath(getParentPath(currentPath)));
             System.setProperty(BALLERINA_HOME_PROPERTY, distributionPath.toString());
         }
 
@@ -104,5 +105,13 @@ public class PackageUtil {
         defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
         BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
         return balaProject.currentPackage();
+    }
+
+    private static Path getPath(Path path) {
+        return Objects.requireNonNull(path, "Path cannot be null");
+    }
+
+    private static Path getParentPath(Path path) {
+        return Objects.requireNonNull(path, "Path cannot be null").getParent();
     }
 }
