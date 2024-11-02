@@ -25,6 +25,8 @@ public record FunctionResult(
         String returnType,
         String packageName,
         String org,
-        String version
+        String version,
+        String resourcePath,
+        Function.Kind kind
 ) {
 }

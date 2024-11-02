@@ -30,7 +30,9 @@ import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -38,9 +40,13 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -170,6 +176,40 @@ class IndexGenerator {
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol) {
+        StringBuilder pathBuilder = new StringBuilder();
+        if (functionType == FunctionType.RESOURCE) {
+            ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
+            ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+            switch (resourcePath.kind()) {
+                case PATH_SEGMENT_LIST -> {
+                    PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
+                    for (Symbol pathSegment : pathSegmentList.list()) {
+                        pathBuilder.append("/");
+                        if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+                            String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
+                                    .signature();
+                            pathBuilder.append("[").append(type).append("]");
+                        } else {
+                            pathBuilder.append(pathSegment.getName().orElse(""));
+                        }
+                    }
+                    ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
+                        String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
+                                .signature();
+                        pathBuilder.append("[").append(type).append("...]");
+                    });
+                }
+                case PATH_REST_PARAM -> {
+                    String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
+                            .typeDescriptor()).signature();
+                    pathBuilder.append("[").append(type).append("...]");
+                }
+                case DOT_RESOURCE_PATH -> {
+                    pathBuilder.append(".");
+                }
+            }
+        }
+
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -190,7 +230,7 @@ class IndexGenerator {
 
         int functionId =
                 DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                        functionType.name());
+                        functionType.name(), pathBuilder.toString());
 
         // Handle the parameters of the function
         Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();

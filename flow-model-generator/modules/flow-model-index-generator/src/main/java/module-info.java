@@ -23,6 +23,7 @@ module io.ballerina.flowmodel.indexgenerator {
     requires io.ballerina.diagram.util;
     requires java.sql;
     requires io.ballerina.toml;
+    requires io.ballerina.language.server.core;
 
     exports io.ballerina.indexgenerator;
 }
