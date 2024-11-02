@@ -60,6 +60,7 @@ class IndexGenerator {
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
 
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
+    private static final String TARGET_TYPE_NAME = "targetType";
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
@@ -217,6 +218,11 @@ class IndexGenerator {
     private static String getTypeSignature(TypeSymbol typeSymbol) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
+                // TODO: Improve the handling of dependable types.
+                // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
+                if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
+                    yield "json";
+                }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()

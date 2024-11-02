@@ -21,7 +21,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 230
+      "id": 117
     },
     "returning": false,
     "properties": {
