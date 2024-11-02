@@ -233,7 +233,8 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getAction(String org, String module, String symbol, String resourcePath) {
+    public Optional<FunctionResult> getAction(String org, String module, String symbol, String resourcePath,
+                                              FunctionKind kind) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
         sql.append("f.name AS function_name, ");
@@ -248,6 +249,7 @@ public class DatabaseManager {
         sql.append("JOIN Package p ON f.package_id = p.package_id ");
         sql.append("AND p.org = ? ");
         sql.append("AND p.name = ? ");
+        sql.append("AND f.kind = ? ");
         if (resourcePath != null) {
             sql.append("AND f.name = ? ");
             sql.append("AND f.resource_path = ?;");
@@ -259,9 +261,10 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             stmt.setString(1, org);
             stmt.setString(2, module);
-            stmt.setString(3, symbol);
+            stmt.setString(3, kind.name());
+            stmt.setString(4, symbol);
             if (resourcePath != null) {
-                stmt.setString(4, resourcePath);
+                stmt.setString(5, resourcePath);
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

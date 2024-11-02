@@ -68,7 +68,7 @@ public class ResourceActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL),
                 sourceBuilder.flowNode.codedata());
 
         Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
@@ -78,7 +78,9 @@ public class ResourceActionCall extends NodeBuilder {
         return sourceBuilder.token()
                 .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(nodeTemplate.metadata().label())
+                .resourcePath(sourceBuilder.flowNode.codedata().resourcePath())
+                .keyword(SyntaxKind.DOT_TOKEN)
+                .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
@@ -100,7 +102,8 @@ public class ResourceActionCall extends NodeBuilder {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath());
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
+                        DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
             return null;
         }
