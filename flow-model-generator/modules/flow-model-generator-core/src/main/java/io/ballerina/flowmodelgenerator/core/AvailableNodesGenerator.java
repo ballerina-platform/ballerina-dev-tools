@@ -267,7 +267,7 @@ public class AvailableNodesGenerator {
                     .label(connectorAction.name() + ":" + connectorAction.resourcePath())
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
                     .description(connectorAction.description())
-                    .keywords(List.of(Function.Kind.RESOURCE.name()))
+                    .functionKind(Function.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
                     .node(NodeKind.ACTION_CALL)

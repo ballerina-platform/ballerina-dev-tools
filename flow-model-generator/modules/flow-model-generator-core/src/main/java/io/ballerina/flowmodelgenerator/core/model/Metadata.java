@@ -33,7 +33,7 @@ import java.util.List;
  * @param icon        The icon of the component
  * @since 1.5.0
  */
-public record Metadata(String label, String description, List<String> keywords, String icon) {
+public record Metadata(String label, String description, List<String> keywords, String icon, String functionKind) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
@@ -41,6 +41,7 @@ public record Metadata(String label, String description, List<String> keywords, 
         private String description;
         private List<String> keywords;
         private String icon;
+        private String functionKind;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -76,8 +77,13 @@ public record Metadata(String label, String description, List<String> keywords, 
             return this;
         }
 
+        public Builder<T> functionKind(String functionKind) {
+            this.functionKind = functionKind;
+            return this;
+        }
+
         public Metadata build() {
-            return new Metadata(label, description, keywords, icon);
+            return new Metadata(label, description, keywords, icon, functionKind);
         }
     }
 }
