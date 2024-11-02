@@ -205,7 +205,8 @@
             "valueType": "EXPRESSION",
             "value": "/pears",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {

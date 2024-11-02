@@ -290,7 +290,8 @@
             "valueType": "EXPRESSION",
             "value": "/western/apples",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -418,7 +419,8 @@
             "valueType": "EXPRESSION",
             "value": "/apples",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -547,7 +549,8 @@
             "valueType": "EXPRESSION",
             "value": "/",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -675,7 +678,8 @@
             "valueType": "EXPRESSION",
             "value": "/apples",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -803,7 +807,8 @@
             "valueType": "EXPRESSION",
             "value": "/apples",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -932,7 +937,8 @@
             "valueType": "EXPRESSION",
             "value": "/apples",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -1060,7 +1066,8 @@
             "valueType": "EXPRESSION",
             "value": "/apples/[varRef]/[12 + 3]",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
