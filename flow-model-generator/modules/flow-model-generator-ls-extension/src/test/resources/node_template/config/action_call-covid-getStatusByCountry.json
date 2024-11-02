@@ -33,8 +33,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "yesterday": {
         "metadata": {
@@ -44,8 +46,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "twoDaysAgo": {
         "metadata": {
@@ -55,8 +59,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "strict": {
         "metadata": {
@@ -66,8 +72,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "allowNull": {
         "metadata": {
@@ -77,8 +85,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -88,7 +98,8 @@
         "valueType": "TYPE",
         "value": "covid19:CovidCountry|error",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -96,9 +107,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -107,9 +120,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "covid19Client",
+        "value": "",
+        "placeholder": "covid19Client",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

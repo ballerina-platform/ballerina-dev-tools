@@ -31,8 +31,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "'error": {
         "metadata": {
@@ -42,8 +44,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "stackTrace": {
         "metadata": {
@@ -53,8 +57,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "keyValues": {
         "metadata": {
@@ -64,8 +70,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "log:KeyValues",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

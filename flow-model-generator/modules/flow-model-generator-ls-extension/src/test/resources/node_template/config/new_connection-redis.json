@@ -32,8 +32,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionConfig",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -43,7 +45,8 @@
         "valueType": "TYPE",
         "value": "redis:Client|redis:Error",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -51,9 +54,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "scope": {
         "metadata": {
@@ -63,7 +68,8 @@
         "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

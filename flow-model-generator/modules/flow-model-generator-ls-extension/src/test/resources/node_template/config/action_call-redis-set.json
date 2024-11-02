@@ -33,8 +33,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "value": {
         "metadata": {
@@ -44,8 +46,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -55,7 +59,8 @@
         "valueType": "TYPE",
         "value": "string|redis:Error",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -63,9 +68,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -74,9 +81,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:Client",
-        "value": "redisCl",
+        "value": "",
+        "placeholder": "redisCl",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -31,8 +31,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -42,7 +44,8 @@
         "valueType": "TYPE",
         "value": "json|data.jsondata:Error",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -50,9 +53,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -117,9 +117,9 @@ public class NewConnection extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
+            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
             nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {

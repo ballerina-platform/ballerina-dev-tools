@@ -34,8 +34,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "headers": {
         "metadata": {
@@ -45,8 +47,10 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
         "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -56,7 +60,8 @@
         "valueType": "TYPE",
         "value": "json|http:ClientError",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -64,9 +69,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -75,9 +82,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
-        "value": "httpClient",
+        "value": "",
+        "placeholder": "httpClient",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
