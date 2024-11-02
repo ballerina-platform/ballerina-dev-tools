@@ -482,7 +482,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> resourcePath(String path, String key) {
+        public PropertiesBuilder<T> resourcePath(String path) {
             Property.Builder.getInstance()
                     .metadata()
                     .label(Property.RESOURCE_PATH_LABEL)
@@ -492,7 +492,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                     .value(path)
                     .type(Property.ValueType.EXPRESSION)
                     .editable();
-            addProperty(key);
+            addProperty(Property.RESOURCE_PATH_KEY);
             return this;
         }
 

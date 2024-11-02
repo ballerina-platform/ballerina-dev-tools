@@ -132,11 +132,6 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
-        public Builder<T> resourcePath(String resourcePath) {
-            this.resourcePath = resourcePath;
-            return this;
-        }
-
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
                     resourcePath, id);

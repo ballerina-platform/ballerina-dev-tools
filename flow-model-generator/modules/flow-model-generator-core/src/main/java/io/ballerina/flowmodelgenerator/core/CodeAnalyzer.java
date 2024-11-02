@@ -302,7 +302,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .resourcePath(fullPath, Property.RESOURCE_PATH_KEY)
+                .resourcePath(fullPath)
                 .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));

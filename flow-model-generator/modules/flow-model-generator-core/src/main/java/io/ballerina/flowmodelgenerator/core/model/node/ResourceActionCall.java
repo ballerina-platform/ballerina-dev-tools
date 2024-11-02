@@ -78,12 +78,12 @@ public class ResourceActionCall extends NodeBuilder {
         return sourceBuilder.token()
                 .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .resourcePath(sourceBuilder.flowNode.codedata().resourcePath())
+                .resourcePath(sourceBuilder.flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString())
                 .keyword(SyntaxKind.DOT_TOKEN)
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(nodeTemplate,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
@@ -120,8 +120,7 @@ public class ResourceActionCall extends NodeBuilder {
                 .module(function.packageName())
                 .object(NewConnection.CLIENT_SYMBOL)
                 .id(function.functionId())
-                .symbol(function.name())
-                .resourcePath(function.resourcePath());
+                .symbol(function.name());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
@@ -140,6 +139,7 @@ public class ResourceActionCall extends NodeBuilder {
         nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
+        nodeBuilder.properties().resourcePath(function.resourcePath());
         return nodeBuilder.build();
     }
 }
