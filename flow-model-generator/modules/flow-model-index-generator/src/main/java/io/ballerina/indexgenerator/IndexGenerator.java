@@ -43,6 +43,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
@@ -231,7 +232,7 @@ class IndexGenerator {
                         getTypeSignature(returnTypeDesc)).orElse("");
 
         int returnError = functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
         int functionId =
                 DatabaseManager.insertFunction(packageId, name.get(), description, returnType,

@@ -371,6 +371,11 @@ public class CommonUtils {
         return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
     }
 
+    /**
+     * Builds the resource path template for the given function symbol.
+     * @param functionSymbol the function symbol
+     * @return the resource path template
+     */
     public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
         StringBuilder pathBuilder = new StringBuilder();
         ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
@@ -404,5 +409,37 @@ public class CommonUtils {
             }
         }
         return pathBuilder.toString();
+    }
+
+    /**
+     * Check whether the given type is a subtype of the target type.
+     * @param source the source type
+     * @param target the target type
+     * @return true if the source type is a subtype of the target type, false otherwise
+     */
+    public static boolean subTypeOf(TypeSymbol source, TypeSymbol target) {
+        TypeSymbol sourceRawType = CommonUtils.getRawType(source);
+        switch (sourceRawType.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) sourceRawType;
+                return unionTypeSymbol.memberTypeDescriptors().stream().anyMatch(type -> subTypeOf(type, target));
+            }
+            case TYPEDESC -> {
+
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) sourceRawType;
+                return intersectionTypeSymbol.memberTypeDescriptors().stream()
+                        .anyMatch(t -> subTypeOf(t, target));
+
+            }
+            case TYPE_REFERENCE -> {
+                return subTypeOf(sourceRawType, target);
+            }
+            default -> {
+                return sourceRawType.subtypeOf(target);
+            }
+        }
+        return sourceRawType.subtypeOf(target);
     }
 }
