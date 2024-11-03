@@ -56,12 +56,14 @@ public class ResourceActionCall extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (sourceBuilder.flowNode.returning()) {
+        if (flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (sourceBuilder.flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
+        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
+                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -81,7 +83,8 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
+                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
+                                Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();

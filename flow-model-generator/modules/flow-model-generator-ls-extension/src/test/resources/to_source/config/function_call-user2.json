@@ -100,7 +100,7 @@
             "character": 27
           }
         },
-        "newText": "int squared = power(3);"
+        "newText": "int squared = power(3, view = {fileName= function_call.bal, startLine= {line= 37.0, offset= 0.0}, endLine= {line= 45.0, offset= 1.0}});"
       }
     ]
   }

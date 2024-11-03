@@ -72,7 +72,7 @@
             "character": 24
           }
         },
-        "newText": "string foo2 = check foo();"
+        "newText": "string foo2 = foo();"
       }
     ]
   }

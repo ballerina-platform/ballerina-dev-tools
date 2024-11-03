@@ -101,7 +101,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "json|error",
         "placeholder": "var",
         "optional": false,
         "editable": true,
@@ -145,7 +145,7 @@
             "character": 61
           }
         },
-        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
+        "newText": "json|error res1 = foodClient->post(\"/pears\", \"pear\");"
       }
     ]
   }

@@ -60,7 +60,8 @@ public class ActionCall extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
+        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
+                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -75,7 +76,8 @@ public class ActionCall extends NodeBuilder {
                 .name(flowNode.metadata().label())
                 .stepOut()
                 .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY,
+                                Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();

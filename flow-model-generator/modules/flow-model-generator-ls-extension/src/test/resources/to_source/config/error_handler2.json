@@ -517,7 +517,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
+        "newText": "do {\n    json res3 = foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
       }
     ]
   }

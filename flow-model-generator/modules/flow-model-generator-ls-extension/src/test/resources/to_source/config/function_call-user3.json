@@ -101,7 +101,7 @@
             "character": 28
           }
         },
-        "newText": "int cubed = power(3, 3);"
+        "newText": "int cubed = power(3, 3, {fileName= function_call.bal, startLine= {line= 37.0, offset= 0.0}, endLine= {line= 45.0, offset= 1.0}});"
       }
     ]
   }

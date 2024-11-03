@@ -91,7 +91,7 @@
             "character": 43
           }
         },
-        "newText": "return foodClient->get(\"/bananas\");"
+        "newText": "foodClient->get(\"/bananas\");"
       }
     ]
   }

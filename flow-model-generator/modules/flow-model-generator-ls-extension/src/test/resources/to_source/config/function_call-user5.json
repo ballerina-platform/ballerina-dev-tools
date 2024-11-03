@@ -83,7 +83,7 @@
             "character": 36
           }
         },
-        "newText": "int total = asum();"
+        "newText": "int total = asum({fileName= function_call.bal, startLine= {line= 47.0, offset= 0.0}, endLine= {line= 53.0, offset= 1.0}});"
       }
     ]
   }

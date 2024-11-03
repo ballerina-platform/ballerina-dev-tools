@@ -80,7 +80,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "json|error",
         "placeholder": "var",
         "optional": false,
         "editable": true,
@@ -124,7 +124,7 @@
             "character": 52
           }
         },
-        "newText": "json res1 = foodClient->get(\"/pears\");"
+        "newText": "json|error res1 = foodClient->get(\"/pears\");"
       }
     ]
   }

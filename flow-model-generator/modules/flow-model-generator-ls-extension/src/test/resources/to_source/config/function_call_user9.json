@@ -72,7 +72,7 @@
             "character": 34
           }
         },
-        "newText": "string|error foo1 = check foo();"
+        "newText": "string|error foo1 = foo();"
       }
     ]
   }

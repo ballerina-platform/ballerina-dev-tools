@@ -161,7 +161,8 @@ public class FunctionCall extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
+        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
+                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -170,7 +171,8 @@ public class FunctionCall extends NodeBuilder {
             return sourceBuilder.token()
                     .name(codedata.symbol())
                     .stepOut()
-                    .functionParameters(flowNode, Set.of("variable", "type", "view"))
+                    .functionParameters(flowNode,
+                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
                     .textEdit(false)
                     .acceptImport()
                     .build();
