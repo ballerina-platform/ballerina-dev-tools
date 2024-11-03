@@ -112,7 +112,8 @@ public class FunctionCall extends NodeBuilder {
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
                     .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
-            if (returnError == 1) {
+            if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
+                    context.filePath(), context.codedata().lineRange())) {
                 properties().checkError(true);
             }
             return;
@@ -149,6 +150,7 @@ public class FunctionCall extends NodeBuilder {
         if (TypeUtils.hasReturn(function.returnType())) {
             properties().type(function.returnType()).data(null);
         }
+
         if (function.returnError() == 1) {
             properties().checkError(true);
         }
@@ -159,10 +161,7 @@ public class FunctionCall extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        // TODO: Make this condition and once we get the correct flag using index
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
-                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                flowNode.codedata().lineRange())) {
+        if (flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 

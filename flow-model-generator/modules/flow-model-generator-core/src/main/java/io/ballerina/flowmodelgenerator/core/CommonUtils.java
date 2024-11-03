@@ -360,6 +360,21 @@ public class CommonUtils {
     }
 
     /**
+     * Check whether the given node is within a do clause.
+     * @param node the node to check
+     * @return true if the node is within a do clause, false otherwise
+     */
+    public static boolean withinDoClause(NonTerminalNode node) {
+        while (node != null) {
+            if (node.kind() == SyntaxKind.DO_STATEMENT) {
+                return ((DoStatementNode) node).onFailClause().isPresent();
+            }
+            node = node.parent();
+        }
+        return false;
+    }
+
+    /**
      * Generates the URL for the icon in the Ballerina central.
      *
      * @param orgName     the organization name

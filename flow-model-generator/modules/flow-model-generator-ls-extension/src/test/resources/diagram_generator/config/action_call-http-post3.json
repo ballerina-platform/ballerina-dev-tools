@@ -119,17 +119,6 @@
             "optional": true,
             "editable": true,
             "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
-            },
-            "valueType": "EXPRESSION",
-            "value": false,
-            "optional": false,
-            "editable": true,
-            "advanced": false
           }
         },
         "flags": 0

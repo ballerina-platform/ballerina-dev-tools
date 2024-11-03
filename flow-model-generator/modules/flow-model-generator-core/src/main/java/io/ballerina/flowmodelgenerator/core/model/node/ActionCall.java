@@ -60,14 +60,7 @@ public class ActionCall extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.returning()) {
-            sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
-        }
-
-        // TODO: Make this condition and once we get the correct flag using index
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
-                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                flowNode.codedata().lineRange())) {
+        if (flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -132,6 +125,7 @@ public class ActionCall extends NodeBuilder {
         nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
+
         if (function.returnError() == 1) {
             nodeBuilder.properties().checkError(true);
         }

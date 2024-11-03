@@ -61,10 +61,7 @@ public class ResourceActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        // TODO: Make this condition and once we get the correct flag using index
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
-                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                sourceBuilder.flowNode.codedata().lineRange())) {
+        if (sourceBuilder.flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -141,6 +138,7 @@ public class ResourceActionCall extends NodeBuilder {
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
         nodeBuilder.properties().resourcePath(function.resourcePath());
+
         if (function.returnError() == 1) {
             nodeBuilder.properties().checkError(true);
         }
