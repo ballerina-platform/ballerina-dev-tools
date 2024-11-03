@@ -105,407 +105,83 @@
       "items": [
         {
           "metadata": {
-            "label": "snowflake",
+            "label": "log",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "items": [
             {
               "metadata": {
-                "label": "close",
-                "description": "Closes the SQL client and shuts down the connection pool.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
+                "label": "printDebug",
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "snowflake",
-                "symbol": "close",
-                "version": "2.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "redis",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Close the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "redis",
-                "symbol": "close",
-                "version": "3.0.2"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "postgresql",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the PostgreSQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "postgresql",
-                "symbol": "close",
-                "version": "1.13.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "persist.redis",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "getConstraintViolationError",
-                "description": "Generates a new `persist:ConstraintViolationError` with the given parameters.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "persist.redis",
-                "symbol": "getConstraintViolationError",
-                "version": "0.2.0"
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printDebug",
+                "version": "2.10.0"
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "getAlreadyExistsError",
-                "description": "Generates a new `persist:AlreadyExistsError` with the given parameters.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
+                "label": "printError",
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "persist.redis",
-                "symbol": "getAlreadyExistsError",
-                "version": "0.2.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "googleapis.calendar",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "prepareUrlWithEventsOptionalParams",
-                "description": "Prepare URL with optional parameters.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "googleapis.calendar",
-                "symbol": "prepareUrlWithEventsOptionalParams",
-                "version": "3.2.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "java.jdbc",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the JDBC client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "java.jdbc",
-                "symbol": "close",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "googleapis.sheets",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "createRandomUUIDWithoutHyphens",
-                "description": "Create a random UUID removing the unnecessary hyphens which will interrupt querying opearations.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "googleapis.sheets",
-                "symbol": "createRandomUUIDWithoutHyphens",
-                "version": "3.5.1"
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printError",
+                "version": "2.10.0"
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "getA1RangeString",
-                "description": "Get a string containing the A1 Annotation from A1Range.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "googleapis.sheets",
-                "symbol": "getA1RangeString",
-                "version": "3.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "mysql",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the MySQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "mysql",
-                "symbol": "close",
-                "version": "1.13.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "mssql",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the MSSQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "mssql",
-                "symbol": "close",
-                "version": "1.13.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "lang.array",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "'map",
-                "description": "Applies a function to each member of an array and returns an array of the results.\n\n```ballerina\nint[] numbers = [0, 1, 2];\nnumbers.map(n => n * 2) ⇒ [0,2,4]\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                "label": "printInfo",
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "lang.array",
-                "symbol": "'map",
-                "version": "0.0.0"
+                "module": "log",
+                "symbol": "printInfo",
+                "version": "2.10.0"
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "length",
-                "description": "Returns the number of members of an array.\n\n```ballerina\n[\"a\", \"b\", \"c\", \"d\"].length() ⇒ 4\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                "label": "printWarn",
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "lang.array",
-                "symbol": "length",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "lang.string",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "length",
-                "description": "Returns the length of the string.\n\n```ballerina\n\"Hello, World!\".length() ⇒ 13;\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.string",
-                "symbol": "length",
-                "version": "0.0.0"
+                "module": "log",
+                "symbol": "printWarn",
+                "version": "2.10.0"
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "iterator",
-                "description": "Returns an iterator over the string.\n\nThe iterator will yield the substrings of length 1 in order.\n\n```ballerina\nobject {\n  public isolated function next() returns record {|string:Char value;|}?;\n} iterator = \"Hello, World!\".iterator();\niterator.next() ⇒ {\"value\":\"H\"}\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+                "label": "setOutputFile",
+                "description": "Set the log output to a file. Note that all the subsequent logs of the entire application will be written to this file.\n```ballerina\nvar result = log:setOutputFile(\"./resources/myfile.log\");\nvar result = log:setOutputFile(\"./resources/myfile.log\", log:OVERWRITE);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "lang.string",
-                "symbol": "iterator",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "concat",
-                "description": "Concatenates zero or more strings.\n\n```ballerina\n\"http://worldtimeapi.org\".concat(\"/api/timezone/\", \"Asia\", \"/\", \"Colombo\") ⇒ http://worldtimeapi.org/api/timezone/Asia/Colombo\n// Alternative approach to achieve the same.\nstring:concat(\"http://worldtimeapi.org\", \"/api/timezone/\", \"Asia\", \"/\", \"Colombo\") ⇒ http://worldtimeapi.org/api/timezone/Asia/Colombo\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.string",
-                "symbol": "concat",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getCodePoint",
-                "description": "Returns the code point of a character in a string.\n\n```ballerina\n\"Hello, World!\".getCodePoint(3) ⇒ 108\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.string",
-                "symbol": "getCodePoint",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "substring",
-                "description": "Returns a substring of a string.\n\n```ballerina\n\"Hello, my name is John\".substring(7) ⇒ my name is John\n\"Hello, my name is John Anderson\".substring(18, 22) ⇒ John\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.string",
-                "symbol": "substring",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "regex",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "matches",
-                "description": "Checks whether the given string matches the provided regex.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nboolean isMatched = regex:matches(\"Ballerina is great\", \"Ba[a-z ]+\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "regex",
-                "symbol": "matches",
-                "version": "1.3.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "replace",
-                "description": "Replaces the first substring that matches the given regex with\nthe provided replacement string or string returned by the provided function.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nstring result = regex:replace(\"Ballerina is great\", \"\\\\s+\", \"_\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "regex",
-                "symbol": "replace",
-                "version": "1.3.2"
+                "module": "log",
+                "symbol": "setOutputFile",
+                "version": "2.10.0"
               },
               "enabled": true
             }

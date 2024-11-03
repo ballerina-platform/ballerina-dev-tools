@@ -34,6 +34,9 @@ configurations {
 
 dependencies {
     implementation project(':flow-model-generator:flow-model-central-client')
+    implementation(project(':flow-model-generator:flow-model-generator-core')) {
+        exclude group: 'io.ballerina.flowmodelgenerator.core', module: 'flow-model-generator-core'
+    }
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:diagram-util:${ballerinaLangVersion}"

@@ -36,7 +36,7 @@ class DatabaseManager {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
     private static final String INDEX_FILE_NAME = "central-index.sqlite";
-    private static final String CREATE_INDEX_SQL = "create-index.sql";
+    private static final String CENTRAL_INDEX_SQL = "central-index.sql";
     private static final String dbPath = getDatabasePath();
 
     private static String getDatabasePath() {
@@ -70,7 +70,7 @@ class DatabaseManager {
     public static void createDatabase() {
         Path destinationPath =
                 Path.of("flow-model-generator/modules/flow-model-index-generator/src/main/resources")
-                        .resolve(CREATE_INDEX_SQL);
+                        .resolve(CENTRAL_INDEX_SQL);
         try {
             String sql = Files.readString(destinationPath);
             executeQuery(sql);

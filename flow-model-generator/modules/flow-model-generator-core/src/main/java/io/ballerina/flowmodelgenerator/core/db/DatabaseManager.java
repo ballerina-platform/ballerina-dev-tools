@@ -135,6 +135,43 @@ public class DatabaseManager {
         }
     }
 
+    public List<FunctionResult> getFunctionsByPackage(String packageName) {
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name AS function_name, " +
+                "f.description AS function_description, " +
+                "f.return_type, " +
+                "p.name AS package_name, " +
+                "p.org, " +
+                "p.version " +
+                "FROM Function f " +
+                "JOIN Package p ON f.package_id = p.package_id " +
+                "WHERE p.name = ?;";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, packageName);
+            ResultSet rs = stmt.executeQuery();
+            List<FunctionResult> functionResults = new ArrayList<>();
+            while (rs.next()) {
+                FunctionResult functionResult = new FunctionResult(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("function_description"),
+                        rs.getString("return_type"),
+                        rs.getString("package_name"),
+                        rs.getString("org"),
+                        rs.getString("version")
+                );
+                functionResults.add(functionResult);
+            }
+            return functionResults;
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
     public List<FunctionResult> searchFunctions(Map<String, String> queryMap, FunctionKind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +

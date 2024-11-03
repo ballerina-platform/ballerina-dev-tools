@@ -34,4 +34,5 @@ module io.ballerina.flow.model.generator {
     requires org.xerial.sqlitejdbc;
 
     exports io.ballerina.flowmodelgenerator.core;
+    exports io.ballerina.flowmodelgenerator.core.utils;
 }
