@@ -27,6 +27,7 @@ public record FunctionResult(
         String org,
         String version,
         String resourcePath,
-        Function.Kind kind
+        Function.Kind kind,
+        Integer returnError
 ) {
 }
