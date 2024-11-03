@@ -30,7 +30,7 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 8
+        "id": 13
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 99
+        "id": 85
       },
       "enabled": true
     },
@@ -84,33 +84,17 @@
     },
     {
       "metadata": {
-        "label": "azure.sqldb",
-        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
+        "label": "azure.datalake",
+        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "azure.sqldb",
+        "module": "azure.datalake",
         "object": "Client",
         "symbol": "init",
         "id": 186
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "workday.payroll",
-        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "workday.payroll",
-        "object": "Client",
-        "symbol": "init",
-        "id": 190
       },
       "enabled": true
     },
@@ -126,23 +110,39 @@
         "module": "covid19",
         "object": "Client",
         "symbol": "init",
-        "id": 205
+        "id": 191
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "azure.datalake",
-        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
+        "label": "workday.payroll",
+        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "azure.datalake",
+        "module": "workday.payroll",
         "object": "Client",
         "symbol": "init",
-        "id": 206
+        "id": 194
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "azure.sqldb",
+        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.sqldb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 197
       },
       "enabled": true
     },
@@ -158,7 +158,7 @@
         "module": "slack",
         "object": "Client",
         "symbol": "init",
-        "id": 235
+        "id": 248
       },
       "enabled": true
     },
@@ -174,7 +174,7 @@
         "module": "googleapis.calendar",
         "object": "Client",
         "symbol": "init",
-        "id": 236
+        "id": 261
       },
       "enabled": true
     },
@@ -190,7 +190,7 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 305
+        "id": 289
       },
       "enabled": true
     },
@@ -206,55 +206,7 @@
         "module": "twitter",
         "object": "Client",
         "symbol": "init",
-        "id": 328
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "discord",
-        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "discord",
-        "object": "Client",
-        "symbol": "init",
-        "id": 469
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "googleapis.sheets",
-        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.sheets",
-        "object": "Client",
-        "symbol": "init",
-        "id": 478
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "worldbank",
-        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "worldbank",
-        "object": "Client",
-        "symbol": "init",
-        "id": 479
+        "id": 363
       },
       "enabled": true
     },
@@ -270,23 +222,7 @@
         "module": "notion",
         "object": "Client",
         "symbol": "init",
-        "id": 498
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "github",
-        "description": "GitHub's v3 REST API.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "github",
-        "object": "Client",
-        "symbol": "init",
-        "id": 620
+        "id": 540
       },
       "enabled": true
     },
@@ -302,23 +238,87 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 694
+        "id": 554
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "twilio",
-        "description": "This is the public Twilio REST API.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_4.0.1.png"
+        "label": "worldbank",
+        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "twilio",
+        "module": "worldbank",
         "object": "Client",
         "symbol": "init",
-        "id": 700
+        "id": 576
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "googleapis.sheets",
+        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "googleapis.sheets",
+        "object": "Client",
+        "symbol": "init",
+        "id": 581
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mssql",
+        "description": "Represents an MSSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mssql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 634
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mongodb",
+        "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mongodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 636
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "discord",
+        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "discord",
+        "object": "Client",
+        "symbol": "init",
+        "id": 640
       },
       "enabled": true
     }
