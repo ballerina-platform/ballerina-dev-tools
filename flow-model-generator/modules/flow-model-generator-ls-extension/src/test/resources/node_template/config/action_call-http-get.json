@@ -22,7 +22,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 3075
+      "id": 3089
     },
     "returning": false,
     "properties": {
@@ -58,7 +58,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "http:targetType|http:ClientError",
+        "value": "json|http:ClientError",
         "optional": false,
         "editable": true,
         "advanced": false
