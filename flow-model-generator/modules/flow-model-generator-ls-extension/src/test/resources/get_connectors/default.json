@@ -30,103 +30,7 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 2
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "salesforce",
-        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "salesforce",
-        "object": "Client",
-        "symbol": "init",
-        "id": 22
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "azure.datalake",
-        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "azure.datalake",
-        "object": "Client",
-        "symbol": "init",
-        "id": 29
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "workday.payroll",
-        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "workday.payroll",
-        "object": "Client",
-        "symbol": "init",
-        "id": 30
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "azure.sqldb",
-        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "azure.sqldb",
-        "object": "Client",
-        "symbol": "init",
-        "id": 31
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "covid19",
-        "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "covid19",
-        "object": "Client",
-        "symbol": "init",
-        "id": 32
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "slack",
-        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "slack",
-        "object": "Client",
-        "symbol": "init",
-        "id": 51
+        "id": 8
       },
       "enabled": true
     },
@@ -142,55 +46,7 @@
         "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 69
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "notion",
-        "description": "This is a generated connector for [Notion API v1](https://developers.notion.com/reference/intro) OpenAPI Specification. \nNotion API provides capability to access all-in-one workspace where you can write, plan, collaborate and get organized. it has components such as notes, databases, kanban boards, wikis, calendars, and reminders. You can connect these  components to take notes, add tasks, manage projects & more. Notion provides the building blocks and you can  create your own layouts and toolkit to get work done. This ballerina connector allows you to connect Notion through its [REST API](https://developers.notion.com/docs).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_notion_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "notion",
-        "object": "Client",
-        "symbol": "init",
-        "id": 155
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "googleapis.calendar",
-        "description": "Ballerina Google Calendar connector provides the capability to access Google Calendar API.\nThe connector let you perform calendar and event management operations.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.calendar",
-        "object": "Client",
-        "symbol": "init",
-        "id": 162
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "java.jdbc",
-        "description": "Represents a JDBC client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "java.jdbc",
-        "object": "Client",
-        "symbol": "init",
-        "id": 279
+        "id": 99
       },
       "enabled": true
     },
@@ -206,20 +62,132 @@
         "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 290
+        "id": 132
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "discord",
-        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
+        "label": "salesforce",
+        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "discord",
+        "module": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "id": 139
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "azure.sqldb",
+        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.sqldb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 186
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "workday.payroll",
+        "description": "This is a generated connector for [WorkDay payroll REST API v2](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html) OpenAPI specification.\nThe Payroll service enables you to access and manage payroll information,such as pay groups, payroll inputs, and tax rates.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_workday.payroll_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "workday.payroll",
+        "object": "Client",
+        "symbol": "init",
+        "id": 190
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "covid19",
+        "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "covid19",
+        "object": "Client",
+        "symbol": "init",
+        "id": 205
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "azure.datalake",
+        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.datalake",
+        "object": "Client",
+        "symbol": "init",
+        "id": 206
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "slack",
+        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "slack",
+        "object": "Client",
+        "symbol": "init",
+        "id": 235
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "googleapis.calendar",
+        "description": "Ballerina Google Calendar connector provides the capability to access Google Calendar API.\nThe connector let you perform calendar and event management operations.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "googleapis.calendar",
+        "object": "Client",
+        "symbol": "init",
+        "id": 236
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "java.jdbc",
+        "description": "Represents a JDBC client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
         "id": 305
@@ -238,23 +206,39 @@
         "module": "twitter",
         "object": "Client",
         "symbol": "init",
-        "id": 318
+        "id": 328
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "github",
-        "description": "GitHub's v3 REST API.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+        "label": "discord",
+        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "github",
+        "module": "discord",
         "object": "Client",
         "symbol": "init",
-        "id": 328
+        "id": 469
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "googleapis.sheets",
+        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "googleapis.sheets",
+        "object": "Client",
+        "symbol": "init",
+        "id": 478
       },
       "enabled": true
     },
@@ -270,23 +254,39 @@
         "module": "worldbank",
         "object": "Client",
         "symbol": "init",
-        "id": 350
+        "id": 479
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "shorten.rest",
-        "description": "This is a generated connector for [Shorten.REST v1.0](https://docs.shorten.rest/) OpenAPI Specification.\nThe Shorten.REST API allows you to programmatically create short URLs for longer URL.\nEach alias you create can be used to redirect the end user (person clicking on the link) to one or more destination URLs\nA default destination is always set and specific destinations can be set to redirect the end user to preferred destinations based on the user's geographical location (country) and device Operating System.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_shorten.rest_1.5.1.png"
+        "label": "notion",
+        "description": "This is a generated connector for [Notion API v1](https://developers.notion.com/reference/intro) OpenAPI Specification. \nNotion API provides capability to access all-in-one workspace where you can write, plan, collaborate and get organized. it has components such as notes, databases, kanban boards, wikis, calendars, and reminders. You can connect these  components to take notes, add tasks, manage projects & more. Notion provides the building blocks and you can  create your own layouts and toolkit to get work done. This ballerina connector allows you to connect Notion through its [REST API](https://developers.notion.com/docs).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_notion_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "shorten.rest",
+        "module": "notion",
         "object": "Client",
         "symbol": "init",
-        "id": 382
+        "id": 498
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "github",
+        "description": "GitHub's v3 REST API.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "github",
+        "object": "Client",
+        "symbol": "init",
+        "id": 620
       },
       "enabled": true
     },
@@ -302,23 +302,23 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 499
+        "id": 694
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mongodb",
-        "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+        "label": "twilio",
+        "description": "This is the public Twilio REST API.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_4.0.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mongodb",
+        "module": "twilio",
         "object": "Client",
         "symbol": "init",
-        "id": 516
+        "id": 700
       },
       "enabled": true
     }
