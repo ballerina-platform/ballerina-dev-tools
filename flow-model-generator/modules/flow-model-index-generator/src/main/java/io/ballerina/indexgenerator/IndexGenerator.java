@@ -230,9 +230,12 @@ class IndexGenerator {
                         getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
                         getTypeSignature(returnTypeDesc)).orElse("");
 
+        int returnError = functionTypeSymbol.returnTypeDescriptor()
+                .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+
         int functionId =
                 DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                        functionType.name(), pathBuilder.toString());
+                        functionType.name(), pathBuilder.toString(), returnError);
 
         // Handle the parameters of the function
         functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
