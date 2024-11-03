@@ -5,10 +5,10 @@ public function main() returns error? {
     check fnWithError();
     checkpanic fnWithError();
 
-    boolean res1 = check fnWithErrorAndValue();
-    boolean res2 = checkpanic fnWithErrorAndValue();
-    final var res3 = check fnWithErrorAndValue();
-    final var res4 = checkpanic fnWithErrorAndValue();
+    boolean _ = check fnWithErrorAndValue();
+    boolean _ = checkpanic fnWithErrorAndValue();
+    final var _ = check fnWithErrorAndValue();
+    final var _ = checkpanic fnWithErrorAndValue();
 }
 
 service /rem on new ftp:Listener({}) {
