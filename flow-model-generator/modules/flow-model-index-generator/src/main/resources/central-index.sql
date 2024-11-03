@@ -22,6 +22,7 @@ CREATE TABLE Function (
     description TEXT,
     package_id INTEGER,
     return_type JSON, -- JSON type for return type information
+    resource_path TEXT NOT NULL,
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 

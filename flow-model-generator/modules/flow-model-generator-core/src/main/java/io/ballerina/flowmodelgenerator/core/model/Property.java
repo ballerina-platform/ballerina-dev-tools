@@ -106,6 +106,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String CONNECTION_LABEL = "Connection";
     public static final String CONNECTION_DOC = "Connection to use";
 
+    public static final String RESOURCE_PATH_KEY = "resourcePath";
+    public static final String RESOURCE_PATH_LABEL = "Resource Path";
+    public static final String RESOURCE_PATH_DOC = "Resource Path";
+
     public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_KEY = "comment";
     public static final String COMMENT_DOC = "Comment to describe the flow";

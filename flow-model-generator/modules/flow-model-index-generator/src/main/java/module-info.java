@@ -24,6 +24,7 @@ module io.ballerina.flowmodel.indexgenerator {
     requires java.sql;
     requires io.ballerina.toml;
     requires io.ballerina.flow.model.generator;
+    requires io.ballerina.language.server.core;
 
     exports io.ballerina.indexgenerator;
 }

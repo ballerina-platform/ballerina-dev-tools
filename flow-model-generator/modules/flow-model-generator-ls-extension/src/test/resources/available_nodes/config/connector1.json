@@ -19,6 +19,25 @@
           "items": [
             {
               "metadata": {
+                "label": "post:[boolean|int|float|decimal|string...]",
+                "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
+              },
+              "codedata": {
+                "node": "RESOURCE_ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "post",
+                "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3044
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
                 "label": "post",
                 "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
@@ -30,24 +49,26 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 2994
+                "id": 3045
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "put",
+                "label": "put:[boolean|int|float|decimal|string...]",
                 "description": "The client resource function to send HTTP PUT requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
               },
               "codedata": {
-                "node": "ACTION_CALL",
+                "node": "RESOURCE_ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 3003
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3046
               },
               "enabled": true
             },
@@ -64,24 +85,26 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 3011
+                "id": 3047
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "patch",
+                "label": "patch:[boolean|int|float|decimal|string...]",
                 "description": "The client resource function to send HTTP PATCH requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
               },
               "codedata": {
-                "node": "ACTION_CALL",
+                "node": "RESOURCE_ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 3020
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3049
               },
               "enabled": true
             },
@@ -98,24 +121,26 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 3026
+                "id": 3065
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "delete",
+                "label": "delete:[boolean|int|float|decimal|string...]",
                 "description": "The client resource function to send HTTP DELETE requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
               },
               "codedata": {
-                "node": "ACTION_CALL",
+                "node": "RESOURCE_ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "id": 3052
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3084
               },
               "enabled": true
             },
@@ -132,24 +157,26 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "id": 3056
+                "id": 3085
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "head",
+                "label": "head:[boolean|int|float|decimal|string...]",
                 "description": "The client resource function to send HTTP HEAD requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
               },
               "codedata": {
-                "node": "ACTION_CALL",
+                "node": "RESOURCE_ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "id": 3072
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3086
               },
               "enabled": true
             },
@@ -166,7 +193,26 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "id": 3073
+                "id": 3087
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "get:[boolean|int|float|decimal|string...]",
+                "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
+              },
+              "codedata": {
+                "node": "RESOURCE_ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "get",
+                "parentSymbol": "moduleClient",
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3088
               },
               "enabled": true
             },
@@ -183,24 +229,26 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
-                "id": 3075
+                "id": 3089
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "options",
+                "label": "options:[boolean|int|float|decimal|string...]",
                 "description": "The client resource function to send HTTP OPTIONS requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+                "functionKind": "RESOURCE"
               },
               "codedata": {
-                "node": "ACTION_CALL",
+                "node": "RESOURCE_ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "id": 3076
+                "resourcePath": "[boolean|int|float|decimal|string...]",
+                "id": 3090
               },
               "enabled": true
             },
@@ -217,7 +265,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "id": 3077
+                "id": 3091
               },
               "enabled": true
             },
@@ -234,7 +282,7 @@
                 "object": "Client",
                 "symbol": "execute",
                 "parentSymbol": "moduleClient",
-                "id": 3078
+                "id": 3092
               },
               "enabled": true
             },
@@ -251,7 +299,7 @@
                 "object": "Client",
                 "symbol": "forward",
                 "parentSymbol": "moduleClient",
-                "id": 3079
+                "id": 3093
               },
               "enabled": true
             },
@@ -268,7 +316,7 @@
                 "object": "Client",
                 "symbol": "submit",
                 "parentSymbol": "moduleClient",
-                "id": 3080
+                "id": 3094
               },
               "enabled": true
             },
@@ -285,7 +333,7 @@
                 "object": "Client",
                 "symbol": "getResponse",
                 "parentSymbol": "moduleClient",
-                "id": 3081
+                "id": 3095
               },
               "enabled": true
             },
@@ -302,7 +350,7 @@
                 "object": "Client",
                 "symbol": "hasPromise",
                 "parentSymbol": "moduleClient",
-                "id": 3082
+                "id": 3096
               },
               "enabled": true
             },
@@ -319,7 +367,7 @@
                 "object": "Client",
                 "symbol": "getNextPromise",
                 "parentSymbol": "moduleClient",
-                "id": 3083
+                "id": 3097
               },
               "enabled": true
             },
@@ -336,7 +384,7 @@
                 "object": "Client",
                 "symbol": "getPromisedResponse",
                 "parentSymbol": "moduleClient",
-                "id": 3084
+                "id": 3098
               },
               "enabled": true
             },
@@ -353,7 +401,7 @@
                 "object": "Client",
                 "symbol": "rejectPromise",
                 "parentSymbol": "moduleClient",
-                "id": 3085
+                "id": 3099
               },
               "enabled": true
             },
@@ -370,7 +418,7 @@
                 "object": "Client",
                 "symbol": "getCookieStore",
                 "parentSymbol": "moduleClient",
-                "id": 3086
+                "id": 3100
               },
               "enabled": true
             },
@@ -387,7 +435,7 @@
                 "object": "Client",
                 "symbol": "circuitBreakerForceClose",
                 "parentSymbol": "moduleClient",
-                "id": 3087
+                "id": 3101
               },
               "enabled": true
             },
@@ -404,7 +452,7 @@
                 "object": "Client",
                 "symbol": "circuitBreakerForceOpen",
                 "parentSymbol": "moduleClient",
-                "id": 3088
+                "id": 3102
               },
               "enabled": true
             },
@@ -421,7 +469,7 @@
                 "object": "Client",
                 "symbol": "getCircuitBreakerCurrentState",
                 "parentSymbol": "moduleClient",
-                "id": 3089
+                "id": 3103
               },
               "enabled": true
             }

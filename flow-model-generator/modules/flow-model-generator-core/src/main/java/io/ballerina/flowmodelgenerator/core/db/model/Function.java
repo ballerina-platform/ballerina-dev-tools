@@ -26,6 +26,7 @@ public class Function {
 
     public enum Kind {
         FUNCTION, CONNECTOR, REMOTE, RESOURCE
+
     }
 
     @Id
@@ -42,6 +43,9 @@ public class Function {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "resource_path")
+    private String resourcePath;
 
     @ManyToOne
     @JoinColumn(name = "package_id")
@@ -125,5 +129,9 @@ public class Function {
 
     public void setConnectors(Set<Function> connectors) {
         this.connectors = connectors;
+    }
+
+    public String getResourcePath() {
+        return resourcePath;
     }
 }

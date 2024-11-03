@@ -249,7 +249,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -266,7 +266,8 @@
               "offset": 80
             }
           },
-          "sourceCode": "json res2 = check foodClient->/western/apples.post(\"western red apple\");"
+          "sourceCode": "json res2 = check foodClient->/western/apples.post(\"western red apple\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -277,6 +278,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/western/apples",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -366,7 +378,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -383,7 +395,8 @@
               "offset": 106
             }
           },
-          "sourceCode": "json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");"
+          "sourceCode": "json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -394,6 +407,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -484,7 +508,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -501,7 +525,8 @@
               "offset": 60
             }
           },
-          "sourceCode": "json res4 = check foodClient->/.post(\"green apple\");"
+          "sourceCode": "json res4 = check foodClient->/.post(\"green apple\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -512,6 +537,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -601,7 +637,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -618,7 +654,8 @@
               "offset": 84
             }
           },
-          "sourceCode": "var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);"
+          "sourceCode": "var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -629,6 +666,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -718,7 +766,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -735,7 +783,8 @@
               "offset": 11
             }
           },
-          "sourceCode": "json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
+          "sourceCode": "json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -746,6 +795,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -836,7 +896,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -853,7 +913,8 @@
               "offset": 64
             }
           },
-          "sourceCode": "Food res8 = check foodClient->/apples.post(\"red apple\");"
+          "sourceCode": "Food res8 = check foodClient->/apples.post(\"red apple\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -864,6 +925,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -953,7 +1025,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -970,7 +1042,8 @@
               "offset": 84
             }
           },
-          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");"
+          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -981,6 +1054,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples/[varRef]/[12 + 3]",
             "optional": false,
             "editable": true,
             "advanced": false

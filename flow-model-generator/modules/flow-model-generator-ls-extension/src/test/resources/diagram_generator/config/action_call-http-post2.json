@@ -164,7 +164,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "RESOURCE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -181,7 +181,8 @@
               "offset": 69
             }
           },
-          "sourceCode": "json|http:ClientError res2 = foodClient->/pears.post(\"pear\");"
+          "sourceCode": "json|http:ClientError res2 = foodClient->/pears.post(\"pear\");",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
         "properties": {
@@ -192,6 +193,17 @@
             },
             "valueType": "EXPRESSION",
             "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/pears",
             "optional": false,
             "editable": true,
             "advanced": false

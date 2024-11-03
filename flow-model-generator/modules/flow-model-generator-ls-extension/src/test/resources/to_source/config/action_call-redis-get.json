@@ -14,7 +14,6 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
-      "id": 28,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {

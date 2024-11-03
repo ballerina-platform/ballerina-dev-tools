@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
@@ -41,51 +40,60 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents the generalized action invocation node in the flow model.
+ * Represents the resource action invocation node in the flow model.
  *
  * @since 1.4.0
  */
-public class ActionCall extends NodeBuilder {
+public class ResourceActionCall extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.ACTION_CALL);
+        codedata().node(NodeKind.RESOURCE_ACTION_CALL);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
-        FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.returning()) {
+        if (sourceBuilder.flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
         // TODO: Make this condition and once we get the correct flag using index
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
                 || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                flowNode.codedata().lineRange())) {
+                sourceBuilder.flowNode.codedata().lineRange())) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL),
+                sourceBuilder.flowNode.codedata());
+
+        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-
         return sourceBuilder.token()
-                .name(connection.get().toSourceCode())
+                .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(flowNode.metadata().label())
+                .resourcePath(sourceBuilder.flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString())
+                .keyword(SyntaxKind.DOT_TOKEN)
+                .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
-                .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
+                .functionParameters(nodeTemplate,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
+                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
+        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
@@ -95,8 +103,8 @@ public class ActionCall extends NodeBuilder {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), null,
-                        DatabaseManager.FunctionKind.REMOTE);
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
+                        DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
             return null;
         }
@@ -132,12 +140,7 @@ public class ActionCall extends NodeBuilder {
         nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
+        nodeBuilder.properties().resourcePath(function.resourcePath());
         return nodeBuilder.build();
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
     }
 }

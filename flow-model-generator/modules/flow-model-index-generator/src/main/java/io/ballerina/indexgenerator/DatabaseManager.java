@@ -94,9 +94,11 @@ class DatabaseManager {
         return insertEntry(sql, new Object[]{org, name, version, keywords == null ? "" : String.join(",", keywords)});
     }
 
-    public static int insertFunction(int packageId, String name, String description, String returnType, String kind) {
-        String sql = "INSERT INTO Function (package_id, name, description, return_type, kind) VALUES (?, ?, ?, ?, ?)";
-        return insertEntry(sql, new Object[]{packageId, name, description, returnType, kind});
+    public static int insertFunction(int packageId, String name, String description, String returnType, String kind,
+                                     String resourcePath) {
+        String sql = "INSERT INTO Function (package_id, name, description, " +
+                "return_type, kind, resource_path) VALUES (?, ?, ?, ?, ?, ?)";
+        return insertEntry(sql, new Object[]{packageId, name, description, returnType, kind, resourcePath});
     }
 
     public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,

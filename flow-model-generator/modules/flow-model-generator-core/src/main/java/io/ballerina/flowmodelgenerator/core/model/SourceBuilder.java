@@ -359,6 +359,16 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder resourcePath(String path) {
+            sb.append(path);
+            return this;
+        }
+
+        public TokenBuilder name(Property property) {
+            sb.append(property.toSourceCode());
+            return this;
+        }
+
         public TokenBuilder comment(String comment) {
             sb.append(comment);
             return this;

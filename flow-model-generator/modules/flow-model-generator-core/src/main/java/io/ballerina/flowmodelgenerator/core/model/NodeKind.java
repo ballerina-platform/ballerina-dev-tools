@@ -11,6 +11,7 @@ public enum NodeKind {
     EVENT_START,
     IF,
     ACTION_CALL,
+    RESOURCE_ACTION_CALL,
     FUNCTION_CALL,
     NEW_CONNECTION,
     RETURN,
