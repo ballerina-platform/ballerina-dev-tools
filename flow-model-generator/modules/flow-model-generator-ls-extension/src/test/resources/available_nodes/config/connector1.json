@@ -32,7 +32,7 @@
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "[boolean|int|float|decimal|string...]",
-                "id": 3078
+                "id": 3044
               },
               "enabled": true
             },
@@ -49,7 +49,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 3079
+                "id": 3045
               },
               "enabled": true
             },
@@ -68,7 +68,7 @@
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "[boolean|int|float|decimal|string...]",
-                "id": 3080
+                "id": 3046
               },
               "enabled": true
             },
@@ -85,7 +85,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 3081
+                "id": 3047
               },
               "enabled": true
             },
@@ -104,7 +104,7 @@
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "[boolean|int|float|decimal|string...]",
-                "id": 3082
+                "id": 3049
               },
               "enabled": true
             },
@@ -121,7 +121,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 3083
+                "id": 3065
               },
               "enabled": true
             },
