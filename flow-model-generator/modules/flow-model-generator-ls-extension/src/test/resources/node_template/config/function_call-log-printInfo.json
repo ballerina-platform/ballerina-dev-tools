@@ -71,9 +71,9 @@
         "valueTypeConstraint": "log:KeyValues",
         "value": "",
         "placeholder": "",
-        "optional": false,
+        "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

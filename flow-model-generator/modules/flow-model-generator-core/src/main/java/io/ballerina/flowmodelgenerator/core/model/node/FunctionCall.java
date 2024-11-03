@@ -24,8 +24,13 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -38,6 +43,9 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
@@ -134,7 +142,7 @@ public class FunctionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
+            boolean optional = isOptional(paramResult, codedata.org(), codedata.module(), codedata.version());
             properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
                     Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
         }
@@ -142,6 +150,70 @@ public class FunctionCall extends NodeBuilder {
         if (TypeUtils.hasReturn(function.returnType())) {
             properties().type(function.returnType()).data(null);
         }
+    }
+
+    private boolean isOptional(ParameterResult param, String orgName, String moduleName, String versionName) {
+        if (param.kind() == ParameterKind.DEFAULTABLE) {
+            return true;
+        }
+        if (param.kind() != ParameterKind.INCLUDED_RECORD) {
+            return false;
+        }
+
+        Package modulePackage = PackageUtil.getModulePackage(orgName, moduleName, versionName);
+        Iterable<Module> modules = modulePackage.modules();
+        for (Module module : modules) {
+            SemanticModel modSemanticModel = module.getCompilation().getSemanticModel();
+            List<Symbol> symbols = modSemanticModel.moduleSymbols();
+            for (Symbol symbol : symbols) {
+                Optional<String> optSymbolName = symbol.getName();
+                if (optSymbolName.isEmpty()) {
+                    continue;
+                }
+                if (foundSymbol(optSymbolName.get(), param.type())) {
+                    return allFieldsOptional(symbol);
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean allFieldsOptional(Symbol symbol) {
+        RecordTypeSymbol recordType = getRecordType(symbol);
+        if (recordType == null) {
+            return false;
+        }
+
+        for (Map.Entry<String, RecordFieldSymbol> entry : recordType.fieldDescriptors().entrySet()) {
+            if (!entry.getValue().isOptional()) {
+                return false;
+            }
+        }
+
+        List<TypeSymbol> typeSymbols = recordType.typeInclusions();
+        for (TypeSymbol typeSymbol : typeSymbols) {
+            if (!allFieldsOptional(typeSymbol)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private RecordTypeSymbol getRecordType(Symbol symbol) {
+        if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
+            return getRecordType(((TypeDefinitionSymbol) symbol).typeDescriptor());
+        } else if (symbol.kind() == SymbolKind.TYPE) {
+            if (((TypeSymbol) symbol).typeKind() == TypeDescKind.RECORD) {
+                return (RecordTypeSymbol) symbol;
+            }
+        }
+        return null;
+    }
+
+    private boolean foundSymbol(String symbol, String param) {
+        String[] split = param.split(":");
+        return split[split.length - 1].equals(symbol);
     }
 
     @Override
