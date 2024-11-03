@@ -141,6 +141,8 @@ public class DatabaseManager {
                 "f.name AS function_name, " +
                 "f.description AS function_description, " +
                 "f.return_type, " +
+                "f.kind, " +
+                "f.resource_path, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -161,7 +163,9 @@ public class DatabaseManager {
                         rs.getString("return_type"),
                         rs.getString("package_name"),
                         rs.getString("org"),
-                        rs.getString("version")
+                        rs.getString("version"),
+                        rs.getString("resource_path"),
+                        Function.Kind.valueOf(rs.getString("kind"))
                 );
                 functionResults.add(functionResult);
             }
