@@ -19,7 +19,10 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -32,6 +35,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -115,9 +120,21 @@ public class ActionCall extends NodeBuilder {
             if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
                 continue;
             }
-            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
+                Package modulePackage = PackageUtil
+                        .getModulePackage(function.org(), function.packageName(), function.version());
+                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
+                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
+                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
+                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
+                    FunctionCall.addIncludedRecordToParams(
+                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
+                }
+            } else {
+                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
+                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional);
+            }
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {

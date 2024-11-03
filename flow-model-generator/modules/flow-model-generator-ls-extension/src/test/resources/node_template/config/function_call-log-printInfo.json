@@ -61,19 +61,6 @@
         "optional": true,
         "editable": true,
         "advanced": true
-      },
-      "keyValues": {
-        "metadata": {
-          "label": "keyValues",
-          "description": "The key-value pairs to be logged"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "log:KeyValues",
-        "value": "",
-        "placeholder": "",
-        "optional": false,
-        "editable": true,
-        "advanced": false
       }
     },
     "flags": 0

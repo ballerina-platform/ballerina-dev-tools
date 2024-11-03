@@ -20,12 +20,17 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
@@ -39,8 +44,11 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -142,9 +150,22 @@ public class FunctionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-            properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
+                Package modulePackage = PackageUtil
+                        .getModulePackage(function.org(), function.packageName(), function.version());
+                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
+                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
+                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
+                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
+                    FunctionCall.addIncludedRecordToParams(
+                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
+                }
+            } else {
+                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
+                properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            }
+
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
@@ -153,6 +174,25 @@ public class FunctionCall extends NodeBuilder {
 
         if (function.returnError() == 1) {
             properties().checkError(true);
+        }
+    }
+
+    protected static void addIncludedRecordToParams(TypeSymbol typeSymbol, NodeBuilder nodeBuilder) {
+        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) CommonUtils.getRawType(typeSymbol);
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            addIncludedRecordToParams(includedType, nodeBuilder);
+        });
+        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
+            RecordFieldSymbol recordFieldSymbol = entry.getValue();
+            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
+            if (fieldType.typeKind() == TypeDescKind.NEVER) {
+                continue;
+            }
+            String attributeName = entry.getKey();
+            String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
+            nodeBuilder.properties().custom(attributeName, attributeName, doc, Property.ValueType.EXPRESSION,
+                    recordFieldSymbol.typeDescriptor().getName().orElse(""), "",
+                    recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional());
         }
     }
 
