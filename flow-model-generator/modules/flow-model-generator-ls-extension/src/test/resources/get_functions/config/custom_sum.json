@@ -63,45 +63,6 @@
       "items": [
         {
           "metadata": {
-            "label": "task",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "resumeAllJobs",
-                "description": "Resumes all the jobs.\n```ballerina\ncheck task:resumeAllJobs();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "task",
-                "symbol": "resumeAllJobs",
-                "version": "2.5.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "resumeJob",
-                "description": "Resumes the particular job.\n```ballerina\ncheck task:resumeJob(jobId);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "task",
-                "symbol": "resumeJob",
-                "version": "2.5.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "lang.decimal",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
@@ -143,6 +104,45 @@
                 "module": "lang.int",
                 "symbol": "sum",
                 "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "task",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "resumeAllJobs",
+                "description": "Resumes all the jobs.\n```ballerina\ncheck task:resumeAllJobs();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "task",
+                "symbol": "resumeAllJobs",
+                "version": "2.5.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "resumeJob",
+                "description": "Resumes the particular job.\n```ballerina\ncheck task:resumeJob(jobId);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "task",
+                "symbol": "resumeJob",
+                "version": "2.5.0"
               },
               "enabled": true
             }
