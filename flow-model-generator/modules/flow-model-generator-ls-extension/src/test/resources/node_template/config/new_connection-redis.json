@@ -20,7 +20,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 8
+      "id": 13
     },
     "returning": false,
     "properties": {

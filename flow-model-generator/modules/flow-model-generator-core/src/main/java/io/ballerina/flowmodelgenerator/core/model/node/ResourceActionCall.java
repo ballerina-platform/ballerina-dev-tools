@@ -141,6 +141,9 @@ public class ResourceActionCall extends NodeBuilder {
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
         nodeBuilder.properties().resourcePath(function.resourcePath());
+        if (function.returnError() == 1) {
+            nodeBuilder.properties().checkError(true);
+        }
         return nodeBuilder.build();
     }
 }

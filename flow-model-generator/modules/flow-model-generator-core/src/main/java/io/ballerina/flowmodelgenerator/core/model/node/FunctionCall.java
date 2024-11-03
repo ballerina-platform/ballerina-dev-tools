@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -108,6 +109,12 @@ public class FunctionCall extends NodeBuilder {
                 properties().type(CommonUtils.getTypeSignature(semanticModel, returnType, true)).data(null);
             });
             properties().dataVariable(null);
+            TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+            int returnError = functionTypeSymbol.returnTypeDescriptor()
+                    .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+            if (returnError == 1) {
+                properties().checkError(true);
+            }
             return;
         }
 
@@ -141,6 +148,9 @@ public class FunctionCall extends NodeBuilder {
 
         if (TypeUtils.hasReturn(function.returnType())) {
             properties().type(function.returnType()).data(null);
+        }
+        if (function.returnError() == 1) {
+            properties().checkError(true);
         }
     }
 

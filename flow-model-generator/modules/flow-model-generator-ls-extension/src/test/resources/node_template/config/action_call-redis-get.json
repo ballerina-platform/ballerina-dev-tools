@@ -21,7 +21,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
-      "id": 23
+      "id": 28
     },
     "returning": false,
     "properties": {
@@ -70,6 +70,17 @@
         "valueTypeConstraint": "redis:Client",
         "value": "",
         "placeholder": "rc",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
         "optional": false,
         "editable": true,
         "advanced": false

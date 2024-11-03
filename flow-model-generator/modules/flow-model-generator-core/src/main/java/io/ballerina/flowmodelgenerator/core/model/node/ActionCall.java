@@ -132,6 +132,9 @@ public class ActionCall extends NodeBuilder {
         nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
+        if (function.returnError() == 1) {
+            nodeBuilder.properties().checkError(true);
+        }
         return nodeBuilder.build();
     }
 
