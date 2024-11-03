@@ -276,6 +276,17 @@
                     "editable": true,
                     "advanced": true
                   },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check function call error",
+                      "description": "Check function call error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
                   "type": {
                     "metadata": {
                       "label": "Variable Type",
@@ -781,6 +792,17 @@
                             "optional": true,
                             "editable": true,
                             "advanced": true
+                          },
+                          "checkError": {
+                            "metadata": {
+                              "label": "Check function call error",
+                              "description": "Check function call error"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
                           },
                           "type": {
                             "metadata": {

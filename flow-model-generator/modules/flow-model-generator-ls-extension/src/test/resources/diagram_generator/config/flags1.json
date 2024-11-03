@@ -81,6 +81,17 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -130,6 +141,17 @@
             },
             "optional": false,
             "editable": false,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
             "advanced": false
           }
         },
@@ -182,6 +204,17 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -206,6 +239,15 @@
             "editable": true,
             "advanced": false
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res1'"
+            }
+          ]
         },
         "flags": 1
       },
@@ -256,6 +298,17 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -280,6 +333,15 @@
             "editable": true,
             "advanced": false
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res2'"
+            }
+          ]
         },
         "flags": 2
       },
@@ -330,6 +392,17 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -354,6 +427,15 @@
             "editable": true,
             "advanced": false
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res3'"
+            }
+          ]
         },
         "flags": 5
       },
@@ -404,6 +486,17 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -428,6 +521,15 @@
             "editable": true,
             "advanced": false
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res4'"
+            }
+          ]
         },
         "flags": 6
       }

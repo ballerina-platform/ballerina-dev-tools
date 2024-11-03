@@ -132,6 +132,17 @@
             "editable": true,
             "advanced": true
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -237,6 +248,17 @@
             "optional": true,
             "editable": true,
             "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -342,6 +364,17 @@
               "description": "The query parameters"
             },
             "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
             "optional": false,
             "editable": true,
             "advanced": false
@@ -476,6 +509,17 @@
             "editable": true,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -605,6 +649,17 @@
             "editable": true,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -730,6 +785,17 @@
               "description": "The query parameters"
             },
             "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
             "optional": false,
             "editable": true,
             "advanced": false
@@ -864,6 +930,17 @@
             "editable": true,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -993,6 +1070,17 @@
             "editable": true,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -1118,6 +1206,17 @@
               "description": "The query parameters"
             },
             "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
             "optional": false,
             "editable": true,
             "advanced": false

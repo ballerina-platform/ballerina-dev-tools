@@ -270,6 +270,12 @@ class CodeAnalyzer extends NodeVisitor {
                     .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
+        methodSymbol.typeDescriptor().returnTypeDescriptor()
+                .ifPresent(typeSymbol -> {
+                    if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)) {
+                        nodeBuilder.properties().checkError(actionNode.parent().kind() == SyntaxKind.CHECK_ACTION);
+                    }
+                });
     }
 
     private void handleResourceActionNode(ClientResourceAccessActionNode actionNode, String methodName,
@@ -310,6 +316,12 @@ class CodeAnalyzer extends NodeVisitor {
                 .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
+        methodSymbol.typeDescriptor().returnTypeDescriptor()
+                .ifPresent(typeSymbol -> {
+                    if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)) {
+                        nodeBuilder.properties().checkError(actionNode.parent().kind() == SyntaxKind.CHECK_ACTION);
+                    }
+                });
     }
 
     @Override
@@ -610,6 +622,13 @@ class CodeAnalyzer extends NodeVisitor {
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, documentationMap, functionSymbol.external()));
+            functionSymbol.typeDescriptor().returnTypeDescriptor()
+                    .ifPresent(typeSymbol -> {
+                        if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)) {
+                            nodeBuilder.properties().checkError(functionCallExpressionNode
+                                    .parent().kind() == SyntaxKind.CHECK_EXPRESSION);
+                        }
+                    });
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
             String functionName = simpleNameReferenceNode.name().text();
@@ -638,6 +657,13 @@ class CodeAnalyzer extends NodeVisitor {
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))
                         .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
+                functionSymbol.typeDescriptor().returnTypeDescriptor()
+                        .ifPresent(typeSymbol -> {
+                            if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)) {
+                                nodeBuilder.properties().checkError(functionCallExpressionNode
+                                        .parent().kind() == SyntaxKind.CHECK_EXPRESSION);
+                            }
+                        });
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);
