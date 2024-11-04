@@ -63,30 +63,23 @@ public class ResourceActionCall extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.returning()) {
-            sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
-        }
-
         if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
                 flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL),
-                sourceBuilder.flowNode.codedata());
-
-        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
         return sourceBuilder.token()
-                .name(connection.get().value().toString())
+                .name(connection.get().toSourceCode())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .resourcePath(sourceBuilder.flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString())
                 .keyword(SyntaxKind.DOT_TOKEN)
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
-                .functionParameters(nodeTemplate,
+                .functionParameters(flowNode,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
                                 Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                                 Property.CHECK_ERROR_KEY))

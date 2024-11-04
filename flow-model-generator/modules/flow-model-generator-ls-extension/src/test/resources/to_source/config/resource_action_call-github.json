@@ -116,7 +116,7 @@
             "character": 0
           }
         },
-        "newText": "github:ManifestConversions|error item = check ->/app\\-manifests/[string]/conversions.post();"
+        "newText": "github:ManifestConversions|error item = check githubClient->/app\\-manifests/[string]/conversions.post();"
       }
     ]
   }
