@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 28,
+    "line": 26,
     "offset": 0
   },
   "end": {
-    "line": 31,
+    "line": 29,
     "offset": 1
   },
   "source": "http_post_node.bal",
@@ -13,7 +13,7 @@
     "fileName": "http_post_node.bal",
     "nodes": [
       {
-        "id": "60703",
+        "id": "58719",
         "metadata": {
           "label": "Start"
         },
@@ -22,11 +22,11 @@
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
-              "line": 28,
+              "line": 26,
               "offset": 35
             },
             "endLine": {
-              "line": 31,
+              "line": 29,
               "offset": 5
             }
           },
@@ -39,14 +39,14 @@
         "flags": 0
       },
       {
-        "id": "60821",
+        "id": "58837",
         "metadata": {
           "label": "post",
           "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
@@ -55,11 +55,11 @@
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
-              "line": 29,
+              "line": 27,
               "offset": 8
             },
             "endLine": {
-              "line": 29,
+              "line": 27,
               "offset": 61
             }
           },
@@ -157,7 +157,7 @@
         "flags": 0
       },
       {
-        "id": "61821",
+        "id": "59837",
         "metadata": {
           "label": "post",
           "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
@@ -173,11 +173,11 @@
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
-              "line": 30,
+              "line": 28,
               "offset": 8
             },
             "endLine": {
-              "line": 30,
+              "line": 28,
               "offset": 69
             }
           },

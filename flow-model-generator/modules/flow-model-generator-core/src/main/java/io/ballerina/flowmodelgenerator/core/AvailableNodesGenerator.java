@@ -241,7 +241,7 @@ public class AvailableNodesGenerator {
 
     private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,
                                              String parentSymbol) {
-        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
+        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
         actionBuilder
                 .metadata()
                     .label(connectorAction.name())
@@ -249,7 +249,7 @@ public class AvailableNodesGenerator {
                     .description(connectorAction.description())
                     .stepOut()
                 .codedata()
-                    .node(NodeKind.ACTION_CALL)
+                    .node(NodeKind.REMOTE_ACTION_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
                     .object(NewConnection.CLIENT_SYMBOL)
@@ -270,7 +270,7 @@ public class AvailableNodesGenerator {
                     .functionKind(Function.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
-                    .node(NodeKind.ACTION_CALL)
+                    .node(NodeKind.REMOTE_ACTION_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
                     .object(NewConnection.CLIENT_SYMBOL)

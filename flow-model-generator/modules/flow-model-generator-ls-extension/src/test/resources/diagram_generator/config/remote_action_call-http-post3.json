@@ -1,69 +1,127 @@
 {
   "start": {
-    "line": 35,
+    "line": 37,
     "offset": 0
   },
   "end": {
-    "line": 37,
+    "line": 40,
     "offset": 1
   },
-  "source": "http_get_node.bal",
+  "source": "http_post_node.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "http_get_node.bal",
+    "fileName": "http_post_node.bal",
     "nodes": [
       {
-        "id": "68577",
+        "id": "70685",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "http_get_node.bal",
+            "fileName": "http_post_node.bal",
             "startLine": {
-              "line": 35,
-              "offset": 66
+              "line": 37,
+              "offset": 69
             },
             "endLine": {
-              "line": 37,
+              "line": 40,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get bananas() returns json|http:ClientError {\n        return foodClient->get(\"/bananas\");\n    }"
+          "sourceCode": "resource function post milkshake() returns json|http:ClientError {\n        http:Client drinkClient = check new (\"/drink\");\n        return drinkClient->post(\"/milkshake\", \"mixed fruit\");\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
+        "flags": 0
+      },
+      {
+        "id": "69743",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 38,
+              "offset": 55
+            }
+          },
+          "sourceCode": "http:Client drinkClient = check new (\"/drink\");"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "check new (\"/drink\")",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "drinkClient",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
         },
         "flags": 0
       },
       {
-        "id": "67747",
+        "id": "70742",
         "metadata": {
-          "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "get",
+          "symbol": "post",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_get_node.bal",
+            "fileName": "http_post_node.bal",
             "startLine": {
-              "line": 36,
+              "line": 39,
               "offset": 8
             },
             "endLine": {
-              "line": 36,
-              "offset": 43
+              "line": 39,
+              "offset": 62
             }
           },
-          "sourceCode": "return foodClient->get(\"/bananas\");"
+          "sourceCode": "return drinkClient->post(\"/milkshake\", \"mixed fruit\");"
         },
         "returning": true,
         "properties": {
@@ -73,7 +131,7 @@
               "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "foodClient",
+            "value": "drinkClient",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -81,10 +139,21 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path"
+              "description": "Resource path"
             },
             "valueType": "EXPRESSION",
-            "value": "\"/bananas\"",
+            "value": "\"/milkshake\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "message": {
+            "metadata": {
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"mixed fruit\"",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -93,6 +162,16 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true,
+            "advanced": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -119,7 +198,7 @@
           "symbol": "init",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_get_node.bal",
+            "fileName": "http_post_node.bal",
             "startLine": {
               "line": 2,
               "offset": 0

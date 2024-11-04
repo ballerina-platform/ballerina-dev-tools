@@ -85,7 +85,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -146,7 +146,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -207,7 +207,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -292,7 +292,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -377,7 +377,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -462,7 +462,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,

@@ -100,7 +100,7 @@
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL",
+                  "node": "REMOTE_ACTION_CALL",
                   "org": "ballerina",
                   "module": "http",
                   "object": "Client",
@@ -168,7 +168,7 @@
                   "checkError": {
                     "metadata": {
                       "label": "Check Flag",
-                      "description": "Whether to check the expression error"
+                      "description": "Whether to return the error"
                     },
                     "valueType": "FLAG",
                     "value": true,
@@ -258,7 +258,7 @@
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL",
+                  "node": "REMOTE_ACTION_CALL",
                   "org": "ballerina",
                   "module": "http",
                   "object": "Client",
@@ -326,7 +326,7 @@
                   "checkError": {
                     "metadata": {
                       "label": "Check Flag",
-                      "description": "Whether to check the expression error"
+                      "description": "Whether to return the error"
                     },
                     "valueType": "FLAG",
                     "value": true,

@@ -104,7 +104,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",

@@ -256,7 +256,7 @@ class CodeAnalyzer extends NodeVisitor {
         String description = documentation.flatMap(Documentation::description).orElse("");
         Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
-        startNode(NodeKind.ACTION_CALL, expressionNode)
+        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode)
                 .symbolInfo(methodSymbol)
                 .metadata()
                     .label(methodName)

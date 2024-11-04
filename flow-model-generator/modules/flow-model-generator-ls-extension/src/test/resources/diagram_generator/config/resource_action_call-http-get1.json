@@ -4,33 +4,33 @@
     "offset": 0
   },
   "end": {
-    "line": 26,
+    "line": 25,
     "offset": 1
   },
-  "source": "http_post_node.bal",
+  "source": "http_get_node.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "http_post_node.bal",
+    "fileName": "http_get_node.bal",
     "nodes": [
       {
-        "id": "46970",
+        "id": "46908",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
               "line": 13,
-              "offset": 62
+              "offset": 61
             },
             "endLine": {
-              "line": 26,
+              "line": 25,
               "offset": 5
             }
           },
-          "sourceCode": "resource function post apples() returns http:ClientError? {\n        var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);\n        _ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");\n        json res2 = check foodClient->/western/apples.post(\"western red apple\");\n        json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");\n        json res4 = check foodClient->/.post(\"green apple\");\n        var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);\n        json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.post(\"red apple\");\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");\n    }"
+          "sourceCode": "resource function get apples() returns http:ClientError? {\n        json res1 = check foodClient->/western/apples.get();\n        json res2 = check foodClient->/apples.get();\n        json res3 = check foodClient->/.get();\n        var res4 = check foodClient->/apples.get(targetType = json);\n        json res5 = check foodClient->/apples.get();\n        json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res7 = check foodClient->/apples.get();\n        json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();\n    }"
         },
         "returning": false,
         "diagnostics": {
@@ -39,235 +39,10 @@
         "flags": 0
       },
       {
-        "id": "45965",
+        "id": "45940",
         "metadata": {
-          "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-        },
-        "codedata": {
-          "node": "ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "post",
-          "version": "2.12.2",
-          "lineRange": {
-            "fileName": "http_post_node.bal",
-            "startLine": {
-              "line": 14,
-              "offset": 8
-            },
-            "endLine": {
-              "line": 14,
-              "offset": 85
-            }
-          },
-          "sourceCode": "var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);"
-        },
-        "returning": false,
-        "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "foodClient",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "res1",
-            "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Resource path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"/apples\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"red apple\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Flag",
-              "description": "Whether to check the expression error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "type": {
-            "metadata": {
-              "label": "Variable Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "json",
-            "placeholder": "var",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res1'"
-            }
-          ]
-        },
-        "flags": 1
-      },
-      {
-        "id": "46962",
-        "metadata": {
-          "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-        },
-        "codedata": {
-          "node": "ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "post",
-          "version": "2.12.2",
-          "lineRange": {
-            "fileName": "http_post_node.bal",
-            "startLine": {
-              "line": 15,
-              "offset": 8
-            },
-            "endLine": {
-              "line": 15,
-              "offset": 90
-            }
-          },
-          "sourceCode": "_ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");"
-        },
-        "returning": false,
-        "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "foodClient",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Resource path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"/apples\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"green apple\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Flag",
-              "description": "Whether to check the expression error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "flags": 1
-      },
-      {
-        "id": "47944",
-        "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -275,20 +50,20 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 16,
+              "line": 14,
               "offset": 8
             },
             "endLine": {
-              "line": 16,
-              "offset": 80
+              "line": 14,
+              "offset": 60
             }
           },
-          "sourceCode": "json res2 = check foodClient->/western/apples.post(\"western red apple\");",
+          "sourceCode": "json res1 = check foodClient->/western/apples.get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -321,19 +96,8 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res2",
+            "value": "res1",
             "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"western red apple\"",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -342,16 +106,6 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -371,7 +125,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -397,17 +151,17 @@
           "diagnostics": [
             {
               "severity": "WARNING",
-              "message": "unused variable 'res2'"
+              "message": "unused variable 'res1'"
             }
           ]
         },
         "flags": 1
       },
       {
-        "id": "48962",
+        "id": "46924",
         "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -415,20 +169,20 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 17,
+              "line": 15,
               "offset": 8
             },
             "endLine": {
-              "line": 17,
-              "offset": 106
+              "line": 15,
+              "offset": 52
             }
           },
-          "sourceCode": "json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");",
+          "sourceCode": "json res2 = check foodClient->/apples.get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -461,19 +215,8 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res3",
+            "value": "res2",
             "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "{\"type\": \"red apple\"}",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -484,17 +227,6 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"application/json\"",
             "optional": true,
             "editable": true,
             "advanced": true
@@ -512,7 +244,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -538,17 +270,17 @@
           "diagnostics": [
             {
               "severity": "WARNING",
-              "message": "unused variable 'res3'"
+              "message": "unused variable 'res2'"
             }
           ]
         },
         "flags": 1
       },
       {
-        "id": "49908",
+        "id": "47910",
         "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -556,20 +288,20 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 18,
+              "line": 16,
               "offset": 8
             },
             "endLine": {
-              "line": 18,
-              "offset": 60
+              "line": 16,
+              "offset": 46
             }
           },
-          "sourceCode": "json res4 = check foodClient->/.post(\"green apple\");",
+          "sourceCode": "json res3 = check foodClient->/.get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -602,19 +334,8 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res4",
+            "value": "res3",
             "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"green apple\"",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -623,16 +344,6 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -652,7 +363,126 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res3'"
+            }
+          ]
+        },
+        "flags": 1
+      },
+      {
+        "id": "48924",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 68
+            }
+          },
+          "sourceCode": "var res4 = check foodClient->/apples.get(targetType = json);",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res4",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true,
+            "advanced": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Flag",
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -685,10 +515,10 @@
         "flags": 1
       },
       {
-        "id": "50924",
+        "id": "49900",
         "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -696,20 +526,20 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 19,
+              "line": 18,
               "offset": 8
             },
             "endLine": {
-              "line": 19,
-              "offset": 84
+              "line": 18,
+              "offset": 52
             }
           },
-          "sourceCode": "var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);",
+          "sourceCode": "json res5 = check foodClient->/apples.get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -748,31 +578,10 @@
             "editable": true,
             "advanced": false
           },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"green apple\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "headers": {
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -792,7 +601,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -825,10 +634,10 @@
         "flags": 1
       },
       {
-        "id": "51936",
+        "id": "50944",
         "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -836,20 +645,140 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 20,
+              "line": 19,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 11
+            }
+          },
+          "sourceCode": "json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "resourcePath": "[boolean|int|float|decimal|string...]"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res6",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "optional": true,
+            "editable": true,
+            "advanced": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Flag",
+              "description": "Whether to return the error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res6'"
+            }
+          ]
+        },
+        "flags": 1
+      },
+      {
+        "id": "54860",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 23,
               "offset": 8
             },
             "endLine": {
               "line": 23,
-              "offset": 11
+              "offset": 52
             }
           },
-          "sourceCode": "json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "sourceCode": "Food res7 = check foodClient->/apples.get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -888,32 +817,10 @@
             "editable": true,
             "advanced": false
           },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"red apple\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "headers": {
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -933,147 +840,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "type": {
-            "metadata": {
-              "label": "Variable Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "json",
-            "placeholder": "var",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res7'"
-            }
-          ]
-        },
-        "flags": 1
-      },
-      {
-        "id": "55864",
-        "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-        },
-        "codedata": {
-          "node": "RESOURCE_ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "post",
-          "version": "2.12.2",
-          "lineRange": {
-            "fileName": "http_post_node.bal",
-            "startLine": {
-              "line": 24,
-              "offset": 8
-            },
-            "endLine": {
-              "line": 24,
-              "offset": 64
-            }
-          },
-          "sourceCode": "Food res8 = check foodClient->/apples.post(\"red apple\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
-        },
-        "returning": false,
-        "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "foodClient",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "res8",
-            "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"red apple\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "params": {
-            "metadata": {
-              "label": "params",
-              "description": "The query parameters"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -1099,17 +866,17 @@
           "diagnostics": [
             {
               "severity": "WARNING",
-              "message": "unused variable 'res8'"
+              "message": "unused variable 'res7'"
             }
           ]
         },
         "flags": 1
       },
       {
-        "id": "56876",
+        "id": "55870",
         "metadata": {
-          "label": "post",
-          "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
@@ -1117,20 +884,20 @@
           "org": "ballerina",
           "module": "http",
           "object": "Client",
-          "symbol": "post",
+          "symbol": "get",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 25,
+              "line": 24,
               "offset": 8
             },
             "endLine": {
-              "line": 25,
-              "offset": 84
+              "line": 24,
+              "offset": 70
             }
           },
-          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");",
+          "sourceCode": "json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();",
           "resourcePath": "[boolean|int|float|decimal|string...]"
         },
         "returning": false,
@@ -1163,19 +930,8 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res9",
+            "value": "res8",
             "placeholder": "item",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"green apple\"",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -1184,16 +940,6 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -1213,7 +959,7 @@
           "checkError": {
             "metadata": {
               "label": "Check Flag",
-              "description": "Whether to check the expression error"
+              "description": "Whether to return the error"
             },
             "valueType": "FLAG",
             "value": true,
@@ -1239,7 +985,7 @@
           "diagnostics": [
             {
               "severity": "WARNING",
-              "message": "unused variable 'res9'"
+              "message": "unused variable 'res8'"
             }
           ]
         },
@@ -1262,7 +1008,7 @@
           "symbol": "init",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "http_post_node.bal",
+            "fileName": "http_get_node.bal",
             "startLine": {
               "line": 2,
               "offset": 0
