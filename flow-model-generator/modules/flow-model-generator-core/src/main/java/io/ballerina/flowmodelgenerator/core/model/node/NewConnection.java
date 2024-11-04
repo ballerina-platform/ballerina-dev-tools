@@ -120,6 +120,7 @@ public class NewConnection extends NodeBuilder {
             nodeBuilder.properties().type(function.returnType()).data(null);
         }
         nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
+        nodeBuilder.properties().checkError(true);
         return nodeBuilder.build();
     }
 }
