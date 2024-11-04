@@ -1,0 +1,153 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "46924",
+    "metadata": {
+      "label": "get",
+      "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_get_node.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 52
+        }
+      },
+      "sourceCode": "json res2 = check foodClient->/apples.get();",
+      "resourcePath": "[boolean|int|float|decimal|string...]"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/apples",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "res2",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "params": {
+        "metadata": {
+          "label": "params",
+          "description": "The query parameters"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'res2'"
+        }
+      ]
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 15,
+            "character": 8
+          },
+          "end": {
+            "line": 15,
+            "character": 52
+          }
+        },
+        "newText": "json res2 = check foodClient->/apples.get();"
+      }
+    ]
+  }
+}

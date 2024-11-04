@@ -12,18 +12,16 @@ string varRef = "text";
 
 service /market on new http:Listener(9090) {
     resource function post apples() returns http:ClientError? {
-        var res1 = check foodClient->post("/apples", "red apple", targetType = json);
-        _ = check foodClient->post("/apples", targetType = json, message = "green apple");
-        json res2 = check foodClient->/western/apples.post("western red apple");
-        json res3 = check foodClient->/apples.post({"type": "red apple"}, mediaType = "application/json");
-        json res4 = check foodClient->/.post("green apple");
-        var res5 = check foodClient->/apples.post("green apple", targetType = json);
-        json res7 = check foodClient->/apples.post("red apple", headers = {
+        json res1 = check foodClient->/western/apples.post("western red apple");
+        json res2 = check foodClient->/apples.post({"type": "red apple"}, mediaType = "application/json");
+        json res3 = check foodClient->/.post("green apple");
+        var res4 = check foodClient->/apples.post("green apple", targetType = json);
+        json res5 = check foodClient->/apples.post("red apple", headers = {
             "first-header": "first",
             "second-header": "second"
         });
-        Food res8 = check foodClient->/apples.post("red apple");
-        json res9 = check foodClient->/apples/[varRef]/[12 + 3].post("green apple");
+        Food res6 = check foodClient->/apples.post("red apple");
+        json res7 = check foodClient->/apples/[varRef]/[12 + 3].post("green apple");
     }
 
     resource function post pears() {
@@ -32,6 +30,8 @@ service /market on new http:Listener(9090) {
     }
 
     resource function post bananas() returns json|http:ClientError {
+        var res1 = check foodClient->post("/bananas", "red banana", targetType = json);
+        _ = check foodClient->post("/bananas", targetType = json, message = "green banana");
         return foodClient->post("/bananas", "banana");
     }
 

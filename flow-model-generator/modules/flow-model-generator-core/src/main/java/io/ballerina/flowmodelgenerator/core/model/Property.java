@@ -95,9 +95,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String DATA_TYPE_KEY = "type";
     public static final String DATA_TYPE_DOC = "Type of the variable";
 
-    public static final String CHECK_ERROR_LABEL = "Check function call error";
+    public static final String CHECK_ERROR_LABEL = "Check Flag";
     public static final String CHECK_ERROR_KEY = "checkError";
-    public static final String CHECK_ERROR_DOC = "Check function call error";
+    public static final String CHECK_ERROR_DOC = "Whether to return the error";
 
     public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_KEY = "scope";
@@ -153,7 +153,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         MULTIPLE_SELECT,
         VIEW,
         INCLUSION,
-        UNION
+        UNION,
+        FLAG
     }
 
     public static ValueType valueTypeFrom(String s) {

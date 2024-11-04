@@ -48,7 +48,8 @@
             "valueType": "EXPRESSION",
             "value": "false",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorVariable": {
             "metadata": {
@@ -56,9 +57,11 @@
               "description": "Name of the error variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "err",
+            "value": "",
+            "placeholder": "err",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorType": {
             "metadata": {
@@ -66,9 +69,11 @@
               "description": "Type of the error"
             },
             "valueType": "TYPE",
-            "value": "error",
+            "value": "",
+            "placeholder": "error",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "children": []
