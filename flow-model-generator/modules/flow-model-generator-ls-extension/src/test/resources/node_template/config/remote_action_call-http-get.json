@@ -50,7 +50,7 @@
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true
       },
       "type": {
         "metadata": {
