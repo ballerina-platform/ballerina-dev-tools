@@ -33,9 +33,6 @@
           "sourceCode": "public function commentOnStatementBody() {\n    if true {\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -191,15 +188,6 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'i'"
-                    }
-                  ]
-                },
                 "flags": 0
               },
               {
@@ -261,15 +249,6 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'x'"
-                    }
-                  ]
-                },
                 "flags": 0
               },
               {
@@ -312,9 +291,6 @@
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       }
     ],

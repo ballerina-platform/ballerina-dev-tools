@@ -33,9 +33,6 @@
           "sourceCode": "public function commentInLockBody1() {\n    lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -177,15 +174,6 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'i'"
-                    }
-                  ]
-                },
                 "flags": 0
               },
               {
@@ -228,9 +216,6 @@
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       }
     ],

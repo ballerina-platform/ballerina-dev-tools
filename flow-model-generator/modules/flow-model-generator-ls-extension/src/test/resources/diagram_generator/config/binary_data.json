@@ -71,15 +71,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'b1'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -140,15 +131,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'b2'"
-            }
-          ]
         },
         "flags": 0
       },
@@ -211,15 +193,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'b3'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -281,15 +254,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'b4'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -350,15 +314,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'b5'"
-            }
-          ]
         },
         "flags": 0
       }

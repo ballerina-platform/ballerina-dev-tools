@@ -33,9 +33,6 @@
           "sourceCode": "public function emptyComment() {\n    //\n    int i = 0;\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -133,15 +130,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'i'"
-            }
-          ]
         },
         "flags": 0
       }

@@ -33,9 +33,6 @@
           "sourceCode": "function testNewDataJson1() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -96,15 +93,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'j1'"
-            }
-          ]
         },
         "flags": 0
       }

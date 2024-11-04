@@ -33,9 +33,6 @@
           "sourceCode": "resource function get bananas(int price) returns string {\n        if price > 10 {\n            if price > 100 {\n                int c = 12;\n                return \"expensive\";\n            } else {\n                int b = 2;\n                return \"moderate\";\n            }\n        }\n        return \"cheap\";\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -211,15 +208,6 @@
                             "advanced": false
                           }
                         },
-                        "diagnostics": {
-                          "hasDiagnostics": true,
-                          "diagnostics": [
-                            {
-                              "severity": "WARNING",
-                              "message": "unused variable 'c'"
-                            }
-                          ]
-                        },
                         "flags": 0
                       },
                       {
@@ -340,15 +328,6 @@
                             "advanced": false
                           }
                         },
-                        "diagnostics": {
-                          "hasDiagnostics": true,
-                          "diagnostics": [
-                            {
-                              "severity": "WARNING",
-                              "message": "unused variable 'b'"
-                            }
-                          ]
-                        },
                         "flags": 0
                       },
                       {
@@ -391,17 +370,11 @@
                     ]
                   }
                 ],
-                "diagnostics": {
-                  "hasDiagnostics": true
-                },
                 "flags": 0
               }
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {

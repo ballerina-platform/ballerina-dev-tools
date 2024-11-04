@@ -33,9 +33,6 @@
           "sourceCode": "function testNewDataXml() {\n    string content = \"create xml\";\n    xml x1 = xml `<p>${content}</p>`;\n    xml x2 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -158,15 +155,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x1'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -227,15 +215,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x2'"
-            }
-          ]
         },
         "flags": 0
       }

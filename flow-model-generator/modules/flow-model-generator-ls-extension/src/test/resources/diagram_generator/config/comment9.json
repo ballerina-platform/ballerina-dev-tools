@@ -33,9 +33,6 @@
           "sourceCode": "public function commentInTransactionBody1() returns error? {\n    transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -166,15 +163,6 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'res'"
-                    }
-                  ]
-                },
                 "flags": 1
               },
               {
@@ -217,9 +205,6 @@
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       }
     ],

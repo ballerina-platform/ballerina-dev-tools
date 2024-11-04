@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.model.Diagnostics;
 import io.ballerina.tools.diagnostics.Diagnostic;
+import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
@@ -39,7 +40,9 @@ public class DiagnosticHandler {
     private boolean hasNodeAnnotated;
 
     public DiagnosticHandler(SemanticModel semanticModel) {
-        iterator = semanticModel.diagnostics().iterator();
+        // TODO: Consider all the diagnostics once fixed: #256
+        iterator = semanticModel.diagnostics().parallelStream()
+                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR).iterator();
         hasNodeAnnotated = false;
         if (iterator.hasNext()) {
             currentDiagnostic = iterator.next();

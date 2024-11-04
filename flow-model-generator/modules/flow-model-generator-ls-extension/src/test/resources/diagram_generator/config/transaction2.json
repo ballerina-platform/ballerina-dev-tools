@@ -33,9 +33,6 @@
           "sourceCode": "function testTransaction2(int i) returns int|error {\n    int x = i;\n\n    transaction {\n        var res = check commit;\n    }\n\n    transaction {\n        var res = check commit;\n    }\n    return x;\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -190,23 +187,11 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'res'"
-                    }
-                  ]
-                },
                 "flags": 1
               }
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -300,23 +285,11 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'res'"
-                    }
-                  ]
-                },
                 "flags": 1
               }
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {

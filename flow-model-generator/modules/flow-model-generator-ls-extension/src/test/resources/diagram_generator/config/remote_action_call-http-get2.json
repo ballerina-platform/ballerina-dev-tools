@@ -33,9 +33,6 @@
           "sourceCode": "resource function get bananas() returns json|http:ClientError {\n        var res1 = check foodClient->get(\"/bananas\", targetType = json);\n        _ = check foodClient->get(\"/bananas\", targetType = json);\n        _ = check foodClient->get(\"/bananas\", targetType = json, headers = ());\n        return foodClient->get(\"/bananas\");\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -134,15 +131,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res1'"
-            }
-          ]
         },
         "flags": 1
       },
