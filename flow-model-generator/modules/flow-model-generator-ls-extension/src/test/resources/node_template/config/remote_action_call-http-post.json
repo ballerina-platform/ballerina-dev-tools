@@ -62,7 +62,7 @@
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true
       },
       "mediaType": {
         "metadata": {
@@ -75,7 +75,7 @@
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true
       },
       "type": {
         "metadata": {

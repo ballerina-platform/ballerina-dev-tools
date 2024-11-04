@@ -133,7 +133,7 @@ public class ActionCall extends NodeBuilder {
             } else {
                 boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
                 nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional);
+                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
             }
         }
 
