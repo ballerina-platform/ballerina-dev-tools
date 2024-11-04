@@ -1,5 +1,5 @@
 {
-  "source": "user_functions.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "99361",
@@ -34,7 +34,8 @@
         "valueType": "EXPRESSION",
         "value": "\"Alice\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "view": {
         "metadata": {
@@ -54,7 +55,8 @@
           }
         },
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -63,8 +65,10 @@
         },
         "valueType": "IDENTIFIER",
         "value": "greeting",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -73,14 +77,16 @@
         },
         "valueType": "TYPE",
         "value": "string",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
   },
   "output": {
-    "user_functions.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

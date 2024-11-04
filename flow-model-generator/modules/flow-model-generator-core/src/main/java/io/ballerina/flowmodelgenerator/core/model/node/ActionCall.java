@@ -57,7 +57,7 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.ACTION_CALL);
+        codedata().node(NodeKind.REMOTE_ACTION_CALL);
     }
 
     @Override

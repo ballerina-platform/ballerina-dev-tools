@@ -124,7 +124,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.BREAK, Break::new);
         put(NodeKind.PANIC, Panic::new);
         put(NodeKind.EVENT_START, EventStart::new);
-        put(NodeKind.ACTION_CALL, ActionCall::new);
+        put(NodeKind.REMOTE_ACTION_CALL, ActionCall::new);
         put(NodeKind.RESOURCE_ACTION_CALL, ResourceActionCall::new);
         put(NodeKind.NEW_CONNECTION, NewConnection::new);
         put(NodeKind.START, Start::new);
@@ -498,11 +498,11 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         public PropertiesBuilder<T> checkError(boolean checkError) {
             propertyBuilder
                     .metadata()
-                    .label(Property.CHECK_ERROR_LABEL)
-                    .description(Property.CHECK_ERROR_DOC)
-                    .stepOut()
+                        .label(Property.CHECK_ERROR_LABEL)
+                        .description(Property.CHECK_ERROR_DOC)
+                        .stepOut()
                     .value(checkError)
-                    .type(Property.ValueType.EXPRESSION)
+                    .type(Property.ValueType.FLAG)
                     .editable();
             addProperty(Property.CHECK_ERROR_KEY);
             return this;

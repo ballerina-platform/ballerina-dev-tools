@@ -1,0 +1,327 @@
+{
+  "start": {
+    "line": 27,
+    "offset": 0
+  },
+  "end": {
+    "line": 30,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "59680",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 34
+            },
+            "endLine": {
+              "line": 30,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get pears() {\n        json|error res1 = foodClient->get(\"/pears\");\n        json|http:ClientError res2 = foodClient->get(\"/pears\");\n    }"
+        },
+        "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      },
+      {
+        "id": "59820",
+        "metadata": {
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "REMOTE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 28,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 52
+            }
+          },
+          "sourceCode": "json|error res1 = foodClient->get(\"/pears\");"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res1",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "path": {
+            "metadata": {
+              "label": "path",
+              "description": "Request path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/pears\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res1'"
+            }
+          ]
+        },
+        "flags": 0
+      },
+      {
+        "id": "60823",
+        "metadata": {
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "REMOTE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 29,
+              "offset": 63
+            }
+          },
+          "sourceCode": "json|http:ClientError res2 = foodClient->get(\"/pears\");"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res2",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "path": {
+            "metadata": {
+              "label": "path",
+              "description": "Request path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/pears\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res2'"
+            }
+          ]
+        },
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "placeholder": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

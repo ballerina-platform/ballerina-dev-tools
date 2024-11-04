@@ -225,7 +225,7 @@ public class FunctionCall extends NodeBuilder {
         return sourceBuilder.token()
                 .name(methodCall)
                 .stepOut()
-                .functionParameters(flowNode, Set.of("variable", "type", "view"))
+                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
                 .textEdit(false)
                 .acceptImport()
                 .build();

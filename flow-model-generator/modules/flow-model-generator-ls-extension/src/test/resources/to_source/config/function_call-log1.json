@@ -2,26 +2,27 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "42944",
+    "id": "43936",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
+      "object": "log",
       "symbol": "printInfo",
-      "version": "1.6.0",
+      "version": "2.10.0",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 11,
+          "line": 12,
           "offset": 8
         },
         "endLine": {
-          "line": 11,
+          "line": 12,
           "offset": 40
         }
       },
@@ -32,17 +33,25 @@
       "msg": {
         "metadata": {
           "label": "msg",
-          "description": "The message to be logged\n"
+          "description": "The message to be logged"
         },
         "valueType": "EXPRESSION",
         "value": "\"Getting apples\"",
         "optional": false,
         "editable": true
       },
+      "error": {
+        "metadata": {
+          "label": "error"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
+          "description": "The error stack trace to be logged"
         },
         "valueType": "EXPRESSION",
         "optional": true,
@@ -51,7 +60,7 @@
       "keyValues": {
         "metadata": {
           "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
+          "description": "The key-value pairs to be logged"
         },
         "valueType": "EXPRESSION",
         "optional": false,
@@ -78,11 +87,11 @@
       {
         "range": {
           "start": {
-            "line": 11,
+            "line": 12,
             "character": 8
           },
           "end": {
-            "line": 11,
+            "line": 12,
             "character": 40
           }
         },

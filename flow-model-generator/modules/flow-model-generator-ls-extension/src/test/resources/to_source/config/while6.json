@@ -48,15 +48,16 @@
             "id": "107575",
             "metadata": {
               "label": "get",
-              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
             },
             "codedata": {
-              "node": "ACTION_CALL",
+              "node": "REMOTE_ACTION_CALL",
               "org": "ballerina",
               "module": "http",
               "object": "Client",
               "symbol": "get",
+              "version": "2.12.2",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -80,46 +81,53 @@
                 "valueType": "EXPRESSION",
                 "value": "foodClient",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "variable": {
                 "metadata": {
-                  "label": "Data variable",
+                  "label": "Variable Name",
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "response",
+                "placeholder": "item",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "path": {
                 "metadata": {
                   "label": "path",
-                  "description": "Request path\n"
+                  "description": "Request path"
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/food/bananas\"",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "headers": {
                 "metadata": {
                   "label": "headers",
-                  "description": "The entity headers\n"
+                  "description": "The entity headers"
                 },
                 "valueType": "EXPRESSION",
                 "optional": true,
-                "editable": true
+                "editable": true,
+                "advanced": true
               },
               "type": {
                 "metadata": {
-                  "label": "Data type",
+                  "label": "Variable Type",
                   "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
                 "value": "json",
+                "placeholder": "var",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "flags": 0
@@ -174,8 +182,10 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "(response is json) ",
+                    "placeholder": "true",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "children": [
@@ -210,17 +220,19 @@
                         "valueType": "EXPRESSION",
                         "value": "\"Response received from food service: \" + response.toString()",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
+                          "label": "Name",
                           "description": "Result Variable"
                         },
                         "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "flags": 0
@@ -278,17 +290,19 @@
                         "valueType": "EXPRESSION",
                         "value": "\"Error occurred while invoking food service: \" + response.message()",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
+                          "label": "Name",
                           "description": "Result Variable"
                         },
                         "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "flags": 0
@@ -353,7 +367,8 @@
                 "valueType": "EXPRESSION",
                 "value": "i += 1;",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "flags": 0
@@ -369,8 +384,10 @@
         },
         "valueType": "EXPRESSION",
         "value": "i < count ",
+        "placeholder": "true",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

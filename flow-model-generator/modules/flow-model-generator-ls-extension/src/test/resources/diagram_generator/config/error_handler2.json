@@ -150,7 +150,7 @@
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL",
+                  "node": "REMOTE_ACTION_CALL",
                   "org": "ballerina",
                   "module": "http",
                   "object": "Client",
@@ -217,10 +217,10 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check function call error",
-                      "description": "Check function call error"
+                      "label": "Check Flag",
+                      "description": "Whether to return the error"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "FLAG",
                     "value": true,
                     "optional": false,
                     "editable": true,
@@ -410,7 +410,7 @@
                           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                         },
                         "codedata": {
-                          "node": "ACTION_CALL",
+                          "node": "REMOTE_ACTION_CALL",
                           "org": "ballerina",
                           "module": "http",
                           "object": "Client",
@@ -498,10 +498,10 @@
                           },
                           "checkError": {
                             "metadata": {
-                              "label": "Check function call error",
-                              "description": "Check function call error"
+                              "label": "Check Flag",
+                              "description": "Whether to return the error"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "FLAG",
                             "value": true,
                             "optional": false,
                             "editable": true,
