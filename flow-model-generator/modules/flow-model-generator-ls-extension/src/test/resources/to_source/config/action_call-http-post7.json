@@ -1,7 +1,6 @@
 {
   "source": "empty.bal",
   "description": "Sample diagram node",
-  "output": {},
   "diagram": {
     "id": "51936",
     "metadata": {
@@ -121,5 +120,35 @@
       ]
     },
     "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 8
+          },
+          "end": {
+            "line": 23,
+            "character": 11
+          }
+        },
+        "newText": "json res7 = foodClient->/apples.post(\"red apple\", {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+      }
+    ]
   }
 }

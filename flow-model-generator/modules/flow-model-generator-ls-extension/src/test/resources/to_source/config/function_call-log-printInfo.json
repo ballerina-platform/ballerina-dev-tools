@@ -2,17 +2,17 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
+    "id": "31",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "1.6.0",
+      "version": "2.10.0",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -30,65 +30,44 @@
       "msg": {
         "metadata": {
           "label": "msg",
-          "description": "The message to be logged\n"
+          "description": "The message to be logged"
         },
-        "valueType": "Expression",
-        "value": "\"\"",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "'error": {
         "metadata": {
           "label": "'error",
-          "description": "The error struct to be logged\n"
+          "description": "The error struct to be logged"
         },
-        "valueType": "Expression",
-        "value": "()",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "error|()",
+        "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
+          "description": "The error stack trace to be logged"
         },
-        "valueType": "Expression",
-        "value": "()",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+        "value": "",
+        "placeholder": "",
         "optional": true,
-        "editable": true
-      },
-      "keyValues": {
-        "metadata": {
-          "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
-        },
-        "valueType": "Expression",
-        "value": "{}",
-        "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
-        },
-        "valueType": "Identifier",
-        "value": "value",
-        "optional": false,
-        "editable": false
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "Type",
-        "value": "string",
-        "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -116,7 +95,7 @@
             "character": 0
           }
         },
-        "newText": "string value = log:printInfo(\"\", (), (), {});"
+        "newText": "log:printInfo();"
       }
     ]
   }

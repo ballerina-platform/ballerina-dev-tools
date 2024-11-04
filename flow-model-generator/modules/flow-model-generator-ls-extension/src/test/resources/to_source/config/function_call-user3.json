@@ -1,5 +1,5 @@
 {
-  "source": "user_functions.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "101336",
@@ -34,7 +34,8 @@
         "valueType": "EXPRESSION",
         "value": "3",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "exponent": {
         "metadata": {
@@ -43,7 +44,8 @@
         "valueType": "EXPRESSION",
         "value": "3",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "view": {
         "metadata": {
@@ -63,7 +65,8 @@
           }
         },
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -72,8 +75,10 @@
         },
         "valueType": "IDENTIFIER",
         "value": "cubed",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -82,14 +87,16 @@
         },
         "valueType": "TYPE",
         "value": "int",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
   },
   "output": {
-    "user_functions.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {
