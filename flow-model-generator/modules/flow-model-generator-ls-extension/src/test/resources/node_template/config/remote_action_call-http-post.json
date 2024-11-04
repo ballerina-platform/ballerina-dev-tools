@@ -1,34 +1,34 @@
 {
   "description": "Sample diagram node",
   "codedata": {
-    "node": "ACTION_CALL",
-    "org": "ballerinax",
-    "module": "redis",
+    "node": "REMOTE_ACTION_CALL",
+    "org": "ballerina",
+    "module": "http",
     "object": "Client",
-    "symbol": "set",
-    "parentSymbol": "redisCl"
+    "symbol": "post",
+    "parentSymbol": "httpClient"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "set",
-      "description": "Set the value of a key.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+      "label": "post",
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
-      "node": "ACTION_CALL",
-      "org": "ballerinax",
-      "module": "redis",
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
       "object": "Client",
-      "symbol": "set",
-      "id": 36
+      "symbol": "post",
+      "id": 3079
     },
     "returning": false,
     "properties": {
-      "key": {
+      "path": {
         "metadata": {
-          "label": "key",
-          "description": "Key referring to a value"
+          "label": "path",
+          "description": "Resource path"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
@@ -38,16 +38,42 @@
         "editable": true,
         "advanced": false
       },
-      "value": {
+      "message": {
         "metadata": {
-          "label": "value",
-          "description": "Values"
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "http:RequestMessage",
         "value": "",
         "placeholder": "",
         "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<string|string[]>|()",
+        "value": "",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "value": "",
+        "placeholder": "",
+        "optional": true,
         "editable": true,
         "advanced": false
       },
@@ -57,7 +83,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string|redis:Error",
+        "value": "json|http:ClientError",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -80,9 +106,9 @@
           "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:Client",
+        "valueTypeConstraint": "http:Client",
         "value": "",
-        "placeholder": "redisCl",
+        "placeholder": "httpClient",
         "optional": false,
         "editable": true,
         "advanced": false

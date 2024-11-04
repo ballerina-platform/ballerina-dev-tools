@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
   "codedata": {
-    "node": "ACTION_CALL",
+    "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "covid19",
     "object": "Client",
@@ -16,7 +16,7 @@
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
     },
     "codedata": {
-      "node": "ACTION_CALL",
+      "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "covid19",
       "object": "Client",
