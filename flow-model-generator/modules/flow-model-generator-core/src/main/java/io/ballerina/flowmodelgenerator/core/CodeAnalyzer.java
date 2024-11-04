@@ -271,12 +271,12 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                     .callExpression(expressionNode, Property.CONNECTION_KEY)
                     .variable(this.typedBindingPatternNode);
-        handleActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
 
-    private void handleActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                         MethodSymbol methodSymbol, Map<String, String> documentationMap) {
+    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                                     FunctionSymbol methodSymbol, Map<String, String> documentationMap) {
         Optional<List<ParameterSymbol>> funcParams = methodSymbol.typeDescriptor().params();
         if (funcParams.isPresent()) {
             List<ParameterSymbol> params = funcParams.get().stream()
@@ -338,7 +338,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .resourcePath(fullPath)
                 .variable(this.typedBindingPatternNode);
 
-        handleActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
 
     }
@@ -639,14 +639,8 @@ class CodeAnalyzer extends NodeVisitor {
                     .codedata()
                         .symbol(functionName);
 
-            Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
-            if (funcParams.isPresent()) {
-                List<ParameterSymbol> params = funcParams.get().stream()
-                        .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                        .toList();
-                nodeBuilder.properties().functionArguments(
-                        functionCallExpressionNode.arguments(), params, documentationMap, functionSymbol.external());
-            }
+            handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(),
+                    functionSymbol, documentationMap);
             handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
