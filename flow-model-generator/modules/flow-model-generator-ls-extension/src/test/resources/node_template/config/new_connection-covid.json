@@ -20,7 +20,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 191
+      "id": 189
     },
     "returning": false,
     "properties": {
@@ -56,7 +56,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "covid19:Client|error",
+        "value": "covid19:Client",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -83,6 +83,17 @@
         "optional": false,
         "editable": true,
         "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

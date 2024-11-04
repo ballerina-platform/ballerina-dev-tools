@@ -35,7 +35,6 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -229,7 +228,7 @@ class IndexGenerator {
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> functionSymbol.nameEquals("init") ?
                         getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
-                        getTypeSignature(returnTypeDesc)).orElse("");
+                        getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
 
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
@@ -249,7 +248,7 @@ class IndexGenerator {
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
                                                int functionId) {
         String paramName = paramSymbol.getName().orElse("");
-        String paramType = getTypeSignature(paramSymbol.typeDescriptor());
+        String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
@@ -260,7 +259,7 @@ class IndexGenerator {
         return documentable.documentation().flatMap(Documentation::description).orElse("");
     }
 
-    private static String getTypeSignature(TypeSymbol typeSymbol) {
+    private static String getTypeSignature(TypeSymbol typeSymbol, TypeSymbol errorTypeSymbol, boolean ignoreError) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
                 // TODO: Improve the handling of dependable types.
@@ -274,27 +273,34 @@ class IndexGenerator {
                                 .flatMap(Symbol::getName)
                                 .map(prefix -> prefix + ":" + name)
                                 .orElse(name))
-                        .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()
-                        ));
+                        .orElseGet(() -> getTypeSignature(
+                                typeReferenceTypeSymbol.typeDescriptor(), typeSymbol, ignoreError));
             }
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                if (ignoreError) {
+                    yield unionTypeSymbol.memberTypeDescriptors().stream()
+                            .filter(typeSymbol1 -> !typeSymbol1.subtypeOf(errorTypeSymbol))
+                            .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, true))
+                            .reduce((s1, s2) -> s1 + "|" + s2)
+                            .orElse(unionTypeSymbol.signature());
+                }
                 yield unionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(IndexGenerator::getTypeSignature)
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, false))
                         .reduce((s1, s2) -> s1 + "|" + s2)
                         .orElse(unionTypeSymbol.signature());
             }
             case INTERSECTION -> {
                 IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
                 yield intersectionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(IndexGenerator::getTypeSignature)
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, ignoreError))
                         .reduce((s1, s2) -> s1 + " & " + s2)
                         .orElse(intersectionTypeSymbol.signature());
             }
             case TYPEDESC -> {
                 TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
                 yield typeDescTypeSymbol.typeParameter()
-                        .map(IndexGenerator::getTypeSignature)
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, ignoreError))
                         .orElse(typeDescTypeSymbol.signature());
             }
             case ERROR -> {
@@ -314,16 +320,7 @@ class IndexGenerator {
 
     public static String getClientType(String packageName, TypeSymbol returnType, TypeSymbol errorTypeSymbol) {
         String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
-        String clientType = String.format("%s:%s", importPrefix, "Client");
-        if (returnType.typeKind() != TypeDescKind.UNION) {
-            return clientType;
-        }
-
-        UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) returnType;
-        Optional<TypeSymbol> errorType = unionTypeSymbol.memberTypeDescriptors().stream()
-                .filter(member -> member.subtypeOf(errorTypeSymbol))
-                .findFirst();
-        return errorType.map(type -> clientType + "|" + getTypeSignature(type)).orElse(clientType);
+        return String.format("%s:%s", importPrefix, "Client");
     }
 
     enum FunctionType {

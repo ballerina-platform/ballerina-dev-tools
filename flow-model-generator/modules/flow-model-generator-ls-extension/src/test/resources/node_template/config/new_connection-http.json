@@ -56,7 +56,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "http:Client|http:ClientError",
+        "value": "http:Client",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -83,6 +83,17 @@
         "optional": false,
         "editable": true,
         "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

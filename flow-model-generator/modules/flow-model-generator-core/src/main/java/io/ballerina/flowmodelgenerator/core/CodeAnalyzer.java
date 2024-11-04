@@ -24,6 +24,8 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -269,9 +271,21 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                     .callExpression(expressionNode, Property.CONNECTION_KEY)
                     .variable(this.typedBindingPatternNode);
-        methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                argumentNodes, params, documentationMap, methodSymbol.external()));
+        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+    }
+
+    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                                     FunctionSymbol methodSymbol,
+                                                     Map<String, String> documentationMap) {
+        Optional<List<ParameterSymbol>> funcParams = methodSymbol.typeDescriptor().params();
+        if (funcParams.isPresent()) {
+            List<ParameterSymbol> params = funcParams.get().stream()
+                    .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
+                    .toList();
+            nodeBuilder.properties().functionArguments(
+                    argumentNodes, params, documentationMap, methodSymbol.external());
+        }
     }
 
     private void handleCheckFlag(NonTerminalNode node, SyntaxKind check, FunctionTypeSymbol functionTypeSymbol) {
@@ -324,8 +338,8 @@ class CodeAnalyzer extends NodeVisitor {
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
                 .resourcePath(fullPath)
                 .variable(this.typedBindingPatternNode);
-        methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                argumentNodes, params, documentationMap, methodSymbol.external()));
+
+        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
 
     }
@@ -626,8 +640,8 @@ class CodeAnalyzer extends NodeVisitor {
                     .codedata()
                         .symbol(functionName);
 
-            functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    functionCallExpressionNode.arguments(), params, documentationMap, functionSymbol.external()));
+            handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(),
+                    functionSymbol, documentationMap);
             handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
@@ -637,8 +651,14 @@ class CodeAnalyzer extends NodeVisitor {
                         .properties()
                         .functionName(functionName)
                         .output(this.typedBindingPatternNode);
-                functionSymbol.typeDescriptor().params().ifPresent(
-                        params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
+
+                Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
+                if (funcParams.isPresent()) {
+                    List<ParameterSymbol> params = funcParams.get().stream()
+                            .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
+                            .toList();
+                    nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params);
+                }
                 nodeBuilder.properties().view(dataMappings.get(functionName));
             } else {
                 startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode)
@@ -650,9 +670,15 @@ class CodeAnalyzer extends NodeVisitor {
                             .module(defaultModuleName)
                             .version(functionSymbol.getModule().get().id().version())
                             .symbol(functionName);
-                functionSymbol.typeDescriptor().params().ifPresent(
-                        params -> nodeBuilder.properties()
-                                .functionArguments(functionCallExpressionNode.arguments(), params));
+
+                Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
+                if (funcParams.isPresent()) {
+                    List<ParameterSymbol> params = funcParams.get().stream()
+                            .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
+                            .toList();
+                    nodeBuilder.properties().functionArguments(
+                            functionCallExpressionNode.arguments(), params);
+                }
                 functionSymbol.getLocation()
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))

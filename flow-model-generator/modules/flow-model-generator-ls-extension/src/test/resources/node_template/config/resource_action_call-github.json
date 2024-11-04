@@ -22,7 +22,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 834
+      "id": 581
     },
     "returning": false,
     "properties": {
@@ -32,7 +32,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "github:ManifestConversions|error",
+        "value": "github:ManifestConversions",
         "optional": false,
         "editable": true,
         "advanced": false
