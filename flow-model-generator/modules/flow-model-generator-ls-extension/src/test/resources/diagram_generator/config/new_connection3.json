@@ -75,7 +75,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -163,7 +163,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -251,7 +251,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
@@ -328,7 +328,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
@@ -405,7 +405,7 @@
             "value": "Service",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -491,7 +491,7 @@
             "value": "Service",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {

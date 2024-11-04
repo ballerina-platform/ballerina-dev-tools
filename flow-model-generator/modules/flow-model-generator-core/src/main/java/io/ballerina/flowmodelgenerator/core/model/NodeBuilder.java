@@ -917,6 +917,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .type(Property.ValueType.ENUM)
                     .value(scope)
+                    .advanced(true)
                     .editable();
             addProperty(Property.SCOPE_KEY);
             return this;
