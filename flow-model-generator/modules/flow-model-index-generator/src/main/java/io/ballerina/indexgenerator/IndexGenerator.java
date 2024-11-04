@@ -35,7 +35,6 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -249,7 +248,7 @@ class IndexGenerator {
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
                                                int functionId) {
         String paramName = paramSymbol.getName().orElse("");
-        String paramType = getTypeSignature(paramSymbol.typeDescriptor(),null, false);
+        String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
