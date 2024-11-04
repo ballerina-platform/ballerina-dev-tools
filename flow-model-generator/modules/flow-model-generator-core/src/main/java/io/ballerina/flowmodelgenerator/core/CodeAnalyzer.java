@@ -276,7 +276,8 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                                     FunctionSymbol methodSymbol, Map<String, String> documentationMap) {
+                                                     FunctionSymbol methodSymbol,
+                                                     Map<String, String> documentationMap) {
         Optional<List<ParameterSymbol>> funcParams = methodSymbol.typeDescriptor().params();
         if (funcParams.isPresent()) {
             List<ParameterSymbol> params = funcParams.get().stream()
