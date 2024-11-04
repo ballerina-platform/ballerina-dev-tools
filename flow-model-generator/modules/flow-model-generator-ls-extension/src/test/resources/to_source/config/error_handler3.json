@@ -268,7 +268,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
+        "newText": "do {\n    json res = foodClient->get(\"/western/pineapples\");\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
       }
     ]
   }

@@ -110,7 +110,7 @@
             "character": 15
           }
         },
-        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        }, {fileName= function_call.bal, startLine= {line= 55.0, offset= 0.0}, endLine= {line= 59.0, offset= 1.0}});"
       }
     ]
   }

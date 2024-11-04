@@ -21,7 +21,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 3045
+      "id": 3079
     },
     "returning": false,
     "properties": {
@@ -109,6 +109,17 @@
         "valueTypeConstraint": "http:Client",
         "value": "",
         "placeholder": "httpClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
         "optional": false,
         "editable": true,
         "advanced": false

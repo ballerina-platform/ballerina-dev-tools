@@ -23,6 +23,7 @@ CREATE TABLE Function (
     package_id INTEGER,
     return_type JSON, -- JSON type for return type information
     resource_path TEXT NOT NULL,
+    return_error INTEGER CHECK(return_error IN (0, 1)),
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 

@@ -22,7 +22,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 789
+      "id": 834
     },
     "returning": false,
     "properties": {
@@ -69,6 +69,17 @@
         },
         "valueType": "EXPRESSION",
         "value": "/app\\-manifests/[string]/conversions",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
         "optional": false,
         "editable": true,
         "advanced": false

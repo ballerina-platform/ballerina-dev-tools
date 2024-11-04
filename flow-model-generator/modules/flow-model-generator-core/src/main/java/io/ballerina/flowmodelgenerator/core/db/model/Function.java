@@ -47,6 +47,9 @@ public class Function {
     @Column(name = "resource_path")
     private String resourcePath;
 
+    @Column(name = "return_error")
+    private Integer returnError;
+
     @ManyToOne
     @JoinColumn(name = "package_id")
     private Package pack;
@@ -133,5 +136,17 @@ public class Function {
 
     public String getResourcePath() {
         return resourcePath;
+    }
+
+    public void setResourcePath(String resourcePath) {
+        this.resourcePath = resourcePath;
+    }
+
+    public Integer getReturnError() {
+        return returnError;
+    }
+
+    public void setReturnError(Integer returnError) {
+        this.returnError = returnError;
     }
 }

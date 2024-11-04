@@ -30,6 +30,17 @@
     },
     "returning": false,
     "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "resourcePath": {
         "metadata": {
           "label": "Resource Path",

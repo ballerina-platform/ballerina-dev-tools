@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
+          "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean _ = check fnWithErrorAndValue();\n    boolean _ = checkpanic fnWithErrorAndValue();\n    final var _ = check fnWithErrorAndValue();\n    final var _ = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
         "flags": 0
@@ -80,6 +80,17 @@
             },
             "optional": false,
             "editable": false,
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
             "advanced": false
           }
         },
@@ -131,12 +142,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 2
       },
       {
-        "id": "38859",
+        "id": "38856",
         "metadata": {
           "label": "fnWithErrorAndValue"
         },
@@ -154,10 +176,10 @@
             },
             "endLine": {
               "line": 7,
-              "offset": 47
+              "offset": 44
             }
           },
-          "sourceCode": "boolean res1 = check fnWithErrorAndValue();"
+          "sourceCode": "boolean _ = check fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -182,13 +204,24 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res1",
+            "value": "_",
             "placeholder": "item",
             "optional": false,
             "editable": true,
@@ -210,7 +243,7 @@
         "flags": 1
       },
       {
-        "id": "39856",
+        "id": "39853",
         "metadata": {
           "label": "fnWithErrorAndValue"
         },
@@ -228,10 +261,10 @@
             },
             "endLine": {
               "line": 8,
-              "offset": 52
+              "offset": 49
             }
           },
-          "sourceCode": "boolean res2 = checkpanic fnWithErrorAndValue();"
+          "sourceCode": "boolean _ = checkpanic fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -256,13 +289,24 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res2",
+            "value": "_",
             "placeholder": "item",
             "optional": false,
             "editable": true,
@@ -284,7 +328,7 @@
         "flags": 2
       },
       {
-        "id": "40845",
+        "id": "40842",
         "metadata": {
           "label": "fnWithErrorAndValue"
         },
@@ -302,10 +346,10 @@
             },
             "endLine": {
               "line": 9,
-              "offset": 49
+              "offset": 46
             }
           },
-          "sourceCode": "final var res3 = check fnWithErrorAndValue();"
+          "sourceCode": "final var _ = check fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -330,13 +374,24 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res3",
+            "value": "_",
             "placeholder": "item",
             "optional": false,
             "editable": true,
@@ -358,7 +413,7 @@
         "flags": 5
       },
       {
-        "id": "41842",
+        "id": "41839",
         "metadata": {
           "label": "fnWithErrorAndValue"
         },
@@ -376,10 +431,10 @@
             },
             "endLine": {
               "line": 10,
-              "offset": 54
+              "offset": 51
             }
           },
-          "sourceCode": "final var res4 = checkpanic fnWithErrorAndValue();"
+          "sourceCode": "final var _ = checkpanic fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -404,13 +459,24 @@
             "editable": false,
             "advanced": false
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check function call error",
+              "description": "Check function call error"
+            },
+            "valueType": "EXPRESSION",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "res4",
+            "value": "_",
             "placeholder": "item",
             "optional": false,
             "editable": true,

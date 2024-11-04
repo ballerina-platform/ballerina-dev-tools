@@ -29,6 +29,17 @@
     },
     "returning": false,
     "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "v": {
         "metadata": {
           "label": "v",
@@ -75,7 +86,7 @@
             "character": 61
           }
         },
-        "newText": "decimal d = check decimal:fromString(\"11.11\");"
+        "newText": "decimal d = check decimal:fromString(true, \"11.11\");"
       }
     ]
   }

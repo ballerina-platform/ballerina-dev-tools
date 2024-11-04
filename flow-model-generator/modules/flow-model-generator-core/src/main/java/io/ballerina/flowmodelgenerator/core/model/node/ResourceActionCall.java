@@ -18,7 +18,10 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -31,6 +34,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -56,15 +61,14 @@ public class ResourceActionCall extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (sourceBuilder.flowNode.returning()) {
+        if (flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        // TODO: Make this condition and once we get the correct flag using index
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
-                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
-                sourceBuilder.flowNode.codedata().lineRange())) {
+        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
+                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -84,7 +88,8 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY))
+                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
+                                Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
@@ -128,9 +133,21 @@ public class ResourceActionCall extends NodeBuilder {
             if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
                 continue;
             }
-            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "",
-                    paramResult.kind() == ParameterKind.DEFAULTABLE);
+            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
+                Package modulePackage = PackageUtil
+                        .getModulePackage(function.org(), function.packageName(), function.version());
+                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
+                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
+                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
+                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
+                    FunctionCall.addIncludedRecordToParams((
+                            (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
+                }
+            } else {
+                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
+                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional);
+            }
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
@@ -141,6 +158,10 @@ public class ResourceActionCall extends NodeBuilder {
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
         nodeBuilder.properties().resourcePath(function.resourcePath());
+
+        if (function.returnError() == 1) {
+            nodeBuilder.properties().checkError(true);
+        }
         return nodeBuilder.build();
     }
 }

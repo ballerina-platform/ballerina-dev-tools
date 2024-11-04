@@ -95,6 +95,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String DATA_TYPE_KEY = "type";
     public static final String DATA_TYPE_DOC = "Type of the variable";
 
+    public static final String CHECK_ERROR_LABEL = "Check function call error";
+    public static final String CHECK_ERROR_KEY = "checkError";
+    public static final String CHECK_ERROR_DOC = "Check function call error";
+
     public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_KEY = "scope";
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";

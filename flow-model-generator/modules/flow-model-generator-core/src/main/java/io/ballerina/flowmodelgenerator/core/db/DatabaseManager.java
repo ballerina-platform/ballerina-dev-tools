@@ -101,6 +101,7 @@ public class DatabaseManager {
                 "f.return_type, " +
                 "f.resource_path, " +
                 "f.kind, " +
+                "f.return_error, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -124,7 +125,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 );
                 functionResults.add(functionResult);
             }
@@ -142,6 +144,7 @@ public class DatabaseManager {
                 "f.description AS function_description, " +
                 "f.return_type, " +
                 "f.kind, " +
+                "f.return_error, " +
                 "f.resource_path, " +
                 "p.name AS package_name, " +
                 "p.org, " +
@@ -165,7 +168,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 );
                 functionResults.add(functionResult);
             }
@@ -184,6 +188,7 @@ public class DatabaseManager {
                 "f.return_type, " +
                 "f.resource_path, " +
                 "f.kind, " +
+                "f.return_error, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -217,7 +222,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
 
                 );
                 functionResults.add(functionResult);
@@ -237,6 +243,7 @@ public class DatabaseManager {
                 "f.return_type, " +
                 "f.resource_path, " +
                 "f.kind, " +
+                "f.return_error, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -264,7 +271,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 ));
             }
             return Optional.empty();
@@ -283,6 +291,7 @@ public class DatabaseManager {
         sql.append("f.return_type, ");
         sql.append("f.resource_path, ");
         sql.append("f.kind, ");
+        sql.append("f.return_error, ");
         sql.append("p.name AS package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
@@ -318,7 +327,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 ));
             }
             return Optional.empty();
@@ -338,7 +348,8 @@ public class DatabaseManager {
                 "p.org, " +
                 "p.version, " +
                 "f.resource_path, " +
-                "f.kind " +
+                "f.kind, " +
+                "f.return_error " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
                 "WHERE f.function_id = ?;";
@@ -357,7 +368,8 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 ));
             }
             return Optional.empty();
@@ -405,7 +417,8 @@ public class DatabaseManager {
                 "f.description, " +
                 "f.kind, " +
                 "f.return_type, " +
-                "f.resource_path " +
+                "f.resource_path, " +
+                "f.return_error " +
                 "FROM Function f " +
                 "JOIN FunctionConnector fc ON f.function_id = fc.function_id " +
                 "WHERE fc.connector_id = ?;";
@@ -425,7 +438,8 @@ public class DatabaseManager {
                         null, // org is not selected in this query
                         null,  // version is not selected in this query
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind"))
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error")
                 );
                 functionResults.add(functionResult);
             }

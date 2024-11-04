@@ -21,7 +21,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 231
+      "id": 208
     },
     "returning": false,
     "properties": {
@@ -122,6 +122,17 @@
         "valueTypeConstraint": "covid19:Client",
         "value": "",
         "placeholder": "covid19Client",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
         "optional": false,
         "editable": true,
         "advanced": false

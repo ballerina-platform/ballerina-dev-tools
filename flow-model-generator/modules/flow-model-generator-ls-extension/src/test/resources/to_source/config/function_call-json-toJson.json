@@ -27,6 +27,17 @@
     },
     "returning": false,
     "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "v": {
         "metadata": {
           "label": "v",
@@ -86,7 +97,7 @@
             "character": 0
           }
         },
-        "newText": "string value = check jsondata:toJson({});"
+        "newText": "string value = check jsondata:toJson(true, {});"
       }
     ]
   }

@@ -101,6 +101,17 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check function call error",
+                      "description": "Check function call error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -235,6 +246,17 @@
                     },
                     "optional": false,
                     "editable": false,
+                    "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check function call error",
+                      "description": "Check function call error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
                     "advanced": false
                   }
                 },
@@ -466,6 +488,17 @@
                     },
                     "optional": false,
                     "editable": false,
+                    "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check function call error",
+                      "description": "Check function call error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
                     "advanced": false
                   }
                 },

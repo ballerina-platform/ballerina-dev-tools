@@ -490,9 +490,21 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                     .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(path)
-                    .type(Property.ValueType.EXPRESSION)
                     .editable();
             addProperty(Property.RESOURCE_PATH_KEY);
+            return this;
+        }
+
+        public PropertiesBuilder<T> checkError(boolean checkError) {
+            propertyBuilder
+                    .metadata()
+                    .label(Property.CHECK_ERROR_LABEL)
+                    .description(Property.CHECK_ERROR_DOC)
+                    .stepOut()
+                    .value(checkError)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable();
+            addProperty(Property.CHECK_ERROR_KEY);
             return this;
         }
 
