@@ -446,7 +446,6 @@ public class CommonUtils {
                 IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) sourceRawType;
                 return intersectionTypeSymbol.memberTypeDescriptors().stream()
                         .anyMatch(t -> subTypeOf(t, target));
-
             }
             case TYPE_REFERENCE -> {
                 return subTypeOf(sourceRawType, target);
