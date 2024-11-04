@@ -82,7 +82,7 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       },
       "checkError": {
         "metadata": {
