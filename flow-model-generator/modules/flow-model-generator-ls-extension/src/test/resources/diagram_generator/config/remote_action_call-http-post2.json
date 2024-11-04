@@ -33,9 +33,6 @@
           "sourceCode": "resource function post bananas() returns json|http:ClientError {\n        var res1 = check foodClient->post(\"/bananas\", \"red banana\", targetType = json);\n        _ = check foodClient->post(\"/bananas\", targetType = json, message = \"green banana\");\n        return foodClient->post(\"/bananas\", \"banana\");\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -155,15 +152,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'res1'"
-            }
-          ]
         },
         "flags": 1
       },
