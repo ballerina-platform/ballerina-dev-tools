@@ -113,10 +113,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -209,10 +209,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -285,10 +285,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -383,10 +383,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -502,10 +502,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -621,10 +621,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -740,10 +740,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -859,10 +859,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -979,10 +979,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -1098,10 +1098,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,
@@ -1217,10 +1217,10 @@
           },
           "checkError": {
             "metadata": {
-              "label": "Check function call error",
-              "description": "Check function call error"
+              "label": "Check Flag",
+              "description": "Whether to check the expression error"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "FLAG",
             "value": true,
             "optional": false,
             "editable": true,

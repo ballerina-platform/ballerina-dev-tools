@@ -128,10 +128,10 @@
       },
       "checkError": {
         "metadata": {
-          "label": "Check function call error",
-          "description": "Check function call error"
+          "label": "Check Flag",
+          "description": "Whether to return the error"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "FLAG",
         "value": true,
         "optional": false,
         "editable": true,

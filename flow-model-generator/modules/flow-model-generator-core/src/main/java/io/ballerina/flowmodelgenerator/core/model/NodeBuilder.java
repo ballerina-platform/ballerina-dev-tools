@@ -498,11 +498,11 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         public PropertiesBuilder<T> checkError(boolean checkError) {
             propertyBuilder
                     .metadata()
-                    .label(Property.CHECK_ERROR_LABEL)
-                    .description(Property.CHECK_ERROR_DOC)
-                    .stepOut()
+                        .label(Property.CHECK_ERROR_LABEL)
+                        .description(Property.CHECK_ERROR_DOC)
+                        .stepOut()
                     .value(checkError)
-                    .type(Property.ValueType.EXPRESSION)
+                    .type(Property.ValueType.FLAG)
                     .editable();
             addProperty(Property.CHECK_ERROR_KEY);
             return this;
