@@ -27,17 +27,17 @@ import com.google.gson.JsonElement;
  */
 public class DataMapperModelResponse extends AbstractFlowModelResponse {
 
-    private JsonElement links;
+    private JsonElement mappings;
 
     public DataMapperModelResponse() {
 
     }
 
-    public void setLinks(JsonElement links) {
-        this.links = links;
+    public void setMappings(JsonElement mappings) {
+        this.mappings = mappings;
     }
 
-    public JsonElement getLinks() {
-        return links;
+    public JsonElement getMappings() {
+        return mappings;
     }
 }

@@ -79,7 +79,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<DataMapperModelResponse> links(DataMapperModelRequest request) {
+    public CompletableFuture<DataMapperModelResponse> mappings(DataMapperModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             DataMapperModelResponse response = new DataMapperModelResponse();
             try {
@@ -93,7 +93,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
 
                 DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(),
                         document.get());
-                response.setLinks(dataMapManager.getLinks(request.flowNode(), request.position(), request.propertyKey(),
+                response.setMappings(dataMapManager.getMappings(request.flowNode(), request.position(), request.propertyKey(),
                         Path.of(request.filePath()), project));
             } catch (Throwable e) {
                 response.setError(e);

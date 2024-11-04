@@ -51,7 +51,7 @@ public class DataMappingModelTest extends AbstractLSTest {
         DataMapperModelRequest request =
                 new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
                         testConfig.diagram(), testConfig.position(), testConfig.propertyKey());
-        JsonObject model = getResponse(endpoint, request).getAsJsonObject("links");
+        JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappings");
 
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
@@ -74,7 +74,7 @@ public class DataMappingModelTest extends AbstractLSTest {
 
     @Override
     protected String getApiName() {
-        return "links";
+        return "mappings";
     }
 
     @Override

@@ -121,8 +121,8 @@ public class DataMapManager {
                 .findAny();
     }
 
-    public JsonElement getLinks(JsonElement node, LinePosition position, String propertyKey, Path filePath,
-                                Project project) {
+    public JsonElement getMappings(JsonElement node, LinePosition position, String propertyKey, Path filePath,
+                                   Project project) {
         // TODO: add tests for enum
         // TODO: Add array tests with where, select clauses
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
