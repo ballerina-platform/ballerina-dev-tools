@@ -20,7 +20,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 13
+      "id": 7
     },
     "returning": false,
     "properties": {
@@ -43,7 +43,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "redis:Client|redis:Error",
+        "value": "redis:Client",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -67,6 +67,17 @@
         },
         "valueType": "ENUM",
         "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
         "optional": false,
         "editable": true,
         "advanced": false

@@ -58,7 +58,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json|http:ClientError",
+        "value": "json",
         "optional": false,
         "editable": true,
         "advanced": false

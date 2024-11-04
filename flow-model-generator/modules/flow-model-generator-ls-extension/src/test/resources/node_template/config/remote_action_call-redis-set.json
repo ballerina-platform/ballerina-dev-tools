@@ -57,7 +57,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string|redis:Error",
+        "value": "string",
         "optional": false,
         "editable": true,
         "advanced": false
