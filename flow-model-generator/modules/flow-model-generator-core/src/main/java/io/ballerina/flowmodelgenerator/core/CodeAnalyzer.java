@@ -22,6 +22,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -270,13 +271,17 @@ class CodeAnalyzer extends NodeVisitor {
                     .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
-        if (actionNode.parent().kind() == SyntaxKind.CHECK_ACTION) {
+        handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+    }
+
+    private void handleCheckFlag(NonTerminalNode node, SyntaxKind check, FunctionTypeSymbol functionTypeSymbol) {
+        if (node.parent().kind() == check) {
             nodeBuilder.properties().checkError(true);
         } else {
-            methodSymbol.typeDescriptor().returnTypeDescriptor()
+            functionTypeSymbol.returnTypeDescriptor()
                     .ifPresent(typeSymbol -> {
                         if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)
-                                && CommonUtils.withinDoClause(actionNode)) {
+                                && CommonUtils.withinDoClause(node)) {
                             nodeBuilder.properties().checkError(false);
                         }
                     });
@@ -321,17 +326,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
-        if (actionNode.parent().kind() == SyntaxKind.CHECK_ACTION) {
-            nodeBuilder.properties().checkError(true);
-        } else {
-            methodSymbol.typeDescriptor().returnTypeDescriptor()
-                    .ifPresent(typeSymbol -> {
-                        if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)
-                                && CommonUtils.withinDoClause(actionNode)) {
-                            nodeBuilder.properties().checkError(false);
-                        }
-                    });
-        }
+        handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
 
     }
 
@@ -633,17 +628,7 @@ class CodeAnalyzer extends NodeVisitor {
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, documentationMap, functionSymbol.external()));
-            if (functionCallExpressionNode.parent().kind() == SyntaxKind.CHECK_EXPRESSION) {
-                nodeBuilder.properties().checkError(true);
-            } else {
-                functionSymbol.typeDescriptor().returnTypeDescriptor()
-                        .ifPresent(typeSymbol -> {
-                            if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)
-                                    && CommonUtils.withinDoClause(functionCallExpressionNode)) {
-                                nodeBuilder.properties().checkError(false);
-                            }
-                        });
-            }
+            handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
             String functionName = simpleNameReferenceNode.name().text();
@@ -672,17 +657,8 @@ class CodeAnalyzer extends NodeVisitor {
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))
                         .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
-                if (functionCallExpressionNode.parent().kind() == SyntaxKind.CHECK_EXPRESSION) {
-                    nodeBuilder.properties().checkError(true);
-                } else {
-                    functionSymbol.typeDescriptor().returnTypeDescriptor()
-                            .ifPresent(typeSymbol -> {
-                                if (CommonUtils.subTypeOf(typeSymbol, semanticModel.types().ERROR)
-                                        && CommonUtils.withinDoClause(functionCallExpressionNode)) {
-                                    nodeBuilder.properties().checkError(false);
-                                }
-                            });
-                }
+                handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION,
+                        functionSymbol.typeDescriptor());
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);
