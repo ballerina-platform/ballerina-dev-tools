@@ -239,16 +239,6 @@
             "editable": true,
             "advanced": true
           },
-          "params": {
-            "metadata": {
-              "label": "params",
-              "description": "The query parameters"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "type": {
             "metadata": {
               "label": "Variable Type",
