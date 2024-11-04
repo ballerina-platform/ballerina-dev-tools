@@ -30,7 +30,7 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 13
+        "id": 7
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 85
+        "id": 84
       },
       "enabled": true
     },
@@ -100,6 +100,22 @@
     },
     {
       "metadata": {
+        "label": "azure.sqldb",
+        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.sqldb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 188
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
         "label": "covid19",
         "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
@@ -110,7 +126,7 @@
         "module": "covid19",
         "object": "Client",
         "symbol": "init",
-        "id": 191
+        "id": 189
       },
       "enabled": true
     },
@@ -126,23 +142,7 @@
         "module": "workday.payroll",
         "object": "Client",
         "symbol": "init",
-        "id": 194
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "azure.sqldb",
-        "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "azure.sqldb",
-        "object": "Client",
-        "symbol": "init",
-        "id": 197
+        "id": 193
       },
       "enabled": true
     },
@@ -158,7 +158,7 @@
         "module": "slack",
         "object": "Client",
         "symbol": "init",
-        "id": 248
+        "id": 225
       },
       "enabled": true
     },
@@ -174,7 +174,7 @@
         "module": "googleapis.calendar",
         "object": "Client",
         "symbol": "init",
-        "id": 261
+        "id": 239
       },
       "enabled": true
     },
@@ -190,7 +190,7 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 289
+        "id": 281
       },
       "enabled": true
     },
@@ -206,55 +206,7 @@
         "module": "twitter",
         "object": "Client",
         "symbol": "init",
-        "id": 363
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "notion",
-        "description": "This is a generated connector for [Notion API v1](https://developers.notion.com/reference/intro) OpenAPI Specification. \nNotion API provides capability to access all-in-one workspace where you can write, plan, collaborate and get organized. it has components such as notes, databases, kanban boards, wikis, calendars, and reminders. You can connect these  components to take notes, add tasks, manage projects & more. Notion provides the building blocks and you can  create your own layouts and toolkit to get work done. This ballerina connector allows you to connect Notion through its [REST API](https://developers.notion.com/docs).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_notion_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "notion",
-        "object": "Client",
-        "symbol": "init",
-        "id": 540
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "mysql",
-        "description": "Represents a MySQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "mysql",
-        "object": "Client",
-        "symbol": "init",
-        "id": 554
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "worldbank",
-        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "worldbank",
-        "object": "Client",
-        "symbol": "init",
-        "id": 576
+        "id": 287
       },
       "enabled": true
     },
@@ -270,39 +222,39 @@
         "module": "googleapis.sheets",
         "object": "Client",
         "symbol": "init",
-        "id": 581
+        "id": 433
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mssql",
-        "description": "Represents an MSSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+        "label": "notion",
+        "description": "This is a generated connector for [Notion API v1](https://developers.notion.com/reference/intro) OpenAPI Specification. \nNotion API provides capability to access all-in-one workspace where you can write, plan, collaborate and get organized. it has components such as notes, databases, kanban boards, wikis, calendars, and reminders. You can connect these  components to take notes, add tasks, manage projects & more. Notion provides the building blocks and you can  create your own layouts and toolkit to get work done. This ballerina connector allows you to connect Notion through its [REST API](https://developers.notion.com/docs).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_notion_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mssql",
+        "module": "notion",
         "object": "Client",
         "symbol": "init",
-        "id": 634
+        "id": 455
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mongodb",
-        "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+        "label": "worldbank",
+        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mongodb",
+        "module": "worldbank",
         "object": "Client",
         "symbol": "init",
-        "id": 636
+        "id": 490
       },
       "enabled": true
     },
@@ -318,7 +270,55 @@
         "module": "discord",
         "object": "Client",
         "symbol": "init",
-        "id": 640
+        "id": 498
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "github",
+        "description": "GitHub's v3 REST API.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "github",
+        "object": "Client",
+        "symbol": "init",
+        "id": 541
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "twilio",
+        "description": "This is the public Twilio REST API.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_4.0.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "twilio",
+        "object": "Client",
+        "symbol": "init",
+        "id": 588
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mysql",
+        "description": "Represents a MySQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mysql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 638
       },
       "enabled": true
     }
