@@ -103,23 +103,11 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'res'"
-                    }
-                  ]
-                },
                 "flags": 1
               }
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       }
     ],

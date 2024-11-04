@@ -215,15 +215,6 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 's'"
-                    }
-                  ]
-                },
                 "flags": 0
               },
               {

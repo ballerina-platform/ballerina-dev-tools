@@ -33,9 +33,6 @@
           "sourceCode": "function testNewDataString() {\n    string str1 = \"Hello world\";\n    string str2 = string `${str1} ${str1}`;\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -157,15 +154,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'str2'"
-            }
-          ]
         },
         "flags": 0
       }

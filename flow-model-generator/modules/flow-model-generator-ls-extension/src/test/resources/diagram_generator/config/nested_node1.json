@@ -33,9 +33,6 @@
           "sourceCode": "resource function get path1() returns error? {\n        do {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -193,20 +190,8 @@
             "value": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }",
             "optional": false,
             "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "WARNING",
-                  "message": "unused variable 'j'"
-                }
-              ]
-            }
+            "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true
         },
         "flags": 0
       }

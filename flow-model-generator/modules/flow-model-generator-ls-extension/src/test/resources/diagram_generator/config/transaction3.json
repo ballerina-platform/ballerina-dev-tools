@@ -33,9 +33,6 @@
           "sourceCode": "function testTransaction3() returns error? {\n    transaction {\n        transaction {\n            var res = check commit;\n        }\n        var res = check commit;\n    }\n}"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -172,23 +169,11 @@
                             "advanced": false
                           }
                         },
-                        "diagnostics": {
-                          "hasDiagnostics": true,
-                          "diagnostics": [
-                            {
-                              "severity": "WARNING",
-                              "message": "unused variable 'res'"
-                            }
-                          ]
-                        },
                         "flags": 1
                       }
                     ]
                   }
                 ],
-                "diagnostics": {
-                  "hasDiagnostics": true
-                },
                 "flags": 0
               },
               {
@@ -239,23 +224,11 @@
                     "advanced": false
                   }
                 },
-                "diagnostics": {
-                  "hasDiagnostics": true,
-                  "diagnostics": [
-                    {
-                      "severity": "WARNING",
-                      "message": "unused variable 'res'"
-                    }
-                  ]
-                },
                 "flags": 1
               }
             ]
           }
         ],
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       }
     ],

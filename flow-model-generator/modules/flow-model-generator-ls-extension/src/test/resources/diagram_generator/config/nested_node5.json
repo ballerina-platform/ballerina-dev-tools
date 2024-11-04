@@ -33,9 +33,6 @@
           "sourceCode": "resource function put path() returns error? {\n        do {\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
@@ -507,24 +504,8 @@
             "value": "{\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }",
             "optional": false,
             "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "WARNING",
-                  "message": "unused variable 'j'"
-                },
-                {
-                  "severity": "WARNING",
-                  "message": "unused variable 'k'"
-                }
-              ]
-            }
+            "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true
         },
         "flags": 0
       }

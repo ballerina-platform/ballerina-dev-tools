@@ -71,15 +71,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x1'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -140,15 +131,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x2'"
-            }
-          ]
         },
         "flags": 0
       },
@@ -211,15 +193,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x3'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -281,15 +254,6 @@
             "advanced": false
           }
         },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x4'"
-            }
-          ]
-        },
         "flags": 0
       },
       {
@@ -350,15 +314,6 @@
             "editable": true,
             "advanced": false
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true,
-          "diagnostics": [
-            {
-              "severity": "WARNING",
-              "message": "unused variable 'x5'"
-            }
-          ]
         },
         "flags": 0
       }

@@ -33,9 +33,6 @@
           "sourceCode": "resource function post bananas() returns json|http:ClientError {\n        return foodClient->post(\"/bananas\", \"banana\");\n    }"
         },
         "returning": false,
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
         "flags": 0
       },
       {
