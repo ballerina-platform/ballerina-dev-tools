@@ -27,6 +27,17 @@
     },
     "returning": false,
     "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to check the expression error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "scope": {
         "metadata": {
           "label": "Connection Scope",
