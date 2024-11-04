@@ -45,7 +45,7 @@ public class DataMappingSourceTest extends AbstractLSTest {
 
         DataMapperSourceRequest request =
                 new DataMapperSourceRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram(), testConfig.mappings());
+                        testConfig.diagram(), testConfig.mappings(), "");
         JsonObject model = getResponse(request).getAsJsonObject("getSource");
 
 //        if (!model.equals(testConfig.model())) {

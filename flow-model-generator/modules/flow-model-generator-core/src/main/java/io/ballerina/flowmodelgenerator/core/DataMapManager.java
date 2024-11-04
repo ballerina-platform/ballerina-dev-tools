@@ -29,17 +29,7 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
-import io.ballerina.compiler.syntax.tree.MappingFieldNode;
-import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -55,6 +45,7 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
+import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.PrimitiveType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
@@ -176,6 +167,10 @@ public class DataMapManager {
                             output = getMappingType(symbolName, type);
                             generateRecordVariableDataMapping((VariableDeclarationNode) stNode, mappings, symbolName,
                                     newSemanticModel);
+                        } else if (type.getTypeName().equals("array")) {
+                            output = getMappingType(symbolName, type);
+                            generateArrayVariableDataMapping((VariableDeclarationNode) stNode, mappings, symbolName,
+                                    newSemanticModel);
                         }
                     }
                 }
@@ -199,6 +194,22 @@ public class DataMapManager {
         }
     }
 
+    private void generateArrayVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
+                                                   String name, SemanticModel semanticModel) {
+        Optional<ExpressionNode> optInitializer = varDecl.initializer();
+        if (optInitializer.isEmpty()) {
+            return;
+        }
+        ExpressionNode expressionNode = optInitializer.get();
+        SyntaxKind exprKind = expressionNode.kind();
+        if (exprKind == SyntaxKind.LIST_CONSTRUCTOR) {
+            genMapping((ListConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
+        } else if (exprKind == SyntaxKind.QUERY_EXPRESSION) {
+
+        }
+
+    }
+
     private void genMapping(MappingConstructorExpressionNode mappingCtrExpr, List<Mapping> mappings, String name,
                             SemanticModel semanticModel) {
         for (MappingFieldNode field : mappingCtrExpr.fields()) {
@@ -209,8 +220,12 @@ public class DataMapManager {
                     continue;
                 }
                 ExpressionNode fieldExpr = optFieldExpr.get();
-                if (fieldExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                SyntaxKind kind = fieldExpr.kind();
+                if (kind == SyntaxKind.MAPPING_CONSTRUCTOR) {
                     genMapping((MappingConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
+                            semanticModel);
+                } else if (kind == SyntaxKind.LIST_CONSTRUCTOR) {
+                    genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
                             semanticModel);
                 } else {
                     List<String> inputs = new ArrayList<>();
@@ -232,10 +247,25 @@ public class DataMapManager {
         mappings.add(mapping);
     }
 
+    private void genMapping(ListConstructorExpressionNode listCtrExpr, List<Mapping> mappings, String name,
+                            SemanticModel semanticModel) {
+        SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
+        int size = expressions.size();
+        for (int i = 0; i < size; i++) {
+            Node expr = expressions.get(i);
+            if (expr.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
+                continue;
+            }
+            genMapping((MappingConstructorExpressionNode) expr, mappings, name + "." + i, semanticModel);
+        }
+    }
+
     private void genInputs(Node expr, List<String> inputs) {
         SyntaxKind kind = expr.kind();
         if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            inputs.add(expr.toSourceCode().trim());
+            // TODO: Revisit regex replacement
+            inputs.add(expr.toSourceCode().trim()
+                    .replaceAll("\\[(\\d+)\\]", ".$0").replaceAll("\\[", "").replaceAll("]", ""));
         } else if (kind == SyntaxKind.BINARY_EXPRESSION) {
             BinaryExpressionNode binaryExpr = (BinaryExpressionNode) expr;
             genInputs(binaryExpr.lhsExpr(), inputs);
@@ -313,6 +343,11 @@ public class DataMapManager {
             return mappingRecordType;
         } else if (type instanceof PrimitiveType) {
             return new MappingType(name, type);
+        } else if (type.getTypeName().equals("array")) {
+            ArrayType arrayType = (ArrayType) type;
+            MappingArrayType mappingArrayType = new MappingArrayType(name, type);
+            mappingArrayType.member = getMappingType(name, arrayType.memberType);
+            return mappingArrayType;
         } else {
             return null;
         }
@@ -405,6 +440,14 @@ public class DataMapManager {
         List<MappingType> fields = new ArrayList<>();
 
         MappingRecordType(String id, Type type) {
+            super(id, type);
+        }
+    }
+
+    private static class MappingArrayType extends MappingType {
+        MappingType member;
+
+        MappingArrayType(String id, Type type) {
             super(id, type);
         }
     }

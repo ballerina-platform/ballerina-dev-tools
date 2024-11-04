@@ -4,6 +4,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
 import io.ballerina.tools.text.LinePosition;
+import org.ballerinalang.langserver.BallerinaLanguageServer;
+import org.ballerinalang.langserver.util.TestUtil;
+import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -32,24 +35,28 @@ public class DataMappingModelTest extends AbstractLSTest {
                 {Path.of("variable12.json")},
                 {Path.of("variable13.json")},
                 {Path.of("variable14.json")},
+                {Path.of("variable15.json")},
+                {Path.of("variable16.json")},
+                {Path.of("variable17.json")},
         };
     }
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
+        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         DataMapperModelRequest request =
                 new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
                         testConfig.diagram(), testConfig.position(), testConfig.propertyKey());
-        JsonObject model = getResponse(request).getAsJsonObject("links");
+        JsonObject model = getResponse(endpoint, request).getAsJsonObject("links");
 
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model);
-//            updateConfig(configJsonPath, updateConfig);
+            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }

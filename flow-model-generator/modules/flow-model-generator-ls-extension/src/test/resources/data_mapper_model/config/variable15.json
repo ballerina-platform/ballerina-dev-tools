@@ -1,0 +1,269 @@
+{
+  "source": "variable7.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable7.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[]",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "credentials",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Credentials[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 18,
+    "offset": 105
+  },
+  "model": {
+    "inputs": [
+      {
+        "id": "CONST",
+        "category": "constant",
+        "type": {
+          "typeName": "CONST",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        }
+      },
+      {
+        "member": {
+          "fields": [
+            {
+              "id": "userInfo.username",
+              "type": {
+                "name": "username",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            },
+            {
+              "id": "userInfo.password",
+              "type": {
+                "name": "password",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            }
+          ],
+          "id": "userInfo",
+          "type": {
+            "fields": [
+              {
+                "name": "username",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "password",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "UserInfo",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "UserInfo",
+              "orgName": "$anon",
+              "moduleName": ".",
+              "version": "0.0.0"
+            },
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        "id": "userInfo",
+        "category": "variable",
+        "type": {
+          "memberType": {
+            "fields": [
+              {
+                "name": "username",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "password",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "UserInfo",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "UserInfo",
+              "orgName": "$anon",
+              "moduleName": ".",
+              "version": "0.0.0"
+            },
+            "defaultable": false,
+            "isRestType": false
+          },
+          "typeName": "array",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        }
+      }
+    ],
+    "output": {
+      "member": {
+        "fields": [
+          {
+            "id": "credentials.username",
+            "type": {
+              "name": "username",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            }
+          },
+          {
+            "id": "credentials.password",
+            "type": {
+              "name": "password",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            }
+          }
+        ],
+        "id": "credentials",
+        "type": {
+          "fields": [
+            {
+              "name": "username",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            {
+              "name": "password",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "Credentials",
+          "typeName": "record",
+          "optional": false,
+          "typeInfo": {
+            "name": "Credentials",
+            "orgName": "$anon",
+            "moduleName": ".",
+            "version": "0.0.0"
+          },
+          "defaultable": false,
+          "isRestType": false
+        }
+      },
+      "id": "credentials",
+      "type": {
+        "memberType": {
+          "fields": [
+            {
+              "name": "username",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            {
+              "name": "password",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "Credentials",
+          "typeName": "record",
+          "optional": false,
+          "typeInfo": {
+            "name": "Credentials",
+            "orgName": "$anon",
+            "moduleName": ".",
+            "version": "0.0.0"
+          },
+          "defaultable": false,
+          "isRestType": false
+        },
+        "typeName": "array",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      }
+    },
+    "mappings": []
+  }
+}
