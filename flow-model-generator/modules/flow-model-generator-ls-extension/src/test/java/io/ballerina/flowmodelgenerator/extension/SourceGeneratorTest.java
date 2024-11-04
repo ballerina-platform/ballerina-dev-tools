@@ -59,6 +59,12 @@ public class SourceGeneratorTest extends AbstractLSTest {
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
 
         boolean assertFailure = false;
+
+        if (actualTextEdits.size() != testConfig.output().size()) {
+            log.info("The number of text edits does not match the expected output.");
+            assertFailure = true;
+        }
+
         Map<String, List<TextEdit>> newMap = new HashMap<>();
         for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
             Path fullPath = Paths.get(entry.getKey());

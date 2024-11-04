@@ -1,5 +1,5 @@
 
-function transform(Person person, Admission admission) returns Employee => {
+function transformAdmission(Person person, Admission admission) returns Employee => {
     name: person.name,
     empId: admission.empId,
     email: person.email,
@@ -7,5 +7,11 @@ function transform(Person person, Admission admission) returns Employee => {
         city: person.address.city,
         country: person.address.country
     }
+};
+
+function transformToPerson(string name, string email, Address address) returns Person => {
+    name: name,
+    email: email,
+    address: address
 };
 
