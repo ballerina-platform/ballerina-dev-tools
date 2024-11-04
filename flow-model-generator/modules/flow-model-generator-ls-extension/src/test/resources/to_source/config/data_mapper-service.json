@@ -93,7 +93,7 @@
             "character": 0
           }
         },
-        "newText": "function transform() returns => {\n}"
+        "newText": "function transform() returns => {\n} ;"
       }
     ],
     "data_mapper/service.bal": [
