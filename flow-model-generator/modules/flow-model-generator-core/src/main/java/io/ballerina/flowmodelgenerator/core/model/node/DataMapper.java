@@ -186,6 +186,7 @@ public class DataMapper extends NodeBuilder {
                 .openBrace()
                 .name(bodyText)
                 .closeBrace()
+                .endOfStatement()
                 .stepOut()
                 .textEdit(false, "data_mappings.bal", false);
 
