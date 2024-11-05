@@ -34,7 +34,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -47,7 +46,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true

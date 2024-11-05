@@ -131,9 +131,18 @@ public class ActionCall extends NodeBuilder {
                             ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
                 }
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+                nodeBuilder.properties().custom()
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value("")
+                        .editable()
+                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
         }
 
@@ -141,8 +150,7 @@ public class ActionCall extends NodeBuilder {
             nodeBuilder.properties().type(function.returnType()).data(null);
         }
 
-        nodeBuilder.properties()
-                .custom()
+        nodeBuilder.properties().custom()
                 .metadata()
                     .label(Property.CONNECTION_LABEL)
                     .description(Property.CONNECTION_DOC)
