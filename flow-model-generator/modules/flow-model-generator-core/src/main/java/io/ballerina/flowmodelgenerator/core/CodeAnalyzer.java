@@ -543,6 +543,9 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
+        } else if (nodeBuilder instanceof NewConnection) {
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
+                    NewConnection.CONNECTION_TYPE_LABEL);
         } else {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit);
         }

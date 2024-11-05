@@ -359,11 +359,21 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
-            data(node, implicit);
+            return implicit ?
+                    dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL)
+                    : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL);
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node) {
+            return dataVariable(node, false);
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc) {
+            data(node, variableDoc);
 
             propertyBuilder
                     .metadata()
-                        .label(implicit ? Property.DATA_IMPLICIT_TYPE_LABEL : Property.DATA_TYPE_LABEL)
+                        .label(typeDoc)
                         .description(Property.DATA_TYPE_DOC)
                         .stepOut()
                     .placeholder("var")
@@ -380,10 +390,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
             addProperty(Property.DATA_TYPE_KEY);
             return this;
-        }
-
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            return dataVariable(node, false);
         }
 
         public PropertiesBuilder<T> payload(Node node, String type) {
@@ -409,9 +415,17 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> data(Node node, boolean implicit) {
+            return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL);
+        }
+
+        public PropertiesBuilder<T> data(Node node) {
+            return data(node, false);
+        }
+
+        public PropertiesBuilder<T> data(Node node, String label) {
             propertyBuilder
                     .metadata()
-                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL)
+                        .label(label)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
                     .placeholder("item")
@@ -421,10 +435,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             addProperty(Property.DATA_VARIABLE_KEY, node);
 
             return this;
-        }
-
-        public PropertiesBuilder<T> data(Node node) {
-            return data(node, false);
         }
 
         public PropertiesBuilder<T> defaultableName(String data) {
