@@ -32,7 +32,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionConfig",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false

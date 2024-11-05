@@ -72,7 +72,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "variable": {
@@ -192,7 +192,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {
@@ -288,7 +288,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {

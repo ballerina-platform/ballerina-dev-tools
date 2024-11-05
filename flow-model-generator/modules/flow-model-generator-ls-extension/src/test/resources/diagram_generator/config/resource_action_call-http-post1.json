@@ -73,7 +73,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -194,7 +194,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -316,7 +316,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -437,7 +437,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -558,7 +558,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -680,7 +680,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -801,7 +801,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {

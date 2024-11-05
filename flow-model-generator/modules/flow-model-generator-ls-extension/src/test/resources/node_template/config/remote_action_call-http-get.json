@@ -82,10 +82,9 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
-        "value": "",
-        "placeholder": "httpClient",
+        "value": "httpClient",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "checkError": {

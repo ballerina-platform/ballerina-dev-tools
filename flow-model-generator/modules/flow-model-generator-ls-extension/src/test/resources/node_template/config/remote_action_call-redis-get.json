@@ -68,10 +68,9 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:Client",
-        "value": "",
-        "placeholder": "rc",
+        "value": "rc",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "checkError": {

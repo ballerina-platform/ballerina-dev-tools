@@ -32,7 +32,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:ConnectionConfig",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -45,7 +44,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true

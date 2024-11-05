@@ -172,7 +172,7 @@
                             "valueType": "EXPRESSION",
                             "value": "asiri",
                             "optional": false,
-                            "editable": true,
+                            "editable": false,
                             "advanced": false
                           },
                           "variable": {
@@ -293,7 +293,7 @@
                             "valueType": "EXPRESSION",
                             "value": "asiri",
                             "optional": false,
-                            "editable": true,
+                            "editable": false,
                             "advanced": false
                           },
                           "variable": {

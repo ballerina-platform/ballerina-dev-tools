@@ -120,10 +120,9 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "",
-        "placeholder": "covid19Client",
+        "value": "covid19Client",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "checkError": {

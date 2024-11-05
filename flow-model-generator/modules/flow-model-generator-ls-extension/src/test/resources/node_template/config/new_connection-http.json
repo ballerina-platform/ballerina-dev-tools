@@ -32,7 +32,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -45,7 +44,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:ClientConfiguration",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false

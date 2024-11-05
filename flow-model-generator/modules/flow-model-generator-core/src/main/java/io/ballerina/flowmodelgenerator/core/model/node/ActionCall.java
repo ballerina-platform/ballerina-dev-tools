@@ -141,9 +141,17 @@ public class ActionCall extends NodeBuilder {
             nodeBuilder.properties().type(function.returnType()).data(null);
         }
 
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
-                Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
-                codedata.parentSymbol(), false);
+        nodeBuilder.properties()
+                .custom()
+                .metadata()
+                    .label(Property.CONNECTION_LABEL)
+                    .description(Property.CONNECTION_DOC)
+                    .stepOut()
+                .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
 
         if (function.returnError() == 1) {
             nodeBuilder.properties().checkError(true);

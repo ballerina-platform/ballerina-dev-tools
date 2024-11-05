@@ -72,7 +72,7 @@
             "valueType": "EXPRESSION",
             "value": "moduleCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "variable": {
@@ -171,7 +171,7 @@
             "valueType": "EXPRESSION",
             "value": "    myModuleCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -275,7 +275,7 @@
             "valueType": "EXPRESSION",
             "value": "localCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "variable": {
@@ -435,7 +435,7 @@
             "valueType": "EXPRESSION",
             "value": "    myLocalCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

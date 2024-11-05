@@ -486,8 +486,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
-                    .type(Property.ValueType.EXPRESSION)
-                    .editable();
+                    .type(Property.ValueType.EXPRESSION);
             addProperty(key);
             return this;
         }
@@ -923,6 +922,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
                                            Object typeConstraint, String value, boolean optional) {
             return custom(key, label, description, type, typeConstraint, value, optional, false);
+        }
+
+        public Property.Builder<PropertiesBuilder<T>> custom() {
+            return propertyBuilder;
         }
 
         public PropertiesBuilder<T> scope(String scope) {

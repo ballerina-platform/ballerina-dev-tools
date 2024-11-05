@@ -133,7 +133,7 @@
             "valueType": "EXPRESSION",
             "value": "drinkClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {
