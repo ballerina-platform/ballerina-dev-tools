@@ -362,12 +362,11 @@ public class DataMapManager {
             genSourceForMapping(mapping, mappingSource);
         }
 
-        StringBuilder sb = new StringBuilder();
-        genSource(mappingSource, sb);
-        return sb.toString();
+        return genSource(mappingSource);
     }
 
-    private void genSource(Map<String, Object> mappings, StringBuilder sb) {
+    private String genSource(Map<String, Object> mappings) {
+        StringBuilder sb = new StringBuilder();
         sb.append("{");
 
         int len = mappings.entrySet().size();
@@ -375,7 +374,7 @@ public class DataMapManager {
         for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
             sb.append(stringObjectEntry.getKey()).append(":");
             if (stringObjectEntry.getValue() instanceof Map<?,?>) {
-                genSource((Map<String, Object>) stringObjectEntry.getValue(), sb);
+                sb.append(genSource((Map<String, Object>) stringObjectEntry.getValue()));
             } else {
                 sb.append(stringObjectEntry.getValue());
             }
@@ -385,6 +384,7 @@ public class DataMapManager {
             i = i + 1;
         }
         sb.append("}");
+        return sb.toString();
     }
 
     private void genSourceForMapping(Mapping mapping, Map<String, Object> mappingSource) {

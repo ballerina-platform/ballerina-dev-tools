@@ -20,20 +20,8 @@ public class DataMappingSourceTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-//                {Path.of("variable1.json")},
-                {Path.of("variable2.json")},
-//                {Path.of("variable3.json")},
-//                {Path.of("variable4.json")},
-//                {Path.of("variable5.json")},
-//                {Path.of("variable6.json")},
-//                {Path.of("variable7.json")},
-//                {Path.of("variable8.json")},
-//                {Path.of("variable9.json")},
-//                {Path.of("variable10.json")},
-//                {Path.of("variable11.json")},
-//                {Path.of("variable12.json")},
-//                {Path.of("variable13.json")},
-//                {Path.of("variable14.json")},
+                {Path.of("variable1.json")},
+                {Path.of("variable2.json")}
         };
     }
 
@@ -46,15 +34,14 @@ public class DataMappingSourceTest extends AbstractLSTest {
         DataMapperSourceRequest request =
                 new DataMapperSourceRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
                         testConfig.diagram(), testConfig.mappings(), "");
-        JsonObject model = getResponse(request).getAsJsonObject("getSource");
+        String source = getResponse(request).getAsJsonPrimitive("source").getAsString();
 
-//        if (!model.equals(testConfig.model())) {
-//            TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
-//                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model);
-////            updateConfig(configJsonPath, updateConfig);
-//            compareJsonElements(model, testConfig.model());
-//            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
-//        }
+        if (!source.equals(testConfig.output())) {
+            TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
+                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(), source);
+            updateConfig(configJsonPath, updateConfig);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
     }
 
     @Override
@@ -83,9 +70,11 @@ public class DataMappingSourceTest extends AbstractLSTest {
      * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
-     * @param mappings       The expected data mapping model
+     * @param mappings    The expected data mapping model
+     * @param output      generated source expression
      */
-    private record TestConfig(String source, String description, JsonElement diagram, JsonArray mappings) {
+    private record TestConfig(String source, String description, JsonElement diagram, String propertyKey, JsonElement position, JsonArray mappings,
+                              String output) {
 
         public String description() {
             return description == null ? "" : description;

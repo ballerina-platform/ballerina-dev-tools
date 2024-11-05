@@ -32,5 +32,6 @@ import io.ballerina.tools.text.LinePosition;
  */
 public record DataMapperSourceRequest(String filePath, JsonElement flowNode, JsonElement mappings,
                                       String propertyKey) {
+    // TODO: Revisit the request parameters
 
 }
