@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Document;
-import io.ballerina.tools.diagnostics.Diagnostic;
+import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
@@ -21,19 +22,18 @@ public class SuggestedModelGenerator {
     private final LineRange newLineRange;
     private boolean hasSuggestedNodes;
 
-    public SuggestedModelGenerator(Document document, LineRange newLineRange) {
+    public SuggestedModelGenerator(Document document, LineRange newLineRange, SemanticModel semanticModel) {
         this.foundError = false;
         this.errorIndex = 0;
         this.hasSuggestedNodes = false;
         this.newLineRange = newLineRange;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         this.errorLocations = new ArrayList<>();
-        for (Diagnostic diagnostic : document.syntaxTree().diagnostics()) {
-            errorLocations.add(diagnostic.location().lineRange());
-        }
-//        DiagnosticResult diagnosticResult = newProject.currentPackage().getCompilation().diagnosticResult();
-//        Collection<Diagnostic> errors = diagnosticResult.errors();
-//        List<LineRange> errorLocations = errors.stream().map(error -> error.location().lineRange()).toList();
+        document.syntaxTree().diagnostics()
+                .forEach(diagnostic -> errorLocations.add(diagnostic.location().lineRange()));
+        semanticModel.diagnostics().stream()
+                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR)
+                .forEach(diagnostic -> errorLocations.add(diagnostic.location().lineRange()));
     }
 
     public void markSuggestedNodes(JsonArray newNodes, int startIndex) {

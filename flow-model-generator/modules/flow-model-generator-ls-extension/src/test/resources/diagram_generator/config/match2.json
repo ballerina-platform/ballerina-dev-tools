@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "1",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -132,7 +134,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"unripe\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -174,11 +177,13 @@
                     "valueType": "EXPRESSION",
                     "value": "2",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -213,7 +218,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"ripe\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -255,11 +261,13 @@
                     "valueType": "EXPRESSION",
                     "value": "3",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -294,7 +302,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"overripe\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -336,11 +345,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var r",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -350,7 +361,8 @@
                 "valueType": "EXPRESSION",
                 "value": "r > 3 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -385,7 +397,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"spoiled\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -427,11 +440,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -466,7 +481,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"invalid ripeness level\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -482,8 +498,10 @@
             },
             "valueType": "EXPRESSION",
             "value": "ripeness ",
+            "placeholder": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

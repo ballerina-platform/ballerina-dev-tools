@@ -22,12 +22,12 @@
       {
         "range": {
           "start": {
-            "line": 14,
-            "character": 12
+            "line": 13,
+            "character": 10
           },
           "end": {
-            "line": 14,
-            "character": 22
+            "line": 15,
+            "character": 9
           }
         },
         "newText": ""

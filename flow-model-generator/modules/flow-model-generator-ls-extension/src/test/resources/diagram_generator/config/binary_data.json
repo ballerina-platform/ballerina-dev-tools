@@ -42,8 +42,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "((base64 `abcd`))",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -52,8 +53,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -62,8 +65,10 @@
             },
             "valueType": "TYPE",
             "value": "byte[]",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -98,8 +103,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "base64 `abcd`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -108,8 +114,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -118,8 +126,10 @@
             },
             "valueType": "TYPE",
             "value": "byte[]",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -154,8 +164,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "base64 `abcd`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -164,8 +175,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b3",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -174,8 +187,10 @@
             },
             "valueType": "TYPE",
             "value": "byte[]|string",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -210,8 +225,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "base64 `abcd`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -220,8 +236,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b4",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -230,8 +248,10 @@
             },
             "valueType": "TYPE",
             "value": "ByteRef",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -266,8 +286,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "base64 `abcd`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -276,8 +297,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b5",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -286,8 +309,10 @@
             },
             "valueType": "TYPE",
             "value": "byte[3]",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

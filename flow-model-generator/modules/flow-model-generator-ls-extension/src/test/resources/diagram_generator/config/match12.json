@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var obj",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -107,7 +109,8 @@
                 "valueType": "EXPRESSION",
                 "value": "obj is record {|int quantity; string 'type;|} ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -141,8 +144,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.quantity",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -151,8 +155,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -161,8 +167,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -197,8 +205,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.'type",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -207,8 +216,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "'type",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -217,8 +228,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -254,7 +267,8 @@
                     "valueType": "EXPRESSION",
                     "value": "string `Order for ${quantity} ${'type} cherries placed`",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -296,11 +310,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -335,7 +351,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -370,7 +387,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -379,8 +397,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -389,8 +409,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -444,8 +466,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "e is error ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -480,7 +504,8 @@
                             "valueType": "EXPRESSION",
                             "value": "error(\"Data processing failed\", e)",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -501,8 +526,10 @@
             },
             "valueType": "EXPRESSION",
             "value": "data ",
+            "placeholder": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

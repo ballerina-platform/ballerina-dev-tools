@@ -20,9 +20,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -32,7 +34,8 @@
         "valueType": "TYPE",
         "value": "byte[]",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "expression": {
         "metadata": {
@@ -42,7 +45,8 @@
         "valueType": "EXPRESSION",
         "value": "base64 `abcd`",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

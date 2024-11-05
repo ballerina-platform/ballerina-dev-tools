@@ -2,10 +2,10 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
+    "id": "31",
     "metadata": {
       "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n",
-      "icon": ""
+      "description": "Converts a value of type `anydata` to `json`.\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -30,35 +30,52 @@
       "v": {
         "metadata": {
           "label": "v",
-          "description": "Source anydata value\n"
+          "description": "Source anydata value"
         },
-        "valueType": "Expression",
-        "value": "{}",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "anydata",
+        "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
-        },
-        "valueType": "Identifier",
-        "value": "value",
-        "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
-          "label": "Type",
+          "label": "Variable Type",
           "description": "Type of the variable"
         },
-        "valueType": "Type",
-        "value": "string",
+        "valueType": "TYPE",
+        "value": "json|data.jsondata:Error",
         "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -86,7 +103,7 @@
             "character": 0
           }
         },
-        "newText": "string value = check jsondata:toJson({});"
+        "newText": "jsondata:Error item = check jsondata:toJson();"
       }
     ]
   }

@@ -85,8 +85,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity > 10 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -121,7 +123,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"large\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -155,8 +158,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity > 5 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -210,8 +215,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "quantity > 8 ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -246,7 +253,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"medium\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -304,7 +312,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"small\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -367,7 +376,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"tiny\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -384,7 +394,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -392,7 +402,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -416,7 +426,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -426,7 +437,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -435,7 +447,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -444,8 +457,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -454,8 +469,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

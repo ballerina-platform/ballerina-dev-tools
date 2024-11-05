@@ -28,20 +28,13 @@
               "description": "Boolean Condition"
             },
             "valueType": "EXPRESSION",
-            "value": "true",
+            "value": "",
+            "placeholder": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
-        "children": []
-      },
-      {
-        "label": "Else",
-        "kind": "BLOCK",
-        "codedata": {
-          "node": "ELSE"
-        },
-        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

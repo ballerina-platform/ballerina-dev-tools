@@ -1,0 +1,174 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "54892",
+    "metadata": {
+      "label": "post",
+      "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "post",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_post_node.bal",
+        "startLine": {
+          "line": 23,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 23,
+          "offset": 84
+        }
+      },
+      "sourceCode": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");",
+      "resourcePath": "[boolean|int|float|decimal|string...]"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/apples/[varRef]/[12 + 3]",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "res7",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"green apple\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "params": {
+        "metadata": {
+          "label": "params",
+          "description": "The query parameters"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'res7'"
+        }
+      ]
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 23,
+            "character": 8
+          },
+          "end": {
+            "line": 23,
+            "character": 84
+          }
+        },
+        "newText": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");"
+      }
+    ]
+  }
+}

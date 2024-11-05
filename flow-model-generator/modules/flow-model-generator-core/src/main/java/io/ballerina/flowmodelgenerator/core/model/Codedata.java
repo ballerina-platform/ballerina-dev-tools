@@ -24,19 +24,22 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the properties that uniquely identifies a node in the diagram.
  *
- * @param node       The kind of the component
- * @param org        The organization which the component belongs to
- * @param module     The module which the component belongs to
- * @param object     The object of the component if it is a method or an action call
- * @param symbol     The symbol of the component
- * @param version    The version of the component
- * @param lineRange  The line range of the component
- * @param sourceCode The source code of the component
- * @param id         The unique identifier of the component if exists
+ * @param node         The kind of the component
+ * @param org          The organization which the component belongs to
+ * @param module       The module which the component belongs to
+ * @param object       The object of the component if it is a method or an action call
+ * @param symbol       The symbol of the component
+ * @param version      The version of the component
+ * @param lineRange    The line range of the component
+ * @param sourceCode   The source code of the component
+ * @param parentSymbol The parent symbol of the component
+ * @param resourcePath The path of the resource function
+ * @param id           The unique identifier of the component if exists
  * @since 1.5.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
-                       String version, LineRange lineRange, String sourceCode, String id) {
+                       String version, LineRange lineRange, String sourceCode, String parentSymbol,
+                       String resourcePath, Integer id) {
 
     @Override
     public String toString() {
@@ -65,7 +68,9 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private String version;
         private LineRange lineRange;
         private String sourceCode;
-        private String id;
+        private String parentSymbol;
+        private String resourcePath;
+        private Integer id;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -117,13 +122,24 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
-        public Builder<T> id(String id) {
+        public Builder<T> parentSymbol(String parentSymbol) {
+            this.parentSymbol = parentSymbol;
+            return this;
+        }
+
+        public Builder<T> resourcePath(String resourcePath) {
+            this.resourcePath = resourcePath;
+            return this;
+        }
+
+        public Builder<T> id(int id) {
             this.id = id;
             return this;
         }
 
         public Codedata build() {
-            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, id);
+            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
+                    resourcePath, id);
         }
     }
 }

@@ -10,7 +10,8 @@ public enum NodeKind {
     // Flow nodes
     EVENT_START,
     IF,
-    ACTION_CALL,
+    REMOTE_ACTION_CALL,
+    RESOURCE_ACTION_CALL,
     FUNCTION_CALL,
     NEW_CONNECTION,
     RETURN,

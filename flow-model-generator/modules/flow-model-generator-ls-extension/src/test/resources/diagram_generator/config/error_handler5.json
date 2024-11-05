@@ -109,7 +109,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -144,7 +145,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -153,8 +155,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -163,8 +167,10 @@
                 },
                 "valueType": "TYPE",
                 "value": ".:error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -199,7 +205,8 @@
                     "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

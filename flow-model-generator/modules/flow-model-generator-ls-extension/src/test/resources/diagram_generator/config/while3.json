@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -75,8 +76,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -85,8 +88,10 @@
             },
             "valueType": "TYPE",
             "value": "string|()",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -121,8 +126,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "0",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -131,8 +137,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -141,8 +149,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -195,15 +205,15 @@
                 "metadata": {
                   "label": "get",
                   "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL",
+                  "node": "REMOTE_ACTION_CALL",
                   "org": "ballerina",
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
-                  "version": "2.12.1",
+                  "version": "2.12.2",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -227,7 +237,8 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -236,8 +247,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "path": {
                     "metadata": {
@@ -247,7 +260,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"/food/oranges\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "headers": {
                     "metadata": {
@@ -256,7 +270,19 @@
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
-                    "editable": true
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Flag",
+                      "description": "Whether to return the error"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -265,8 +291,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "json",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -302,7 +330,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Response received from food service: \" + response.toString()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -312,7 +341,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -348,7 +378,8 @@
                     "valueType": "EXPRESSION",
                     "value": "i += 1;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -406,7 +437,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Error occurred while invoking food service\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -416,7 +448,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -432,8 +465,10 @@
             },
             "valueType": "EXPRESSION",
             "value": "i < count ",
+            "placeholder": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -445,7 +480,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -453,7 +488,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -477,7 +512,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -487,7 +523,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -496,7 +533,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -505,8 +543,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -515,8 +555,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

@@ -27,12 +27,8 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.flowmodelgenerator.core.central.Function;
-import io.ballerina.flowmodelgenerator.core.central.FunctionsResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.PackageResponse;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
-import io.ballerina.flowmodelgenerator.core.central.SymbolResponse;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -44,12 +40,11 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Generates functions based on a given keyword.
@@ -70,7 +65,16 @@ public class FunctionGenerator {
 
     public JsonArray getFunctions(Map<String, String> queryMap, LineRange position) {
         buildProjectNodes(queryMap, position);
-        buildUtilityNodes(queryMap);
+
+        Map<String, String> modifiedQueryMap = new HashMap<>(queryMap);
+        if (CommonUtils.hasNoKeyword(queryMap, "limit")) {
+            modifiedQueryMap.put("limit", "20");
+        }
+        if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
+            modifiedQueryMap.put("offset", "0");
+        }
+        buildUtilityNodes(modifiedQueryMap);
+
         return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
     }
 
@@ -122,81 +126,29 @@ public class FunctionGenerator {
 
     private void buildUtilityNodes(Map<String, String> queryMap) {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
-        Set<String> functionSet = new HashSet<>();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
 
-        if (CommonUtils.hasNoKeyword(queryMap)) {
-            utilityBuilder.items(LocalIndexCentral.getInstance().getFunctions());
-            return;
-        }
+        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
+                dbManager.getFunctionsByPackage("log") :
+                dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
 
-        PackageResponse packages = RemoteCentral.getInstance().searchPackages(queryMap);
-
-        // Find the packages for the given query.
-        for (PackageResponse.Package pkg : packages.packages()) {
-            if (isNonBallerinaOrg(pkg.organization())) {
-                continue;
-            }
-            FunctionsResponse functionResponses =
-                    RemoteCentral.getInstance().functions(pkg.organization(), pkg.name(), pkg.version());
-
-            List<Function> functions = functionResponses.data().apiDocs().docsData().modules().stream()
-                    .flatMap(module -> module.functions().stream())
-                    .toList();
-            if (functions.isEmpty()) {
-                continue;
-            }
-
-            // Add every function in the package.
-            Category.Builder builder = utilityBuilder.stepIn(pkg.name())
-                    .metadata()
-                    .label(pkg.name())
-                    .description(pkg.summary())
-                    .icon(pkg.icon())
-                    .stepOut();
-
-            for (Function function : functions) {
-                functionSet.add(function.name());
-                Metadata metadata = new Metadata.Builder<>(null)
-                        .label(function.name())
-                        .description(function.description())
-                        .build();
-                Codedata codedata = new Codedata.Builder<>(null)
-                        .node(NodeKind.FUNCTION_CALL)
-                        .org(pkg.organization())
-                        .module(pkg.name())
-                        .symbol(function.name())
-                        .version(pkg.version())
-                        .build();
-                builder.node(new AvailableNode(metadata, codedata, true));
-            }
-        }
-
-        // Find the symbols for the given query.
-        SymbolResponse symbolResponse = RemoteCentral.getInstance().searchSymbols(queryMap);
-        for (SymbolResponse.Symbol symbol : symbolResponse.symbols()) {
-            if (!symbol.symbolType().equals("function") || (isNonBallerinaOrg(symbol.organization()))) {
-                continue;
-            }
-            if (functionSet.contains(symbol.symbolName())) {
-                continue;
-            }
+        for (FunctionResult functionResult : functionResults) {
+            String icon = CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
+                    functionResult.version());
             Metadata metadata = new Metadata.Builder<>(null)
-                    .label(symbol.symbolName())
-                    .description(symbol.description())
-                    .icon(symbol.icon())
+                    .label(functionResult.name())
+                    .description(functionResult.description())
+                    .icon(icon)
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
-                    .org(symbol.organization())
-                    .module(symbol.name())
-                    .symbol(symbol.symbolName())
-                    .version(symbol.version())
+                    .org(functionResult.org())
+                    .module(functionResult.packageName())
+                    .symbol(functionResult.name())
+                    .version(functionResult.version())
                     .build();
-            utilityBuilder.stepIn(symbol.name()).node(new AvailableNode(metadata, codedata, true));
+            utilityBuilder.stepIn(functionResult.packageName(), "", icon)
+                    .node(new AvailableNode(metadata, codedata, true));
         }
-    }
-
-    private boolean isNonBallerinaOrg(String organization) {
-        return !organization.equals("ballerina") && !organization.equals("ballerinax");
     }
 }

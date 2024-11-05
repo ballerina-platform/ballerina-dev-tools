@@ -5,18 +5,13 @@
     "org": "ballerinax",
     "module": "covid19",
     "object": "Client",
-    "symbol": "init",
-    "id": "6267"
+    "symbol": "init"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.\n",
-      "keywords": [
-        "Lifestyle & Entertainment/News & Lifestyle",
-        "Cost/Free"
-      ],
+      "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
     },
     "codedata": {
@@ -25,31 +20,35 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": "6267"
+      "id": 189
     },
     "returning": false,
     "properties": {
       "config": {
         "metadata": {
           "label": "config",
-          "description": "The configurations to be used when initializing the `connector` \n"
+          "description": "The configurations to be used when initializing the `connector` "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "record",
-        "value": "{}",
-        "optional": false,
-        "editable": true
+        "valueTypeConstraint": "covid19:ConnectionConfig",
+        "value": "",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
       },
       "serviceUrl": {
         "metadata": {
           "label": "serviceUrl",
-          "description": "URL of the target service \n"
+          "description": "URL of the target service "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
-        "optional": false,
-        "editable": true
+        "value": "",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
       },
       "type": {
         "metadata": {
@@ -59,7 +58,8 @@
         "valueType": "TYPE",
         "value": "covid19:Client",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -67,9 +67,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "scope": {
         "metadata": {
@@ -79,7 +81,19 @@
         "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

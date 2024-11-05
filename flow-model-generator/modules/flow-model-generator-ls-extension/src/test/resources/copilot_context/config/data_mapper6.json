@@ -1,0 +1,10 @@
+{
+  "description": "",
+  "position": {
+    "line": 3,
+    "offset": 76
+  },
+  "source": "data_mapper/service.bal",
+  "prefix": "import ballerina/http;\nfunction transform(Person person, Admission admission) returns Employee => {\n    name: person.name,\n    empId: admission.empId,\n    email: person.email,\n    location: {\n        city: person.address.city,\n        country: person.address.country\n    }\n};\n\ntype Location record {|\n    string city;\n    string country;\n|};\n\ntype Address record {|\n    string houseNo;\n    string line1;\n    string line2;\n    string city;\n    string country;\n|};\n\ntype Employee record {|\n    string name;\n    string empId;\n    string email;\n    Location location;\n|};\n\ntype Person record {|\n    string name;\n    string email;\n    Address address;\n|};\n\ntype Admission record {\n    string empId;\n    string admissionDate;\n};\n\ntype Input record {\n    string name;\n    int age;\n};\n\ntype Output record {\n    string name;\n    int age;\n};\n\n\nfinal http:Client httpEp = check new (\"http://localhost:9090\");\n\n\nservice /p1 on new http:Listener(9091) {\n    resource function get greeting() returns json|http:InternalServerError {\n        ",
+  "suffix": "\n        do {\n            Input localInput = {name: \"John\", age: 30};\n\n        } on fail error e {\n            return http:INTERNAL_SERVER_ERROR;\n        }\n    }\n}\n\nInput moduleInput = {name: \"John\", age: 30};\n"
+}

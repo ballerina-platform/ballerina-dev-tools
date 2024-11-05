@@ -40,15 +40,15 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -72,7 +72,8 @@
             "valueType": "EXPRESSION",
             "value": "moduleCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -81,8 +82,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleVal",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -92,7 +95,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -101,7 +105,19 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Flag",
+              "description": "Whether to return the error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -110,8 +126,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -124,7 +142,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "$anon",
           "module": ".",
           "object": "Client",
@@ -153,7 +171,8 @@
             "valueType": "EXPRESSION",
             "value": "    myModuleCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -188,8 +207,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "check new (\"http://localhost:8080\")",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -198,8 +218,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -208,8 +230,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -219,15 +243,15 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -251,7 +275,8 @@
             "valueType": "EXPRESSION",
             "value": "localCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -260,8 +285,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localVal",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "path": {
             "metadata": {
@@ -271,7 +298,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "headers": {
             "metadata": {
@@ -280,7 +308,19 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Flag",
+              "description": "Whether to return the error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -289,8 +329,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -325,8 +367,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -335,8 +378,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myLocalCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -345,8 +390,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -359,7 +406,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "ACTION_CALL",
+          "node": "REMOTE_ACTION_CALL",
           "org": "$anon",
           "module": ".",
           "object": "Client",
@@ -388,7 +435,8 @@
             "valueType": "EXPRESSION",
             "value": "    myLocalCl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -424,7 +472,8 @@
             "valueType": "STRING",
             "value": "\nvar myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -436,7 +485,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -444,7 +493,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -468,7 +517,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -478,7 +528,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -487,7 +538,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -496,8 +548,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -506,8 +560,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -542,8 +598,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new MyClient()",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -552,8 +609,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myExplicitModuleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -562,8 +621,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -598,8 +659,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "new",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -608,8 +670,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myModuleCl",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -618,8 +682,10 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

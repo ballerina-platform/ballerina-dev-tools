@@ -99,7 +99,19 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Flag",
+                      "description": "Whether to return the error"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -140,7 +152,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -232,7 +245,19 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Flag",
+                      "description": "Whether to return the error"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -291,7 +316,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -300,8 +326,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "err ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -310,8 +338,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -346,10 +376,11 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -363,7 +394,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -455,7 +487,19 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Flag",
+                      "description": "Whether to return the error"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -514,7 +558,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -523,8 +568,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "err ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -533,8 +580,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -569,10 +618,11 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -586,7 +636,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -684,8 +735,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "true ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -749,7 +802,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"failed retry\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -784,7 +838,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -793,8 +848,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "err ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -803,8 +860,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -839,10 +898,11 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -856,7 +916,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -954,8 +1015,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "true ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -1019,7 +1082,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"failed retry\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -1054,7 +1118,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -1063,8 +1128,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "err ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -1073,8 +1140,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -1109,10 +1178,11 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -1126,7 +1196,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

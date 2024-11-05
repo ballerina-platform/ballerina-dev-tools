@@ -71,8 +71,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "10",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -81,8 +82,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -91,8 +94,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -128,8 +133,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "20",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -138,8 +144,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -148,8 +156,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -205,8 +215,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(x > y) ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -243,7 +255,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is greater than y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -263,7 +276,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -324,7 +338,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is equal to y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -344,7 +359,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0,
@@ -400,8 +416,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "(x == 10) ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -438,7 +456,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"x is equal to 10\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "view": {
                             "metadata": {
@@ -458,7 +477,8 @@
                               }
                             },
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "advanced": false
                           }
                         },
                         "flags": 0,
@@ -519,7 +539,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"x is not equal to 10\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "view": {
                             "metadata": {
@@ -539,7 +560,8 @@
                               }
                             },
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "advanced": false
                           }
                         },
                         "flags": 0,

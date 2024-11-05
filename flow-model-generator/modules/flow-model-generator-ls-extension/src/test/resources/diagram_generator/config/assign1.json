@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "2",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -75,8 +76,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -85,8 +88,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -122,7 +127,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -132,7 +138,8 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -168,7 +175,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -178,7 +186,8 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

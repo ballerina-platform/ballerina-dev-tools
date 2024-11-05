@@ -1,0 +1,42 @@
+{
+  "source": "data_mapper/main.bal",
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "io",
+    "symbol": "println",
+    "version": "1.6.1"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "println",
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "println",
+      "version": "1.6.1"
+    },
+    "returning": false,
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "ballerina/io:1.6.1:Printable[]",
+        "value": "",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

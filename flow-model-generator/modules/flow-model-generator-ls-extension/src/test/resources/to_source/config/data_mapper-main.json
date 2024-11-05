@@ -87,15 +87,15 @@
       {
         "range": {
           "start": {
-            "line": 11,
+            "line": 17,
             "character": 0
           },
           "end": {
-            "line": 11,
+            "line": 17,
             "character": 0
           }
         },
-        "newText": "function transform() returns => {\n}"
+        "newText": "function transform() returns => {\n} ;"
       }
     ],
     "data_mapper/main.bal": [

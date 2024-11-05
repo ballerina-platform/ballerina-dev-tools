@@ -59,6 +59,12 @@ public class SourceGeneratorTest extends AbstractLSTest {
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
 
         boolean assertFailure = false;
+
+        if (actualTextEdits.size() != testConfig.output().size()) {
+            log.info("The number of text edits does not match the expected output.");
+            assertFailure = true;
+        }
+
         Map<String, List<TextEdit>> newMap = new HashMap<>();
         for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
             Path fullPath = Paths.get(entry.getKey());
@@ -102,8 +108,8 @@ public class SourceGeneratorTest extends AbstractLSTest {
     protected String[] skipList() {
         //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
         return new String[]{
-                "action_call-http-get9.json",
-                "action_call-http-post7.json"
+                "resource_action_call-http-get6.json",
+                "resource_action_call-http-post5.json"
         };
     }
 

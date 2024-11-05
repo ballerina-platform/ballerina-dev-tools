@@ -1,11 +1,12 @@
 {
-  "source": "user_functions.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "102361",
     "metadata": {
       "label": "println",
-      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -31,15 +32,15 @@
     "flags": 0
   },
   "output": {
-    "user_functions.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {
-            "line": 1,
+            "line": 0,
             "character": 0
           },
           "end": {
-            "line": 1,
+            "line": 0,
             "character": 0
           }
         },

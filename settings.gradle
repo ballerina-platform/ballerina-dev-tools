@@ -33,6 +33,8 @@ include(':sequence-model-generator:sequence-model-generator-core')
 include(':sequence-model-generator:sequence-model-generator-ls-extension')
 include(':flow-model-generator:flow-model-generator-core')
 include(':flow-model-generator:flow-model-generator-ls-extension')
+include(':flow-model-generator:flow-model-index-generator')
+include(':flow-model-generator:flow-model-central-client')
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(':docerina-ui').projectDir = file('docerina-ui')
@@ -46,6 +48,8 @@ project(':sequence-model-generator:sequence-model-generator-core').projectDir = 
 project(':sequence-model-generator:sequence-model-generator-ls-extension').projectDir = file('sequence-model-generator/modules/sequence-model-generator-ls-extension')
 project(':flow-model-generator:flow-model-generator-core').projectDir = file('flow-model-generator/modules/flow-model-generator-core')
 project(':flow-model-generator:flow-model-generator-ls-extension').projectDir = file('flow-model-generator/modules/flow-model-generator-ls-extension')
+project(':flow-model-generator:flow-model-index-generator').projectDir = file('flow-model-generator/modules/flow-model-index-generator')
+project(':flow-model-generator:flow-model-central-client').projectDir = file('flow-model-generator/modules/flow-model-central-client')
 
 gradleEnterprise {
     buildScan {

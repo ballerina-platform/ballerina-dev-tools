@@ -5,75 +5,97 @@
     "org": "ballerina",
     "module": "http",
     "object": "Client",
-    "symbol": "init",
-    "id": "9489"
+    "symbol": "init"
   },
   "output": {
+    "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+      "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
       "org": "ballerina",
       "module": "http",
       "object": "Client",
-      "symbol": "init"
+      "symbol": "init",
+      "id": 3077
     },
     "returning": false,
     "properties": {
       "url": {
         "metadata": {
           "label": "url",
-          "description": "URL of the target service\n"
+          "description": "URL of the target service"
         },
         "valueType": "EXPRESSION",
-        "value": "\"\"",
+        "valueTypeConstraint": "string",
+        "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "config": {
         "metadata": {
           "label": "config",
-          "description": "The configurations to be used when initializing the `client`\n"
+          "description": "The configurations to be used when initializing the `client`"
         },
         "valueType": "EXPRESSION",
-        "value": "{}",
+        "valueTypeConstraint": "http:ClientConfiguration",
+        "value": "",
+        "placeholder": "",
         "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
-        },
-        "valueType": "Identifier",
-        "value": "value",
-        "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
-          "label": "Type",
+          "label": "Variable Type",
           "description": "Type of the variable"
         },
-        "valueType": "Type",
+        "valueType": "TYPE",
         "value": "http:Client",
         "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
       },
       "scope": {
         "metadata": {
-          "label": "Scope",
-          "description": "Scope of the connection"
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
         },
-        "valueType": "Enum",
+        "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": false
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
-    "flags": 1
+    "flags": 0
   }
 }

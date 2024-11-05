@@ -75,15 +75,15 @@
       {
         "range": {
           "start": {
-            "line": 11,
+            "line": 17,
             "character": 0
           },
           "end": {
-            "line": 11,
+            "line": 17,
             "character": 0
           }
         },
-        "newText": "function transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n}"
+        "newText": "function transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
       }
     ],
     "data_mapper/main.bal": [

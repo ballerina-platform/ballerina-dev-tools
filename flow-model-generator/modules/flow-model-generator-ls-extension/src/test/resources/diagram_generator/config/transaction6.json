@@ -151,8 +151,10 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "_",
+                            "placeholder": "item",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "type": {
                             "metadata": {
@@ -161,8 +163,10 @@
                             },
                             "valueType": "TYPE",
                             "value": "()",
+                            "placeholder": "var",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 1
@@ -202,8 +206,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "_",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -212,8 +218,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "()",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -248,7 +256,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -257,8 +266,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -267,8 +278,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -303,7 +316,8 @@
                     "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

@@ -39,6 +39,9 @@
           "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n   int z = x + y;\n        if (z > 30) {\n            print(\"Sum is greater than 30\");\n        } else {\n       z += 5;\n            print(\"Sum is less than or equal to 30);\n        z += 10; \n}\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -71,8 +74,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "10",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -81,8 +85,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -91,8 +97,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -128,8 +136,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "20",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -138,8 +147,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -148,8 +159,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -185,8 +198,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "x + y",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -195,8 +209,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "z",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -205,8 +221,10 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -262,8 +280,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(z > 30) ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -300,7 +320,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Sum is greater than 30\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -320,7 +341,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0,
@@ -379,7 +401,8 @@
                     "valueType": "EXPRESSION",
                     "value": "z += 5;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0,
@@ -388,6 +411,9 @@
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0,
         "suggested": true
       },
@@ -441,8 +467,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(x > y) ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -479,7 +507,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is greater than y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -499,7 +528,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -559,7 +589,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is equal to y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -579,7 +610,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0

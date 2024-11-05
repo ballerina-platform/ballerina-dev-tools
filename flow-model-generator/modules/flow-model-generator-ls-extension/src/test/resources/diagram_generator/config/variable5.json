@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "{value: check calculate(amount)}",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -75,8 +76,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -85,8 +88,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

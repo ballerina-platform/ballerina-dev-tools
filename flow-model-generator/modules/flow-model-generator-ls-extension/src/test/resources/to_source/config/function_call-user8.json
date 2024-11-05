@@ -1,17 +1,19 @@
 {
-  "source": "user_functions.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "109256",
+    "id": "109288",
     "metadata": {
-      "label": "print"
+      "label": "println",
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "org": "$anon",
-      "module": ".",
-      "symbol": "print",
-      "version": "0.0.0",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "println",
+      "version": "1.6.1",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
@@ -20,38 +22,30 @@
         },
         "endLine": {
           "line": 78,
-          "offset": 12
+          "offset": 44
         }
       },
-      "sourceCode": "print();"
+      "sourceCode": "io:println(greeting + total.toString());"
     },
     "returning": false,
-    "properties": {
-      "view": {
-        "metadata": {
-          "label": "View",
-          "description": "Function definition location"
-        },
-        "valueType": "VIEW",
-        "value": {
-          "fileName": "function_call.bal",
-          "startLine": {
-            "line": 61,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 63,
-            "offset": 1
-          }
-        },
-        "optional": false,
-        "editable": false
-      }
-    },
+    "properties": {},
     "flags": 0
   },
   "output": {
-    "user_functions.bal": [
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/io;"
+      },
       {
         "range": {
           "start": {
@@ -60,10 +54,10 @@
           },
           "end": {
             "line": 78,
-            "character": 12
+            "character": 44
           }
         },
-        "newText": "print();"
+        "newText": "io:println();"
       }
     ]
   }

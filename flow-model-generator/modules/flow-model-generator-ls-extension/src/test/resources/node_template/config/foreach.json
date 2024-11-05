@@ -39,7 +39,8 @@
             "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorVariable": {
             "metadata": {
@@ -47,9 +48,11 @@
               "description": "Name of the error variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "err",
+            "value": "",
+            "placeholder": "err",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorType": {
             "metadata": {
@@ -57,9 +60,11 @@
               "description": "Type of the error"
             },
             "valueType": "TYPE",
-            "value": "error",
+            "value": "",
+            "placeholder": "error",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "children": []
@@ -72,9 +77,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -82,9 +89,11 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "var",
+        "value": "",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "collection": {
         "metadata": {
@@ -92,9 +101,11 @@
           "description": "Collection to iterate"
         },
         "valueType": "EXPRESSION",
-        "value": "[]",
+        "value": "",
+        "placeholder": "[]",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

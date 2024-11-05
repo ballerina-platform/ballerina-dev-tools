@@ -1,7 +1,7 @@
 import ballerina/data.jsondata;
 import ballerina/http;
-import ballerina/log;
 import ballerina/io;
+import ballerina/log;
 
 final http:Client foodClient = check new ("http://localhost:9090");
 
@@ -76,6 +76,6 @@ public function main() {
                 return x * y;
             });
     io:println("6 * 3 = ", result);
+    io:println(greeting + total.toString());
     print();
 }
-

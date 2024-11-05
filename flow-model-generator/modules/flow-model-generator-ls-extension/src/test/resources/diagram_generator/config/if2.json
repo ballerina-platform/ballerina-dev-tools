@@ -85,8 +85,10 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "price > 10 ",
+                "placeholder": "true",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -140,8 +142,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "price > 100 ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -175,8 +179,9 @@
                             },
                             "valueType": "EXPRESSION",
                             "value": "12",
-                            "optional": false,
-                            "editable": true
+                            "optional": true,
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -185,8 +190,10 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "c",
+                            "placeholder": "item",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "type": {
                             "metadata": {
@@ -195,8 +202,10 @@
                             },
                             "valueType": "TYPE",
                             "value": "int",
+                            "placeholder": "var",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -232,7 +241,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"expensive\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -289,8 +299,9 @@
                             },
                             "valueType": "EXPRESSION",
                             "value": "2",
-                            "optional": false,
-                            "editable": true
+                            "optional": true,
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -299,8 +310,10 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "b",
+                            "placeholder": "item",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "type": {
                             "metadata": {
@@ -309,8 +322,10 @@
                             },
                             "valueType": "TYPE",
                             "value": "int",
+                            "placeholder": "var",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -346,7 +361,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"moderate\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -392,7 +408,8 @@
             "valueType": "EXPRESSION",
             "value": "\"cheap\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -404,7 +421,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -412,7 +429,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -436,7 +453,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -446,7 +464,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -455,7 +474,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -464,8 +484,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -474,8 +496,10 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

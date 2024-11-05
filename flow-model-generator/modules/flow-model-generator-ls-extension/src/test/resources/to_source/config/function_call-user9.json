@@ -1,0 +1,71 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "110248",
+    "metadata": {
+      "label": "print"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "print",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 79,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 79,
+          "offset": 12
+        }
+      },
+      "sourceCode": "print();"
+    },
+    "returning": false,
+    "properties": {
+      "view": {
+        "metadata": {
+          "label": "View",
+          "description": "Function definition location"
+        },
+        "valueType": "VIEW",
+        "value": {
+          "fileName": "function_call.bal",
+          "startLine": {
+            "line": 61,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 63,
+            "offset": 1
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 79,
+            "character": 4
+          },
+          "end": {
+            "line": 79,
+            "character": 12
+          }
+        },
+        "newText": "print({fileName= function_call.bal, startLine= {line= 61.0, offset= 0.0}, endLine= {line= 63.0, offset= 1.0}});"
+      }
+    ]
+  }
+}

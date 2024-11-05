@@ -38,7 +38,8 @@ public class DataMappingSourceTest extends AbstractLSTest {
 
         if (!source.equals(testConfig.output())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
-                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(), source);
+                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(),
+                    source);
             updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -73,7 +74,8 @@ public class DataMappingSourceTest extends AbstractLSTest {
      * @param mappings    The expected data mapping model
      * @param output      generated source expression
      */
-    private record TestConfig(String source, String description, JsonElement diagram, String propertyKey, JsonElement position, JsonArray mappings,
+    private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
+                              JsonElement position, JsonArray mappings,
                               String output) {
 
         public String description() {

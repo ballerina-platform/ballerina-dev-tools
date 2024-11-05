@@ -109,7 +109,8 @@
                     "valueType": "STRING",
                     "value": "Commit the trasaction",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -144,8 +145,10 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
+                    "placeholder": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -154,8 +157,10 @@
                     },
                     "valueType": "TYPE",
                     "value": "()",
+                    "placeholder": "var",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -191,7 +196,8 @@
                     "valueType": "STRING",
                     "value": "Generate new flow nodes",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

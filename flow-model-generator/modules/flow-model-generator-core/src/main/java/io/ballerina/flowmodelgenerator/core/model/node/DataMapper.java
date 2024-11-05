@@ -141,12 +141,26 @@ public class DataMapper extends NodeBuilder {
         return symbol.getName();
     }
 
+    private boolean isNewFunction(SourceBuilder sourceBuilder, String functionNameString) {
+        try {
+            sourceBuilder.workspaceManager.loadProject(sourceBuilder.filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return true;
+        }
+        Optional<SemanticModel> semanticModel = sourceBuilder.workspaceManager.semanticModel(sourceBuilder.filePath);
+        return semanticModel.map(model -> model.moduleSymbols().parallelStream()
+                .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(functionNameString))
+                .findAny()
+                .isEmpty()).orElse(true);
+    }
+
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> functionName = sourceBuilder.flowNode.getProperty(FUNCTION_NAME_KEY);
         if (functionName.isEmpty()) {
             throw new IllegalStateException("Function name must be defined for a data mapper node");
         }
+        String functionNameString = functionName.get().value().toString();
 
         Optional<Property> inputs = sourceBuilder.flowNode.getProperty(INPUTS_KEY);
         if (inputs.isEmpty()) {
@@ -159,35 +173,39 @@ public class DataMapper extends NodeBuilder {
             }
         }
 
-        Optional<Property> output = sourceBuilder.flowNode.getProperty(OUTPUT_KEY);
-        if (output.isEmpty()) {
-            throw new IllegalStateException("Output must be defined for a data mapper node");
-        }
-
-        String bodyText = "";
-        Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
-        if (recordSymbol.isPresent()) {
-            TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
-            if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
-                bodyText =
-                        RecordUtil.getFillAllRecordFieldInsertText(((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+        if (isNewFunction(sourceBuilder, functionNameString)) {
+            Optional<Property> output = sourceBuilder.flowNode.getProperty(OUTPUT_KEY);
+            if (output.isEmpty()) {
+                throw new IllegalStateException("Output must be defined for a data mapper node");
             }
-        }
 
-        sourceBuilder.token()
-                .keyword(SyntaxKind.FUNCTION_KEYWORD)
-                .name(functionName.get().value().toString())
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
-                .name(String.join(", ", inputArray))
-                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                .keyword(SyntaxKind.RETURNS_KEYWORD)
-                .name(output.get().value().toString())
-                .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
-                .openBrace()
-                .name(bodyText)
-                .closeBrace()
-                .stepOut()
-                .textEdit(false, "data_mappings.bal", false);
+            String bodyText = "";
+            Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
+            if (recordSymbol.isPresent()) {
+                TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
+                if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
+                    bodyText =
+                            RecordUtil.getFillAllRecordFieldInsertText(
+                                    ((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+                }
+            }
+
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.FUNCTION_KEYWORD)
+                    .name(functionNameString)
+                    .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
+                    .name(String.join(", ", inputArray))
+                    .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                    .keyword(SyntaxKind.RETURNS_KEYWORD)
+                    .name(output.get().value().toString())
+                    .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
+                    .openBrace()
+                    .name(bodyText)
+                    .closeBrace()
+                    .endOfStatement()
+                    .stepOut()
+                    .textEdit(false, "data_mappings.bal", false);
+        }
 
         Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {
@@ -199,7 +217,7 @@ public class DataMapper extends NodeBuilder {
                 .collect(Collectors.joining(","));
         sourceBuilder.newVariable(OUTPUT_KEY)
                 .token()
-                .name(functionName.get().value().toString())
+                .name(functionNameString)
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
                 .name(functionParameters)
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)

@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -75,8 +76,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData1",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -85,8 +88,10 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -122,7 +127,8 @@
             "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -132,7 +138,8 @@
             "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -167,8 +174,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "[1, 2]",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -177,8 +185,10 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData2",
+            "placeholder": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -187,8 +197,10 @@
             },
             "valueType": "TYPE",
             "value": "[int, int]",
+            "placeholder": "var",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -224,7 +236,8 @@
             "valueType": "EXPRESSION",
             "value": "[11, 22]",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -234,7 +247,8 @@
             "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

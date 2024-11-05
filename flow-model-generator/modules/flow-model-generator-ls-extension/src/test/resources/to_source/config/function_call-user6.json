@@ -1,5 +1,5 @@
 {
-  "source": "user_functions.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "105353",
@@ -34,7 +34,8 @@
         "valueType": "EXPRESSION",
         "value": "6",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "b": {
         "metadata": {
@@ -43,7 +44,8 @@
         "valueType": "EXPRESSION",
         "value": "3",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "func": {
         "metadata": {
@@ -52,7 +54,8 @@
         "valueType": "EXPRESSION",
         "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "view": {
         "metadata": {
@@ -72,7 +75,8 @@
           }
         },
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -81,8 +85,10 @@
         },
         "valueType": "IDENTIFIER",
         "value": "result",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -91,14 +97,16 @@
         },
         "valueType": "TYPE",
         "value": "int",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
   },
   "output": {
-    "user_functions.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {
@@ -110,7 +118,7 @@
             "character": 15
           }
         },
-        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        }, {fileName= function_call.bal, startLine= {line= 55.0, offset= 0.0}, endLine= {line= 59.0, offset= 1.0}});"
       }
     ]
   }

@@ -39,6 +39,9 @@
           "sourceCode": "resource function get greeting(string? name) returns string|error {\n        do {\n            if name is string {\n\n            }\n        } on fail error e {\n     return e.message();            \n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -134,8 +137,10 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "name is string ",
+                        "placeholder": "true",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": []
@@ -174,7 +179,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -183,8 +189,10 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -193,8 +201,10 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -229,7 +239,8 @@
                     "valueType": "EXPRESSION",
                     "value": "e.message()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0,

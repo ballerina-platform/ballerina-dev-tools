@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 
 import java.util.List;
 
@@ -33,12 +34,16 @@ import java.util.List;
  * @param valueType           acceptable value types of the property
  * @param valueTypeConstraint constraint of the value type
  * @param value               value of the property
- * @param optional            whether the property is optional
- * @param editable            whether the property is editable
+ * @param placeholder         default value of the property
+ * @param optional            whether the property can be left empty
+ * @param editable            whether the property is not readonly
+ * @param advanced            whether the property should be shown in the advanced tab
+ * @param diagnostics         diagnostics of the property
  * @since 1.4.0
  */
-public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
-                       boolean editable) {
+public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
+                       String placeholder, boolean optional, boolean editable, boolean advanced,
+                       Diagnostics diagnostics) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -90,6 +95,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String DATA_TYPE_KEY = "type";
     public static final String DATA_TYPE_DOC = "Type of the variable";
 
+    public static final String CHECK_ERROR_LABEL = "Check Flag";
+    public static final String CHECK_ERROR_KEY = "checkError";
+    public static final String CHECK_ERROR_DOC = "Whether to return the error";
+
     public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_KEY = "scope";
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
@@ -100,6 +109,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String CONNECTION_KEY = "connection";
     public static final String CONNECTION_LABEL = "Connection";
     public static final String CONNECTION_DOC = "Connection to use";
+
+    public static final String RESOURCE_PATH_KEY = "resourcePath";
+    public static final String RESOURCE_PATH_LABEL = "Resource Path";
+    public static final String RESOURCE_PATH_DOC = "Resource Path";
 
     public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_KEY = "comment";
@@ -124,6 +137,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             "provide a value at runtime";
 
     public String toSourceCode() {
+        if (value == null || value.toString().isEmpty()) {
+            return placeholder == null ? "" : placeholder;
+        }
         return value.toString();
     }
 
@@ -137,7 +153,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         MULTIPLE_SELECT,
         VIEW,
         INCLUSION,
-        UNION
+        UNION,
+        FLAG
     }
 
     public static ValueType valueTypeFrom(String s) {
@@ -153,14 +170,17 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
      *
      * @since 1.4.0
      */
-    public static class Builder {
+    public static class Builder implements DiagnosticHandler.DiagnosticCapable {
 
         private String type;
         private Object value;
+        private String placeholder;
         private boolean optional;
         private boolean editable;
+        private boolean advanced;
         private Object typeConstraint;
         private Metadata.Builder<Builder> metadataBuilder;
+        private Diagnostics.Builder<Builder> diagnosticsBuilder;
 
         private Builder() {
 
@@ -200,8 +220,24 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder defaultable(boolean defaultable) {
+            this.optional = defaultable;
+            this.advanced = defaultable;
+            return this;
+        }
+
+        public Builder advanced(boolean advanced) {
+            this.advanced = advanced;
+            return this;
+        }
+
         public Builder editable() {
             this.editable = true;
+            return this;
+        }
+
+        public Builder placeholder(String placeholder) {
+            this.placeholder = placeholder;
             return this;
         }
 
@@ -212,16 +248,28 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this.metadataBuilder;
         }
 
+        @Override
+        public Diagnostics.Builder<Builder> diagnostics() {
+            if (this.diagnosticsBuilder == null) {
+                this.diagnosticsBuilder = new Diagnostics.Builder<>(this);
+            }
+            return this.diagnosticsBuilder;
+        }
+
         public Property build() {
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
-                            optional, editable);
+                            placeholder, optional, editable, advanced,
+                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build());
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
             this.value = null;
+            this.placeholder = null;
             this.optional = false;
             this.editable = false;
+            this.advanced = false;
+            this.diagnosticsBuilder = null;
             return property;
         }
     }

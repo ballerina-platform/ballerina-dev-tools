@@ -29,7 +29,19 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -163,14 +175,13 @@ public class DataMapManager {
                     if (optSymbolName.isPresent()) {
                         String symbolName = optSymbolName.get();
                         Type type = Type.fromSemanticSymbol(symbol);
+                        VariableDeclarationNode variableNode = (VariableDeclarationNode) stNode;
                         if (type.getTypeName().equals("record")) {
                             output = getMappingType(symbolName, type);
-                            generateRecordVariableDataMapping((VariableDeclarationNode) stNode, mappings, symbolName,
-                                    newSemanticModel);
+                            generateRecordVariableDataMapping(variableNode, mappings, symbolName, newSemanticModel);
                         } else if (type.getTypeName().equals("array")) {
                             output = getMappingType(symbolName, type);
-                            generateArrayVariableDataMapping((VariableDeclarationNode) stNode, mappings, symbolName,
-                                    newSemanticModel);
+                            generateArrayVariableDataMapping(variableNode, mappings, symbolName, newSemanticModel);
                         }
                     }
                 }

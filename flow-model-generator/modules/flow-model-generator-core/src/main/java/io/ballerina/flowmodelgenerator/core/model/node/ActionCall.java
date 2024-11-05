@@ -18,17 +18,25 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import com.google.gson.Gson;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ParameterKind;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.TypeUtils;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -45,44 +53,36 @@ import java.util.Set;
 public class ActionCall extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
+    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.ACTION_CALL);
+        codedata().node(NodeKind.REMOTE_ACTION_CALL);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (sourceBuilder.flowNode.returning()) {
-            sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
-        }
-
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
+                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
-        if (nodeTemplate == null) {
-            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
-                    sourceBuilder.flowNode.codedata());
-        }
-        if (nodeTemplate == null) {
-            throw new IllegalStateException("Action call node template not found");
-        }
-
-        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
+
         return sourceBuilder.token()
-                .name(connection.get().value().toString())
+                .name(connection.get().toSourceCode())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(nodeTemplate.metadata().label())
+                .name(flowNode.metadata().label())
                 .stepOut()
-                .functionParameters(nodeTemplate,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
+                .functionParameters(flowNode,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY,
+                                Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
@@ -93,67 +93,67 @@ public class ActionCall extends NodeBuilder {
             return null;
         }
 
-        ConnectorResponse connector = codedata.id() != null ? RemoteCentral.getInstance().connector(codedata.id()) :
-                RemoteCentral.getInstance()
-                        .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
-
-        if (connector == null) {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), null,
+                        DatabaseManager.FunctionKind.REMOTE);
+        if (functionResult.isEmpty()) {
             return null;
         }
 
-        Optional<ConnectorResponse.Function> optFunction = connector.functions().stream()
-                .filter(f -> f.name().equals(codedata.symbol()))
-                .findFirst();
-        if (optFunction.isEmpty()) {
-            return null;
-        }
+        FunctionResult function = functionResult.get();
         nodeBuilder
                 .metadata()
-                    .label(optFunction.get().name())
-                    .icon(connector.icon())
-                    .description(optFunction.get().documentation())
+                    .label(function.name())
+                    .description(function.description())
+                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
                     .stepOut()
                 .codedata()
-                    .org(codedata.org())
-                    .module(codedata.module())
-                    .object(codedata.object())
-                    .id(codedata.id())
-                    .symbol(codedata.symbol());
+                    .org(function.org())
+                    .module(function.packageName())
+                    .object(NewConnection.CLIENT_SYMBOL)
+                    .id(function.functionId())
+                    .symbol(function.name());
 
-        for (ConnectorResponse.Parameter param : optFunction.get().parameters()) {
-            nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
-                    Property.valueTypeFrom(param.typeName()),
-                    CommonUtils.getTypeConstraint(param, param.typeName()),
-                    CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        for (ParameterResult paramResult : functionParameters) {
+            if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
+                continue;
+            }
+            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
+                Package modulePackage = PackageUtil
+                        .getModulePackage(function.org(), function.packageName(), function.version());
+                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
+                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
+                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
+                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
+                    FunctionCall.addIncludedRecordToParams(
+                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
+                }
+            } else {
+                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
+                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            }
         }
 
-        String returnType = optFunction.get().returnType().typeName();
-        if (returnType != null) {
-            nodeBuilder.properties().type(returnType).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
         }
 
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, connector.name(), connector.documentation(),
-                Property.ValueType.EXPRESSION, connector.moduleName() + ":" + connector.name(), connector.name(),
-                false);
+        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
+                Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
+                codedata.parentSymbol(), false);
+
+        if (function.returnError() == 1) {
+            nodeBuilder.properties().checkError(true);
+        }
         return nodeBuilder.build();
-    }
-
-    public static FlowNode getNodeTemplate(Codedata codedata) {
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL), codedata);
-        }
-        return nodeTemplate;
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate != null) {
-            this.cachedFlowNode = nodeTemplate;
-        } else {
-            fetchNodeTemplate(this, codedata);
-        }
+        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
     }
 }
