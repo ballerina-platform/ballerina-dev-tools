@@ -104,8 +104,8 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
@@ -226,8 +226,8 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
@@ -444,8 +444,8 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,

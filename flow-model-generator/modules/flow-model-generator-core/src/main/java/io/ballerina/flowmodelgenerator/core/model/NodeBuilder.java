@@ -495,17 +495,23 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> checkError(boolean checkError) {
+        public PropertiesBuilder<T> checkError(boolean checkError, String doc, boolean editable) {
             propertyBuilder
                     .metadata()
                         .label(Property.CHECK_ERROR_LABEL)
-                        .description(Property.CHECK_ERROR_DOC)
+                        .description(doc)
                         .stepOut()
                     .value(checkError)
-                    .type(Property.ValueType.FLAG)
-                    .editable();
+                    .type(Property.ValueType.FLAG);
+            if (editable) {
+                propertyBuilder.editable();
+            }
             addProperty(Property.CHECK_ERROR_KEY);
             return this;
+        }
+
+        public PropertiesBuilder<T> checkError(boolean checkError) {
+            return checkError(checkError, Property.CHECK_ERROR_DOC, true);
         }
 
         // TODO: Think how we can reuse this logic with the functionArguments method

@@ -73,13 +73,13 @@
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Terminate on error"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       }
     },
