@@ -296,14 +296,14 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         private final DiagnosticHandler diagnosticHandler;
-        protected Property.Builder propertyBuilder;
+        protected Property.Builder<PropertiesBuilder<T>> propertyBuilder;
         private final String defaultModuleName;
 
         public PropertiesBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
                                  String defaultModuleName, T parentBuilder) {
             super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
-            this.propertyBuilder = Property.Builder.getInstance();
+            this.propertyBuilder = new Property.Builder<>(this);
             this.semanticModel = semanticModel;
             this.diagnosticHandler = diagnosticHandler;
             this.defaultModuleName = defaultModuleName;
@@ -479,7 +479,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key) {
-            Property.Builder.getInstance()
+            propertyBuilder
                     .metadata()
                         .label(Property.CONNECTION_LABEL)
                         .description(Property.CONNECTION_DOC)
@@ -493,11 +493,11 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> resourcePath(String path) {
-            Property.Builder.getInstance()
+            propertyBuilder
                     .metadata()
-                    .label(Property.RESOURCE_PATH_LABEL)
-                    .description(Property.RESOURCE_PATH_DOC)
-                    .stepOut()
+                        .label(Property.RESOURCE_PATH_LABEL)
+                        .description(Property.RESOURCE_PATH_DOC)
+                        .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(path)
                     .editable();
