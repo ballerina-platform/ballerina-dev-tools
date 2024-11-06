@@ -90,7 +90,7 @@
             "character": 66
           }
         },
-        "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
+        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\");"
       }
     ]
   }

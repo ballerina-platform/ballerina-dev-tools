@@ -61,7 +61,9 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder
+                .token().keyword(SyntaxKind.FINAL_KEYWORD).stepOut()
+                .newVariable();
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
