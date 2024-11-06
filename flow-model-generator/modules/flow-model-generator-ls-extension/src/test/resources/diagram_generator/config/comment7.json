@@ -263,7 +263,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "err",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -185,7 +184,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

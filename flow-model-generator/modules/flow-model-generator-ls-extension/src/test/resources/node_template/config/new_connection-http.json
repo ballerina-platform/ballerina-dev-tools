@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
@@ -31,8 +36,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,8 +48,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:ClientConfiguration",
-        "value": "",
-        "placeholder": "",
+        "value": "{}",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -63,12 +66,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "httpClientOut",
         "optional": false,
         "editable": true,
         "advanced": false

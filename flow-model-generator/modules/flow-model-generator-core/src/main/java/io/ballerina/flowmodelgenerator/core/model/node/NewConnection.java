@@ -26,7 +26,6 @@ import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -61,14 +60,10 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        fetchNodeTemplate(this, codedata);
-    }
-
-    @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder
+                .token().keyword(SyntaxKind.FINAL_KEYWORD).stepOut()
+                .newVariable();
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
@@ -89,42 +84,54 @@ public class NewConnection extends NodeBuilder {
         };
     }
 
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
                         DatabaseManager.FunctionKind.CONNECTOR);
         if (functionResult.isEmpty()) {
-            return null;
+            return;
         }
 
         FunctionResult function = functionResult.get();
-        nodeBuilder
-                .metadata()
-                    .label(function.packageName())
-                    .description(function.description())
-                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                    .stepOut()
-                .codedata()
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(function.org())
-                    .module(function.packageName())
-                    .object(CLIENT_SYMBOL)
-                    .symbol(INIT_SYMBOL)
-                    .id(function.functionId());
+        metadata()
+                .label(function.packageName())
+                .description(function.description())
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+        codedata()
+                .node(NodeKind.NEW_CONNECTION)
+                .org(function.org())
+                .module(function.packageName())
+                .object(CLIENT_SYMBOL)
+                .symbol(INIT_SYMBOL)
+                .id(function.functionId());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
             boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            properties().custom()
+                    .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                    .type(Property.ValueType.EXPRESSION)
+                    .typeConstraint(paramResult.type())
+                    .value(paramResult.getDefaultValue())
+                    .editable()
+                    .defaultable(optional)
+                    .stepOut()
+                    .addProperty(paramResult.name());
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+            properties()
+                    .type(function.returnType())
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
         }
-        nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
-        nodeBuilder.properties().checkError(true, CHECK_ERROR_DOC, false);
-        return nodeBuilder.build();
+        properties()
+                .scope(Property.GLOBAL_SCOPE)
+                .checkError(true, CHECK_ERROR_DOC, false);
     }
 }

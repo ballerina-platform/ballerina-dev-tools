@@ -113,7 +113,7 @@
             "character": 0
           }
         },
-        "newText": "covid19:Client item = check new ({}, \"\");"
+        "newText": "final covid19:Client item = check new ({}, \"\");"
       }
     ]
   }

@@ -1,6 +1,6 @@
 import ballerina/http;
 
-http:Client cl = check new ("http://localhost:9090");
+http:Client httpClient = check new ("http://localhost:9090");
 
 public function main() {
     int x = 32;
@@ -27,3 +27,5 @@ public function main() {
 function fn(int x) returns int {
     return x + 1;
 }
+
+http:Client httpClientResult = check new ("http://localhost:9091");

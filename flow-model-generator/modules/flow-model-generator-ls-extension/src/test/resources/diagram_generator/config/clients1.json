@@ -72,7 +72,7 @@
             "valueType": "EXPRESSION",
             "value": "moduleCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "variable": {
@@ -82,7 +82,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleVal",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -171,7 +170,7 @@
             "valueType": "EXPRESSION",
             "value": "    myModuleCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -218,7 +217,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -275,7 +273,7 @@
             "valueType": "EXPRESSION",
             "value": "localCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "variable": {
@@ -285,7 +283,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localVal",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -378,7 +375,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myLocalCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -435,7 +431,7 @@
             "valueType": "EXPRESSION",
             "value": "    myLocalCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -559,7 +555,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -620,7 +615,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myExplicitModuleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -681,7 +675,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myModuleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

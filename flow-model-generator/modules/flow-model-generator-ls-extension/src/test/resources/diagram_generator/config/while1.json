@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -237,19 +235,7 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "response",
-                    "placeholder": "item",
-                    "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
                   "path": {
@@ -272,6 +258,17 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "response",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -616,7 +613,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "REMOTE_ACTION_CALL",
@@ -21,7 +26,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 211
+      "id": 207
     },
     "returning": false,
     "properties": {
@@ -32,8 +37,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -46,7 +50,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -59,7 +62,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -72,7 +74,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -85,7 +86,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -98,7 +98,7 @@
         "valueType": "TYPE",
         "value": "covid19:CovidCountry",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -107,8 +107,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "covid19Covidcountry",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -120,10 +119,9 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "",
-        "placeholder": "covid19Client",
+        "value": "covid19Client",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "checkError": {

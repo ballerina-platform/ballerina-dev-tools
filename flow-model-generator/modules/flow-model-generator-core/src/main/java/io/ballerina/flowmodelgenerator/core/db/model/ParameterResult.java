@@ -25,5 +25,11 @@ public record ParameterResult(
         String name,
         String type,
         ParameterKind kind,
+        String defaultValue,
         String description) {
+
+    public String getDefaultValue() {
+        //TODO: Remove included record params once #238 completed.
+        return (kind == ParameterKind.REQUIRED || kind == ParameterKind.INCLUDED_RECORD) ? defaultValue : "";
+    }
 }

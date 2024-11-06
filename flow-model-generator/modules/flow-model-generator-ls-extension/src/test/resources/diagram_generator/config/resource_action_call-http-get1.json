@@ -73,7 +73,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -94,7 +94,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -173,7 +172,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -194,7 +193,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -273,7 +271,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -294,7 +292,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res3",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -373,7 +370,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -394,7 +391,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res4",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -473,7 +469,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -494,7 +490,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res5",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -573,7 +568,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -594,7 +589,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res6",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -674,7 +668,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -695,7 +689,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res7",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -774,7 +767,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -795,7 +788,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res8",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -917,7 +909,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

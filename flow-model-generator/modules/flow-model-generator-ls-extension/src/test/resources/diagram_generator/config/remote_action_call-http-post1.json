@@ -72,19 +72,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "res1",
-            "placeholder": "item",
-            "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {
@@ -128,6 +116,17 @@
             "optional": true,
             "editable": true,
             "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res1",
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -182,7 +181,7 @@
             "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "resourcePath": {
@@ -203,7 +202,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -335,7 +333,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

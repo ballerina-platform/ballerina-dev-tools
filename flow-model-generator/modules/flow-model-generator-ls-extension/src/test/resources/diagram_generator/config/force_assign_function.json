@@ -92,7 +92,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "jsonResult",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -189,7 +188,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "apple",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -327,7 +325,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

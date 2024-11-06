@@ -72,6 +72,8 @@ public class Assign extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().data(null, true).expression("", Property.EXPRESSION_DOC);
+        properties()
+                .data(null, true, context.getAllVisibleSymbolNames())
+                .expression("", Property.EXPRESSION_DOC);
     }
 }

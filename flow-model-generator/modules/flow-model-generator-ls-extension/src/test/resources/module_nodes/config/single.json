@@ -84,7 +84,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "grpcClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -183,7 +182,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "httpClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -271,7 +269,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "redisClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

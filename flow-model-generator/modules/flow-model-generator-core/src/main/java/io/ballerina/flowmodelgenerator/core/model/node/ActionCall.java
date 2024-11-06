@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -53,7 +52,6 @@ import java.util.Set;
 public class ActionCall extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -88,7 +86,7 @@ public class ActionCall extends NodeBuilder {
                 .build();
     }
 
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata, TemplateContext context) {
         if (codedata.org().equals("$anon")) {
             return null;
         }
@@ -131,19 +129,43 @@ public class ActionCall extends NodeBuilder {
                             ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
                 }
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+                nodeBuilder.properties().custom()
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.getDefaultValue())
+                        .editable()
+                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
         }
 
-        if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+        String returnTypeName = function.returnType();
+        if (TypeUtils.hasReturn(returnTypeName)) {
+            boolean editable = false;
+            if (returnTypeName.contains(TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            nodeBuilder.properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
 
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
-                Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
-                codedata.parentSymbol(), false);
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(Property.CONNECTION_LABEL)
+                    .description(Property.CONNECTION_DOC)
+                    .stepOut()
+                .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
 
         if (function.returnError() == 1) {
             nodeBuilder.properties().checkError(true);
@@ -154,6 +176,6 @@ public class ActionCall extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
+        this.cachedFlowNode = fetchNodeTemplate(this, codedata, context);
     }
 }

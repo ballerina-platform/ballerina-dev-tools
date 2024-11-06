@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -237,7 +235,7 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
                   "variable": {
@@ -247,7 +245,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -715,7 +712,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

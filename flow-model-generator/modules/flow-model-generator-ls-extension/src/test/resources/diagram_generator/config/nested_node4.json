@@ -201,19 +201,7 @@
                                     "valueType": "EXPRESSION",
                                     "value": "asiri",
                                     "optional": false,
-                                    "editable": true,
-                                    "advanced": false
-                                  },
-                                  "variable": {
-                                    "metadata": {
-                                      "label": "Variable Name",
-                                      "description": "Name of the variable"
-                                    },
-                                    "valueType": "IDENTIFIER",
-                                    "value": "j",
-                                    "placeholder": "item",
-                                    "optional": false,
-                                    "editable": true,
+                                    "editable": false,
                                     "advanced": false
                                   },
                                   "path": {
@@ -265,6 +253,17 @@
                                     },
                                     "valueType": "FLAG",
                                     "value": true,
+                                    "optional": false,
+                                    "editable": true,
+                                    "advanced": false
+                                  },
+                                  "variable": {
+                                    "metadata": {
+                                      "label": "Variable Name",
+                                      "description": "Name of the variable"
+                                    },
+                                    "valueType": "IDENTIFIER",
+                                    "value": "j",
                                     "optional": false,
                                     "editable": true,
                                     "advanced": false
@@ -350,19 +349,7 @@
                             "valueType": "EXPRESSION",
                             "value": "asiri",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Variable Name",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "k",
-                            "placeholder": "item",
-                            "optional": false,
-                            "editable": true,
+                            "editable": false,
                             "advanced": false
                           },
                           "path": {
@@ -393,6 +380,17 @@
                             },
                             "valueType": "FLAG",
                             "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Variable Name",
+                              "description": "Name of the variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "k",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -467,19 +465,7 @@
                     "valueType": "EXPRESSION",
                     "value": "asiri",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "l",
-                    "placeholder": "item",
-                    "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
                   "path": {
@@ -510,6 +496,17 @@
                     },
                     "valueType": "FLAG",
                     "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "l",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -628,7 +625,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "asiri",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

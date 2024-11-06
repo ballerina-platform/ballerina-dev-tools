@@ -116,7 +116,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleHttpCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -215,7 +214,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleHttpExCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -303,7 +301,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleRedisCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -391,7 +388,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleRedisExCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

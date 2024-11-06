@@ -99,7 +99,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "greeting",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -192,7 +191,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "squared",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -286,7 +284,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "cubed",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -390,7 +387,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "total",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -494,7 +490,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "result",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -705,7 +700,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

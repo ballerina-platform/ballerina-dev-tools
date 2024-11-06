@@ -113,7 +113,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "futureVar",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

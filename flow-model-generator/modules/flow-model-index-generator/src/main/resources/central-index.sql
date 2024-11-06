@@ -43,6 +43,7 @@ CREATE TABLE Parameter (
     description TEXT,
     kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST')),
     type JSON, -- JSON type for parameter type information
+    default_value TEXT,
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );

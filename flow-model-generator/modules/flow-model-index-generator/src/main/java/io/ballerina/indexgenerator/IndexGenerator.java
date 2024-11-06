@@ -48,6 +48,7 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -71,7 +72,6 @@ class IndexGenerator {
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
-        // TODO: Set the distribution home √ia build.gradle
         BuildProject buildProject = PackageUtil.getSampleProject();
 
         Gson gson = new Gson();
@@ -251,7 +251,9 @@ class IndexGenerator {
         String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
-        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+        String defaultValue =
+                DefaultValueGenerationUtil.getDefaultValueForType(paramSymbol.typeDescriptor()).orElse("");
+        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
                 parameterKind);
     }
 
@@ -265,7 +267,7 @@ class IndexGenerator {
                 // TODO: Improve the handling of dependable types.
                 // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
                 if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
-                    yield "json";
+                    yield TARGET_TYPE_NAME;
                 }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()

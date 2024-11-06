@@ -205,7 +205,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -362,7 +361,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

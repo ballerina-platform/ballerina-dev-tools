@@ -176,7 +176,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "asiri",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -30,7 +30,23 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 7
+        "id": 16
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mongodb",
+        "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mongodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 93
       },
       "enabled": true
     },
@@ -46,7 +62,23 @@
         "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 84
+        "id": 129
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mssql",
+        "description": "Represents an MSSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mssql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 136
       },
       "enabled": true
     },
@@ -62,39 +94,7 @@
         "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 132
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "salesforce",
-        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "salesforce",
-        "object": "Client",
-        "symbol": "init",
-        "id": 139
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "azure.datalake",
-        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "azure.datalake",
-        "object": "Client",
-        "symbol": "init",
-        "id": 186
+        "id": 143
       },
       "enabled": true
     },
@@ -110,7 +110,23 @@
         "module": "azure.sqldb",
         "object": "Client",
         "symbol": "init",
-        "id": 188
+        "id": 150
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "azure.datalake",
+        "description": "This is a generated connector for [Azure DataLake Storage (Gen2) API version 2019-10-31](https://azure.microsoft.com/en-us/solutions/data-lake/) OpenAPI specification.\nAzure Data Lake Storage provides storage for Hadoop and other big data workloads.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.datalake_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.datalake",
+        "object": "Client",
+        "symbol": "init",
+        "id": 153
       },
       "enabled": true
     },
@@ -126,7 +142,7 @@
         "module": "covid19",
         "object": "Client",
         "symbol": "init",
-        "id": 189
+        "id": 159
       },
       "enabled": true
     },
@@ -142,23 +158,7 @@
         "module": "workday.payroll",
         "object": "Client",
         "symbol": "init",
-        "id": 193
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "slack",
-        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "slack",
-        "object": "Client",
-        "symbol": "init",
-        "id": 225
+        "id": 167
       },
       "enabled": true
     },
@@ -174,7 +174,23 @@
         "module": "googleapis.calendar",
         "object": "Client",
         "symbol": "init",
-        "id": 239
+        "id": 195
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "slack",
+        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "slack",
+        "object": "Client",
+        "symbol": "init",
+        "id": 213
       },
       "enabled": true
     },
@@ -190,39 +206,23 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 281
+        "id": 314
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "twitter",
-        "description": "Twitter API v2 available endpoints",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twitter_4.0.0.png"
+        "label": "shorten.rest",
+        "description": "This is a generated connector for [Shorten.REST v1.0](https://docs.shorten.rest/) OpenAPI Specification.\nThe Shorten.REST API allows you to programmatically create short URLs for longer URL.\nEach alias you create can be used to redirect the end user (person clicking on the link) to one or more destination URLs\nA default destination is always set and specific destinations can be set to redirect the end user to preferred destinations based on the user's geographical location (country) and device Operating System.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_shorten.rest_1.5.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "twitter",
+        "module": "shorten.rest",
         "object": "Client",
         "symbol": "init",
-        "id": 287
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "googleapis.sheets",
-        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.sheets",
-        "object": "Client",
-        "symbol": "init",
-        "id": 433
+        "id": 427
       },
       "enabled": true
     },
@@ -238,71 +238,7 @@
         "module": "notion",
         "object": "Client",
         "symbol": "init",
-        "id": 455
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "worldbank",
-        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "worldbank",
-        "object": "Client",
-        "symbol": "init",
-        "id": 490
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "discord",
-        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "discord",
-        "object": "Client",
-        "symbol": "init",
-        "id": 498
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "github",
-        "description": "GitHub's v3 REST API.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "github",
-        "object": "Client",
-        "symbol": "init",
-        "id": 541
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "twilio",
-        "description": "This is the public Twilio REST API.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_4.0.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "twilio",
-        "object": "Client",
-        "symbol": "init",
-        "id": 588
+        "id": 431
       },
       "enabled": true
     },
@@ -318,7 +254,71 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 638
+        "id": 447
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "worldbank",
+        "description": "This is a generated connector from [World Bank API v2](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation) OpenAPI Specification. \nThe World Bank Indicators API provides access to nearly 16,000 time series indicators. Most of these indicators are available online through tools such as `Databank` and the `Open Data` website. The API provides programmatic access to this same data. Many data series date back over 50 years, and can be used to create interesting applications.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldbank_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "worldbank",
+        "object": "Client",
+        "symbol": "init",
+        "id": 454
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "discord",
+        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "discord",
+        "object": "Client",
+        "symbol": "init",
+        "id": 463
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "wso2.apim.catalog",
+        "description": "This specifies a **RESTful API** for Service Catalog.\n\n# Authentication\nOur REST APIs are protected using OAuth2 and access control is achieved through scopes. Before you start invoking\nthe the API you need to obtain an access token with the required scopes. This guide will walk you through the steps\nthat you will need to follow to obtain an access token.\nFirst you need to obtain the consumer key/secret key pair by calling the dynamic client registration (DCR) endpoint. You can add your preferred grant types\nin the payload. A Sample payload is shown below.\n```\n  {\n  \"callbackUrl\":\"www.google.lk\",\n  \"clientName\":\"rest_api_service_catalog\",\n  \"owner\":\"admin\",\n  \"grantType\":\"client_credentials password refresh_token\",\n  \"saasApp\":true\n  }\n```\nCreate a file (payload.json) with the above sample payload, and use the cURL shown bellow to invoke the DCR endpoint. Authorization header of this should contain the\nbase64 encoded admin username and password.\n**Format of the request**\n```\n  curl -X POST -H \"Authorization: Basic Base64(admin_username:admin_password)\" -H \"Content-Type: application/json\"\n  \\ -d @payload.json https://<host>:<servlet_port>/client-registration/v0.17/register\n```\n**Sample request**\n```\n  curl -X POST -H \"Authorization: Basic YWRtaW46YWRtaW4=\" -H \"Content-Type: application/json\"\n  \\ -d @payload.json https://localhost:9443/client-registration/v0.17/register\n```\nFollowing is a sample response after invoking the above curl.\n```\n{\n\"clientId\": \"fOCi4vNJ59PpHucC2CAYfYuADdMa\",\n\"clientName\": \"rest_api_service_catalog\",\n\"callBackURL\": \"www.google.lk\",\n\"clientSecret\": \"a4FwHlq0iCIKVs2MPIIDnepZnYMa\",\n\"isSaasApplication\": true,\n\"appOwner\": \"admin\",\n\"jsonString\": \"{\\\"grant_types\\\":\\\"client_credentials password refresh_token\\\",\\\"redirect_uris\\\":\\\"www.google.lk\\\",\\\"client_name\\\":\\\"rest_api123\\\"}\",\n\"jsonAppAttribute\": \"{}\",\n\"tokenType\": null\n}\n```\nNext you must use the above client id and secret to obtain the access token.\nWe will be using the password grant type for this, you can use any grant type you desire.\nYou also need to add the proper **scope** when getting the access token. All possible scopes for Service Catalog REST API can be viewed in **OAuth2 Security** section\nof this document and scope for each resource is given in **authorization** section of resource documentation.\nFollowing is the format of the request if you are using the password grant type.\n```\ncurl -k -d \"grant_type=password&username=<admin_username>&password=<admin_passowrd>&scope=<scopes seperated by space>\"\n\\ -H \"Authorization: Basic base64(cliet_id:client_secret)\"\n\\ https://<host>:<servlet_port>/oauth2/token\n```\n**Sample request**\n```\ncurl https://localhost:9443/oauth2/token -k \\\n-H \"Authorization: Basic Zk9DaTR2Tko1OVBwSHVjQzJDQVlmWXVBRGRNYTphNEZ3SGxxMGlDSUtWczJNUElJRG5lcFpuWU1h\" \\\n-d \"grant_type=password&username=admin&password=admin&scope=service_catalog:service_view service_catalog:service_write\"\n```\nShown below is a sample response to the above request.\n```\n{\n\"access_token\": \"e79bda48-3406-3178-acce-f6e4dbdcbb12\",\n\"refresh_token\": \"a757795d-e69f-38b8-bd85-9aded677a97c\",\n\"scope\": \"service_catalog:service_view service_catalog:service_write\",\n\"token_type\": \"Bearer\",\n\"expires_in\": 3600\n}\n```\nNow you have a valid access token, which you can use to invoke an API.\nNavigate through the API descriptions to find the required API, obtain an access token as described above and invoke the API with the authentication header.\nIf you use a different authentication mechanism, this process may change.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_wso2.apim.catalog_1.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "wso2.apim.catalog",
+        "object": "Client",
+        "symbol": "init",
+        "id": 537
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "salesforce",
+        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "id": 539
       },
       "enabled": true
     }

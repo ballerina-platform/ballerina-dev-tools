@@ -165,12 +165,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         };
     }
 
-    /**
-     * Represents a builder for the expression.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder implements DiagnosticHandler.DiagnosticCapable {
+    public static class Builder<T> extends FacetedBuilder<T> implements DiagnosticHandler.DiagnosticCapable {
 
         private String type;
         private Object value;
@@ -179,69 +174,60 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean editable;
         private boolean advanced;
         private Object typeConstraint;
-        private Metadata.Builder<Builder> metadataBuilder;
-        private Diagnostics.Builder<Builder> diagnosticsBuilder;
+        private Metadata.Builder<Builder<T>> metadataBuilder;
+        private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
 
-        private Builder() {
-
+        public Builder(T parentBuilder) {
+            super(parentBuilder);
         }
 
-        private static final class InstanceHolder {
-
-            private static final Builder instance = new Builder();
-        }
-
-        public static Builder getInstance() {
-            return InstanceHolder.instance;
-        }
-
-        public Builder type(TypeSymbol typeSymbol) {
+        public Builder<T> type(TypeSymbol typeSymbol) {
             this.type = CommonUtils.getTypeSignature(null, typeSymbol, false);
             return this;
         }
 
-        public Builder type(ValueType type) {
+        public Builder<T> type(ValueType type) {
             this.type = type.name();
             return this;
         }
 
-        public Builder typeConstraint(Object typeConstraint) {
+        public Builder<T> typeConstraint(Object typeConstraint) {
             this.typeConstraint = typeConstraint;
             return this;
         }
 
-        public Builder value(Object value) {
+        public Builder<T> value(Object value) {
             this.value = value;
             return this;
         }
 
-        public Builder optional(boolean optional) {
+        public Builder<T> optional(boolean optional) {
             this.optional = optional;
             return this;
         }
 
-        public Builder defaultable(boolean defaultable) {
+        public Builder<T> defaultable(boolean defaultable) {
             this.optional = defaultable;
             this.advanced = defaultable;
             return this;
         }
 
-        public Builder advanced(boolean advanced) {
+        public Builder<T> advanced(boolean advanced) {
             this.advanced = advanced;
             return this;
         }
 
-        public Builder editable() {
+        public Builder<T> editable() {
             this.editable = true;
             return this;
         }
 
-        public Builder placeholder(String placeholder) {
+        public Builder<T> placeholder(String placeholder) {
             this.placeholder = placeholder;
             return this;
         }
 
-        public Metadata.Builder<Builder> metadata() {
+        public Metadata.Builder<Builder<T>> metadata() {
             if (this.metadataBuilder == null) {
                 this.metadataBuilder = new Metadata.Builder<>(this);
             }
@@ -249,7 +235,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         }
 
         @Override
-        public Diagnostics.Builder<Builder> diagnostics() {
+        public Diagnostics.Builder<Builder<T>> diagnostics() {
             if (this.diagnosticsBuilder == null) {
                 this.diagnosticsBuilder = new Diagnostics.Builder<>(this);
             }

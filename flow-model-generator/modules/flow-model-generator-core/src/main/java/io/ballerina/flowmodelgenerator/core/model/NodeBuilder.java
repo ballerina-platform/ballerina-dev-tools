@@ -68,14 +68,17 @@ import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,7 +86,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_KEY;
@@ -283,6 +288,20 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
                                   Codedata codedata) {
 
+        public Set<String> getAllVisibleSymbolNames() {
+            try {
+                workspaceManager.loadProject(filePath);
+                SemanticModel semanticModel =
+                        workspaceManager.semanticModel(filePath).orElseThrow();
+                Document document = workspaceManager.document(filePath).orElseThrow();
+                return semanticModel.visibleSymbols(document, position).parallelStream()
+                        .filter(s -> s.getName().isPresent())
+                        .map(s -> s.getName().get())
+                        .collect(Collectors.toSet());
+            } catch (Throwable e) {
+                return new HashSet<>();
+            }
+        }
     }
 
     /**
@@ -296,14 +315,14 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         private final DiagnosticHandler diagnosticHandler;
-        protected Property.Builder propertyBuilder;
+        protected Property.Builder<PropertiesBuilder<T>> propertyBuilder;
         private final String defaultModuleName;
 
         public PropertiesBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
                                  String defaultModuleName, T parentBuilder) {
             super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
-            this.propertyBuilder = Property.Builder.getInstance();
+            this.propertyBuilder = new Property.Builder<>(this);
             this.semanticModel = semanticModel;
             this.diagnosticHandler = diagnosticHandler;
             this.defaultModuleName = defaultModuleName;
@@ -358,18 +377,34 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
+        public PropertiesBuilder<T> type(String typeName, boolean editable) {
+            propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .value(typeName)
+                    .type(Property.ValueType.TYPE);
+            if (editable) {
+                propertyBuilder.editable();
+            }
+
+            addProperty(Property.DATA_TYPE_KEY);
+            return this;
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit, Set<String> names) {
             return implicit ?
-                    dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL)
-                    : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL);
+                    dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL, names)
+                    : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            return dataVariable(node, false);
+        public PropertiesBuilder<T> dataVariable(Node node, Set<String> names) {
+            return dataVariable(node, false, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc) {
-            data(node, variableDoc);
+        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc, Set<String> names) {
+            data(node, variableDoc, names);
 
             propertyBuilder
                     .metadata()
@@ -393,7 +428,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> payload(Node node, String type) {
-            data(node);
+            data(node, new HashSet<>());
 
             propertyBuilder
                     .metadata()
@@ -414,26 +449,42 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> data(Node node, boolean implicit) {
-            return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL);
+        public PropertiesBuilder<T> data(Node node, Set<String> names) {
+            return data(node, false, names);
         }
 
-        public PropertiesBuilder<T> data(Node node) {
-            return data(node, false);
+        public PropertiesBuilder<T> data(Node node, boolean implicit, Set<String> names) {
+            return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL, names);
         }
 
-        public PropertiesBuilder<T> data(Node node, String label) {
+        public PropertiesBuilder<T> data(Node node, String label, Set<String> names) {
             propertyBuilder
                     .metadata()
                         .label(label)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
-                    .placeholder("item")
-                    .value(node == null ? "" : CommonUtils.getVariableName(node))
+                    .value(node == null ? NameUtil.generateTypeName("var", names) :
+                            CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             addProperty(Property.DATA_VARIABLE_KEY, node);
 
+            return this;
+        }
+
+        public PropertiesBuilder<T> data(String typeSignature, Set<String> names, String label) {
+            String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY)
+                    ? NameUtil.generateTypeName("var", names)
+                    : NameUtil.generateVariableName(typeSignature, names);
+            propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(Property.DATA_VARIABLE_DOC)
+                        .stepOut()
+                    .value(varName)
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable();
+            addProperty(Property.DATA_VARIABLE_KEY);
             return this;
         }
 
@@ -479,25 +530,24 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key) {
-            Property.Builder.getInstance()
+            propertyBuilder
                     .metadata()
                         .label(Property.CONNECTION_LABEL)
                         .description(Property.CONNECTION_DOC)
                         .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
-                    .type(Property.ValueType.EXPRESSION)
-                    .editable();
+                    .type(Property.ValueType.EXPRESSION);
             addProperty(key);
             return this;
         }
 
         public PropertiesBuilder<T> resourcePath(String path) {
-            Property.Builder.getInstance()
+            propertyBuilder
                     .metadata()
-                    .label(Property.RESOURCE_PATH_LABEL)
-                    .description(Property.RESOURCE_PATH_DOC)
-                    .stepOut()
+                        .label(Property.RESOURCE_PATH_LABEL)
+                        .description(Property.RESOURCE_PATH_DOC)
+                        .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(path)
                     .editable();
@@ -923,6 +973,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
                                            Object typeConstraint, String value, boolean optional) {
             return custom(key, label, description, type, typeConstraint, value, optional, false);
+        }
+
+        public Property.Builder<PropertiesBuilder<T>> custom() {
+            return propertyBuilder;
         }
 
         public PropertiesBuilder<T> scope(String scope) {

@@ -103,9 +103,11 @@ class DatabaseManager {
     }
 
     public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,
-                                               String paramType, ParameterKind parameterKind) {
-        String sql = "INSERT INTO Parameter (function_id, name, description, type, kind) VALUES (?, ?, ?, ?, ?)";
-        insertEntry(sql, new Object[]{functionId, paramName, paramDescription, paramType, parameterKind.name()});
+                                               String paramType, String defaultValue, ParameterKind parameterKind) {
+        String sql = "INSERT INTO Parameter (function_id, name, description, type, default_value, kind) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        insertEntry(sql,
+                new Object[]{functionId, paramName, paramDescription, paramType, defaultValue, parameterKind.name()});
     }
 
     public static void mapConnectorAction(int actionId, int connectorId) {

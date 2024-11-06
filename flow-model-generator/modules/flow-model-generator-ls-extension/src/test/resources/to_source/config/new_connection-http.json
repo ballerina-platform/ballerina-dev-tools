@@ -110,7 +110,7 @@
             "character": 0
           }
         },
-        "newText": "http:Client|http:ClientError item = check new (, );"
+        "newText": "final http:Client|http:ClientError item = check new (, );"
       }
     ]
   }
