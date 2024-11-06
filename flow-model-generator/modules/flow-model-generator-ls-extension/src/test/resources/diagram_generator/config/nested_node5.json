@@ -204,17 +204,6 @@
                                     "editable": false,
                                     "advanced": false
                                   },
-                                  "variable": {
-                                    "metadata": {
-                                      "label": "Variable Name",
-                                      "description": "Name of the variable"
-                                    },
-                                    "valueType": "IDENTIFIER",
-                                    "value": "j",
-                                    "optional": false,
-                                    "editable": true,
-                                    "advanced": false
-                                  },
                                   "path": {
                                     "metadata": {
                                       "label": "path",
@@ -264,6 +253,17 @@
                                     },
                                     "valueType": "FLAG",
                                     "value": true,
+                                    "optional": false,
+                                    "editable": true,
+                                    "advanced": false
+                                  },
+                                  "variable": {
+                                    "metadata": {
+                                      "label": "Variable Name",
+                                      "description": "Name of the variable"
+                                    },
+                                    "valueType": "IDENTIFIER",
+                                    "value": "j",
                                     "optional": false,
                                     "editable": true,
                                     "advanced": false
@@ -395,17 +395,6 @@
                                     "editable": false,
                                     "advanced": false
                                   },
-                                  "variable": {
-                                    "metadata": {
-                                      "label": "Variable Name",
-                                      "description": "Name of the variable"
-                                    },
-                                    "valueType": "IDENTIFIER",
-                                    "value": "k",
-                                    "optional": false,
-                                    "editable": true,
-                                    "advanced": false
-                                  },
                                   "path": {
                                     "metadata": {
                                       "label": "path",
@@ -434,6 +423,17 @@
                                     },
                                     "valueType": "FLAG",
                                     "value": true,
+                                    "optional": false,
+                                    "editable": true,
+                                    "advanced": false
+                                  },
+                                  "variable": {
+                                    "metadata": {
+                                      "label": "Variable Name",
+                                      "description": "Name of the variable"
+                                    },
+                                    "valueType": "IDENTIFIER",
+                                    "value": "k",
                                     "optional": false,
                                     "editable": true,
                                     "advanced": false

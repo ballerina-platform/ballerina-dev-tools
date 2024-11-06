@@ -75,17 +75,6 @@
             "editable": false,
             "advanced": false
           },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "res1",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "path": {
             "metadata": {
               "label": "path",
@@ -127,6 +116,17 @@
             "optional": true,
             "editable": true,
             "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res1",
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {

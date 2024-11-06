@@ -270,8 +270,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .symbol(methodName)
                     .stepOut()
                 .properties()
-                    .callExpression(expressionNode, Property.CONNECTION_KEY)
-                    .variable(this.typedBindingPatternNode);
+                    .callExpression(expressionNode, Property.CONNECTION_KEY);
         handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
