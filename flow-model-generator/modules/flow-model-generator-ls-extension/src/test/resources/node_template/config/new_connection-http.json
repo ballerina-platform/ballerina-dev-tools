@@ -20,7 +20,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "id": 3077
+      "id": 3064
     },
     "returning": false,
     "properties": {
@@ -65,8 +65,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "item",
         "optional": false,
         "editable": true,
         "advanced": false

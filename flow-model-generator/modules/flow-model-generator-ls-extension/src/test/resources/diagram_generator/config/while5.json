@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "finalMsg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -247,7 +245,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -473,7 +470,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "attempts",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -534,7 +530,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "adminClient",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -743,7 +738,6 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "response",
-                            "placeholder": "item",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -1105,7 +1099,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

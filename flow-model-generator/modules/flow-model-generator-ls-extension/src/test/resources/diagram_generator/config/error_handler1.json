@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -186,7 +185,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res2",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -442,7 +440,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

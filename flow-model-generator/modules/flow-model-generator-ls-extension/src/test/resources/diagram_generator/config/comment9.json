@@ -145,7 +145,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

@@ -125,7 +125,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "j",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -276,7 +275,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "asiri",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

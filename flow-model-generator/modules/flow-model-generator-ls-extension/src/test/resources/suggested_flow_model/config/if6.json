@@ -85,7 +85,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -147,7 +146,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -209,7 +207,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "z",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

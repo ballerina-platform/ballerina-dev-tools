@@ -79,7 +79,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "bm1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

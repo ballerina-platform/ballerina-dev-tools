@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

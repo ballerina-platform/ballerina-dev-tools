@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "a",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -198,7 +196,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -259,7 +256,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

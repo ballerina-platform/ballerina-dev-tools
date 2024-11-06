@@ -155,7 +155,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -216,7 +215,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "'type",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

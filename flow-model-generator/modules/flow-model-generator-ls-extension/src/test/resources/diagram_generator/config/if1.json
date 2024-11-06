@@ -133,7 +133,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "a",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -216,7 +215,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "b",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -277,7 +275,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "c",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -383,7 +380,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

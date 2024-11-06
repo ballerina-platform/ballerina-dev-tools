@@ -428,8 +428,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .label(label)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
-                    .placeholder("item")
-                    .value(node == null ? "" : CommonUtils.getVariableName(node))
+                    .value(node == null ? "item" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             addProperty(Property.DATA_VARIABLE_KEY, node);
