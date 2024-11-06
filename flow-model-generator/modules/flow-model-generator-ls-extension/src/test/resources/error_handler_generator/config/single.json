@@ -1,0 +1,86 @@
+{
+  "description": "",
+  "source": "single.bal",
+  "output": {
+    "single.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 47
+          },
+          "end": {
+            "line": 5,
+            "character": 47
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 1
+          },
+          "end": {
+            "line": 11,
+            "character": 1
+          }
+        },
+        "newText": "\n} on fail error e {\n\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 41
+          },
+          "end": {
+            "line": 29,
+            "character": 41
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 39,
+            "character": 1
+          },
+          "end": {
+            "line": 39,
+            "character": 1
+          }
+        },
+        "newText": "\n} on fail error e {\n\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 51,
+            "character": 51
+          },
+          "end": {
+            "line": 51,
+            "character": 51
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 53,
+            "character": 5
+          },
+          "end": {
+            "line": 53,
+            "character": 5
+          }
+        },
+        "newText": "\n} on fail error e {\n\n}"
+      }
+    ]
+  }
+}

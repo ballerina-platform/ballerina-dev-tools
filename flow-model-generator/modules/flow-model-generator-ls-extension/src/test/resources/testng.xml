@@ -41,6 +41,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.ModuleNodesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesUpdateTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMapManagerTypesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ErrorHandlerGeneratorTest"/>
         </classes>
     </test>
 </suite>
