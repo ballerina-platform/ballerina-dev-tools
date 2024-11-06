@@ -24,5 +24,5 @@ package io.ballerina.flowmodelgenerator.extension.request;
  *
  * @param filePath the path of the project
  */
-public record ModuleNodesRequest(String filePath) {
+public record FilePathRequest(String filePath) {
 }

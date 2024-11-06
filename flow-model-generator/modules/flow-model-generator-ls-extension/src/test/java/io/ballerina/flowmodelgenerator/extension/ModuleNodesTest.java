@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import io.ballerina.flowmodelgenerator.extension.request.ModuleNodesRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -43,7 +43,7 @@ public class ModuleNodesTest extends AbstractLSTest {
 
         String filePath =
                 testConfig.source() == null ? "" : sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
-        ModuleNodesRequest request = new ModuleNodesRequest(filePath);
+        FilePathRequest request = new FilePathRequest(filePath);
         JsonObject response = getResponse(request).get("flowModel").getAsJsonObject();
 
         JsonObject jsonModel = getResponse(request).getAsJsonObject("flowModel");
