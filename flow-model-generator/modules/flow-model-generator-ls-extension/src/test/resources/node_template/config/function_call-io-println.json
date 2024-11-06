@@ -31,7 +31,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/io:1.6.1:Printable[]",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false

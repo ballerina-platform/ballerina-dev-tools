@@ -30,8 +30,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,7 +43,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -57,7 +55,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
         "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
         "advanced": true

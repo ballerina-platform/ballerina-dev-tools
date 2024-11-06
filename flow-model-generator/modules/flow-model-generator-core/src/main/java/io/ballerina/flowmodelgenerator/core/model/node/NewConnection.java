@@ -116,7 +116,7 @@ public class NewConnection extends NodeBuilder {
                             .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .typeConstraint(paramResult.type())
-                    .value("")
+                    .value(paramResult.getDefaultValue())
                     .editable()
                     .defaultable(optional)
                     .stepOut()

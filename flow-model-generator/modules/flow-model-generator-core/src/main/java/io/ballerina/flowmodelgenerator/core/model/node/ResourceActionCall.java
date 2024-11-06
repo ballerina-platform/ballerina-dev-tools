@@ -137,9 +137,18 @@ public class ResourceActionCall extends NodeBuilder {
                             (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
                 }
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional);
+                nodeBuilder.properties().custom()
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.getDefaultValue())
+                        .editable()
+                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
         }
 

@@ -21,7 +21,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 189
+      "id": 207
     },
     "returning": false,
     "properties": {
@@ -32,7 +32,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false

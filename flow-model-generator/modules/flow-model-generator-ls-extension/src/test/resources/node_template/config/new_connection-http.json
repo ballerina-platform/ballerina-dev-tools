@@ -20,7 +20,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "id": 3064
+      "id": 3077
     },
     "returning": false,
     "properties": {
@@ -31,7 +31,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -43,7 +43,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:ClientConfiguration",
-        "value": "",
+        "value": "{}",
         "optional": false,
         "editable": true,
         "advanced": false

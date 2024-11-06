@@ -138,7 +138,7 @@ public class ActionCall extends NodeBuilder {
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .typeConstraint(paramResult.type())
-                        .value("")
+                        .value(paramResult.getDefaultValue())
                         .editable()
                         .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
                         .stepOut()

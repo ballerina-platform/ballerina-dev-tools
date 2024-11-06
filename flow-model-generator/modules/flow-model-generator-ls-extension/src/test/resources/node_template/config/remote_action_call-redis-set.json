@@ -32,7 +32,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,7 +44,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false

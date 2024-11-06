@@ -20,7 +20,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 171
+      "id": 159
     },
     "returning": false,
     "properties": {

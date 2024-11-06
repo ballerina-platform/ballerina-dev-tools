@@ -1,38 +1,36 @@
 {
+  "source": "data_mapper/main.bal",
   "description": "Sample diagram node",
   "codedata": {
-    "node": "REMOTE_ACTION_CALL",
-    "org": "ballerinax",
-    "module": "redis",
-    "object": "Client",
-    "symbol": "get",
-    "parentSymbol": "rc"
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "time",
+    "symbol": "utcFromCivil",
+    "version": "2.5.0"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "get",
-      "description": "Get value of key.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+      "label": "utcFromCivil",
+      "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```"
     },
     "codedata": {
-      "node": "REMOTE_ACTION_CALL",
-      "org": "ballerinax",
-      "module": "redis",
-      "object": "Client",
-      "symbol": "get",
-      "id": 28
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "time",
+      "symbol": "utcFromCivil",
+      "version": "2.5.0"
     },
     "returning": false,
     "properties": {
-      "key": {
+      "civilTime": {
         "metadata": {
-          "label": "key",
-          "description": "Key referring to a value"
+          "label": "civilTime",
+          "description": "`time:Civil` time"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "valueTypeConstraint": "time:Civil",
+        "value": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -43,7 +41,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string|()",
+        "value": "time:Utc",
         "optional": false,
         "editable": false,
         "advanced": false
@@ -57,18 +55,6 @@
         "value": "item",
         "optional": false,
         "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:Client",
-        "value": "rc",
-        "optional": false,
-        "editable": false,
         "advanced": false
       },
       "checkError": {

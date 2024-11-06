@@ -161,15 +161,29 @@ public class FunctionCall extends NodeBuilder {
                             ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
                 }
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+                properties().custom()
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.getDefaultValue())
+                        .editable()
+                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
-
         }
 
+        String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
-            properties().type(function.returnType()).data(null);
+            boolean editable = false;
+            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            properties().type(returnTypeName, editable).data(null);
         }
 
         if (function.returnError() == 1) {

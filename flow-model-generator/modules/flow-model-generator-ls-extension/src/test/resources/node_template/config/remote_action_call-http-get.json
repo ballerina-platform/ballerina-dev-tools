@@ -22,7 +22,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 3076
+      "id": 3089
     },
     "returning": false,
     "properties": {
@@ -33,7 +33,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false

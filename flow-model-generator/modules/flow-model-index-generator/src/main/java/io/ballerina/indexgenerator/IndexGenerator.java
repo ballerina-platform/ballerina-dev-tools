@@ -48,6 +48,7 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -250,7 +251,9 @@ class IndexGenerator {
         String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
-        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+        String defaultValue =
+                DefaultValueGenerationUtil.getDefaultValueForType(paramSymbol.typeDescriptor()).orElse("");
+        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
                 parameterKind);
     }
 

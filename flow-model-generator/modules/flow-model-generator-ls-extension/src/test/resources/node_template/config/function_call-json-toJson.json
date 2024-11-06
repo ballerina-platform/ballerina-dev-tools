@@ -31,7 +31,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,7 +43,7 @@
         "valueType": "TYPE",
         "value": "json",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
