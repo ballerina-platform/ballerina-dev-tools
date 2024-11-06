@@ -165,11 +165,6 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         };
     }
 
-    /**
-     * Represents a builder for the expression.
-     *
-     * @since 1.4.0
-     */
     public static class Builder<T> extends FacetedBuilder<T> implements DiagnosticHandler.DiagnosticCapable {
 
         private String type;
