@@ -103,6 +103,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
@@ -445,7 +446,9 @@ class CodeAnalyzer extends NodeVisitor {
                     .object("Client")
                     .symbol("init")
                     .stepOut()
-                .properties().scope(connectionScope);
+                .properties()
+                    .scope(connectionScope)
+                    .checkError(true, NewConnection.CHECK_ERROR_DOC, false);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
@@ -540,6 +543,9 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
+        } else if (nodeBuilder instanceof NewConnection) {
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
+                    NewConnection.CONNECTION_TYPE_LABEL);
         } else {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit);
         }

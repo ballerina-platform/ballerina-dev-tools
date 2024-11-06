@@ -50,6 +50,9 @@ public class NewConnection extends NodeBuilder {
 
     public static final String INIT_SYMBOL = "init";
     public static final String CLIENT_SYMBOL = "Client";
+    public static final String CHECK_ERROR_DOC = "Terminate on error";
+    public static final String CONNECTION_NAME_LABEL = "Connection Name";
+    public static final String CONNECTION_TYPE_LABEL = "Connection Type";
 
     @Override
     public void setConcreteConstData() {
@@ -121,7 +124,7 @@ public class NewConnection extends NodeBuilder {
             nodeBuilder.properties().type(function.returnType()).data(null);
         }
         nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
-        nodeBuilder.properties().checkError(true);
+        nodeBuilder.properties().checkError(true, CHECK_ERROR_DOC, false);
         return nodeBuilder.build();
     }
 }
