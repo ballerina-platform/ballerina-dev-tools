@@ -21,7 +21,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 3079
+      "id": 3066
     },
     "returning": false,
     "properties": {
@@ -90,8 +90,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "item",
         "optional": false,
         "editable": true,
         "advanced": false

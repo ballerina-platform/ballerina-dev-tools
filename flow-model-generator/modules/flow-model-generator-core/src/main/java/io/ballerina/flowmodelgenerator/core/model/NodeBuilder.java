@@ -358,6 +358,22 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
+        public PropertiesBuilder<T> type(String typeName, boolean editable) {
+            propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .value(typeName)
+                    .type(Property.ValueType.TYPE);
+            if (editable) {
+                propertyBuilder.editable();
+            }
+
+            addProperty(Property.DATA_TYPE_KEY);
+            return this;
+        }
+
         public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
             return implicit ?
                     dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL)

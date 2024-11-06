@@ -57,7 +57,7 @@
         "valueType": "TYPE",
         "value": "string",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -66,8 +66,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "item",
         "optional": false,
         "editable": true,
         "advanced": false

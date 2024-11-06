@@ -22,7 +22,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 581
+      "id": 990
     },
     "returning": false,
     "properties": {
@@ -43,8 +43,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "item",
         "optional": false,
         "editable": true,
         "advanced": false

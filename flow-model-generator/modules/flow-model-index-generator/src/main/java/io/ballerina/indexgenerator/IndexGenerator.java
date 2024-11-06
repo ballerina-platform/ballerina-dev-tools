@@ -71,7 +71,6 @@ class IndexGenerator {
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
-        // TODO: Set the distribution home √ia build.gradle
         BuildProject buildProject = PackageUtil.getSampleProject();
 
         Gson gson = new Gson();
@@ -265,7 +264,7 @@ class IndexGenerator {
                 // TODO: Improve the handling of dependable types.
                 // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
                 if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
-                    yield "json";
+                    yield TARGET_TYPE_NAME;
                 }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()

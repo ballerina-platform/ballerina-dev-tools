@@ -146,8 +146,14 @@ public class ActionCall extends NodeBuilder {
             }
         }
 
-        if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+        String returnTypeName = function.returnType();
+        if (TypeUtils.hasReturn(returnTypeName)) {
+            boolean editable = false;
+            if (returnTypeName.contains(TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            nodeBuilder.properties().type(returnTypeName, editable).data(null);
         }
 
         nodeBuilder.properties().custom()
