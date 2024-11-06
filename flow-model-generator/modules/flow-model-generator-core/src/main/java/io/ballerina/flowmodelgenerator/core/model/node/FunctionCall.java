@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -62,8 +61,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
-
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -114,9 +111,16 @@ public class FunctionCall extends NodeBuilder {
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                properties().type(CommonUtils.getTypeSignature(semanticModel, returnType, true)).data(null);
+                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true);
+                boolean editable = false;
+                if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                    returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                    editable = true;
+                }
+                properties()
+                        .type(returnTypeName, editable)
+                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
             });
-            properties().dataVariable(null);
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
                     .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
@@ -161,15 +165,31 @@ public class FunctionCall extends NodeBuilder {
                             ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
                 }
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+                properties().custom()
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.getDefaultValue())
+                        .editable()
+                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
-
         }
 
+        String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
-            properties().type(function.returnType()).data(null);
+            boolean editable = false;
+            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
 
         if (function.returnError() == 1) {

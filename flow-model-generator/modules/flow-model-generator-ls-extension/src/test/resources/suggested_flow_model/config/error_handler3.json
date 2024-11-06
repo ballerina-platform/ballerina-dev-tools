@@ -249,7 +249,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "a",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

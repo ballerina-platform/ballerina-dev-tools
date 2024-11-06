@@ -116,7 +116,7 @@ public class DeleteNodeGenerator {
     private LineRange checkElseToDelete(Document document, int nodeStart, int nodeEnd) {
         ModulePartNode modulePartNode = document.syntaxTree().rootNode();
         NonTerminalNode node = modulePartNode.findNode(TextRange.from(nodeStart, nodeEnd - nodeStart)).parent();
-        if (node.kind() == SyntaxKind.BLOCK_STATEMENT) {
+        if (node != null && node.kind() == SyntaxKind.BLOCK_STATEMENT) {
             BlockStatementNode blockStatementNode = (BlockStatementNode) node;
             if (blockStatementNode.statements().size() == 1) {
                 NonTerminalNode parent = node.parent();

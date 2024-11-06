@@ -93,7 +93,7 @@
             "character": 39
           }
         },
-        "newText": "redis:Client moduleRedisCl = check new ();"
+        "newText": "final redis:Client moduleRedisCl = check new ();"
       }
     ]
   }

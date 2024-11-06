@@ -84,7 +84,7 @@ public class DataMapper extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties()
-                .data(null)
+                .data(null, context.getAllVisibleSymbolNames())
                 .custom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
                         null, "transform", false);
 

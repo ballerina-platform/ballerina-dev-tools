@@ -1,5 +1,9 @@
 {
   "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
@@ -31,7 +35,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/io:1.6.1:Printable[]",
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false

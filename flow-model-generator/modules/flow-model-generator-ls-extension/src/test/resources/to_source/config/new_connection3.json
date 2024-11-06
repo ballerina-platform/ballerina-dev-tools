@@ -103,7 +103,7 @@
             "character": 0
           }
         },
-        "newText": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
+        "newText": "final http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
       }
     ]
   }

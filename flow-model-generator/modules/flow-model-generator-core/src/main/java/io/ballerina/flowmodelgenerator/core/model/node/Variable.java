@@ -68,6 +68,8 @@ public class Variable extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         metadata().description(DESCRIPTION);
-        properties().dataVariable(null, true).expression("", NEW_DATA_EXPRESSION_DOC, true);
+        properties()
+                .dataVariable(null, true, context.getAllVisibleSymbolNames())
+                .expression("", NEW_DATA_EXPRESSION_DOC, true);
     }
 }

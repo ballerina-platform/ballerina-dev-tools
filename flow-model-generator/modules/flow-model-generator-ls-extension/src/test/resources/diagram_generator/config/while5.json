@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "finalMsg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -237,7 +235,7 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
                   "variable": {
@@ -247,7 +245,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -275,8 +272,8 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
@@ -473,7 +470,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "attempts",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -534,7 +530,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "adminClient",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -733,7 +728,7 @@
                             "valueType": "EXPRESSION",
                             "value": "adminClient",
                             "optional": false,
-                            "editable": true,
+                            "editable": false,
                             "advanced": false
                           },
                           "variable": {
@@ -743,7 +738,6 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "response",
-                            "placeholder": "item",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -792,8 +786,8 @@
                           },
                           "checkError": {
                             "metadata": {
-                              "label": "Check Flag",
-                              "description": "Whether to return the error"
+                              "label": "Check Error",
+                              "description": "Trigger error flow"
                             },
                             "valueType": "FLAG",
                             "value": true,
@@ -1066,6 +1060,17 @@
             "editable": true,
             "advanced": true
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
           "url": {
             "metadata": {
               "label": "url",
@@ -1089,19 +1094,18 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

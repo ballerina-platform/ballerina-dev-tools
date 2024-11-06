@@ -385,6 +385,7 @@ public class DatabaseManager {
                 "p.name, " +
                 "p.type, " +
                 "p.kind, " +
+                "p.default_value, " +
                 "p.description " +
                 "FROM Parameter p " +
                 "WHERE p.function_id = ?;";
@@ -399,6 +400,7 @@ public class DatabaseManager {
                         rs.getString("name"),
                         rs.getString("type"),
                         ParameterKind.valueOf(rs.getString("kind")),
+                        rs.getString("default_value"),
                         rs.getString("description")
                 );
                 parameterResults.add(parameterResult);

@@ -103,6 +103,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
@@ -115,6 +116,7 @@ import io.ballerina.tools.text.TextDocument;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -269,8 +271,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .symbol(methodName)
                     .stepOut()
                 .properties()
-                    .callExpression(expressionNode, Property.CONNECTION_KEY)
-                    .variable(this.typedBindingPatternNode);
+                    .callExpression(expressionNode, Property.CONNECTION_KEY);
         handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
@@ -445,7 +446,9 @@ class CodeAnalyzer extends NodeVisitor {
                     .object("Client")
                     .symbol("init")
                     .stepOut()
-                .properties().scope(connectionScope);
+                .properties()
+                    .scope(connectionScope)
+                    .checkError(true, NewConnection.CHECK_ERROR_DOC, false);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
@@ -533,15 +536,18 @@ class CodeAnalyzer extends NodeVisitor {
 
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
-            nodeBuilder.properties().data(this.typedBindingPatternNode);
+            nodeBuilder.properties().data(this.typedBindingPatternNode, new HashSet<>());
         } else if (nodeBuilder instanceof XmlPayload) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "xml");
         } else if (nodeBuilder instanceof JsonPayload) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
+        } else if (nodeBuilder instanceof NewConnection) {
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
+                    NewConnection.CONNECTION_TYPE_LABEL, new HashSet<>());
         } else {
-            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit);
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit, new HashSet<>());
         }
         finalKeyword.ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
@@ -771,7 +777,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ForEachStatementNode forEachStatementNode) {
         startNode(NodeKind.FOREACH, forEachStatementNode)
                 .properties()
-                .dataVariable(forEachStatementNode.typedBindingPattern())
+                .dataVariable(forEachStatementNode.typedBindingPattern(), new HashSet<>())
                 .collection(forEachStatementNode.actionOrExpressionNode());
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);

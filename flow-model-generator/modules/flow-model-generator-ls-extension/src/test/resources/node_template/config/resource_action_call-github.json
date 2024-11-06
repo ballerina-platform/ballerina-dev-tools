@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "RESOURCE_ACTION_CALL",
@@ -22,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 581
+      "id": 843
     },
     "returning": false,
     "properties": {
@@ -34,7 +39,7 @@
         "valueType": "TYPE",
         "value": "github:ManifestConversions",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -43,8 +48,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "githubManifestconversions",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -75,8 +79,8 @@
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,

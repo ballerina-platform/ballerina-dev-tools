@@ -99,7 +99,7 @@
             "character": 0
           }
         },
-        "newText": "redis:Client|redis:Error item = check new ();"
+        "newText": "final redis:Client|redis:Error item = check new ();"
       }
     ]
   }

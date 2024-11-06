@@ -113,7 +113,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "name",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -174,7 +173,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "email",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -235,7 +233,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "address",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -380,7 +377,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "person",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -429,7 +425,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "admission",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -573,7 +568,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "employee",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -683,6 +677,17 @@
             "editable": true,
             "advanced": true
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
           "url": {
             "metadata": {
               "label": "url",
@@ -706,19 +711,18 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "cl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
