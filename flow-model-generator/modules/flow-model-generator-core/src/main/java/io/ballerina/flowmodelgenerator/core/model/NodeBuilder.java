@@ -68,8 +68,10 @@ import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -83,7 +85,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_KEY;
@@ -283,6 +287,20 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
                                   Codedata codedata) {
 
+        public Set<String> getAllVisibleSymbolNames() {
+            try {
+                workspaceManager.loadProject(filePath);
+                SemanticModel semanticModel =
+                        workspaceManager.semanticModel(filePath).orElseThrow();
+                Document document = workspaceManager.document(filePath).orElseThrow();
+                return semanticModel.visibleSymbols(document, position).parallelStream()
+                        .filter(s -> s.getName().isPresent())
+                        .map(s -> s.getName().get())
+                        .collect(Collectors.toSet());
+            } catch (Throwable e) {
+                return Set.of();
+            }
+        }
     }
 
     /**
@@ -436,6 +454,21 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
         public PropertiesBuilder<T> data(Node node) {
             return data(node, false);
+        }
+
+        public PropertiesBuilder<T> data(String typeSignature, Set<String> names, String label) {
+            String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY) ? "item" :
+                    NameUtil.generateVariableName(typeSignature, names);
+            propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(Property.DATA_VARIABLE_DOC)
+                        .stepOut()
+                    .value(varName)
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable();
+            addProperty(Property.DATA_VARIABLE_KEY);
+            return this;
         }
 
         public PropertiesBuilder<T> data(Node node, String label) {

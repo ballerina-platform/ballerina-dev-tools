@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
@@ -31,7 +36,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionConfig",
-          "value": "{}",
+        "value": "{}",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -49,11 +54,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "redisClient",
         "optional": false,
         "editable": true,
         "advanced": false

@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -62,8 +61,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
-
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -183,7 +180,9 @@ public class FunctionCall extends NodeBuilder {
                 returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
                 editable = true;
             }
-            properties().type(returnTypeName, editable).data(null);
+            properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
 
         if (function.returnError() == 1) {

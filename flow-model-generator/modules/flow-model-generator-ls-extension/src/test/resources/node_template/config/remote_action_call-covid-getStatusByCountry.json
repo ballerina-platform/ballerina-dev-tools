@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "REMOTE_ACTION_CALL",
@@ -102,7 +107,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "covid19Covidcountry",
         "optional": false,
         "editable": true,
         "advanced": false

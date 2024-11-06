@@ -124,7 +124,9 @@ public class NewConnection extends NodeBuilder {
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
-            properties().type(function.returnType()).data(null);
+            properties()
+                    .type(function.returnType())
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
         }
         properties()
                 .scope(Property.GLOBAL_SCOPE)

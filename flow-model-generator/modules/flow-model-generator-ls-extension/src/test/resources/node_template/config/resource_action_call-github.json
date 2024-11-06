@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "RESOURCE_ACTION_CALL",

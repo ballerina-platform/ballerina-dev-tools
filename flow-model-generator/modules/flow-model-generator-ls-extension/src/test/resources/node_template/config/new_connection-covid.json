@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "",
   "codedata": {
     "node": "NEW_CONNECTION",
@@ -61,11 +66,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "covid19Client",
         "optional": false,
         "editable": true,
         "advanced": false

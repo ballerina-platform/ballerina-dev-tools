@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -53,7 +52,6 @@ import java.util.Set;
 public class ActionCall extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -88,7 +86,7 @@ public class ActionCall extends NodeBuilder {
                 .build();
     }
 
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata, TemplateContext context) {
         if (codedata.org().equals("$anon")) {
             return null;
         }
@@ -153,7 +151,9 @@ public class ActionCall extends NodeBuilder {
                 returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
                 editable = true;
             }
-            nodeBuilder.properties().type(returnTypeName, editable).data(null);
+            nodeBuilder.properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
 
         nodeBuilder.properties().custom()
@@ -176,6 +176,6 @@ public class ActionCall extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
+        this.cachedFlowNode = fetchNodeTemplate(this, codedata, context);
     }
 }

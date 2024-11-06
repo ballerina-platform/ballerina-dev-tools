@@ -51,7 +51,8 @@
         "valueTypeConstraint": [
           "Input localInput",
           "Input moduleInput",
-          "http:Client cl"
+          "http:Client httpClient",
+          "http:Client httpClientResult"
         ],
         "value": "",
         "placeholder": "",
