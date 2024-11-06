@@ -39,10 +39,9 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "",
-        "placeholder": "var",
+        "value": "int",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -51,7 +50,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "intResult",
         "optional": false,
         "editable": true,
         "advanced": false

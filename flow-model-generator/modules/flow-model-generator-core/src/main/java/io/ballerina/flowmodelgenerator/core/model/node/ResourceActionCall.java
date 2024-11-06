@@ -88,15 +88,10 @@ public class ResourceActionCall extends NodeBuilder {
                 .build();
     }
 
-    @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
-    }
-
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
         if (codedata.org().equals("$anon")) {
-            return null;
+            return;
         }
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
@@ -104,22 +99,20 @@ public class ResourceActionCall extends NodeBuilder {
                 dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
                         DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
-            return null;
+            return;
         }
 
         FunctionResult function = functionResult.get();
-        nodeBuilder
-                .metadata()
-                    .label(function.name())
-                    .description(function.description())
-                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                    .stepOut()
-                .codedata()
-                    .org(function.org())
-                    .module(function.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
-                    .id(function.functionId())
-                    .symbol(function.name());
+        metadata()
+                .label(function.name())
+                .description(function.description())
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+        codedata()
+                .org(function.org())
+                .module(function.packageName())
+                .object(NewConnection.CLIENT_SYMBOL)
+                .id(function.functionId())
+                .symbol(function.name());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
@@ -134,10 +127,10 @@ public class ResourceActionCall extends NodeBuilder {
                         .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
                 if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
                     FunctionCall.addIncludedRecordToParams((
-                            (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
+                            (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
                 }
             } else {
-                nodeBuilder.properties().custom()
+                properties().custom()
                         .metadata()
                             .label(paramResult.name())
                             .description(paramResult.description())
@@ -152,18 +145,25 @@ public class ResourceActionCall extends NodeBuilder {
             }
         }
 
+        String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+            boolean editable = false;
+            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
 
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
+        properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
-        nodeBuilder.properties().resourcePath(function.resourcePath());
+        properties().resourcePath(function.resourcePath());
 
         if (function.returnError() == 1) {
-            nodeBuilder.properties().checkError(true);
+            properties().checkError(true);
         }
-        return nodeBuilder.build();
     }
 }

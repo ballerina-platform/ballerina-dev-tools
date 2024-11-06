@@ -78,6 +78,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -298,7 +299,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .map(s -> s.getName().get())
                         .collect(Collectors.toSet());
             } catch (Throwable e) {
-                return Set.of();
+                return new HashSet<>();
             }
         }
     }
@@ -392,18 +393,18 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
+        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit, Set<String> names) {
             return implicit ?
-                    dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL)
-                    : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL);
+                    dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL, names)
+                    : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            return dataVariable(node, false);
+        public PropertiesBuilder<T> dataVariable(Node node, Set<String> names) {
+            return dataVariable(node, false, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc) {
-            data(node, variableDoc);
+        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc, Set<String> names) {
+            data(node, variableDoc, names);
 
             propertyBuilder
                     .metadata()
@@ -427,7 +428,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> payload(Node node, String type) {
-            data(node);
+            data(node, new HashSet<>());
 
             propertyBuilder
                     .metadata()
@@ -448,17 +449,33 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> data(Node node, boolean implicit) {
-            return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL);
+        public PropertiesBuilder<T> data(Node node, Set<String> names) {
+            return data(node, false, names);
         }
 
-        public PropertiesBuilder<T> data(Node node) {
-            return data(node, false);
+        public PropertiesBuilder<T> data(Node node, boolean implicit, Set<String> names) {
+            return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL, names);
+        }
+
+        public PropertiesBuilder<T> data(Node node, String label, Set<String> names) {
+            propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(Property.DATA_VARIABLE_DOC)
+                        .stepOut()
+                    .value(node == null ? NameUtil.generateTypeName("var", names) :
+                            CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable();
+            addProperty(Property.DATA_VARIABLE_KEY, node);
+
+            return this;
         }
 
         public PropertiesBuilder<T> data(String typeSignature, Set<String> names, String label) {
-            String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY) ? "item" :
-                    NameUtil.generateVariableName(typeSignature, names);
+            String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY)
+                    ? NameUtil.generateTypeName("var", names)
+                    : NameUtil.generateVariableName(typeSignature, names);
             propertyBuilder
                     .metadata()
                         .label(label)
@@ -468,20 +485,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             addProperty(Property.DATA_VARIABLE_KEY);
-            return this;
-        }
-
-        public PropertiesBuilder<T> data(Node node, String label) {
-            propertyBuilder
-                    .metadata()
-                        .label(label)
-                        .description(Property.DATA_VARIABLE_DOC)
-                        .stepOut()
-                    .value(node == null ? "item" : CommonUtils.getVariableName(node))
-                    .type(Property.ValueType.IDENTIFIER)
-                    .editable();
-            addProperty(Property.DATA_VARIABLE_KEY, node);
-
             return this;
         }
 

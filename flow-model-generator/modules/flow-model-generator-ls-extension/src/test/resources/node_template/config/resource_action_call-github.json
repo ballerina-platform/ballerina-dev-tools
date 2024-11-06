@@ -39,7 +39,7 @@
         "valueType": "TYPE",
         "value": "github:ManifestConversions",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -48,7 +48,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "githubManifestconversions",
         "optional": false,
         "editable": true,
         "advanced": false

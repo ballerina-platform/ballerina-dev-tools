@@ -111,9 +111,16 @@ public class FunctionCall extends NodeBuilder {
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                properties().type(CommonUtils.getTypeSignature(semanticModel, returnType, true)).data(null);
+                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true);
+                boolean editable = false;
+                if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                    returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                    editable = true;
+                }
+                properties()
+                        .type(returnTypeName, editable)
+                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
             });
-            properties().dataVariable(null);
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
                     .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);

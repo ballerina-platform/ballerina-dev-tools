@@ -20,7 +20,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "var1",
         "optional": false,
         "editable": true,
         "advanced": false
