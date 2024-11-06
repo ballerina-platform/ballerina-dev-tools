@@ -20,8 +20,8 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Manage the configurable variables.
@@ -64,11 +63,12 @@ public class ConfigVariablesManager {
         for (Document document : documents) {
             SyntaxTree syntaxTree = document.syntaxTree();
             ModulePartNode modulePartNode = syntaxTree.rootNode();
+            SemanticModel semanticModel = document.module().getCompilation().getSemanticModel();
             for (Node node : modulePartNode.children()) {
                 if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
                     ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
                     if (hasConfigurableQualifier(modVarDeclarationNode)) {
-                        configVariables.add(genConfigVariable(modVarDeclarationNode));
+                        configVariables.add(genConfigVariable(modVarDeclarationNode, semanticModel));
                     }
                 }
             }
@@ -81,19 +81,13 @@ public class ConfigVariablesManager {
                 .stream().anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
     }
 
-    private FlowNode genConfigVariable(ModuleVariableDeclarationNode modVarDeclNode) {
+    private FlowNode genConfigVariable(ModuleVariableDeclarationNode modVarDeclNode, SemanticModel semanticModel) {
+        DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
-                .semanticModel(null)
+                .semanticModel(semanticModel)
+                .diagnosticHandler(diagnosticHandler)
                 .defaultModuleName(null);
-
-        Optional<ExpressionNode> optInitializer = modVarDeclNode.initializer();
-        String value = "";
-        if (optInitializer.isPresent()) {
-            ExpressionNode initializer = optInitializer.get();
-            if (initializer.kind() != SyntaxKind.REQUIRED_EXPRESSION) {
-                value = initializer.toSourceCode();
-            }
-        }
+        diagnosticHandler.handle(nodeBuilder, modVarDeclNode.lineRange(), false);
 
         TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
         return
@@ -106,9 +100,9 @@ public class ConfigVariablesManager {
                         .lineRange(modVarDeclNode.lineRange())
                         .stepOut()
                     .properties()
-                        .type(typedBindingPattern.typeDescriptor().toSourceCode().trim())
+                        .type(typedBindingPattern.typeDescriptor())
                         .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
-                        .defaultableVariable(value)
+                        .defaultableVariable(modVarDeclNode.initializer().orElse(null))
                         .stepOut()
                     .build();
     }

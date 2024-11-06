@@ -1,5 +1,5 @@
 {
-  "project": "config4",
+  "project": "config5",
   "configVariables": [
     {
       "id": "33758",
@@ -60,7 +60,7 @@
       "flags": 0
     },
     {
-      "id": "34763",
+      "id": "34755",
       "metadata": {
         "label": "Config",
         "description": "Create a configurable variable"
@@ -75,7 +75,7 @@
           },
           "endLine": {
             "line": 3,
-            "offset": 43
+            "offset": 35
           }
         }
       },
@@ -109,16 +109,28 @@
             "description": "Default value for the config, if empty your need to provide a value at runtime"
           },
           "valueType": "EXPRESSION",
-          "value": "\"new config\"",
+          "value": "12.4",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "diagnostics": {
+            "hasDiagnostics": true,
+            "diagnostics": [
+              {
+                "severity": "ERROR",
+                "message": "incompatible types: expected 'string', found 'float'"
+              }
+            ]
+          }
         }
+      },
+      "diagnostics": {
+        "hasDiagnostics": true
       },
       "flags": 0
     },
     {
-      "id": "31774",
+      "id": "31781",
       "metadata": {
         "label": "Config",
         "description": "Create a configurable variable"
@@ -133,7 +145,7 @@
           },
           "endLine": {
             "line": 0,
-            "offset": 30
+            "offset": 37
           }
         }
       },
@@ -167,16 +179,28 @@
             "description": "Default value for the config, if empty your need to provide a value at runtime"
           },
           "valueType": "EXPRESSION",
-          "value": "10",
+          "value": "\"welcome\"",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "diagnostics": {
+            "hasDiagnostics": true,
+            "diagnostics": [
+              {
+                "severity": "ERROR",
+                "message": "incompatible types: expected 'int', found 'string'"
+              }
+            ]
+          }
         }
+      },
+      "diagnostics": {
+        "hasDiagnostics": true
       },
       "flags": 0
     },
     {
-      "id": "32779",
+      "id": "32769",
       "metadata": {
         "label": "Config",
         "description": "Create a configurable variable"
@@ -191,7 +215,7 @@
           },
           "endLine": {
             "line": 1,
-            "offset": 43
+            "offset": 33
           }
         }
       },
@@ -225,11 +249,23 @@
             "description": "Default value for the config, if empty your need to provide a value at runtime"
           },
           "valueType": "EXPRESSION",
-          "value": "\"new config\"",
+          "value": "23",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "diagnostics": {
+            "hasDiagnostics": true,
+            "diagnostics": [
+              {
+                "severity": "ERROR",
+                "message": "incompatible types: expected 'string', found 'int'"
+              }
+            ]
+          }
         }
+      },
+      "diagnostics": {
+        "hasDiagnostics": true
       },
       "flags": 0
     }

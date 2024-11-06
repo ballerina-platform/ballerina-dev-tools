@@ -801,16 +801,16 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> defaultableVariable(String data) {
+        public PropertiesBuilder<T> defaultableVariable(ExpressionNode expr) {
             propertyBuilder
                     .metadata()
                         .label(Property.DEFAULT_VALUE_LABEL)
                         .description(Property.DEFAULT_VALUE_DOC)
                         .stepOut()
-                    .value(data)
+                    .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
                     .type(Property.ValueType.EXPRESSION)
                     .editable();
-            addProperty(Property.DEFAULTABLE_KEY);
+            addProperty(Property.DEFAULTABLE_KEY, expr);
             return this;
         }
 
