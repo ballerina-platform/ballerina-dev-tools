@@ -18,7 +18,13 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
 public class Parameter {
 
     public enum Kind {
-        REQUIRED, DEFAULTABLE, INCLUDED_RECORD, REST
+        REQUIRED,
+        DEFAULTABLE,
+        INCLUDED_RECORD,
+        REST,
+        INCLUDED_RECORD_ATTRIBUTE,
+        PARAM_FOR_TYPE_INFER,
+        INCLUDED_RECORD_REST
     }
 
     @Id
@@ -43,6 +49,9 @@ public class Parameter {
     @ManyToOne
     @JoinColumn(name = "function_id")
     private Function function;
+
+    @Column(name = "optional")
+    private Integer optional;
 
     // Getters and setters
     public Long getParameterId() {
@@ -91,5 +100,13 @@ public class Parameter {
 
     public void setFunction(Function function) {
         this.function = function;
+    }
+
+    public Integer getOptional() {
+        return optional;
+    }
+
+    public void setOptional(Integer optional) {
+        this.optional = optional;
     }
 }

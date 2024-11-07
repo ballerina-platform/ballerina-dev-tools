@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -115,20 +116,11 @@ public class ActionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)) {
                 continue;
             }
-            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
-                Package modulePackage = PackageUtil
-                        .getModulePackage(function.org(), function.packageName(), function.version());
-                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
-                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
-                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
-                    FunctionCall.addIncludedRecordToParams(
-                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
-                }
-            } else {
+
+            if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
                 nodeBuilder.properties().custom()
                         .metadata()
                             .label(paramResult.name())
@@ -136,9 +128,10 @@ public class ActionCall extends NodeBuilder {
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .typeConstraint(paramResult.type())
-                        .value(paramResult.getDefaultValue())
+                        .value(paramResult.defaultValue())
                         .editable()
-                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name())
                         .stepOut()
                         .addProperty(paramResult.name());
             }

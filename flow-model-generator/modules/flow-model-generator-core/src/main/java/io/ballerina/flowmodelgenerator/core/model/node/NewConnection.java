@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -110,19 +111,25 @@ public class NewConnection extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-            properties().custom()
-                    .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                    .type(Property.ValueType.EXPRESSION)
-                    .typeConstraint(paramResult.type())
-                    .value(paramResult.getDefaultValue())
-                    .editable()
-                    .defaultable(optional)
-                    .stepOut()
-                    .addProperty(paramResult.name());
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)) {
+                continue;
+            }
+
+            if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
+                properties().custom()
+                        .metadata()
+                        .label(paramResult.name())
+                        .description(paramResult.description())
+                        .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name())
+                        .stepOut()
+                        .addProperty(paramResult.name());
+            }
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {

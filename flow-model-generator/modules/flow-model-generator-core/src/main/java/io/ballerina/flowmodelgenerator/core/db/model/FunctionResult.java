@@ -28,7 +28,5 @@ public record FunctionResult(
         String version,
         String resourcePath,
         Function.Kind kind,
-        Integer returnError,
-        Integer optional
-) {
+        Integer returnError) {
 }
