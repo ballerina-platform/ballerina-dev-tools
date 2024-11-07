@@ -43,7 +43,6 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
@@ -254,6 +253,7 @@ class IndexGenerator {
                         getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
                         getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
 
+        ParamForTypeInfer paramForTypeInfer = null;
         if (functionSymbol.external()) {
             List<String> paramNameList = new ArrayList<>();
             functionTypeSymbol.params().ifPresent(paramList -> paramList
@@ -266,6 +266,9 @@ class IndexGenerator {
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
                     returnType = "json";
+                    String defaultValue = DefaultValueGeneratorUtil
+                            .getDefaultValueForType(returnTypeMap.get(paramName));
+                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, returnType);
                     break;
                 }
             }
@@ -279,10 +282,12 @@ class IndexGenerator {
                         functionType.name(), pathBuilder.toString(), returnError);
 
         // Handle the parameters of the function
+        ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
         functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage)));
+                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage,
+                        finalParamForTypeInfer)));
         functionTypeSymbol.restParam().ifPresent(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage));
+                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage, null));
         return functionId;
     }
 
@@ -305,7 +310,8 @@ class IndexGenerator {
     }
 
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
-                                               int functionId, Package resolvedPackage) {
+                                               int functionId, Package resolvedPackage,
+                                               ParamForTypeInfer paramForTypeInfer) {
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
         FunctionParameterKind parameterKind = FunctionParameterKind.valueOf(paramSymbol.paramKind().toString());
@@ -323,6 +329,14 @@ class IndexGenerator {
             paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
             optional = 0;
         } else {
+            if (paramForTypeInfer != null) {
+                if (paramForTypeInfer.paramName().equals(paramName)) {
+                    defaultValue = paramForTypeInfer.defaultValue();
+                    paramType = paramForTypeInfer.type();
+                    DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription,
+                            paramType, defaultValue, parameterKind, optional);
+                }
+            }
             Location symbolLocation = paramSymbol.getLocation().get();
             Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
             if (document != null) {
@@ -455,6 +469,7 @@ class IndexGenerator {
         INCLUDED_RECORD,
         REST,
         INCLUDED_RECORD_ATTRIBUTE,
+        PARAM_FOR_TYPE_INFER,
         INCLUDED_RECORD_REST;
 
         private FunctionParameterKind() {
@@ -509,4 +524,6 @@ class IndexGenerator {
             return null;
         }
     }
+
+    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {}
 }
