@@ -41,9 +41,11 @@ CREATE TABLE Parameter (
     parameter_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     description TEXT,
-    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST')),
+    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST',
+    'INCLUDED_RECORD_ATTRIBUTE', 'INCLUDED_RECORD_REST')),
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
+    optional INTEGER CHECK(optional IN (0, 1)),
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );

@@ -21,6 +21,7 @@ package io.ballerina.indexgenerator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
@@ -32,9 +33,12 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -80,7 +84,7 @@ class IndexGenerator {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.forEach(
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)
             ))).join();
         } catch (IOException e) {
@@ -254,13 +258,60 @@ class IndexGenerator {
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
                                                int functionId) {
         String paramName = paramSymbol.getName().orElse("");
-        String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
-        ParameterKind parameterKind = paramSymbol.paramKind();
+        FunctionParameterKind parameterKind = FunctionParameterKind.valueOf(paramSymbol.paramKind().toString());
+        String paramType;
+        int optional = 1;
+        if (parameterKind == FunctionParameterKind.REST) {
+            paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
+                    null, false);
+        } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
+                    functionId);
+        } else if (parameterKind == FunctionParameterKind.REQUIRED) {
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            optional = 0;
+        } else {
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+        }
         String defaultValue =
                 DefaultValueGenerationUtil.getDefaultValueForType(paramSymbol.typeDescriptor()).orElse("");
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                parameterKind);
+                parameterKind, optional);
+    }
+
+    protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId) {
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId);
+        });
+        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
+            RecordFieldSymbol recordFieldSymbol = entry.getValue();
+            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
+            if (fieldType.typeKind() == TypeDescKind.NEVER) {
+                continue;
+            }
+            String paramName = entry.getKey();
+            String defaultValue =
+                    DefaultValueGenerationUtil.getDefaultValueForType(fieldType).orElse("");
+            String paramDescription = entry.getValue().documentation()
+                    .flatMap(Documentation::description).orElse("");
+            String paramType = getTypeSignature(fieldType, null, false);
+            int optional = 0;
+            if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
+                optional = 1;
+            }
+            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
+                    FunctionParameterKind.INCLUDED_RECORD_ATTRIBUTE, optional);
+        }
+        recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
+            String paramType =  getTypeSignature(typeSymbol, null, false);
+            String defaultValue =
+                    DefaultValueGenerationUtil.getDefaultValueForType(typeSymbol).orElse("");
+            DatabaseManager.insertFunctionParameter(functionId, "INCLUDED_RECORD_ATTRIBUTE",
+                    "", paramType, defaultValue,
+                    FunctionParameterKind.INCLUDED_RECORD_ATTRIBUTE, 1);
+        });
     }
 
     private static String getDescription(Documentable documentable) {
@@ -337,4 +388,17 @@ class IndexGenerator {
         CONNECTOR,
         RESOURCE
     }
+
+    enum FunctionParameterKind {
+        REQUIRED,
+        DEFAULTABLE,
+        INCLUDED_RECORD,
+        REST,
+        INCLUDED_RECORD_ATTRIBUTE,
+        INCLUDED_RECORD_REST;
+
+        private FunctionParameterKind() {
+        }
+    }
+
 }
