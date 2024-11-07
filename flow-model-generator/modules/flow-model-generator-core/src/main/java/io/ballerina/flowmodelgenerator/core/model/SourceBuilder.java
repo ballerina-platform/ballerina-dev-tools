@@ -270,31 +270,32 @@ public class SourceBuilder {
         Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
 
-        boolean hasEmptyParam = false;
         boolean firstParamAdded = false;
         for (String key : keys) {
             Optional<Property> property = flowNode.getProperty(key);
             if (property.isEmpty() || property.get().value() == null ||
                     (property.get().optional() && property.get().value().toString().isEmpty())) {
-                hasEmptyParam = true;
                 continue;
-            }
-
-            if (firstParamAdded) {
-                tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-            } else {
-                firstParamAdded = true;
-            }
-
-            if (hasEmptyParam) {
-                tokenBuilder
-                        .name(key)
-                        .keyword(SyntaxKind.EQUAL_TOKEN);
-                hasEmptyParam = false;
             }
 
             Property prop = property.get();
             String kind = prop.kind();
+
+            if (firstParamAdded) {
+                if ((kind.equals(Parameter.Kind.REST.name())
+                        || kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name()))) {
+                    if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                        addRestParamValues(prop);
+                        continue;
+                    }
+                } else {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+            } else {
+                firstParamAdded = true;
+            }
+
             if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
                     || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())
                     || kind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER.name())) {
@@ -303,10 +304,7 @@ public class SourceBuilder {
                 tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
             } else if (kind.equals(Parameter.Kind.REST.name())
                     || kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
-                if (prop.value() instanceof List<?>) {
-                    List<String> values = (List<String>) prop.value();
-                    tokenBuilder.expression(String.join(", ", values));
-                }
+                addRestParamValues(prop);
             }
         }
 
@@ -314,6 +312,23 @@ public class SourceBuilder {
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
         return this;
+    }
+
+    private boolean hasRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<String> values = (List<String>) prop.value();
+            return !values.isEmpty();
+        }
+        return false;
+    }
+
+    private void addRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<String> values = (List<String>) prop.value();
+            if (!values.isEmpty()) {
+                tokenBuilder.expression(String.join(", ", values));
+            }
+        }
     }
 
     public SourceBuilder textEdit(boolean isExpression) {
