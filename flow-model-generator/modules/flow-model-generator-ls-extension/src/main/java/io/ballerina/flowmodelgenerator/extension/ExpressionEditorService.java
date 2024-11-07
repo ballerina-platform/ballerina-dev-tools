@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeRe
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -111,13 +112,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
-                    return response;
-                }
+                Project project = this.workspaceManager.loadProject(filePath);
+                SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElseGet(
+                        () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
 
-                TypesGenerator typesGenerator = new TypesGenerator(semanticModel.get());
+                TypesGenerator typesGenerator = new TypesGenerator(semanticModel);
                 response.setTypes(typesGenerator.getTypes());
             } catch (Throwable e) {
                 response.setError(e);
