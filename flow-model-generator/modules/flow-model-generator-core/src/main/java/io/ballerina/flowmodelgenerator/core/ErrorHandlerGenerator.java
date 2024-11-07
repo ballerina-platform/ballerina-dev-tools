@@ -90,7 +90,7 @@ public class ErrorHandlerGenerator {
             }
 
             // Generate the text edits
-            LineRange childLineRange = functionBodyNode.lineRange();
+            LineRange childLineRange = CommonUtils.getLineRangeOfBlockNode(functionBodyNode);
             textEdits.add(new TextEdit(CommonUtils.toRange(childLineRange.startLine()), prefix));
             textEdits.add(new TextEdit(CommonUtils.toRange(childLineRange.endLine()), suffix));
         }

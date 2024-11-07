@@ -36,6 +36,7 @@ import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -493,5 +494,29 @@ public class CommonUtils {
                 break;
         }
         return diagnostic;
+    }
+
+    /**
+     * Get the line range of a block node, excluding the opening and closing braces if they exist.
+     *
+     * @param node the block node
+     * @return the line range of the block node
+     */
+    public static LineRange getLineRangeOfBlockNode(NonTerminalNode node) {
+        ChildNodeList children = node.children();
+        int size = children.size();
+
+        if (size < 2) {
+            return node.lineRange();
+        }
+
+        Node startToken = children.get(0);
+        Node endToken = children.get(size - 1);
+
+        if (startToken.kind() == SyntaxKind.OPEN_BRACE_TOKEN && endToken.kind() == SyntaxKind.CLOSE_BRACE_TOKEN) {
+            return LineRange.from(node.lineRange().fileName(), startToken.lineRange().endLine(),
+                    endToken.lineRange().startLine());
+        }
+        return node.lineRange();
     }
 }
