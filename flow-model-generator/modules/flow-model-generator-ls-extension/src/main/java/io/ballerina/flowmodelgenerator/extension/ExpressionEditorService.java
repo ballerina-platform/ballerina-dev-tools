@@ -20,24 +20,32 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
+import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
 import org.eclipse.lsp4j.FileChangeType;
 import org.eclipse.lsp4j.FileEvent;
@@ -240,6 +248,81 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                     ProjectCacheManager.InstanceHandler.release(projectPath);
                 }
             }
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ExpressionEditorDiagnosticsResponse> diagnostics(
+            ExpressionEditorDiagnosticsRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ExpressionEditorDiagnosticsResponse response = new ExpressionEditorDiagnosticsResponse();
+            Path projectPath = null;
+            try {
+                // Load the original project
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                projectPath = this.workspaceManager.projectRoot(filePath);
+
+                // Load the shadowed project
+                ProjectCacheManager projectCacheManager =
+                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
+                projectCacheManager.copyContent();
+                Path destination = projectCacheManager.getDestination(filePath);
+
+                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
+                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
+                        new DidChangeWatchedFilesParams(List.of(fileEvent));
+                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
+                this.workspaceManager.loadProject(destination);
+
+                // Get the document
+                Optional<Document> document = this.workspaceManager.document(destination);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TextDocument textDocument = document.get().textDocument();
+
+                // Determine the cursor position
+                int textPosition = textDocument.textPositionFrom(request.startLine());
+
+                String type = request.type();
+                String statement;
+                if (type == null || type.isEmpty()) {
+                    statement = String.format("_ = %s;%n", request.expression());
+                } else {
+                    statement = String.format("%s _ = %s;%n", type, request.expression());
+                }
+                LinePosition endLineRange = LinePosition.from(request.startLine().line(),
+                        request.startLine().offset() + statement.length());
+                LineRange lineRange = LineRange.from(request.filePath(), request.startLine(), endLineRange);
+
+                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+                TextDocument newTextDocument =
+                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+                projectCacheManager.writeContent(newTextDocument, filePath);
+                document.get().modify()
+                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
+                        .apply();
+
+                Optional<Module> module = workspaceManager.module(destination);
+                if (module.isEmpty()) {
+                    return response;
+                }
+                List<Diagnostic> diagnostics = module.get().getCompilation().diagnostics().diagnostics().stream()
+                        .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
+                                lineRange))
+                        .map(CommonUtils::transformBallerinaDiagnostic)
+                        .toList();
+                projectCacheManager.deleteContent();
+                response.setDiagnostics(diagnostics);
+            } catch (Throwable e) {
+                response.setError(e);
+            } finally {
+                if (projectPath != null) {
+                    ProjectCacheManager.InstanceHandler.release(projectPath);
+                }
+            }
+            return response;
         });
     }
 }

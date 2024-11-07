@@ -54,6 +54,8 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Diagnostic;
+import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
@@ -361,6 +363,7 @@ public class CommonUtils {
 
     /**
      * Check whether the given node is within a do clause.
+     *
      * @param node the node to check
      * @return true if the node is within a do clause, false otherwise
      */
@@ -388,6 +391,7 @@ public class CommonUtils {
 
     /**
      * Builds the resource path template for the given function symbol.
+     *
      * @param functionSymbol the function symbol
      * @return the resource path template
      */
@@ -428,6 +432,7 @@ public class CommonUtils {
 
     /**
      * Check whether the given type is a subtype of the target type.
+     *
      * @param source the source type
      * @param target the target type
      * @return true if the source type is a subtype of the target type, false otherwise
@@ -455,5 +460,38 @@ public class CommonUtils {
             }
         }
         return sourceRawType.subtypeOf(target);
+    }
+
+    //TODO: Remove this once the diagnostic helper is exposed to LS extensions
+    public static Diagnostic transformBallerinaDiagnostic(io.ballerina.tools.diagnostics.Diagnostic diag) {
+        LineRange lineRange = diag.location().lineRange();
+        int startLine = lineRange.startLine().line();
+        int startChar = lineRange.startLine().offset();
+        int endLine = lineRange.endLine().line();
+        int endChar = lineRange.endLine().offset();
+
+        endLine = (endLine <= 0) ? startLine : endLine;
+        endChar = (endChar <= 0) ? startChar + 1 : endChar;
+
+        Range range = new Range(new Position(startLine, startChar), new Position(endLine, endChar));
+        Diagnostic diagnostic = new Diagnostic(range, diag.message(), null, null, diag.diagnosticInfo().code());
+
+        switch (diag.diagnosticInfo().severity()) {
+            case ERROR:
+                diagnostic.setSeverity(DiagnosticSeverity.Error);
+                break;
+            case WARNING:
+                diagnostic.setSeverity(DiagnosticSeverity.Warning);
+                break;
+            case HINT:
+                diagnostic.setSeverity(DiagnosticSeverity.Hint);
+                break;
+            case INFO:
+                diagnostic.setSeverity(DiagnosticSeverity.Information);
+                break;
+            default:
+                break;
+        }
+        return diagnostic;
     }
 }

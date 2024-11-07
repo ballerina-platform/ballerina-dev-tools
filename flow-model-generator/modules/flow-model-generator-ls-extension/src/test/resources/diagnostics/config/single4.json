@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "expression": "self.classVar > local +  12",
+  "startLine": {
+    "line": 13,
+    "offset": 8
+  },
+  "type": "boolean",
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 36
+        },
+        "end": {
+          "line": 13,
+          "character": 41
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2010"
+      },
+      "message": "undefined symbol 'local'"
+    }
+  ]
+}
