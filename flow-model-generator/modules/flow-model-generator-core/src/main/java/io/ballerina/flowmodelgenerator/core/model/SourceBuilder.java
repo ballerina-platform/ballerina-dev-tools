@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
@@ -48,6 +49,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -291,7 +293,21 @@ public class SourceBuilder {
                 hasEmptyParam = false;
             }
 
-            tokenBuilder.expression(property.get());
+            Property prop = property.get();
+            String kind = prop.kind();
+            if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
+                    || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())
+                    || kind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER.name())) {
+                tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_ATTRIBUTE.name())) {
+                tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+            } else if (kind.equals(Parameter.Kind.REST.name())
+                    || kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                if (prop.value() instanceof List<?>) {
+                    List<String> values = (List<String>) prop.value();
+                    tokenBuilder.expression(String.join(", ", values));
+                }
+            }
         }
 
         tokenBuilder

@@ -40,6 +40,7 @@ import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -120,12 +121,28 @@ public class ActionCall extends NodeBuilder {
                 continue;
             }
 
-            if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
+                    || paramResult.kind() == Parameter.Kind.REST) {
                 nodeBuilder.properties().custom()
                         .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
+                        .label(paramResult.name())
+                        .description(paramResult.description())
+                        .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(new ArrayList<>())
+                        .placeholder(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name())
+                        .stepOut()
+                        .addProperty(paramResult.name());
+            } else if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
+                nodeBuilder.properties().custom()
+                        .metadata()
+                        .label(paramResult.name())
+                        .description(paramResult.description())
+                        .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .typeConstraint(paramResult.type())
                         .value(paramResult.defaultValue())
