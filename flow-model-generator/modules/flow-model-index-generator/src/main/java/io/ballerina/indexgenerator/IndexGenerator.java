@@ -46,6 +46,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
+import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -54,6 +55,7 @@ import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
@@ -65,7 +67,6 @@ import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
-import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -313,6 +314,7 @@ class IndexGenerator {
         FunctionParameterKind parameterKind = FunctionParameterKind.valueOf(paramSymbol.paramKind().toString());
         String paramType;
         int optional = 1;
+        String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
         if (parameterKind == FunctionParameterKind.REST) {
             paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
                     null, false);
@@ -324,10 +326,14 @@ class IndexGenerator {
             paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
             optional = 0;
         } else {
+            Location symbolLocation = paramSymbol.getLocation().get();
+            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            if (document != null) {
+                defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
+                        symbolLocation, resolvedPackage.packageName().value());
+            }
             paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         }
-        String defaultValue =
-                DefaultValueGenerationUtil.getDefaultValueForType(paramSymbol.typeDescriptor()).orElse("");
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
                 parameterKind, optional);
     }
@@ -352,11 +358,10 @@ class IndexGenerator {
                 defaultValue = getAttributeDefaultValue(document.syntaxTree().rootNode(),
                         symbolLocation, resolvedPackage.packageName().value());
                 if (defaultValue == null) {
-                    defaultValue = DefaultValueGenerationUtil.getDefaultValueForType(fieldType).orElse("");
+                    defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
                 }
             } else {
-                defaultValue =
-                        DefaultValueGenerationUtil.getDefaultValueForType(fieldType).orElse("");
+                defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             }
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
@@ -370,8 +375,7 @@ class IndexGenerator {
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType =  getTypeSignature(typeSymbol, null, false);
-            String defaultValue =
-                    DefaultValueGenerationUtil.getDefaultValueForType(typeSymbol).orElse("");
+            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             DatabaseManager.insertFunctionParameter(functionId, "INCLUDED_RECORD_ATTRIBUTE",
                     "", paramType, defaultValue,
                     FunctionParameterKind.INCLUDED_RECORD_ATTRIBUTE, 1);
@@ -458,6 +462,24 @@ class IndexGenerator {
 
         private FunctionParameterKind() {
         }
+    }
+
+    private static String getParamDefaultValue(ModulePartNode rootNode, Location location, String module) {
+        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
+                location.textRange().length()));
+        if (node.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
+            DefaultableParameterNode valueNode = (DefaultableParameterNode) node;
+            ExpressionNode expression = (ExpressionNode) valueNode.expression();
+            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                return module + ":" + simpleNameReferenceNode.name().text();
+            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                        .text();
+            } else {
+                return expression.toSourceCode();
+            }
+        }
+        return null;
     }
 
     private static String getAttributeDefaultValue(ModulePartNode rootNode, Location location, String module) {
