@@ -50,6 +50,7 @@
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
           "Address address",
+          "Address[] addresses",
           "Input moduleInput",
           "http:Client httpClient",
           "http:Client httpClientResult",

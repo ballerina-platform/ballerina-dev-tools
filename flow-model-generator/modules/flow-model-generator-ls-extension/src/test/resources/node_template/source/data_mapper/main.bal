@@ -29,3 +29,5 @@ function fn(int x) returns int {
 }
 
 http:Client httpClientResult = check new ("http://localhost:9091");
+
+final Address[] addresses = [];

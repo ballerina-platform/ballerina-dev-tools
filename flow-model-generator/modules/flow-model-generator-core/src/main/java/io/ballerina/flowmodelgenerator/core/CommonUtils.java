@@ -26,7 +26,6 @@ import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -63,6 +62,8 @@ import org.eclipse.lsp4j.Range;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Common utility functions used in the project.
@@ -72,6 +73,8 @@ import java.util.Optional;
 public class CommonUtils {
 
     private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
+    private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
+            Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
 
     /**
      * Removes the quotes from the given string.
@@ -83,68 +86,84 @@ public class CommonUtils {
         return inputString.replaceAll("^\"|\"$", "");
     }
 
-    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
-        return getTypeSignature(semanticModel, typeSymbol, ignoreError, ".");
-    }
-
     public static String getProjectName(Document document) {
         return document.module().descriptor().packageName().value();
     }
 
     /**
-     * Returns the type signature of the given type symbol.
+     * Retrieves the type signature of the given type symbol.
      *
-     * @param typeSymbol the type symbol
+     * @param semanticModel     the semantic model
+     * @param typeSymbol        the type symbol
+     * @param ignoreError       whether to ignore errors
+     * @param defaultModuleName the default module name
      * @return the type signature
+     * @see #getTypeSignature(TypeSymbol, String)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
                                           String defaultModuleName) {
-        return switch (typeSymbol.typeKind()) {
-            case TYPE_REFERENCE -> {
-                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
-                yield typeReferenceTypeSymbol.definition().getName()
-                        .map(name -> typeReferenceTypeSymbol.getModule()
-                                .flatMap(Symbol::getName)
-                                .filter(prefix -> !defaultModuleName.equals(prefix))
-                                .map(prefix -> prefix + ":" + name)
-                                .orElse(name))
-                        .orElseGet(() -> getTypeSignature(semanticModel, typeReferenceTypeSymbol.typeDescriptor(),
-                                ignoreError, defaultModuleName));
+        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            return unionTypeSymbol.memberTypeDescriptors().stream()
+                    .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
+                    .reduce((s1, s2) -> s1 + "|" + s2)
+                    .orElse(getTypeSignature(unionTypeSymbol, defaultModuleName));
+        }
+        return getTypeSignature(typeSymbol, defaultModuleName);
+    }
+
+    /**
+     * Retrieves the type signature of the given type symbol.
+     *
+     * @param semanticModel the semantic model
+     * @param typeSymbol    the type symbol
+     * @param ignoreError   whether to ignore errors
+     * @return the type signature
+     * @see #getTypeSignature(TypeSymbol, String)
+     */
+    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
+        return getTypeSignature(semanticModel, typeSymbol, ignoreError, ".");
+    }
+
+    /**
+     * Returns the processed type signature of the type symbol. It removes the organization and the package, and checks
+     * if it is the default module which will remove the prefix.
+     *
+     * @param typeSymbol        the type symbol
+     * @param defaultModuleName the default module name
+     * @return the processed type signature
+     */
+    public static String getTypeSignature(TypeSymbol typeSymbol, String defaultModuleName) {
+        String text = typeSymbol.signature();
+        StringBuilder newText = new StringBuilder();
+        Matcher matcher = FULLY_QUALIFIED_MODULE_ID_PATTERN.matcher(text);
+        int nextStart = 0;
+        while (matcher.find()) {
+            // Append up-to start of the match
+            newText.append(text, nextStart, matcher.start(1));
+
+            String modPart = matcher.group(2);
+            int last = modPart.lastIndexOf(".");
+            if (last != -1) {
+                modPart = modPart.substring(last + 1);
             }
-            case UNION -> {
-                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-                yield unionTypeSymbol.memberTypeDescriptors().stream()
-                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + "|" + s2)
-                        .orElse(unionTypeSymbol.signature());
+
+            String typeName = matcher.group(4);
+
+            if (!modPart.equals(defaultModuleName)) {
+                newText.append(modPart);
+                newText.append(":");
             }
-            case INTERSECTION -> {
-                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + " & " + s2)
-                        .orElse(intersectionTypeSymbol.signature());
-            }
-            case TYPEDESC -> {
-                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
-                yield typeDescTypeSymbol.typeParameter()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .orElse(typeDescTypeSymbol.signature());
-            }
-            case ERROR -> {
-                Optional<String> moduleName = typeSymbol.getModule()
-                        .map(module -> {
-                            String prefix = module.id().modulePrefix();
-                            return "annotations".equals(prefix) ? null : prefix;
-                        });
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
-            }
-            default -> {
-                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
-            }
-        };
+            newText.append(typeName);
+            // Update next-start position
+            nextStart = matcher.end(4);
+        }
+        // Append the remaining
+        if (nextStart != 0 && nextStart < text.length()) {
+            newText.append(text.substring(nextStart));
+        }
+        return !newText.isEmpty() ? newText.toString() : text;
     }
 
     /**

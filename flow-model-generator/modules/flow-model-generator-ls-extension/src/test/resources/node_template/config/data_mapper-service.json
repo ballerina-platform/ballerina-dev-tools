@@ -49,6 +49,7 @@
         },
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
+          "Address[] addresses",
           "Input localInput",
           "Input moduleInput",
           "http:Client httpClient",
