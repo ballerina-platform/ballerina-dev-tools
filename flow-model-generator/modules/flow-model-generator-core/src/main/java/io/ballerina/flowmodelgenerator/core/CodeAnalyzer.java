@@ -324,21 +324,21 @@ class CodeAnalyzer extends NodeVisitor {
 
         String resourcePathTemplate = CommonUtils.buildResourcePathTemplate(methodSymbol);
 
-        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode)
+        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
-                .label(methodName)
-                .description(description)
-                .stepOut()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
                 .codedata()
-                .object("Client")
-                .symbol(methodName)
-                .resourcePath(resourcePathTemplate)
-                .stepOut()
+                    .object("Client")
+                    .symbol(methodName)
+                    .resourcePath(resourcePathTemplate)
+                    .stepOut()
                 .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .resourcePath(fullPath)
-                .variable(this.typedBindingPatternNode);
+                    .callExpression(expressionNode, Property.CONNECTION_KEY)
+                    .resourcePath(fullPath)
+                    .variable(this.typedBindingPatternNode);
 
         handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
@@ -958,7 +958,8 @@ class CodeAnalyzer extends NodeVisitor {
                 .semanticModel(semanticModel)
                 .diagnosticHandler(diagnosticHandler)
                 .defaultModuleName(defaultModuleName);
-        diagnosticHandler.handle(nodeBuilder, node.lineRange(), false);
+        diagnosticHandler.handle(nodeBuilder,
+                node instanceof ExpressionNode ? node.parent().lineRange() : node.lineRange(), false);
         return this.nodeBuilder;
     }
 
