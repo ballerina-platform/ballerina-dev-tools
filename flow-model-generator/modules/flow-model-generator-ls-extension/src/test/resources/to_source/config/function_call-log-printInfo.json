@@ -34,11 +34,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"error\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "'error": {
         "metadata": {
@@ -47,11 +48,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "stackTrace": {
         "metadata": {
@@ -60,11 +62,33 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
+      },
+      "INCLUDED_RECORD_REST": {
+        "metadata": {
+          "label": "INCLUDED_RECORD_REST",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "log:Value",
+        "value": [
+          {
+            "key1": "\"value1\""
+          },
+          {
+            "key2": "\"value2\""
+          }
+        ],
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "INCLUDED_RECORD_REST"
       }
     },
     "flags": 0
@@ -95,7 +119,7 @@
             "character": 0
           }
         },
-        "newText": "log:printInfo();"
+        "newText": "log:printInfo(\"error\", (), (), key1 = \"value1\", key2 = \"value2\");"
       }
     ]
   }

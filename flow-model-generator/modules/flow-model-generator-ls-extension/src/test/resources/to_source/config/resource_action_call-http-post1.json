@@ -74,27 +74,32 @@
         "value": "\"western red apple\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
           "label": "mediaType",
           "description": "The MIME type header of the request entity"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "params": {
         "metadata": {
@@ -104,7 +109,16 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "INCLUDED_RECORD_REST",
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
       },
       "checkError": {
         "metadata": {
@@ -167,7 +181,7 @@
             "character": 80
           }
         },
-        "newText": "json res1 = check foodClient->/western/apples.post(\"western red apple\");"
+        "newText": "json res1 = check foodClient->/western/apples.post(\"western red apple\", (), (), param1 = \"value1\", param2 = 12);"
       }
     ]
   }

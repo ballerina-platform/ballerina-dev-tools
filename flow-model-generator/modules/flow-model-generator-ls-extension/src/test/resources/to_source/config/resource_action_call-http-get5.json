@@ -70,10 +70,12 @@
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "params": {
         "metadata": {
@@ -83,7 +85,16 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "INCLUDED_RECORD_REST",
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
       },
       "checkError": {
         "metadata": {
@@ -146,7 +157,7 @@
             "character": 52
           }
         },
-        "newText": "json res5 = check foodClient->/apples.get();"
+        "newText": "json res5 = check foodClient->/apples.get((), param1 = \"value1\", param2 = 12);"
       }
     ]
   }

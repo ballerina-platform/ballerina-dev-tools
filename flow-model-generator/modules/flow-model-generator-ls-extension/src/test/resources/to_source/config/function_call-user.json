@@ -34,7 +34,8 @@
         "placeholder": "0",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {

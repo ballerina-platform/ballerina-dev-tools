@@ -105,17 +105,20 @@
                 "value": "\"/western/pineapples\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "kind": "REQUIRED"
               },
               "headers": {
                 "metadata": {
                   "label": "headers",
                   "description": "The entity headers"
                 },
+                "value": "()",
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "kind": "DEFAULTABLE"
               },
               "checkError": {
                 "metadata": {
@@ -294,7 +297,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
+        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\", ());\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
       }
     ]
   }

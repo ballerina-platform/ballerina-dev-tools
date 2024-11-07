@@ -282,11 +282,16 @@ public class SourceBuilder {
             String kind = prop.kind();
 
             if (firstParamAdded) {
-                if ((kind.equals(Parameter.Kind.REST.name())
-                        || kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name()))) {
+                if ((kind.equals(Parameter.Kind.REST.name()))) {
                     if (hasRestParamValues(prop)) {
                         tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
+                        continue;
+                    }
+                } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                    if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                        addIncludedRecordRestParamValues(prop);
                         continue;
                     }
                 } else {
@@ -297,14 +302,14 @@ public class SourceBuilder {
             }
 
             if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
-                    || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())
-                    || kind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER.name())) {
+                    || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
                 tokenBuilder.expression(prop);
             } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_ATTRIBUTE.name())) {
                 tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
-            } else if (kind.equals(Parameter.Kind.REST.name())
-                    || kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+            } else if (kind.equals(Parameter.Kind.REST.name())) {
                 addRestParamValues(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                addIncludedRecordRestParamValues(prop);
             }
         }
 
@@ -315,8 +320,7 @@ public class SourceBuilder {
     }
 
     private boolean hasRestParamValues(Property prop) {
-        if (prop.value() instanceof List<?>) {
-            List<String> values = (List<String>) prop.value();
+        if (prop.value() instanceof List<?> values) {
             return !values.isEmpty();
         }
         return false;
@@ -327,6 +331,20 @@ public class SourceBuilder {
             List<String> values = (List<String>) prop.value();
             if (!values.isEmpty()) {
                 tokenBuilder.expression(String.join(", ", values));
+            }
+        }
+    }
+
+    private void addIncludedRecordRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<Map> values = (List<Map>) prop.value();
+            if (!values.isEmpty()) {
+                List<String> result = new ArrayList<>();
+                values.forEach(keyValuePair -> {
+                    String key = (String) keyValuePair.keySet().iterator().next();
+                    result.add(key + " = " + keyValuePair.get(key));
+                });
+                tokenBuilder.expression(String.join(", ", result));
             }
         }
     }

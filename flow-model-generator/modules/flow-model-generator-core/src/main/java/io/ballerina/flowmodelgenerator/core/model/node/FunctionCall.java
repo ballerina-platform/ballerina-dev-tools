@@ -231,17 +231,9 @@ public class FunctionCall extends NodeBuilder {
             }
             String attributeName = entry.getKey();
             String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
-            nodeBuilder.properties().custom()
-                    .metadata()
-                        .label(attributeName)
-                        .description(doc)
-                        .stepOut()
-                    .type(Property.ValueType.EXPRESSION)
-                    .typeConstraint(recordFieldSymbol.typeDescriptor().getName().orElse(""))
-                    .value("")
-                    .optional(recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional())
-                    .stepOut()
-                    .addProperty(attributeName);
+            nodeBuilder.properties().custom(attributeName, attributeName, doc, Property.ValueType.EXPRESSION,
+                    recordFieldSymbol.typeDescriptor().getName().orElse(""), "",
+                    recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional());
         }
     }
 
@@ -261,7 +253,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
                     .textEdit(false)
                     .acceptImport()
                     .build();

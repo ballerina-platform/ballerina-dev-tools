@@ -74,7 +74,8 @@
         "value": "\"red apple\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
@@ -85,7 +86,8 @@
         "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
@@ -95,7 +97,9 @@
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE",
+        "value": "()"
       },
       "params": {
         "metadata": {
@@ -105,7 +109,12 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "INCLUDED_RECORD_REST",
+        "value": [
+          {"param1": "\"value1\""},
+          {"param2": "12"}
+        ]
       },
       "checkError": {
         "metadata": {

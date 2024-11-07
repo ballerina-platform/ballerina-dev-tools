@@ -74,17 +74,20 @@
         "value": "{\"type\": \"red apple\"}",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
@@ -95,7 +98,8 @@
         "value": "\"application/json\"",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "params": {
         "metadata": {
@@ -105,7 +109,16 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "INCLUDED_RECORD_REST",
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
       },
       "checkError": {
         "metadata": {
@@ -168,7 +181,7 @@
             "character": 106
           }
         },
-        "newText": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");"
+        "newText": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, (), \"application/json\", param1 = \"value1\", param2 = 12);"
       }
     ]
   }
