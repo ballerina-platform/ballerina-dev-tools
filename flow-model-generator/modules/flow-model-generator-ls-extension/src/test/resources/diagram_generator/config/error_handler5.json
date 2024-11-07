@@ -166,7 +166,7 @@
                   "description": "Type of the error"
                 },
                 "valueType": "TYPE",
-                "value": ".:error",
+                "value": "error",
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,

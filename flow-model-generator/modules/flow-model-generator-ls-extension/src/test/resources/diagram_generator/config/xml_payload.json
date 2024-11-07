@@ -123,7 +123,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "lang.xml:Text",
+            "value": "xml:Text",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -303,7 +303,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "lang.xml:Element",
+            "value": "xml:Element",
             "placeholder": "var",
             "optional": false,
             "editable": true,

@@ -34,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -83,10 +84,18 @@ public class DataMapper extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .data(null, context.getAllVisibleSymbolNames())
-                .custom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
-                        null, "transform", false);
+        Set<String> allVisibleSymbolNames = context.getAllVisibleSymbolNames();
+        properties().data(null, allVisibleSymbolNames);
+        properties().custom()
+                .metadata()
+                    .label(FUNCTION_NAME_LABEL)
+                    .description(FUNCTION_NAME_DOC)
+                    .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .value(NameUtil.generateTypeName("transform", allVisibleSymbolNames))
+                .editable()
+                .stepOut()
+                .addProperty(FUNCTION_NAME_KEY);
 
         // Obtain the visible variables to the cursor position
         WorkspaceManager workspaceManager = context.workspaceManager();
@@ -115,10 +124,30 @@ public class DataMapper extends NodeBuilder {
             }
         }
 
-        properties().custom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
-                new ArrayList<>(visibleVariables), "", false);
-        properties().custom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
-                new ArrayList<>(visibleRecordTypes), "", false);
+        properties().custom()
+                .metadata()
+                    .label(INPUTS_LABEL)
+                    .description(INPUTS_DOC)
+                    .stepOut()
+                .type(Property.ValueType.MULTIPLE_SELECT)
+                .value("")
+                .typeConstraint(new ArrayList<>(visibleVariables))
+                .optional(false)
+                .editable()
+                .stepOut()
+                .addProperty(INPUTS_KEY);
+        properties().custom()
+                .metadata()
+                    .label(OUTPUT_LABEL)
+                    .description(OUTPUT_DOC)
+                    .stepOut()
+                .type(Property.ValueType.SINGLE_SELECT)
+                .value("")
+                .typeConstraint(new ArrayList<>(visibleRecordTypes))
+                .optional(false)
+                .editable()
+                .stepOut()
+                .addProperty(OUTPUT_KEY);
     }
 
     private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,

@@ -36,8 +36,7 @@
           "description": "Name of the data mapper function"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "transform",
+        "value": "transform1",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -50,6 +49,7 @@
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
           "Address address",
+          "Address[] addresses",
           "Input moduleInput",
           "http:Client httpClient",
           "http:Client httpClientResult",
@@ -57,7 +57,6 @@
           "string z"
         ],
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -78,7 +77,6 @@
           "Person"
         ],
         "value": "",
-        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false
