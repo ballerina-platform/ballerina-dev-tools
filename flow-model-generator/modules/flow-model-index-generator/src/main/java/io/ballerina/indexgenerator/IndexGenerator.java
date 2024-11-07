@@ -83,13 +83,16 @@ import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
+/**
+ * Index generator to cache functions and connectors.
+ *
+ * @since 2.0.0
+ */
 class IndexGenerator {
 
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
-
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
-    private static final String TARGET_TYPE_NAME = "targetType";
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
@@ -101,7 +104,7 @@ class IndexGenerator {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.forEach(
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)
             ))).join();
         } catch (IOException e) {
@@ -215,9 +218,9 @@ class IndexGenerator {
                     for (Symbol pathSegment : pathSegmentList.list()) {
                         pathBuilder.append("/");
                         if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                            String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
-                                    .signature();
-                            pathBuilder.append("[").append(type).append("]");
+                            String value = DefaultValueGeneratorUtil
+                                    .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
+                            pathBuilder.append("[").append(value).append("]");
                         } else {
                             pathBuilder.append(pathSegment.getName().orElse(""));
                         }
@@ -228,14 +231,8 @@ class IndexGenerator {
                         pathBuilder.append("[").append(type).append("...]");
                     });
                 }
-                case PATH_REST_PARAM -> {
-                    String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
-                            .typeDescriptor()).signature();
-                    pathBuilder.append("[").append(type).append("...]");
-                }
-                case DOT_RESOURCE_PATH -> {
-                    pathBuilder.append(".");
-                }
+                case PATH_REST_PARAM -> pathBuilder.append("[").append("/path/to/resource").append("]");
+                case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
             }
         }
 
@@ -376,9 +373,9 @@ class IndexGenerator {
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType =  getTypeSignature(typeSymbol, null, false);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-            DatabaseManager.insertFunctionParameter(functionId, "INCLUDED_RECORD_ATTRIBUTE",
+            DatabaseManager.insertFunctionParameter(functionId, FunctionParameterKind.INCLUDED_RECORD_REST.name(),
                     "", paramType, defaultValue,
-                    FunctionParameterKind.INCLUDED_RECORD_ATTRIBUTE, 1);
+                    FunctionParameterKind.INCLUDED_RECORD_REST, 1);
         });
     }
 
