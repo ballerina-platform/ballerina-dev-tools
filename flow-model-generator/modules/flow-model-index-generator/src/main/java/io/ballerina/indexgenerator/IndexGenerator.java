@@ -58,6 +58,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -240,6 +242,23 @@ class IndexGenerator {
                         getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
                         getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
 
+        if (functionSymbol.external()) {
+            List<String> paramNameList = new ArrayList<>();
+            functionTypeSymbol.params().ifPresent(paramList -> paramList
+                    .stream()
+                    .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
+                    .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
+
+            Map<String, TypeSymbol> returnTypeMap =
+                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            for (String paramName : paramNameList) {
+                if (returnTypeMap.containsKey(paramName)) {
+                    returnType = "json";
+                    break;
+                }
+            }
+        }
+
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
@@ -253,6 +272,24 @@ class IndexGenerator {
         functionTypeSymbol.restParam().ifPresent(paramSymbol ->
                 processParameterSymbol(paramSymbol, documentationMap, functionId));
         return functionId;
+    }
+
+    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
+        Map<String, TypeSymbol> members = new HashMap<>();
+        if (typeSymbol == null) {
+            return members;
+        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            unionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
+            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+            intersectionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else {
+            members.put(typeSymbol.getName().orElse(""), typeSymbol);
+        }
+        return members;
     }
 
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
@@ -321,11 +358,6 @@ class IndexGenerator {
     private static String getTypeSignature(TypeSymbol typeSymbol, TypeSymbol errorTypeSymbol, boolean ignoreError) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
-                // TODO: Improve the handling of dependable types.
-                // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
-                if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
-                    yield TARGET_TYPE_NAME;
-                }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()
