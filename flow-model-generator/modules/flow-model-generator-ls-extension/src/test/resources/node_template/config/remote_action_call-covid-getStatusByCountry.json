@@ -26,7 +26,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 2492
+      "id": 207
     },
     "returning": false,
     "properties": {
@@ -97,7 +97,6 @@
         },
         "valueType": "TYPE",
         "value": "covid19:CovidCountry",
-        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false
@@ -134,7 +133,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": false
       }
     },
     "flags": 0

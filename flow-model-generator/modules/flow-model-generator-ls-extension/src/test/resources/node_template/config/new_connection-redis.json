@@ -25,7 +25,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 669
+      "id": 16
     },
     "returning": false,
     "properties": {
@@ -48,9 +48,8 @@
         },
         "valueType": "TYPE",
         "value": "redis:Client",
-        "placeholder": "var",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "variable": {
@@ -84,7 +83,7 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": false
       }
     },
     "flags": 0

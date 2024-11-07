@@ -264,6 +264,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             this.editable = false;
             this.advanced = false;
             this.diagnosticsBuilder = null;
+            this.kind = null;
             return property;
         }
     }

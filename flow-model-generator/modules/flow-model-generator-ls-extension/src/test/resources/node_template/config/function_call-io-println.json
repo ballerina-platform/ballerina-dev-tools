@@ -33,11 +33,12 @@
           "description": "The value(s) to be printed"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "ballerina/io:1.6.1:Printable[]",
-        "value": "",
-        "optional": false,
+        "valueTypeConstraint": "io:Printable",
+        "value": "()",
+        "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true,
+        "kind": "REST"
       }
     },
     "flags": 0

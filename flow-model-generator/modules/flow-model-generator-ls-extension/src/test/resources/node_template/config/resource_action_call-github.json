@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 2876
+      "id": 843
     },
     "returning": false,
     "properties": {
@@ -59,10 +59,12 @@
           "label": "Connection",
           "description": "Connection to use"
         },
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "github:Client",
-        "value": "githubClient",
+        "value": "",
+        "placeholder": "githubClient",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "resourcePath": {
@@ -85,7 +87,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": false
       }
     },
     "flags": 0

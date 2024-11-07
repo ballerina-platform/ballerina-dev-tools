@@ -37,7 +37,8 @@
         "value": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "'error": {
         "metadata": {
@@ -46,10 +47,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
-        "value": "",
+        "value": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "stackTrace": {
         "metadata": {
@@ -58,10 +60,24 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+        "value": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "DEFAULTABLE"
+      },
+      "INCLUDED_RECORD_REST": {
+        "metadata": {
+          "label": "INCLUDED_RECORD_REST",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "log:Value",
         "value": "",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "INCLUDED_RECORD_REST"
       }
     },
     "flags": 0

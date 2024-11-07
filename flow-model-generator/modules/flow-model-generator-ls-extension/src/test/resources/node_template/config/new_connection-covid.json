@@ -25,7 +25,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 2472
+      "id": 159
     },
     "returning": false,
     "properties": {
@@ -60,9 +60,8 @@
         },
         "valueType": "TYPE",
         "value": "covid19:Client",
-        "placeholder": "var",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "variable": {
@@ -96,7 +95,7 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": false
       }
     },
     "flags": 0

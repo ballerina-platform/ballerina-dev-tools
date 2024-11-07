@@ -317,16 +317,20 @@ class IndexGenerator {
         FunctionParameterKind parameterKind = FunctionParameterKind.valueOf(paramSymbol.paramKind().toString());
         String paramType;
         int optional = 1;
-        String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+        String defaultValue;
         if (parameterKind == FunctionParameterKind.REST) {
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
+                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
             paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
                     null, false);
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
             paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
                     functionId, resolvedPackage);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
             paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
             optional = 0;
         } else {
             if (paramForTypeInfer != null) {
@@ -339,6 +343,7 @@ class IndexGenerator {
             }
             Location symbolLocation = paramSymbol.getLocation().get();
             Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
             if (document != null) {
                 defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
                         symbolLocation, resolvedPackage.packageName().value());
