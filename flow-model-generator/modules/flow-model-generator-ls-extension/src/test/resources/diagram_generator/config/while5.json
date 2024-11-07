@@ -238,17 +238,6 @@
                     "editable": false,
                     "advanced": false
                   },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "response",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "path": {
                     "metadata": {
                       "label": "path",
@@ -277,6 +266,17 @@
                     },
                     "valueType": "FLAG",
                     "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "response",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -492,11 +492,17 @@
               {
                 "id": "88745",
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Assign a value to a variable"
+                  "label": "New Connection",
+                  "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
-                  "node": "VARIABLE",
+                  "node": "NEW_CONNECTION",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "init",
+                  "version": "2.12.2",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -512,20 +518,52 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "scope": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
+                      "label": "Connection Scope",
+                      "description": "Scope of the connection, Global or Local"
+                    },
+                    "valueType": "ENUM",
+                    "value": "Local",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Error",
+                      "description": "Terminate on error"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "url": {
+                    "metadata": {
+                      "label": "url",
+                      "description": "URL of the target service"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "new (\"http://localhost:9090\")",
-                    "optional": true,
+                    "value": "\"http://localhost:9090\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "config": {
+                    "metadata": {
+                      "label": "config",
+                      "description": "The configurations to be used when initializing the `client`"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": false,
                     "editable": true,
                     "advanced": false
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Name",
+                      "label": "Connection Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -536,7 +574,7 @@
                   },
                   "type": {
                     "metadata": {
-                      "label": "Type",
+                      "label": "Connection Type",
                       "description": "Type of the variable"
                     },
                     "valueType": "TYPE",
@@ -731,17 +769,6 @@
                             "editable": false,
                             "advanced": false
                           },
-                          "variable": {
-                            "metadata": {
-                              "label": "Variable Name",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "response",
-                            "optional": false,
-                            "editable": true,
-                            "advanced": false
-                          },
                           "path": {
                             "metadata": {
                               "label": "path",
@@ -791,6 +818,17 @@
                             },
                             "valueType": "FLAG",
                             "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Variable Name",
+                              "description": "Name of the variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "response",
                             "optional": false,
                             "editable": true,
                             "advanced": false

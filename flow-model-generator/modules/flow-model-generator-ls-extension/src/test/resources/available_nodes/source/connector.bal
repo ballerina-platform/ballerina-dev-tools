@@ -12,6 +12,7 @@ service / on new http:Listener(8080) {
 
     resource function accessor put() returns error? {
         redis:Client redisClient = check new ();
+        final redis:Client redisClientResult = check new ();
         do {
 
         } on fail error e {
