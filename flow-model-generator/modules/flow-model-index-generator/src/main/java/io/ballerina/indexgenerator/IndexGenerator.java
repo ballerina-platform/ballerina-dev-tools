@@ -90,8 +90,14 @@ class IndexGenerator {
 
     private static void resolvePackage(BuildProject buildProject, String org,
                                        PackageListGenerator.PackageMetadataInfo packageMetadataInfo) {
-        Package resolvedPackage = PackageUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
-                packageMetadataInfo.version());
+        Package resolvedPackage;
+        try {
+            resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
+                    packageMetadataInfo.name(), packageMetadataInfo.version()));
+        } catch (Throwable e) {
+            LOGGER.severe("Error resolving package: " + packageMetadataInfo.name() + e.getMessage());
+            return;
+        }
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
         LOGGER.info("Processing package: " + descriptor.name().value());

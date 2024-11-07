@@ -129,7 +129,7 @@ public class FunctionGenerator {
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getFunctionsByPackage("log") :
+                dbManager.getFunctionsByOrg("ballerina") :
                 dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
 
         for (FunctionResult functionResult : functionResults) {
