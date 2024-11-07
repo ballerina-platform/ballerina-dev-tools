@@ -28,12 +28,14 @@ import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.ErrorHandlerGenerator;
 import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
+import io.ballerina.flowmodelgenerator.core.BasicNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.extension.request.IsNodeUsedRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
@@ -53,11 +55,13 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectors
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
+import io.ballerina.flowmodelgenerator.extension.response.IsNodeUsedResponse;
 import io.ballerina.flowmodelgenerator.extension.response.OpenApiServiceGenerationResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -432,6 +436,28 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 response.setError(e);
             }
             return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<IsNodeUsedResponse> isNodeUsed(IsNodeUsedRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+           IsNodeUsedResponse response = new IsNodeUsedResponse();
+           try {
+               Path filePath = Path.of(request.filePath());
+               Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+               Optional<Document> document = this.workspaceManager.document(filePath);
+               if (semanticModel.isEmpty() || document.isEmpty()) {
+                   response.setUsed(false);
+                   return response;
+               }
+               BasicNodeGenerator basicNodeGenerator = new BasicNodeGenerator(request.flowNode());
+               List<Location> references = semanticModel.get().references(document.get(), basicNodeGenerator.getNodeStartLocation());
+               response.setUsed(!references.isEmpty());
+           } catch (Throwable e) {
+               response.setError(e);
+           }
+           return response;
         });
     }
 
