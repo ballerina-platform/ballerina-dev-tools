@@ -393,17 +393,18 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit, Set<String> names) {
+        public PropertiesBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
             return implicit ?
                     dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL, names)
                     : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, Set<String> names) {
+        public PropertiesBuilder<T> dataVariable(TypedBindingPatternNode node, Set<String> names) {
             return dataVariable(node, false, names);
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node, String variableDoc, String typeDoc, Set<String> names) {
+        public PropertiesBuilder<T> dataVariable(TypedBindingPatternNode node, String variableDoc, String typeDoc,
+                                                 Set<String> names) {
             data(node, variableDoc, names);
 
             propertyBuilder
@@ -423,11 +424,11 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
             }
 
-            addProperty(Property.DATA_TYPE_KEY);
+            addProperty(Property.DATA_TYPE_KEY, node == null ? null : node.typeDescriptor());
             return this;
         }
 
-        public PropertiesBuilder<T> payload(Node node, String type) {
+        public PropertiesBuilder<T> payload(TypedBindingPatternNode node, String type) {
             data(node, new HashSet<>());
 
             propertyBuilder
@@ -449,15 +450,15 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> data(Node node, Set<String> names) {
+        public PropertiesBuilder<T> data(TypedBindingPatternNode node, Set<String> names) {
             return data(node, false, names);
         }
 
-        public PropertiesBuilder<T> data(Node node, boolean implicit, Set<String> names) {
+        public PropertiesBuilder<T> data(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
             return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL, names);
         }
 
-        public PropertiesBuilder<T> data(Node node, String label, Set<String> names) {
+        public PropertiesBuilder<T> data(TypedBindingPatternNode node, String label, Set<String> names) {
             propertyBuilder
                     .metadata()
                         .label(label)
@@ -467,7 +468,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                             CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
-            addProperty(Property.DATA_VARIABLE_KEY, node);
+            addProperty(Property.DATA_VARIABLE_KEY, node == null ? null : node.bindingPattern());
 
             return this;
         }
@@ -1021,7 +1022,13 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public final void addProperty(String key) {
-            addProperty(key, null);
+            addProperty(key, (Node) null);
+        }
+
+        public final void addProperty(String key, LineRange lineRange) {
+            diagnosticHandler.handle(propertyBuilder, lineRange, true);
+            Property property = propertyBuilder.build();
+            this.nodeProperties.put(key, property);
         }
 
         public final void addProperty(String key, Node node) {
