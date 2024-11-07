@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "expression": "self.classVar > localVar +  12",
+  "startLine": {
+    "line": 13,
+    "offset": 8
+  },
+  "type": "boolean",
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 36
+        },
+        "end": {
+          "line": 13,
+          "character": 50
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2070"
+      },
+      "message": "operator '+' not defined for 'float' and 'int'"
+    }
+  ]
+}

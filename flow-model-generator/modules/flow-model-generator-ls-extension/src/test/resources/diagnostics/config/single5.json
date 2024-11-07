@@ -1,0 +1,46 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "expression": "x == y",
+  "startLine": {
+    "line": 13,
+    "offset": 8
+  },
+  "type": "boolean",
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 20
+        },
+        "end": {
+          "line": 13,
+          "character": 21
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2010"
+      },
+      "message": "undefined symbol 'x'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 25
+        },
+        "end": {
+          "line": 13,
+          "character": 26
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2010"
+      },
+      "message": "undefined symbol 'y'"
+    }
+  ]
+}
