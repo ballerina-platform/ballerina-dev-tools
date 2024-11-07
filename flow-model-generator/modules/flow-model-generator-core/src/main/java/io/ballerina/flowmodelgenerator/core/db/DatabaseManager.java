@@ -137,7 +137,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getFunctionsByPackage(String packageName) {
+    public List<FunctionResult> getFunctionsByOrg(String orgName) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -151,11 +151,11 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE p.name = ?;";
+                "WHERE p.org = ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, packageName);
+            stmt.setString(1, orgName);
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
