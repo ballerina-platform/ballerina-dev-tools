@@ -400,10 +400,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void checkForNewConnection(NewExpressionNode newExpressionNode,
                                        SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        if (forceAssign) {
-            return;
-        }
-
         Optional<TypeSymbol> typeSymbol =
                 CommonUtils.getTypeSymbol(semanticModel, newExpressionNode).flatMap(symbol -> {
                     if (symbol.typeKind() == TypeDescKind.UNION) {
