@@ -223,7 +223,7 @@ class IndexGenerator {
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> functionSymbol.nameEquals("init") ?
-                        getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
+                        getClientType(packageName) :
                         getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
 
         ParamForTypeInfer paramForTypeInfer = null;
@@ -287,11 +287,11 @@ class IndexGenerator {
                                                ParamForTypeInfer paramForTypeInfer) {
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
-        FunctionParameterKind parameterKind = FunctionParameterKind.valueOf(paramSymbol.paramKind().toString());
+        FunctionParameterKind parameterKind = FunctionParameterKind.fromString(paramSymbol.paramKind().toString());
         String paramType;
         int optional = 1;
         String defaultValue;
-        if (parameterKind == FunctionParameterKind.REST) {
+        if (parameterKind == FunctionParameterKind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
             paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
@@ -361,13 +361,13 @@ class IndexGenerator {
                 optional = 1;
             }
             DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                    FunctionParameterKind.INCLUDED_RECORD_ATTRIBUTE, optional);
+                    FunctionParameterKind.INCLUDED_FIELD, optional);
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType =  getTypeSignature(typeSymbol, null, false);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-            DatabaseManager.insertFunctionParameter(functionId, FunctionParameterKind.INCLUDED_RECORD_REST.name(),
-                    "", paramType, defaultValue,
+            DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
+                    "Capture key value pairs", paramType, defaultValue,
                     FunctionParameterKind.INCLUDED_RECORD_REST, 1);
         });
     }
@@ -430,7 +430,7 @@ class IndexGenerator {
         };
     }
 
-    public static String getClientType(String packageName, TypeSymbol returnType, TypeSymbol errorTypeSymbol) {
+    public static String getClientType(String packageName) {
         String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
         return String.format("%s:%s", importPrefix, "Client");
     }
@@ -446,10 +446,18 @@ class IndexGenerator {
         REQUIRED,
         DEFAULTABLE,
         INCLUDED_RECORD,
-        REST,
-        INCLUDED_RECORD_ATTRIBUTE,
+        REST_PARAMETER,
+        INCLUDED_FIELD,
         PARAM_FOR_TYPE_INFER,
         INCLUDED_RECORD_REST;
+
+        // need to have a fromString logic here
+        public static FunctionParameterKind fromString(String value) {
+            if (value.equals("REST")) {
+                return REST_PARAMETER;
+            }
+            return FunctionParameterKind.valueOf(value);
+        }
 
         private FunctionParameterKind() {
         }
