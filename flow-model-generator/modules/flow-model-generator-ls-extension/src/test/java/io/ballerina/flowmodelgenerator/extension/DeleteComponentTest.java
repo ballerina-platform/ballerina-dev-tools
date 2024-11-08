@@ -82,16 +82,11 @@ public class DeleteComponentTest extends AbstractLSTest {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.description(), testConfig.filePath(), testConfig.startLine(),
                             testConfig.startColumn(), testConfig.endLine(), testConfig.endColumn(), newMap);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
-    @Override
-    protected String[] skipList() {
-        return new String[]{
-        };
-    }
 
     @Override
     protected String getResourceDir() {
