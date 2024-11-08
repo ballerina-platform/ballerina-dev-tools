@@ -39,8 +39,7 @@
         "id": "52725",
         "metadata": {
           "label": "New Connection",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "description": ""
         },
         "codedata": {
           "node": "NEW_CONNECTION",

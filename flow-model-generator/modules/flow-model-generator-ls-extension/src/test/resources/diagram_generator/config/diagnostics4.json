@@ -102,10 +102,14 @@
         "id": "37895",
         "metadata": {
           "label": "Data Mapper",
-          "description": "Map data from multiple variables to a record type"
+           "description": "Map data from multiple variables to a record type"
         },
         "codedata": {
           "node": "DATA_MAPPER",
+          "org": "nipunaf",
+          "module": "new_connection1",
+          "symbol": "transform",
+          "version": "0.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -211,6 +215,10 @@
         },
         "codedata": {
           "node": "DATA_MAPPER",
+          "org": "nipunaf",
+          "module": "new_connection1",
+          "symbol": "transform",
+          "version": "0.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -302,7 +310,8 @@
       {
         "id": "39826",
         "metadata": {
-          "label": "fn"
+          "label": "fn",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",

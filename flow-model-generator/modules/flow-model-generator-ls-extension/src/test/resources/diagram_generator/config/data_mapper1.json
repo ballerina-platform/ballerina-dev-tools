@@ -297,6 +297,10 @@
         },
         "codedata": {
           "node": "DATA_MAPPER",
+          "org": "nipunaf",
+          "module": "new_connection1",
+          "symbol": "transformToPerson",
+          "version": "0.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -489,6 +493,10 @@
         },
         "codedata": {
           "node": "DATA_MAPPER",
+          "org": "nipunaf",
+          "module": "new_connection1",
+          "symbol": "transformToEmployee",
+          "version": "0.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -578,7 +586,8 @@
       {
         "id": "61654",
         "metadata": {
-          "label": "logEmployee"
+          "label": "logEmployee",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",

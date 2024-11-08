@@ -41,7 +41,8 @@
       {
         "id": "32869",
         "metadata": {
-          "label": "fn"
+          "label": "fn",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -232,7 +233,8 @@
       {
         "id": "35860",
         "metadata": {
-          "label": "fn2"
+          "label": "fn2",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",

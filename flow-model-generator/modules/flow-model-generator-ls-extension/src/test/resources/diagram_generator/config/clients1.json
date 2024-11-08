@@ -137,8 +137,7 @@
         "id": "46777",
         "metadata": {
           "label": "myRemoteFn",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "description": ""
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -436,8 +435,7 @@
         "id": "51736",
         "metadata": {
           "label": "myRemoteFn",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "description": ""
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",

@@ -69,6 +69,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
@@ -117,7 +118,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     protected boolean returning;
     protected SemanticModel semanticModel;
     protected FlowNode cachedFlowNode;
-    protected String defaultModuleName;
+    protected ModuleDescriptor moduleDescriptor;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(NodeKind.IF, If::new);
@@ -188,8 +189,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         return this;
     }
 
-    public NodeBuilder defaultModuleName(String defaultModuleName) {
-        this.defaultModuleName = defaultModuleName;
+    public NodeBuilder defaultModuleName(ModuleDescriptor moduleDescriptor) {
+        this.moduleDescriptor = moduleDescriptor;
         return this;
     }
 
@@ -212,7 +213,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         Optional<ModuleSymbol> module = symbol.getModule();
         if (module.isEmpty()) {
             codedata()
-                    .module(defaultModuleName)
+                    .module(moduleDescriptor.name().packageName().value())
                     .version("0.0.0");
             return this;
         }
@@ -222,7 +223,9 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         String packageName = moduleId.packageName();
         String versionName = moduleId.version();
 
-        metadata().icon(CommonUtils.generateIcon(orgName, packageName, versionName));
+        if (!CommonUtils.isDefaultPackage(orgName, packageName, moduleDescriptor)) {
+            metadata().icon(CommonUtils.generateIcon(orgName, packageName, versionName));
+        }
         codedata()
                 .org(orgName)
                 .module(packageName)
@@ -246,7 +249,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
     public PropertiesBuilder<NodeBuilder> properties() {
         if (this.propertiesBuilder == null) {
-            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
+            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, diagnosticHandler, moduleDescriptor, this);
         }
         return this.propertiesBuilder;
     }
@@ -316,28 +319,25 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         private final SemanticModel semanticModel;
         private final DiagnosticHandler diagnosticHandler;
         protected Property.Builder<PropertiesBuilder<T>> propertyBuilder;
-        private final String defaultModuleName;
+        private final ModuleDescriptor moduleDescriptor;
 
         public PropertiesBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
-                                 String defaultModuleName, T parentBuilder) {
+                                 ModuleDescriptor moduleDescriptor, T parentBuilder) {
             super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
             this.propertyBuilder = new Property.Builder<>(this);
             this.semanticModel = semanticModel;
             this.diagnosticHandler = diagnosticHandler;
-            this.defaultModuleName = defaultModuleName;
+            this.moduleDescriptor = moduleDescriptor;
         }
 
         public PropertiesBuilder<T> variable(Node node, boolean implicit) {
-            if (node == null) {
-                return this;
-            }
             propertyBuilder
                     .metadata()
                         .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_LABEL)
                         .description(Property.VARIABLE_DOC)
                         .stepOut()
-                    .value(CommonUtils.getVariableName(node))
+                    .value(node == null ? "" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
 
@@ -356,20 +356,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .description(Property.DATA_TYPE_DOC)
                         .stepOut()
                     .value(CommonUtils.getVariableName(node))
-                    .type(Property.ValueType.TYPE)
-                    .editable();
-
-            addProperty(Property.DATA_TYPE_KEY);
-            return this;
-        }
-
-        public PropertiesBuilder<T> type(String typeName) {
-            propertyBuilder
-                    .metadata()
-                        .label(Property.DATA_TYPE_LABEL)
-                        .description(Property.DATA_TYPE_DOC)
-                        .stepOut()
-                    .value(typeName)
                     .type(Property.ValueType.TYPE)
                     .editable();
 
@@ -421,7 +407,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
-                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
+                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
             }
 
             addProperty(Property.DATA_TYPE_KEY, node == null ? null : node.typeDescriptor());
@@ -444,7 +430,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
-                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
+                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
             }
             addProperty(Property.DATA_TYPE_KEY);
             return this;
@@ -611,7 +597,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
                 String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false,
-                        defaultModuleName);
+                        moduleDescriptor);
                 String variableName = CommonUtils.getVariableName(paramValue);
                 inputs.add(type + " " + variableName);
             }
@@ -641,7 +627,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(
                     typeSymbol -> propertyBuilder.value(
-                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
 
             addProperty(OUTPUT_KEY, node);
             return this;
@@ -702,58 +688,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                 }
 
                 addProperty(parameterName, paramValue);
-            }
-            return this;
-        }
-
-        public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                                      List<ParameterSymbol> parameterSymbols) {
-            final Map<String, Node> namedArgValueMap = new HashMap<>();
-            final Queue<Node> positionalArgs = new LinkedList<>();
-
-            if (arguments != null) {
-                for (FunctionArgumentNode argument : arguments) {
-                    switch (argument.kind()) {
-                        case NAMED_ARG -> {
-                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
-                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                    namedArgument.expression());
-                        }
-                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
-                        default -> {
-                            // Ignore the default case
-                        }
-                    }
-                }
-            }
-
-            int numParams = parameterSymbols.size();
-            int numPositionalArgs = positionalArgs.size();
-
-            for (int i = 0; i < numParams; i++) {
-                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
-                Optional<String> name = parameterSymbol.getName();
-                if (name.isEmpty()) {
-                    continue;
-                }
-
-                String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
-                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
-
-                propertyBuilder
-                        .metadata()
-                            .label(parameterName)
-                            .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .editable()
-                        .defaultable(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
-
-                if (paramValue != null) {
-                    propertyBuilder.value(paramValue.toSourceCode());
-                }
-
-                addProperty(parameterName, paramValue);
-
             }
             return this;
         }
@@ -923,7 +857,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             } else {
                 CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                         .ifPresent(typeSymbol -> propertyBuilder.value(
-                                CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, defaultModuleName)));
+                                CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleDescriptor)));
             }
             propertyBuilder
                     .metadata()

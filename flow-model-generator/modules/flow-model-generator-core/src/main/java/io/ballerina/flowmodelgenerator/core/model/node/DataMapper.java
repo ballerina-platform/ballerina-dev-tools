@@ -34,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.ModuleDescriptor;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -101,12 +102,12 @@ public class DataMapper extends NodeBuilder {
         WorkspaceManager workspaceManager = context.workspaceManager();
         SemanticModel semanticModel;
         Document document;
-        String projectName;
+        ModuleDescriptor moduleDescriptor;
         try {
             workspaceManager.loadProject(context.filePath());
             semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             document = workspaceManager.document(context.filePath()).orElseThrow();
-            projectName = CommonUtils.getProjectName(document);
+            moduleDescriptor = document.module().descriptor();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +118,7 @@ public class DataMapper extends NodeBuilder {
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
             if (symbol.kind() == SymbolKind.VARIABLE &&
                     symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
-                getVariableSignature(semanticModel, projectName, (VariableSymbol) symbol).ifPresent(
+                getVariableSignature(semanticModel, moduleDescriptor, (VariableSymbol) symbol).ifPresent(
                         visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
@@ -150,10 +151,11 @@ public class DataMapper extends NodeBuilder {
                 .addProperty(OUTPUT_KEY);
     }
 
-    private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,
+    private static Optional<String> getVariableSignature(SemanticModel semanticModel, ModuleDescriptor moduleDescriptor,
                                                          VariableSymbol symbol) {
         Optional<String> name = symbol.getName();
-        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, projectName);
+        String typeSignature =
+                CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, moduleDescriptor);
         return name.map(s -> typeSignature + " " + s);
     }
 

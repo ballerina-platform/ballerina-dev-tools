@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import io.ballerina.projects.ModuleDescriptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +109,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
         private DiagnosticHandler diagnosticHandler;
-        private String defaultModuleName;
+        private ModuleDescriptor moduleDescriptor;
 
         public Builder() {
             children = new ArrayList<>();
@@ -124,8 +125,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public Builder defaultModuleName(String defaultModuleName) {
-            this.defaultModuleName = defaultModuleName;
+        public Builder defaultModuleName(ModuleDescriptor moduleDescriptor) {
+            this.moduleDescriptor = moduleDescriptor;
             return this;
         }
 
@@ -157,7 +158,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
                 this.propertiesBuilder =
-                        new NodeBuilder.PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
+                        new NodeBuilder.PropertiesBuilder<>(semanticModel, diagnosticHandler, moduleDescriptor, this);
             }
             return this.propertiesBuilder;
         }
