@@ -341,7 +341,8 @@ public class SourceBuilder {
                 List<String> result = new ArrayList<>();
                 values.forEach(keyValuePair -> {
                     String key = (String) keyValuePair.keySet().iterator().next();
-                    result.add(key + " = " + keyValuePair.get(key));
+                    String value = (String) keyValuePair.values().iterator().next();
+                    result.add(key + " = " + value);
                 });
                 tokenBuilder.expression(String.join(", ", result));
             }
