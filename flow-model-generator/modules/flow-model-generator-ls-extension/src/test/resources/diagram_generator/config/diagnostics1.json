@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 24,
+    "line": 23,
     "offset": 1
   },
   "source": "diagnostics1.bal",
@@ -13,7 +13,7 @@
     "fileName": "diagnostics1.bal",
     "nodes": [
       {
-        "id": "33450",
+        "id": "33419",
         "metadata": {
           "label": "Start"
         },
@@ -26,11 +26,11 @@
               "offset": 31
             },
             "endLine": {
-              "line": 24,
+              "line": 23,
               "offset": 1
             }
           },
-          "sourceCode": "public function main(string c) {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n    fn2(i, s, true, []);\n\n    int j = 12;\n    int k = i j;\n\n    string l = 1.5 \"b\";\n\n    if (s == 12) {\n        if (i == \"12\") {\n        }\n    } else if (s == 12) {\n\n    }\n\n    int num2 = -9223372036854775808;\n\n    return i == s;\n    c = \"h\";\n    int i = 12;\n    str val = 4;\n}"
+          "sourceCode": "public function main(string c) {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n    fn2(i, s, true, []);\n\n    int j = 12;\n    int k = i j;\n\n    string l = 1.5 \"b\";\n\n    if (s == 12) {\n        if (i == \"12\") {\n        }\n    } else if (s == 12) {\n\n    }\n\n    int num2 = -9223372036854775808;\n\n    return i == s;\n    c = \"h\";\n    int i = 12;\n}"
         },
         "returning": false,
         "diagnostics": {
@@ -41,8 +41,7 @@
       {
         "id": "32869",
         "metadata": {
-          "label": "fn",
-          "description": ""
+          "label": "fn"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -64,29 +63,6 @@
           "sourceCode": "fn();"
         },
         "returning": false,
-        "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "diagnostics1.bal",
-              "startLine": {
-                "line": 26,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 28,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          }
-        },
         "diagnostics": {
           "hasDiagnostics": true,
           "diagnostics": [
@@ -233,8 +209,7 @@
       {
         "id": "35860",
         "metadata": {
-          "label": "fn2",
-          "description": ""
+          "label": "fn2"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -262,7 +237,9 @@
               "label": "s"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "i",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -274,14 +251,17 @@
                   "message": "incompatible types: expected 'string', found 'int'"
                 }
               ]
-            }
+            },
+            "kind": "REQUIRED"
           },
           "i": {
             "metadata": {
               "label": "i"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "s",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -293,24 +273,30 @@
                   "message": "incompatible types: expected 'int', found 'string'"
                 }
               ]
-            }
+            },
+            "kind": "REQUIRED"
           },
           "b": {
             "metadata": {
               "label": "b"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
             "value": "true",
+            "placeholder": "false",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "j": {
             "metadata": {
               "label": "j"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<json>",
             "value": "[]",
+            "placeholder": "{}",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -322,28 +308,8 @@
                   "message": "incompatible types: expected 'map<json>', found '[]'"
                 }
               ]
-            }
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
             },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "diagnostics1.bal",
-              "startLine": {
-                "line": 30,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 32,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "kind": "REQUIRED"
           }
         },
         "diagnostics": {
@@ -904,7 +870,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Name of the variable"
+              "description": "Result Variable"
             },
             "valueType": "IDENTIFIER",
             "value": "c",
@@ -992,78 +958,6 @@
             "optional": false,
             "editable": true,
             "advanced": false
-          }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true
-        },
-        "flags": 0
-      },
-      {
-        "id": "54700",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "diagnostics1.bal",
-            "startLine": {
-              "line": 23,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 23,
-              "offset": 16
-            }
-          },
-          "sourceCode": "str val = 4;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "4",
-            "optional": true,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "val",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "$CompilationError$",
-            "placeholder": "var",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "unknown type 'str'"
-                }
-              ]
-            }
           }
         },
         "diagnostics": {

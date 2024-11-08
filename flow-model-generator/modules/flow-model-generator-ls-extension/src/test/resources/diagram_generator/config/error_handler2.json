@@ -210,6 +210,17 @@
                     "editable": true,
                     "advanced": false
                   },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
                   "variable": {
                     "metadata": {
                       "label": "Variable Name",
@@ -478,6 +489,17 @@
                             "optional": true,
                             "editable": true,
                             "advanced": true
+                          },
+                          "checkError": {
+                            "metadata": {
+                              "label": "Check Error",
+                              "description": "Trigger error flow"
+                            },
+                            "valueType": "FLAG",
+                            "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
                           },
                           "checkError": {
                             "metadata": {

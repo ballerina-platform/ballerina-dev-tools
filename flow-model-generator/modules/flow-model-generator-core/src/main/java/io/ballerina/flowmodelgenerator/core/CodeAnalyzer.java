@@ -401,10 +401,9 @@ class CodeAnalyzer extends NodeVisitor {
             if (paramsOptional.isPresent()) {
                 List<ParameterSymbol> paramsList = paramsOptional.get();
                 int paramCount = paramsList.size(); // param count without rest params
-                int argCount = argumentNodes.size();
+                int argCount = positionalArgs.size();
 
                 List<String> restArgs = new ArrayList<>();
-                int typeInferParam = 0;
                 for (int i = 0; i < paramsList.size() ; i++) {
                     ParameterSymbol parameterSymbol = paramsList.get(i);
                     ParameterResult paramResult = funcParamMap.get(parameterSymbol.getName().get());
@@ -412,10 +411,6 @@ class CodeAnalyzer extends NodeVisitor {
                             : namedArgValueMap.get(paramResult.name());
 
                     funcParamMap.remove(parameterSymbol.getName().get());
-                    if (paramResult.kind() == Parameter.Kind.PARAM_FOR_TYPE_INFER) {
-                        typeInferParam = 1;
-                    }
-
                     Property.Builder<NodeBuilder.PropertiesBuilder<NodeBuilder>> customPropBuilder =
                             nodeBuilder.properties().custom();
 
@@ -436,7 +431,6 @@ class CodeAnalyzer extends NodeVisitor {
                             .addProperty(paramResult.name(), paramValue);
                 }
 
-                paramCount -= typeInferParam;
                 for (int i = paramCount; i < argCount; i++) {
                     restArgs.add(Objects.requireNonNull(positionalArgs.poll()).toSourceCode());
                 }

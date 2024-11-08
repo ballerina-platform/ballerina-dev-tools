@@ -67,31 +67,13 @@
               "label": "name"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"Alice\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 33,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 35,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "variable": {
             "metadata": {
@@ -151,40 +133,26 @@
               "label": "base"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "3",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "exponent": {
             "metadata": {
               "label": "exponent"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "0",
+            "placeholder": "0",
             "optional": true,
             "editable": true,
-            "advanced": true
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 37,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 45,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "variable": {
             "metadata": {
@@ -244,41 +212,26 @@
               "label": "base"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "3",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "exponent": {
             "metadata": {
               "label": "exponent"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "3",
+            "placeholder": "0",
             "optional": true,
             "editable": true,
-            "advanced": true
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 37,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 45,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "variable": {
             "metadata": {
@@ -333,7 +286,27 @@
           "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "values": {
+            "metadata": {
+              "label": "values",
+              "description": "The value(s) to be printed"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "io:Printable",
+            "value": [
+              "\"3 squared: \"",
+              "squared",
+              "\", 3 cubed: \"",
+              "cubed"
+            ],
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAMETER"
+          }
+        },
         "flags": 0
       },
       {
@@ -363,26 +336,24 @@
         },
         "returning": false,
         "properties": {
-          "view": {
+          "numbers": {
             "metadata": {
-              "label": "View",
-              "description": "Function definition location"
+              "label": "numbers"
             },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 47,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 53,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "placeholder": "0",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAMETER"
           },
           "variable": {
             "metadata": {
@@ -442,51 +413,39 @@
               "label": "a"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "6",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "b": {
             "metadata": {
               "label": "b"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "3",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "func": {
             "metadata": {
               "label": "func"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "function (int, int) returns int",
             "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 55,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 59,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "variable": {
             "metadata": {
@@ -541,7 +500,25 @@
           "sourceCode": "io:println(\"6 * 3 = \", result);"
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "values": {
+            "metadata": {
+              "label": "values",
+              "description": "The value(s) to be printed"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "io:Printable",
+            "value": [
+              "\"6 * 3 = \"",
+              "result"
+            ],
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAMETER"
+          }
+        },
         "flags": 0
       },
       {
@@ -571,7 +548,24 @@
           "sourceCode": "io:println(greeting + total.toString());"
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "values": {
+            "metadata": {
+              "label": "values",
+              "description": "The value(s) to be printed"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "io:Printable",
+            "value": [
+              "greeting + total.toString()"
+            ],
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAMETER"
+          }
+        },
         "flags": 0
       },
       {
@@ -600,29 +594,6 @@
           "sourceCode": "print();"
         },
         "returning": false,
-        "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "function_call.bal",
-              "startLine": {
-                "line": 61,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 63,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          }
-        },
         "flags": 0
       }
     ],

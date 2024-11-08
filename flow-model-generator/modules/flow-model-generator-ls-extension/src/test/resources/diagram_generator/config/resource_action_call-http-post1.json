@@ -167,6 +167,17 @@
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -313,6 +324,17 @@
             "editable": true,
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -461,6 +483,17 @@
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -608,6 +641,17 @@
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -706,7 +750,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -748,16 +792,23 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [
-              {
-                "headers": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
-              }
-            ],
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -906,6 +957,17 @@
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -1052,6 +1114,17 @@
             "editable": true,
             "advanced": true,
             "kind": "INCLUDED_RECORD_REST"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {

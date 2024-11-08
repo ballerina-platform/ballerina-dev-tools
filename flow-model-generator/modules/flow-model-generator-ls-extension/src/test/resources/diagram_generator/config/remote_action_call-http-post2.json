@@ -75,17 +75,6 @@
             "editable": false,
             "advanced": false
           },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "res1",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "path": {
             "metadata": {
               "label": "path",
@@ -147,8 +136,33 @@
               "label": "targetType",
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
             "valueType": "FLAG",
             "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res1",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -229,7 +243,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:RequestMessage",
-            "value": "",
+            "value": "\"green banana\"",
             "placeholder": "",
             "optional": false,
             "editable": true,
@@ -277,6 +291,17 @@
             "editable": true,
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -445,7 +470,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": false
           },
           "url": {
             "metadata": {

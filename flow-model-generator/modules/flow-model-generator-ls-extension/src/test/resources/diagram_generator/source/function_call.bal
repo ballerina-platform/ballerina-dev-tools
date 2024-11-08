@@ -10,7 +10,7 @@ service on new http:Listener(8080) {
         if count > 20 {
             log:printWarn("Count is greater than 20");
         }
-        log:printInfo("Getting apples");
+        log:printInfo("Getting apples", key1="Value1", key2="Value2");
         json|error res = foodClient->get("/western/apples?count=" + count.toString());
         if res is error {
             log:printError("Failed to get the response");

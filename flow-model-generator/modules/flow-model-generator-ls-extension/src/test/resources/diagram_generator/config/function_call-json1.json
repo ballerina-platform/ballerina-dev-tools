@@ -69,10 +69,13 @@
               "description": "Source anydata value"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "anydata",
             "value": "payload",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "checkError": {
             "metadata": {
@@ -145,10 +148,13 @@
               "description": "Source JSON value"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
             "value": "jsonResult",
+            "placeholder": "()",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "options": {
             "metadata": {
@@ -156,9 +162,13 @@
               "description": "Options to be used for filtering in the projection"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "data.jsondata:Options",
+            "value": "{}",
+            "placeholder": "{}",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "t": {
             "metadata": {
@@ -166,9 +176,13 @@
               "description": "Target type"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           },
           "checkError": {
             "metadata": {

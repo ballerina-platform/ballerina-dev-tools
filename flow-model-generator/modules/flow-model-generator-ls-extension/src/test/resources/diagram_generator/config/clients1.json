@@ -117,6 +117,17 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -327,6 +338,17 @@
             "editable": true,
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {

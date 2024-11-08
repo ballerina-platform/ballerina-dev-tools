@@ -62,27 +62,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 26,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 26,
-                "offset": 64
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -124,27 +103,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 26,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 26,
-                "offset": 64
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -186,27 +144,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 28,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 28,
-                "offset": 62
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -271,27 +208,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 28,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 28,
-                "offset": 62
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -356,27 +272,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 28,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 28,
-                "offset": 62
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -441,27 +336,6 @@
         },
         "returning": false,
         "properties": {
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "flags.bal",
-              "startLine": {
-                "line": 28,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 28,
-                "offset": 62
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",

@@ -615,31 +615,13 @@
               "label": "employee"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "Employee",
             "value": "employee",
+            "placeholder": "{name: \"\", empId: \"\", email: \"\", location: {city: \"\", country: \"\"}}",
             "optional": false,
             "editable": true,
-            "advanced": false
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 4,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 6,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           }
         },
         "flags": 0

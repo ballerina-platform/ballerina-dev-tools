@@ -182,7 +182,7 @@
                             },
                             "valueType": "EXPRESSION",
                             "valueTypeConstraint": "string",
-                            "value": "\"\"",
+                            "value": "\"/doctors/kandy\"",
                             "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
@@ -216,6 +216,17 @@
                             "editable": true,
                             "advanced": true,
                             "kind": "PARAM_FOR_TYPE_INFER"
+                          },
+                          "checkError": {
+                            "metadata": {
+                              "label": "Check Error",
+                              "description": "Trigger error flow"
+                            },
+                            "valueType": "FLAG",
+                            "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -312,7 +323,7 @@
                             },
                             "valueType": "EXPRESSION",
                             "valueTypeConstraint": "string",
-                            "value": "\"\"",
+                            "value": "\"/doctors/colombo\"",
                             "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
@@ -346,6 +357,17 @@
                             "editable": true,
                             "advanced": true,
                             "kind": "PARAM_FOR_TYPE_INFER"
+                          },
+                          "checkError": {
+                            "metadata": {
+                              "label": "Check Error",
+                              "description": "Trigger error flow"
+                            },
+                            "valueType": "FLAG",
+                            "value": true,
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
