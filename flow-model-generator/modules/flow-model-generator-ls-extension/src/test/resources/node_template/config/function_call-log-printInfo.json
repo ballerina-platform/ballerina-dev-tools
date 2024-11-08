@@ -35,6 +35,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -48,6 +49,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
         "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -61,17 +63,18 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
         "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
         "kind": "DEFAULTABLE"
       },
-      "INCLUDED_RECORD_REST": {
+      "Additional Values": {
         "metadata": {
-          "label": "INCLUDED_RECORD_REST",
-          "description": ""
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "valueTypeConstraint": "log:Value",
         "value": [],
         "placeholder": "",

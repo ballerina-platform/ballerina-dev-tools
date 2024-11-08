@@ -25,21 +25,65 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 16
+      "id": 651
     },
     "returning": false,
     "properties": {
-      "config": {
+      "connection": {
         "metadata": {
-          "label": "config",
-          "description": "configuration for the connector"
+          "label": "connection",
+          "description": ""
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:ConnectionConfig",
-        "value": "{}",
-        "optional": false,
+        "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+        "value": "\"redis://localhost:6379\"",
+        "placeholder": "\"redis://localhost:6379\"",
+        "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true,
+        "kind": "INCLUDED_FIELD"
+      },
+      "connectionPooling": {
+        "metadata": {
+          "label": "connectionPooling",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "value": "false",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "INCLUDED_FIELD"
+      },
+      "isClusterConnection": {
+        "metadata": {
+          "label": "isClusterConnection",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "value": "false",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "INCLUDED_FIELD"
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "record {|ballerina/crypto:2.6.2:TrustStore|string cert?; ballerina/crypto:2.6.2:KeyStore|ballerinax/redis:3.0.2:CertKey key?; string[] protocols?; string[] ciphers?; ballerinax/redis:3.0.2:SslVerifyMode verifyMode; boolean startTls;|}",
+        "value": "{}",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "INCLUDED_FIELD"
       },
       "type": {
         "metadata": {
@@ -48,8 +92,9 @@
         },
         "valueType": "TYPE",
         "value": "redis:Client",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -83,7 +128,7 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

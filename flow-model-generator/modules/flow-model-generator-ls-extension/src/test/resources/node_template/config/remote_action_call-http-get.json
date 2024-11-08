@@ -39,6 +39,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -52,19 +53,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
         "value": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "kind": "DEFAULTABLE"
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:TargetType",
-        "value": "<>",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,

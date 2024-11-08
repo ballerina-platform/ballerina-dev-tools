@@ -35,6 +35,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
         "value": "",
+        "placeholder": "",
         "optional": false,
         "editable": true,
         "advanced": false,

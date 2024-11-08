@@ -26,7 +26,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "id": 36
+      "id": 671
     },
     "returning": false,
     "properties": {
@@ -38,6 +38,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -51,9 +52,11 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {
@@ -62,6 +65,7 @@
         },
         "valueType": "TYPE",
         "value": "string",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false
@@ -98,7 +102,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

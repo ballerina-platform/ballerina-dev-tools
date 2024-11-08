@@ -12,7 +12,7 @@
     "object": "Client",
     "symbol": "post",
     "parentSymbol": "githubClient",
-    "resourcePath": "/app\\-manifests/[string]/conversions"
+    "resourcePath": "/app\\-manifests/[\"\"]/conversions"
   },
   "output": {
     "id": "31",
@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 843
+      "id": 1348
     },
     "returning": false,
     "properties": {
@@ -59,12 +59,10 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
         "valueTypeConstraint": "github:Client",
-        "value": "",
-        "placeholder": "githubClient",
+        "value": "githubClient",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "resourcePath": {
@@ -73,7 +71,7 @@
           "description": "Resource Path"
         },
         "valueType": "EXPRESSION",
-        "value": "/app\\-manifests/[string]/conversions",
+        "value": "/app\\-manifests/[\"\"]/conversions",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -87,7 +85,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

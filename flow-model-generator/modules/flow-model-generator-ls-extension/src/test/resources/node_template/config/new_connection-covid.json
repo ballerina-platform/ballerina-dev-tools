@@ -25,7 +25,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 159
+      "id": 2367
     },
     "returning": false,
     "properties": {
@@ -36,10 +36,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:ConnectionConfig",
-        "value": "",
+        "value": "{}",
+        "placeholder": "{}",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "serviceUrl": {
         "metadata": {
@@ -48,10 +50,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"https://disease.sh\"",
+        "placeholder": "\"https://disease.sh\"",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -60,8 +64,9 @@
         },
         "valueType": "TYPE",
         "value": "covid19:Client",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -95,7 +100,7 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0
