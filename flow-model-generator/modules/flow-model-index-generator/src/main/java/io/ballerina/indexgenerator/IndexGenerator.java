@@ -31,11 +31,9 @@ import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -43,8 +41,6 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
-import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -207,32 +203,9 @@ class IndexGenerator {
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
-        StringBuilder pathBuilder = new StringBuilder();
+        String pathBuilder = "";
         if (functionType == FunctionType.RESOURCE) {
-            ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
-            ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-            switch (resourcePath.kind()) {
-                case PATH_SEGMENT_LIST -> {
-                    PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
-                    for (Symbol pathSegment : pathSegmentList.list()) {
-                        pathBuilder.append("/");
-                        if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                            String value = DefaultValueGeneratorUtil
-                                    .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
-                            pathBuilder.append("[").append(value).append("]");
-                        } else {
-                            pathBuilder.append(pathSegment.getName().orElse(""));
-                        }
-                    }
-                    ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                        String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
-                                .signature();
-                        pathBuilder.append("[").append(type).append("...]");
-                    });
-                }
-                case PATH_REST_PARAM -> pathBuilder.append("[").append("/path/to/resource").append("]");
-                case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
-            }
+            pathBuilder = CommonUtils.buildResourcePathTemplate(functionSymbol);
         }
 
         // Capture the name of the function
@@ -335,10 +308,11 @@ class IndexGenerator {
         } else {
             if (paramForTypeInfer != null) {
                 if (paramForTypeInfer.paramName().equals(paramName)) {
-                    defaultValue = paramForTypeInfer.defaultValue();
+                    defaultValue = paramForTypeInfer.type();
                     paramType = paramForTypeInfer.type();
                     DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription,
-                            paramType, defaultValue, parameterKind, optional);
+                            paramType, defaultValue, FunctionParameterKind.PARAM_FOR_TYPE_INFER, optional);
+                    return;
                 }
             }
             Location symbolLocation = paramSymbol.getLocation().get();

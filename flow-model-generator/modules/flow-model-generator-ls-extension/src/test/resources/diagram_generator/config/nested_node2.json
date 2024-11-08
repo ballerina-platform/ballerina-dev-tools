@@ -181,10 +181,13 @@
                               "description": "Request path"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "\"/doctors/kandy\"",
+                            "valueTypeConstraint": "string",
+                            "value": "\"\"",
+                            "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "headers": {
                             "metadata": {
@@ -192,20 +195,27 @@
                               "description": "The entity headers"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "map<string|string[]>|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
                           },
-                          "checkError": {
+                          "targetType": {
                             "metadata": {
-                              "label": "Check Error",
-                              "description": "Trigger error flow"
+                              "label": "targetType",
+                              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
                             },
-                            "valueType": "FLAG",
-                            "value": true,
-                            "optional": false,
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "json",
+                            "value": "json",
+                            "placeholder": "json",
+                            "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "PARAM_FOR_TYPE_INFER"
                           },
                           "variable": {
                             "metadata": {
@@ -301,10 +311,13 @@
                               "description": "Request path"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "\"/doctors/colombo\"",
+                            "valueTypeConstraint": "string",
+                            "value": "\"\"",
+                            "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "headers": {
                             "metadata": {
@@ -312,20 +325,27 @@
                               "description": "The entity headers"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "map<string|string[]>|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
                           },
-                          "checkError": {
+                          "targetType": {
                             "metadata": {
-                              "label": "Check Error",
-                              "description": "Trigger error flow"
+                              "label": "targetType",
+                              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
                             },
-                            "valueType": "FLAG",
-                            "value": true,
-                            "optional": false,
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "json",
+                            "value": "json",
+                            "placeholder": "json",
+                            "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "PARAM_FOR_TYPE_INFER"
                           },
                           "variable": {
                             "metadata": {

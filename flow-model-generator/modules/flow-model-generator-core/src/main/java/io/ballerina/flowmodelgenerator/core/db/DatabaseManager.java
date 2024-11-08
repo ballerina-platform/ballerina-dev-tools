@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -411,6 +412,42 @@ public class DatabaseManager {
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();
+        }
+    }
+
+    public LinkedHashMap<String, ParameterResult> getFunctionParametersAsMap(int functionId) {
+        String sql = "SELECT " +
+                "p.parameter_id, " +
+                "p.name, " +
+                "p.type, " +
+                "p.kind, " +
+                "p.optional, " +
+                "p.default_value, " +
+                "p.description " +
+                "FROM Parameter p " +
+                "WHERE p.function_id = ?;";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, functionId);
+            ResultSet rs = stmt.executeQuery();
+            LinkedHashMap<String, ParameterResult> parameterResults = new LinkedHashMap<>();
+            while (rs.next()) {
+                String paramName = rs.getString("name");
+                ParameterResult parameterResult = new ParameterResult(
+                        rs.getInt("parameter_id"),
+                        paramName,
+                        rs.getString("type"),
+                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        rs.getString("default_value"),
+                        rs.getString("description"),
+                        rs.getInt("optional")
+                );
+                parameterResults.put(paramName, parameterResult);
+            }
+            return parameterResults;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return new LinkedHashMap<>();
         }
     }
 

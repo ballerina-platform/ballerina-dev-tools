@@ -208,7 +208,7 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": true
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -273,7 +273,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Name of the variable"
+                      "description": "Result Variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -343,7 +343,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Name of the variable"
+                      "description": "Result Variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -488,7 +488,7 @@
                             "value": true,
                             "optional": false,
                             "editable": true,
-                            "advanced": true
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -553,7 +553,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Name of the variable"
+                              "description": "Result Variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -623,7 +623,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Name of the variable"
+                              "description": "Result Variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -695,7 +695,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": false
           },
           "url": {
             "metadata": {

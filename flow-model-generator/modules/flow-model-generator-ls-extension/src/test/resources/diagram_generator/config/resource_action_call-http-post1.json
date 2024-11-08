@@ -60,8 +60,7 @@
               "offset": 80
             }
           },
-          "sourceCode": "json res1 = check foodClient->/western/apples.post(\"western red apple\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "json res1 = check foodClient->/western/apples.post(\"western red apple\");"
         },
         "returning": false,
         "properties": {
@@ -104,10 +103,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"western red apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -115,9 +117,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -125,20 +131,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -180,8 +221,7 @@
               "offset": 106
             }
           },
-          "sourceCode": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");"
         },
         "returning": false,
         "properties": {
@@ -224,10 +264,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "{\"type\": \"red apple\"}",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -235,9 +278,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -245,21 +292,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
             "value": "\"application/json\"",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -301,8 +382,7 @@
               "offset": 60
             }
           },
-          "sourceCode": "json res3 = check foodClient->/.post(\"green apple\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "json res3 = check foodClient->/.post(\"green apple\");"
         },
         "returning": false,
         "properties": {
@@ -345,10 +425,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"green apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -356,9 +439,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -366,20 +453,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -421,8 +543,7 @@
               "offset": 84
             }
           },
-          "sourceCode": "var res4 = check foodClient->/apples.post(\"green apple\", targetType = json);",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "var res4 = check foodClient->/apples.post(\"green apple\", targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -465,10 +586,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"green apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -476,9 +600,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -486,20 +614,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -541,8 +704,7 @@
               "offset": 11
             }
           },
-          "sourceCode": "json res5 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "json res5 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
         },
         "returning": false,
         "properties": {
@@ -585,10 +747,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"red apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -596,10 +761,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
-            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -607,20 +775,59 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [
+              {
+                "headers": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+              }
+            ],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -662,8 +869,7 @@
               "offset": 64
             }
           },
-          "sourceCode": "Food res6 = check foodClient->/apples.post(\"red apple\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "Food res6 = check foodClient->/apples.post(\"red apple\");"
         },
         "returning": false,
         "properties": {
@@ -706,10 +912,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"red apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -717,9 +926,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -727,20 +940,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -782,8 +1030,7 @@
               "offset": 84
             }
           },
-          "sourceCode": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");",
-          "resourcePath": "[boolean|int|float|decimal|string...]"
+          "sourceCode": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");"
         },
         "returning": false,
         "properties": {
@@ -826,10 +1073,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"green apple\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -837,9 +1087,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -847,20 +1101,55 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParams",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
+          },
+          "INCLUDED_RECORD_REST": {
+            "metadata": {
+              "label": "INCLUDED_RECORD_REST",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_RECORD_REST"
           },
           "type": {
             "metadata": {
@@ -928,7 +1217,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": false
           },
           "url": {
             "metadata": {

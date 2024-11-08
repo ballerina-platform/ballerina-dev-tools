@@ -179,10 +179,13 @@
               "description": "Resource path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/milkshake\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "message": {
             "metadata": {
@@ -190,10 +193,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"mixed fruit\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -201,9 +207,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -211,9 +221,27 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           }
         },
         "flags": 0

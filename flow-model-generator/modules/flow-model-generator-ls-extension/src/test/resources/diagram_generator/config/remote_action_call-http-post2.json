@@ -75,59 +75,6 @@
             "editable": false,
             "advanced": false
           },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Resource path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"/bananas\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"red banana\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -135,6 +82,73 @@
             },
             "valueType": "IDENTIFIER",
             "value": "res1",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "path": {
+            "metadata": {
+              "label": "path",
+              "description": "Resource path"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"/bananas\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "kind": "REQUIRED"
+          },
+          "message": {
+            "metadata": {
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
+            "value": "\"red banana\"",
+            "placeholder": "",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "kind": "REQUIRED"
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "FLAG",
+            "value": true,
             "optional": false,
             "editable": true,
             "advanced": false
@@ -200,10 +214,13 @@
               "description": "Resource path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/bananas\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "message": {
             "metadata": {
@@ -211,10 +228,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
-            "value": "\"green banana\"",
+            "valueTypeConstraint": "http:RequestMessage",
+            "value": "",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -222,9 +242,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -232,20 +256,27 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
-          "checkError": {
+          "targetType": {
             "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           }
         },
         "flags": 1
@@ -296,10 +327,13 @@
               "description": "Resource path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/bananas\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "message": {
             "metadata": {
@@ -307,10 +341,13 @@
               "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RequestMessage",
             "value": "\"banana\"",
+            "placeholder": "",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -318,9 +355,13 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "mediaType": {
             "metadata": {
@@ -328,9 +369,27 @@
               "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           }
         },
         "flags": 0

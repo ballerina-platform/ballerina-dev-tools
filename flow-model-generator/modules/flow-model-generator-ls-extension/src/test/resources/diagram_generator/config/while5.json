@@ -244,10 +244,13 @@
                       "description": "Request path"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
                     "value": "\"/food/pineapples\"",
+                    "placeholder": "\"\"",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "kind": "REQUIRED"
                   },
                   "headers": {
                     "metadata": {
@@ -255,17 +258,35 @@
                       "description": "The entity headers"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "map<string|string[]>|()",
+                    "value": "()",
+                    "placeholder": "()",
                     "optional": true,
                     "editable": true,
-                    "advanced": true
+                    "advanced": true,
+                    "kind": "DEFAULTABLE"
                   },
-                  "checkError": {
+                  "targetType": {
                     "metadata": {
-                      "label": "Check Error",
-                      "description": "Trigger error flow"
+                      "label": "targetType",
+                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
                     },
-                    "valueType": "FLAG",
-                    "value": true,
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "json",
+                    "value": "json",
+                    "placeholder": "json",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "kind": "PARAM_FOR_TYPE_INFER"
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "response",
                     "optional": false,
                     "editable": true,
                     "advanced": true
@@ -775,10 +796,13 @@
                               "description": "Resource path"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
                             "value": "\"/admin/restart\"",
+                            "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "message": {
                             "metadata": {
@@ -786,10 +810,13 @@
                               "description": "An HTTP outbound request or any allowed payload"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "http:RequestMessage",
                             "value": "{body: e.message()}",
+                            "placeholder": "",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "headers": {
                             "metadata": {
@@ -797,9 +824,13 @@
                               "description": "The entity headers"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "map<string|string[]>|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
                           },
                           "mediaType": {
                             "metadata": {
@@ -807,17 +838,35 @@
                               "description": "The MIME type header of the request entity"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
                           },
-                          "checkError": {
+                          "targetType": {
                             "metadata": {
-                              "label": "Check Error",
-                              "description": "Trigger error flow"
+                              "label": "targetType",
+                              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
                             },
-                            "valueType": "FLAG",
-                            "value": true,
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "json",
+                            "value": "json",
+                            "placeholder": "json",
+                            "optional": true,
+                            "editable": true,
+                            "advanced": true,
+                            "kind": "PARAM_FOR_TYPE_INFER"
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Variable Name",
+                              "description": "Name of the variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "response",
                             "optional": false,
                             "editable": true,
                             "advanced": true

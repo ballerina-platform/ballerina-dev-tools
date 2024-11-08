@@ -46,6 +46,7 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.ModuleDescriptor;
@@ -428,9 +429,9 @@ public class CommonUtils {
                 for (Symbol pathSegment : pathSegmentList.list()) {
                     pathBuilder.append("/");
                     if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
-                                .signature();
-                        pathBuilder.append("[").append(type).append("]");
+                        String value = DefaultValueGeneratorUtil
+                                .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
+                        pathBuilder.append("[").append(value).append("]");
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
@@ -441,14 +442,8 @@ public class CommonUtils {
                     pathBuilder.append("[").append(type).append("...]");
                 });
             }
-            case PATH_REST_PARAM -> {
-                String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
-                        .typeDescriptor()).signature();
-                pathBuilder.append("[").append(type).append("...]");
-            }
-            case DOT_RESOURCE_PATH -> {
-                pathBuilder.append(".");
-            }
+            case PATH_REST_PARAM -> pathBuilder.append("[").append("/path/to/resource").append("]");
+            case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
         }
         return pathBuilder.toString();
     }
