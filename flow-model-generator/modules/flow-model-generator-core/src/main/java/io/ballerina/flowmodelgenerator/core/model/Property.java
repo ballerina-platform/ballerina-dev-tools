@@ -218,6 +218,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder<T> editable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
         public Builder<T> placeholder(String placeholder) {
             this.placeholder = placeholder;
             return this;

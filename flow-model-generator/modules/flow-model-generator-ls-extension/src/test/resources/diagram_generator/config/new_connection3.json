@@ -486,6 +486,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -572,6 +573,7 @@
             },
             "valueType": "TYPE",
             "value": "redis:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

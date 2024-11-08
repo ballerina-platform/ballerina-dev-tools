@@ -100,7 +100,7 @@ public class ConfigVariablesManager {
                         .lineRange(modVarDeclNode.lineRange())
                         .stepOut()
                     .properties()
-                        .type(typedBindingPattern.typeDescriptor())
+                        .type(typedBindingPattern.typeDescriptor(), true)
                         .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
                         .defaultableVariable(modVarDeclNode.initializer().orElse(null))
                         .stepOut()

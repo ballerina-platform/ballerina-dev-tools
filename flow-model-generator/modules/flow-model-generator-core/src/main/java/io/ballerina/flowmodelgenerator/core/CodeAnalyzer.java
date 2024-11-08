@@ -179,7 +179,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ObjectFieldNode objectFieldNode) {
         objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
         nodeBuilder.properties()
-                .type(objectFieldNode.typeName())
+                .type(objectFieldNode.typeName(), true)
                 .data(objectFieldNode.fieldName(), false, new HashSet<>());
         endNode(objectFieldNode);
     }

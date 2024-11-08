@@ -125,6 +125,34 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> type(Node node, boolean editable) {
+        return type(node, Property.TYPE_LABEL, editable);
+    }
+
+    public FormBuilder<T> type(Node node, String label, boolean editable) {
+        String typeName = (node == null) ? "" : CommonUtils.getVariableName(node);
+        return type(typeName, label, editable, node == null ? null : node.lineRange());
+    }
+
+    public FormBuilder<T> type(String typeName, boolean editable) {
+        return type(typeName, Property.TYPE_LABEL, editable, null);
+    }
+
+    public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange) {
+        propertyBuilder
+                .metadata()
+                    .label(label)
+                    .description(Property.TYPE_DOC)
+                    .stepOut()
+                .placeholder("var")
+                .value(typeName)
+                .type(Property.ValueType.TYPE)
+                .editable(editable);
+
+        addProperty(Property.TYPE_KEY, lineRange);
+        return this;
+    }
+
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
         return implicit ?
                 dataVariable(node, Property.IMPLICIT_VARIABLE_LABEL, Property.IMPLICIT_TYPE_LABEL, names)
@@ -139,55 +167,14 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                                        Set<String> names) {
         data(node == null ? null : node.bindingPattern(), variableDoc, names);
 
-        propertyBuilder
-                .metadata()
-                    .label(typeDoc)
-                    .description(Property.TYPE_DOC)
-                    .stepOut()
-                .placeholder("var")
-                .type(Property.ValueType.TYPE)
-                .editable();
-
-        if (node == null) {
-            propertyBuilder.value("");
-        } else {
-            Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
-            optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
-                    CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
-        }
-
-        addProperty(Property.TYPE_KEY, node == null ? null : node.typeDescriptor());
-        return this;
+        String typeName = node == null ? "" : CommonUtils.getTypeSymbol(semanticModel, node)
+                .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor))
+                .orElse(CommonUtils.getVariableName(node));
+        return type(typeName, typeDoc, true, node == null ? null : node.typeDescriptor().lineRange());
     }
 
-    public FormBuilder<T> type(Node node) {
-        propertyBuilder
-                .metadata()
-                    .label(Property.TYPE_LABEL)
-                    .description(Property.TYPE_DOC)
-                    .stepOut()
-                .value(CommonUtils.getVariableName(node))
-                .type(Property.ValueType.TYPE)
-                .editable();
-
-        addProperty(Property.TYPE_KEY);
-        return this;
-    }
-
-    public FormBuilder<T> type(String typeName, boolean editable) {
-        propertyBuilder
-                .metadata()
-                    .label(Property.TYPE_LABEL)
-                    .description(Property.TYPE_DOC)
-                    .stepOut()
-                .value(typeName)
-                .type(Property.ValueType.TYPE);
-        if (editable) {
-            propertyBuilder.editable();
-        }
-
-        addProperty(Property.TYPE_KEY);
-        return this;
+    public Property.Builder<FormBuilder<T>> custom() {
+        return propertyBuilder;
     }
 
     public FormBuilder<T> payload(TypedBindingPatternNode node, String type) {
@@ -622,10 +609,6 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
         addProperty(FUNCTION_NAME_KEY);
         return this;
-    }
-
-    public Property.Builder<FormBuilder<T>> custom() {
-        return propertyBuilder;
     }
 
     public FormBuilder<T> scope(String scope) {
