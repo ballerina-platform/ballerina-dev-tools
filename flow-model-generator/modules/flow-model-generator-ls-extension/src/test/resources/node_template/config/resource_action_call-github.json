@@ -58,12 +58,10 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
         "valueTypeConstraint": "github:Client",
-        "value": "",
-        "placeholder": "githubClient",
+        "value": "githubClient",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "resourcePath": {

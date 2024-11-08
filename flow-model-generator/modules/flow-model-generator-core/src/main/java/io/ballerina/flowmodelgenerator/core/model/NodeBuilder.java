@@ -886,30 +886,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value, boolean optional, boolean advanced) {
-            propertyBuilder
-                    .metadata()
-                        .label(label)
-                        .description(description)
-                        .stepOut()
-                    .type(type)
-                    .typeConstraint(typeConstraint)
-                    .value("")
-                    .placeholder(value)
-                    .editable()
-                    .optional(optional)
-                    .advanced(advanced);
-
-            addProperty(key);
-            return this;
-        }
-
-        public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value, boolean optional) {
-            return custom(key, label, description, type, typeConstraint, value, optional, false);
-        }
-
         public Property.Builder<PropertiesBuilder<T>> custom() {
             return propertyBuilder;
         }

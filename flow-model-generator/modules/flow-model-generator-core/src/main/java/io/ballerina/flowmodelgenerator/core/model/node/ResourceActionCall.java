@@ -156,10 +156,16 @@ public class ResourceActionCall extends NodeBuilder {
                     .type(returnTypeName, editable)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
         }
-
-        properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
-                Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
-                codedata.parentSymbol(), false);
+        
+        properties().custom()
+                .metadata()
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_DOC)
+                .stepOut()
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
         properties().resourcePath(function.resourcePath());
 
         if (function.returnError() == 1) {
