@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -33,6 +34,7 @@ import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -52,23 +54,34 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class DeleteNodeGenerator {
+public class DeleteNodeHandler {
 
-    private final Gson gson;
+    private static final Gson gson = new Gson();
     private final FlowNode nodeToDelete;
     private final Path filePath;
 
-    public DeleteNodeGenerator(JsonElement nodeToDelete, Path filePath) {
-        this.gson = new Gson();
+    public DeleteNodeHandler(JsonElement nodeToDelete, Path filePath) {
         this.nodeToDelete = new Gson().fromJson(nodeToDelete, FlowNode.class);
         this.filePath = filePath;
     }
 
-    public JsonElement getTextEditsToDeletedNode(Document document, Project project) {
-        LineRange lineRange = nodeToDelete.codedata().lineRange();
+    @Deprecated
+    public JsonElement getTextEditsToDeletedNode(JsonElement node, Document document, Project project) {
+        LineRange lineRange = getNodeLineRange(node);
+        return getTextEditsToDeletedNode(lineRange, filePath, document, project);
+    }
+
+    public static JsonElement getTextEditsToDeletedNode(JsonElement node, Path filePath,
+                                                        Document document, Project project) {
+        return getTextEditsToDeletedNode(getNodeLineRange(node), filePath, document, project);
+    }
+
+    private static JsonElement getTextEditsToDeletedNode(LineRange lineRange, Path filePath,
+                                                        Document document, Project project) {
         TextDocument textDocument = document.textDocument();
         int startTextPosition = textDocument.textPositionFrom(lineRange.startLine());
         int endTextPosition = textDocument.textPositionFrom(lineRange.endLine());
+
         io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
                 endTextPosition - startTextPosition), "");
         TextDocument apply = textDocument
@@ -103,7 +116,22 @@ public class DeleteNodeGenerator {
         return gson.toJsonTree(textEditsMap);
     }
 
-    private ImportDeclarationNode getUnusedImport(LineRange diagnosticLocation,
+    private static LineRange getNodeLineRange(JsonElement node) {
+        FlowNode nodeToDelete = gson.fromJson(node, FlowNode.class);
+        if (nodeToDelete.codedata() != null) {
+            return nodeToDelete.codedata().lineRange();
+        }
+
+        // Assume that the node has the following attributes: startLine, startColumn, endLine, endColumn
+        JsonObject jsonObject = node.getAsJsonObject();
+        LinePosition startLinePosition = LinePosition.from(
+                jsonObject.get("startLine").getAsInt(), jsonObject.get("startColumn").getAsInt());
+        LinePosition endLinePosition = LinePosition.from(
+                jsonObject.get("endLine").getAsInt(), jsonObject.get("endColumn").getAsInt());
+        return LineRange.from(jsonObject.get("filePath").getAsString(), startLinePosition, endLinePosition);
+    }
+
+    private static ImportDeclarationNode getUnusedImport(LineRange diagnosticLocation,
                                                   NodeList<ImportDeclarationNode> imports) {
         for (ImportDeclarationNode importNode : imports) {
             if (PositionUtil.isWithinLineRange(diagnosticLocation, importNode.lineRange())) {
@@ -113,7 +141,7 @@ public class DeleteNodeGenerator {
         throw new IllegalStateException("There should be an import node");
     }
 
-    private LineRange checkElseToDelete(Document document, int nodeStart, int nodeEnd) {
+    private static LineRange checkElseToDelete(Document document, int nodeStart, int nodeEnd) {
         ModulePartNode modulePartNode = document.syntaxTree().rootNode();
         NonTerminalNode node = modulePartNode.findNode(TextRange.from(nodeStart, nodeEnd - nodeStart)).parent();
         if (node != null && node.kind() == SyntaxKind.BLOCK_STATEMENT) {
