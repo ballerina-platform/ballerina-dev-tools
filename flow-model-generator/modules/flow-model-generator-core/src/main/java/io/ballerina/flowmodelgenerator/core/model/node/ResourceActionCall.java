@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -112,41 +113,40 @@ public class ResourceActionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)) {
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
-                    || paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                properties().custom()
-                        .metadata()
-                        .label(paramResult.name())
-                        .description(paramResult.description())
-                        .stepOut()
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                    .label(paramResult.name())
+                    .description(paramResult.description())
+                    .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1)
+                    .kind(paramResult.kind().name());
+
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                customPropBuilder
+                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else {
+                customPropBuilder
                         .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(new ArrayList<>())
-                        .placeholder(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
-            } else if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
-                properties().custom()
-                        .metadata()
-                        .label(paramResult.name())
-                        .description(paramResult.description())
-                        .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
+                        .value(paramResult.defaultValue());
             }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(paramResult.name());
         }
 
         String returnTypeName = function.returnType();

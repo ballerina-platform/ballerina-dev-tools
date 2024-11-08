@@ -151,7 +151,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         VIEW,
         INCLUSION,
         UNION,
-        FLAG
+        FLAG,
+        MAPPING_EXPRESSION_SET,
+        EXPRESSION_SET
     }
 
     public static ValueType valueTypeFrom(String s) {

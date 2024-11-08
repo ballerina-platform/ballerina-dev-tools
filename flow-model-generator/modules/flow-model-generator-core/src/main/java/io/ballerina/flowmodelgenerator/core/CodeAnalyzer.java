@@ -318,45 +318,35 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void addRemainingParamsToPropertyMap(LinkedHashMap<String, ParameterResult> funcParamMap) {
         for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
-
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
             ParameterResult paramResult = entry.getValue();
-
-            if (paramResult.kind() == Parameter.Kind.PARAM_FOR_TYPE_INFER) {
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
-                    || paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                customPropBuilder
-                        .metadata()
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
+            customPropBuilder
+                    .metadata()
                         .label(paramResult.name())
                         .description(paramResult.description())
                         .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(new ArrayList<>())
-                        .placeholder(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
-            } else if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
-                customPropBuilder
-                        .metadata()
-                        .label(paramResult.name())
-                        .description(paramResult.description())
-                        .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
+                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1)
+                    .kind(paramResult.kind().name());
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                customPropBuilder.value(new ArrayList<>());
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                customPropBuilder.value(new ArrayList<>());
+            } else {
+                customPropBuilder.value(paramResult.defaultValue());
             }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(paramResult.name());
         }
     }
 
@@ -418,10 +408,10 @@ class CodeAnalyzer extends NodeVisitor {
                     String value = paramValue != null ? paramValue.toSourceCode() : paramResult.defaultValue();
                     customPropBuilder
                             .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                            .type(Property.ValueType.EXPRESSION)
+                                .label(paramResult.name())
+                                .description(paramResult.description())
+                                .stepOut()
+                            .type(getPropertyTypeFromParamKind(paramResult.kind()))
                             .typeConstraint(paramResult.type())
                             .value(value)
                             .placeholder(paramResult.defaultValue())
@@ -441,10 +431,10 @@ class CodeAnalyzer extends NodeVisitor {
                 funcParamMap.remove(restParamSymbol.getName().get());
                 customPropBuilder
                         .metadata()
-                        .label(restParamResult.name())
-                        .description(restParamResult.description())
-                        .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
+                            .label(restParamResult.name())
+                            .description(restParamResult.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
                         .value(restArgs)
                         .placeholder(restParamResult.defaultValue())
@@ -489,10 +479,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     : paramResult.defaultValue();
                             customPropBuilder
                                     .metadata()
-                                    .label(paramResult.name())
-                                    .description(paramResult.description())
-                                    .stepOut()
-                                    .type(Property.ValueType.EXPRESSION)
+                                        .label(paramResult.name())
+                                        .description(paramResult.description())
+                                        .stepOut()
+                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
@@ -515,10 +505,10 @@ class CodeAnalyzer extends NodeVisitor {
                                         : paramResult.defaultValue();
                                 customPropBuilder
                                         .metadata()
-                                        .label(paramResult.name())
-                                        .description(paramResult.description())
-                                        .stepOut()
-                                        .type(Property.ValueType.EXPRESSION)
+                                            .label(paramResult.name())
+                                            .description(paramResult.description())
+                                            .stepOut()
+                                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                         .typeConstraint(paramResult.type())
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
@@ -545,10 +535,10 @@ class CodeAnalyzer extends NodeVisitor {
                             String value = paramValue.toSourceCode();
                             customPropBuilder
                                     .metadata()
-                                    .label(paramResult.name())
-                                    .description(paramResult.description())
-                                    .stepOut()
-                                    .type(Property.ValueType.EXPRESSION)
+                                        .label(paramResult.name())
+                                        .description(paramResult.description())
+                                        .stepOut()
+                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
@@ -572,10 +562,10 @@ class CodeAnalyzer extends NodeVisitor {
                 String value = paramValue != null ? paramValue.toSourceCode() : paramResult.defaultValue();
                 customPropBuilder
                         .metadata()
-                        .label(paramResult.name())
-                        .description(paramResult.description())
-                        .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .value(value)
                         .placeholder(paramResult.defaultValue())
@@ -597,10 +587,10 @@ class CodeAnalyzer extends NodeVisitor {
                         nodeBuilder.properties().custom();
                 customPropBuilder
                         .metadata()
-                        .label(includedRecordRest.name())
-                        .description(includedRecordRest.description())
-                        .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
+                            .label(includedRecordRest.name())
+                            .description(includedRecordRest.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
@@ -679,6 +669,15 @@ class CodeAnalyzer extends NodeVisitor {
             handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
         }
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+    }
+
+    private Property.ValueType getPropertyTypeFromParamKind(Parameter.Kind kind) {
+        if (kind == Parameter.Kind.REST_PARAMETER) {
+            return Property.ValueType.EXPRESSION_SET;
+        } else if (kind == Parameter.Kind.INCLUDED_RECORD_REST) {
+            return Property.ValueType.MAPPING_EXPRESSION_SET;
+        }
+        return Property.ValueType.EXPRESSION;
     }
 
     @Override
