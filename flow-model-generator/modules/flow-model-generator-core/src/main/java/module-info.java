@@ -35,4 +35,5 @@ module io.ballerina.flow.model.generator {
 
     exports io.ballerina.flowmodelgenerator.core;
     exports io.ballerina.flowmodelgenerator.core.utils;
+    exports io.ballerina.flowmodelgenerator.core.db.model;
 }

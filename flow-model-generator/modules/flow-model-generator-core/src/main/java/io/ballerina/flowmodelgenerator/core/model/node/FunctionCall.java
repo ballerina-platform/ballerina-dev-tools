@@ -133,7 +133,7 @@ public class FunctionCall extends NodeBuilder {
             });
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
-                    .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+                    .map(returnTypeDesc -> errorTypeSymbol.subtypeOf(returnTypeDesc) ? 1 : 0).orElse(0);
             if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
                     context.filePath(), context.codedata().lineRange())) {
                 properties().checkError(true);

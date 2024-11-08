@@ -34,7 +34,6 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
@@ -121,7 +120,6 @@ import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -271,7 +269,6 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
-        Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
         startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -298,27 +295,105 @@ class CodeAnalyzer extends NodeVisitor {
         if (functionResult.isPresent()) { // function details are indexed
             handleRemoteResourceArgs(argumentNodes, dbManager, functionResult.get(),
                     methodSymbol, positionalArgs, namedArgValueMap);
-            return;
         } else {
-            // this function coming from another model
-            // TODO: handle this case
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
         }
-
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
 
     private void handleRemoteResourceArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                           DatabaseManager dbManager,
                                           FunctionResult functionResult,
-                                          MethodSymbol methodSymbol,
+                                          FunctionSymbol methodSymbol,
                                           Queue<Node> positionalArgs,
                                           Map<String, Node> namedArgValueMap) {
         LinkedHashMap<String, ParameterResult> funcParamMap = dbManager
                 .getFunctionParametersAsMap(functionResult.functionId());
 
         FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+    }
 
+    private void addRemainingParamsToPropertyMap(LinkedHashMap<String, ParameterResult> funcParamMap) {
+        for (Map.Entry<String, ParameterResult>  entry : funcParamMap.entrySet()) {
+
+            Property.Builder<NodeBuilder.PropertiesBuilder<NodeBuilder>> customPropBuilder =
+                    nodeBuilder.properties().custom();
+            ParameterResult paramResult = entry.getValue();
+
+            if (paramResult.kind() == Parameter.Kind.PARAM_FOR_TYPE_INFER) {
+                continue;
+            }
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
+                    || paramResult.kind() == Parameter.Kind.REST) {
+                customPropBuilder
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(new ArrayList<>())
+                        .placeholder(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name())
+                        .stepOut()
+                        .addProperty(paramResult.name());
+            } else if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
+                    customPropBuilder
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .typeConstraint(paramResult.type())
+                        .value(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name())
+                        .stepOut()
+                        .addProperty(paramResult.name());
+            }
+        }
+    }
+
+    private void calculateFunctionArgs(Map<String, Node> namedArgValueMap,
+                                       Queue<Node> positionalArgs,
+                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        if (argumentNodes != null) {
+            for (FunctionArgumentNode argument : argumentNodes) {
+                switch (argument.kind()) {
+                    case NAMED_ARG -> {
+                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                namedArgument.expression());
+                    }
+                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                    default -> {
+                        // Ignore the default case
+                    }
+                }
+            }
+        }
+    }
+
+    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                                     FunctionSymbol functionSymbol) {
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+        LinkedHashMap<String, ParameterResult> funcParamMap = CommonUtils.buildFunctionParamResultMap(
+                functionSymbol, semanticModel);
+        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+    }
+
+    private void buildPropsFromFuncCallArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                            FunctionTypeSymbol functionTypeSymbol,
+                                            LinkedHashMap<String, ParameterResult> funcParamMap,
+                                            Queue<Node> positionalArgs, Map<String, Node> namedArgValueMap) {
         if (functionTypeSymbol.restParam().isPresent()) {
             ParameterSymbol restParamSymbol = functionTypeSymbol.restParam().get();
             Optional<List<ParameterSymbol>> paramsOptional = functionTypeSymbol.params();
@@ -385,13 +460,13 @@ class CodeAnalyzer extends NodeVisitor {
                         .addProperty(restParamResult.name());
             }
             // iterate over functionParamMap
-            addRemainingParamsToPopertyMap(funcParamMap);
+            addRemainingParamsToPropertyMap(funcParamMap);
             return;
         }
         Optional<List<ParameterSymbol>> paramsOptional = functionTypeSymbol.params();
         if (paramsOptional.isPresent()) {
             List<ParameterSymbol> paramsList = paramsOptional.get();
-            int argCount = argumentNodes.size();
+            int argCount = positionalArgs.size();
 
             final List<LinkedHashMap<String, String>> includedRecordRestArgs = new ArrayList<>();
             for (int i = 0; i < paramsList.size(); i++) {
@@ -418,9 +493,9 @@ class CodeAnalyzer extends NodeVisitor {
                                     : paramResult.defaultValue();
                             customPropBuilder
                                     .metadata()
-                                        .label(paramResult.name())
-                                        .description(paramResult.description())
-                                        .stepOut()
+                                    .label(paramResult.name())
+                                    .description(paramResult.description())
+                                    .stepOut()
                                     .type(Property.ValueType.EXPRESSION)
                                     .typeConstraint(paramResult.type())
                                     .value(value)
@@ -432,10 +507,14 @@ class CodeAnalyzer extends NodeVisitor {
                                     .addProperty(paramResult.name(), paramValue);
                         } else {
                             if (funcParamMap.containsKey(argName)) { // included record attribute
-                                funcParamMap.remove(parameterSymbol.getName().get());
-                                paramResult = funcParamMap.get(parameterSymbol.getName().get());
+                                paramResult = funcParamMap.get(argName);
+                                funcParamMap.remove(argName);
                                 Property.Builder<NodeBuilder.PropertiesBuilder<NodeBuilder>> customPropBuilder =
                                         nodeBuilder.properties().custom();
+                                if (paramValue == null) {
+                                    paramValue = namedArgValueMap.get(argName);
+                                    namedArgValueMap.remove(argName);
+                                }
                                 String value = paramValue != null ? paramValue.toSourceCode()
                                         : paramResult.defaultValue();
                                 customPropBuilder
@@ -535,85 +614,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                         .addProperty(includedRecordRest.name());
             }
-            addRemainingParamsToPopertyMap(funcParamMap);
-        }
-    }
-
-    private void addRemainingParamsToPopertyMap(LinkedHashMap<String, ParameterResult> funcParamMap) {
-        for (Map.Entry<String, ParameterResult>  entry : funcParamMap.entrySet()) {
-
-            Property.Builder<NodeBuilder.PropertiesBuilder<NodeBuilder>> customPropBuilder =
-                    nodeBuilder.properties().custom();
-            ParameterResult paramResult = entry.getValue();
-
-            if (paramResult.kind() == Parameter.Kind.PARAM_FOR_TYPE_INFER) {
-                continue;
-            }
-
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
-                    || paramResult.kind() == Parameter.Kind.REST) {
-                customPropBuilder
-                        .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(new ArrayList<>())
-                        .placeholder(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
-            } else if (paramResult.kind() != Parameter.Kind.INCLUDED_RECORD) {
-                    customPropBuilder
-                        .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(paramResult.defaultValue())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
-                        .stepOut()
-                        .addProperty(paramResult.name());
-            }
-        }
-    }
-
-    private void calculateFunctionArgs(Map<String, Node> namedArgValueMap,
-                                       Queue<Node> positionalArgs,
-                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        if (argumentNodes != null) {
-            for (FunctionArgumentNode argument : argumentNodes) {
-                switch (argument.kind()) {
-                    case NAMED_ARG -> {
-                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
-                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                namedArgument.expression());
-                    }
-                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
-                    default -> {
-                        // Ignore the default case
-                    }
-                }
-            }
-        }
-    }
-
-    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                                     FunctionSymbol methodSymbol,
-                                                     Map<String, String> documentationMap) {
-        Optional<List<ParameterSymbol>> funcParams = methodSymbol.typeDescriptor().params();
-        if (funcParams.isPresent()) {
-            List<ParameterSymbol> params = funcParams.get().stream()
-                    .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                    .toList();
-            nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, documentationMap, functionSymbol.external());
+            addRemainingParamsToPropertyMap(funcParamMap);
         }
     }
 
@@ -680,16 +681,10 @@ class CodeAnalyzer extends NodeVisitor {
         if (functionResult.isPresent()) { // function details are indexed
             handleRemoteResourceArgs(argumentNodes, dbManager, functionResult.get(),
                     methodSymbol, positionalArgs, namedArgValueMap);
-            return;
         } else {
-            // this function coming from another model
-            // TODO: handle this case
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
         }
-
-        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
-
     }
 
     @Override
@@ -1020,6 +1015,23 @@ class CodeAnalyzer extends NodeVisitor {
                                 CommonUtils.getDocument(project, location).syntaxTree()))
                         .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
             }
+
+            DatabaseManager dbManager = DatabaseManager.getInstance();
+            ModuleID id = functionSymbol.getModule().get().id();
+            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(),id.moduleName(),
+                    functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+            calculateFunctionArgs(namedArgValueMap, positionalArgs, functionCallExpressionNode.arguments());
+
+            if (functionResult.isPresent()) { // function details are indexed
+                handleRemoteResourceArgs(functionCallExpressionNode.arguments(), dbManager, functionResult.get(),
+                        functionSymbol, positionalArgs, namedArgValueMap);
+            } else {
+                handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(), functionSymbol);
+            }
+            handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
         }
 
         nodeBuilder
