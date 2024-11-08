@@ -66,8 +66,8 @@ public class DeleteNodeHandler {
     }
 
     @Deprecated
-    public JsonElement getTextEditsToDeletedNode(JsonElement node, Document document, Project project) {
-        LineRange lineRange = getNodeLineRange(node);
+    public JsonElement getTextEditsToDeletedNode(Document document, Project project) {
+        LineRange lineRange = nodeToDelete.codedata().lineRange();
         return getTextEditsToDeletedNode(lineRange, filePath, document, project);
     }
 

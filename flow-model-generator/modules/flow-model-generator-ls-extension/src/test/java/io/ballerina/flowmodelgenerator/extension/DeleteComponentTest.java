@@ -20,10 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -36,7 +33,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Tests for the flow model source generator service.
