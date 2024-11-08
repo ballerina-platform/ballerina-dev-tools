@@ -6,7 +6,7 @@ client class MyClient {
     }
 }
 
-http:Client moduleCl = check new ("http://localhost:9090");
+http:Client moduleCl = check new ("http://localhost:9090", {});
 MyClient myModuleCl = new;
 MyClient myExplicitModuleCl = new MyClient();
 //TODO: Support union types: MyClient|http:Client unionCl = new MyClient();
@@ -15,7 +15,7 @@ public function main() returns error? {
     json moduleVal = check moduleCl->get("/hello");
     myModuleCl->myRemoteFn();
 
-    http:Client localCl = check new ("http://localhost:8080");
+    http:Client localCl = check new ("http://localhost:8080", {});
     json localVal = check localCl->get("/hello");
     MyClient myLocalCl = new;
     myLocalCl->myRemoteFn();

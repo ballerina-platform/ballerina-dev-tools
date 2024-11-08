@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
+          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\", {});\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -126,17 +126,6 @@
             "value": "moduleVal",
             "optional": false,
             "editable": true,
-            "advanced": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleVal",
-            "optional": false,
-            "editable": true,
             "advanced": false
           },
           "type": {
@@ -158,7 +147,8 @@
         "id": "46777",
         "metadata": {
           "label": "myRemoteFn",
-          "description": ""
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -197,19 +187,13 @@
         "flags": 0
       },
       {
-        "id": "48794",
+        "id": "48798",
         "metadata": {
-          "label": "New Connection",
-          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
-          "version": "2.12.2",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -218,59 +202,27 @@
             },
             "endLine": {
               "line": 17,
-              "offset": 62
+              "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\");"
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"http://localhost:8080\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
+            "value": "check new (\"http://localhost:8080\", {})",
+            "optional": true,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Connection Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -281,7 +233,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Connection Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -292,7 +244,7 @@
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "49773",
@@ -385,17 +337,6 @@
             "value": "localVal",
             "optional": false,
             "editable": true,
-            "advanced": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "localVal",
-            "optional": false,
-            "editable": true,
             "advanced": false
           },
           "type": {
@@ -477,7 +418,8 @@
         "id": "51736",
         "metadata": {
           "label": "myRemoteFn",
-          "description": ""
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -555,7 +497,7 @@
     ],
     "connections": [
       {
-        "id": "39739",
+        "id": "39743",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -576,10 +518,10 @@
             },
             "endLine": {
               "line": 8,
-              "offset": 59
+              "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\");"
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -603,7 +545,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -611,10 +553,13 @@
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "config": {
             "metadata": {
@@ -622,9 +567,13 @@
               "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "http:ClientConfiguration",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
           },
           "variable": {
             "metadata": {
