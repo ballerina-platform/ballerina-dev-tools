@@ -252,7 +252,7 @@ class IndexGenerator {
 
         int functionId =
                 DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                        functionType.name(), pathBuilder.toString(), returnError);
+                        functionType.name(), pathBuilder, returnError);
 
         // Handle the parameters of the function
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
