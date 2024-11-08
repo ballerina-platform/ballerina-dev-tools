@@ -38,6 +38,7 @@
         },
         "valueType": "TYPE",
         "value": "github:ManifestConversions",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false
@@ -58,12 +59,10 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
         "valueTypeConstraint": "github:Client",
-        "value": "",
-        "placeholder": "githubClient",
+        "value": "githubClient",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "resourcePath": {
@@ -86,7 +85,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

@@ -312,7 +312,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "a",
@@ -360,7 +360,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "s",
@@ -408,7 +408,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "j",

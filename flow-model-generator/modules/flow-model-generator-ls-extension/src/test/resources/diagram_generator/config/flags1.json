@@ -38,7 +38,8 @@
       {
         "id": "35860",
         "metadata": {
-          "label": "fnWithError"
+          "label": "fnWithError",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -91,7 +92,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           }
         },
         "flags": 1
@@ -99,7 +100,8 @@
       {
         "id": "36857",
         "metadata": {
-          "label": "fnWithError"
+          "label": "fnWithError",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -152,7 +154,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           }
         },
         "flags": 2
@@ -160,7 +162,8 @@
       {
         "id": "38856",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "fnWithErrorAndValue",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -213,7 +216,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -244,7 +247,8 @@
       {
         "id": "39853",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "fnWithErrorAndValue",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -297,7 +301,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -328,7 +332,8 @@
       {
         "id": "40842",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "fnWithErrorAndValue",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -381,7 +386,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -412,7 +417,8 @@
       {
         "id": "41839",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "fnWithErrorAndValue",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -465,7 +471,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {

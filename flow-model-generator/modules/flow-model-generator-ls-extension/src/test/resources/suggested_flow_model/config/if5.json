@@ -280,7 +280,8 @@
                       {
                         "id": "44051",
                         "metadata": {
-                          "label": "print"
+                          "label": "print",
+                          "description": ""
                         },
                         "codedata": {
                           "node": "FUNCTION_CALL",
@@ -363,7 +364,8 @@
                       {
                         "id": "46034",
                         "metadata": {
-                          "label": "print"
+                          "label": "print",
+                          "description": ""
                         },
                         "codedata": {
                           "node": "FUNCTION_CALL",
@@ -430,7 +432,8 @@
               {
                 "id": "47069",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -513,7 +516,8 @@
               {
                 "id": "48889",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",

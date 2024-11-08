@@ -379,7 +379,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -449,7 +449,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -596,7 +596,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {

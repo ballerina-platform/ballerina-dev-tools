@@ -49,6 +49,7 @@
         },
         "valueType": "TYPE",
         "value": "string|()",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false
@@ -85,7 +86,7 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

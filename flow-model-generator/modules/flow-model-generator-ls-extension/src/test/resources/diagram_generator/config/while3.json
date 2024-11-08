@@ -238,17 +238,6 @@
                     "editable": false,
                     "advanced": false
                   },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "response",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "path": {
                     "metadata": {
                       "label": "path",
@@ -277,6 +266,17 @@
                     },
                     "valueType": "FLAG",
                     "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "response",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -333,7 +333,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -440,7 +440,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -521,7 +521,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {

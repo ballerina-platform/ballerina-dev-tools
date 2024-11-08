@@ -132,7 +132,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "i",
@@ -180,7 +180,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "_",

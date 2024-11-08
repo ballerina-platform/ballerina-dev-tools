@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import io.ballerina.projects.ModuleDescriptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,10 +106,10 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         private Repeatable repeatable;
 
         protected Codedata.Builder<Builder> codedataBuilder;
-        protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
+        protected FormBuilder<Builder> formBuilder;
         private SemanticModel semanticModel;
         private DiagnosticHandler diagnosticHandler;
-        private String defaultModuleName;
+        private ModuleDescriptor moduleDescriptor;
 
         public Builder() {
             children = new ArrayList<>();
@@ -124,8 +125,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public Builder defaultModuleName(String defaultModuleName) {
-            this.defaultModuleName = defaultModuleName;
+        public Builder defaultModuleName(ModuleDescriptor moduleDescriptor) {
+            this.moduleDescriptor = moduleDescriptor;
             return this;
         }
 
@@ -154,12 +155,12 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public NodeBuilder.PropertiesBuilder<Builder> properties() {
-            if (this.propertiesBuilder == null) {
-                this.propertiesBuilder =
-                        new NodeBuilder.PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
+        public FormBuilder<Builder> properties() {
+            if (this.formBuilder == null) {
+                this.formBuilder =
+                        new FormBuilder<>(semanticModel, diagnosticHandler, moduleDescriptor, this);
             }
-            return this.propertiesBuilder;
+            return this.formBuilder;
         }
 
         public Codedata.Builder<Builder> codedata() {
@@ -171,7 +172,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public Branch build() {
             return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(),
-                    repeatable, propertiesBuilder == null ? null : propertiesBuilder.build(), children);
+                    repeatable, formBuilder == null ? null : formBuilder.build(), children);
         }
     }
 }

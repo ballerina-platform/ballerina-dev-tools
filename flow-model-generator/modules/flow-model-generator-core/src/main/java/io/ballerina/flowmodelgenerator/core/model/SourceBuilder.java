@@ -73,7 +73,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable() {
-        return newVariable(Property.DATA_TYPE_KEY);
+        return newVariable(Property.TYPE_KEY);
     }
 
     public SourceBuilder newVariable(String typeKey) {
@@ -181,7 +181,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder typedBindingPattern() {
-        return typedBindingPattern(Property.DATA_TYPE_KEY);
+        return typedBindingPattern(Property.TYPE_KEY);
     }
 
     public SourceBuilder typedBindingPattern(String typeKey) {

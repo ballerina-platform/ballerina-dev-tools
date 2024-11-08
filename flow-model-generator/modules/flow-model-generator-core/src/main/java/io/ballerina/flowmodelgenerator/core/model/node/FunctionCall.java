@@ -102,11 +102,18 @@ public class FunctionCall extends NodeBuilder {
                     if (name.isEmpty()) {
                         continue;
                     }
-                    boolean optional = param.paramKind() != ParameterKind.REQUIRED;
-                    properties().custom(name.get(), name.get(), "", Property.ValueType.EXPRESSION,
-                            param.typeDescriptor().signature(),
-                            DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""),
-                            optional, optional);
+                    properties().custom()
+                            .metadata()
+                                .label(name.get())
+                                .description("")
+                                .stepOut()
+                            .type(Property.ValueType.EXPRESSION)
+                            .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleDescriptor))
+                            .value(DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""))
+                            .defaultable(param.paramKind() == ParameterKind.DEFAULTABLE)
+                            .editable()
+                            .stepOut()
+                            .addProperty(name.get());
                 }
             }
 
@@ -119,7 +126,7 @@ public class FunctionCall extends NodeBuilder {
                 }
                 properties()
                         .type(returnTypeName, editable)
-                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
             });
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
@@ -189,7 +196,7 @@ public class FunctionCall extends NodeBuilder {
             }
             properties()
                     .type(returnTypeName, editable)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
         if (function.returnError() == 1) {
@@ -210,9 +217,17 @@ public class FunctionCall extends NodeBuilder {
             }
             String attributeName = entry.getKey();
             String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
-            nodeBuilder.properties().custom(attributeName, attributeName, doc, Property.ValueType.EXPRESSION,
-                    recordFieldSymbol.typeDescriptor().getName().orElse(""), "",
-                    recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional());
+            nodeBuilder.properties().custom()
+                    .metadata()
+                        .label(attributeName)
+                        .description(doc)
+                        .stepOut()
+                    .type(Property.ValueType.EXPRESSION)
+                    .typeConstraint(recordFieldSymbol.typeDescriptor().getName().orElse(""))
+                    .value("")
+                    .optional(recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional())
+                    .stepOut()
+                    .addProperty(attributeName);
         }
     }
 
@@ -232,7 +247,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY))
                     .textEdit(false)
                     .acceptImport()
                     .build();

@@ -18,9 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -46,6 +48,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.Location;
@@ -93,24 +96,24 @@ public class CommonUtils {
     /**
      * Retrieves the type signature of the given type symbol.
      *
-     * @param semanticModel     the semantic model
-     * @param typeSymbol        the type symbol
-     * @param ignoreError       whether to ignore errors
-     * @param defaultModuleName the default module name
+     * @param semanticModel    the semantic model
+     * @param typeSymbol       the type symbol
+     * @param ignoreError      whether to ignore errors
+     * @param moduleDescriptor the default module descriptor
      * @return the type signature
-     * @see #getTypeSignature(TypeSymbol, String)
+     * @see #getTypeSignature(TypeSymbol, ModuleDescriptor)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
-                                          String defaultModuleName) {
+                                          ModuleDescriptor moduleDescriptor) {
         if (typeSymbol.typeKind() == TypeDescKind.UNION) {
             UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
             return unionTypeSymbol.memberTypeDescriptors().stream()
                     .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
+                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleDescriptor))
                     .reduce((s1, s2) -> s1 + "|" + s2)
-                    .orElse(getTypeSignature(unionTypeSymbol, defaultModuleName));
+                    .orElse(getTypeSignature(unionTypeSymbol, moduleDescriptor));
         }
-        return getTypeSignature(typeSymbol, defaultModuleName);
+        return getTypeSignature(typeSymbol, moduleDescriptor);
     }
 
     /**
@@ -120,21 +123,21 @@ public class CommonUtils {
      * @param typeSymbol    the type symbol
      * @param ignoreError   whether to ignore errors
      * @return the type signature
-     * @see #getTypeSignature(TypeSymbol, String)
+     * @see #getTypeSignature(TypeSymbol, ModuleDescriptor)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
-        return getTypeSignature(semanticModel, typeSymbol, ignoreError, ".");
+        return getTypeSignature(semanticModel, typeSymbol, ignoreError, null);
     }
 
     /**
      * Returns the processed type signature of the type symbol. It removes the organization and the package, and checks
      * if it is the default module which will remove the prefix.
      *
-     * @param typeSymbol        the type symbol
-     * @param defaultModuleName the default module name
+     * @param typeSymbol       the type symbol
+     * @param moduleDescriptor the default module name descriptor
      * @return the processed type signature
      */
-    public static String getTypeSignature(TypeSymbol typeSymbol, String defaultModuleName) {
+    public static String getTypeSignature(TypeSymbol typeSymbol, ModuleDescriptor moduleDescriptor) {
         String text = typeSymbol.signature();
         StringBuilder newText = new StringBuilder();
         Matcher matcher = FULLY_QUALIFIED_MODULE_ID_PATTERN.matcher(text);
@@ -151,7 +154,7 @@ public class CommonUtils {
 
             String typeName = matcher.group(4);
 
-            if (!modPart.equals(defaultModuleName)) {
+            if (!modPart.equals(moduleDescriptor.packageName().value())) {
                 newText.append(modPart);
                 newText.append(":");
             }
@@ -537,5 +540,32 @@ public class CommonUtils {
                     endToken.lineRange().startLine());
         }
         return node.lineRange();
+    }
+
+    /**
+     * Checks if the given symbol belongs to the default package.
+     *
+     * @param symbol           the symbol to check
+     * @param moduleDescriptor the module descriptor of the current module
+     * @return true if the symbol belongs to the default package, false otherwise
+     * @see #isDefaultPackage(String, String, ModuleDescriptor)
+     */
+    public static boolean isDefaultPackage(Symbol symbol, ModuleDescriptor moduleDescriptor) {
+        Optional<ModuleID> moduleId = symbol.getModule().map(ModuleSymbol::id);
+        return moduleId.filter(
+                moduleID -> isDefaultPackage(moduleID.orgName(), moduleID.moduleName(), moduleDescriptor)).isPresent();
+    }
+
+    /**
+     * Checks if the given module is the default package.
+     *
+     * @param orgName          the organization name
+     * @param packageName      the package name
+     * @param moduleDescriptor the module descriptor of the current module
+     * @return true if the module is the default package, false otherwise
+     */
+    public static boolean isDefaultPackage(String orgName, String packageName, ModuleDescriptor moduleDescriptor) {
+        return (orgName.equals(moduleDescriptor.org().value()) &&
+                packageName.equals(moduleDescriptor.packageName().value()));
     }
 }

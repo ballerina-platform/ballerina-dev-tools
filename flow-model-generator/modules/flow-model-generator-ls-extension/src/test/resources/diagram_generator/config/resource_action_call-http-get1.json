@@ -117,7 +117,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -216,7 +216,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -315,7 +315,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -414,7 +414,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -513,7 +513,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -613,7 +613,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -712,7 +712,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -811,7 +811,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -879,7 +879,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {

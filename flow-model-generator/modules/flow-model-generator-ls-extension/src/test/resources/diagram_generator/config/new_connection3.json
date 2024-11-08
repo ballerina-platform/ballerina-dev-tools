@@ -86,7 +86,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -184,7 +184,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -282,7 +282,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
@@ -369,7 +369,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
@@ -456,7 +456,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -486,14 +486,15 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Variable Name",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "serviceHttpCl",
@@ -553,7 +554,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
@@ -572,14 +573,15 @@
             },
             "valueType": "TYPE",
             "value": "redis:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Variable Name",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "serviceRedisCl",

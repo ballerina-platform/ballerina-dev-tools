@@ -21,6 +21,7 @@ public function main(string c) {
     return i == s;
     c = "h";
     int i = 12;
+    str val = 4;
 }
 
 function fn() returns int {

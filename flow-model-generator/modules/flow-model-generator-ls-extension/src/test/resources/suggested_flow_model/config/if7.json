@@ -287,7 +287,8 @@
               {
                 "id": "43072",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -474,7 +475,8 @@
               {
                 "id": "49885",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -556,7 +558,8 @@
               {
                 "id": "51865",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",

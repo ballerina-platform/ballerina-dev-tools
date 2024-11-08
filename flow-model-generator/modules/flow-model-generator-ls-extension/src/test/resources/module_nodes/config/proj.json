@@ -54,7 +54,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -152,7 +152,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -250,7 +250,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "config": {
             "metadata": {
