@@ -60,7 +60,8 @@
               "offset": 80
             }
           },
-          "sourceCode": "json res1 = check foodClient->/western/apples.post(\"western red apple\");"
+          "sourceCode": "json res1 = check foodClient->/western/apples.post(\"western red apple\");",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -153,10 +154,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -176,7 +177,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -218,7 +219,8 @@
               "offset": 106
             }
           },
-          "sourceCode": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");"
+          "sourceCode": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -311,10 +313,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -334,7 +336,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -376,7 +378,8 @@
               "offset": 60
             }
           },
-          "sourceCode": "json res3 = check foodClient->/.post(\"green apple\");"
+          "sourceCode": "json res3 = check foodClient->/.post(\"green apple\");",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -469,10 +472,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -492,7 +495,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -534,7 +537,8 @@
               "offset": 84
             }
           },
-          "sourceCode": "var res4 = check foodClient->/apples.post(\"green apple\", targetType = json);"
+          "sourceCode": "var res4 = check foodClient->/apples.post(\"green apple\", targetType = json);",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -627,10 +631,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -650,7 +654,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -692,7 +696,8 @@
               "offset": 11
             }
           },
-          "sourceCode": "json res5 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
+          "sourceCode": "json res5 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -785,10 +790,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -808,7 +813,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -850,7 +855,8 @@
               "offset": 64
             }
           },
-          "sourceCode": "Food res6 = check foodClient->/apples.post(\"red apple\");"
+          "sourceCode": "Food res6 = check foodClient->/apples.post(\"red apple\");",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -943,10 +949,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -966,7 +972,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -1008,7 +1014,8 @@
               "offset": 84
             }
           },
-          "sourceCode": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");"
+          "sourceCode": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");",
+          "resourcePath": "[/path/to/resource]"
         },
         "returning": false,
         "properties": {
@@ -1101,10 +1108,10 @@
             "advanced": true,
             "kind": "PARAM_FOR_TYPE_INFER"
           },
-          "INCLUDED_RECORD_REST": {
+          "Additional Values": {
             "metadata": {
-              "label": "INCLUDED_RECORD_REST",
-              "description": ""
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:QueryParamType",
@@ -1124,7 +1131,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -1192,7 +1199,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -1219,7 +1226,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http1Settings": {
             "metadata": {
@@ -1232,7 +1239,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http2Settings": {
             "metadata": {
@@ -1245,7 +1252,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "timeout": {
             "metadata": {
@@ -1258,7 +1265,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "forwarded": {
             "metadata": {
@@ -1271,7 +1278,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "followRedirects": {
             "metadata": {
@@ -1284,7 +1291,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "poolConfig": {
             "metadata": {
@@ -1297,7 +1304,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cache": {
             "metadata": {
@@ -1310,7 +1317,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "compression": {
             "metadata": {
@@ -1323,7 +1330,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "auth": {
             "metadata": {
@@ -1336,7 +1343,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "circuitBreaker": {
             "metadata": {
@@ -1349,7 +1356,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "retryConfig": {
             "metadata": {
@@ -1362,7 +1369,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cookieConfig": {
             "metadata": {
@@ -1375,7 +1382,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "responseLimits": {
             "metadata": {
@@ -1388,7 +1395,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "proxy": {
             "metadata": {
@@ -1401,7 +1408,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "validation": {
             "metadata": {
@@ -1414,7 +1421,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "socketConfig": {
             "metadata": {
@@ -1427,7 +1434,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "secureSocket": {
             "metadata": {
@@ -1440,7 +1447,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {

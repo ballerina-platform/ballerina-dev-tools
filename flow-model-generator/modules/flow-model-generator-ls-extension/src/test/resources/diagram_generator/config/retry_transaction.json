@@ -82,6 +82,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",
@@ -208,6 +229,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",
@@ -430,6 +472,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",

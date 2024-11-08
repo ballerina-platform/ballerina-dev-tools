@@ -281,7 +281,7 @@ public class SourceBuilder {
             String kind = prop.kind();
 
             if (firstParamAdded) {
-                if ((kind.equals(Parameter.Kind.REST.name()))) {
+                if ((kind.equals(Parameter.Kind.REST_PARAMETER.name()))) {
                     if (hasRestParamValues(prop)) {
                         tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
@@ -303,9 +303,9 @@ public class SourceBuilder {
             if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
                     || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
                 tokenBuilder.expression(prop);
-            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_ATTRIBUTE.name())) {
+            } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
                 tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
-            } else if (kind.equals(Parameter.Kind.REST.name())) {
+            } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
                 addRestParamValues(prop);
             } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
                 addIncludedRecordRestParamValues(prop);

@@ -603,7 +603,7 @@ public class CommonUtils {
             paramType = getTypeSignatureForParams(semanticModel,
                     ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
                     true, moduleName);
-            kind = Parameter.Kind.REST;
+            kind = Parameter.Kind.REST_PARAMETER;
         } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
             paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
                     moduleName);
@@ -659,14 +659,14 @@ public class CommonUtils {
                 optional = 1;
             }
             funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                    Parameter.Kind.INCLUDED_RECORD_ATTRIBUTE, defaultValue, paramDescription, optional));
+                    Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = getTypeSignatureForParams(semanticModel, typeSymbol, true, moduleName);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
-                    Parameter.Kind.INCLUDED_RECORD_REST.name(), paramType,
-                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Key value pair for", 1));
+                    "Additional Values", paramType,
+                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1));
         });
     }
 

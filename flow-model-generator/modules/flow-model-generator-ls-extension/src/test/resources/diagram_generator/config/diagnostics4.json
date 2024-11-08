@@ -102,7 +102,7 @@
         "id": "37895",
         "metadata": {
           "label": "Data Mapper",
-           "description": "Map data from multiple variables to a record type"
+          "description": "Map data from multiple variables to a record type"
         },
         "codedata": {
           "node": "DATA_MAPPER",
@@ -334,16 +334,6 @@
         },
         "returning": false,
         "properties": {
-          "i": {
-            "metadata": {
-              "label": "i"
-            },
-            "valueType": "EXPRESSION",
-            "value": "10",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "view": {
             "metadata": {
               "label": "View",
@@ -364,6 +354,19 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "i": {
+            "metadata": {
+              "label": "i"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "10",
+            "placeholder": "0",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "variable": {
             "metadata": {
@@ -437,10 +440,13 @@
               "description": "The `json` value to be prettified"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
             "value": "{name: \"John\", age: 30}",
+            "placeholder": "()",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "indentation": {
             "metadata": {
@@ -448,9 +454,13 @@
               "description": "The number of spaces for an indentation"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "4",
+            "placeholder": "4",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
           },
           "variable": {
             "metadata": {

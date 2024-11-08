@@ -21,8 +21,8 @@ public class Parameter {
         REQUIRED,
         DEFAULTABLE,
         INCLUDED_RECORD,
-        REST,
-        INCLUDED_RECORD_ATTRIBUTE,
+        REST_PARAMETER,
+        INCLUDED_FIELD,
         PARAM_FOR_TYPE_INFER,
         INCLUDED_RECORD_REST
     }

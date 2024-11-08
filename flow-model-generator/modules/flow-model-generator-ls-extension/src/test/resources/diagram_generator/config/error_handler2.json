@@ -184,10 +184,13 @@
                       "description": "Request path"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
                     "value": "\"/western/oranges\"",
+                    "placeholder": "\"\"",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "kind": "REQUIRED"
                   },
                   "headers": {
                     "metadata": {
@@ -195,31 +198,38 @@
                       "description": "The entity headers"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "map<string|string[]>|()",
+                    "value": "()",
+                    "placeholder": "()",
                     "optional": true,
                     "editable": true,
+                    "advanced": true,
+                    "kind": "DEFAULTABLE"
+                  },
+                  "targetType": {
+                    "metadata": {
+                      "label": "targetType",
+                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "json",
+                    "value": "json",
+                    "placeholder": "json",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "kind": "PARAM_FOR_TYPE_INFER"
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
                     "advanced": true
-                  },
-                  "checkError": {
-                    "metadata": {
-                      "label": "Check Error",
-                      "description": "Trigger error flow"
-                    },
-                    "valueType": "FLAG",
-                    "value": true,
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "checkError": {
-                    "metadata": {
-                      "label": "Check Error",
-                      "description": "Trigger error flow"
-                    },
-                    "valueType": "FLAG",
-                    "value": true,
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -284,7 +294,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -354,7 +364,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -454,10 +464,13 @@
                               "description": "Resource path"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
                             "value": "\"/log\"",
+                            "placeholder": "\"\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "message": {
                             "metadata": {
@@ -465,10 +478,13 @@
                               "description": "An HTTP outbound request or any allowed payload"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "http:RequestMessage",
                             "value": "\"Error occurred while getting the response\"",
+                            "placeholder": "",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "kind": "REQUIRED"
                           },
                           "headers": {
                             "metadata": {
@@ -476,9 +492,13 @@
                               "description": "The entity headers"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "map<string|string[]>|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
                           },
                           "mediaType": {
                             "metadata": {
@@ -486,31 +506,38 @@
                               "description": "The MIME type header of the request entity"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string|()",
+                            "value": "()",
+                            "placeholder": "()",
                             "optional": true,
                             "editable": true,
+                            "advanced": true,
+                            "kind": "DEFAULTABLE"
+                          },
+                          "targetType": {
+                            "metadata": {
+                              "label": "targetType",
+                              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+                            },
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "json",
+                            "value": "json",
+                            "placeholder": "json",
+                            "optional": true,
+                            "editable": true,
+                            "advanced": true,
+                            "kind": "PARAM_FOR_TYPE_INFER"
+                          },
+                          "checkError": {
+                            "metadata": {
+                              "label": "Check Error",
+                              "description": "Trigger error flow"
+                            },
+                            "valueType": "FLAG",
+                            "value": true,
+                            "optional": false,
+                            "editable": true,
                             "advanced": true
-                          },
-                          "checkError": {
-                            "metadata": {
-                              "label": "Check Error",
-                              "description": "Trigger error flow"
-                            },
-                            "valueType": "FLAG",
-                            "value": true,
-                            "optional": false,
-                            "editable": true,
-                            "advanced": false
-                          },
-                          "checkError": {
-                            "metadata": {
-                              "label": "Check Error",
-                              "description": "Trigger error flow"
-                            },
-                            "valueType": "FLAG",
-                            "value": true,
-                            "optional": false,
-                            "editable": true,
-                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -575,7 +602,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -645,7 +672,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "msg",
@@ -717,7 +744,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": true
           },
           "url": {
             "metadata": {
@@ -744,7 +771,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http1Settings": {
             "metadata": {
@@ -757,7 +784,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http2Settings": {
             "metadata": {
@@ -770,7 +797,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "timeout": {
             "metadata": {
@@ -783,7 +810,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "forwarded": {
             "metadata": {
@@ -796,7 +823,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "followRedirects": {
             "metadata": {
@@ -809,7 +836,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "poolConfig": {
             "metadata": {
@@ -822,7 +849,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cache": {
             "metadata": {
@@ -835,7 +862,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "compression": {
             "metadata": {
@@ -848,7 +875,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "auth": {
             "metadata": {
@@ -861,7 +888,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "circuitBreaker": {
             "metadata": {
@@ -874,7 +901,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "retryConfig": {
             "metadata": {
@@ -887,7 +914,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cookieConfig": {
             "metadata": {
@@ -900,7 +927,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "responseLimits": {
             "metadata": {
@@ -913,7 +940,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "proxy": {
             "metadata": {
@@ -926,7 +953,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "validation": {
             "metadata": {
@@ -939,7 +966,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "socketConfig": {
             "metadata": {
@@ -952,7 +979,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "secureSocket": {
             "metadata": {
@@ -965,7 +992,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {

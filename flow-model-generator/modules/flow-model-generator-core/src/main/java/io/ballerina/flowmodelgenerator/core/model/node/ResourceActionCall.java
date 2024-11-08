@@ -117,7 +117,7 @@ public class ResourceActionCall extends NodeBuilder {
             }
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
-                    || paramResult.kind() == Parameter.Kind.REST) {
+                    || paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
                 properties().custom()
                         .metadata()
                         .label(paramResult.name())

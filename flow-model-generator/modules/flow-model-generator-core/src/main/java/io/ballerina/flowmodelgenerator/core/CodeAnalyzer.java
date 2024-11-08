@@ -327,7 +327,7 @@ class CodeAnalyzer extends NodeVisitor {
             }
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST
-                    || paramResult.kind() == Parameter.Kind.REST) {
+                    || paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
                 customPropBuilder
                         .metadata()
                         .label(paramResult.name())

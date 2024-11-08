@@ -92,20 +92,247 @@
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:8080\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
-          "config": {
+          "httpVersion": {
             "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`"
+              "label": "httpVersion",
+              "description": ""
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "\"2.0\"|\"1.1\"|\"1.0\"",
+            "value": "\"2.0\"",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|ballerina/http:2.12.2:KeepAlive keepAlive; ballerina/http:2.12.2:Chunking chunking; ballerina/http:2.12.2:ProxyConfig? proxy;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|boolean http2PriorKnowledge; int http2InitialWindowSize;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "value": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|boolean enabled; boolean isShared; int capacity; float evictionFactor; ballerina/http:2.12.2:CachingPolicy policy;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "\"AUTO\"|\"ALWAYS\"|\"NEVER\"",
+            "value": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|int maxStatusLineLength; int maxHeaderSize; int maxEntityBodySize;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|decimal connectTimeOut; int receiveBufferSize; int sendBufferSize; boolean tcpNoDelay; boolean socketReuse; boolean keepAlive;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "value": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {
@@ -184,15 +411,57 @@
             "editable": false,
             "advanced": true
           },
-          "config": {
+          "connection": {
             "metadata": {
-              "label": "config",
-              "description": "configuration for the connector"
+              "label": "connection",
+              "description": ""
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+            "value": "\"redis://localhost:6379\"",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "connectionPooling": {
+            "metadata": {
+              "label": "connectionPooling",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "isClusterConnection": {
+            "metadata": {
+              "label": "isClusterConnection",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "record {|ballerina/crypto:2.6.2:TrustStore|string cert?; ballerina/crypto:2.6.2:KeyStore|ballerinax/redis:3.0.2:CertKey key?; string[] protocols?; string[] ciphers?; ballerinax/redis:3.0.2:SslVerifyMode verifyMode; boolean startTls;|}",
+            "value": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {
@@ -403,7 +672,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http1Settings": {
             "metadata": {
@@ -416,7 +685,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http2Settings": {
             "metadata": {
@@ -429,7 +698,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "timeout": {
             "metadata": {
@@ -442,7 +711,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "forwarded": {
             "metadata": {
@@ -455,7 +724,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "followRedirects": {
             "metadata": {
@@ -468,7 +737,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "poolConfig": {
             "metadata": {
@@ -481,7 +750,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cache": {
             "metadata": {
@@ -494,7 +763,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "compression": {
             "metadata": {
@@ -507,7 +776,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "auth": {
             "metadata": {
@@ -520,7 +789,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "circuitBreaker": {
             "metadata": {
@@ -533,7 +802,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "retryConfig": {
             "metadata": {
@@ -546,7 +815,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cookieConfig": {
             "metadata": {
@@ -559,7 +828,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "responseLimits": {
             "metadata": {
@@ -572,7 +841,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "proxy": {
             "metadata": {
@@ -585,7 +854,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "validation": {
             "metadata": {
@@ -598,7 +867,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "socketConfig": {
             "metadata": {
@@ -611,7 +880,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "secureSocket": {
             "metadata": {
@@ -624,7 +893,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {
@@ -791,7 +1060,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "connectionPooling": {
             "metadata": {
@@ -804,7 +1073,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "isClusterConnection": {
             "metadata": {
@@ -817,7 +1086,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "secureSocket": {
             "metadata": {
@@ -830,7 +1099,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {

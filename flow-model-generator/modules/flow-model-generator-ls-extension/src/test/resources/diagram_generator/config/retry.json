@@ -82,6 +82,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",
@@ -184,6 +205,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",
@@ -382,6 +424,27 @@
                 },
                 "returning": false,
                 "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
                   "checkError": {
                     "metadata": {
                       "label": "Check Error",

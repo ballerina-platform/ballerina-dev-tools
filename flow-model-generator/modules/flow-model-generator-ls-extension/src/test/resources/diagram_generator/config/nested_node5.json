@@ -283,7 +283,7 @@
                                     "value": true,
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": true
                                   },
                                   "variable": {
                                     "metadata": {
@@ -474,7 +474,7 @@
                                     "value": true,
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": true
                                   },
                                   "variable": {
                                     "metadata": {
@@ -634,7 +634,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http1Settings": {
             "metadata": {
@@ -647,7 +647,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "http2Settings": {
             "metadata": {
@@ -660,7 +660,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "timeout": {
             "metadata": {
@@ -673,7 +673,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "forwarded": {
             "metadata": {
@@ -686,7 +686,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "followRedirects": {
             "metadata": {
@@ -699,7 +699,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "poolConfig": {
             "metadata": {
@@ -712,7 +712,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cache": {
             "metadata": {
@@ -725,7 +725,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "compression": {
             "metadata": {
@@ -738,7 +738,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "auth": {
             "metadata": {
@@ -751,7 +751,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "circuitBreaker": {
             "metadata": {
@@ -764,7 +764,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "retryConfig": {
             "metadata": {
@@ -777,7 +777,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "cookieConfig": {
             "metadata": {
@@ -790,7 +790,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "responseLimits": {
             "metadata": {
@@ -803,7 +803,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "proxy": {
             "metadata": {
@@ -816,7 +816,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "validation": {
             "metadata": {
@@ -829,7 +829,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "socketConfig": {
             "metadata": {
@@ -842,7 +842,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "secureSocket": {
             "metadata": {
@@ -855,7 +855,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD_ATTRIBUTE"
+            "kind": "INCLUDED_FIELD"
           },
           "variable": {
             "metadata": {
