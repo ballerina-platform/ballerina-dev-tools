@@ -657,7 +657,9 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public final void addProperty(String key, LineRange lineRange) {
-        diagnosticHandler.handle(propertyBuilder, lineRange, true);
+        if (lineRange != null) {
+            diagnosticHandler.handle(propertyBuilder, lineRange, true);
+        }
         Property property = propertyBuilder.build();
         this.nodeProperties.put(key, property);
     }
@@ -674,4 +676,3 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this.nodeProperties;
     }
 }
-

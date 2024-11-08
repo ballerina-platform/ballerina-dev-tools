@@ -60,6 +60,7 @@
         },
         "valueType": "TYPE",
         "value": "covid19:Client",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

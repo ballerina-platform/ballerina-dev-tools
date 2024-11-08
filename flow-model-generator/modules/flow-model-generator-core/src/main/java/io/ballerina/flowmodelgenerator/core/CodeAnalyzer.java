@@ -262,7 +262,7 @@ class CodeAnalyzer extends NodeVisitor {
         String description = documentation.flatMap(Documentation::description).orElse("");
         Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
-        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode)
+        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
                     .label(methodName)
@@ -640,7 +640,7 @@ class CodeAnalyzer extends NodeVisitor {
         };
 
         if (dataMappings.containsKey(functionName)) {
-            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode).properties()
+            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode.parent()).properties()
                     .functionName(functionName)
                     .output(this.typedBindingPatternNode);
             Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
@@ -652,7 +652,7 @@ class CodeAnalyzer extends NodeVisitor {
             }
             nodeBuilder.properties().view(dataMappings.get(functionName));
         } else {
-            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode);
+            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
             handleFunctionParams(arguments, functionSymbol, documentationMap);
             if (CommonUtils.isDefaultPackage(functionSymbol, moduleDescriptor)) {
                 functionSymbol.getLocation()

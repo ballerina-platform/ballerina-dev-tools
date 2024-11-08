@@ -185,7 +185,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         Optional<ModuleSymbol> module = symbol.getModule();
         if (module.isEmpty()) {
             codedata()
-                    .module(moduleDescriptor.name().packageName().value())
+                    .module(".")
                     .version("0.0.0");
             return this;
         }

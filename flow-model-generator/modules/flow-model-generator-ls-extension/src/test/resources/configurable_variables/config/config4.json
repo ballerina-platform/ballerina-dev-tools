@@ -30,6 +30,7 @@
           },
           "valueType": "TYPE",
           "value": "int",
+          "placeholder": "var",
           "optional": false,
           "editable": true,
           "advanced": false
@@ -88,6 +89,7 @@
           },
           "valueType": "TYPE",
           "value": "string",
+          "placeholder": "var",
           "optional": false,
           "editable": true,
           "advanced": false
@@ -146,6 +148,7 @@
           },
           "valueType": "TYPE",
           "value": "int",
+          "placeholder": "var",
           "optional": false,
           "editable": true,
           "advanced": false
@@ -204,6 +207,7 @@
           },
           "valueType": "TYPE",
           "value": "string",
+          "placeholder": "var",
           "optional": false,
           "editable": true,
           "advanced": false

@@ -97,6 +97,7 @@
         },
         "valueType": "TYPE",
         "value": "covid19:CovidCountry",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

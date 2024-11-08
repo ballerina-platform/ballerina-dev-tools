@@ -38,6 +38,7 @@
         },
         "valueType": "TYPE",
         "value": "github:ManifestConversions",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

@@ -49,6 +49,7 @@
         },
         "valueType": "TYPE",
         "value": "string|()",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

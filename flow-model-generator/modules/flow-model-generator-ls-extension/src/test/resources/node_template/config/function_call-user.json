@@ -39,6 +39,7 @@
         },
         "valueType": "TYPE",
         "value": "int",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

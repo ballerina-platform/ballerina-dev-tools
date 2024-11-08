@@ -46,6 +46,7 @@
         },
         "valueType": "TYPE",
         "value": "time:Utc",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

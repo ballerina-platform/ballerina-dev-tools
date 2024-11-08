@@ -48,6 +48,7 @@
         },
         "valueType": "TYPE",
         "value": "redis:Client",
+        "placeholder": "var",
         "optional": false,
         "editable": false,
         "advanced": false

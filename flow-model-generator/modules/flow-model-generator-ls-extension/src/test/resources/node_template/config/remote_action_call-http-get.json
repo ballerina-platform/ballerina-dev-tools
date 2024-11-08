@@ -62,6 +62,7 @@
         },
         "valueType": "TYPE",
         "value": "json",
+        "placeholder": "var",
         "optional": false,
         "editable": true,
         "advanced": false
