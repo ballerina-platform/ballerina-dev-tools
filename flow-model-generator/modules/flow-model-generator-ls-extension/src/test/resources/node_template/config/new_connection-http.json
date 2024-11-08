@@ -61,7 +61,7 @@
         "valueType": "TYPE",
         "value": "http:Client",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {

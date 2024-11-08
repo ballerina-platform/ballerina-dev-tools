@@ -49,7 +49,7 @@
         "valueType": "TYPE",
         "value": "redis:Client",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
