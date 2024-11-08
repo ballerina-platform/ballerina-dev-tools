@@ -512,5 +512,6 @@ class IndexGenerator {
         }
     }
 
-    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {}
+    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
+    }
 }

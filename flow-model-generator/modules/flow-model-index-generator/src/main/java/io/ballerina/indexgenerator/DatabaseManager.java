@@ -18,8 +18,6 @@
 
 package io.ballerina.indexgenerator;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
