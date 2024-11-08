@@ -112,7 +112,7 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1
@@ -235,7 +235,7 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1
@@ -454,7 +454,7 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1

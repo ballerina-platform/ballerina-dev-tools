@@ -92,7 +92,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           }
         },
         "flags": 1
@@ -154,7 +154,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           }
         },
         "flags": 2
@@ -216,7 +216,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -301,7 +301,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -386,7 +386,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -471,7 +471,7 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
