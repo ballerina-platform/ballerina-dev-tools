@@ -86,58 +86,49 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         this.moduleDescriptor = moduleDescriptor;
     }
 
-    public FormBuilder<T> variable(Node node, boolean implicit) {
+    public FormBuilder<T> data(Node node, Set<String> names) {
+        return data(node, false, names);
+    }
+
+    public FormBuilder<T> data(Node node, boolean implicit, Set<String> names) {
+        return data(node, implicit ? Property.IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_NAME, names);
+    }
+
+    public FormBuilder<T> data(Node node, String label, Set<String> names) {
         propertyBuilder
                 .metadata()
-                    .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_LABEL)
+                    .label(label)
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
-                .value(node == null ? "" : CommonUtils.getVariableName(node))
+                .value(node == null ? NameUtil.generateTypeName("var", names) :
+                        CommonUtils.getVariableName(node))
                 .type(Property.ValueType.IDENTIFIER)
                 .editable();
-
         addProperty(Property.VARIABLE_KEY, node);
+
         return this;
     }
 
-    public FormBuilder<T> variable(Node node) {
-        return variable(node, false);
-    }
-
-    public FormBuilder<T> type(Node node) {
+    public FormBuilder<T> data(String typeSignature, Set<String> names, String label) {
+        String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY)
+                ? NameUtil.generateTypeName("var", names)
+                : NameUtil.generateVariableName(typeSignature, names);
         propertyBuilder
                 .metadata()
-                    .label(Property.DATA_TYPE_LABEL)
-                    .description(Property.DATA_TYPE_DOC)
+                    .label(label)
+                    .description(Property.VARIABLE_DOC)
                     .stepOut()
-                .value(CommonUtils.getVariableName(node))
-                .type(Property.ValueType.TYPE)
+                .value(varName)
+                .type(Property.ValueType.IDENTIFIER)
                 .editable();
-
-        addProperty(Property.DATA_TYPE_KEY);
-        return this;
-    }
-
-    public FormBuilder<T> type(String typeName, boolean editable) {
-        propertyBuilder
-                .metadata()
-                    .label(Property.DATA_TYPE_LABEL)
-                    .description(Property.DATA_TYPE_DOC)
-                    .stepOut()
-                .value(typeName)
-                .type(Property.ValueType.TYPE);
-        if (editable) {
-            propertyBuilder.editable();
-        }
-
-        addProperty(Property.DATA_TYPE_KEY);
+        addProperty(Property.VARIABLE_KEY);
         return this;
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
         return implicit ?
-                dataVariable(node, Property.DATA_IMPLICIT_VARIABLE_LABEL, Property.DATA_IMPLICIT_TYPE_LABEL, names)
-                : dataVariable(node, Property.DATA_VARIABLE_LABEL, Property.DATA_TYPE_LABEL, names);
+                dataVariable(node, Property.IMPLICIT_VARIABLE_LABEL, Property.IMPLICIT_TYPE_LABEL, names)
+                : dataVariable(node, Property.VARIABLE_NAME, Property.TYPE_LABEL, names);
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, Set<String> names) {
@@ -146,12 +137,12 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, String variableDoc, String typeDoc,
                                        Set<String> names) {
-        data(node, variableDoc, names);
+        data(node == null ? null : node.bindingPattern(), variableDoc, names);
 
         propertyBuilder
                 .metadata()
                     .label(typeDoc)
-                    .description(Property.DATA_TYPE_DOC)
+                    .description(Property.TYPE_DOC)
                     .stepOut()
                 .placeholder("var")
                 .type(Property.ValueType.TYPE)
@@ -165,7 +156,37 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
         }
 
-        addProperty(Property.DATA_TYPE_KEY, node == null ? null : node.typeDescriptor());
+        addProperty(Property.TYPE_KEY, node == null ? null : node.typeDescriptor());
+        return this;
+    }
+
+    public FormBuilder<T> type(Node node) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_LABEL)
+                    .description(Property.TYPE_DOC)
+                    .stepOut()
+                .value(CommonUtils.getVariableName(node))
+                .type(Property.ValueType.TYPE)
+                .editable();
+
+        addProperty(Property.TYPE_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> type(String typeName, boolean editable) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_LABEL)
+                    .description(Property.TYPE_DOC)
+                    .stepOut()
+                .value(typeName)
+                .type(Property.ValueType.TYPE);
+        if (editable) {
+            propertyBuilder.editable();
+        }
+
+        addProperty(Property.TYPE_KEY);
         return this;
     }
 
@@ -174,8 +195,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
         propertyBuilder
                 .metadata()
-                    .label(Property.DATA_TYPE_LABEL)
-                    .description(Property.DATA_TYPE_DOC)
+                    .label(Property.TYPE_LABEL)
+                    .description(Property.TYPE_DOC)
                     .stepOut()
                 .type(Property.ValueType.TYPE)
                 .editable();
@@ -187,59 +208,20 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
             optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
                     CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
         }
-        addProperty(Property.DATA_TYPE_KEY);
-        return this;
-    }
-
-    public FormBuilder<T> data(TypedBindingPatternNode node, Set<String> names) {
-        return data(node, false, names);
-    }
-
-    public FormBuilder<T> data(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
-        return data(node, implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL, names);
-    }
-
-    public FormBuilder<T> data(TypedBindingPatternNode node, String label, Set<String> names) {
-        propertyBuilder
-                .metadata()
-                    .label(label)
-                    .description(Property.DATA_VARIABLE_DOC)
-                    .stepOut()
-                .value(node == null ? NameUtil.generateTypeName("var", names) :
-                        CommonUtils.getVariableName(node))
-                .type(Property.ValueType.IDENTIFIER)
-                .editable();
-        addProperty(Property.DATA_VARIABLE_KEY, node == null ? null : node.bindingPattern());
-
-        return this;
-    }
-
-    public FormBuilder<T> data(String typeSignature, Set<String> names, String label) {
-        String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY)
-                ? NameUtil.generateTypeName("var", names)
-                : NameUtil.generateVariableName(typeSignature, names);
-        propertyBuilder
-                .metadata()
-                    .label(label)
-                    .description(Property.DATA_VARIABLE_DOC)
-                    .stepOut()
-                .value(varName)
-                .type(Property.ValueType.IDENTIFIER)
-                .editable();
-        addProperty(Property.DATA_VARIABLE_KEY);
+        addProperty(Property.TYPE_KEY);
         return this;
     }
 
     public FormBuilder<T> defaultableName(String data) {
         propertyBuilder
                 .metadata()
-                    .label(Property.DATA_VARIABLE_LABEL)
-                    .description(Property.DATA_VARIABLE_DOC)
+                    .label(Property.VARIABLE_NAME)
+                    .description(Property.VARIABLE_DOC)
                     .stepOut()
                 .value(data)
                 .type(Property.ValueType.IDENTIFIER)
                 .editable();
-        addProperty(Property.DATA_VARIABLE_KEY);
+        addProperty(Property.VARIABLE_KEY);
         return this;
     }
 

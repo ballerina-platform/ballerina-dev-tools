@@ -129,7 +129,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",
@@ -307,7 +307,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
@@ -377,7 +377,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
@@ -526,7 +526,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",

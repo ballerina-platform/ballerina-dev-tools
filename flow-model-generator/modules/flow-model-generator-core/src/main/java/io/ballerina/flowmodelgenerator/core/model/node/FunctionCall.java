@@ -126,7 +126,7 @@ public class FunctionCall extends NodeBuilder {
                 }
                 properties()
                         .type(returnTypeName, editable)
-                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
             });
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
@@ -196,7 +196,7 @@ public class FunctionCall extends NodeBuilder {
             }
             properties()
                     .type(returnTypeName, editable)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
         if (function.returnError() == 1) {
@@ -247,7 +247,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY))
                     .textEdit(false)
                     .acceptImport()
                     .build();

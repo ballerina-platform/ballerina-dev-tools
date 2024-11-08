@@ -55,7 +55,7 @@ public class DataMapManager {
         Codedata codedata = flowNode.codedata();
         NodeKind nodeKind = codedata.node();
         if (nodeKind == NodeKind.VARIABLE) {
-            String dataType = flowNode.properties().get(Property.DATA_TYPE_KEY).toSourceCode();
+            String dataType = flowNode.properties().get(Property.TYPE_KEY).toSourceCode();
             Optional<Symbol> varSymbol = getSymbol(semanticModel.moduleSymbols(), dataType);
             if (varSymbol.isEmpty()) {
                 throw new IllegalStateException("Symbol cannot be found for : " + dataType);

@@ -81,7 +81,7 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(flowNode,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
+                                Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
@@ -154,9 +154,9 @@ public class ResourceActionCall extends NodeBuilder {
             }
             properties()
                     .type(returnTypeName, editable)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
-        
+
         properties().custom()
                 .metadata()
                 .label(Property.CONNECTION_LABEL)

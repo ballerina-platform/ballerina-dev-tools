@@ -492,8 +492,8 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Variable Name",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "serviceHttpCl",
@@ -578,8 +578,8 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Variable Name",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "serviceRedisCl",

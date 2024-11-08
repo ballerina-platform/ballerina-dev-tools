@@ -180,7 +180,7 @@ class CodeAnalyzer extends NodeVisitor {
         objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
         nodeBuilder.properties()
                 .type(objectFieldNode.typeName())
-                .variable(objectFieldNode.fieldName());
+                .data(objectFieldNode.fieldName(), false, new HashSet<>());
         endNode(objectFieldNode);
     }
 
@@ -340,7 +340,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                     .callExpression(expressionNode, Property.CONNECTION_KEY)
                     .resourcePath(fullPath)
-                    .variable(this.typedBindingPatternNode);
+                    .data(this.typedBindingPatternNode, false, new HashSet<>());
 
         handleFunctionParams(argumentNodes, methodSymbol, documentationMap);
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
@@ -569,12 +569,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .properties()
                         .expression(expression)
-                        .variable(assignmentStatementNode.varRef(), true);
+                        .data(assignmentStatementNode.varRef(), true, new HashSet<>());
         }
 
         if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload
                 || nodeBuilder instanceof BinaryData) {
-            nodeBuilder.properties().variable(assignmentStatementNode.varRef());
+            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>());
         }
         endNode(assignmentStatementNode);
     }

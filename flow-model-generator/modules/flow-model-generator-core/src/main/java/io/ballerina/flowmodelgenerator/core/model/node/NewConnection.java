@@ -70,7 +70,7 @@ public class NewConnection extends NodeBuilder {
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
                 .functionParameters(sourceBuilder.flowNode,
-                        Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY,
+                        Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
                                 Property.CHECK_ERROR_KEY));
 
         Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);

@@ -151,7 +151,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",
@@ -336,7 +336,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
@@ -431,7 +431,7 @@
                           "variable": {
                             "metadata": {
                               "label": "Name",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
@@ -602,7 +602,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",

@@ -57,50 +57,46 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         return (T) value;
     }
 
-    public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
-    public static final String VARIABLE_DOC = "Result Variable";
+    public static final String VARIABLE_NAME = "Variable Name";
+    public static final String IMPLICIT_VARIABLE_LABEL = "Name";
+    public static final String VARIABLE_DOC = "Name of the variable";
 
-    public static final String EXPRESSION_LABEL = "Expression";
+    public static final String TYPE_KEY = "type";
+    public static final String TYPE_LABEL = "Variable Type";
+    public static final String IMPLICIT_TYPE_LABEL = "Type";
+    public static final String TYPE_DOC = "Type of the variable";
+
     public static final String EXPRESSION_KEY = "expression";
+    public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_DOC = "Expression";
 
-    public static final String CONDITION_LABEL = "Condition";
     public static final String CONDITION_KEY = "condition";
+    public static final String CONDITION_LABEL = "Condition";
     public static final String CONDITION_DOC = "Boolean Condition";
 
-    public static final String IGNORE_LABEL = "Ignore";
     public static final String IGNORE_KEY = "ignore";
+    public static final String IGNORE_LABEL = "Ignore";
     public static final String IGNORE_DOC = "Ignore the error value";
 
-    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
     public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
+    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
     public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
 
-    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
     public static final String ON_ERROR_TYPE_KEY = "errorType";
+    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
     public static final String ON_ERROR_TYPE_DOC = "Type of the error";
 
-    public static final String COLLECTION_LABEL = "Collection";
     public static final String COLLECTION_KEY = "collection";
+    public static final String COLLECTION_LABEL = "Collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
-    public static final String DATA_VARIABLE_LABEL = "Variable Name";
-    public static final String DATA_IMPLICIT_VARIABLE_LABEL = "Name";
-    public static final String DATA_VARIABLE_KEY = "variable";
-    public static final String DATA_VARIABLE_DOC = "Name of the variable";
-
-    public static final String DATA_TYPE_LABEL = "Variable Type";
-    public static final String DATA_IMPLICIT_TYPE_LABEL = "Type";
-    public static final String DATA_TYPE_KEY = "type";
-    public static final String DATA_TYPE_DOC = "Type of the variable";
-
-    public static final String CHECK_ERROR_LABEL = "Check Error";
     public static final String CHECK_ERROR_KEY = "checkError";
+    public static final String CHECK_ERROR_LABEL = "Check Error";
     public static final String CHECK_ERROR_DOC = "Trigger error flow";
 
-    public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_KEY = "scope";
+    public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
     public static final String GLOBAL_SCOPE = "Global";
     public static final String SERVICE_SCOPE = "Service";
@@ -114,8 +110,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String RESOURCE_PATH_LABEL = "Resource Path";
     public static final String RESOURCE_PATH_DOC = "Resource Path";
 
-    public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_KEY = "comment";
+    public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_DOC = "Comment to describe the flow";
 
     public static final String PATTERNS_KEY = "patterns";

@@ -133,7 +133,7 @@ public class ConfigVariablesManager {
         if (value.isEmpty()) {
             value = "?";
         }
-        return String.format("configurable %s %s = %s;", properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
+        return String.format("configurable %s %s = %s;", properties.get(Property.TYPE_KEY).toSourceCode(),
                 properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
     }
 }

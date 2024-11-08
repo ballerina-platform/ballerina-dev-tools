@@ -79,7 +79,7 @@ public class ActionCall extends NodeBuilder {
                 .name(flowNode.metadata().label())
                 .stepOut()
                 .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
@@ -153,7 +153,7 @@ public class ActionCall extends NodeBuilder {
             }
             nodeBuilder.properties()
                     .type(returnTypeName, editable)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.DATA_VARIABLE_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
         nodeBuilder.properties().custom()
