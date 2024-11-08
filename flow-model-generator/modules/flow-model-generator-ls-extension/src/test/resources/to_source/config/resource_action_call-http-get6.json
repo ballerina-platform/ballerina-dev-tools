@@ -82,7 +82,7 @@
           "label": "params",
           "description": "The query parameters"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "optional": false,
         "editable": true,
         "advanced": false,

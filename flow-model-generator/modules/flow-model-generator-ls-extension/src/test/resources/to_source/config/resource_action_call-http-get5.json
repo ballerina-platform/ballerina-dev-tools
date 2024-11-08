@@ -27,7 +27,7 @@
         }
       },
       "sourceCode": "json res5 = check foodClient->/apples.get();",
-      "resourcePath": "[boolean|int|float|decimal|string...]"
+      "resourcePath": "/path/to/resource"
     },
     "returning": false,
     "properties": {
@@ -82,7 +82,7 @@
           "label": "params",
           "description": "The query parameters"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "optional": false,
         "editable": true,
         "advanced": false,

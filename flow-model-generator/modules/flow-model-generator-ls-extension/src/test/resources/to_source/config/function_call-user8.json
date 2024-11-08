@@ -34,7 +34,7 @@
           "label": "values",
           "description": "The value(s) to be printed"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "EXPRESSION_SET",
         "valueTypeConstraint": "io:Printable",
         "value": [
           "greeting + total.toString()"
@@ -43,7 +43,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "REST"
+        "kind": "REST_PARAMETER"
       }
     },
     "flags": 0

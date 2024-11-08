@@ -340,7 +340,7 @@ public class SourceBuilder {
             if (!values.isEmpty()) {
                 List<String> result = new ArrayList<>();
                 values.forEach(keyValuePair -> {
-                    String key = (String) keyValuePair.entrySet().iterator().next();
+                    String key = (String) keyValuePair.keySet().iterator().next();
                     result.add(key + " = " + keyValuePair.get(key));
                 });
                 tokenBuilder.expression(String.join(", ", result));

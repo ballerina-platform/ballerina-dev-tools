@@ -69,12 +69,12 @@
         "advanced": true,
         "kind": "DEFAULTABLE"
       },
-      "INCLUDED_RECORD_REST": {
+      "Additional Values": {
         "metadata": {
-          "label": "INCLUDED_RECORD_REST",
-          "description": ""
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "valueTypeConstraint": "log:Value",
         "value": [
           {
