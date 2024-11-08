@@ -19,23 +19,17 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -45,11 +39,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -112,7 +103,8 @@ public class FunctionCall extends NodeBuilder {
                                 .stepOut()
                             .type(Property.ValueType.EXPRESSION)
                             .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleDescriptor))
-                            .value(DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""))
+                            .value(DefaultValueGenerationUtil
+                                    .getDefaultValueForType(param.typeDescriptor()).orElse(""))
                             .defaultable(param.paramKind() == ParameterKind.DEFAULTABLE)
                             .editable()
                             .stepOut()
@@ -218,25 +210,6 @@ public class FunctionCall extends NodeBuilder {
         }
     }
 
-    protected static void addIncludedRecordToParams(TypeSymbol typeSymbol, NodeBuilder nodeBuilder) {
-        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) CommonUtils.getRawType(typeSymbol);
-        recordTypeSymbol.typeInclusions().forEach(includedType -> {
-            addIncludedRecordToParams(includedType, nodeBuilder);
-        });
-        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
-            RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
-            if (fieldType.typeKind() == TypeDescKind.NEVER) {
-                continue;
-            }
-            String attributeName = entry.getKey();
-            String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
-            nodeBuilder.properties().custom(attributeName, attributeName, doc, Property.ValueType.EXPRESSION,
-                    recordFieldSymbol.typeDescriptor().getName().orElse(""), "",
-                    recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional());
-        }
-    }
-
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
@@ -253,7 +226,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();

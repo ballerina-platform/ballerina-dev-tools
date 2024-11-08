@@ -25,9 +25,9 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
@@ -35,11 +35,11 @@ import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
@@ -59,7 +59,6 @@ import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.Location;
@@ -182,6 +181,63 @@ public class CommonUtils {
             newText.append(text.substring(nextStart));
         }
         return !newText.isEmpty() ? newText.toString() : text;
+    }
+
+
+    /**
+     * Returns the type signature of the given type symbol.
+     *
+     * @param typeSymbol the type symbol
+     * @return the type signature
+     */
+    public static String getTypeSignatureForParams(SemanticModel semanticModel, TypeSymbol typeSymbol,
+                                                   boolean ignoreError, String defaultModuleName) {
+        return switch (typeSymbol.typeKind()) {
+            case TYPE_REFERENCE -> {
+                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+                yield typeReferenceTypeSymbol.definition().getName()
+                        .map(name -> typeReferenceTypeSymbol.getModule()
+                                .flatMap(Symbol::getName)
+                                .filter(prefix -> !defaultModuleName.equals(prefix))
+                                .map(prefix -> prefix + ":" + name)
+                                .orElse(name))
+                        .orElseGet(() -> getTypeSignatureForParams(semanticModel,
+                                typeReferenceTypeSymbol.typeDescriptor(), ignoreError, defaultModuleName));
+            }
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                yield unionTypeSymbol.memberTypeDescriptors().stream()
+                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
+                        .reduce((s1, s2) -> s1 + "|" + s2)
+                        .orElse(unionTypeSymbol.signature());
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
+                        .reduce((s1, s2) -> s1 + " & " + s2)
+                        .orElse(intersectionTypeSymbol.signature());
+            }
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                yield typeDescTypeSymbol.typeParameter()
+                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
+                        .orElse(typeDescTypeSymbol.signature());
+            }
+            case ERROR -> {
+                Optional<String> moduleName = typeSymbol.getModule()
+                        .map(module -> {
+                            String prefix = module.id().modulePrefix();
+                            return "annotations".equals(prefix) ? null : prefix;
+                        });
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
+            }
+            default -> {
+                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
+            }
+        };
     }
 
     /**
@@ -494,7 +550,8 @@ public class CommonUtils {
         return sourceRawType.subtypeOf(target);
     }
 
-    public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol, SemanticModel semanticModel) {
+    public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol,
+                                                                                     SemanticModel semanticModel) {
         ParamForTypeInfer paramForTypeInfer = null;
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         if (functionSymbol.external()) {
@@ -528,10 +585,10 @@ public class CommonUtils {
     }
 
     private static void buildFunctionParamMap(ParameterSymbol paramSymbol,
-                                                        Map<String, String> documentationMap,
-                                                        SemanticModel semanticModel,
-                                                         LinkedHashMap<String, ParameterResult> funcParamMap,
-                                                        ParamForTypeInfer paramForTypeInfer) {
+                                              Map<String, String> documentationMap,
+                                              SemanticModel semanticModel,
+                                              LinkedHashMap<String, ParameterResult> funcParamMap,
+                                              ParamForTypeInfer paramForTypeInfer) {
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
@@ -543,18 +600,20 @@ public class CommonUtils {
         if (parameterKind == ParameterKind.REST) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
-            paramType = getTypeSignature(semanticModel,
+            paramType = getTypeSignatureForParams(semanticModel,
                     ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
                     true, moduleName);
             kind = Parameter.Kind.REST;
         } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
-            paramType = getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true, moduleName);
+            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
+                    moduleName);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
             kind = Parameter.Kind.INCLUDED_RECORD;
             buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
                     semanticModel, moduleName, funcParamMap);
         } else if (parameterKind == ParameterKind.REQUIRED) {
-            paramType = getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true, moduleName);
+            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
+                    moduleName);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
             optional = 0;
             kind = Parameter.Kind.REQUIRED;
@@ -569,7 +628,8 @@ public class CommonUtils {
                 }
             }
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
-            paramType = getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true, moduleName);
+            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
+                    moduleName);
             kind = Parameter.Kind.DEFAULTABLE;
         }
         funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType, kind,
@@ -577,11 +637,11 @@ public class CommonUtils {
     }
 
     private static void buildIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
-                                                      SemanticModel semanticModel, String moduleName,
-                                                      LinkedHashMap<String, ParameterResult> funcParamMap) {
+                                                  SemanticModel semanticModel, String moduleName,
+                                                  LinkedHashMap<String, ParameterResult> funcParamMap) {
         recordTypeSymbol.typeInclusions().forEach(includedType ->
-            buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType),
-                    semanticModel, moduleName, funcParamMap));
+                buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType),
+                        semanticModel, moduleName, funcParamMap));
 
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
@@ -590,10 +650,10 @@ public class CommonUtils {
                 continue;
             }
             String paramName = entry.getKey();
-            String defaultValue= DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = getTypeSignature(semanticModel, fieldType, true, moduleName);
+            String paramType = getTypeSignatureForParams(semanticModel, fieldType, true, moduleName);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
@@ -602,7 +662,7 @@ public class CommonUtils {
                     Parameter.Kind.INCLUDED_RECORD_ATTRIBUTE, defaultValue, paramDescription, optional));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType =  getTypeSignature(semanticModel, typeSymbol, true, moduleName);
+            String paramType = getTypeSignatureForParams(semanticModel, typeSymbol, true, moduleName);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
                     Parameter.Kind.INCLUDED_RECORD_REST.name(), paramType,
@@ -628,7 +688,8 @@ public class CommonUtils {
         return members;
     }
 
-    public record ParamForTypeInfer(String paramName, String defaultValue, String type) {}
+    public record ParamForTypeInfer(String paramName, String defaultValue, String type) {
+    }
 
     //TODO: Remove this once the diagnostic helper is exposed to LS extensions
     public static Diagnostic transformBallerinaDiagnostic(io.ballerina.tools.diagnostics.Diagnostic diag) {

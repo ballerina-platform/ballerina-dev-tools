@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;

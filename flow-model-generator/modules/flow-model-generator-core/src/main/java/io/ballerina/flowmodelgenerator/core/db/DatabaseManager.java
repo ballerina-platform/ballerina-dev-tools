@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.db;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;

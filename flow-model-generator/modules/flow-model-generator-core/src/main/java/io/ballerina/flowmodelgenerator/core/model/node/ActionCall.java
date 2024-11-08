@@ -18,10 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -35,8 +31,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -104,16 +98,16 @@ public class ActionCall extends NodeBuilder {
         FunctionResult function = functionResult.get();
         nodeBuilder
                 .metadata()
-                    .label(function.name())
-                    .description(function.description())
-                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                    .stepOut()
+                .label(function.name())
+                .description(function.description())
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
+                .stepOut()
                 .codedata()
-                    .org(function.org())
-                    .module(function.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
-                    .id(function.functionId())
-                    .symbol(function.name());
+                .org(function.org())
+                .module(function.packageName())
+                .object(NewConnection.CLIENT_SYMBOL)
+                .id(function.functionId())
+                .symbol(function.name());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
@@ -168,9 +162,9 @@ public class ActionCall extends NodeBuilder {
 
         nodeBuilder.properties().custom()
                 .metadata()
-                    .label(Property.CONNECTION_LABEL)
-                    .description(Property.CONNECTION_DOC)
-                    .stepOut()
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_DOC)
+                .stepOut()
                 .type(Property.ValueType.EXPRESSION)
                 .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())

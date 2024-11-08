@@ -18,10 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
@@ -35,8 +31,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
