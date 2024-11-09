@@ -34,11 +34,10 @@
         },
         "valueType": "EXPRESSION_SET",
         "valueTypeConstraint": "io:Printable",
-        "value": [],
         "placeholder": "()",
-        "optional": true,
+        "optional": false,
         "editable": true,
-        "advanced": true,
+        "advanced": false,
         "kind": "REST_PARAMETER"
       }
     },

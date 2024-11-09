@@ -26,7 +26,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "id": 671
+      "id": 711
     },
     "returning": false,
     "properties": {
@@ -86,7 +86,7 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "IDENTIFIER",
         "valueTypeConstraint": "redis:Client",
         "value": "redisCl",
         "optional": false,

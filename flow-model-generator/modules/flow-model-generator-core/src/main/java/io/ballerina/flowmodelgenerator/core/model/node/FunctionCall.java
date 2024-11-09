@@ -120,7 +120,7 @@ public class FunctionCall extends NodeBuilder {
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
                 } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
                 } else {
                     customPropBuilder.type(Property.ValueType.EXPRESSION);
                 }
@@ -204,7 +204,7 @@ public class FunctionCall extends NodeBuilder {
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
             } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
+                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
