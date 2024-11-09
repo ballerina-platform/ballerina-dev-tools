@@ -14,23 +14,7 @@
         "module": "grpc",
         "object": "Client",
         "symbol": "init",
-        "id": 36
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "ftp",
-        "description": "Represents an FTP client that intracts with an FTP server",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "ftp",
-        "object": "Client",
-        "symbol": "init",
-        "id": 132
+        "id": 39
       },
       "enabled": true
     },
@@ -46,23 +30,7 @@
         "module": "ldap",
         "object": "Client",
         "symbol": "init",
-        "id": 133
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "tcp",
-        "description": "Initializes the TCP connection client based on the provided configurations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "tcp",
-        "object": "Client",
-        "symbol": "init",
-        "id": 231
+        "id": 125
       },
       "enabled": true
     },
@@ -78,7 +46,39 @@
         "module": "mqtt",
         "object": "Client",
         "symbol": "init",
-        "id": 260
+        "id": 187
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "tcp",
+        "description": "Initializes the TCP connection client based on the provided configurations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "tcp",
+        "object": "Client",
+        "symbol": "init",
+        "id": 241
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "ftp",
+        "description": "Represents an FTP client that intracts with an FTP server",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "ftp",
+        "object": "Client",
+        "symbol": "init",
+        "id": 244
       },
       "enabled": true
     },
@@ -94,7 +94,7 @@
         "module": "udp",
         "object": "Client",
         "symbol": "init",
-        "id": 278
+        "id": 354
       },
       "enabled": true
     },
@@ -110,7 +110,7 @@
         "module": "graphql",
         "object": "Client",
         "symbol": "init",
-        "id": 327
+        "id": 445
       },
       "enabled": true
     },
@@ -126,7 +126,7 @@
         "module": "websocket",
         "object": "Client",
         "symbol": "init",
-        "id": 444
+        "id": 568
       },
       "enabled": true
     },
@@ -148,14 +148,14 @@
     },
     {
       "metadata": {
-        "label": "postgresql",
-        "description": "Represents a PostgreSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+        "label": "aws.redshift",
+        "description": "",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.redshift_1.1.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "postgresql",
+        "module": "aws.redshift",
         "object": "Client",
         "symbol": "init",
         "id": 637
@@ -180,17 +180,17 @@
     },
     {
       "metadata": {
-        "label": "redis",
-        "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+        "label": "sap",
+        "description": "The `sap` client provides the capability for initiating contact with a remote HTTP service provided by any SAP products. The API it\nprovides includes the functions for the standard HTTP methods.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_sap_1.1.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "redis",
+        "module": "sap",
         "object": "Client",
         "symbol": "init",
-        "id": 651
+        "id": 645
       },
       "enabled": true
     },
@@ -206,7 +206,7 @@
         "module": "mongodb",
         "object": "Client",
         "symbol": "init",
-        "id": 673
+        "id": 666
       },
       "enabled": true
     },
@@ -222,7 +222,71 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 699
+        "id": 670
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "snowflake",
+        "description": "Represents a Snowflake database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "snowflake",
+        "object": "Client",
+        "symbol": "init",
+        "id": 677
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "postgresql",
+        "description": "Represents a PostgreSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "postgresql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 684
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "redis",
+        "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "redis",
+        "object": "Client",
+        "symbol": "init",
+        "id": 691
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "salesforce",
+        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "id": 762
       },
       "enabled": true
     },
@@ -238,55 +302,7 @@
         "module": "rabbitmq",
         "object": "Client",
         "symbol": "init",
-        "id": 771
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "slack",
-        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "slack",
-        "object": "Client",
-        "symbol": "init",
-        "id": 786
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "discord",
-        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "discord",
-        "object": "Client",
-        "symbol": "init",
-        "id": 790
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "nats",
-        "description": "The client provides the capability to publish messages to the NATS server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_nats_3.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "nats",
-        "object": "Client",
-        "symbol": "init",
-        "id": 879
+        "id": 824
       },
       "enabled": true
     },
@@ -302,23 +318,7 @@
         "module": "asana",
         "object": "Client",
         "symbol": "init",
-        "id": 1106
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "oracledb",
-        "description": "Represents a OracleDB client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "oracledb",
-        "object": "Client",
-        "symbol": "init",
-        "id": 1193
+        "id": 846
       },
       "enabled": true
     }
