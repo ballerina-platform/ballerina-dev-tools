@@ -37,7 +37,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"/path/to/resource\"",
-        "placeholder": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -51,7 +51,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
         "value": "()",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -133,7 +133,7 @@
             "character": 0
           }
         },
-        "newText": "json|http:ClientError item = check httpClient->get(\"/path/to/resource\", ());"
+        "newText": "json|http:ClientError item = check httpClient->get(\"/path/to/resource\");"
       }
     ]
   }

@@ -365,13 +365,7 @@ public class CommonUtils {
             ModulePartNode node = document.syntaxTree().rootNode();
             NonTerminalNode currentNode = node.findNode(TextRange.from(startPos, endPos - startPos),
                     true);
-            while (currentNode != null) {
-                if (currentNode.kind() == SyntaxKind.DO_STATEMENT) {
-                    return ((DoStatementNode) currentNode).onFailClause().isPresent();
-                }
-                currentNode = currentNode.parent();
-            }
-            return false;
+            return withinDoClause(currentNode);
         } catch (Throwable t) {
             return false;
         }

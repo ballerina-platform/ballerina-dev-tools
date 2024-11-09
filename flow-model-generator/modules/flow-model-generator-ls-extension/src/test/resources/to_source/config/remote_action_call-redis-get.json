@@ -37,7 +37,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"key\"",
-        "placeholder": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,

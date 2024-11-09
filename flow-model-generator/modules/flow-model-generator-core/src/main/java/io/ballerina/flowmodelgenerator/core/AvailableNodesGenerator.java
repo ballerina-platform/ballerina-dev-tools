@@ -270,7 +270,7 @@ public class AvailableNodesGenerator {
                     .functionKind(Function.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
-                    .node(NodeKind.REMOTE_ACTION_CALL)
+                    .node(NodeKind.RESOURCE_ACTION_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
                     .object(NewConnection.CLIENT_SYMBOL)

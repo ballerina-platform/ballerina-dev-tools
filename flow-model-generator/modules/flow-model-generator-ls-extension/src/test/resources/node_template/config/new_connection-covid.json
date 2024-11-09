@@ -25,7 +25,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 2367
+      "id": 1087
     },
     "returning": false,
     "properties": {
@@ -36,7 +36,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:ConnectionConfig",
-        "value": "{}",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
@@ -50,7 +49,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"https://disease.sh\"",
         "placeholder": "\"https://disease.sh\"",
         "optional": true,
         "editable": true,

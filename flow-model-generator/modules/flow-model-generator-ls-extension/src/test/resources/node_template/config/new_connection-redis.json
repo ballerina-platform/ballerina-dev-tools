@@ -25,7 +25,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 651
+      "id": 691
     },
     "returning": false,
     "properties": {
@@ -36,7 +36,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-        "value": "\"redis://localhost:6379\"",
         "placeholder": "\"redis://localhost:6379\"",
         "optional": true,
         "editable": true,
@@ -50,7 +49,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "boolean",
-        "value": "false",
         "placeholder": "false",
         "optional": true,
         "editable": true,
@@ -64,7 +62,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "boolean",
-        "value": "false",
         "placeholder": "false",
         "optional": true,
         "editable": true,
@@ -78,7 +75,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "record {|ballerina/crypto:2.6.2:TrustStore|string cert?; ballerina/crypto:2.6.2:KeyStore|ballerinax/redis:3.0.2:CertKey key?; string[] protocols?; string[] ciphers?; ballerinax/redis:3.0.2:SslVerifyMode verifyMode; boolean startTls;|}",
-        "value": "{}",
         "placeholder": "{}",
         "optional": true,
         "editable": true,

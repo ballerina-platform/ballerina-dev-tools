@@ -26,7 +26,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 2392
+      "id": 1102
     },
     "returning": false,
     "properties": {
@@ -51,7 +51,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -65,7 +64,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -79,7 +77,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"true\"",
         "placeholder": "\"true\"",
         "optional": true,
         "editable": true,
@@ -93,7 +90,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -128,7 +124,7 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "IDENTIFIER",
         "valueTypeConstraint": "covid19:Client",
         "value": "covid19Client",
         "optional": false,

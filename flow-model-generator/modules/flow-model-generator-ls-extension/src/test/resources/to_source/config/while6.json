@@ -103,6 +103,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/food/bananas\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -114,6 +115,7 @@
                   "description": "The entity headers"
                 },
                 "value": "()",
+                "placeholder": "()",
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
@@ -408,7 +410,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = foodClient->get(\"/food/bananas\", ());\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    } else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    i += 1;\n; }"
+        "newText": "while i < count {\n    json response = foodClient->get(\"/food/bananas\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    } else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    i += 1;\n; }"
       }
     ]
   }

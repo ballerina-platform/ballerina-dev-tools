@@ -103,6 +103,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/western/pineapples\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -114,6 +115,7 @@
                   "description": "The entity headers"
                 },
                 "value": "()",
+                "placeholder": "()",
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
@@ -297,7 +299,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\", ());\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
+        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
       }
     ]
   }

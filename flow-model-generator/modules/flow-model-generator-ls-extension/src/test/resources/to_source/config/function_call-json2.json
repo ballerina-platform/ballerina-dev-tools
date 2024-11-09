@@ -34,6 +34,7 @@
           "label": "v",
           "description": "Source JSON value"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "value": "jsonResult",
         "optional": false,
@@ -47,6 +48,7 @@
           "description": "Options to be used for filtering in the projection"
         },
         "value": "{}",
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -117,7 +119,7 @@
             "character": 61
           }
         },
-        "newText": "Apple apple = check jsondata:parseAsType(jsonResult, {});"
+        "newText": "Apple apple = check jsondata:parseAsType(jsonResult);"
       }
     ]
   }

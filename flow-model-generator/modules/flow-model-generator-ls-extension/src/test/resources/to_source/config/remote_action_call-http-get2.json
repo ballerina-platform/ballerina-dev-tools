@@ -60,6 +60,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/pears\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -70,7 +71,8 @@
           "label": "headers",
           "description": "The entity headers"
         },
-        "value": "()",
+        "value": "{}",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -127,7 +129,7 @@
             "character": 63
           }
         },
-        "newText": "json res2 = foodClient->get(\"/pears\", ());"
+        "newText": "json res2 = foodClient->get(\"/pears\", {});"
       }
     ]
   }

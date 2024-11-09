@@ -64,6 +64,7 @@ public class DefaultValueGeneratorUtil {
                 case BOOLEAN:
                     valueBuilder.append("false");
                     break;
+                case ANYDATA:
                 case MAP:
                     valueBuilder.append("{}");
                     break;

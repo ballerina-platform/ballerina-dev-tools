@@ -52,7 +52,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
-        "value": "()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -87,7 +86,7 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "IDENTIFIER",
         "valueTypeConstraint": "http:Client",
         "value": "httpClient",
         "optional": false,

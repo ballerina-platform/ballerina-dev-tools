@@ -37,7 +37,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"/path\"",
-        "placeholder": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -51,7 +51,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:RequestMessage",
         "value": "\"\"",
-        "placeholder": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -63,6 +63,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -76,8 +77,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "()",
-        "placeholder": "",
+        "value": "json",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -159,7 +160,7 @@
             "character": 0
           }
         },
-        "newText": "json|http:ClientError item = check httpClient->post(\"/path\", \"\", (), ());"
+        "newText": "json|http:ClientError item = check httpClient->post(\"/path\", json);"
       }
     ]
   }

@@ -22,15 +22,16 @@
     "properties": {
       "x": {
         "metadata": {
-          "label": "x",
-          "description": ""
+          "label": "x"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
         "value": "0",
+        "placeholder": "0",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {
@@ -41,7 +42,7 @@
         "value": "int",
         "placeholder": "var",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "variable": {

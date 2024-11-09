@@ -1,0 +1,26 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "RESOURCE_ACTION_CALL",
+    "org": "ballerina",
+    "module": "http",
+    "object": "Client",
+    "symbol": "get",
+    "version": "2.12.0",
+    "parentSymbol": "httpClient",
+    "resourcePath": "[/path/to/resource]"
+  },
+  "output": {
+    "id": "31",
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}
