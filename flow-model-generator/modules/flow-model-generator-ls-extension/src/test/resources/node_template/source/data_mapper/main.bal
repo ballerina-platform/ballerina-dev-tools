@@ -31,3 +31,4 @@ function fn(int x) returns int {
 http:Client httpClientResult = check new ("http://localhost:9091");
 
 final Address[] addresses = [];
+final Address var1 = {country: "", city: "", houseNo: "", line2: "", line1: ""};

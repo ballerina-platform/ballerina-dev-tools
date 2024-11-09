@@ -138,7 +138,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getFunctionsByOrg(String orgName) {
+    public List<FunctionResult> getFunctionsByOrg(String orgName, FunctionKind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -152,11 +152,12 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE p.org = ?;";
+                "WHERE f.kind = ? AND p.org = ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, orgName);
+            stmt.setString(1, functionKind.name());
+            stmt.setString(2, orgName);
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
@@ -306,7 +307,7 @@ public class DatabaseManager {
         } else {
             sql.append("AND f.name = ?;");
         }
-        
+
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             stmt.setString(1, org);

@@ -1,5 +1,5 @@
 {
-  "source": "new_connection3/main.bal",
+  "source": "new_connection7/new_connection7.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "38878",
@@ -14,14 +14,14 @@
       "object": "Client",
       "symbol": "init",
       "lineRange": {
-        "fileName": "new_connection.bal",
+        "fileName": "new_connection7.bal",
         "startLine": {
-          "line": 7,
-          "offset": 4
+          "line": 1,
+          "offset": 44
         },
         "endLine": {
-          "line": 7,
-          "offset": 66
+          "line": 1,
+          "offset": 44
         }
       }
     },
@@ -44,7 +44,6 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:8080\"",
-        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "kind": "REQUIRED"
@@ -55,7 +54,6 @@
           "description": "The configurations to be used when initializing the `client`\n"
         },
         "value": "{}",
-        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
@@ -83,15 +81,15 @@
     "flags": 1
   },
   "output": {
-    "new_connection3/main.bal": [
+    "new_connection7/new_connection7.bal": [
       {
         "range": {
           "start": {
-            "line": 0,
+            "line": 1,
             "character": 0
           },
           "end": {
-            "line": 0,
+            "line": 1,
             "character": 0
           }
         },
@@ -100,12 +98,12 @@
       {
         "range": {
           "start": {
-            "line": 7,
-            "character": 4
+            "line": 1,
+            "character": 44
           },
           "end": {
-            "line": 7,
-            "character": 66
+            "line": 1,
+            "character": 44
           }
         },
         "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
