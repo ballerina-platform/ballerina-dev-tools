@@ -103,7 +103,7 @@ public class FunctionCall extends NodeBuilder {
                                 .description("")
                                 .stepOut()
                             .type(Property.ValueType.EXPRESSION)
-                            .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleDescriptor))
+                            .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleInfo))
                             .value(DefaultValueGenerationUtil
                                     .getDefaultValueForType(param.typeDescriptor()).orElse(""))
                             .defaultable(param.paramKind() == ParameterKind.DEFAULTABLE)

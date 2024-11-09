@@ -101,6 +101,7 @@ import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -116,7 +117,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
-import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -151,15 +151,14 @@ class CodeAnalyzer extends NodeVisitor {
     private final Map<String, LineRange> dataMappings;
     private final String connectionScope;
     private final TextDocument textDocument;
-    private final ModuleDescriptor moduleDescriptor;
+    private final ModuleInfo moduleInfo;
     private final boolean forceAssign;
     private final DiagnosticHandler diagnosticHandler;
     private NodeBuilder nodeBuilder;
     private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
-                        Map<String, LineRange> dataMappings, TextDocument textDocument,
-                        ModuleDescriptor moduleDescriptor,
+                        Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
                         boolean forceAssign) {
         this.project = project;
         this.flowNodeList = new ArrayList<>();
@@ -168,7 +167,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
-        this.moduleDescriptor = moduleDescriptor;
+        this.moduleInfo = moduleInfo;
         this.forceAssign = forceAssign;
         this.diagnosticHandler = new DiagnosticHandler(semanticModel);
     }
@@ -1000,7 +999,7 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().view(dataMappings.get(functionName));
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
-            if (CommonUtils.isDefaultPackage(functionSymbol, moduleDescriptor)) {
+            if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
                 functionSymbol.getLocation()
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))
@@ -1298,7 +1297,7 @@ class CodeAnalyzer extends NodeVisitor {
     private NodeBuilder startNode(NodeKind kind) {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
-                .defaultModuleName(moduleDescriptor);
+                .defaultModuleName(moduleInfo);
         return this.nodeBuilder;
     }
 
@@ -1306,7 +1305,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
                 .diagnosticHandler(diagnosticHandler)
-                .defaultModuleName(moduleDescriptor);
+                .defaultModuleName(moduleInfo);
         diagnosticHandler.handle(nodeBuilder,
                 node instanceof ExpressionNode ? node.parent().lineRange() : node.lineRange(), false);
         return this.nodeBuilder;
@@ -1332,7 +1331,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = null;
         return new Branch.Builder()
                 .semanticModel(semanticModel)
-                .defaultModuleName(moduleDescriptor)
+                .defaultModuleName(moduleInfo)
                 .diagnosticHandler(diagnosticHandler)
                 .codedata().node(node).stepOut()
                 .label(label)

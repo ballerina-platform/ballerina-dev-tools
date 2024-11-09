@@ -56,7 +56,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
@@ -90,7 +89,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     protected boolean returning;
     protected SemanticModel semanticModel;
     protected FlowNode cachedFlowNode;
-    protected ModuleDescriptor moduleDescriptor;
+    protected ModuleInfo moduleInfo;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(NodeKind.IF, If::new);
@@ -161,8 +160,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         return this;
     }
 
-    public NodeBuilder defaultModuleName(ModuleDescriptor moduleDescriptor) {
-        this.moduleDescriptor = moduleDescriptor;
+    public NodeBuilder defaultModuleName(ModuleInfo moduleInfo) {
+        this.moduleInfo = moduleInfo;
         return this;
     }
 
@@ -195,7 +194,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         String packageName = moduleId.packageName();
         String versionName = moduleId.version();
 
-        if (!CommonUtils.isDefaultPackage(orgName, packageName, moduleDescriptor)) {
+        if (!CommonUtils.isDefaultPackage(orgName, packageName, moduleInfo)) {
             metadata().icon(CommonUtils.generateIcon(orgName, packageName, versionName));
         }
         codedata()
@@ -221,7 +220,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
     public FormBuilder<NodeBuilder> properties() {
         if (this.formBuilder == null) {
-            this.formBuilder = new FormBuilder<>(semanticModel, diagnosticHandler, moduleDescriptor, this);
+            this.formBuilder = new FormBuilder<>(semanticModel, diagnosticHandler, moduleInfo, this);
         }
         return this.formBuilder;
     }
