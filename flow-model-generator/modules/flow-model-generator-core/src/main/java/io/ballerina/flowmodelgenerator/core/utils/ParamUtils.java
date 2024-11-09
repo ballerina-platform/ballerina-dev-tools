@@ -79,12 +79,10 @@ public class ParamUtils {
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
-                            .signature();
-                    pathBuilder.append("[").append(type).append("...]");
+                    pathBuilder.append("/path/to/subdirectory");
                 });
             }
-            case PATH_REST_PARAM -> pathBuilder.append("[").append("/path/to/resource").append("]");
+            case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
             case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
         }
         return pathBuilder.toString();
