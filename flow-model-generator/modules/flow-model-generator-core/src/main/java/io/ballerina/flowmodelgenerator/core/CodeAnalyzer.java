@@ -117,6 +117,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -274,15 +275,14 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
-                .label(methodName)
-                .description(description)
-                .stepOut()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
                 .codedata()
-                .object("Client")
-                .symbol(methodName)
-                .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY);
+                    .object("Client")
+                    .symbol(methodName)
+                    .stepOut()
+                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
@@ -375,7 +375,7 @@ class CodeAnalyzer extends NodeVisitor {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        LinkedHashMap<String, ParameterResult> funcParamMap = CommonUtils.buildFunctionParamResultMap(
+        LinkedHashMap<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
                 functionSymbol, semanticModel);
         buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
     }
@@ -634,7 +634,7 @@ class CodeAnalyzer extends NodeVisitor {
         String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
         String fullPath = "/" + resourcePath;
 
-        String resourcePathTemplate = CommonUtils.buildResourcePathTemplate(methodSymbol);
+        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
 
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -1273,11 +1273,10 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(JsonPayload.DESCRIPTION)
                     .stepOut()
                     .properties().expression(constructorExprNode);
-            return;
         }
     }
 
-// Utility methods
+    // Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
