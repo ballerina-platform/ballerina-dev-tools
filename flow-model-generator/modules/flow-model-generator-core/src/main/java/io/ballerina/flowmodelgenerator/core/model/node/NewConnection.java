@@ -84,7 +84,6 @@ public class NewConnection extends NodeBuilder {
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal", true).build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
         };
-        }
     }
 
     @Override
