@@ -1028,210 +1028,6 @@
         },
         {
           "metadata": {
-            "label": "grpc",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "init",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "initStub",
-                "description": "Calls when initializing the client endpoint with the service descriptor data extracted from the proto file.\n```ballerina\ngrpc:Error? result = grpcClient.initStub(self, ROOT_DESCRIPTOR, getDescriptorMap());\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "initStub",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeSimpleRPC",
-                "description": "Calls when executing a unary gRPC service.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error result = grpcClient->executeSimpleRPC(\"HelloWorld/hello\", req, headers);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "executeSimpleRPC",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeServerStreaming",
-                "description": "Calls when executing a server streaming call with a gRPC service.\n```ballerina\n[stream<anydata, grpc:Error?>, map<string|string[]>]|grpc:Error result = grpcClient->executeServerStreaming(\"HelloWorld/hello\", req, headers);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "executeServerStreaming",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeClientStreaming",
-                "description": "Calls when executing a client streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeClientStreaming(\"HelloWorld/hello\", headers);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "executeClientStreaming",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeBidirectionalStreaming",
-                "description": "Calls when executing a bi-directional streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeBidirectionalStreaming(\"HelloWorld/hello\", headers);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "executeBidirectionalStreaming",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "authenticateResource",
-                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "authenticateResource",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "setCompression",
-                "description": "Enables the compression support by adding the `grpc-encoding` header to the given headers.\n```ballerina\nmap<string|string[]> headers = grpc:setCompression(grpc:GZIP);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "setCompression",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "setDeadline",
-                "description": "Enables the deadline by adding the `deadline` header to the given headers.\n```ballerina\ntime:Utc current = time:utcNow();\ntime:Utc deadline = time:utcAddSeconds(current, 300);\nmap<string|string[]> headers = grpc:setDeadline(deadline);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "setDeadline",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isCancelled",
-                "description": "Checks whether the deadline is already exceeded or not.\n```ballerina\nboolean|time:Error isCancelled = grpc:isCancelled(map<string|string[]> headerMap);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "isCancelled",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getDeadline",
-                "description": "Returns the deadline value as `time:Utc`. This can be used to get the deadline and propagate it to subsequent internal calls.\n```ballerina\ntime:Utc?|time:Error deadline = grpc:getDeadline(map<string|string[]> headerMap);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "getDeadline",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getHeader",
-                "description": "Returns the header value with the specified header name. If there are more than one header values for the\nspecified header name, the first value is returned.\n```ballerina\nmap<string|string[]> headerMap = request.headers;\nstring|grpc:Error result = grpc:getHeader(headerMap, \"content-type\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "getHeader",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getHeaders",
-                "description": "Gets all the transport headers with the specified header name.\n```ballerina\nmap<string|string[]> headerMap = request.headers;\nstring[]|grpc:Error result = grpc:getHeaders(headerMap, \"content-type\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "grpc",
-                "symbol": "getHeaders",
-                "version": "1.12.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "lang.error",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.error_0.0.0.png"
@@ -1348,6 +1144,135 @@
                 "module": "wsdltool",
                 "symbol": "main",
                 "version": "0.1.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "grpc",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "initStub",
+                "description": "Calls when initializing the client endpoint with the service descriptor data extracted from the proto file.\n```ballerina\ngrpc:Error? result = grpcClient.initStub(self, ROOT_DESCRIPTOR, getDescriptorMap());\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "initStub",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "authenticateResource",
+                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "authenticateResource",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "setCompression",
+                "description": "Enables the compression support by adding the `grpc-encoding` header to the given headers.\n```ballerina\nmap<string|string[]> headers = grpc:setCompression(grpc:GZIP);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "setCompression",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "setDeadline",
+                "description": "Enables the deadline by adding the `deadline` header to the given headers.\n```ballerina\ntime:Utc current = time:utcNow();\ntime:Utc deadline = time:utcAddSeconds(current, 300);\nmap<string|string[]> headers = grpc:setDeadline(deadline);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "setDeadline",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "isCancelled",
+                "description": "Checks whether the deadline is already exceeded or not.\n```ballerina\nboolean|time:Error isCancelled = grpc:isCancelled(map<string|string[]> headerMap);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "isCancelled",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getDeadline",
+                "description": "Returns the deadline value as `time:Utc`. This can be used to get the deadline and propagate it to subsequent internal calls.\n```ballerina\ntime:Utc?|time:Error deadline = grpc:getDeadline(map<string|string[]> headerMap);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "getDeadline",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getHeader",
+                "description": "Returns the header value with the specified header name. If there are more than one header values for the\nspecified header name, the first value is returned.\n```ballerina\nmap<string|string[]> headerMap = request.headers;\nstring|grpc:Error result = grpc:getHeader(headerMap, \"content-type\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "getHeader",
+                "version": "1.12.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getHeaders",
+                "description": "Gets all the transport headers with the specified header name.\n```ballerina\nmap<string|string[]> headerMap = request.headers;\nstring[]|grpc:Error result = grpc:getHeaders(headerMap, \"content-type\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "grpc",
+                "symbol": "getHeaders",
+                "version": "1.12.1"
               },
               "enabled": true
             }
@@ -2425,354 +2350,6 @@
                 "module": "lang.stream",
                 "symbol": "close",
                 "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "ftp",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Represents an FTP client that intracts with an FTP server",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "init",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "get",
-                "description": "Retrieves the file content from a remote resource.\n```ballerina\nstream<byte[] & readonly, io:Error?>|ftp:Error channel = client->get(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "get",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "append",
-                "description": "Appends the content to an existing file in an FTP server.\n```ballerina\nftp:Error? response = client->append(path, channel);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "append",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "put",
-                "description": "Adds a file to an FTP server.\n```ballerina\nftp:Error? response = client->put(path, channel);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "put",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "mkdir",
-                "description": "Creates a new directory in an FTP server.\n```ballerina\nftp:Error? response = client->mkdir(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "mkdir",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "rmdir",
-                "description": "Deletes an empty directory in an FTP server.\n```ballerina\nftp:Error? response = client->rmdir(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "rmdir",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "rename",
-                "description": "Renames a file or moves it to a new location within\nthe same FTP server.\n```ballerina\nftp:Error? response = client->rename(origin, destination);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "rename",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "size",
-                "description": "Gets the size of a file resource.\n```ballerina\nint|ftp:Error response = client->size(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "size",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "list",
-                "description": "Gets the file name list in a given folder.\n```ballerina\nftp:FileInfo[]|ftp:Error response = client->list(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "list",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isDirectory",
-                "description": "Checks if a given resource is a directory.\n```ballerina\nboolean|ftp:Error response = client->isDirectory(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "isDirectory",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "delete",
-                "description": "Deletes a file from an FTP server.\n```ballerina\nftp:Error? response = client->delete(path);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ftp",
-                "symbol": "delete",
-                "version": "2.11.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "ldap",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Consists of APIs to integrate with LDAP.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "init",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "add",
-                "description": "Creates an entry in a directory server.\n\n```ballerina\nanydata user = {\n  \"objectClass\": \"user\",\n  \"sn\": \"New User\",\n  \"cn\": \"New User\"\n};\nldap:LdapResponse result = check ldapClient->add(userDN, user);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "add",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "delete",
-                "description": "Removes an entry in a directory server.\n\n```ballerina\nldap:LdapResponse result = check ldapClient->delete(userDN);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "delete",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "modify",
-                "description": "Updates information of an entry.\n\n```ballerina\nanydata user = {\n  \"sn\": \"User\",\n  \"givenName\": \"Updated User\",\n  \"displayName\": \"Updated User\"\n};\nldap:LdapResponse result = check ldapClient->modify(userDN, user);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "modify",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "modifyDn",
-                "description": "Renames an entry in a directory server.\n\n```ballerina\nldap:LdapResponse modifyDN = check ldapClient->modifyDn(userDN, \"CN=Test User2\", true);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "modifyDn",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "compare",
-                "description": "Determines whether a given entry has a specified attribute value.\n\n```ballerina\nboolean compare = check ldapClient->compare(userDN, \"givenName\", \"New User\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "compare",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getEntry",
-                "description": "Gets information of an entry.\n\n```ballerina\nanydata value = check ldapClient->getEntry(userDN);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "getEntry",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "searchWithType",
-                "description": "Returns a list of entries that match the given search parameters.\n\n```ballerina\nanydata[] value = check ldapClient->searchWithType(\"DC=ldap,DC=com\", \"(givenName=New User)\", ldap:SUB);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "searchWithType",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "search",
-                "description": "Returns a record containing search result entries and references that match the given search parameters.\n\n```ballerina\nldap:SearchResult value = check ldapClient->search(\"DC=ldap,DC=windows\", \"(givenName=New User)\", ldap:SUB);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "search",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Unbinds from the server and closes the LDAP connection. \n\n```ballerina\nldapClient->close();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "close",
-                "version": "1.1.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isConnected",
-                "description": "Determines whether the client is connected to the server.\n\n```ballerina\nboolean isConnected = ldapClient->isConnected();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "ldap",
-                "symbol": "isConnected",
-                "version": "1.1.0"
               },
               "enabled": true
             }
@@ -4475,75 +4052,6 @@
         },
         {
           "metadata": {
-            "label": "tcp",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Initializes the TCP connection client based on the provided configurations.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "tcp",
-                "symbol": "init",
-                "version": "1.11.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "writeBytes",
-                "description": "Sends the given data to the connected remote host.\n```ballerina\ntcp:Error? result = socketClient->writeBytes(\"msg\".toBytes());\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "tcp",
-                "symbol": "writeBytes",
-                "version": "1.11.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "readBytes",
-                "description": "Reads data only from the connected remote host. \n```ballerina\n(readonly & byte[])|tcp:Error result = socketClient->readBytes();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "tcp",
-                "symbol": "readBytes",
-                "version": "1.11.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Frees up the occupied socket.\n```ballerina\ntcp:Error? closeResult = socketClient->close();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "tcp",
-                "symbol": "close",
-                "version": "1.11.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "auth",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_auth_2.12.0.png"
@@ -4654,135 +4162,6 @@
                 "module": "lang.future",
                 "symbol": "cancel",
                 "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "mqtt",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Represents the client that is used to publish messages to the server.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "init",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "publish",
-                "description": "Publishes a message to a topic.\n```ballerina\nmqtt:DeliveryToken token = check 'client->publish(\"mqtt/topic\", message);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "publish",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "subscribe",
-                "description": "Subscribes to a given topic in the request response scenario.\n```ballerina\ncheck 'client->subscribe([{topic: \"mqtt/topic1\", qos: 0}, {topic: \"mqtt/topic2\", qos: 1}]);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "subscribe",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "receive",
-                "description": "Receives messages from the server.\n```ballerina\nstream<mqtt:Message, error?> responseStream = check 'client->receive();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "receive",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the connection to the server.\n```ballerina\ncheck 'client->close();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "close",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isConnected",
-                "description": "Checks if the client is connected to the server.\n```ballerina\nboolean isConnected = check 'client->isConnected;\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "isConnected",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "disconnect",
-                "description": "Disconnects the client from the server.\n```ballerina\ncheck 'client->disconnect();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "disconnect",
-                "version": "1.2.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "reconnect",
-                "description": "Reconnects the client to the server.\n```ballerina\ncheck 'client->reconnect();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "mqtt",
-                "symbol": "reconnect",
-                "version": "1.2.0"
               },
               "enabled": true
             }
@@ -5221,75 +4600,6 @@
                 "module": "lang.int",
                 "symbol": "avg",
                 "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "udp",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Initializes the UDP connectionless client based on the provided configurations.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "udp",
-                "symbol": "init",
-                "version": "1.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "sendDatagram",
-                "description": "Sends the given data to the specified remote host.\n```ballerina\nudp:Error? result = socketClient->sendDatagram({remoteHost: \"localhost\",\n           remotePort: 48826, data:\"msg\".toBytes()});\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "udp",
-                "symbol": "sendDatagram",
-                "version": "1.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "receiveDatagram",
-                "description": "Reads data from the remote host. \n```ballerina\nudp:Datagram|udp:Error result = socketClient->receiveDatagram();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "udp",
-                "symbol": "receiveDatagram",
-                "version": "1.11.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Free up the occupied socket.\n```ballerina\nudp:Error? closeResult = socketClient->close();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "udp",
-                "symbol": "close",
-                "version": "1.11.0"
               },
               "enabled": true
             }
@@ -6167,90 +5477,6 @@
         },
         {
           "metadata": {
-            "label": "graphql",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "init",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeWithType",
-                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data and extensions\nwhich is a subtype of GenericResponse.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "executeWithType",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "execute",
-                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data, extensions and errors\nwhich is a subtype of GenericResponseWithErrors.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "execute",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "__addError",
-                "description": "Adds an error to the GraphQL response. Using this to add an error is not recommended.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "__addError",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getSdlString",
-                "description": "Obtains the schema representation of a federated subgraph, expressed in the SDL format.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "getSdlString",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "xmldata",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xmldata_2.8.0.png"
@@ -6328,6 +5554,45 @@
                 "module": "xmldata",
                 "symbol": "fromXml",
                 "version": "2.8.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "graphql",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "__addError",
+                "description": "Adds an error to the GraphQL response. Using this to add an error is not recommended.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "graphql",
+                "symbol": "__addError",
+                "version": "1.14.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getSdlString",
+                "description": "Obtains the schema representation of a federated subgraph, expressed in the SDL format.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "graphql",
+                "symbol": "getSdlString",
+                "version": "1.14.0"
               },
               "enabled": true
             }
@@ -8102,330 +7367,6 @@
         },
         {
           "metadata": {
-            "label": "websocket",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "Represents a WebSocket synchronous client endpoint.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "init",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "initEndpoint",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "initEndpoint",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "writeTextMessage",
-                "description": "Writes text messages to the connection. If an error occurs while sending the text message to the connection, that message\nwill be lost.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "writeTextMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "writeBinaryMessage",
-                "description": "Writes binary data to the connection. If an error occurs while sending the binary message to the connection,\nthat message will be lost.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "writeBinaryMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "ping",
-                "description": "Pings the connection. If an error occurs while sending the ping frame to the server, that frame will be lost.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "ping",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "pong",
-                "description": "Sends a pong message to the connection. If an error occurs while sending the pong frame to the connection, that\nthe frame will be lost.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "pong",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "Closes the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "close",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "setAttribute",
-                "description": "Sets a connection-related attribute.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "setAttribute",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getAttribute",
-                "description": "Gets connection-related attributes if any.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "getAttribute",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "removeAttribute",
-                "description": "Removes connection related attribute if any.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "removeAttribute",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getConnectionId",
-                "description": "Gives the connection id associated with this connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "getConnectionId",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getNegotiatedSubProtocol",
-                "description": "Gives the subprotocol if any that is negotiated with the client.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "getNegotiatedSubProtocol",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isSecure",
-                "description": "Gives the secured status of the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "isSecure",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "isOpen",
-                "description": "Gives the open or closed status of the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "isOpen",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getHttpResponse",
-                "description": "Gives the HTTP response if any received for the client handshake request.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "getHttpResponse",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "readTextMessage",
-                "description": "Reads text messages in a synchronous manner.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "readTextMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "readBinaryMessage",
-                "description": "Reads binary data in a synchronous manner.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "readBinaryMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "readMessage",
-                "description": "Reads data from the WebSocket connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "readMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "writeMessage",
-                "description": "Writes messages to the connection. If an error occurs while sending the message to the connection, that message\nwill be lost.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "writeMessage",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "authenticateResource",
-                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "authenticateResource",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "addCookies",
-                "description": "Adds cookies to the custom header.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "websocket",
-                "symbol": "addCookies",
-                "version": "2.12.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "data.xmldata",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
@@ -9167,6 +8108,180 @@
         },
         {
           "metadata": {
+            "label": "websocket",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "initEndpoint",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "initEndpoint",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "setAttribute",
+                "description": "Sets a connection-related attribute.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "setAttribute",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAttribute",
+                "description": "Gets connection-related attributes if any.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "getAttribute",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "removeAttribute",
+                "description": "Removes connection related attribute if any.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "removeAttribute",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getConnectionId",
+                "description": "Gives the connection id associated with this connection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "getConnectionId",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getNegotiatedSubProtocol",
+                "description": "Gives the subprotocol if any that is negotiated with the client.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "getNegotiatedSubProtocol",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "isSecure",
+                "description": "Gives the secured status of the connection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "isSecure",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "isOpen",
+                "description": "Gives the open or closed status of the connection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "isOpen",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getHttpResponse",
+                "description": "Gives the HTTP response if any received for the client handshake request.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "getHttpResponse",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "authenticateResource",
+                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "authenticateResource",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "addCookies",
+                "description": "Adds cookies to the custom header.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "websocket",
+                "symbol": "addCookies",
+                "version": "2.12.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "xslt",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.7.0.png"
@@ -9415,351 +8530,6 @@
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
           },
           "items": [
-            {
-              "metadata": {
-                "label": "init",
-                "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "init",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "post",
-                "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "post",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "post",
-                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "post",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "put",
-                "description": "The client resource function to send HTTP PUT requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "put",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "put",
-                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "put",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "patch",
-                "description": "The client resource function to send HTTP PATCH requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "patch",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "patch",
-                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "patch",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "delete",
-                "description": "The client resource function to send HTTP DELETE requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "delete",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "delete",
-                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "delete",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "head",
-                "description": "The client resource function to send HTTP HEAD requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "head",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "head",
-                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "head",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "get",
-                "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "get",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "get",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "get",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "options",
-                "description": "The client resource function to send HTTP OPTIONS requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "options",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "options",
-                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "options",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "execute",
-                "description": "Invokes an HTTP call with the specified HTTP verb.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "execute",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "forward",
-                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "forward",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "submit",
-                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "submit",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getResponse",
-                "description": "This just pass the request to actual network call.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getResponse",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "hasPromise",
-                "description": "This just pass the request to actual network call.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "hasPromise",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getNextPromise",
-                "description": "This just pass the request to actual network call.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getNextPromise",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getPromisedResponse",
-                "description": "Passes the request to an actual network call.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getPromisedResponse",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "rejectPromise",
-                "description": "This just pass the request to actual network call.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "rejectPromise",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
             {
               "metadata": {
                 "label": "getCookieStore",
