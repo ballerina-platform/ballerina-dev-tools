@@ -36,11 +36,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"/path\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "message": {
         "metadata": {
@@ -49,24 +50,24 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:RequestMessage",
-        "value": "",
+        "value": "\"\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "map<string|string[]>|()",
-        "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
@@ -75,11 +76,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -157,7 +159,7 @@
             "character": 0
           }
         },
-        "newText": "json|http:ClientError item = check httpClient->post(, );"
+        "newText": "json|http:ClientError item = check httpClient->post(\"/path\", \"\", (), ());"
       }
     ]
   }

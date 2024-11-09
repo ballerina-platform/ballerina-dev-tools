@@ -311,16 +311,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"Sum is greater than 30\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -341,6 +331,19 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"Sum is greater than 30\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "kind": "REQUIRED"
                   }
                 },
                 "flags": 0,
@@ -499,16 +502,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is greater than y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -529,6 +522,19 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is greater than y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "kind": "REQUIRED"
                   }
                 },
                 "flags": 0
@@ -582,16 +588,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is equal to y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -612,6 +608,19 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is equal to y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "kind": "REQUIRED"
                   }
                 },
                 "flags": 0

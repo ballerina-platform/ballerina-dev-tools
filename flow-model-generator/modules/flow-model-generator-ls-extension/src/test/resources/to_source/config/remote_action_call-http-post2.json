@@ -62,7 +62,8 @@
         "value": "\"/bananas\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "message": {
         "metadata": {
@@ -73,27 +74,32 @@
         "value": "\"red banana\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
           "label": "mediaType",
           "description": "The MIME type header of the request entity"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "checkError": {
         "metadata": {
@@ -156,7 +162,7 @@
             "character": 87
           }
         },
-        "newText": "json res1 = check foodClient->post(\"/bananas\", \"red banana\");"
+        "newText": "json res1 = check foodClient->post(\"/bananas\", \"red banana\", (), ());"
       }
     ]
   }

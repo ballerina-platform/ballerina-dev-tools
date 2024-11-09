@@ -35,9 +35,11 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
         "value": "",
+        "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {

@@ -18,6 +18,8 @@
 
 module io.ballerina.flowmodel.indexgenerator {
     requires io.ballerina.lang;
+    requires io.ballerina.tools.api;
+    requires io.ballerina.parser;
     requires io.ballerina.centralconnector;
     requires com.google.gson;
     requires io.ballerina.diagram.util;

@@ -45,7 +45,8 @@
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:8080\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "REQUIRED"
       },
       "config": {
         "metadata": {
@@ -54,7 +55,9 @@
         },
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "value": "{}",
+        "kind": "INCLUDED_RECORD"
       },
       "variable": {
         "metadata": {
@@ -90,7 +93,7 @@
             "character": 77
           }
         },
-        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\");"
+        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
       }
     ]
   }

@@ -36,9 +36,10 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "REQUIRED"
       },
       "config": {
         "metadata": {
@@ -47,9 +48,10 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:ClientConfiguration",
-        "value": "",
+        "value": " {}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "INCLUDED_RECORD"
       },
       "type": {
         "metadata": {
@@ -110,7 +112,7 @@
             "character": 0
           }
         },
-        "newText": "final http:Client|http:ClientError item = check new (, );"
+        "newText": "final http:Client|http:ClientError item = check new (\"\", {});"
       }
     ]
   }

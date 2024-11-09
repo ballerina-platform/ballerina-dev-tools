@@ -36,11 +36,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"key\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "value": {
         "metadata": {
@@ -49,11 +50,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"value\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {
@@ -131,7 +133,7 @@
             "character": 0
           }
         },
-        "newText": "string|redis:Error item = check redisCl->set(, );"
+        "newText": "string|redis:Error item = check redisCl->set(\"key\", \"value\");"
       }
     ]
   }

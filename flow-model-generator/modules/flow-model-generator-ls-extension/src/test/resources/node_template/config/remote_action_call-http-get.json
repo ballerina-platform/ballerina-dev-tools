@@ -39,9 +39,11 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "headers": {
         "metadata": {
@@ -50,10 +52,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
-        "value": "",
+        "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -64,7 +68,7 @@
         "value": "json",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -73,7 +77,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "var1",
+        "value": "jsonResult",
         "optional": false,
         "editable": true,
         "advanced": false

@@ -50,18 +50,20 @@
         "value": "\"/bananas\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
-        "valueType": "EXPRESSION",
         "value": "()",
+        "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "checkError": {
         "metadata": {

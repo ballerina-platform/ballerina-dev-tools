@@ -26,7 +26,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 2492
+      "id": 2392
     },
     "returning": false,
     "properties": {
@@ -38,9 +38,11 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "yesterday": {
         "metadata": {
@@ -49,10 +51,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "twoDaysAgo": {
         "metadata": {
@@ -61,10 +65,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "strict": {
         "metadata": {
@@ -73,10 +79,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "\"true\"",
+        "placeholder": "\"true\"",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "allowNull": {
         "metadata": {
@@ -85,10 +93,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {

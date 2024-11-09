@@ -39,11 +39,12 @@ import java.util.List;
  * @param editable            whether the property is not readonly
  * @param advanced            whether the property should be shown in the advanced tab
  * @param diagnostics         diagnostics of the property
+ * @param kind                kind of the property
  * @since 1.4.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced,
-                       Diagnostics diagnostics) {
+                       Diagnostics diagnostics, String kind) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -150,7 +151,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         VIEW,
         INCLUSION,
         UNION,
-        FLAG
+        FLAG,
+        MAPPING_EXPRESSION_SET,
+        EXPRESSION_SET
     }
 
     public static ValueType valueTypeFrom(String s) {
@@ -170,6 +173,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean editable;
         private boolean advanced;
         private Object typeConstraint;
+        private String kind;
         private Metadata.Builder<Builder<T>> metadataBuilder;
         private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
 
@@ -213,6 +217,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder<T> kind(String kind) {
+            this.kind = kind;
+            return this;
+        }
+
         public Builder<T> editable() {
             this.editable = true;
             return this;
@@ -247,7 +256,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
                             placeholder, optional, editable, advanced,
-                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build());
+                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build(), kind);
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
@@ -257,6 +266,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             this.editable = false;
             this.advanced = false;
             this.diagnosticsBuilder = null;
+            this.kind = null;
             return property;
         }
     }

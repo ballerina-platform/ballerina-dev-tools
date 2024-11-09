@@ -36,11 +36,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "USA",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "yesterday": {
         "metadata": {
@@ -49,11 +50,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "twoDaysAgo": {
         "metadata": {
@@ -62,11 +64,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "strict": {
         "metadata": {
@@ -75,11 +78,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "true",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "allowNull": {
         "metadata": {
@@ -88,11 +92,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -170,7 +175,7 @@
             "character": 0
           }
         },
-        "newText": "covid19:CovidCountry|error item = check covid19Client->getStatusByCountry();"
+        "newText": "covid19:CovidCountry|error item = check covid19Client->getStatusByCountry(USA, (), (), true, ());"
       }
     ]
   }
