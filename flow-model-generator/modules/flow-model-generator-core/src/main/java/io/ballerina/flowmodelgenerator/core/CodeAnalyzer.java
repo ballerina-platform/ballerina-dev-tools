@@ -406,8 +406,12 @@ class CodeAnalyzer extends NodeVisitor {
                 List<String> restArgs = new ArrayList<>();
                 for (int i = 0; i < paramsList.size(); i++) {
                     ParameterSymbol parameterSymbol = paramsList.get(i);
-                    String escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    String escapedParamName = parameterSymbol.getName().get();
                     ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                    if (paramResult == null) {
+                        escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    }
+                    paramResult = funcParamMap.get(escapedParamName);
                     Node paramValue = i < argCount ? positionalArgs.poll()
                             : namedArgValueMap.get(paramResult.name());
 
@@ -467,8 +471,12 @@ class CodeAnalyzer extends NodeVisitor {
             final List<LinkedHashMap<String, String>> includedRecordRestArgs = new ArrayList<>();
             for (int i = 0; i < paramsList.size(); i++) {
                 ParameterSymbol parameterSymbol = paramsList.get(i);
-                String escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                String escapedParamName = parameterSymbol.getName().get();
                 ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                if (paramResult == null) {
+                    escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                }
+                paramResult = funcParamMap.get(escapedParamName);
                 Node paramValue;
                 if (i < argCount) {
                     paramValue = positionalArgs.poll();
