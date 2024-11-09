@@ -33,6 +33,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
+        "placeholder": "0",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -43,9 +44,11 @@
           "label": "exponent"
         },
         "valueType": "EXPRESSION",
+        "placeholder": "2",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "view": {
         "metadata": {

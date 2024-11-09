@@ -455,7 +455,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "int",
-            "value": "4",
             "placeholder": "4",
             "optional": true,
             "editable": true,

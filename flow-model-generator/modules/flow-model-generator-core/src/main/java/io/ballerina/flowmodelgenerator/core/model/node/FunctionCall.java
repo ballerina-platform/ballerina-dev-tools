@@ -21,8 +21,6 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -42,14 +40,13 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -90,32 +87,51 @@ public class FunctionCall extends NodeBuilder {
                     .node(NodeKind.FUNCTION_CALL)
                     .symbol(codedata.symbol());
 
-            Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-            if (params.isPresent()) {
-                for (ParameterSymbol param : params.get()) {
-                    Optional<String> name = param.getName();
-                    if (name.isEmpty()) {
-                        continue;
-                    }
-                    properties().custom()
-                            .metadata()
-                                .label(name.get())
-                                .description("")
-                                .stepOut()
-                            .type(Property.ValueType.EXPRESSION)
-                            .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleDescriptor))
-                            .value(DefaultValueGenerationUtil
-                                    .getDefaultValueForType(param.typeDescriptor()).orElse(""))
-                            .defaultable(param.paramKind() == ParameterKind.DEFAULTABLE)
-                            .editable()
-                            .stepOut()
-                            .addProperty(name.get());
+            LinkedHashMap<String, ParameterResult> stringParameterResultLinkedHashMap =
+                    CommonUtils.buildFunctionParamResultMap(functionSymbol, semanticModel);
+            boolean hasOnlyRestParams = stringParameterResultLinkedHashMap.size() == 1;
+            for (ParameterResult paramResult : stringParameterResultLinkedHashMap.values()) {
+                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                    continue;
                 }
+
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+                customPropBuilder
+                        .metadata()
+                            .label(paramResult.name())
+                            .description(paramResult.description())
+                            .stepOut()
+                        .placeholder(paramResult.defaultValue())
+                        .typeConstraint(paramResult.type())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .kind(paramResult.kind().name());
+
+
+                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                } else {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                }
+                customPropBuilder
+                        .stepOut()
+                        .addProperty(paramResult.name());
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
                 String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true);
-                boolean editable = false;
+                boolean editable = true;
                 if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
                     returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
                     editable = true;
@@ -126,7 +142,8 @@ public class FunctionCall extends NodeBuilder {
             });
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
-                    .map(returnTypeDesc -> errorTypeSymbol.subtypeOf(returnTypeDesc) ? 1 : 0).orElse(0);
+                    .map(returnTypeDesc ->
+                            CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
             if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
                     context.filePath(), context.codedata().lineRange())) {
                 properties().checkError(true);
@@ -156,6 +173,7 @@ public class FunctionCall extends NodeBuilder {
                 .symbol(codedata.symbol());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
@@ -176,17 +194,19 @@ public class FunctionCall extends NodeBuilder {
 
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                customPropBuilder
-                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
-                        .value(new ArrayList<>());
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
             } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                customPropBuilder
-                        .type(Property.ValueType.EXPRESSION_SET)
-                        .value(new ArrayList<>());
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
-                customPropBuilder
-                        .type(Property.ValueType.EXPRESSION)
-                        .value(paramResult.defaultValue());
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
             customPropBuilder
                     .stepOut()
@@ -241,7 +261,7 @@ public class FunctionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
                 .textEdit(false)
-                .acceptImport()
+                .acceptImport(sourceBuilder.filePath)
                 .build();
     }
 

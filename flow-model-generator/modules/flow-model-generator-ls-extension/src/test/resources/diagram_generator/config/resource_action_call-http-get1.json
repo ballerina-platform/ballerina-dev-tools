@@ -61,7 +61,7 @@
             }
           },
           "sourceCode": "json res1 = check foodClient->/western/apples.get();",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -105,7 +105,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -119,7 +118,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -133,7 +131,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -192,7 +189,7 @@
             }
           },
           "sourceCode": "json res2 = check foodClient->/apples.get(param1=\"param1\", param2=\"param2\");",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -236,7 +233,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -250,7 +246,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -264,7 +259,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -323,7 +317,7 @@
             }
           },
           "sourceCode": "json res3 = check foodClient->/.get();",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -367,7 +361,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -381,7 +374,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -395,7 +387,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -454,7 +445,7 @@
             }
           },
           "sourceCode": "var res4 = check foodClient->/apples.get(targetType = json);",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -498,7 +489,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -526,7 +516,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -585,7 +574,7 @@
             }
           },
           "sourceCode": "json res5 = check foodClient->/apples.get();",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -629,7 +618,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -643,7 +631,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -657,7 +644,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -716,7 +702,7 @@
             }
           },
           "sourceCode": "json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -774,7 +760,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -788,7 +773,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -847,7 +831,7 @@
             }
           },
           "sourceCode": "Food res7 = check foodClient->/apples.get();",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -891,7 +875,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -905,7 +888,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -919,7 +901,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -978,7 +959,7 @@
             }
           },
           "sourceCode": "json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();",
-          "resourcePath": "[/path/to/resource]"
+          "resourcePath": "/path/to/subdirectory"
         },
         "returning": false,
         "properties": {
@@ -1022,7 +1003,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "map<string|string[]>|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1036,7 +1016,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "json",
-            "value": "json",
             "placeholder": "json",
             "optional": true,
             "editable": true,
@@ -1050,7 +1029,6 @@
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
-            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -1157,7 +1135,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "\"2.0\"|\"1.1\"|\"1.0\"",
-            "value": "\"2.0\"",
             "placeholder": "\"2.0\"",
             "optional": true,
             "editable": true,
@@ -1171,7 +1148,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "record {|ballerina/http:2.12.2:KeepAlive keepAlive; ballerina/http:2.12.2:Chunking chunking; ballerina/http:2.12.2:ProxyConfig? proxy;|}",
-            "value": "{}",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1185,7 +1161,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "record {|boolean http2PriorKnowledge; int http2InitialWindowSize;|}",
-            "value": "{}",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1199,7 +1174,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "decimal",
-            "value": "0.0d",
             "placeholder": "0.0d",
             "optional": true,
             "editable": true,
@@ -1213,7 +1187,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "\"\"",
             "placeholder": "\"\"",
             "optional": true,
             "editable": true,
@@ -1227,7 +1200,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:FollowRedirects|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1241,7 +1213,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:PoolConfiguration|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1255,7 +1226,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "record {|boolean enabled; boolean isShared; int capacity; float evictionFactor; ballerina/http:2.12.2:CachingPolicy policy;|}",
-            "value": "{}",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1269,7 +1239,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "\"AUTO\"|\"ALWAYS\"|\"NEVER\"",
-            "value": "\"AUTO\"",
             "placeholder": "\"AUTO\"",
             "optional": true,
             "editable": true,
@@ -1283,7 +1252,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1297,7 +1265,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CircuitBreakerConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1311,7 +1278,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:RetryConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1325,7 +1291,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CookieConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1339,7 +1304,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "record {|int maxStatusLineLength; int maxHeaderSize; int maxEntityBodySize;|}",
-            "value": "{}",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1353,7 +1317,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ProxyConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -1367,7 +1330,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
-            "value": "false",
             "placeholder": "false",
             "optional": true,
             "editable": true,
@@ -1381,7 +1343,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "record {|decimal connectTimeOut; int receiveBufferSize; int sendBufferSize; boolean tcpNoDelay; boolean socketReuse; boolean keepAlive;|}",
-            "value": "{}",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1395,7 +1356,6 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,

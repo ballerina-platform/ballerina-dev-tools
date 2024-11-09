@@ -33,6 +33,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
+        "placeholder": "0",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -44,10 +45,11 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
+        "placeholder": "2",
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "REQUIRED"
+        "kind": "DEFAULTABLE"
       },
       "view": {
         "metadata": {

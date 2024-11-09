@@ -208,7 +208,7 @@
               "offset": 70
             }
           },
-          "sourceCode": "log:printInfo(\"Getting apples\", key1=\"Value1\", key2=\"Value2\");"
+          "sourceCode": "log:printInfo(\"Getting apples\", 'error = (), key1=\"Value1\", key2=\"Value2\");"
         },
         "returning": false,
         "properties": {

@@ -72,6 +72,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"western red apple\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -83,6 +84,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -95,6 +97,7 @@
           "description": "The MIME type header of the request entity"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -181,7 +184,7 @@
             "character": 80
           }
         },
-        "newText": "json res1 = check foodClient->/western/apples.post(\"western red apple\", (), (), param1 = \"value1\", param2 = 12);"
+        "newText": "json res1 = check foodClient->/western/apples.post(\"western red apple\", param1 = \"value1\", param2 = 12);"
       }
     ]
   }

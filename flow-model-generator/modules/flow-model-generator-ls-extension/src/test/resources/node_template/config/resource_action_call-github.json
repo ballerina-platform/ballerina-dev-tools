@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 1348
+      "id": 1638
     },
     "returning": false,
     "properties": {
@@ -59,6 +59,7 @@
           "label": "Connection",
           "description": "Connection to use"
         },
+        "valueType": "IDENTIFIER",
         "valueTypeConstraint": "github:Client",
         "value": "githubClient",
         "optional": false,

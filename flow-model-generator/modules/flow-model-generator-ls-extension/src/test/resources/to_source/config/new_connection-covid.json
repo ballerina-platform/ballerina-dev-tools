@@ -40,6 +40,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "record",
         "value": "{}",
+        "placeholder": "{}",
         "optional": false,
         "editable": true,
         "kind": "DEFAULTABLE"
@@ -52,6 +53,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "value": "https://disease.sh",
+        "placeholder": "https://disease.sh",
         "optional": false,
         "editable": true,
         "kind": "DEFAULTABLE"
@@ -115,7 +117,7 @@
             "character": 0
           }
         },
-        "newText": "final covid19:Client item = check new ({}, https: //disease.sh) ;"
+        "newText": "final covid19:Client item = check new ();"
       }
     ]
   }

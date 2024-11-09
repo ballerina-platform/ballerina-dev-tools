@@ -19,7 +19,7 @@
           "items": [
             {
               "metadata": {
-                "label": "post:[/path/to/resource]",
+                "label": "post:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -31,7 +31,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 590
               },
               "enabled": true
@@ -55,7 +55,7 @@
             },
             {
               "metadata": {
-                "label": "put:[/path/to/resource]",
+                "label": "put:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP PUT requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -67,7 +67,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 592
               },
               "enabled": true
@@ -91,7 +91,7 @@
             },
             {
               "metadata": {
-                "label": "patch:[/path/to/resource]",
+                "label": "patch:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP PATCH requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -103,7 +103,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 594
               },
               "enabled": true
@@ -127,7 +127,7 @@
             },
             {
               "metadata": {
-                "label": "delete:[/path/to/resource]",
+                "label": "delete:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP DELETE requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -139,7 +139,7 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 596
               },
               "enabled": true
@@ -163,7 +163,7 @@
             },
             {
               "metadata": {
-                "label": "head:[/path/to/resource]",
+                "label": "head:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP HEAD requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -175,7 +175,7 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 598
               },
               "enabled": true
@@ -199,7 +199,7 @@
             },
             {
               "metadata": {
-                "label": "get:[/path/to/resource]",
+                "label": "get:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -211,7 +211,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 600
               },
               "enabled": true
@@ -235,7 +235,7 @@
             },
             {
               "metadata": {
-                "label": "options:[/path/to/resource]",
+                "label": "options:/path/to/subdirectory",
                 "description": "The client resource function to send HTTP OPTIONS requests to HTTP endpoints.\n",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
                 "functionKind": "RESOURCE"
@@ -247,7 +247,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "[/path/to/resource]",
+                "resourcePath": "/path/to/subdirectory",
                 "id": 602
               },
               "enabled": true

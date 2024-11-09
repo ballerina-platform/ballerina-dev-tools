@@ -44,7 +44,9 @@
         },
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "INCLUDED_RECORD",
+        "placeholder": "{}"
       },
       "variable": {
         "metadata": {

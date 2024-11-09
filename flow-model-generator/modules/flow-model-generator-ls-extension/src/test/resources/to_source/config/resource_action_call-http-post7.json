@@ -72,6 +72,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"green apple\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -83,6 +84,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -94,6 +96,7 @@
           "label": "mediaType",
           "description": "The MIME type header of the request entity"
         },
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -181,7 +184,7 @@
             "character": 84
           }
         },
-        "newText": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\", (), (), param1 = \"value1\", param2 = 12);"
+        "newText": "json res7 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\", param1 = \"value1\", param2 = 12);"
       }
     ]
   }

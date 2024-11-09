@@ -48,6 +48,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/bananas\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -59,6 +60,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -105,7 +107,7 @@
             "character": 79
           }
         },
-        "newText": "check foodClient->get(\"/bananas\", ());"
+        "newText": "check foodClient->get(\"/bananas\");"
       }
     ]
   }

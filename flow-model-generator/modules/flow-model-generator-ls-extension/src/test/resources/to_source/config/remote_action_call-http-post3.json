@@ -48,6 +48,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/bananas\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -60,6 +61,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"green banana\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -71,6 +73,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -83,6 +86,7 @@
           "description": "The MIME type header of the request entity"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -129,7 +133,7 @@
             "character": 92
           }
         },
-        "newText": "check foodClient->post(\"/bananas\", \"green banana\", (), ());"
+        "newText": "check foodClient->post(\"/bananas\", \"green banana\");"
       }
     ]
   }

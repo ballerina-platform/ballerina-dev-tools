@@ -72,6 +72,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,

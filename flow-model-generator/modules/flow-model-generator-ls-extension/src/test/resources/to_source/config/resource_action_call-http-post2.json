@@ -72,6 +72,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "{\"type\": \"red apple\"}",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -83,6 +84,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -96,6 +98,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"application/json\"",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -181,7 +184,7 @@
             "character": 106
           }
         },
-        "newText": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, (), \"application/json\", param1 = \"value1\", param2 = 12);"
+        "newText": "json res2 = check foodClient->/apples.post({\"type\": \"red apple\"}, \"application/json\", param1 = \"value1\", param2 = 12);"
       }
     ]
   }

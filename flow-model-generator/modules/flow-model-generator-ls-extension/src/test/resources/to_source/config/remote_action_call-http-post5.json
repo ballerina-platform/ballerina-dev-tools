@@ -48,6 +48,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/milkshake\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -60,6 +61,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"mixed fruit\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -71,6 +73,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -83,6 +86,7 @@
           "description": "The MIME type header of the request entity"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -118,7 +122,7 @@
             "character": 62
           }
         },
-        "newText": "drinkClient->post(\"/milkshake\", \"mixed fruit\", (), ());"
+        "newText": "drinkClient->post(\"/milkshake\", \"mixed fruit\");"
       }
     ]
   }
