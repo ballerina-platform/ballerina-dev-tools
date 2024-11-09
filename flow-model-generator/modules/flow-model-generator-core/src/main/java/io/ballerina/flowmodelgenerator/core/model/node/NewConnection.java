@@ -34,7 +34,6 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -111,6 +110,7 @@ public class NewConnection extends NodeBuilder {
                 .id(function.functionId());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
@@ -120,28 +120,29 @@ public class NewConnection extends NodeBuilder {
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                    .label(paramResult.name())
-                    .description(paramResult.description())
-                    .stepOut()
+                        .label(paramResult.name())
+                        .description(paramResult.description())
+                        .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
                     .defaultable(paramResult.optional() == 1)
                     .kind(paramResult.kind().name());
 
-
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                customPropBuilder
-                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
-                        .value(new ArrayList<>());
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
             } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                customPropBuilder
-                        .type(Property.ValueType.EXPRESSION_SET)
-                        .value(new ArrayList<>());
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
             } else {
-                customPropBuilder
-                        .type(Property.ValueType.EXPRESSION)
-                        .value(paramResult.defaultValue());
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
             customPropBuilder
                     .stepOut()

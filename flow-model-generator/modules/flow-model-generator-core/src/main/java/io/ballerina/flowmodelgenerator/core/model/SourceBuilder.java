@@ -125,7 +125,6 @@ public class SourceBuilder {
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
         }
-
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
@@ -270,52 +269,104 @@ public class SourceBuilder {
         keys.removeAll(ignoredProperties);
 
         boolean firstParamAdded = false;
+        boolean missedDefaultValue = false;
         for (String key : keys) {
             Optional<Property> property = flowNode.getProperty(key);
-            if (property.isEmpty() || property.get().value() == null ||
-                    (property.get().optional() && property.get().value().toString().isEmpty())) {
+            if (property.isEmpty()) {
                 continue;
             }
 
             Property prop = property.get();
             String kind = prop.kind();
+            boolean optional = prop.optional();
 
             if (firstParamAdded) {
                 if ((kind.equals(Parameter.Kind.REST_PARAMETER.name()))) {
+                    if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                        continue;
+                    }
                     if (hasRestParamValues(prop)) {
                         tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
                         continue;
                     }
                 } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                    if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                        continue;
+                    }
                     if (hasRestParamValues(prop)) {
                         tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addIncludedRecordRestParamValues(prop);
                         continue;
                     }
-                } else {
-                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-            } else {
-                firstParamAdded = true;
             }
 
-            if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
-                    || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
+            if (!optional && kind.equals(Parameter.Kind.REQUIRED.name())) {
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
                 tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
+                if (isPropValueEmpty(prop)) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.DEFAULTABLE.name())) {
+                if (isPropValueEmpty(prop)) {
+                    missedDefaultValue = true;
+                    continue;
+                }
+                if (!prop.placeholder().equals(prop.value())) {
+                    if (firstParamAdded) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                    }
+                    if (missedDefaultValue) {
+                        tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+                    } else {
+                        tokenBuilder.expression(prop);
+                    }
+                }
             } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
+                if (isPropValueEmpty(prop)) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
                 tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
             } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
+                if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
                 addRestParamValues(prop);
             } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
                 addIncludedRecordRestParamValues(prop);
             }
+
+            firstParamAdded = true;
         }
 
         tokenBuilder
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
         return this;
+    }
+
+    private boolean isPropValueEmpty(Property property) {
+        return property.value() == null || (property.optional() && property.value().toString().isEmpty());
     }
 
     private boolean hasRestParamValues(Property prop) {
@@ -326,10 +377,10 @@ public class SourceBuilder {
     }
 
     private void addRestParamValues(Property prop) {
-        if (prop.value() instanceof List<?>) {
-            List<String> values = (List<String>) prop.value();
+        if (prop.value() instanceof List<?> values) {
             if (!values.isEmpty()) {
-                tokenBuilder.expression(String.join(", ", values));
+                List<String> strValues = ((List<?>) prop.value()).stream().map(Object::toString).toList();
+                tokenBuilder.expression(String.join(", ", strValues));
             }
         }
     }
@@ -341,7 +392,7 @@ public class SourceBuilder {
                 List<String> result = new ArrayList<>();
                 values.forEach(keyValuePair -> {
                     String key = (String) keyValuePair.keySet().iterator().next();
-                    String value = (String) keyValuePair.values().iterator().next();
+                    String value = keyValuePair.values().iterator().next().toString();
                     result.add(key + " = " + value);
                 });
                 tokenBuilder.expression(String.join(", ", result));

@@ -443,13 +443,7 @@ public class CommonUtils {
             ModulePartNode node = document.syntaxTree().rootNode();
             NonTerminalNode currentNode = node.findNode(TextRange.from(startPos, endPos - startPos),
                     true);
-            while (currentNode != null) {
-                if (currentNode.kind() == SyntaxKind.DO_STATEMENT) {
-                    return ((DoStatementNode) currentNode).onFailClause().isPresent();
-                }
-                currentNode = currentNode.parent();
-            }
-            return false;
+            return withinDoClause(currentNode);
         } catch (Throwable t) {
             return false;
         }
@@ -507,12 +501,10 @@ public class CommonUtils {
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
-                            .signature();
-                    pathBuilder.append("[").append(type).append("...]");
+                    pathBuilder.append("/path/to/subdirectory");
                 });
             }
-            case PATH_REST_PARAM -> pathBuilder.append("[").append("/path/to/resource").append("]");
+            case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
             case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
         }
         return pathBuilder.toString();

@@ -45,7 +45,7 @@
         "metadata": {
           "label": "error"
         },
-        "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -56,11 +56,24 @@
           "label": "stackTrace",
           "description": "The error stack trace to be logged"
         },
-        "value": "()",
+        "value": "e.stackTrace()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
         "kind": "DEFAULTABLE"
+      },
+      "Additional Values": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture additional values"
+        },
+        "value": [],
+        "placeholder": "[]",
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "optional": true,
+        "editable": true,
+        "kind": "INCLUDED_RECORD_REST"
       },
       "keyValues": {
         "metadata": {
@@ -101,7 +114,7 @@
             "character": 40
           }
         },
-        "newText": "log:printInfo(\"Getting apples\", (), ());"
+        "newText": "log:printInfo(\"Getting apples\", stackTrace = e.stackTrace());"
       }
     ]
   }
