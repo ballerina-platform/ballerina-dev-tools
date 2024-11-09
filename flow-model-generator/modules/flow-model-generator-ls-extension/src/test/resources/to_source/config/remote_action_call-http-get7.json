@@ -48,6 +48,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/milkshake\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -59,6 +60,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -94,7 +96,7 @@
             "character": 46
           }
         },
-        "newText": "drinkClient->get(\"/milkshake\", ());"
+        "newText": "drinkClient->get(\"/milkshake\");"
       }
     ]
   }

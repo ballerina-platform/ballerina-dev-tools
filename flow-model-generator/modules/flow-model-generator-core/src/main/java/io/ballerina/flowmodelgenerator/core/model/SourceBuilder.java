@@ -286,7 +286,6 @@ public class SourceBuilder {
                         continue;
                     }
                     if (hasRestParamValues(prop)) {
-                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
                         continue;
                     }
@@ -320,15 +319,16 @@ public class SourceBuilder {
                     missedDefaultValue = true;
                     continue;
                 }
-                if (!prop.placeholder().equals(prop.value())) {
-                    if (firstParamAdded) {
-                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-                    }
-                    if (missedDefaultValue) {
-                        tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
-                    } else {
-                        tokenBuilder.expression(prop);
-                    }
+                if (prop.placeholder().equals(prop.value())) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                if (missedDefaultValue) {
+                    tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+                } else {
+                    tokenBuilder.expression(prop);
                 }
             } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
                 if (isPropValueEmpty(prop)) {

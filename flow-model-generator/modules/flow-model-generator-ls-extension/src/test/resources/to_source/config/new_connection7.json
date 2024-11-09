@@ -44,6 +44,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:8080\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "kind": "REQUIRED"
@@ -53,6 +54,7 @@
           "label": "config",
           "description": "The configurations to be used when initializing the `client`\n"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,

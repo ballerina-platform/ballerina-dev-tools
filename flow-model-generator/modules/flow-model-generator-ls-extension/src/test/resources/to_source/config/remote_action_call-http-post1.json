@@ -60,6 +60,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/pears\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -72,6 +73,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"pear\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -83,6 +85,7 @@
           "description": "The entity headers"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -95,6 +98,7 @@
           "description": "The MIME type header of the request entity"
         },
         "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
@@ -151,7 +155,7 @@
             "character": 61
           }
         },
-        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\", (), ());"
+        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
       }
     ]
   }

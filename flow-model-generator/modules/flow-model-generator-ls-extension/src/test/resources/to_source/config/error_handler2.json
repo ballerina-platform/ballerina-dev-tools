@@ -103,6 +103,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/western/oranges\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -118,6 +119,7 @@
                 "editable": true,
                 "advanced": true,
                 "value": "()",
+                "placeholder": "()",
                 "kind": "DEFAULTABLE"
               },
               "checkError": {
@@ -366,6 +368,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"/log\"",
+                        "placeholder": "\"\"",
                         "optional": false,
                         "editable": true,
                         "advanced": false,
@@ -378,6 +381,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"Error occurred while getting the response\"",
+                        "placeholder": "\"\"",
                         "optional": false,
                         "editable": true,
                         "advanced": false,
@@ -389,6 +393,7 @@
                           "description": "The entity headers"
                         },
                         "valueType": "EXPRESSION",
+                        "placeholder": "()",
                         "optional": true,
                         "editable": true,
                         "advanced": true,
@@ -401,6 +406,7 @@
                           "description": "The MIME type header of the request entity"
                         },
                         "valueType": "EXPRESSION",
+                        "placeholder": "()",
                         "optional": true,
                         "editable": true,
                         "advanced": true,
@@ -574,7 +580,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\", ());\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\", (), ());\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
+        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
       }
     ]
   }

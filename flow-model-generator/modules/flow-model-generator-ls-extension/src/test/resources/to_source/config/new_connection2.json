@@ -42,9 +42,11 @@
           "label": "config",
           "description": "configuration for the connector\n"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "INCLUDED_RECORD"
       },
       "variable": {
         "metadata": {

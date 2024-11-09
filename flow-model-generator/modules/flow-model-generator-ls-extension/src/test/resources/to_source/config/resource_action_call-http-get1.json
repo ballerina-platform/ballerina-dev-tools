@@ -70,6 +70,7 @@
           "label": "headers",
           "description": "The entity headers"
         },
+        "placeholder": "()",
         "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
@@ -157,7 +158,7 @@
             "character": 60
           }
         },
-        "newText": "json res1 = check foodClient->/western/apples.get((), param1 = \"value1\", param2 = 12);"
+        "newText": "json res1 = check foodClient->/western/apples.get(param1 = \"value1\", param2 = 12);"
       }
     ]
   }
