@@ -1,5 +1,5 @@
 {
-  "source": "new_connection8/main.bal",
+  "source": "new_connection6/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "47797",
@@ -68,7 +68,20 @@
     "flags": 1
   },
   "output": {
-    "new_connection8/main.bal": [
+    "new_connection6/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
       {
         "range": {
           "start": {

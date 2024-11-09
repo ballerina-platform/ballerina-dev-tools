@@ -80,7 +80,7 @@ public class NewConnection extends NodeBuilder {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }
         return switch (scope.get().value().toString()) {
-            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
+            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).acceptImport().build();
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal", true).build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
         };

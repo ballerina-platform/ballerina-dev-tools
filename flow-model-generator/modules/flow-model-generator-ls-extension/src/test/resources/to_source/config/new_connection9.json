@@ -1,27 +1,27 @@
 {
-  "source": "new_connection3/main.bal",
+  "source": "new_connection7/new_connection7.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "39846",
+    "id": "38878",
     "metadata": {
       "label": "New Connection",
       "description": "Create a new connection"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
-      "org": "ballerinax",
-      "module": "redis",
+      "org": "ballerina",
+      "module": "http",
       "object": "Client",
       "symbol": "init",
       "lineRange": {
-        "fileName": "new_connection.bal",
+        "fileName": "new_connection7.bal",
         "startLine": {
-          "line": 8,
-          "offset": 4
+          "line": 1,
+          "offset": 44
         },
         "endLine": {
-          "line": 8,
-          "offset": 42
+          "line": 1,
+          "offset": 44
         }
       }
     },
@@ -37,21 +37,34 @@
         "optional": false,
         "editable": true
       },
+      "url": {
+        "metadata": {
+          "label": "url",
+          "description": "URL of the target service\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"http://localhost:8080\"",
+        "optional": false,
+        "editable": true,
+        "kind": "REQUIRED"
+      },
       "config": {
         "metadata": {
           "label": "config",
-          "description": "configuration for the connector\n"
+          "description": "The configurations to be used when initializing the `client`\n"
         },
+        "value": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "INCLUDED_RECORD"
       },
       "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "localRedisCl",
+        "value": "localHttpCl",
         "optional": false,
         "editable": true
       },
@@ -60,7 +73,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "redis:Client",
+        "value": "http:Client",
         "optional": false,
         "editable": true
       }
@@ -68,32 +81,32 @@
     "flags": 1
   },
   "output": {
-    "new_connection3/main.bal": [
+    "new_connection7/new_connection7.bal": [
       {
         "range": {
           "start": {
-            "line": 0,
+            "line": 1,
             "character": 0
           },
           "end": {
-            "line": 0,
+            "line": 1,
             "character": 0
           }
         },
-        "newText": "import ballerinax/redis;"
+        "newText": "import ballerina/http;"
       },
       {
         "range": {
           "start": {
-            "line": 8,
-            "character": 4
+            "line": 1,
+            "character": 44
           },
           "end": {
-            "line": 8,
-            "character": 42
+            "line": 1,
+            "character": 44
           }
         },
-        "newText": "final redis:Client localRedisCl = check new ();"
+        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
       }
     ]
   }

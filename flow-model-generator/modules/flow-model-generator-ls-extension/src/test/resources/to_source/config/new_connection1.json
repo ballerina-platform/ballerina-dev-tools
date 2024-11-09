@@ -1,5 +1,5 @@
 {
-  "source": "new_connection1/main.bal",
+  "source": "new_connection3/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "38878",
@@ -81,7 +81,20 @@
     "flags": 1
   },
   "output": {
-    "new_connection1/main.bal": [
+    "new_connection3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
       {
         "range": {
           "start": {
