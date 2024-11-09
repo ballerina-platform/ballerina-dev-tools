@@ -397,7 +397,8 @@ class CodeAnalyzer extends NodeVisitor {
                 List<String> restArgs = new ArrayList<>();
                 for (int i = 0; i < paramsList.size(); i++) {
                     ParameterSymbol parameterSymbol = paramsList.get(i);
-                    ParameterResult paramResult = funcParamMap.get(parameterSymbol.getName().get());
+                    String escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    ParameterResult paramResult = funcParamMap.get(escapedParamName);
                     Node paramValue = i < argCount ? positionalArgs.poll()
                             : namedArgValueMap.get(paramResult.name());
 
@@ -427,7 +428,8 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
-                ParameterResult restParamResult = funcParamMap.get(restParamSymbol.getName().get());
+                String escapedParamName = CommonUtil.escapeReservedKeyword(restParamSymbol.getName().get());
+                ParameterResult restParamResult = funcParamMap.get(escapedParamName);
                 funcParamMap.remove(restParamSymbol.getName().get());
                 customPropBuilder
                         .metadata()
@@ -456,7 +458,8 @@ class CodeAnalyzer extends NodeVisitor {
             final List<LinkedHashMap<String, String>> includedRecordRestArgs = new ArrayList<>();
             for (int i = 0; i < paramsList.size(); i++) {
                 ParameterSymbol parameterSymbol = paramsList.get(i);
-                ParameterResult paramResult = funcParamMap.get(parameterSymbol.getName().get());
+                String escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                ParameterResult paramResult = funcParamMap.get(escapedParamName);
                 Node paramValue;
                 if (i < argCount) {
                     paramValue = positionalArgs.poll();
@@ -467,11 +470,11 @@ class CodeAnalyzer extends NodeVisitor {
                 if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
                     if (argumentNodes.size() > i && argumentNodes.get(i).kind() == SyntaxKind.NAMED_ARG) {
                         FunctionArgumentNode argNode = argumentNodes.get(i);
-                        funcParamMap.remove(parameterSymbol.getName().get());
+                        funcParamMap.remove(escapedParamName);
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) argNode;
                         String argName = namedArgumentNode.argumentName().name().text();
                         if (argName.equals(paramResult.name())) {  // foo("a", b = {})
-                            paramResult = funcParamMap.get(parameterSymbol.getName().get());
+                            paramResult = funcParamMap.get(escapedParamName);
 
                             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                                     nodeBuilder.properties().custom();
@@ -519,7 +522,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .addProperty(paramResult.name(), paramValue);
 
                             } else { // included record rest
-                                funcParamMap.remove(parameterSymbol.getName().get());
+                                funcParamMap.remove(escapedParamName);
                                 LinkedHashMap<String, String> map = new LinkedHashMap<>();
                                 map.put(argName, namedArgumentNode.expression().toSourceCode());
                                 includedRecordRestArgs.add(map);
@@ -531,7 +534,7 @@ class CodeAnalyzer extends NodeVisitor {
                             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                                     nodeBuilder.properties().custom();
 
-                            funcParamMap.remove(parameterSymbol.getName().get());
+                            funcParamMap.remove(escapedParamName);
                             String value = paramValue.toSourceCode();
                             customPropBuilder
                                     .metadata()
@@ -553,12 +556,12 @@ class CodeAnalyzer extends NodeVisitor {
                 }
 
                 if (paramValue == null && paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
-                    funcParamMap.remove(parameterSymbol.getName().get());
+                    funcParamMap.remove(escapedParamName);
                     continue;
                 }
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
-                funcParamMap.remove(parameterSymbol.getName().get());
+                funcParamMap.remove(escapedParamName);
                 String value = paramValue != null ? paramValue.toSourceCode() : paramResult.defaultValue();
                 customPropBuilder
                         .metadata()

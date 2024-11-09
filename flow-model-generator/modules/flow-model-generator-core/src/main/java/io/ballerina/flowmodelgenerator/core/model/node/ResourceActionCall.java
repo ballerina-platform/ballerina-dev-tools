@@ -168,6 +168,7 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
         properties().resourcePath(function.resourcePath());

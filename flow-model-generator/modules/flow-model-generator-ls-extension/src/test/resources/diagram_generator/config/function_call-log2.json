@@ -1,13 +1,13 @@
 {
   "start": {
-    "line": 8,
-    "offset": 4
+    "line": 6,
+    "offset": 0
   },
   "end": {
-    "line": 19,
-    "offset": 5
+    "line": 12,
+    "offset": 1
   },
-  "source": "function_call.bal",
+  "source": "log_source.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
     "fileName": "function_call.bal",

@@ -165,7 +165,7 @@ public class ActionCall extends NodeBuilder {
                 .label(Property.CONNECTION_LABEL)
                 .description(Property.CONNECTION_DOC)
                 .stepOut()
-                .type(Property.ValueType.EXPRESSION)
+                .type(Property.ValueType.IDENTIFIER)
                 .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())
                 .stepOut()
