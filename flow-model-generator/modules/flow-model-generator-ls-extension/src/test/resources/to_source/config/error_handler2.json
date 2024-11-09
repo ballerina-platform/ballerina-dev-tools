@@ -105,7 +105,8 @@
                 "value": "\"/western/oranges\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "kind": "REQUIRED"
               },
               "headers": {
                 "metadata": {
@@ -115,7 +116,9 @@
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "value": "()",
+                "kind": "DEFAULTABLE"
               },
               "checkError": {
                 "metadata": {
@@ -365,7 +368,8 @@
                         "value": "\"/log\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "kind": "REQUIRED"
                       },
                       "message": {
                         "metadata": {
@@ -376,7 +380,8 @@
                         "value": "\"Error occurred while getting the response\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "kind": "DEFAULTABLE"
                       },
                       "headers": {
                         "metadata": {
@@ -386,7 +391,9 @@
                         "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "value": "()",
+                        "kind": "DEFAULTABLE"
                       },
                       "mediaType": {
                         "metadata": {
@@ -396,7 +403,9 @@
                         "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "value": "()",
+                        "kind": "DEFAULTABLE"
                       },
                       "checkError": {
                         "metadata": {
@@ -565,7 +574,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
+        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\", ());\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\", (), ());\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
       }
     ]
   }

@@ -62,7 +62,8 @@
         "value": "\"/pears\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "message": {
         "metadata": {
@@ -73,27 +74,32 @@
         "value": "\"pear\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "DEFAULTABLE"
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "mediaType": {
         "metadata": {
           "label": "mediaType",
           "description": "The MIME type header of the request entity"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -145,7 +151,7 @@
             "character": 61
           }
         },
-        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
+        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\", (), ());"
       }
     ]
   }

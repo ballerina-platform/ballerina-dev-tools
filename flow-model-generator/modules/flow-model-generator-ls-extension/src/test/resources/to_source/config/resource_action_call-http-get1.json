@@ -70,20 +70,31 @@
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "params": {
         "metadata": {
           "label": "params",
           "description": "The query parameters"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "INCLUDED_RECORD_REST",
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
       },
       "checkError": {
         "metadata": {
@@ -146,7 +157,7 @@
             "character": 60
           }
         },
-        "newText": "json res1 = check foodClient->/western/apples.get();"
+        "newText": "json res1 = check foodClient->/western/apples.get((), param1 = \"value1\", param2 = 12);"
       }
     ]
   }

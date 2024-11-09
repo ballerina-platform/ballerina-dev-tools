@@ -18,18 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.db.model;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
-
 public record ParameterResult(
         int parameterId,
         String name,
         String type,
-        ParameterKind kind,
+        Parameter.Kind kind,
         String defaultValue,
-        String description) {
-
-    public String getDefaultValue() {
-        //TODO: Remove included record params once #238 completed.
-        return (kind == ParameterKind.REQUIRED || kind == ParameterKind.INCLUDED_RECORD) ? defaultValue : "";
-    }
+        String description,
+        Integer optional) {
 }

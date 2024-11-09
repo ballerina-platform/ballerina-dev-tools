@@ -1,7 +1,7 @@
 import ballerina/http;
 import ballerinax/redis;
 
-http:Client moduleHttpCl = check new ("http://localhost:9090");
+http:Client moduleHttpCl = check new ("http://localhost:9090", {});
 redis:Client moduleRedisCl = check new;
 
 public function fn1() returns error? {

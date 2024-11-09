@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
+          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\", {});\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -81,10 +81,13 @@
               "description": "Request path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/hello\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -92,9 +95,27 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           },
           "checkError": {
             "metadata": {
@@ -176,7 +197,7 @@
         "flags": 0
       },
       {
-        "id": "48794",
+        "id": "48798",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -197,10 +218,10 @@
             },
             "endLine": {
               "line": 17,
-              "offset": 62
+              "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\");"
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
         },
         "returning": false,
         "properties": {
@@ -232,10 +253,13 @@
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:8080\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "config": {
             "metadata": {
@@ -243,9 +267,13 @@
               "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "http:ClientConfiguration",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
           },
           "variable": {
             "metadata": {
@@ -319,10 +347,13 @@
               "description": "Request path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/hello\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "headers": {
             "metadata": {
@@ -330,9 +361,27 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "kind": "DEFAULTABLE"
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "kind": "PARAM_FOR_TYPE_INFER"
           },
           "checkError": {
             "metadata": {
@@ -513,7 +562,7 @@
     ],
     "connections": [
       {
-        "id": "39739",
+        "id": "39743",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -534,10 +583,10 @@
             },
             "endLine": {
               "line": 8,
-              "offset": 59
+              "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\");"
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -569,10 +618,13 @@
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "kind": "REQUIRED"
           },
           "config": {
             "metadata": {
@@ -580,9 +632,13 @@
               "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "http:ClientConfiguration",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "kind": "INCLUDED_RECORD"
           },
           "variable": {
             "metadata": {

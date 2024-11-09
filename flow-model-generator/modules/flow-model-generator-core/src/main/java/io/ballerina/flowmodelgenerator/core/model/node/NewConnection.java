@@ -18,14 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -33,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -118,17 +120,38 @@ public class NewConnection extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-            properties().custom()
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                continue;
+            }
+
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
                     .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                    .type(Property.ValueType.EXPRESSION)
+                    .label(paramResult.name())
+                    .description(paramResult.description())
+                    .stepOut()
+                    .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
-                    .value(paramResult.getDefaultValue())
                     .editable()
-                    .defaultable(optional)
+                    .defaultable(paramResult.optional() == 1)
+                    .kind(paramResult.kind().name());
+
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                customPropBuilder
+                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION)
+                        .value(paramResult.defaultValue());
+            }
+            customPropBuilder
                     .stepOut()
                     .addProperty(paramResult.name());
         }

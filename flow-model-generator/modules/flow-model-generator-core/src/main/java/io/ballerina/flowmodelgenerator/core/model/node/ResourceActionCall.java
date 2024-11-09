@@ -18,27 +18,24 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -116,33 +113,40 @@ public class ResourceActionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
             }
-            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
-                Package modulePackage = PackageUtil
-                        .getModulePackage(function.org(), function.packageName(), function.version());
-                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
-                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
-                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
-                    FunctionCall.addIncludedRecordToParams((
-                            (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
-                }
+
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                    .label(paramResult.name())
+                    .description(paramResult.description())
+                    .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1)
+                    .kind(paramResult.kind().name());
+
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                customPropBuilder
+                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION_SET)
+                        .value(new ArrayList<>());
             } else {
-                properties().custom()
-                        .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
+                customPropBuilder
                         .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(paramResult.getDefaultValue())
-                        .editable()
-                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
-                        .stepOut()
-                        .addProperty(paramResult.name());
+                        .value(paramResult.defaultValue());
             }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(paramResult.name());
         }
 
         String returnTypeName = function.returnType();

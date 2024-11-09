@@ -21,6 +21,7 @@ package io.ballerina.indexgenerator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
@@ -30,30 +31,45 @@ import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
-import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
-import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
+import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.Project;
 import io.ballerina.projects.directory.BuildProject;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
-import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -62,13 +78,16 @@ import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
+/**
+ * Index generator to cache functions and connectors.
+ *
+ * @since 2.0.0
+ */
 class IndexGenerator {
 
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
-
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
-    private static final String TARGET_TYPE_NAME = "targetType";
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
@@ -127,7 +146,7 @@ class IndexGenerator {
                 }
 
                 processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
-                        descriptor.name().value(), errorTypeSymbol);
+                        descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 continue;
             }
             if (symbol.kind() == SymbolKind.CLASS) {
@@ -145,7 +164,7 @@ class IndexGenerator {
                 }
                 int connectorId =
                         processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR,
-                                descriptor.name().value(), errorTypeSymbol);
+                                descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 if (connectorId == -1) {
                     continue;
                 }
@@ -167,7 +186,7 @@ class IndexGenerator {
                         continue;
                     }
                     int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType,
-                            descriptor.name().value(), errorTypeSymbol);
+                            descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                     if (functionId == -1) {
                         continue;
                     }
@@ -183,39 +202,10 @@ class IndexGenerator {
 
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
-                                             TypeSymbol errorTypeSymbol) {
-        StringBuilder pathBuilder = new StringBuilder();
+                                             TypeSymbol errorTypeSymbol, Package resolvedPackage) {
+        String pathBuilder = "";
         if (functionType == FunctionType.RESOURCE) {
-            ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
-            ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-            switch (resourcePath.kind()) {
-                case PATH_SEGMENT_LIST -> {
-                    PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
-                    for (Symbol pathSegment : pathSegmentList.list()) {
-                        pathBuilder.append("/");
-                        if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                            String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
-                                    .signature();
-                            pathBuilder.append("[").append(type).append("]");
-                        } else {
-                            pathBuilder.append(pathSegment.getName().orElse(""));
-                        }
-                    }
-                    ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                        String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
-                                .signature();
-                        pathBuilder.append("[").append(type).append("...]");
-                    });
-                }
-                case PATH_REST_PARAM -> {
-                    String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
-                            .typeDescriptor()).signature();
-                    pathBuilder.append("[").append(type).append("...]");
-                }
-                case DOT_RESOURCE_PATH -> {
-                    pathBuilder.append(".");
-                }
-            }
+            pathBuilder = CommonUtils.buildResourcePathTemplate(functionSymbol);
         }
 
         // Capture the name of the function
@@ -233,34 +223,153 @@ class IndexGenerator {
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> functionSymbol.nameEquals("init") ?
-                        getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
+                        getClientType(packageName) :
                         getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
+
+        ParamForTypeInfer paramForTypeInfer = null;
+        if (functionSymbol.external()) {
+            List<String> paramNameList = new ArrayList<>();
+            functionTypeSymbol.params().ifPresent(paramList -> paramList
+                    .stream()
+                    .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
+                    .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
+
+            Map<String, TypeSymbol> returnTypeMap =
+                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            for (String paramName : paramNameList) {
+                if (returnTypeMap.containsKey(paramName)) {
+                    returnType = "json";
+                    String defaultValue = DefaultValueGeneratorUtil
+                            .getDefaultValueForType(returnTypeMap.get(paramName));
+                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, returnType);
+                    break;
+                }
+            }
+        }
 
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
         int functionId =
                 DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                        functionType.name(), pathBuilder.toString(), returnError);
+                        functionType.name(), pathBuilder, returnError);
 
         // Handle the parameters of the function
+        ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
         functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId)));
+                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage,
+                        finalParamForTypeInfer)));
         functionTypeSymbol.restParam().ifPresent(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId));
+                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage, null));
         return functionId;
     }
 
+    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
+        Map<String, TypeSymbol> members = new HashMap<>();
+        if (typeSymbol == null) {
+            return members;
+        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            unionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
+            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+            intersectionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else {
+            members.put(typeSymbol.getName().orElse(""), typeSymbol);
+        }
+        return members;
+    }
+
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
-                                               int functionId) {
+                                               int functionId, Package resolvedPackage,
+                                               ParamForTypeInfer paramForTypeInfer) {
         String paramName = paramSymbol.getName().orElse("");
-        String paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
         String paramDescription = documentationMap.get(paramName);
-        ParameterKind parameterKind = paramSymbol.paramKind();
-        String defaultValue =
-                DefaultValueGenerationUtil.getDefaultValueForType(paramSymbol.typeDescriptor()).orElse("");
+        FunctionParameterKind parameterKind = FunctionParameterKind.fromString(paramSymbol.paramKind().toString());
+        String paramType;
+        int optional = 1;
+        String defaultValue;
+        if (parameterKind == FunctionParameterKind.REST_PARAMETER) {
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
+                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
+            paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
+                    null, false);
+        } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
+                    functionId, resolvedPackage);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+        } else if (parameterKind == FunctionParameterKind.REQUIRED) {
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            optional = 0;
+        } else {
+            if (paramForTypeInfer != null) {
+                if (paramForTypeInfer.paramName().equals(paramName)) {
+                    defaultValue = paramForTypeInfer.type();
+                    paramType = paramForTypeInfer.type();
+                    DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription,
+                            paramType, defaultValue, FunctionParameterKind.PARAM_FOR_TYPE_INFER, optional);
+                    return;
+                }
+            }
+            Location symbolLocation = paramSymbol.getLocation().get();
+            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            if (document != null) {
+                defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
+                        symbolLocation, resolvedPackage.packageName().value());
+            }
+            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+        }
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                parameterKind);
+                parameterKind, optional);
+    }
+
+    protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId,
+                                                      Package resolvedPackage) {
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId,
+                    resolvedPackage);
+        });
+        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
+            RecordFieldSymbol recordFieldSymbol = entry.getValue();
+            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
+            if (fieldType.typeKind() == TypeDescKind.NEVER) {
+                continue;
+            }
+            String paramName = entry.getKey();
+            Location symbolLocation = recordFieldSymbol.getLocation().get();
+            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            String defaultValue;
+            if (document != null) {
+                defaultValue = getAttributeDefaultValue(document.syntaxTree().rootNode(),
+                        symbolLocation, resolvedPackage.packageName().value());
+                if (defaultValue == null) {
+                    defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+                }
+            } else {
+                defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+            }
+            String paramDescription = entry.getValue().documentation()
+                    .flatMap(Documentation::description).orElse("");
+            String paramType = getTypeSignature(fieldType, null, false);
+            int optional = 0;
+            if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
+                optional = 1;
+            }
+            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
+                    FunctionParameterKind.INCLUDED_FIELD, optional);
+        }
+        recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
+            String paramType =  getTypeSignature(typeSymbol, null, false);
+            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+            DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
+                    "Capture key value pairs", paramType, defaultValue,
+                    FunctionParameterKind.INCLUDED_RECORD_REST, 1);
+        });
     }
 
     private static String getDescription(Documentable documentable) {
@@ -270,11 +379,6 @@ class IndexGenerator {
     private static String getTypeSignature(TypeSymbol typeSymbol, TypeSymbol errorTypeSymbol, boolean ignoreError) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
-                // TODO: Improve the handling of dependable types.
-                // Tracked with: https://github.com/wso2-enterprise/eggplant-project/issues/253
-                if (typeSymbol.nameEquals(TARGET_TYPE_NAME)) {
-                    yield TARGET_TYPE_NAME;
-                }
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()
@@ -326,7 +430,7 @@ class IndexGenerator {
         };
     }
 
-    public static String getClientType(String packageName, TypeSymbol returnType, TypeSymbol errorTypeSymbol) {
+    public static String getClientType(String packageName) {
         String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
         return String.format("%s:%s", importPrefix, "Client");
     }
@@ -336,5 +440,78 @@ class IndexGenerator {
         REMOTE,
         CONNECTOR,
         RESOURCE
+    }
+
+    enum FunctionParameterKind {
+        REQUIRED,
+        DEFAULTABLE,
+        INCLUDED_RECORD,
+        REST_PARAMETER,
+        INCLUDED_FIELD,
+        PARAM_FOR_TYPE_INFER,
+        INCLUDED_RECORD_REST;
+
+        // need to have a fromString logic here
+        public static FunctionParameterKind fromString(String value) {
+            if (value.equals("REST")) {
+                return REST_PARAMETER;
+            }
+            return FunctionParameterKind.valueOf(value);
+        }
+
+        private FunctionParameterKind() {
+        }
+    }
+
+    private static String getParamDefaultValue(ModulePartNode rootNode, Location location, String module) {
+        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
+                location.textRange().length()));
+        if (node.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
+            DefaultableParameterNode valueNode = (DefaultableParameterNode) node;
+            ExpressionNode expression = (ExpressionNode) valueNode.expression();
+            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                return module + ":" + simpleNameReferenceNode.name().text();
+            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                        .text();
+            } else {
+                return expression.toSourceCode();
+            }
+        }
+        return null;
+    }
+
+    private static String getAttributeDefaultValue(ModulePartNode rootNode, Location location, String module) {
+        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
+                location.textRange().length()));
+        if (node.kind() == SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE) {
+            RecordFieldWithDefaultValueNode valueNode = (RecordFieldWithDefaultValueNode) node;
+            ExpressionNode expression = valueNode.expression();
+            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                return module + ":" + simpleNameReferenceNode.name().text();
+            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                        .text();
+            } else {
+                return expression.toSourceCode();
+            }
+        }
+        return null;
+    }
+
+    public static Document findDocument(Package pkg, String path) {
+        Project project = pkg.project();
+        Module defaultModule = pkg.getDefaultModule();
+        String module = pkg.packageName().value();
+        Path docPath = project.sourceRoot().resolve("modules").resolve(module).resolve(path);
+        try {
+            DocumentId documentId = project.documentId(docPath);
+            return defaultModule.document(documentId);
+        } catch (RuntimeException ex) {
+            return null;
+        }
+    }
+
+    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 }

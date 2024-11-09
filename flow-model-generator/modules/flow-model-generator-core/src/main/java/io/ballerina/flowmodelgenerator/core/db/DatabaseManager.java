@@ -18,9 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.core.db;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 
 import java.io.IOException;
@@ -33,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -137,7 +138,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getFunctionsByOrg(String orgName) {
+    public List<FunctionResult> getFunctionsByOrg(String orgName, FunctionKind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -151,11 +152,12 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE p.org = ?;";
+                "WHERE f.kind = ? AND p.org = ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, orgName);
+            stmt.setString(1, functionKind.name());
+            stmt.setString(2, orgName);
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
@@ -224,7 +226,6 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
                         rs.getInt("return_error")
-
                 );
                 functionResults.add(functionResult);
             }
@@ -306,7 +307,7 @@ public class DatabaseManager {
         } else {
             sql.append("AND f.name = ?;");
         }
-        
+
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             stmt.setString(1, org);
@@ -385,6 +386,7 @@ public class DatabaseManager {
                 "p.name, " +
                 "p.type, " +
                 "p.kind, " +
+                "p.optional, " +
                 "p.default_value, " +
                 "p.description " +
                 "FROM Parameter p " +
@@ -399,9 +401,10 @@ public class DatabaseManager {
                         rs.getInt("parameter_id"),
                         rs.getString("name"),
                         rs.getString("type"),
-                        ParameterKind.valueOf(rs.getString("kind")),
+                        Parameter.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getInt("optional")
                 );
                 parameterResults.add(parameterResult);
             }
@@ -409,6 +412,42 @@ public class DatabaseManager {
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();
+        }
+    }
+
+    public LinkedHashMap<String, ParameterResult> getFunctionParametersAsMap(int functionId) {
+        String sql = "SELECT " +
+                "p.parameter_id, " +
+                "p.name, " +
+                "p.type, " +
+                "p.kind, " +
+                "p.optional, " +
+                "p.default_value, " +
+                "p.description " +
+                "FROM Parameter p " +
+                "WHERE p.function_id = ?;";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, functionId);
+            ResultSet rs = stmt.executeQuery();
+            LinkedHashMap<String, ParameterResult> parameterResults = new LinkedHashMap<>();
+            while (rs.next()) {
+                String paramName = rs.getString("name");
+                ParameterResult parameterResult = new ParameterResult(
+                        rs.getInt("parameter_id"),
+                        paramName,
+                        rs.getString("type"),
+                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        rs.getString("default_value"),
+                        rs.getString("description"),
+                        rs.getInt("optional")
+                );
+                parameterResults.put(paramName, parameterResult);
+            }
+            return parameterResults;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return new LinkedHashMap<>();
         }
     }
 

@@ -38,24 +38,29 @@
         "valueType": "EXPRESSION",
         "value": "\"Getting apples\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "REQUIRED"
       },
-      "error": {
+      "'error": {
         "metadata": {
           "label": "error"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "kind": "DEFAULTABLE"
       },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
           "description": "The error stack trace to be logged"
         },
+        "value": "()",
         "valueType": "EXPRESSION",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "kind": "DEFAULTABLE"
       },
       "keyValues": {
         "metadata": {
@@ -64,7 +69,8 @@
         },
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "INCLUDED_RECORD"
       }
     },
     "flags": 0
@@ -95,7 +101,7 @@
             "character": 40
           }
         },
-        "newText": "log:printInfo(\"Getting apples\");"
+        "newText": "log:printInfo(\"Getting apples\", (), ());"
       }
     ]
   }

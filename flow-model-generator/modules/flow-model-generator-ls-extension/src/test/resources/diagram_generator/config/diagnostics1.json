@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 24,
+    "line": 23,
     "offset": 1
   },
   "source": "diagnostics1.bal",
@@ -257,73 +257,6 @@
         },
         "returning": false,
         "properties": {
-          "s": {
-            "metadata": {
-              "label": "s"
-            },
-            "valueType": "EXPRESSION",
-            "value": "i",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "incompatible types: expected 'string', found 'int'"
-                }
-              ]
-            }
-          },
-          "i": {
-            "metadata": {
-              "label": "i"
-            },
-            "valueType": "EXPRESSION",
-            "value": "s",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "incompatible types: expected 'int', found 'string'"
-                }
-              ]
-            }
-          },
-          "b": {
-            "metadata": {
-              "label": "b"
-            },
-            "valueType": "EXPRESSION",
-            "value": "true",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "j": {
-            "metadata": {
-              "label": "j"
-            },
-            "valueType": "EXPRESSION",
-            "value": "[]",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "incompatible types: expected 'map<json>', found '[]'"
-                }
-              ]
-            }
-          },
           "view": {
             "metadata": {
               "label": "View",
@@ -344,6 +277,85 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "s": {
+            "metadata": {
+              "label": "s"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "i",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "incompatible types: expected 'string', found 'int'"
+                }
+              ]
+            },
+            "kind": "REQUIRED"
+          },
+          "i": {
+            "metadata": {
+              "label": "i"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "s",
+            "placeholder": "0",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "incompatible types: expected 'int', found 'string'"
+                }
+              ]
+            },
+            "kind": "REQUIRED"
+          },
+          "b": {
+            "metadata": {
+              "label": "b"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "value": "true",
+            "placeholder": "false",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "kind": "REQUIRED"
+          },
+          "j": {
+            "metadata": {
+              "label": "j"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<json>",
+            "value": "[]",
+            "placeholder": "{}",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "incompatible types: expected 'map<json>', found '[]'"
+                }
+              ]
+            },
+            "kind": "REQUIRED"
           }
         },
         "diagnostics": {

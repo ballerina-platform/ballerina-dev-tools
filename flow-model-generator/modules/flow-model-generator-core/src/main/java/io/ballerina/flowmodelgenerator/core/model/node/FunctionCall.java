@@ -19,35 +19,29 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -55,6 +49,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,7 +104,8 @@ public class FunctionCall extends NodeBuilder {
                                 .stepOut()
                             .type(Property.ValueType.EXPRESSION)
                             .typeConstraint(CommonUtils.getTypeSignature(param.typeDescriptor(), moduleDescriptor))
-                            .value(DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""))
+                            .value(DefaultValueGenerationUtil
+                                    .getDefaultValueForType(param.typeDescriptor()).orElse(""))
                             .defaultable(param.paramKind() == ParameterKind.DEFAULTABLE)
                             .editable()
                             .stepOut()
@@ -130,7 +126,7 @@ public class FunctionCall extends NodeBuilder {
             });
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
-                    .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+                    .map(returnTypeDesc -> errorTypeSymbol.subtypeOf(returnTypeDesc) ? 1 : 0).orElse(0);
             if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
                     context.filePath(), context.codedata().lineRange())) {
                 properties().checkError(true);
@@ -146,8 +142,8 @@ public class FunctionCall extends NodeBuilder {
         if (functionResult.isEmpty()) {
             throw new RuntimeException("Function not found: " + codedata.symbol());
         }
-        FunctionResult function = functionResult.get();
 
+        FunctionResult function = functionResult.get();
         metadata()
                 .label(function.name())
                 .description(function.description());
@@ -161,30 +157,40 @@ public class FunctionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
-                Package modulePackage = PackageUtil
-                        .getModulePackage(function.org(), function.packageName(), function.version());
-                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
-                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
-                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
-                    FunctionCall.addIncludedRecordToParams(
-                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
-                }
-            } else {
-                properties().custom()
-                        .metadata()
-                            .label(paramResult.name())
-                            .description(paramResult.description())
-                            .stepOut()
-                        .type(Property.ValueType.EXPRESSION)
-                        .typeConstraint(paramResult.type())
-                        .value(paramResult.getDefaultValue())
-                        .editable()
-                        .defaultable(paramResult.kind() == ParameterKind.DEFAULTABLE)
-                        .stepOut()
-                        .addProperty(paramResult.name());
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                continue;
             }
+
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                        .label(paramResult.name())
+                        .description(paramResult.description())
+                        .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1)
+                    .kind(paramResult.kind().name());
+
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                customPropBuilder
+                        .type(Property.ValueType.MAPPING_EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION_SET)
+                        .value(new ArrayList<>());
+            } else {
+                customPropBuilder
+                        .type(Property.ValueType.EXPRESSION)
+                        .value(paramResult.defaultValue());
+            }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(paramResult.name());
         }
 
         String returnTypeName = function.returnType();
@@ -204,33 +210,6 @@ public class FunctionCall extends NodeBuilder {
         }
     }
 
-    protected static void addIncludedRecordToParams(TypeSymbol typeSymbol, NodeBuilder nodeBuilder) {
-        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) CommonUtils.getRawType(typeSymbol);
-        recordTypeSymbol.typeInclusions().forEach(includedType -> {
-            addIncludedRecordToParams(includedType, nodeBuilder);
-        });
-        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
-            RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
-            if (fieldType.typeKind() == TypeDescKind.NEVER) {
-                continue;
-            }
-            String attributeName = entry.getKey();
-            String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
-            nodeBuilder.properties().custom()
-                    .metadata()
-                        .label(attributeName)
-                        .description(doc)
-                        .stepOut()
-                    .type(Property.ValueType.EXPRESSION)
-                    .typeConstraint(recordFieldSymbol.typeDescriptor().getName().orElse(""))
-                    .value("")
-                    .optional(recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional())
-                    .stepOut()
-                    .addProperty(attributeName);
-        }
-    }
-
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
@@ -247,7 +226,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();

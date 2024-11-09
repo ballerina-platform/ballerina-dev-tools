@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
@@ -268,36 +269,84 @@ public class SourceBuilder {
         Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
 
-        boolean hasEmptyParam = false;
         boolean firstParamAdded = false;
         for (String key : keys) {
             Optional<Property> property = flowNode.getProperty(key);
             if (property.isEmpty() || property.get().value() == null ||
                     (property.get().optional() && property.get().value().toString().isEmpty())) {
-                hasEmptyParam = true;
                 continue;
             }
 
+            Property prop = property.get();
+            String kind = prop.kind();
+
             if (firstParamAdded) {
-                tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                if ((kind.equals(Parameter.Kind.REST_PARAMETER.name()))) {
+                    if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                        addRestParamValues(prop);
+                        continue;
+                    }
+                } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                    if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                        addIncludedRecordRestParamValues(prop);
+                        continue;
+                    }
+                } else {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
             } else {
                 firstParamAdded = true;
             }
 
-            if (hasEmptyParam) {
-                tokenBuilder
-                        .name(key)
-                        .keyword(SyntaxKind.EQUAL_TOKEN);
-                hasEmptyParam = false;
+            if (kind.equals(Parameter.Kind.REQUIRED.name()) || kind.equals(Parameter.Kind.DEFAULTABLE.name())
+                    || kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
+                tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
+                tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+            } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
+                addRestParamValues(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                addIncludedRecordRestParamValues(prop);
             }
-
-            tokenBuilder.expression(property.get());
         }
 
         tokenBuilder
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
         return this;
+    }
+
+    private boolean hasRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?> values) {
+            return !values.isEmpty();
+        }
+        return false;
+    }
+
+    private void addRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<String> values = (List<String>) prop.value();
+            if (!values.isEmpty()) {
+                tokenBuilder.expression(String.join(", ", values));
+            }
+        }
+    }
+
+    private void addIncludedRecordRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<Map> values = (List<Map>) prop.value();
+            if (!values.isEmpty()) {
+                List<String> result = new ArrayList<>();
+                values.forEach(keyValuePair -> {
+                    String key = (String) keyValuePair.keySet().iterator().next();
+                    String value = (String) keyValuePair.values().iterator().next();
+                    result.add(key + " = " + value);
+                });
+                tokenBuilder.expression(String.join(", ", result));
+            }
+        }
     }
 
     public SourceBuilder textEdit(boolean isExpression) {

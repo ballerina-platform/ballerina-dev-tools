@@ -105,7 +105,8 @@
                 "value": "\"/western/apples\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "kind": "REQUIRED"
               },
               "headers": {
                 "metadata": {
@@ -115,7 +116,9 @@
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "value": "()",
+                "kind": "DEFAULTABLE"
               },
               "checkError": {
                 "metadata": {
@@ -279,7 +282,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n}"
+        "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\", ());\n    msg = res2.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n}"
       }
     ]
   }

@@ -34,11 +34,12 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
-        "value": "",
+        "value": "\"value\"",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "type": {
         "metadata": {
@@ -103,7 +104,7 @@
             "character": 0
           }
         },
-        "newText": "jsondata:Error item = check jsondata:toJson();"
+        "newText": "jsondata:Error item = check jsondata:toJson(\"value\");"
       }
     ]
   }

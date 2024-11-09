@@ -38,27 +38,20 @@
         "value": "jsonResult",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "kind": "REQUIRED"
       },
       "options": {
         "metadata": {
           "label": "options",
           "description": "Options to be used for filtering in the projection"
         },
+        "value": "{}",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
-      },
-      "t": {
-        "metadata": {
-          "label": "t",
-          "description": "Target type"
-        },
-        "valueType": "EXPRESSION",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "advanced": true,
+        "kind": "DEFAULTABLE"
       },
       "checkError": {
         "metadata": {
@@ -124,7 +117,7 @@
             "character": 61
           }
         },
-        "newText": "Apple apple = check jsondata:parseAsType(jsonResult);"
+        "newText": "Apple apple = check jsondata:parseAsType(jsonResult, {});"
       }
     ]
   }

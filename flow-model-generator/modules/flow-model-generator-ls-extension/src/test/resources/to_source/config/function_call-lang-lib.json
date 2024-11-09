@@ -48,7 +48,8 @@
         "valueType": "EXPRESSION",
         "value": "\"11.11\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "REQUIRED"
       },
       "variable": {
         "metadata": {

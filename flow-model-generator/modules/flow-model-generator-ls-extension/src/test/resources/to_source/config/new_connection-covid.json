@@ -41,7 +41,8 @@
         "valueTypeConstraint": "record",
         "value": "{}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "DEFAULTABLE"
       },
       "serviceUrl": {
         "metadata": {
@@ -50,9 +51,10 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "https://disease.sh",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "kind": "DEFAULTABLE"
       },
       "type": {
         "metadata": {
@@ -113,7 +115,7 @@
             "character": 0
           }
         },
-        "newText": "final covid19:Client item = check new ({}, \"\");"
+        "newText": "final covid19:Client item = check new ({}, https: //disease.sh) ;"
       }
     ]
   }

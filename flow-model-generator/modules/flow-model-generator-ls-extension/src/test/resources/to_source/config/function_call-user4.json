@@ -28,7 +28,27 @@
       "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
     },
     "returning": false,
-    "properties": {},
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "value": [
+          "\"arg2\"",
+          "\"arg1\"",
+          "0",
+          "1"
+        ],
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "kind": "REST_PARAMETER"
+      }
+    },
     "flags": 0
   },
   "output": {
@@ -57,7 +77,7 @@
             "character": 61
           }
         },
-        "newText": "io:println();"
+        "newText": "io:println(\"arg2\", \"arg1\", 0, 1);"
       }
     ]
   }
