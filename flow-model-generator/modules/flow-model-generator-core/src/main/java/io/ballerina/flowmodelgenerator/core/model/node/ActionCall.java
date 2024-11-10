@@ -136,11 +136,14 @@ public class ActionCall extends NodeBuilder {
                         .label(unescapedParamName)
                         .description(paramResult.description())
                         .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1)
-                    .kind(paramResult.kind().name());
+                    .defaultable(paramResult.optional() == 1);
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
