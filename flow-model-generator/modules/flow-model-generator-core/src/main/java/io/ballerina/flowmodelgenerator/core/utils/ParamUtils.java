@@ -171,7 +171,8 @@ public class ParamUtils {
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = CommonUtils.getTypeSignature(semanticModel, fieldType, true, moduleInfo);
+            String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldSymbol.typeDescriptor(),
+                    true, moduleInfo);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
