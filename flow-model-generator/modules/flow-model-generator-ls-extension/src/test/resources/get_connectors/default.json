@@ -14,7 +14,7 @@
         "module": "grpc",
         "object": "Client",
         "symbol": "init",
-        "id": 39
+        "id": 40
       },
       "enabled": true
     },
@@ -30,7 +30,7 @@
         "module": "ldap",
         "object": "Client",
         "symbol": "init",
-        "id": 125
+        "id": 190
       },
       "enabled": true
     },
@@ -46,23 +46,7 @@
         "module": "mqtt",
         "object": "Client",
         "symbol": "init",
-        "id": 187
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "tcp",
-        "description": "Initializes the TCP connection client based on the provided configurations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "tcp",
-        "object": "Client",
-        "symbol": "init",
-        "id": 241
+        "id": 304
       },
       "enabled": true
     },
@@ -78,23 +62,7 @@
         "module": "ftp",
         "object": "Client",
         "symbol": "init",
-        "id": 244
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "udp",
-        "description": "Initializes the UDP connectionless client based on the provided configurations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "udp",
-        "object": "Client",
-        "symbol": "init",
-        "id": 354
+        "id": 322
       },
       "enabled": true
     },
@@ -110,7 +78,23 @@
         "module": "graphql",
         "object": "Client",
         "symbol": "init",
-        "id": 445
+        "id": 368
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "tcp",
+        "description": "Initializes the TCP connection client based on the provided configurations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "tcp",
+        "object": "Client",
+        "symbol": "init",
+        "id": 426
       },
       "enabled": true
     },
@@ -126,7 +110,23 @@
         "module": "websocket",
         "object": "Client",
         "symbol": "init",
-        "id": 568
+        "id": 471
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "udp",
+        "description": "Initializes the UDP connectionless client based on the provided configurations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.11.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "udp",
+        "object": "Client",
+        "symbol": "init",
+        "id": 481
       },
       "enabled": true
     },
@@ -180,22 +180,6 @@
     },
     {
       "metadata": {
-        "label": "sap",
-        "description": "The `sap` client provides the capability for initiating contact with a remote HTTP service provided by any SAP products. The API it\nprovides includes the functions for the standard HTTP methods.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_sap_1.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "sap",
-        "object": "Client",
-        "symbol": "init",
-        "id": 645
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "mongodb",
         "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
@@ -206,7 +190,7 @@
         "module": "mongodb",
         "object": "Client",
         "symbol": "init",
-        "id": 666
+        "id": 651
       },
       "enabled": true
     },
@@ -222,23 +206,7 @@
         "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 670
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "snowflake",
-        "description": "Represents a Snowflake database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "snowflake",
-        "object": "Client",
-        "symbol": "init",
-        "id": 677
+        "id": 655
       },
       "enabled": true
     },
@@ -254,7 +222,7 @@
         "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 684
+        "id": 662
       },
       "enabled": true
     },
@@ -270,23 +238,7 @@
         "module": "redis",
         "object": "Client",
         "symbol": "init",
-        "id": 691
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "salesforce",
-        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "salesforce",
-        "object": "Client",
-        "symbol": "init",
-        "id": 762
+        "id": 669
       },
       "enabled": true
     },
@@ -302,23 +254,71 @@
         "module": "rabbitmq",
         "object": "Client",
         "symbol": "init",
-        "id": 824
+        "id": 778
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "asana",
-        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png"
+        "label": "openai.audio",
+        "description": "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_openai.audio_2.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "asana",
+        "module": "openai.audio",
         "object": "Client",
         "symbol": "init",
-        "id": 846
+        "id": 786
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "twitter",
+        "description": "Twitter API v2 available endpoints",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twitter_4.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "twitter",
+        "object": "Client",
+        "symbol": "init",
+        "id": 797
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "nats",
+        "description": "The client provides the capability to publish messages to the NATS server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_nats_3.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "nats",
+        "object": "Client",
+        "symbol": "init",
+        "id": 803
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "googleapis.gmail",
+        "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "googleapis.gmail",
+        "object": "Client",
+        "symbol": "init",
+        "id": 809
       },
       "enabled": true
     }
