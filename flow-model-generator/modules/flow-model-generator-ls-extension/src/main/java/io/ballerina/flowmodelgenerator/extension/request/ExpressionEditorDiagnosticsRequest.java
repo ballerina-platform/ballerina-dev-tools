@@ -18,17 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.tools.text.LinePosition;
-
 /**
  * Represents a request for diagnostics in the expression editor.
  *
- * @param filePath   the path of the file
- * @param expression the value in the expression field
- * @param type       the type of the expression
- * @param startLine  the starting line position of the expression
+ * @param filePath The file path which contains the expression
+ * @param context  The context of the expression editor
  */
-public record ExpressionEditorDiagnosticsRequest(String filePath, String expression, String type,
-                                                 LinePosition startLine) {
+public record ExpressionEditorDiagnosticsRequest(String filePath, ExpressionEditorContext context) {
 
 }

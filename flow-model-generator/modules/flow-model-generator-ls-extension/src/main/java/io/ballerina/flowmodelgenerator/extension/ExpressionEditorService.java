@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
@@ -281,19 +282,23 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 }
                 TextDocument textDocument = document.get().textDocument();
 
+                ExpressionEditorContext context = request.context();
                 // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(request.startLine());
+                int textPosition = textDocument.textPositionFrom(context.startLine());
 
-                String type = request.type();
+                String type = context.getProperty()
+                        .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
+                        .map(Object::toString)
+                        .orElse("");
                 String statement;
-                if (type == null || type.isEmpty()) {
-                    statement = String.format("_ = %s;%n", request.expression());
+                if (type.isEmpty()) {
+                    statement = String.format("_ = %s;%n", context.expression());
                 } else {
-                    statement = String.format("%s _ = %s;%n", type, request.expression());
+                    statement = String.format("%s _ = %s;%n", type, context.expression());
                 }
-                LinePosition endLineRange = LinePosition.from(request.startLine().line(),
-                        request.startLine().offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), request.startLine(), endLineRange);
+                LinePosition endLineRange = LinePosition.from(context.startLine().line(),
+                        context.startLine().offset() + statement.length());
+                LineRange lineRange = LineRange.from(request.filePath(), context.startLine(), endLineRange);
 
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
