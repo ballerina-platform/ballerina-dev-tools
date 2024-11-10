@@ -39,7 +39,7 @@ public class Variable extends NodeBuilder {
 
     public static final String LABEL = "Variable";
     public static final String DESCRIPTION = "New variable with type";
-    public static final String NEW_DATA_EXPRESSION_DOC = "Create new variable";
+    public static final String EXPRESSION_DOC = "Initialize with value";
 
     @Override
     public void setConcreteConstData() {
@@ -70,6 +70,6 @@ public class Variable extends NodeBuilder {
         metadata().description(DESCRIPTION);
         properties()
                 .dataVariable(null, true, context.getAllVisibleSymbolNames())
-                .expression("", NEW_DATA_EXPRESSION_DOC, true);
+                .expression("", EXPRESSION_DOC, true);
     }
 }

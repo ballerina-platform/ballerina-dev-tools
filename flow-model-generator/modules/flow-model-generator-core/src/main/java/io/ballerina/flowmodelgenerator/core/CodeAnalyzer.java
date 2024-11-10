@@ -116,6 +116,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Project;
@@ -881,7 +882,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(Assign.DESCRIPTION)
                     .stepOut()
-                    .properties().expression(null, true);
+                    .properties().expression((ExpressionNode) null, Variable.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -893,7 +894,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .metadata()
                         .description(Assign.DESCRIPTION)
                         .stepOut()
-                        .properties().expression(initializerNode, true);
+                        .properties().expression(initializerNode, Variable.EXPRESSION_DOC, true);
             }
         }
 
@@ -933,7 +934,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(Assign.DESCRIPTION)
                     .stepOut()
                     .properties()
-                    .expression(expression)
+                    .expression(expression, Assign.EXPRESSION_DOC, false)
                     .data(assignmentStatementNode.varRef(), true, new HashSet<>());
         }
 

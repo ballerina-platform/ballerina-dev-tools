@@ -45,7 +45,7 @@
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Create new variable"
+          "description": "Initialize with value"
         },
         "valueType": "EXPRESSION",
         "value": "",

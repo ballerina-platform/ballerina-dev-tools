@@ -104,7 +104,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",

@@ -492,6 +492,20 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                .type(Property.ValueType.EXPRESSION)
+                .optional(optional)
+                .editable();
+        addProperty(Property.EXPRESSION_KEY, expressionNode);
+        return this;
+    }
+
     public FormBuilder<T> expression(ExpressionNode expressionNode) {
         return expression(expressionNode, false);
     }
