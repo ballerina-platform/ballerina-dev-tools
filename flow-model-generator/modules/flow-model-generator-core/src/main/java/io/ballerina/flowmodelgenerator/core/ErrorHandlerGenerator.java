@@ -22,8 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
@@ -105,31 +103,29 @@ public class ErrorHandlerGenerator {
                 return;
             }
 
-            // Check if the return type of the function is a subtype of error
-            Optional<Symbol> functionSymbol = semanticModel.symbol(functionDefinitionNode);
-            if (functionSymbol.isPresent() && functionSymbol.get().kind() == SymbolKind.FUNCTION) {
-                FunctionTypeSymbol functionTypeSymbol = ((FunctionSymbol) functionSymbol.get()).typeDescriptor();
-                Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
-                if (returnTypeSymbol.isPresent() && errorTypeSymbol.subtypeOf(returnTypeSymbol.get())) {
-                    LineRange childLineRange = CommonUtils.getLineRangeOfBlockNode(functionBodyNode);
-                    addTextEdit(childLineRange.startLine(), prefix);
-                    addTextEdit(childLineRange.endLine(), suffix);
-                    return;
+            // Append error type to the signature if not exists
+            if (hasNoReturnError(functionDefinitionNode)) {
+                FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
+                Optional<ReturnTypeDescriptorNode> returnTypeDescriptorNode = functionSignatureNode.returnTypeDesc();
+                if (returnTypeDescriptorNode.isEmpty()) {
+                    addTextEdit(functionSignatureNode.lineRange().endLine(), " returns error?");
+                } else {
+                    addTextEdit(returnTypeDescriptorNode.get().type().lineRange().endLine(), "|error");
                 }
             }
 
-            // Add error to the return type
-            FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
-            Optional<ReturnTypeDescriptorNode> returnTypeDescriptorNode = functionSignatureNode.returnTypeDesc();
-            if (returnTypeDescriptorNode.isEmpty()) {
-                addTextEdit(functionSignatureNode.lineRange().endLine(), " returns error?");
-            } else {
-                addTextEdit(returnTypeDescriptorNode.get().type().lineRange().endLine(), "|error");
-            }
-
+            // Generate the text edits for the error handler
             LineRange childLineRange = CommonUtils.getLineRangeOfBlockNode(functionBodyNode);
             addTextEdit(childLineRange.startLine(), prefix);
             addTextEdit(childLineRange.endLine(), suffix);
+        }
+
+        private boolean hasNoReturnError(FunctionDefinitionNode functionDefinitionNode) {
+            return semanticModel.symbol(functionDefinitionNode)
+                    .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION)
+                    .map(symbol -> ((FunctionSymbol) symbol).typeDescriptor().returnTypeDescriptor())
+                    .map(returnType -> returnType.isEmpty() || !errorTypeSymbol.subtypeOf(returnType.get()))
+                    .orElse(true);
         }
 
         private void addTextEdit(LinePosition position, String text) {
