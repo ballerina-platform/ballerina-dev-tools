@@ -40,6 +40,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -70,8 +71,8 @@ public class ExpressionEditorContext {
         return flowNode.getBranch(info.branch()).flatMap(branch -> branch.getProperty(info.property()));
     }
 
-    public boolean isNodeKind(NodeKind nodeKind) {
-        return flowNode.codedata().node() == nodeKind;
+    public boolean isNodeKind(List<NodeKind> nodeKinds) {
+        return nodeKinds.contains(flowNode.codedata().node());
     }
 
     public Info info() {
