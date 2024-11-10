@@ -105,8 +105,7 @@
       "flags": 0
     },
     "branch": "self.classVar > ",
-    "property": "condition",
-    "type": "boolean"
+    "property": "condition"
   },
   "diagnostics": [
     {

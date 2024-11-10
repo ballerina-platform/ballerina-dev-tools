@@ -18,12 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
+
 /**
  * Represents a request for diagnostics in the expression editor.
  *
  * @param filePath The file path which contains the expression
  * @param context  The context of the expression editor
  */
-public record ExpressionEditorDiagnosticsRequest(String filePath, ExpressionEditorContext context) {
+public record ExpressionEditorDiagnosticsRequest(String filePath, ExpressionEditorContext.Info context) {
 
 }

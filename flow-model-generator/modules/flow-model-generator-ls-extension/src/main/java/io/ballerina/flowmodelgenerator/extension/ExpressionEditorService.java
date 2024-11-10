@@ -21,10 +21,11 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
@@ -61,6 +62,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -282,27 +284,35 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 }
                 TextDocument textDocument = document.get().textDocument();
 
-                ExpressionEditorContext context = request.context();
+                ExpressionEditorContext context =
+                        new ExpressionEditorContext(workspaceManager, request.context(), filePath);
                 // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(context.startLine());
+                int textPosition = textDocument.textPositionFrom(context.info().startLine());
 
                 String type = context.getProperty()
                         .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
                         .map(Object::toString)
                         .orElse("");
+
+                List<TextEdit> textEdits = new ArrayList<>();
+                if (context.isNodeKind(NodeKind.NEW_CONNECTION)) {
+                    context.getImport().ifPresent(textEdits::add);
+                }
+
                 String statement;
                 if (type.isEmpty()) {
-                    statement = String.format("_ = %s;%n", context.expression());
+                    statement = String.format("_ = %s;%n", context.info().expression());
                 } else {
-                    statement = String.format("%s _ = %s;%n", type, context.expression());
+                    statement = String.format("%s _ = %s;%n", type, context.info().expression());
                 }
-                LinePosition endLineRange = LinePosition.from(context.startLine().line(),
-                        context.startLine().offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), context.startLine(), endLineRange);
+                LinePosition endLineRange = LinePosition.from(context.info().startLine().line(),
+                        context.info().startLine().offset() + statement.length());
+                LineRange lineRange = LineRange.from(request.filePath(), context.info().startLine(), endLineRange);
 
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+                textEdits.add(textEdit);
                 TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+                        textDocument.apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
                 projectCacheManager.writeContent(newTextDocument, filePath);
                 document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
