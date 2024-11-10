@@ -20,13 +20,22 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Document;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -37,6 +46,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Generates error handlers for function definitions that does not contain a global error handler.
@@ -57,14 +67,16 @@ public class ErrorHandlerGenerator {
 
     public JsonElement getTextEdits() {
         ModulePartNode rootNode;
+        SemanticModel semanticModel;
         try {
             workspaceManager.loadProject(filePath);
             Document document = workspaceManager.document(filePath).orElseThrow();
+            semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
             rootNode = document.syntaxTree().rootNode();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException("Failed to get the document", e);
         }
-        FunctionVisitor functionVisitor = new FunctionVisitor();
+        FunctionVisitor functionVisitor = new FunctionVisitor(semanticModel);
         rootNode.accept(functionVisitor);
         List<TextEdit> textEdits = functionVisitor.getTextEdits();
         return gson.toJsonTree(Map.of(filePath, textEdits));
@@ -73,11 +85,15 @@ public class ErrorHandlerGenerator {
     private static class FunctionVisitor extends NodeVisitor {
 
         private static final String prefix = "do {\n";
-        private static final String suffix = "\n} on fail error e {\n\n}";
+        private static final String suffix = "\n} on fail var e {\n   return e;\n}";
         private final List<TextEdit> textEdits;
+        private final SemanticModel semanticModel;
+        private final TypeSymbol errorTypeSymbol;
 
-        public FunctionVisitor() {
+        public FunctionVisitor(SemanticModel semanticModel) {
             this.textEdits = new ArrayList<>();
+            this.semanticModel = semanticModel;
+            this.errorTypeSymbol = semanticModel.types().ERROR;
         }
 
         @Override
@@ -89,10 +105,35 @@ public class ErrorHandlerGenerator {
                 return;
             }
 
-            // Generate the text edits
+            // Check if the return type of the function is a subtype of error
+            Optional<Symbol> functionSymbol = semanticModel.symbol(functionDefinitionNode);
+            if (functionSymbol.isPresent() && functionSymbol.get().kind() == SymbolKind.FUNCTION) {
+                FunctionTypeSymbol functionTypeSymbol = ((FunctionSymbol) functionSymbol.get()).typeDescriptor();
+                Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
+                if (returnTypeSymbol.isPresent() && errorTypeSymbol.subtypeOf(returnTypeSymbol.get())) {
+                    LineRange childLineRange = CommonUtils.getLineRangeOfBlockNode(functionBodyNode);
+                    addTextEdit(childLineRange.startLine(), prefix);
+                    addTextEdit(childLineRange.endLine(), suffix);
+                    return;
+                }
+            }
+
+            // Add error to the return type
+            FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
+            Optional<ReturnTypeDescriptorNode> returnTypeDescriptorNode = functionSignatureNode.returnTypeDesc();
+            if (returnTypeDescriptorNode.isEmpty()) {
+                addTextEdit(functionSignatureNode.lineRange().endLine(), " returns error?");
+            } else {
+                addTextEdit(returnTypeDescriptorNode.get().type().lineRange().endLine(), "|error");
+            }
+
             LineRange childLineRange = CommonUtils.getLineRangeOfBlockNode(functionBodyNode);
-            textEdits.add(new TextEdit(CommonUtils.toRange(childLineRange.startLine()), prefix));
-            textEdits.add(new TextEdit(CommonUtils.toRange(childLineRange.endLine()), suffix));
+            addTextEdit(childLineRange.startLine(), prefix);
+            addTextEdit(childLineRange.endLine(), suffix);
+        }
+
+        private void addTextEdit(LinePosition position, String text) {
+            textEdits.add(new TextEdit(CommonUtils.toRange(position), text));
         }
 
         public List<TextEdit> getTextEdits() {

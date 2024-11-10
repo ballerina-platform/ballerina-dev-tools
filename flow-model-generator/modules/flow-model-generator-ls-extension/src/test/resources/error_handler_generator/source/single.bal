@@ -3,7 +3,7 @@ import ballerina/io;
 
 final http:Client foodClient = check new ("http://localhost:9090");
 
-function greetUser(string name) returns string {
+function greetUser(string name) returns string|error {
     string greeting = "Hello, " + name;
     io:println(greeting);
     string response = "Welcome to Ballerina!";
@@ -27,7 +27,7 @@ function getOranges() returns string {
     }
 }
 
-function getPineapples() returns string? {
+function getPineapples() returns string|http:ClientError? {
     string? msg;
     do {
         json res = check foodClient->get("/western/pineapples");
@@ -49,7 +49,7 @@ service /food on new http:Listener(9090) {
         }
     }
 
-    resource function get oranges() returns string {
+    resource function get oranges() returns string|error {
         return getOranges();
     }
 

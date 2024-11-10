@@ -7,11 +7,11 @@
         "range": {
           "start": {
             "line": 5,
-            "character": 48
+            "character": 54
           },
           "end": {
             "line": 5,
-            "character": 48
+            "character": 54
           }
         },
         "newText": "do {\n"
@@ -27,17 +27,30 @@
             "character": 0
           }
         },
-        "newText": "\n} on fail error e {\n\n}"
+        "newText": "\n} on fail var e {\n   return e;\n}"
       },
       {
         "range": {
           "start": {
             "line": 29,
-            "character": 42
+            "character": 57
           },
           "end": {
             "line": 29,
-            "character": 42
+            "character": 57
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 59
+          },
+          "end": {
+            "line": 29,
+            "character": 59
           }
         },
         "newText": "do {\n"
@@ -53,17 +66,30 @@
             "character": 0
           }
         },
-        "newText": "\n} on fail error e {\n\n}"
+        "newText": "\n} on fail var e {\n   return e;\n}"
       },
       {
         "range": {
           "start": {
             "line": 51,
-            "character": 52
+            "character": 56
           },
           "end": {
             "line": 51,
-            "character": 52
+            "character": 56
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 51,
+            "character": 58
+          },
+          "end": {
+            "line": 51,
+            "character": 58
           }
         },
         "newText": "do {\n"
@@ -79,7 +105,7 @@
             "character": 4
           }
         },
-        "newText": "\n} on fail error e {\n\n}"
+        "newText": "\n} on fail var e {\n   return e;\n}"
       }
     ]
   }
