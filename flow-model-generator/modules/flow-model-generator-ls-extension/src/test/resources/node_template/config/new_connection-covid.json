@@ -25,7 +25,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 1087
+      "id": 1670
     },
     "returning": false,
     "properties": {
@@ -40,7 +40,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config"
+        }
       },
       "serviceUrl": {
         "metadata": {
@@ -53,7 +56,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        }
       },
       "type": {
         "metadata": {

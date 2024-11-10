@@ -26,7 +26,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
-      "id": 703
+      "id": 681
     },
     "returning": false,
     "properties": {
@@ -54,7 +54,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        }
       },
       "type": {
         "metadata": {
