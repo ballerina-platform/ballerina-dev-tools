@@ -87,7 +87,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "path"
+            }
           },
           "headers": {
             "metadata": {
@@ -100,7 +103,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "DEFAULTABLE"
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
           },
           "targetType": {
             "metadata": {
@@ -113,7 +119,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "PARAM_FOR_TYPE_INFER"
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "checkError": {
             "metadata": {
@@ -257,7 +266,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
           "config": {
             "metadata": {
@@ -271,7 +283,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD"
+            "codedata": {
+              "kind": "INCLUDED_RECORD",
+              "originalName": "config"
+            }
           },
           "variable": {
             "metadata": {
@@ -351,7 +366,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "path"
+            }
           },
           "headers": {
             "metadata": {
@@ -364,7 +382,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "DEFAULTABLE"
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
           },
           "targetType": {
             "metadata": {
@@ -377,7 +398,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "PARAM_FOR_TYPE_INFER"
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "checkError": {
             "metadata": {
@@ -620,7 +644,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
           "config": {
             "metadata": {
@@ -634,7 +661,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_RECORD"
+            "codedata": {
+              "kind": "INCLUDED_RECORD",
+              "originalName": "config"
+            }
           },
           "variable": {
             "metadata": {

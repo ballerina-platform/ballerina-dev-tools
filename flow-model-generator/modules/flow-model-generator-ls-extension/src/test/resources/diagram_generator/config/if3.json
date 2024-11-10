@@ -644,7 +644,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
           "httpVersion": {
             "metadata": {
@@ -652,12 +655,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "\"2.0\"|\"1.1\"|\"1.0\"",
+            "valueTypeConstraint": "http:HttpVersion",
             "placeholder": "\"2.0\"",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
           },
           "http1Settings": {
             "metadata": {
@@ -665,12 +671,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|ballerina/http:2.12.2:KeepAlive keepAlive; ballerina/http:2.12.2:Chunking chunking; ballerina/http:2.12.2:ProxyConfig? proxy;|}",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
           },
           "http2Settings": {
             "metadata": {
@@ -678,12 +687,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|boolean http2PriorKnowledge; int http2InitialWindowSize;|}",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
           },
           "timeout": {
             "metadata": {
@@ -696,7 +708,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
           },
           "forwarded": {
             "metadata": {
@@ -709,7 +724,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
           },
           "followRedirects": {
             "metadata": {
@@ -722,7 +740,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
           },
           "poolConfig": {
             "metadata": {
@@ -735,7 +756,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
           },
           "cache": {
             "metadata": {
@@ -743,12 +767,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|boolean enabled; boolean isShared; int capacity; float evictionFactor; ballerina/http:2.12.2:CachingPolicy policy;|}",
+            "valueTypeConstraint": "http:CacheConfig",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
           },
           "compression": {
             "metadata": {
@@ -756,12 +783,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "\"AUTO\"|\"ALWAYS\"|\"NEVER\"",
+            "valueTypeConstraint": "http:Compression",
             "placeholder": "\"AUTO\"",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
           },
           "auth": {
             "metadata": {
@@ -774,7 +804,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
           },
           "circuitBreaker": {
             "metadata": {
@@ -787,7 +820,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
           },
           "retryConfig": {
             "metadata": {
@@ -800,7 +836,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
           },
           "cookieConfig": {
             "metadata": {
@@ -813,7 +852,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
           },
           "responseLimits": {
             "metadata": {
@@ -821,12 +863,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|int maxStatusLineLength; int maxHeaderSize; int maxEntityBodySize;|}",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
           },
           "proxy": {
             "metadata": {
@@ -839,7 +884,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
           },
           "validation": {
             "metadata": {
@@ -852,7 +900,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
           },
           "socketConfig": {
             "metadata": {
@@ -860,12 +911,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|decimal connectTimeOut; int receiveBufferSize; int sendBufferSize; boolean tcpNoDelay; boolean socketReuse; boolean keepAlive;|}",
+            "valueTypeConstraint": "http:ClientSocketConfig",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
           },
           "secureSocket": {
             "metadata": {
@@ -878,7 +932,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
           },
           "variable": {
             "metadata": {

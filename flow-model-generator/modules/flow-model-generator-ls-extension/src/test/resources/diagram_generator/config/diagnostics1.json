@@ -298,7 +298,10 @@
                 }
               ]
             },
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "s"
+            }
           },
           "i": {
             "metadata": {
@@ -320,7 +323,10 @@
                 }
               ]
             },
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "i"
+            }
           },
           "b": {
             "metadata": {
@@ -333,7 +339,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "b"
+            }
           },
           "j": {
             "metadata": {
@@ -355,7 +364,10 @@
                 }
               ]
             },
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "j"
+            }
           }
         },
         "diagnostics": {
