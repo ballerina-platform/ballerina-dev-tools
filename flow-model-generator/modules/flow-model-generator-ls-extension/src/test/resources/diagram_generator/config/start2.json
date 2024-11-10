@@ -115,7 +115,7 @@
             "value": "Foo1",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

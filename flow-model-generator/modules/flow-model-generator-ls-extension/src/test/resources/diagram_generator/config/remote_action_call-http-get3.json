@@ -354,7 +354,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -764,7 +764,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
