@@ -295,7 +295,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         .orElse("");
 
                 List<TextEdit> textEdits = new ArrayList<>();
-                if (context.isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL))) {
+                if (context.isNodeKind(
+                        List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
+                                NodeKind.RESOURCE_ACTION_CALL))) {
                     context.getImport().ifPresent(textEdits::add);
                 }
 
