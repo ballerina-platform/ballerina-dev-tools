@@ -37,7 +37,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "base"
+        }
       },
       "exponent": {
         "metadata": {
@@ -49,7 +52,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "exponent"
+        }
       },
       "view": {
         "metadata": {

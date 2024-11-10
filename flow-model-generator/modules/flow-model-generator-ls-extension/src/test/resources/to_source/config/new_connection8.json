@@ -45,8 +45,11 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "kind": "INCLUDED_RECORD",
-        "placeholder": "{}"
+        "placeholder": "{}",
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {

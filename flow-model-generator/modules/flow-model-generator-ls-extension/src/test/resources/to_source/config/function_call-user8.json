@@ -43,7 +43,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "REST_PARAMETER"
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
       }
     },
     "flags": 0

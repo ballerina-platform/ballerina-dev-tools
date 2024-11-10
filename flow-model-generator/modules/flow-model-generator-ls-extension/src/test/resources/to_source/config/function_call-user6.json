@@ -36,7 +36,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "a"
+        }
       },
       "b": {
         "metadata": {
@@ -47,7 +50,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "b"
+        }
       },
       "func": {
         "metadata": {
@@ -58,7 +64,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "func"
+        }
       },
       "view": {
         "metadata": {

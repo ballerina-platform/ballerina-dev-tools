@@ -76,7 +76,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "params": {
         "metadata": {
@@ -87,7 +90,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "INCLUDED_RECORD_REST",
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
         "value": [
           {
             "param1": "\"value1\""

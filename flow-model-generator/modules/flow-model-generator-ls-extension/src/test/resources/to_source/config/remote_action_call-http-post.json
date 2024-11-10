@@ -41,7 +41,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
       },
       "message": {
         "metadata": {
@@ -55,7 +58,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
       },
       "headers": {
         "metadata": {
@@ -68,7 +74,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "mediaType": {
         "metadata": {
@@ -82,7 +91,10 @@
         "optional": true,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        }
       },
       "type": {
         "metadata": {

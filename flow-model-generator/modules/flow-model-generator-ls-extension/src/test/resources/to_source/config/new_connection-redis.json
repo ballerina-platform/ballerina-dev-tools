@@ -39,7 +39,10 @@
         "value": "{}",
         "optional": false,
         "editable": true,
-        "kind": "INCLUDED_RECORD"
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "type": {
         "metadata": {
