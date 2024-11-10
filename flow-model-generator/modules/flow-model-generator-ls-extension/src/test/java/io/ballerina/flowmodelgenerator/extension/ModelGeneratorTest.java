@@ -26,6 +26,7 @@ import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -38,6 +39,14 @@ import java.nio.file.Path;
  * @since 1.4.0
  */
 public class ModelGeneratorTest extends AbstractLSTest {
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[][]{
+                {Path.of("if_windows1.json")}
+        };
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
