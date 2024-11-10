@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -129,10 +130,11 @@ public class ResourceActionCall extends NodeBuilder {
                 continue;
             }
 
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(paramResult.name())
+                        .label(unescapedParamName)
                         .description(paramResult.description())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
@@ -158,7 +160,7 @@ public class ResourceActionCall extends NodeBuilder {
             }
             customPropBuilder
                     .stepOut()
-                    .addProperty(paramResult.name());
+                    .addProperty(unescapedParamName);
         }
 
         String returnTypeName = function.returnType();

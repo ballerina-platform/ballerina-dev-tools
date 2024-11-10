@@ -97,10 +97,11 @@ public class FunctionCall extends NodeBuilder {
                     continue;
                 }
 
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
                 customPropBuilder
                         .metadata()
-                            .label(paramResult.name())
+                            .label(unescapedParamName)
                             .description(paramResult.description())
                             .stepOut()
                         .placeholder(paramResult.defaultValue())
@@ -108,7 +109,6 @@ public class FunctionCall extends NodeBuilder {
                         .editable()
                         .defaultable(paramResult.optional() == 1)
                         .kind(paramResult.kind().name());
-
 
                 if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
@@ -127,7 +127,7 @@ public class FunctionCall extends NodeBuilder {
                 }
                 customPropBuilder
                         .stepOut()
-                        .addProperty(paramResult.name());
+                        .addProperty(unescapedParamName);
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
@@ -181,10 +181,12 @@ public class FunctionCall extends NodeBuilder {
                 continue;
             }
 
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(paramResult.name())
+                        .label(unescapedParamName)
                         .description(paramResult.description())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
@@ -192,7 +194,6 @@ public class FunctionCall extends NodeBuilder {
                     .editable()
                     .defaultable(paramResult.optional() == 1)
                     .kind(paramResult.kind().name());
-
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -211,7 +212,7 @@ public class FunctionCall extends NodeBuilder {
             }
             customPropBuilder
                     .stepOut()
-                    .addProperty(paramResult.name());
+                    .addProperty(unescapedParamName);
         }
 
         String returnTypeName = function.returnType();
