@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -281,7 +281,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "res2.toString()",
@@ -351,7 +351,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
@@ -699,7 +699,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

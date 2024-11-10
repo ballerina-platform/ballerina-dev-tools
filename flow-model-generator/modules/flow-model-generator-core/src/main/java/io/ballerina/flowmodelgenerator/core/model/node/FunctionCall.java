@@ -38,6 +38,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -88,7 +89,7 @@ public class FunctionCall extends NodeBuilder {
                     .symbol(codedata.symbol());
 
             LinkedHashMap<String, ParameterResult> stringParameterResultLinkedHashMap =
-                    CommonUtils.buildFunctionParamResultMap(functionSymbol, semanticModel);
+                    ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel);
             boolean hasOnlyRestParams = stringParameterResultLinkedHashMap.size() == 1;
             for (ParameterResult paramResult : stringParameterResultLinkedHashMap.values()) {
                 if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)

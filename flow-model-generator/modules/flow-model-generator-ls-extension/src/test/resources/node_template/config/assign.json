@@ -28,7 +28,7 @@
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Expression"
+          "description": "Assign value"
         },
         "valueType": "EXPRESSION",
         "value": "",

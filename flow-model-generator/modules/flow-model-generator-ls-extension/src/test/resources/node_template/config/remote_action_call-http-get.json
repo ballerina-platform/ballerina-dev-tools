@@ -31,6 +31,18 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "http:Client",
+        "value": "httpClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "path": {
         "metadata": {
           "label": "path",
@@ -79,18 +91,6 @@
         "value": "jsonResult",
         "optional": false,
         "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "http:Client",
-        "value": "httpClient",
-        "optional": false,
-        "editable": false,
         "advanced": false
       },
       "checkError": {

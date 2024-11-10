@@ -109,6 +109,17 @@ public class ActionCall extends NodeBuilder {
                 .id(function.functionId())
                 .symbol(function.name());
 
+        nodeBuilder.properties().custom()
+                .metadata()
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_DOC)
+                .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
+
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
@@ -128,7 +139,6 @@ public class ActionCall extends NodeBuilder {
                     .editable()
                     .defaultable(paramResult.optional() == 1)
                     .kind(paramResult.kind().name());
-
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -161,17 +171,6 @@ public class ActionCall extends NodeBuilder {
                     .type(returnTypeName, editable)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
-
-        nodeBuilder.properties().custom()
-                .metadata()
-                .label(Property.CONNECTION_LABEL)
-                .description(Property.CONNECTION_DOC)
-                .stepOut()
-                .type(Property.ValueType.IDENTIFIER)
-                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
-                .value(codedata.parentSymbol())
-                .stepOut()
-                .addProperty(Property.CONNECTION_KEY);
 
         if (function.returnError() == 1) {
             nodeBuilder.properties().checkError(true);

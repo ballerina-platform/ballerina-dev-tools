@@ -31,6 +31,18 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "github:Client",
+        "value": "githubClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -52,18 +64,6 @@
         "value": "githubManifestconversions",
         "optional": false,
         "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "github:Client",
-        "value": "githubClient",
-        "optional": false,
-        "editable": false,
         "advanced": false
       },
       "resourcePath": {

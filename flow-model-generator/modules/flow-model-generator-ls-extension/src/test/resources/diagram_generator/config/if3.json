@@ -118,7 +118,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
@@ -296,7 +296,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Assign value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"fresh; \"",
@@ -366,7 +366,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Assign value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"expired; \"",
@@ -515,7 +515,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"expensive\"",
@@ -900,7 +900,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

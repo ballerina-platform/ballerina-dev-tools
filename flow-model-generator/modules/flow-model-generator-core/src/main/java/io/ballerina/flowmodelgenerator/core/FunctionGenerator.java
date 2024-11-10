@@ -81,7 +81,7 @@ public class FunctionGenerator {
     private void buildProjectNodes(Map<String, String> queryMap, LineRange position) {
         List<Symbol> functionSymbols = semanticModel.moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
-        Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.PROJECT_FUNCTIONS);
+        Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
 
         String keyword = queryMap.get("q");
         List<Item> availableNodes = new ArrayList<>();
@@ -125,7 +125,7 @@ public class FunctionGenerator {
     }
 
     private void buildUtilityNodes(Map<String, String> queryMap) {
-        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
+        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.LIBRARY);
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
