@@ -7,10 +7,10 @@
     "line": 21,
     "offset": 1
   },
-  "source": "windows test/if_node.bal",
+  "source": "windows test/source/test path/if_node_windows.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "if_node.bal",
+    "fileName": "if_node_windows.bal",
     "nodes": [
       {
         "id": "47311",
@@ -20,7 +20,7 @@
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "if_node.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
               "line": 14,
               "offset": 47
@@ -44,7 +44,7 @@
         "codedata": {
           "node": "IF",
           "lineRange": {
-            "fileName": "if_node.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
               "line": 15,
               "offset": 8
@@ -64,7 +64,7 @@
             "codedata": {
               "node": "CONDITIONAL",
               "lineRange": {
-                "fileName": "if_node.bal",
+                "fileName": "if_node_windows.bal",
                 "startLine": {
                   "line": 15,
                   "offset": 16
@@ -101,7 +101,7 @@
                 "codedata": {
                   "node": "VARIABLE",
                   "lineRange": {
-                    "fileName": "if_node.bal",
+                    "fileName": "if_node_windows.bal",
                     "startLine": {
                       "line": 16,
                       "offset": 12
@@ -160,7 +160,7 @@
             "codedata": {
               "node": "ELSE",
               "lineRange": {
-                "fileName": "if_node.bal",
+                "fileName": "if_node_windows.bal",
                 "startLine": {
                   "line": 17,
                   "offset": 15
@@ -183,7 +183,7 @@
                 "codedata": {
                   "node": "VARIABLE",
                   "lineRange": {
-                    "fileName": "if_node.bal",
+                    "fileName": "if_node_windows.bal",
                     "startLine": {
                       "line": 18,
                       "offset": 12
@@ -243,7 +243,7 @@
                 "codedata": {
                   "node": "VARIABLE",
                   "lineRange": {
-                    "fileName": "if_node.bal",
+                    "fileName": "if_node_windows.bal",
                     "startLine": {
                       "line": 19,
                       "offset": 12
@@ -316,7 +316,7 @@
           "symbol": "init",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "if_node.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
               "line": 2,
               "offset": 0
