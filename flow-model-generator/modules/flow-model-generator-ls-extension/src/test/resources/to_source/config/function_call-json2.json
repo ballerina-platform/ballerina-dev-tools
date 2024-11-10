@@ -40,7 +40,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "v"
+        }
       },
       "options": {
         "metadata": {
@@ -53,7 +56,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "options"
+        }
       },
       "checkError": {
         "metadata": {

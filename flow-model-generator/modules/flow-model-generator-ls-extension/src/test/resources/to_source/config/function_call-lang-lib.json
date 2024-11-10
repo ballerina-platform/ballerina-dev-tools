@@ -49,7 +49,10 @@
         "value": "\"11.11\"",
         "optional": false,
         "editable": true,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "v"
+        }
       },
       "variable": {
         "metadata": {

@@ -39,7 +39,10 @@
         "value": "\"\"",
         "optional": false,
         "editable": true,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "url"
+        }
       },
       "config": {
         "metadata": {
@@ -51,7 +54,10 @@
         "value": " {}",
         "optional": false,
         "editable": true,
-        "kind": "INCLUDED_RECORD"
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "type": {
         "metadata": {

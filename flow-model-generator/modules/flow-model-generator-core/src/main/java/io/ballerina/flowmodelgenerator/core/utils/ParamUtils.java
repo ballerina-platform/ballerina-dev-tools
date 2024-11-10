@@ -88,6 +88,20 @@ public class ParamUtils {
         return pathBuilder.toString();
     }
 
+
+    /**
+     * Removes the leading single quote from the input string if it exists.
+     *
+     * @param input the input string
+     * @return the modified string with the leading single quote removed
+     */
+    public static String removeLeadingSingleQuote(String input) {
+        if (input != null && input.startsWith("'")) {
+            return input.substring(1);
+        }
+        return input;
+    }
+
     public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol,
                                                                                      SemanticModel semanticModel) {
         ParamForTypeInfer paramForTypeInfer = null;
@@ -157,7 +171,8 @@ public class ParamUtils {
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = CommonUtils.getTypeSignature(semanticModel, fieldType, true, moduleInfo);
+            String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldSymbol.typeDescriptor(),
+                    true, moduleInfo);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;

@@ -46,7 +46,10 @@
         "valueType": "EXPRESSION",
         "optional": false,
         "editable": true,
-        "kind": "INCLUDED_RECORD"
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {

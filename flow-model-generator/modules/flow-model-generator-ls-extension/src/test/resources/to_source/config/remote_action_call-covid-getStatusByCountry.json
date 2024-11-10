@@ -41,7 +41,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        }
       },
       "yesterday": {
         "metadata": {
@@ -55,7 +58,10 @@
         "optional": true,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "yesterday"
+        }
       },
       "twoDaysAgo": {
         "metadata": {
@@ -69,7 +75,10 @@
         "optional": true,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "twoDaysAgo"
+        }
       },
       "strict": {
         "metadata": {
@@ -83,7 +92,10 @@
         "optional": true,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        }
       },
       "allowNull": {
         "metadata": {
@@ -97,7 +109,10 @@
         "optional": true,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
+        }
       },
       "type": {
         "metadata": {

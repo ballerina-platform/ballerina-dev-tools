@@ -107,7 +107,10 @@
                 "optional": false,
                 "editable": true,
                 "advanced": false,
-                "kind": "REQUIRED"
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
               },
               "headers": {
                 "metadata": {
@@ -120,7 +123,10 @@
                 "advanced": true,
                 "value": "()",
                 "placeholder": "()",
-                "kind": "DEFAULTABLE"
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
               },
               "checkError": {
                 "metadata": {
@@ -372,7 +378,10 @@
                         "optional": false,
                         "editable": true,
                         "advanced": false,
-                        "kind": "REQUIRED"
+                        "codedata": {
+                          "kind": "REQUIRED",
+                          "originalName": "path"
+                        }
                       },
                       "message": {
                         "metadata": {
@@ -385,7 +394,10 @@
                         "optional": false,
                         "editable": true,
                         "advanced": false,
-                        "kind": "DEFAULTABLE"
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "message"
+                        }
                       },
                       "headers": {
                         "metadata": {
@@ -398,7 +410,10 @@
                         "editable": true,
                         "advanced": true,
                         "value": "()",
-                        "kind": "DEFAULTABLE"
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "headers"
+                        }
                       },
                       "mediaType": {
                         "metadata": {
@@ -411,7 +426,10 @@
                         "editable": true,
                         "advanced": true,
                         "value": "()",
-                        "kind": "DEFAULTABLE"
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "mediaType"
+                        }
                       },
                       "checkError": {
                         "metadata": {

@@ -366,7 +366,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "i"
+            }
           },
           "variable": {
             "metadata": {
@@ -446,7 +449,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "value"
+            }
           },
           "indentation": {
             "metadata": {
@@ -459,7 +465,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "DEFAULTABLE"
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "indentation"
+            }
           },
           "variable": {
             "metadata": {

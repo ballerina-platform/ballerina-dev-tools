@@ -325,17 +325,21 @@ class CodeAnalyzer extends NodeVisitor {
                 continue;
             }
 
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(paramResult.name())
+                        .label(unescapedParamName)
                         .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1)
-                    .kind(paramResult.kind().name());
+                    .defaultable(paramResult.optional() == 1);
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -354,7 +358,7 @@ class CodeAnalyzer extends NodeVisitor {
             }
             customPropBuilder
                     .stepOut()
-                    .addProperty(paramResult.name());
+                    .addProperty(unescapedParamName);
         }
     }
 
@@ -418,11 +422,11 @@ class CodeAnalyzer extends NodeVisitor {
                     funcParamMap.remove(parameterSymbol.getName().get());
                     Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                             nodeBuilder.properties().custom();
-
                     String value = paramValue != null ? paramValue.toSourceCode() : null;
+                    String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                     customPropBuilder
                             .metadata()
-                                .label(paramResult.name())
+                                .label(unescapedParamName)
                                 .description(paramResult.description())
                                 .stepOut()
                             .type(getPropertyTypeFromParamKind(paramResult.kind()))
@@ -431,9 +435,12 @@ class CodeAnalyzer extends NodeVisitor {
                             .placeholder(paramResult.defaultValue())
                             .editable()
                             .defaultable(paramResult.optional() == 1)
-                            .kind(paramResult.kind().name())
+                            .codedata()
+                                .kind(paramResult.kind().name())
+                                .originalName(paramResult.name())
+                                .stepOut()
                             .stepOut()
-                            .addProperty(paramResult.name(), paramValue);
+                            .addProperty(unescapedParamName);
                 }
 
                 for (int i = paramCount; i < argCount; i++) {
@@ -444,9 +451,10 @@ class CodeAnalyzer extends NodeVisitor {
                 String escapedParamName = CommonUtil.escapeReservedKeyword(restParamSymbol.getName().get());
                 ParameterResult restParamResult = funcParamMap.get(escapedParamName);
                 funcParamMap.remove(restParamSymbol.getName().get());
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(restParamResult.name());
                 customPropBuilder
                         .metadata()
-                            .label(restParamResult.name())
+                            .label(unescapedParamName)
                             .description(restParamResult.description())
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(restParamResult.kind()))
@@ -455,9 +463,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .placeholder(restParamResult.defaultValue())
                         .editable()
                         .defaultable(!hasOnlyRestParams)
-                        .kind(restParamSymbol.kind().name())
+                        .codedata()
+                            .kind(restParamResult.kind().name())
+                            .originalName(restParamResult.name())
+                            .stepOut()
                         .stepOut()
-                        .addProperty(restParamResult.name());
+                        .addProperty(unescapedParamName);
             }
             // iterate over functionParamMap
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
@@ -496,9 +507,10 @@ class CodeAnalyzer extends NodeVisitor {
                             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                                     nodeBuilder.properties().custom();
                             String value = paramValue != null ? paramValue.toSourceCode() : null;
+                            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                             customPropBuilder
                                     .metadata()
-                                        .label(paramResult.name())
+                                        .label(unescapedParamName)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
@@ -507,9 +519,12 @@ class CodeAnalyzer extends NodeVisitor {
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
                                     .defaultable(paramResult.optional() == 1)
-                                    .kind(paramResult.kind().name())
+                                    .codedata()
+                                        .kind(paramResult.kind().name())
+                                        .originalName(paramResult.name())
+                                        .stepOut()
                                     .stepOut()
-                                    .addProperty(paramResult.name(), paramValue);
+                                    .addProperty(unescapedParamName, paramValue);
                         } else {
                             if (funcParamMap.containsKey(argName)) { // included record attribute
                                 paramResult = funcParamMap.get(argName);
@@ -521,9 +536,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     namedArgValueMap.remove(argName);
                                 }
                                 String value = paramValue != null ? paramValue.toSourceCode() : null;
+                                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                                 customPropBuilder
                                         .metadata()
-                                            .label(paramResult.name())
+                                            .label(unescapedParamName)
                                             .description(paramResult.description())
                                             .stepOut()
                                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
@@ -532,9 +548,12 @@ class CodeAnalyzer extends NodeVisitor {
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
                                         .defaultable(paramResult.optional() == 1)
-                                        .kind(paramResult.kind().name())
+                                        .codedata()
+                                            .kind(paramResult.kind().name())
+                                            .originalName(paramResult.name())
+                                            .stepOut()
                                         .stepOut()
-                                        .addProperty(paramResult.name(), paramValue);
+                                        .addProperty(unescapedParamName, paramValue);
 
                             } else { // included record rest
                                 funcParamMap.remove(escapedParamName);
@@ -549,11 +568,12 @@ class CodeAnalyzer extends NodeVisitor {
                             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                                     nodeBuilder.properties().custom();
 
+                            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                             funcParamMap.remove(escapedParamName);
                             String value = paramValue.toSourceCode();
                             customPropBuilder
                                     .metadata()
-                                        .label(paramResult.name())
+                                        .label(unescapedParamName)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
@@ -562,9 +582,12 @@ class CodeAnalyzer extends NodeVisitor {
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
                                     .defaultable(paramResult.optional() == 1)
-                                    .kind(paramResult.kind().name())
+                                    .codedata()
+                                        .kind(paramResult.kind().name())
+                                        .originalName(paramResult.name())
+                                        .stepOut()
                                     .stepOut()
-                                    .addProperty(paramResult.name(), paramValue);
+                                    .addProperty(unescapedParamName, paramValue);
                             return;
                         }
                     }
@@ -578,9 +601,10 @@ class CodeAnalyzer extends NodeVisitor {
                         nodeBuilder.properties().custom();
                 funcParamMap.remove(escapedParamName);
                 String value = paramValue != null ? paramValue.toSourceCode() : null;
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                 customPropBuilder
                         .metadata()
-                            .label(paramResult.name())
+                            .label(unescapedParamName)
                             .description(paramResult.description())
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
@@ -589,9 +613,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .placeholder(paramResult.defaultValue())
                         .editable()
                         .defaultable(paramResult.optional() == 1)
-                        .kind(paramResult.kind().name())
+                        .codedata()
+                            .kind(paramResult.kind().name())
+                            .originalName(paramResult.name())
+                            .stepOut()
                         .stepOut()
-                        .addProperty(paramResult.name(), paramValue);
+                        .addProperty(unescapedParamName, paramValue);
             }
             for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) {
                 LinkedHashMap<String, String> map = new LinkedHashMap<>();
@@ -603,9 +630,10 @@ class CodeAnalyzer extends NodeVisitor {
                 funcParamMap.remove("INCLUDED_RECORD_REST");
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(includedRecordRest.name());
                 customPropBuilder
                         .metadata()
-                            .label(includedRecordRest.name())
+                            .label(unescapedParamName)
                             .description(includedRecordRest.description())
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
@@ -614,9 +642,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()
                         .defaultable(includedRecordRest.optional() == 1)
-                        .kind(includedRecordRest.kind().name())
+                        .codedata()
+                            .kind(includedRecordRest.kind().name())
+                            .originalName(includedRecordRest.name())
+                            .stepOut()
                         .stepOut()
-                        .addProperty(includedRecordRest.name());
+                        .addProperty(unescapedParamName);
             }
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
         }

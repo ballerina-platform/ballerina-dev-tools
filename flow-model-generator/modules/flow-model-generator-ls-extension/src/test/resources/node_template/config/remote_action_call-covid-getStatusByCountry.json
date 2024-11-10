@@ -26,7 +26,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 1102
+      "id": 1686
     },
     "returning": false,
     "properties": {
@@ -54,7 +54,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        }
       },
       "yesterday": {
         "metadata": {
@@ -67,7 +70,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "yesterday"
+        }
       },
       "twoDaysAgo": {
         "metadata": {
@@ -80,7 +86,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "twoDaysAgo"
+        }
       },
       "strict": {
         "metadata": {
@@ -93,7 +102,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        }
       },
       "allowNull": {
         "metadata": {
@@ -106,7 +118,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
+        }
       },
       "type": {
         "metadata": {

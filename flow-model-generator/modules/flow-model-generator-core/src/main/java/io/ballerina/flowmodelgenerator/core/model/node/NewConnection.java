@@ -31,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -117,17 +118,21 @@ public class NewConnection extends NodeBuilder {
                 continue;
             }
 
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(paramResult.name())
+                        .label(unescapedParamName)
                         .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1)
-                    .kind(paramResult.kind().name());
+                    .defaultable(paramResult.optional() == 1);
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -146,7 +151,7 @@ public class NewConnection extends NodeBuilder {
             }
             customPropBuilder
                     .stepOut()
-                    .addProperty(paramResult.name());
+                    .addProperty(unescapedParamName);
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {

@@ -277,7 +277,7 @@ public class SourceBuilder {
             }
 
             Property prop = property.get();
-            String kind = prop.kind();
+            String kind = prop.codedata().kind();
             boolean optional = prop.optional();
 
             if (firstParamAdded) {
@@ -326,7 +326,8 @@ public class SourceBuilder {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
                 if (missedDefaultValue) {
-                    tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+                    tokenBuilder.name(prop.codedata().originalName()).whiteSpace()
+                            .keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
                 } else {
                     tokenBuilder.expression(prop);
                 }
@@ -337,7 +338,8 @@ public class SourceBuilder {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-                tokenBuilder.name(key).whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+                tokenBuilder.name(prop.codedata().originalName())
+                        .whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
             } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
                 if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
                     continue;

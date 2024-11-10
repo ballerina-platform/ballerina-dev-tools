@@ -76,7 +76,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
       },
       "headers": {
         "metadata": {
@@ -89,7 +92,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "mediaType": {
         "metadata": {
@@ -101,7 +107,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE",
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        },
         "value": "()"
       },
       "params": {
@@ -113,7 +122,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "INCLUDED_RECORD_REST",
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
         "value": [
           {"param1": "\"value1\""},
           {"param2": "12"}

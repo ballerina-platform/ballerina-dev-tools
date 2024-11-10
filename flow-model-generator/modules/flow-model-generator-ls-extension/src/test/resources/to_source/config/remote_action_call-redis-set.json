@@ -41,7 +41,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        }
       },
       "value": {
         "metadata": {
@@ -55,7 +58,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "value"
+        }
       },
       "type": {
         "metadata": {

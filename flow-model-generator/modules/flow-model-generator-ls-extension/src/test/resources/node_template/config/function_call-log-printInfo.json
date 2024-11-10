@@ -39,11 +39,14 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "kind": "REQUIRED"
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "msg"
+        }
       },
-      "'error": {
+      "error": {
         "metadata": {
-          "label": "'error",
+          "label": "error",
           "description": "The error struct to be logged"
         },
         "valueType": "EXPRESSION",
@@ -52,7 +55,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'error"
+        }
       },
       "stackTrace": {
         "metadata": {
@@ -65,7 +71,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "DEFAULTABLE"
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        }
       },
       "Additional Values": {
         "metadata": {
@@ -78,7 +87,10 @@
         "optional": true,
         "editable": true,
         "advanced": true,
-        "kind": "INCLUDED_RECORD_REST"
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
       }
     },
     "flags": 0
