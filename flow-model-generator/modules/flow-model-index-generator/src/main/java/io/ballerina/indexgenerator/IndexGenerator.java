@@ -356,7 +356,7 @@ class IndexGenerator {
             }
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = getTypeSignature(fieldType, null, false);
+            String paramType = getTypeSignature(recordFieldSymbol.typeDescriptor(), null, false);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
