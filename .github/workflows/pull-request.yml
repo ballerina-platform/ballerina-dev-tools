@@ -91,5 +91,7 @@ jobs:
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
+        run: |
+          ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI -x test
+          ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
         working-directory: ${{ github.workspace }}/test folder
