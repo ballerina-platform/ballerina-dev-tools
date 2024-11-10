@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "0",
@@ -121,7 +121,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "\"\"",
@@ -474,7 +474,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "0",
@@ -827,7 +827,7 @@
                     "value": "http:Client",
                     "placeholder": "var",
                     "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   }
                 },
@@ -1648,7 +1648,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

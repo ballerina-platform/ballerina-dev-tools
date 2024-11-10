@@ -1,291 +1,128 @@
 {
   "start": {
-    "line": 5,
-    "offset": 4
+    "line": 14,
+    "offset": 0
   },
   "end": {
-    "line": 13,
-    "offset": 5
+    "line": 21,
+    "offset": 1
   },
-  "source": "error_handler.bal",
-  "description": "Tests a error handler",
+  "source": "windows test/source/test path/if_node_windows.bal",
+  "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "error_handler.bal",
+    "fileName": "if_node_windows.bal",
     "nodes": [
       {
-        "id": "38042",
+        "id": "47311",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "error_handler.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
-              "line": 5,
-              "offset": 35
+              "line": 14,
+              "offset": 47
             },
             "endLine": {
-              "line": 13,
+              "line": 21,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get apples() {\n        string? msg;\n        do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }\n    }"
+          "sourceCode": "resource function get apples(boolean flag) {\n        if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }\n    }"
         },
         "returning": false,
         "flags": 0
       },
       {
-        "id": "37964",
+        "id": "47036",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "IF",
           "lineRange": {
-            "fileName": "error_handler.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
-              "line": 6,
+              "line": 15,
               "offset": 8
             },
             "endLine": {
-              "line": 6,
-              "offset": 20
-            }
-          },
-          "sourceCode": "string? msg;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Initialize with value"
-            },
-            "valueType": "EXPRESSION",
-            "value": "",
-            "optional": true,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "msg",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "string|()",
-            "placeholder": "var",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "39100",
-        "metadata": {
-          "label": "ErrorHandler",
-          "description": "Catch and handle errors"
-        },
-        "codedata": {
-          "node": "ERROR_HANDLER",
-          "lineRange": {
-            "fileName": "error_handler.bal",
-            "startLine": {
-              "line": 7,
-              "offset": 8
-            },
-            "endLine": {
-              "line": 12,
+              "line": 20,
               "offset": 9
             }
           },
-          "sourceCode": "do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }"
+          "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
         },
         "returning": false,
         "branches": [
           {
-            "label": "Body",
+            "label": "Then",
             "kind": "BLOCK",
             "codedata": {
-              "node": "BODY",
+              "node": "CONDITIONAL",
               "lineRange": {
-                "fileName": "error_handler.bal",
+                "fileName": "if_node_windows.bal",
                 "startLine": {
-                  "line": 7,
-                  "offset": 11
+                  "line": 15,
+                  "offset": 16
                 },
                 "endLine": {
-                  "line": 10,
+                  "line": 17,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        }"
+              "sourceCode": "{\n            int a = 1;\n        }"
             },
-            "repeatable": "ONE",
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "flag ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
             "children": [
               {
-                "id": "40117",
+                "id": "48010",
                 "metadata": {
-                  "label": "get",
-                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-                },
-                "codedata": {
-                  "node": "REMOTE_ACTION_CALL",
-                  "org": "ballerina",
-                  "module": "http",
-                  "object": "Client",
-                  "symbol": "get",
-                  "version": "2.12.2",
-                  "lineRange": {
-                    "fileName": "error_handler.bal",
-                    "startLine": {
-                      "line": 8,
-                      "offset": 12
-                    },
-                    "endLine": {
-                      "line": 8,
-                      "offset": 65
-                    }
-                  },
-                  "sourceCode": "json res2 = check foodClient->get(\"/western/apples\");"
-                },
-                "returning": false,
-                "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "foodClient",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
-                  "path": {
-                    "metadata": {
-                      "label": "path",
-                      "description": "Request path"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"/western/apples\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "kind": "REQUIRED"
-                  },
-                  "headers": {
-                    "metadata": {
-                      "label": "headers",
-                      "description": "The entity headers"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "map<string|string[]>|()",
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "kind": "DEFAULTABLE"
-                  },
-                  "targetType": {
-                    "metadata": {
-                      "label": "targetType",
-                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "json",
-                    "placeholder": "json",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "kind": "PARAM_FOR_TYPE_INFER"
-                  },
-                  "checkError": {
-                    "metadata": {
-                      "label": "Check Error",
-                      "description": "Trigger error flow"
-                    },
-                    "valueType": "FLAG",
-                    "value": true,
-                    "optional": false,
-                    "editable": true,
-                    "advanced": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "res2",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Variable Type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "json",
-                    "placeholder": "var",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 1
-              },
-              {
-                "id": "41078",
-                "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
-                    "fileName": "error_handler.bal",
+                    "fileName": "if_node_windows.bal",
                     "startLine": {
-                      "line": 9,
+                      "line": 16,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 9,
-                      "offset": 34
+                      "line": 16,
+                      "offset": 22
                     }
                   },
-                  "sourceCode": "msg = res2.toString();"
+                  "sourceCode": "int a = 1;"
                 },
                 "returning": false,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Assign value"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "res2.toString()",
-                    "optional": false,
+                    "value": "1",
+                    "optional": true,
                     "editable": true,
                     "advanced": false
                   },
@@ -295,7 +132,19 @@
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
-                    "value": "msg",
+                    "value": "a",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -306,56 +155,56 @@
             ]
           },
           {
-            "label": "On Failure",
+            "label": "Else",
             "kind": "BLOCK",
             "codedata": {
-              "node": "ON_FAILURE",
+              "node": "ELSE",
               "lineRange": {
-                "fileName": "error_handler.bal",
+                "fileName": "if_node_windows.bal",
                 "startLine": {
-                  "line": 10,
-                  "offset": 18
+                  "line": 17,
+                  "offset": 15
                 },
                 "endLine": {
-                  "line": 12,
+                  "line": 20,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            msg = \"Failed to get the response\";\n        }"
+              "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
-                "id": "43075",
+                "id": "49994",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
-                    "fileName": "error_handler.bal",
+                    "fileName": "if_node_windows.bal",
                     "startLine": {
-                      "line": 11,
+                      "line": 18,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 11,
-                      "offset": 47
+                      "line": 18,
+                      "offset": 22
                     }
                   },
-                  "sourceCode": "msg = \"Failed to get the response\";"
+                  "sourceCode": "int b = 2;"
                 },
                 "returning": false,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Assign value"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"Failed to get the response\"",
-                    "optional": false,
+                    "value": "2",
+                    "optional": true,
                     "editable": true,
                     "advanced": false
                   },
@@ -365,7 +214,79 @@
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
-                    "value": "msg",
+                    "value": "b",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "50992",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "VARIABLE",
+                  "lineRange": {
+                    "fileName": "if_node_windows.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 28
+                    }
+                  },
+                  "sourceCode": "string c = \"12\";"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Initialize with value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"12\"",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "c",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "string",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -381,7 +302,7 @@
     ],
     "connections": [
       {
-        "id": "33789",
+        "id": "33773",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -395,17 +316,17 @@
           "symbol": "init",
           "version": "2.12.2",
           "lineRange": {
-            "fileName": "error_handler.bal",
+            "fileName": "if_node_windows.bal",
             "startLine": {
               "line": 2,
               "offset": 0
             },
             "endLine": {
               "line": 2,
-              "offset": 61
+              "offset": 45
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -438,7 +359,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "\"http://localhost:9090\"",
+            "value": "\"/food\"",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,

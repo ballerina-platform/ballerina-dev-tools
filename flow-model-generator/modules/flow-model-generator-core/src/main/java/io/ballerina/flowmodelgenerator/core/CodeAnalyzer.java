@@ -101,6 +101,7 @@ import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -115,8 +116,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
-import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -151,15 +153,14 @@ class CodeAnalyzer extends NodeVisitor {
     private final Map<String, LineRange> dataMappings;
     private final String connectionScope;
     private final TextDocument textDocument;
-    private final ModuleDescriptor moduleDescriptor;
+    private final ModuleInfo moduleInfo;
     private final boolean forceAssign;
     private final DiagnosticHandler diagnosticHandler;
     private NodeBuilder nodeBuilder;
     private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
-                        Map<String, LineRange> dataMappings, TextDocument textDocument,
-                        ModuleDescriptor moduleDescriptor,
+                        Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
                         boolean forceAssign) {
         this.project = project;
         this.flowNodeList = new ArrayList<>();
@@ -168,7 +169,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
-        this.moduleDescriptor = moduleDescriptor;
+        this.moduleInfo = moduleInfo;
         this.forceAssign = forceAssign;
         this.diagnosticHandler = new DiagnosticHandler(semanticModel);
     }
@@ -275,15 +276,14 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
-                .label(methodName)
-                .description(description)
-                .stepOut()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
                 .codedata()
-                .object("Client")
-                .symbol(methodName)
-                .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY);
+                    .object("Client")
+                    .symbol(methodName)
+                    .stepOut()
+                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
@@ -384,7 +384,7 @@ class CodeAnalyzer extends NodeVisitor {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        LinkedHashMap<String, ParameterResult> funcParamMap = CommonUtils.buildFunctionParamResultMap(
+        LinkedHashMap<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
                 functionSymbol, semanticModel);
         buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
     }
@@ -653,7 +653,7 @@ class CodeAnalyzer extends NodeVisitor {
         String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
         String fullPath = "/" + resourcePath;
 
-        String resourcePathTemplate = CommonUtils.buildResourcePathTemplate(methodSymbol);
+        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
 
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -882,7 +882,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(Assign.DESCRIPTION)
                     .stepOut()
-                    .properties().expression(null, true);
+                    .properties().expression((ExpressionNode) null, Variable.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -894,7 +894,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .metadata()
                         .description(Assign.DESCRIPTION)
                         .stepOut()
-                        .properties().expression(initializerNode, true);
+                        .properties().expression(initializerNode, Variable.EXPRESSION_DOC, true);
             }
         }
 
@@ -909,7 +909,7 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
         } else if (nodeBuilder instanceof NewConnection) {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
-                    NewConnection.CONNECTION_TYPE_LABEL, new HashSet<>());
+                    NewConnection.CONNECTION_TYPE_LABEL, false, new HashSet<>());
         } else {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit, new HashSet<>());
         }
@@ -934,7 +934,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(Assign.DESCRIPTION)
                     .stepOut()
                     .properties()
-                    .expression(expression)
+                    .expression(expression, Assign.EXPRESSION_DOC, false)
                     .data(assignmentStatementNode.varRef(), true, new HashSet<>());
         }
 
@@ -1018,7 +1018,7 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().view(dataMappings.get(functionName));
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
-            if (CommonUtils.isDefaultPackage(functionSymbol, moduleDescriptor)) {
+            if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
                 functionSymbol.getLocation()
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))
@@ -1292,11 +1292,10 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(JsonPayload.DESCRIPTION)
                     .stepOut()
                     .properties().expression(constructorExprNode);
-            return;
         }
     }
 
-// Utility methods
+    // Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
@@ -1316,7 +1315,7 @@ class CodeAnalyzer extends NodeVisitor {
     private NodeBuilder startNode(NodeKind kind) {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
-                .defaultModuleName(moduleDescriptor);
+                .defaultModuleName(moduleInfo);
         return this.nodeBuilder;
     }
 
@@ -1324,7 +1323,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
                 .diagnosticHandler(diagnosticHandler)
-                .defaultModuleName(moduleDescriptor);
+                .defaultModuleName(moduleInfo);
         diagnosticHandler.handle(nodeBuilder,
                 node instanceof ExpressionNode ? node.parent().lineRange() : node.lineRange(), false);
         return this.nodeBuilder;
@@ -1350,7 +1349,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = null;
         return new Branch.Builder()
                 .semanticModel(semanticModel)
-                .defaultModuleName(moduleDescriptor)
+                .defaultModuleName(moduleInfo)
                 .diagnosticHandler(diagnosticHandler)
                 .codedata().node(node).stepOut()
                 .label(label)

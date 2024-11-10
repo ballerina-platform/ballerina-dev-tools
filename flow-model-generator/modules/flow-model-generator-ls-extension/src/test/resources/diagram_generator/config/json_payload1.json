@@ -38,7 +38,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "{\"name\": \"value\"}",
@@ -98,7 +98,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Assign value"
             },
             "valueType": "EXPRESSION",
             "value": "{\"name\": \"value1\", \"name2\": \"value2\"}",

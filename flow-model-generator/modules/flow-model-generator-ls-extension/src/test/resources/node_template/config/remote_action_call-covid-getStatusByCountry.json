@@ -30,6 +30,18 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "covid19:Client",
+        "value": "covid19Client",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "country": {
         "metadata": {
           "label": "country",
@@ -117,18 +129,6 @@
         "value": "covid19Covidcountry",
         "optional": false,
         "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "covid19:Client",
-        "value": "covid19Client",
-        "optional": false,
-        "editable": false,
         "advanced": false
       },
       "checkError": {

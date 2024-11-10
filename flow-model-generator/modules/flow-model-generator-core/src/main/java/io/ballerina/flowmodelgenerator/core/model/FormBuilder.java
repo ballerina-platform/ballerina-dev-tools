@@ -37,7 +37,6 @@ import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 
@@ -74,16 +73,16 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     private final SemanticModel semanticModel;
     private final DiagnosticHandler diagnosticHandler;
     protected Property.Builder<FormBuilder<T>> propertyBuilder;
-    private final ModuleDescriptor moduleDescriptor;
+    private final ModuleInfo moduleInfo;
 
     public FormBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
-                       ModuleDescriptor moduleDescriptor, T parentBuilder) {
+                       ModuleInfo moduleInfo, T parentBuilder) {
         super(parentBuilder);
         this.nodeProperties = new LinkedHashMap<>();
         this.propertyBuilder = new Property.Builder<>(this);
         this.semanticModel = semanticModel;
         this.diagnosticHandler = diagnosticHandler;
-        this.moduleDescriptor = moduleDescriptor;
+        this.moduleInfo = moduleInfo;
     }
 
     public FormBuilder<T> data(Node node, Set<String> names) {
@@ -155,8 +154,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
         return implicit ?
-                dataVariable(node, Property.IMPLICIT_VARIABLE_LABEL, Property.IMPLICIT_TYPE_LABEL, names)
-                : dataVariable(node, Property.VARIABLE_NAME, Property.TYPE_LABEL, names);
+                dataVariable(node, Property.IMPLICIT_VARIABLE_LABEL, Property.IMPLICIT_TYPE_LABEL, true, names)
+                : dataVariable(node, Property.VARIABLE_NAME, Property.TYPE_LABEL, true, names);
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, Set<String> names) {
@@ -164,13 +163,13 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, String variableDoc, String typeDoc,
-                                       Set<String> names) {
+                                       boolean editable, Set<String> names) {
         data(node == null ? null : node.bindingPattern(), variableDoc, names);
 
         String typeName = node == null ? "" : CommonUtils.getTypeSymbol(semanticModel, node)
-                .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor))
+                .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo))
                 .orElse(CommonUtils.getVariableName(node));
-        return type(typeName, typeDoc, true, node == null ? null : node.typeDescriptor().lineRange());
+        return type(typeName, typeDoc, editable, node == null ? null : node.typeDescriptor().lineRange());
     }
 
     public Property.Builder<FormBuilder<T>> custom() {
@@ -193,7 +192,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         } else {
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
-                    CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
+                    CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo)));
         }
         addProperty(Property.TYPE_KEY);
         return this;
@@ -322,7 +321,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
             Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
             String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false,
-                    moduleDescriptor);
+                    moduleInfo);
             String variableName = CommonUtils.getVariableName(paramValue);
             inputs.add(type + " " + variableName);
         }
@@ -352,7 +351,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
         optTypeSymbol.ifPresent(
                 typeSymbol -> propertyBuilder.value(
-                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleDescriptor)));
+                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo)));
 
         addProperty(OUTPUT_KEY, node);
         return this;
@@ -493,6 +492,20 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                .type(Property.ValueType.EXPRESSION)
+                .optional(optional)
+                .editable();
+        addProperty(Property.EXPRESSION_KEY, expressionNode);
+        return this;
+    }
+
     public FormBuilder<T> expression(ExpressionNode expressionNode) {
         return expression(expressionNode, false);
     }
@@ -582,7 +595,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         } else {
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                     .ifPresent(typeSymbol -> propertyBuilder.value(
-                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleDescriptor)));
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleInfo)));
         }
         propertyBuilder
                 .metadata()

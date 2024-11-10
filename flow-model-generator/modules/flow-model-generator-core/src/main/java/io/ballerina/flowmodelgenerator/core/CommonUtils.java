@@ -20,28 +20,15 @@ package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
-import io.ballerina.compiler.api.symbols.Documentation;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.PathParameterSymbol;
-import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
-import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
@@ -53,19 +40,15 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
-import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
-import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
@@ -73,10 +56,6 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -110,24 +89,24 @@ public class CommonUtils {
     /**
      * Retrieves the type signature of the given type symbol.
      *
-     * @param semanticModel    the semantic model
-     * @param typeSymbol       the type symbol
-     * @param ignoreError      whether to ignore errors
-     * @param moduleDescriptor the default module descriptor
+     * @param semanticModel the semantic model
+     * @param typeSymbol    the type symbol
+     * @param ignoreError   whether to ignore errors
+     * @param moduleInfo    the default module descriptor
      * @return the type signature
-     * @see #getTypeSignature(TypeSymbol, ModuleDescriptor)
+     * @see #getTypeSignature(TypeSymbol, ModuleInfo)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
-                                          ModuleDescriptor moduleDescriptor) {
+                                          ModuleInfo moduleInfo) {
         if (typeSymbol.typeKind() == TypeDescKind.UNION) {
             UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
             return unionTypeSymbol.memberTypeDescriptors().stream()
                     .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleDescriptor))
+                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
                     .reduce((s1, s2) -> s1 + "|" + s2)
-                    .orElse(getTypeSignature(unionTypeSymbol, moduleDescriptor));
+                    .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
         }
-        return getTypeSignature(typeSymbol, moduleDescriptor);
+        return getTypeSignature(typeSymbol, moduleInfo);
     }
 
     /**
@@ -137,7 +116,7 @@ public class CommonUtils {
      * @param typeSymbol    the type symbol
      * @param ignoreError   whether to ignore errors
      * @return the type signature
-     * @see #getTypeSignature(TypeSymbol, ModuleDescriptor)
+     * @see #getTypeSignature(TypeSymbol, ModuleInfo)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
         return getTypeSignature(semanticModel, typeSymbol, ignoreError, null);
@@ -147,11 +126,11 @@ public class CommonUtils {
      * Returns the processed type signature of the type symbol. It removes the organization and the package, and checks
      * if it is the default module which will remove the prefix.
      *
-     * @param typeSymbol       the type symbol
-     * @param moduleDescriptor the default module name descriptor
+     * @param typeSymbol the type symbol
+     * @param moduleInfo the default module name descriptor
      * @return the processed type signature
      */
-    public static String getTypeSignature(TypeSymbol typeSymbol, ModuleDescriptor moduleDescriptor) {
+    public static String getTypeSignature(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
         String text = typeSymbol.signature();
         StringBuilder newText = new StringBuilder();
         Matcher matcher = FULLY_QUALIFIED_MODULE_ID_PATTERN.matcher(text);
@@ -168,7 +147,7 @@ public class CommonUtils {
 
             String typeName = matcher.group(4);
 
-            if (!modPart.equals(moduleDescriptor.packageName().value())) {
+            if (!modPart.equals(moduleInfo.packageName())) {
                 newText.append(modPart);
                 newText.append(":");
             }
@@ -181,63 +160,6 @@ public class CommonUtils {
             newText.append(text.substring(nextStart));
         }
         return !newText.isEmpty() ? newText.toString() : text;
-    }
-
-
-    /**
-     * Returns the type signature of the given type symbol.
-     *
-     * @param typeSymbol the type symbol
-     * @return the type signature
-     */
-    public static String getTypeSignatureForParams(SemanticModel semanticModel, TypeSymbol typeSymbol,
-                                                   boolean ignoreError, String defaultModuleName) {
-        return switch (typeSymbol.typeKind()) {
-            case TYPE_REFERENCE -> {
-                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
-                yield typeReferenceTypeSymbol.definition().getName()
-                        .map(name -> typeReferenceTypeSymbol.getModule()
-                                .flatMap(Symbol::getName)
-                                .filter(prefix -> !defaultModuleName.equals(prefix))
-                                .map(prefix -> prefix + ":" + name)
-                                .orElse(name))
-                        .orElseGet(() -> getTypeSignatureForParams(semanticModel,
-                                typeReferenceTypeSymbol.typeDescriptor(), ignoreError, defaultModuleName));
-            }
-            case UNION -> {
-                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-                yield unionTypeSymbol.memberTypeDescriptors().stream()
-                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + "|" + s2)
-                        .orElse(unionTypeSymbol.signature());
-            }
-            case INTERSECTION -> {
-                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + " & " + s2)
-                        .orElse(intersectionTypeSymbol.signature());
-            }
-            case TYPEDESC -> {
-                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
-                yield typeDescTypeSymbol.typeParameter()
-                        .map(type -> getTypeSignatureForParams(semanticModel, type, ignoreError, defaultModuleName))
-                        .orElse(typeDescTypeSymbol.signature());
-            }
-            case ERROR -> {
-                Optional<String> moduleName = typeSymbol.getModule()
-                        .map(module -> {
-                            String prefix = module.id().modulePrefix();
-                            return "annotations".equals(prefix) ? null : prefix;
-                        });
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
-            }
-            default -> {
-                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
-            }
-        };
     }
 
     /**
@@ -478,39 +400,6 @@ public class CommonUtils {
     }
 
     /**
-     * Builds the resource path template for the given function symbol.
-     *
-     * @param functionSymbol the function symbol
-     * @return the resource path template
-     */
-    public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
-        StringBuilder pathBuilder = new StringBuilder();
-        ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
-        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-        switch (resourcePath.kind()) {
-            case PATH_SEGMENT_LIST -> {
-                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
-                for (Symbol pathSegment : pathSegmentList.list()) {
-                    pathBuilder.append("/");
-                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        String value = DefaultValueGeneratorUtil
-                                .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
-                        pathBuilder.append("[").append(value).append("]");
-                    } else {
-                        pathBuilder.append(pathSegment.getName().orElse(""));
-                    }
-                }
-                ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    pathBuilder.append("/path/to/subdirectory");
-                });
-            }
-            case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
-            case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
-        }
-        return pathBuilder.toString();
-    }
-
-    /**
      * Check whether the given type is a subtype of the target type.
      *
      * @param source the source type
@@ -540,147 +429,6 @@ public class CommonUtils {
             }
         }
         return sourceRawType.subtypeOf(target);
-    }
-
-    public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol,
-                                                                                     SemanticModel semanticModel) {
-        ParamForTypeInfer paramForTypeInfer = null;
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        if (functionSymbol.external()) {
-            List<String> paramNameList = new ArrayList<>();
-            functionTypeSymbol.params().ifPresent(paramList -> paramList
-                    .stream()
-                    .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
-                    .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
-
-            Map<String, TypeSymbol> returnTypeMap =
-                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
-            for (String paramName : paramNameList) {
-                if (returnTypeMap.containsKey(paramName)) {
-                    String defaultValue = DefaultValueGeneratorUtil
-                            .getDefaultValueForType(returnTypeMap.get(paramName));
-                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, "json");
-                    break;
-                }
-            }
-        }
-        final ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
-        Map<String, String> documentationMap =
-                functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
-        LinkedHashMap<String, ParameterResult> funcParamMap = new LinkedHashMap<>();
-        functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
-                buildFunctionParamMap(paramSymbol, documentationMap, semanticModel, funcParamMap,
-                        finalParamForTypeInfer)));
-        functionTypeSymbol.restParam().ifPresent(paramSymbol ->
-                buildFunctionParamMap(paramSymbol, documentationMap, semanticModel, funcParamMap, null));
-        return funcParamMap;
-    }
-
-    private static void buildFunctionParamMap(ParameterSymbol paramSymbol,
-                                              Map<String, String> documentationMap,
-                                              SemanticModel semanticModel,
-                                              LinkedHashMap<String, ParameterResult> funcParamMap,
-                                              ParamForTypeInfer paramForTypeInfer) {
-        String paramName = paramSymbol.getName().orElse("");
-        String paramDescription = documentationMap.get(paramName);
-        ParameterKind parameterKind = paramSymbol.paramKind();
-        String paramType;
-        int optional = 1;
-        String defaultValue;
-        Parameter.Kind kind;
-        String moduleName = paramSymbol.getModule().get().id().moduleName();
-        if (parameterKind == ParameterKind.REST) {
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
-                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
-            paramType = getTypeSignatureForParams(semanticModel,
-                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
-                    true, moduleName);
-            kind = Parameter.Kind.REST_PARAMETER;
-        } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
-            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
-                    moduleName);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
-            kind = Parameter.Kind.INCLUDED_RECORD;
-            buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
-                    semanticModel, moduleName, funcParamMap);
-        } else if (parameterKind == ParameterKind.REQUIRED) {
-            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
-                    moduleName);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
-            optional = 0;
-            kind = Parameter.Kind.REQUIRED;
-        } else {
-            if (paramForTypeInfer != null) {
-                if (paramForTypeInfer.paramName().equals(paramName)) {
-                    defaultValue = paramForTypeInfer.type();
-                    paramType = paramForTypeInfer.type();
-                    funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                            Parameter.Kind.PARAM_FOR_TYPE_INFER, defaultValue, paramDescription, 1));
-                    return;
-                }
-            }
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
-            paramType = getTypeSignatureForParams(semanticModel, paramSymbol.typeDescriptor(), true,
-                    moduleName);
-            kind = Parameter.Kind.DEFAULTABLE;
-        }
-        funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType, kind,
-                defaultValue, paramDescription, optional));
-    }
-
-    private static void buildIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
-                                                  SemanticModel semanticModel, String moduleName,
-                                                  LinkedHashMap<String, ParameterResult> funcParamMap) {
-        recordTypeSymbol.typeInclusions().forEach(includedType ->
-                buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType),
-                        semanticModel, moduleName, funcParamMap));
-
-        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
-            RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
-            if (fieldType.typeKind() == TypeDescKind.NEVER) {
-                continue;
-            }
-            String paramName = entry.getKey();
-            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
-            String paramDescription = entry.getValue().documentation()
-                    .flatMap(Documentation::description).orElse("");
-            String paramType = getTypeSignatureForParams(semanticModel, fieldType, true, moduleName);
-            int optional = 0;
-            if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
-                optional = 1;
-            }
-            funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                    Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional));
-        }
-        recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType = getTypeSignatureForParams(semanticModel, typeSymbol, true, moduleName);
-            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-            funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
-                    "Additional Values", paramType,
-                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1));
-        });
-    }
-
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            unionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
-            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-            intersectionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else {
-            members.put(typeSymbol.getName().orElse(""), typeSymbol);
-        }
-        return members;
-    }
-
-    public record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
     //TODO: Remove this once the diagnostic helper is exposed to LS extensions
@@ -743,27 +491,26 @@ public class CommonUtils {
     /**
      * Checks if the given symbol belongs to the default package.
      *
-     * @param symbol           the symbol to check
-     * @param moduleDescriptor the module descriptor of the current module
+     * @param symbol     the symbol to check
+     * @param moduleInfo the module descriptor of the current module
      * @return true if the symbol belongs to the default package, false otherwise
-     * @see #isDefaultPackage(String, String, ModuleDescriptor)
+     * @see #isDefaultPackage(String, String, ModuleInfo)
      */
-    public static boolean isDefaultPackage(Symbol symbol, ModuleDescriptor moduleDescriptor) {
+    public static boolean isDefaultPackage(Symbol symbol, ModuleInfo moduleInfo) {
         Optional<ModuleID> moduleId = symbol.getModule().map(ModuleSymbol::id);
         return moduleId.filter(
-                moduleID -> isDefaultPackage(moduleID.orgName(), moduleID.moduleName(), moduleDescriptor)).isPresent();
+                moduleID -> isDefaultPackage(moduleID.orgName(), moduleID.moduleName(), moduleInfo)).isPresent();
     }
 
     /**
      * Checks if the given module is the default package.
      *
-     * @param orgName          the organization name
-     * @param packageName      the package name
-     * @param moduleDescriptor the module descriptor of the current module
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param moduleInfo  the module descriptor of the current module
      * @return true if the module is the default package, false otherwise
      */
-    public static boolean isDefaultPackage(String orgName, String packageName, ModuleDescriptor moduleDescriptor) {
-        return (orgName.equals(moduleDescriptor.org().value()) &&
-                packageName.equals(moduleDescriptor.packageName().value()));
+    public static boolean isDefaultPackage(String orgName, String packageName, ModuleInfo moduleInfo) {
+        return (orgName.equals(moduleInfo.org()) && packageName.equals(moduleInfo.packageName()));
     }
 }

@@ -52,6 +52,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -205,7 +206,7 @@ class IndexGenerator {
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
         String pathBuilder = "";
         if (functionType == FunctionType.RESOURCE) {
-            pathBuilder = CommonUtils.buildResourcePathTemplate(functionSymbol);
+            pathBuilder = ParamUtils.buildResourcePathTemplate(functionSymbol);
         }
 
         // Capture the name of the function
@@ -364,7 +365,7 @@ class IndexGenerator {
                     FunctionParameterKind.INCLUDED_FIELD, optional);
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType =  getTypeSignature(typeSymbol, null, false);
+            String paramType = getTypeSignature(typeSymbol, null, false);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
                     "Capture key value pairs", paramType, defaultValue,

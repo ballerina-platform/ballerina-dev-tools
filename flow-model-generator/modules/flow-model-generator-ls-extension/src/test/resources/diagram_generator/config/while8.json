@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -121,7 +121,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "0",
@@ -387,7 +387,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Assign value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"Response received from food service: \" + response.toString()",
@@ -457,7 +457,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Assign value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"Error occurred while invoking food service: \" + response.message()",
@@ -971,7 +971,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

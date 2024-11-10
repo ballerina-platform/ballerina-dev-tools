@@ -30,6 +30,18 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "redis:Client",
+        "value": "rc",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "key": {
         "metadata": {
           "label": "key",
@@ -65,18 +77,6 @@
         "value": "stringResult",
         "optional": false,
         "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "redis:Client",
-        "value": "rc",
-        "optional": false,
-        "editable": false,
         "advanced": false
       },
       "checkError": {
