@@ -287,7 +287,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 ExpressionEditorContext context =
                         new ExpressionEditorContext(workspaceManager, request.context(), filePath);
                 // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(context.info().startLine());
+                LinePosition startLine = context.getStartLine();
+                int textPosition = textDocument.textPositionFrom(startLine);
 
                 String type = context.getProperty()
                         .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
@@ -307,9 +308,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 } else {
                     statement = String.format("%s _ = %s;%n", type, context.info().expression());
                 }
-                LinePosition endLineRange = LinePosition.from(context.info().startLine().line(),
-                        context.info().startLine().offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), context.info().startLine(), endLineRange);
+                LinePosition endLineRange = LinePosition.from(startLine.line(),
+                        startLine.offset() + statement.length());
+                LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
 
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 textEdits.add(textEdit);

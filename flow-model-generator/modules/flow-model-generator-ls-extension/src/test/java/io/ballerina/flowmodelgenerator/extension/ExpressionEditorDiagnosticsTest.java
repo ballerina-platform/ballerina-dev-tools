@@ -24,7 +24,6 @@ import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -58,14 +57,6 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
-//
-//    @DataProvider(name = "data-provider")
-//    @Override
-//    protected Object[] getConfigsList() {
-//        return new Object[]{
-//                Path.of("single1.json")
-//        };
-//    }
 
     @Override
     protected String getResourceDir() {

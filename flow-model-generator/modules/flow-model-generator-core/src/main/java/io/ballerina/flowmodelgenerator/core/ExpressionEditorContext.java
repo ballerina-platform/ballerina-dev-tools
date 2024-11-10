@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
@@ -56,12 +57,25 @@ public class ExpressionEditorContext {
     private final FlowNode flowNode;
     private final WorkspaceManager workspaceManager;
     private final Path filePath;
+    private final List<ImportDeclarationNode> imports;
 
     public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath) {
         this.workspaceManager = workspaceManager;
         this.info = info;
         this.filePath = filePath;
-        this.flowNode = gson.fromJson(info.node().toString(), FlowNode.class);
+        this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+
+        Document document;
+        try {
+            this.workspaceManager.loadProject(filePath);
+            document = workspaceManager.document(filePath).orElseThrow();
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException("Error while loading the project");
+        }
+        SyntaxTree syntaxTree = document.syntaxTree();
+        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART ?
+                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList() :
+                List.of();
     }
 
     public Optional<Property> getProperty() {
@@ -73,6 +87,20 @@ public class ExpressionEditorContext {
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
         return nodeKinds.contains(flowNode.codedata().node());
+    }
+
+    public LinePosition getStartLine() {
+        if (imports.isEmpty()) {
+            return info.startLine();
+        }
+
+        // Obtain the line position of the latest import statement
+        LinePosition importEndLine = imports.get(imports.size() - 1).lineRange().endLine();
+
+        if (CommonUtils.isLinePositionAfter(info.startLine(), importEndLine)) {
+            return info.startLine();
+        }
+        return importEndLine;
     }
 
     public Info info() {
@@ -94,9 +122,6 @@ public class ExpressionEditorContext {
             return Optional.empty();
         }
 
-        Document document = workspaceManager.document(filePath).orElseThrow();
-        SyntaxTree syntaxTree = document.syntaxTree();
-
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
@@ -105,15 +130,14 @@ public class ExpressionEditorContext {
             }
         }
 
-        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().anyMatch(importDeclarationNode -> {
-                    String moduleName = importDeclarationNode.moduleName().stream()
-                            .map(IdentifierToken::text)
-                            .collect(Collectors.joining("."));
-                    return importDeclarationNode.orgName().isPresent() &&
-                            org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                            module.equals(moduleName);
-                });
+        boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
+            String moduleName = importDeclarationNode.moduleName().stream()
+                    .map(IdentifierToken::text)
+                    .collect(Collectors.joining("."));
+            return importDeclarationNode.orgName().isPresent() &&
+                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                    module.equals(moduleName);
+        });
 
         // Add the import statement
         if (!importExists) {
