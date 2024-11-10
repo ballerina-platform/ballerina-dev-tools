@@ -110,6 +110,17 @@ public class ResourceActionCall extends NodeBuilder {
                 .id(function.functionId())
                 .symbol(function.name());
 
+        properties().custom()
+                .metadata()
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_DOC)
+                .stepOut()
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
+
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
@@ -129,7 +140,6 @@ public class ResourceActionCall extends NodeBuilder {
                     .editable()
                     .defaultable(paramResult.optional() == 1)
                     .kind(paramResult.kind().name());
-
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -163,16 +173,6 @@ public class ResourceActionCall extends NodeBuilder {
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
-        properties().custom()
-                .metadata()
-                .label(Property.CONNECTION_LABEL)
-                .description(Property.CONNECTION_DOC)
-                .stepOut()
-                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
-                .value(codedata.parentSymbol())
-                .type(Property.ValueType.IDENTIFIER)
-                .stepOut()
-                .addProperty(Property.CONNECTION_KEY);
         properties().resourcePath(function.resourcePath());
 
         if (function.returnError() == 1) {
