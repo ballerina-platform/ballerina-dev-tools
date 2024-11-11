@@ -66,6 +66,8 @@ public class AvailableNodesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
+    private static final String BALLERINA_ORG = "ballerina";
+    private static final String HTTP_MODULE = "http";
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -231,10 +233,13 @@ public class AvailableNodesGenerator {
 
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
-            NodeBuilder actionBuilder = connectorAction.kind() == Function.Kind.RESOURCE ?
-                    getResourceActionNode(connectorAction, connector, parentSymbol)
-                    : getActionNode(connectorAction, connector, parentSymbol);
-            availableNodes.add(actionBuilder.buildAvailableNode());
+            if (connectorAction.kind() == Function.Kind.REMOTE) {
+                if (isHttpModule(connector)) {
+                    continue;
+                }
+                availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
+            }
+            availableNodes.add(getResourceActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
         }
         return availableNodes;
     }
@@ -262,9 +267,10 @@ public class AvailableNodesGenerator {
     private static NodeBuilder getResourceActionNode(FunctionResult connectorAction, FunctionResult connector,
                                                      String parentSymbol) {
         NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
+        String label = connectorAction.name() + (isHttpModule(connector) ? "" : connectorAction.resourcePath());
         actionBuilder
                 .metadata()
-                    .label(connectorAction.name() + ":" + connectorAction.resourcePath())
+                    .label(label)
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
                     .description(connectorAction.description())
                     .functionKind(Function.Kind.RESOURCE.name())
@@ -281,4 +287,7 @@ public class AvailableNodesGenerator {
         return actionBuilder;
     }
 
+    private static boolean isHttpModule(FunctionResult connector) {
+        return connector.org().equals(BALLERINA_ORG) && connector.packageName().equals(HTTP_MODULE);
+    }
 }
