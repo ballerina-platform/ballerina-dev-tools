@@ -68,6 +68,8 @@ public class AvailableNodesGenerator {
     private final Gson gson;
     private static final String BALLERINA_ORG = "ballerina";
     private static final String HTTP_MODULE = "http";
+    private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
+            "delete", "patch", "options");
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -234,7 +236,7 @@ public class AvailableNodesGenerator {
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
             if (connectorAction.kind() == Function.Kind.REMOTE) {
-                if (isHttpModule(connector)) {
+                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
                     continue;
                 }
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
