@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.ElseBlockNode;
+import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -77,7 +79,7 @@ public class DeleteNodeHandler {
     }
 
     private static JsonElement getTextEditsToDeletedNode(LineRange lineRange, Path filePath,
-                                                        Document document, Project project) {
+                                                         Document document, Project project) {
         TextDocument textDocument = document.textDocument();
         int startTextPosition = textDocument.textPositionFrom(lineRange.startLine());
         int endTextPosition = textDocument.textPositionFrom(lineRange.endLine());
@@ -132,7 +134,7 @@ public class DeleteNodeHandler {
     }
 
     private static ImportDeclarationNode getUnusedImport(LineRange diagnosticLocation,
-                                                  NodeList<ImportDeclarationNode> imports) {
+                                                         NodeList<ImportDeclarationNode> imports) {
         for (ImportDeclarationNode importNode : imports) {
             if (PositionUtil.isWithinLineRange(diagnosticLocation, importNode.lineRange())) {
                 return importNode;
@@ -150,6 +152,15 @@ public class DeleteNodeHandler {
                 NonTerminalNode parent = node.parent();
                 if (parent.kind() == SyntaxKind.ELSE_BLOCK) {
                     return parent.lineRange();
+                }
+                if (parent.kind() == SyntaxKind.IF_ELSE_STATEMENT) {
+                    IfElseStatementNode ifElseStmt = (IfElseStatementNode) parent;
+                    NonTerminalNode p = ifElseStmt.parent();
+                    if (p != null && p.kind() == SyntaxKind.ELSE_BLOCK) {
+                        ElseBlockNode elseBlock = (ElseBlockNode) p;
+                        return LineRange.from(parent.lineRange().fileName(), elseBlock.lineRange().startLine(),
+                                ifElseStmt.ifBody().lineRange().endLine());
+                    }
                 }
             }
         }
