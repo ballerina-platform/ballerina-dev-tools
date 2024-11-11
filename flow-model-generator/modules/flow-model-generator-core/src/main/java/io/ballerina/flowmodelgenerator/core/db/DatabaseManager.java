@@ -109,12 +109,14 @@ public class DatabaseManager {
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
                 "WHERE f.kind = ? " +
-                "LIMIT ?;";
+                "LIMIT ? " +
+                "OFFSET ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, kind.name());
             stmt.setString(2, queryMap.get("limit"));
+            stmt.setString(3, queryMap.get("offset"));
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
