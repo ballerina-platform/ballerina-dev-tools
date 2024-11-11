@@ -257,6 +257,9 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = clientResourceAccessActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
                 clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
+        if (functionArgumentNodes == null) { // cl->/path/to/'resource;
+            methodName = "get";
+        }
         handleResourceActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
         nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
     }
@@ -397,6 +400,53 @@ class CodeAnalyzer extends NodeVisitor {
                                             FunctionTypeSymbol functionTypeSymbol,
                                             LinkedHashMap<String, ParameterResult> funcParamMap,
                                             Queue<Node> positionalArgs, Map<String, Node> namedArgValueMap) {
+        if (argumentNodes == null) { // cl->/path/to/'resource;
+            List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
+            boolean hasOnlyRestParams = functionParameters.size() == 1;
+            for (ParameterResult paramResult : functionParameters) {
+                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                    continue;
+                }
+
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
+                customPropBuilder
+                        .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                        .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                        .placeholder(paramResult.defaultValue())
+                        .typeConstraint(paramResult.type())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1);
+
+                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                } else {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                }
+                customPropBuilder
+                        .stepOut()
+                        .addProperty(unescapedParamName);
+            }
+            return;
+        }
+
         boolean hasOnlyRestParams = funcParamMap.size() == 1;
         if (functionTypeSymbol.restParam().isPresent()) {
             ParameterSymbol restParamSymbol = functionTypeSymbol.restParam().get();
