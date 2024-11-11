@@ -42,6 +42,9 @@ public class ConnectorGenerator {
 
     private final Gson gson;
 
+    private static final String DEFAULT_LIMIT = "30";
+    private static final String DEFAULT_OFFSET = "0";
+
     public ConnectorGenerator() {
         this.gson = new Gson();
     }
@@ -49,15 +52,15 @@ public class ConnectorGenerator {
     public JsonArray getConnectors(Map<String, String> queryMap) {
         Map<String, String> modifiedQueryMap = new HashMap<>(queryMap);
         if (CommonUtils.hasNoKeyword(queryMap, "limit")) {
-            modifiedQueryMap.put("limit", "20");
+            modifiedQueryMap.put("limit", DEFAULT_LIMIT);
         }
         if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
-            modifiedQueryMap.put("offset", "0");
+            modifiedQueryMap.put("offset", DEFAULT_OFFSET);
         }
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR) :
+                dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR, modifiedQueryMap) :
                 dbManager.searchFunctions(modifiedQueryMap, DatabaseManager.FunctionKind.CONNECTOR);
 
         List<AvailableNode> connectors = new ArrayList<>();
