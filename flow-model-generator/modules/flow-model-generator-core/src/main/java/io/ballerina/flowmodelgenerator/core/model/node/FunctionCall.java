@@ -34,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -68,7 +69,8 @@ public class FunctionCall extends NodeBuilder {
             WorkspaceManager workspaceManager = context.workspaceManager();
 
             try {
-                workspaceManager.loadProject(context.filePath());
+                Project project = workspaceManager.loadProject(context.filePath());
+                this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
             } catch (WorkspaceDocumentException | EventSyncException e) {
                 throw new RuntimeException("Error loading project: " + e.getMessage());
             }
@@ -134,7 +136,7 @@ public class FunctionCall extends NodeBuilder {
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true);
+                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
                 boolean editable = true;
                 if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
                     returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
