@@ -31,7 +31,7 @@
               "offset": 5
             }
           },
-          "sourceCode": "do {\n\n    } on fail error e {\n        log:printError(\"Error: \", 'error = e);\n        return e;\n    }"
+          "sourceCode": "do {\n\n    } on fail error e {\n        log:printError(\"Error: \", 'error = e, key1=\"dadfa\", key2=123);\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +72,7 @@
                   "offset": 5
                 }
               },
-              "sourceCode": "{\n        log:printError(\"Error: \", 'error = e);\n        return e;\n    }"
+              "sourceCode": "{\n        log:printError(\"Error: \", 'error = e, key1=\"dadfa\", key2=123);\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -114,7 +114,7 @@
             },
             "children": [
               {
-                "id": "40966",
+                "id": "40990",
                 "metadata": {
                   "label": "printError",
                   "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
@@ -134,10 +134,10 @@
                     },
                     "endLine": {
                       "line": 9,
-                      "offset": 46
+                      "offset": 70
                     }
                   },
-                  "sourceCode": "log:printError(\"Error: \", 'error = e);"
+                  "sourceCode": "log:printError(\"Error: \", 'error = e, key1=\"dadfa\", key2=123);"
                 },
                 "returning": false,
                 "properties": {
@@ -191,13 +191,21 @@
                       "originalName": "stackTrace"
                     }
                   },
-                  "Additional Values": {
+                  "additionalValues": {
                     "metadata": {
                       "label": "Additional Values",
                       "description": "Capture key value pairs"
                     },
                     "valueType": "MAPPING_EXPRESSION_SET",
                     "valueTypeConstraint": "log:Value",
+                    "value": [
+                      {
+                        "key1": "\"dadfa\""
+                      },
+                      {
+                        "key2": "123"
+                      }
+                    ],
                     "placeholder": "{}",
                     "optional": true,
                     "editable": true,

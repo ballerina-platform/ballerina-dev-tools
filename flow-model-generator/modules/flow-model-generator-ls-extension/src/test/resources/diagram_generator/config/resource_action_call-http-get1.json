@@ -130,13 +130,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -267,13 +268,21 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [
+              {
+                "param1": "\"param1\""
+              },
+              {
+                "param2": "\"param2\""
+              }
+            ],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -404,13 +413,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -542,13 +552,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -679,13 +690,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -817,13 +829,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -954,13 +967,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -1091,13 +1105,14 @@
               "originalName": "targetType"
             }
           },
-          "Additional Values": {
+          "additionalValues": {
             "metadata": {
               "label": "Additional Values",
               "description": "Capture key value pairs"
             },
             "valueType": "MAPPING_EXPRESSION_SET",
             "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
             "placeholder": "[]",
             "optional": true,
             "editable": true,

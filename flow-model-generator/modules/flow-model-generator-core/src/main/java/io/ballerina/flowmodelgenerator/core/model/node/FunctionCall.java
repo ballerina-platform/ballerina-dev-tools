@@ -117,6 +117,7 @@ public class FunctionCall extends NodeBuilder {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
+                    unescapedParamName = "additionalValues";
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
                 } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
                     if (hasOnlyRestParams) {
@@ -205,6 +206,7 @@ public class FunctionCall extends NodeBuilder {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
+                unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
             } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
