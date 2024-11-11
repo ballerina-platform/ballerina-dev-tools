@@ -13,7 +13,7 @@
     "fileName": "http_get_node.bal",
     "nodes": [
       {
-        "id": "46908",
+        "id": "46939",
         "metadata": {
           "label": "Start"
         },
@@ -26,11 +26,11 @@
               "offset": 61
             },
             "endLine": {
-              "line": 25,
+              "line": 26,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get apples() returns http:ClientError? {\n        json res1 = check foodClient->/western/apples.get();\n        json res2 = check foodClient->/apples.get(param1=\"param1\", param2=\"param2\");\n        json res3 = check foodClient->/.get();\n        var res4 = check foodClient->/apples.get(targetType = json);\n        json res5 = check foodClient->/apples.get();\n        json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res7 = check foodClient->/apples.get();\n        json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();\n    }"
+          "sourceCode": "resource function get apples() returns http:ClientError? {\n        json res1 = check foodClient->/western/apples.get();\n        json res2 = check foodClient->/apples.get(param1=\"param1\", param2=\"param2\");\n        json res3 = check foodClient->/.get();\n        var res4 = check foodClient->/apples.get(targetType = json);\n        json res5 = check foodClient->/apples.get();\n        json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res7 = check foodClient->/apples.get();\n        json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();\n        Food res9 = check foodClient->/apples;\n    }"
         },
         "returning": false,
         "flags": 0
@@ -1125,6 +1125,127 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "56838",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.12.2",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 25,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 46
+            }
+          },
+          "sourceCode": "Food res9 = check foodClient->/apples;",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res9",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "Additional Values": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Food",
             "placeholder": "var",
             "optional": false,
             "editable": true,

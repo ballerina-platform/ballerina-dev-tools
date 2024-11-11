@@ -13,7 +13,7 @@
     "fileName": "http_get_node.bal",
     "nodes": [
       {
-        "id": "72638",
+        "id": "73630",
         "metadata": {
           "label": "Start"
         },
@@ -22,11 +22,11 @@
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 39,
+              "line": 40,
               "offset": 68
             },
             "endLine": {
-              "line": 42,
+              "line": 43,
               "offset": 5
             }
           },
@@ -36,7 +36,7 @@
         "flags": 0
       },
       {
-        "id": "71727",
+        "id": "72719",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -52,11 +52,11 @@
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 40,
+              "line": 41,
               "offset": 8
             },
             "endLine": {
-              "line": 40,
+              "line": 41,
               "offset": 55
             }
           },
@@ -418,7 +418,7 @@
         "flags": 1
       },
       {
-        "id": "72710",
+        "id": "73702",
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
@@ -434,11 +434,11 @@
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
-              "line": 41,
+              "line": 42,
               "offset": 8
             },
             "endLine": {
-              "line": 41,
+              "line": 42,
               "offset": 46
             }
           },
