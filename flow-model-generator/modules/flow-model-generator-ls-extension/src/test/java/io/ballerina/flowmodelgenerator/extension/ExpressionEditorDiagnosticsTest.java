@@ -20,11 +20,10 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -46,25 +45,24 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         ExpressionEditorDiagnosticsRequest request =
-                new ExpressionEditorDiagnosticsRequest(getSourcePath(testConfig.filePath()), testConfig.expression(),
-                        testConfig.type(), testConfig.startLine());
+                new ExpressionEditorDiagnosticsRequest(getSourcePath(testConfig.filePath()), testConfig.context());
         JsonObject response = getResponse(request);
 
         List<Diagnostic> actualDiagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
                 new TypeToken<List<Diagnostic>>() { }.getType());
         if (!assertArray("diagnostics", actualDiagnostics, testConfig.diagnostics())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.expression(), testConfig.startLine(), testConfig.type(), actualDiagnostics);
-            updateConfig(configJsonPath, updatedConfig);
+                    testConfig.context(), actualDiagnostics);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
-    @DataProvider(name = "data-provider")
     @Override
-    protected Object[] getConfigsList() {
-        return new Object[]{
-                Path.of("single5.json")
+    protected String[] skipList() {
+        // TODO: Enable this test after fixing the module compilation error in Windows.
+        return new String[]{
+                "new_connection1.json"
         };
     }
 
@@ -88,7 +86,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, String expression, LinePosition startLine,
-                              String type, List<Diagnostic> diagnostics) {
+    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+                              List<Diagnostic> diagnostics) {
     }
 }

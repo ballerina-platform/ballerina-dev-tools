@@ -18,3 +18,11 @@ service / on new http:Listener(8080) {
         }
     }
 }
+
+function fn(MyRecord rec) {
+
+}
+
+type MyRecord record {|
+    int id;
+|};

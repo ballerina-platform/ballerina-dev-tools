@@ -446,7 +446,7 @@ public class SourceBuilder {
                 treeModifier = new FormattingTreeModifier(FormattingOptions.builder().build(), (LineRange) null);
         private final StringBuilder sb;
 
-        protected TokenBuilder(SourceBuilder parentBuilder) {
+        public TokenBuilder(SourceBuilder parentBuilder) {
             super(parentBuilder);
             sb = new StringBuilder();
         }

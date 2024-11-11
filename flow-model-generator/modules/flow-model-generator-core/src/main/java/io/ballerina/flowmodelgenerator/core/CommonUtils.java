@@ -513,4 +513,16 @@ public class CommonUtils {
     public static boolean isDefaultPackage(String orgName, String packageName, ModuleInfo moduleInfo) {
         return (orgName.equals(moduleInfo.org()) && packageName.equals(moduleInfo.packageName()));
     }
+
+    /**s
+     * Checks if the given line position is after another line position.
+     *
+     * @param position the line position to check
+     * @param other    the other line position to compare against
+     * @return true if the given line position is after the other line position, false otherwise
+     */
+    public static boolean isLinePositionAfter(LinePosition position, LinePosition other) {
+        return position.line() > other.line() ||
+                (position.line() == other.line() && position.offset() > other.offset());
+    }
 }
