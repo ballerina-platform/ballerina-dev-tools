@@ -295,7 +295,7 @@ class CodeAnalyzer extends NodeVisitor {
         calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
 
         if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHanldeExprArgs(argumentNodes, dbManager, functionResult.get(),
+            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
                     methodSymbol, positionalArgs, namedArgValueMap);
         } else {
             handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
@@ -303,7 +303,7 @@ class CodeAnalyzer extends NodeVisitor {
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
 
-    private void analyzeAndHanldeExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+    private void analyzeAndHandleExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                           DatabaseManager dbManager,
                                           FunctionResult functionResult,
                                           FunctionSymbol methodSymbol,
@@ -689,9 +689,9 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
-                .label(methodName)
-                .description(description)
-                .stepOut()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
                 .codedata()
                 .object("Client")
                 .symbol(methodName)
@@ -712,7 +712,7 @@ class CodeAnalyzer extends NodeVisitor {
         calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
 
         if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHanldeExprArgs(argumentNodes, dbManager, functionResult.get(),
+            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
                     methodSymbol, positionalArgs, namedArgValueMap);
         } else {
             handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
@@ -844,7 +844,7 @@ class CodeAnalyzer extends NodeVisitor {
             calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
 
             if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHanldeExprArgs(argumentNodes, dbManager, functionResult.get(),
+                analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
                         methodSymbol, positionalArgs, namedArgValueMap);
                 return;
             }
@@ -1074,7 +1074,7 @@ class CodeAnalyzer extends NodeVisitor {
             calculateFunctionArgs(namedArgValueMap, positionalArgs, functionCallExpressionNode.arguments());
 
             if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHanldeExprArgs(functionCallExpressionNode.arguments(), dbManager, functionResult.get(),
+                analyzeAndHandleExprArgs(functionCallExpressionNode.arguments(), dbManager, functionResult.get(),
                         functionSymbol, positionalArgs, namedArgValueMap);
             } else {
                 handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(), functionSymbol);

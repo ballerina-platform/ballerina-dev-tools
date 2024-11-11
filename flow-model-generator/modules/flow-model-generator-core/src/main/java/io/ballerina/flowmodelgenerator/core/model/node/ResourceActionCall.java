@@ -122,6 +122,8 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
 
+        properties().resourcePath(function.resourcePath());
+
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
@@ -177,8 +179,6 @@ public class ResourceActionCall extends NodeBuilder {
                     .type(returnTypeName, editable)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
-
-        properties().resourcePath(function.resourcePath());
 
         if (function.returnError() == 1) {
             properties().checkError(true);
