@@ -321,6 +321,166 @@
         "id": 809
       },
       "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "aws.sns",
+        "description": "Ballerina Amazon SNS API connector provides the capability to access Amazon's Simple Notification Service.\nThis connector allows you to create and manage SNS topics and subscriptions.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sns_3.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "aws.sns",
+        "object": "Client",
+        "symbol": "init",
+        "id": 815
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "asana",
+        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "asana",
+        "object": "Client",
+        "symbol": "init",
+        "id": 818
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "slack",
+        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "slack",
+        "object": "Client",
+        "symbol": "init",
+        "id": 819
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "discord",
+        "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "discord",
+        "object": "Client",
+        "symbol": "init",
+        "id": 822
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "oracledb",
+        "description": "Represents a OracleDB client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "oracledb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 823
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mysql",
+        "description": "Represents a MySQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mysql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 870
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "aws.marketplace.mpm",
+        "description": "AWS Marketplace metering client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.marketplace.mpm_0.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "aws.marketplace.mpm",
+        "object": "Client",
+        "symbol": "init",
+        "id": 904
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "confluent.cregistry",
+        "description": "Consists of APIs to integrate with Avro Schema Registry.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_confluent.cregistry_0.2.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "confluent.cregistry",
+        "object": "Client",
+        "symbol": "init",
+        "id": 926
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "openai.finetunes",
+        "description": "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_openai.finetunes_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "openai.finetunes",
+        "object": "Client",
+        "symbol": "init",
+        "id": 954
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "aws.dynamodb",
+        "description": "The Ballerina AWS DynamoDB connector provides the capability to access AWS Simple Email Service related operations.\nThis connector lets you to to send email messages to your customers.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodb_2.3.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "aws.dynamodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 1053
+      },
+      "enabled": true
     }
   ]
 }

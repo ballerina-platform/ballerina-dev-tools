@@ -94,7 +94,7 @@ public class DatabaseManager {
         RESOURCE
     }
 
-    public List<FunctionResult> getAllFunctions(FunctionKind kind) {
+    public List<FunctionResult> getAllFunctions(FunctionKind kind, Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -109,11 +109,12 @@ public class DatabaseManager {
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
                 "WHERE f.kind = ? " +
-                "LIMIT 20;";
+                "LIMIT ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, kind.name());
+            stmt.setString(2, queryMap.get("limit"));
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
