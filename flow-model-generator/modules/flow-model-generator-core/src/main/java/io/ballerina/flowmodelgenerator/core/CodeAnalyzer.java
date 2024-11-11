@@ -348,6 +348,7 @@ class CodeAnalyzer extends NodeVisitor {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
+                unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
             } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
@@ -605,11 +606,6 @@ class CodeAnalyzer extends NodeVisitor {
                                         .stepOut()
                                         .addProperty(unescapedParamName, paramValue);
 
-                            } else { // included record rest
-                                funcParamMap.remove(escapedParamName);
-                                LinkedHashMap<String, String> map = new LinkedHashMap<>();
-                                map.put(argName, namedArgumentNode.expression().toSourceCode());
-                                includedRecordRestArgs.add(map);
                             }
                         }
 
@@ -675,9 +671,9 @@ class CodeAnalyzer extends NodeVisitor {
                 map.put(entry.getKey(), entry.getValue().toSourceCode());
                 includedRecordRestArgs.add(map);
             }
-            ParameterResult includedRecordRest = funcParamMap.get("INCLUDED_RECORD_REST");
+            ParameterResult includedRecordRest = funcParamMap.get("Additional Values");
             if (includedRecordRest != null) {
-                funcParamMap.remove("INCLUDED_RECORD_REST");
+                funcParamMap.remove("Additional Values");
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(includedRecordRest.name());
@@ -697,7 +693,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .originalName(includedRecordRest.name())
                             .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName);
+                        .addProperty("additionalValues");
             }
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
         }
