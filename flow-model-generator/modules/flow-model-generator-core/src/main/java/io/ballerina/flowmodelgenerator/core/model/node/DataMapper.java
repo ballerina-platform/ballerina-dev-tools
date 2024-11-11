@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -115,9 +116,14 @@ public class DataMapper extends NodeBuilder {
         Set<String> visibleRecordTypes = new TreeSet<>();
 
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
-            if (symbol.kind() == SymbolKind.VARIABLE &&
+            if (symbol.kind().equals(SymbolKind.VARIABLE) &&
                     symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
-                getVariableSignature(semanticModel, currentModuleInfo, (VariableSymbol) symbol).ifPresent(
+                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
+                        ((VariableSymbol) symbol).typeDescriptor()).ifPresent(
+                        visibleVariables::add);
+            } else if (symbol.kind() == SymbolKind.PARAMETER) {
+                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
+                        ((ParameterSymbol) symbol).typeDescriptor()).ifPresent(
                         visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
@@ -151,11 +157,13 @@ public class DataMapper extends NodeBuilder {
     }
 
     private static Optional<String> getVariableSignature(SemanticModel semanticModel, ModuleInfo moduleInfo,
-                                                         VariableSymbol symbol) {
-        Optional<String> name = symbol.getName();
+                                                         String name, TypeSymbol typeSymbol) {
+        if (name == null || name.isEmpty()) {
+            return Optional.empty();
+        }
         String typeSignature =
-                CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, moduleInfo);
-        return name.map(s -> typeSignature + " " + s);
+                CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleInfo);
+        return Optional.of(typeSignature + " " + name);
     }
 
     private static Optional<String> getRecordTypeSignature(TypeDefinitionSymbol symbol) {
