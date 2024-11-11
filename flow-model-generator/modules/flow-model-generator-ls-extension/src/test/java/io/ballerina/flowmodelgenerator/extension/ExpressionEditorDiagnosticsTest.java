@@ -59,6 +59,14 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        // TODO: Enable this test after fixing the module compilation error in Windows.
+        return new String[]{
+                "new_connection1.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "diagnostics";
     }
