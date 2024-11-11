@@ -72,6 +72,21 @@
     "flags": 0
   },
   "output": {
+    "data_mapper/data_mappings.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 0
+          },
+          "end": {
+            "line": 15,
+            "character": 2
+          }
+        },
+        "newText": "function transformToPerson(string name, string email, Address address) returns Person => {\n    address: {houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"},\n    name: \"\",\n    email: \"\"\n};"
+      }
+    ],
     "data_mapper/main.bal": [
       {
         "range": {

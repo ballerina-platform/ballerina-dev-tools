@@ -9,9 +9,9 @@ function transformAdmission(Person person, Admission admission) returns Employee
     }
 };
 
-function transformToPerson(string name, string email, Address address) returns Person => {
+function transformToPerson(string name, Address address) returns Person => {
     name: name,
-    email: email,
+    email: "email",
     address: address
 };
 

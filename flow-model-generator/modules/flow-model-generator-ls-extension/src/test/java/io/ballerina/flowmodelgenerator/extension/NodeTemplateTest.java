@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -35,18 +34,10 @@ public class NodeTemplateTest extends AbstractLSTest {
             TestConfig updateConfig =
                     new TestConfig(testConfig.source(), testConfig.position(), testConfig.description(),
                             testConfig.codedata(), nodeTemplate);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(nodeTemplate, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[] {
-                Path.of("data_mapper-service.json")
-        };
     }
 
     @Override
