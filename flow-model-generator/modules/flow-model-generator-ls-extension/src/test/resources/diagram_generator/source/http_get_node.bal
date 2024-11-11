@@ -23,6 +23,7 @@ service /market on new http:Listener(9090) {
         });
         Food res7 = check foodClient->/apples.get();
         json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();
+        Food res9 = check foodClient->/apples;
     }
 
     resource function get pears() {

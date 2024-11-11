@@ -1104,6 +1104,70 @@
             "editable": false,
             "advanced": true
           },
+          "connection": {
+            "metadata": {
+              "label": "connection",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+            "placeholder": "\"redis://localhost:6379\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "connection"
+            }
+          },
+          "connectionPooling": {
+            "metadata": {
+              "label": "connectionPooling",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "connectionPooling"
+            }
+          },
+          "isClusterConnection": {
+            "metadata": {
+              "label": "isClusterConnection",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "isClusterConnection"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "redis:SecureSocket",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
           "variable": {
             "metadata": {
               "label": "Connection Name",
