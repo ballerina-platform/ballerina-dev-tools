@@ -72,7 +72,7 @@
           "originalName": "stackTrace"
         }
       },
-      "Additional Values": {
+      "additionalValues": {
         "metadata": {
           "label": "Additional Values",
           "description": "Capture additional values"
