@@ -117,6 +117,26 @@ public class SourceBuilder {
         return this;
     }
 
+    // TODO: Need to reuse other textEdit methods
+    public SourceBuilder textEdit(boolean isExpression, String fileName, LineRange lineRange, boolean allowEdits) {
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
+        if (flowNodeLineRange != null && allowEdits) {
+            LinePosition startLine = flowNodeLineRange.startLine();
+            LinePosition endLine = flowNodeLineRange.endLine();
+
+            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
+                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
+                acceptImport(resolvedPath);
+                return this;
+            }
+        }
+
+        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange));
+        acceptImport(resolvedPath);
+        return this;
+    }
+
     public SourceBuilder acceptImport(Path resolvedPath) {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
