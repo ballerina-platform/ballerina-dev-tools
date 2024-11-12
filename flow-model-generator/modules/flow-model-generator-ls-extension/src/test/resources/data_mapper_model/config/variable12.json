@@ -307,6 +307,8 @@
           "incompatible types: expected 'int', found 'string'"
         ]
       }
-    ]
+    ],
+    "source": "Student student = {id: 1234, credentials: {username: userInfo.username, password: userInfo.}, length: userInfo.username};",
+    "view": "root"
   }
 }

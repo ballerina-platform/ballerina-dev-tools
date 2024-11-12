@@ -203,6 +203,8 @@
         "expression": "userInfo.password",
         "diagnostics": []
       }
-    ]
+    ],
+    "source": "Student student = {username: userInfo.username, password: userInfo.password};",
+    "view": "root"
   }
 }

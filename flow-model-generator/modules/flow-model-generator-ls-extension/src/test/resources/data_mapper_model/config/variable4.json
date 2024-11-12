@@ -197,6 +197,8 @@
           "incompatible types: expected 'string', found 'UserInfo'"
         ]
       }
-    ]
+    ],
+    "source": "Student student = {username: userInfo};",
+    "view": "root"
   }
 }

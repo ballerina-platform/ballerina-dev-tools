@@ -187,7 +187,7 @@ public class DataMapManager {
                 }
             }
         }
-        return gson.toJsonTree(new Model(inputTypes, output, mappings));
+        return gson.toJsonTree(new Model(inputTypes, output, mappings, source, "root"));
     }
 
     private void generateRecordVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
@@ -206,7 +206,7 @@ public class DataMapManager {
     }
 
     private void generateArrayVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
-                                                   String name, SemanticModel semanticModel) {
+                                                  String name, SemanticModel semanticModel) {
         Optional<ExpressionNode> optInitializer = varDecl.initializer();
         if (optInitializer.isEmpty()) {
             return;
@@ -364,7 +364,8 @@ public class DataMapManager {
         }
     }
 
-    private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {}.getType();
+    private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {
+    }.getType();
 
     public String getSource(JsonElement mp) {
         List<Mapping> mappings = gson.fromJson(mp, mt);
@@ -384,7 +385,7 @@ public class DataMapManager {
         int i = 0;
         for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
             sb.append(stringObjectEntry.getKey()).append(":");
-            if (stringObjectEntry.getValue() instanceof Map<?,?>) {
+            if (stringObjectEntry.getValue() instanceof Map<?, ?>) {
                 sb.append(genSource((Map<String, Object>) stringObjectEntry.getValue()));
             } else {
                 sb.append(stringObjectEntry.getValue());
@@ -412,14 +413,15 @@ public class DataMapManager {
                 Map<String, Object> newMapping = new HashMap<>();
                 currentMapping.put(splits[i], newMapping);
                 currentMapping = newMapping;
-            } else if (o instanceof Map<?,?>) {
+            } else if (o instanceof Map<?, ?>) {
                 currentMapping = (Map<String, Object>) o;
             }
         }
         currentMapping.put(splits[splits.length - 1], mapping.expression);
     }
 
-    private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings) {
+    private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings, String source,
+                         String view) {
 
     }
 

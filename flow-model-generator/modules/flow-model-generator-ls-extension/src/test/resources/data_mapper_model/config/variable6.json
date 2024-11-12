@@ -204,6 +204,8 @@
         "expression": "userInfo.password + userInfo.username",
         "diagnostics": []
       }
-    ]
+    ],
+    "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username};",
+    "view": "root"
   }
 }

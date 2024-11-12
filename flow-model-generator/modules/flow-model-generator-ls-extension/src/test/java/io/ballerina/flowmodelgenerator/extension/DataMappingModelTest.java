@@ -56,7 +56,7 @@ public class DataMappingModelTest extends AbstractLSTest {
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }

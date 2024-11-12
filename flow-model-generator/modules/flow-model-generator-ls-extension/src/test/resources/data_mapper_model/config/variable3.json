@@ -198,6 +198,8 @@
           "missing identifier"
         ]
       }
-    ]
+    ],
+    "source": "Student student = {username: userInfo.};",
+    "view": "root"
   }
 }

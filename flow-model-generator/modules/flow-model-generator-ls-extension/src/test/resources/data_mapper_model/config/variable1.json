@@ -130,6 +130,8 @@
         "isRestType": false
       }
     },
-    "mappings": []
+    "mappings": [],
+    "source": "Student student = {};",
+    "view": "root"
   }
 }

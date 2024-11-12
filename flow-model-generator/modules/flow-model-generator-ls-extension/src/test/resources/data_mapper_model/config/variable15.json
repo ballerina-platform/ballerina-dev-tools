@@ -264,6 +264,8 @@
         "isRestType": false
       }
     },
-    "mappings": []
+    "mappings": [],
+    "source": "Credentials[] credentials = [];",
+    "view": "root"
   }
 }

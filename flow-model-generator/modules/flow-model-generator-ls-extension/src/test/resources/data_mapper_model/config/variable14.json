@@ -197,6 +197,8 @@
           "undefined symbol 'userInf'"
         ]
       }
-    ]
+    ],
+    "source": "Credentials credentials = userInf;",
+    "view": "root"
   }
 }
