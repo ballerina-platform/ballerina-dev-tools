@@ -462,7 +462,7 @@
       {
         "output": "student.credentials.0.username",
         "inputs": [
-          "userInfo.0.username"
+          "userInfo"
         ],
         "expression": "userInfo[0].username",
         "diagnostics": []
@@ -470,7 +470,7 @@
       {
         "output": "student.credentials.0.password",
         "inputs": [
-          "userInfo.1.password"
+          "userInfo"
         ],
         "expression": "userInfo[1].password",
         "diagnostics": []

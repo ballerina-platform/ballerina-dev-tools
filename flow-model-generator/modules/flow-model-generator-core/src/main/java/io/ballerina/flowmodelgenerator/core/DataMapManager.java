@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
@@ -37,6 +38,8 @@ import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.QueryExpressionNode;
+import io.ballerina.compiler.syntax.tree.SelectClauseNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
@@ -216,7 +219,9 @@ public class DataMapManager {
         if (exprKind == SyntaxKind.LIST_CONSTRUCTOR) {
             genMapping((ListConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
         } else if (exprKind == SyntaxKind.QUERY_EXPRESSION) {
-
+            genMapping((QueryExpressionNode) expressionNode, mappings, name, semanticModel);
+        } else if (exprKind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            genMapping((SimpleNameReferenceNode) expressionNode, mappings, name, semanticModel);
         }
 
     }
@@ -271,12 +276,32 @@ public class DataMapManager {
         }
     }
 
+    private void genMapping(QueryExpressionNode queryExpr, List<Mapping> mappings, String name,
+                            SemanticModel semanticModel) {
+        // ((SelectClauseNode) expressionNode.resultClause()).expression()
+        ClauseNode clauseNode = queryExpr.resultClause();
+        if (clauseNode.kind() != SyntaxKind.SELECT_CLAUSE) {
+            return;
+        }
+        SelectClauseNode selectClauseNode = (SelectClauseNode) clauseNode;
+        ExpressionNode expr = selectClauseNode.expression();
+        if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+            genMapping((MappingConstructorExpressionNode) expr, mappings, name, semanticModel);
+        }
+    }
+
     private void genInputs(Node expr, List<String> inputs) {
         SyntaxKind kind = expr.kind();
-        if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            // TODO: Revisit regex replacement
-            inputs.add(expr.toSourceCode().trim()
-                    .replaceAll("\\[(\\d+)\\]", ".$0").replaceAll("\\[", "").replaceAll("]", ""));
+        if (kind == SyntaxKind.FIELD_ACCESS) {
+            String source = expr.toSourceCode().trim();
+            String[] split = source.split("\\[");
+            if (split.length > 1) {
+                inputs.add(split[0]);
+            } else {
+                inputs.add(source);
+            }
+        } else if (kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            inputs.add(expr.toSourceCode().trim());
         } else if (kind == SyntaxKind.BINARY_EXPRESSION) {
             BinaryExpressionNode binaryExpr = (BinaryExpressionNode) expr;
             genInputs(binaryExpr.lhsExpr(), inputs);

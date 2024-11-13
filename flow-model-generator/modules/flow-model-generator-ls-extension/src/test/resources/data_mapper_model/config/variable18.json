@@ -1,5 +1,5 @@
 {
-  "source": "variable7.bal",
+  "source": "variable9.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,7 +10,7 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "variable7.bal",
+        "fileName": "variable9.bal",
         "startLine": {
           "line": 0,
           "offset": 0
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[{username: userInfo[0].username, password: userInfo[0].password}]",
+        "value": "userInfo",
         "optional": false,
         "editable": true
       },
@@ -59,8 +59,8 @@
   },
   "propertyKey": "expression",
   "position": {
-    "line": 18,
-    "offset": 105
+    "line": 19,
+    "offset": 119
   },
   "model": {
     "inputs": [
@@ -96,6 +96,16 @@
                 "defaultable": false,
                 "isRestType": false
               }
+            },
+            {
+              "id": "userInfo.id",
+              "type": {
+                "name": "id",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
             }
           ],
           "id": "userInfo",
@@ -111,6 +121,13 @@
               {
                 "name": "password",
                 "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "id",
+                "typeName": "int",
                 "optional": false,
                 "defaultable": false,
                 "isRestType": false
@@ -145,6 +162,13 @@
               {
                 "name": "password",
                 "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "id",
+                "typeName": "int",
                 "optional": false,
                 "defaultable": false,
                 "isRestType": false
@@ -266,23 +290,17 @@
     },
     "mappings": [
       {
-        "output": "credentials.0.username",
+        "output": "credentials",
         "inputs": [
           "userInfo"
         ],
-        "expression": "userInfo[0].username",
-        "diagnostics": []
-      },
-      {
-        "output": "credentials.0.password",
-        "inputs": [
-          "userInfo"
-        ],
-        "expression": "userInfo[0].password",
-        "diagnostics": []
+        "expression": "userInfo",
+        "diagnostics": [
+          "incompatible types: expected 'Credentials[]', found 'UserInfo[]'"
+        ]
       }
     ],
-    "source": "Credentials[] credentials = [{username: userInfo[0].username, password: userInfo[0].password}];",
+    "source": "Credentials[] credentials = userInfo;",
     "view": "root"
   }
 }

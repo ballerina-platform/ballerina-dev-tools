@@ -1,5 +1,5 @@
 {
-  "source": "variable7.bal",
+  "source": "variable9.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,7 +10,7 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "variable7.bal",
+        "fileName": "variable9.bal",
         "startLine": {
           "line": 0,
           "offset": 0
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[{username: userInfo[0].username, password: userInfo[0].password}]",
+        "value": "from var item in userInfo select {username: item.username, password: item.password}",
         "optional": false,
         "editable": true
       },
@@ -59,8 +59,8 @@
   },
   "propertyKey": "expression",
   "position": {
-    "line": 18,
-    "offset": 105
+    "line": 19,
+    "offset": 119
   },
   "model": {
     "inputs": [
@@ -96,6 +96,16 @@
                 "defaultable": false,
                 "isRestType": false
               }
+            },
+            {
+              "id": "userInfo.id",
+              "type": {
+                "name": "id",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
             }
           ],
           "id": "userInfo",
@@ -111,6 +121,13 @@
               {
                 "name": "password",
                 "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "id",
+                "typeName": "int",
                 "optional": false,
                 "defaultable": false,
                 "isRestType": false
@@ -145,6 +162,13 @@
               {
                 "name": "password",
                 "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "id",
+                "typeName": "int",
                 "optional": false,
                 "defaultable": false,
                 "isRestType": false
@@ -266,23 +290,23 @@
     },
     "mappings": [
       {
-        "output": "credentials.0.username",
+        "output": "credentials.username",
         "inputs": [
-          "userInfo"
+          "item.username"
         ],
-        "expression": "userInfo[0].username",
+        "expression": "item.username",
         "diagnostics": []
       },
       {
-        "output": "credentials.0.password",
+        "output": "credentials.password",
         "inputs": [
-          "userInfo"
+          "item.password"
         ],
-        "expression": "userInfo[0].password",
+        "expression": "item.password",
         "diagnostics": []
       }
     ],
-    "source": "Credentials[] credentials = [{username: userInfo[0].username, password: userInfo[0].password}];",
+    "source": "Credentials[] credentials = from var item in userInfo\n    select {username: item.username, password: item.password};",
     "view": "root"
   }
 }
