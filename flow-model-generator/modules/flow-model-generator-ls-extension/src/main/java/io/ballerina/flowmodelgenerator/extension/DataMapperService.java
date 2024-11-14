@@ -108,7 +108,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
             DataMapperSourceResponse response = new DataMapperSourceResponse();
             try {
                 DataMapManager dataMapManager = new DataMapManager(null, null, null);
-                response.setSource(dataMapManager.getSource(request.mappings()));
+                response.setSource(dataMapManager.getSource(request.mappings(), request.flowNode()));
             } catch (Throwable e) {
                 response.setError(e);
             }

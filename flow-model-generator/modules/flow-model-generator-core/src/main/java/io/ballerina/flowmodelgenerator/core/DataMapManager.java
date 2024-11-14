@@ -392,14 +392,27 @@ public class DataMapManager {
     private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {
     }.getType();
 
-    public String getSource(JsonElement mp) {
-        List<Mapping> mappings = gson.fromJson(mp, mt);
-        Map<String, Object> mappingSource = new HashMap<>();
-        for (Mapping mapping : mappings) {
-            genSourceForMapping(mapping, mappingSource);
+    public String getSource(JsonElement mp, JsonElement fNode) {
+        FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
+        List<Mapping> fieldMapping = gson.fromJson(mp, mt);
+        Map<String, Object> mappings = new HashMap<>(); // TODO: Maintain the order of fields
+        for (Mapping mapping : fieldMapping) {
+            genSourceForMapping(mapping, mappings);
+        }
+        String mappingSource = genSource(mappings);
+        if (flowNode.codedata().node() == NodeKind.VARIABLE) {
+            Optional<Property> optProperty = flowNode.getProperty("expression");
+            if (optProperty.isPresent()) {
+                Property property = optProperty.get();
+                String source = property.toSourceCode();
+                if (source.matches("^from.*in.*select.*$")) {
+                    String[] split = source.split("select");
+                    return split[0] + " select " + mappingSource + ";";
+                }
+            }
         }
 
-        return genSource(mappingSource);
+        return mappingSource;
     }
 
     private String genSource(Map<String, Object> mappings) {
