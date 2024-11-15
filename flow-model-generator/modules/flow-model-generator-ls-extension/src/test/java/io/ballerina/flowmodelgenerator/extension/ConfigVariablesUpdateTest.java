@@ -51,13 +51,12 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         ConfigVariablesUpdateRequest request = new ConfigVariablesUpdateRequest(
                 sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString(), testConfig.configVariable());
-        JsonObject jsonMap = getResponse(endpoint, request).getAsJsonObject("textEdits");
+        JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
         boolean assertFailure = false;
@@ -82,7 +81,6 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
-        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override

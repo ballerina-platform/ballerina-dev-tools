@@ -130,24 +130,19 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request) throws IOException {
-        return getResponse(this.serviceEndpoint, request);
+        return getResponse(request, getApiName());
     }
 
-    // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
-    protected JsonObject getResponse(Endpoint endpoint, Object request) {
-        return getResponse(endpoint, request, getApiName());
-    }
-
-    protected JsonObject getResponse(Object request, String source) throws IOException {
-        JsonObject response = getResponse(this.serviceEndpoint, request);
+    protected JsonObject getResponseAndCloseFile(Object request, String source) throws IOException {
+        JsonObject response = getResponse(request);
         String fileUri = sourceDir.resolve(source).toAbsolutePath().toUri().toString();
         serviceEndpoint.notify("textDocument/didClose",
                 new DidCloseTextDocumentParams(new TextDocumentIdentifier(fileUri)));
         return response;
     }
 
-    protected JsonObject getResponse(Endpoint endpoint, Object request, String api) {
-        CompletableFuture<?> result = endpoint.request(getServiceName() + "/" + api, request);
+    protected JsonObject getResponse(Object request, String api) {
+        CompletableFuture<?> result = serviceEndpoint.request(getServiceName() + "/" + api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
