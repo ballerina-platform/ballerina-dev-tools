@@ -22,9 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.tools.text.LinePosition;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -42,14 +39,13 @@ public class ModelGeneratorTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(
-                sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
+                getSourcePath(testConfig.source()), testConfig.start(),
                 testConfig.end());
-        JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowModel");
+        JsonObject jsonModel = getResponse(request, testConfig.source()).getAsJsonObject("flowModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine
         String balFileName = Path.of(jsonModel.getAsJsonPrimitive("fileName").getAsString()).getFileName().toString();
@@ -66,7 +62,6 @@ public class ModelGeneratorTest extends AbstractLSTest {
             compareJsonElements(modifiedDiagram, testConfig.diagram());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override

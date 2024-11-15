@@ -27,6 +27,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
+import org.eclipse.lsp4j.DidCloseTextDocumentParams;
+import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +61,7 @@ abstract class AbstractLSTest {
     protected static Path resDir, sourceDir, configDir;
     protected final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private Endpoint serviceEndpoint;
+    protected Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
 
     @BeforeClass
@@ -134,6 +136,14 @@ abstract class AbstractLSTest {
     // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
     protected JsonObject getResponse(Endpoint endpoint, Object request) {
         return getResponse(endpoint, request, getApiName());
+    }
+
+    protected JsonObject getResponse(Object request, String source) throws IOException {
+        JsonObject response = getResponse(this.serviceEndpoint, request);
+        String fileUri = sourceDir.resolve(source).toAbsolutePath().toUri().toString();
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(fileUri)));
+        return response;
     }
 
     protected JsonObject getResponse(Endpoint endpoint, Object request, String api) {
