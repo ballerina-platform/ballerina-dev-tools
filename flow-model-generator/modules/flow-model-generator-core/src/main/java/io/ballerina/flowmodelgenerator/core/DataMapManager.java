@@ -59,6 +59,7 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.PrimitiveType;
@@ -399,7 +400,7 @@ public class DataMapManager {
         for (Mapping mapping : fieldMapping) {
             genSourceForMapping(mapping, mappings);
         }
-        String mappingSource = genSource(mappings);
+        String mappingSource = genSourceV2(mappings);
         if (flowNode.codedata().node() == NodeKind.VARIABLE) {
             Optional<Property> optProperty = flowNode.getProperty("expression");
             if (optProperty.isPresent()) {
@@ -437,6 +438,46 @@ public class DataMapManager {
         return sb.toString();
     }
 
+    private String genSourceV2(Object sourceObj) {
+        if (sourceObj instanceof Map<?,?>) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("{");
+            Map<String, Object> mappings = (Map<String, Object>) sourceObj;
+            int len = mappings.entrySet().size();
+            int i = 0;
+            for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
+                sb.append(stringObjectEntry.getKey()).append(":");
+                sb.append(genSourceV2(stringObjectEntry.getValue()));
+
+                if (i != len - 1) {
+                    sb.append(",");
+                }
+                i = i + 1;
+            }
+            sb.append("}");
+            return sb.toString();
+        } else if (sourceObj instanceof List<?>) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            List<Object> objects = (List<Object>) sourceObj;
+            int len = objects.size();
+            int i = 0;
+            for (Object object : objects) {
+                sb.append(genSourceV2(object));
+
+                if (i != len - 1) {
+                    sb.append(",");
+                }
+                i = i + 1;
+            }
+            sb.append("]");
+            return sb.toString();
+        } else {
+            return sourceObj.toString();
+        }
+    }
+
+    // TODO: Check the logic
     private void genSourceForMapping(Mapping mapping, Map<String, Object> mappingSource) {
         String output = mapping.output;
         String[] splits = output.split("\\.");
@@ -445,14 +486,34 @@ public class DataMapManager {
         }
 
         Map<String, Object> currentMapping = mappingSource;
+        String key = splits[1];
         for (int i = 1; i < splits.length - 1; i++) {
-            Object o = currentMapping.get(splits[i]);
+            String split = splits[i];
+            Object o = currentMapping.get(key);
             if (o == null) {
-                Map<String, Object> newMapping = new HashMap<>();
-                currentMapping.put(splits[i], newMapping);
-                currentMapping = newMapping;
+                if (splits[i + 1].matches("^-?\\d+$")) {
+                    currentMapping.put(split, new ArrayList<>());
+                } else {
+                    Map<String, Object> newMapping = new HashMap<>();
+                    currentMapping.put(split, newMapping);
+                    currentMapping = newMapping;
+                    key = split;
+                }
             } else if (o instanceof Map<?, ?>) {
                 currentMapping = (Map<String, Object>) o;
+                key = split;
+            } else if (o instanceof ArrayList<?>) {
+                List list = (List) o;
+                if (split.matches("^-?\\d+$")) {
+                    int i1 = Integer.parseInt(split);
+                    if (list.size() > i1 && list.get(i1) != null) {
+                        currentMapping = (Map<String, Object>) list.get(i1);
+                    } else {
+                        Map<String, Object> newMapping = new HashMap<>();
+                        list.add(i1, newMapping);
+                        currentMapping = newMapping;
+                    }
+                }
             }
         }
         currentMapping.put(splits[splits.length - 1], mapping.expression);
