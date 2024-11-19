@@ -103,19 +103,30 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/western/apples\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
               },
               "headers": {
                 "metadata": {
                   "label": "headers",
                   "description": "The entity headers"
                 },
+                "placeholder": "()",
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "value": "()",
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
               },
               "checkError": {
                 "metadata": {

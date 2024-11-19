@@ -18,52 +18,43 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
-import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
-
-    private static final Gson gson = new Gson();
 
     @Override
     public void setConcreteConstData() {
@@ -78,7 +69,8 @@ public class FunctionCall extends NodeBuilder {
             WorkspaceManager workspaceManager = context.workspaceManager();
 
             try {
-                workspaceManager.loadProject(context.filePath());
+                Project project = workspaceManager.loadProject(context.filePath());
+                this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
             } catch (WorkspaceDocumentException | EventSyncException e) {
                 throw new RuntimeException("Error loading project: " + e.getMessage());
             }
@@ -98,28 +90,67 @@ public class FunctionCall extends NodeBuilder {
                     .node(NodeKind.FUNCTION_CALL)
                     .symbol(codedata.symbol());
 
-            Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-            if (params.isPresent()) {
-                for (ParameterSymbol param : params.get()) {
-                    Optional<String> name = param.getName();
-                    if (name.isEmpty()) {
-                        continue;
-                    }
-                    boolean optional = param.paramKind() != ParameterKind.REQUIRED;
-                    properties().custom(name.get(), name.get(), "", Property.ValueType.EXPRESSION,
-                            param.typeDescriptor().signature(),
-                            DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""),
-                            optional, optional);
+            LinkedHashMap<String, ParameterResult> stringParameterResultLinkedHashMap =
+                    ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel);
+            boolean hasOnlyRestParams = stringParameterResultLinkedHashMap.size() == 1;
+            for (ParameterResult paramResult : stringParameterResultLinkedHashMap.values()) {
+                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                    continue;
                 }
+
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+                customPropBuilder
+                        .metadata()
+                            .label(unescapedParamName)
+                            .description(paramResult.description())
+                            .stepOut()
+                        .codedata()
+                            .kind(paramResult.kind().name())
+                            .originalName(paramResult.name())
+                            .stepOut()
+                        .placeholder(paramResult.defaultValue())
+                        .typeConstraint(paramResult.type())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1);
+
+                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    unescapedParamName = "additionalValues";
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                } else {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                }
+                customPropBuilder
+                        .stepOut()
+                        .addProperty(unescapedParamName);
             }
 
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                properties().type(CommonUtils.getTypeSignature(semanticModel, returnType, true)).data(null);
+                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
+                boolean editable = true;
+                if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                    returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                    editable = true;
+                }
+                properties()
+                        .type(returnTypeName, editable)
+                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
             });
-            properties().dataVariable(null);
             TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
             int returnError = functionTypeSymbol.returnTypeDescriptor()
-                    .map(returnTypeDesc -> returnTypeDesc.subtypeOf(errorTypeSymbol) ? 1 : 0).orElse(0);
+                    .map(returnTypeDesc ->
+                            CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
             if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
                     context.filePath(), context.codedata().lineRange())) {
                 properties().checkError(true);
@@ -135,8 +166,8 @@ public class FunctionCall extends NodeBuilder {
         if (functionResult.isEmpty()) {
             throw new RuntimeException("Function not found: " + codedata.symbol());
         }
-        FunctionResult function = functionResult.get();
 
+        FunctionResult function = functionResult.get();
         metadata()
                 .label(function.name())
                 .description(function.description());
@@ -149,50 +180,65 @@ public class FunctionCall extends NodeBuilder {
                 .symbol(codedata.symbol());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
-                Package modulePackage = PackageUtil
-                        .getModulePackage(function.org(), function.packageName(), function.version());
-                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
-                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
-                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
-                    FunctionCall.addIncludedRecordToParams(
-                            ((TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), this);
-                }
-            } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                continue;
             }
 
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1);
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                unescapedParamName = "additionalValues";
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+            } else {
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
+            }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(unescapedParamName);
         }
 
+        String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
-            properties().type(function.returnType()).data(null);
+            boolean editable = false;
+            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
         if (function.returnError() == 1) {
             properties().checkError(true);
-        }
-    }
-
-    protected static void addIncludedRecordToParams(TypeSymbol typeSymbol, NodeBuilder nodeBuilder) {
-        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) CommonUtils.getRawType(typeSymbol);
-        recordTypeSymbol.typeInclusions().forEach(includedType -> {
-            addIncludedRecordToParams(includedType, nodeBuilder);
-        });
-        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
-            RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
-            if (fieldType.typeKind() == TypeDescKind.NEVER) {
-                continue;
-            }
-            String attributeName = entry.getKey();
-            String doc = entry.getValue().documentation().flatMap(Documentation::description).orElse("");
-            nodeBuilder.properties().custom(attributeName, attributeName, doc, Property.ValueType.EXPRESSION,
-                    recordFieldSymbol.typeDescriptor().getName().orElse(""), "",
-                    recordFieldSymbol.hasDefaultValue() || recordFieldSymbol.isOptional());
         }
     }
 
@@ -212,7 +258,7 @@ public class FunctionCall extends NodeBuilder {
                     .name(codedata.symbol())
                     .stepOut()
                     .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.CHECK_ERROR_KEY))
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();
@@ -227,7 +273,7 @@ public class FunctionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
                 .textEdit(false)
-                .acceptImport()
+                .acceptImport(sourceBuilder.filePath)
                 .build();
     }
 

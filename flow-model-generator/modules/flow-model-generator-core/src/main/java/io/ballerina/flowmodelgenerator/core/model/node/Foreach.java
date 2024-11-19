@@ -68,7 +68,7 @@ public class Foreach extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().dataVariable(null).collection(null);
+        properties().dataVariable(null, context.getAllVisibleSymbolNames()).collection(null);
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
     }
 }

@@ -38,7 +38,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "((xml `<p>value</p>`))",
@@ -53,7 +53,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -99,7 +98,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `Text`",
@@ -114,7 +113,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -125,7 +123,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "lang.xml:Text",
+            "value": "xml:Text",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -160,7 +158,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<p>value</p>`",
@@ -175,7 +173,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x3",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -221,7 +218,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<p>value</p>`",
@@ -236,7 +233,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x4",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -282,7 +278,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<p>value</p>`",
@@ -297,7 +293,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x5",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -308,7 +303,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "lang.xml:Element",
+            "value": "xml:Element",
             "placeholder": "var",
             "optional": false,
             "editable": true,

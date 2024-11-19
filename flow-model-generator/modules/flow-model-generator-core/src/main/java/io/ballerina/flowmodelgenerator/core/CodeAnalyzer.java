@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
@@ -33,7 +34,6 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
@@ -67,6 +67,7 @@ import io.ballerina.compiler.syntax.tree.MatchGuardNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -76,6 +77,7 @@ import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
+import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
@@ -92,8 +94,14 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -103,11 +111,14 @@ import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -115,9 +126,15 @@ import io.ballerina.tools.text.TextDocument;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -131,19 +148,19 @@ class CodeAnalyzer extends NodeVisitor {
     //TODO: Wrap the class variables inside another class
     private final Project project;
     private final List<FlowNode> flowNodeList;
-    private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Map<String, LineRange> dataMappings;
-    private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
     private final TextDocument textDocument;
-    private final String defaultModuleName;
+    private final ModuleInfo moduleInfo;
     private final boolean forceAssign;
     private final DiagnosticHandler diagnosticHandler;
+    private NodeBuilder nodeBuilder;
+    private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
-                        Map<String, LineRange> dataMappings, TextDocument textDocument, String defaultModuleName,
+                        Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
                         boolean forceAssign) {
         this.project = project;
         this.flowNodeList = new ArrayList<>();
@@ -152,7 +169,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
-        this.defaultModuleName = defaultModuleName;
+        this.moduleInfo = moduleInfo;
         this.forceAssign = forceAssign;
         this.diagnosticHandler = new DiagnosticHandler(semanticModel);
     }
@@ -175,8 +192,8 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ObjectFieldNode objectFieldNode) {
         objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
         nodeBuilder.properties()
-                .type(objectFieldNode.typeName())
-                .variable(objectFieldNode.fieldName());
+                .type(objectFieldNode.typeName(), true)
+                .data(objectFieldNode.fieldName(), false, new HashSet<>());
         endNode(objectFieldNode);
     }
 
@@ -214,10 +231,10 @@ class CodeAnalyzer extends NodeVisitor {
             if (isNodeUnidentified()) {
                 startNode(NodeKind.RETURN, returnStatementNode)
                         .metadata()
-                            .description(String.format(Return.DESCRIPTION, expr))
-                            .stepOut()
+                        .description(String.format(Return.DESCRIPTION, expr))
+                        .stepOut()
                         .properties()
-                            .expression(expr, Return.RETURN_EXPRESSION_DOC);
+                        .expression(expr, Return.RETURN_EXPRESSION_DOC);
             }
         }
         nodeBuilder.returning();
@@ -240,15 +257,17 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = clientResourceAccessActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
                 clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
+        if (functionArgumentNodes == null) { // cl->/path/to/'resource;
+            methodName = "get";
+        }
         handleResourceActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
         nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
     }
 
-    private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
+    private void handleActionNode(NonTerminalNode actionNode, String methodName, ExpressionNode expressionNode,
                                   SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
-        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
-                symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD)) {
             handleExpressionNode(actionNode);
             return;
         }
@@ -256,9 +275,8 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
-        Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
-        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode)
+        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
                     .label(methodName)
@@ -268,23 +286,416 @@ class CodeAnalyzer extends NodeVisitor {
                     .object("Client")
                     .symbol(methodName)
                     .stepOut()
-                .properties()
-                    .callExpression(expressionNode, Property.CONNECTION_KEY)
-                    .variable(this.typedBindingPatternNode);
-        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        ModuleID id = symbol.get().getModule().get().id();
+        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                symbol.get().getName().get(), null, DatabaseManager.FunctionKind.REMOTE);
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+
+        if (functionResult.isPresent()) { // function details are indexed
+            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
+                    methodSymbol, positionalArgs, namedArgValueMap);
+        } else {
+            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
+        }
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
     }
 
+    private void analyzeAndHandleExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                          DatabaseManager dbManager,
+                                          FunctionResult functionResult,
+                                          FunctionSymbol methodSymbol,
+                                          Queue<Node> positionalArgs,
+                                          Map<String, Node> namedArgValueMap) {
+        LinkedHashMap<String, ParameterResult> funcParamMap = dbManager
+                .getFunctionParametersAsMap(functionResult.functionId());
+
+        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+    }
+
+    private void addRemainingParamsToPropertyMap(LinkedHashMap<String, ParameterResult> funcParamMap,
+                                                 boolean hasOnlyRestParams) {
+        for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
+            ParameterResult paramResult = entry.getValue();
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                continue;
+            }
+
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
+            customPropBuilder
+                    .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1);
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                unescapedParamName = "additionalValues";
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
+            } else {
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
+            }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(unescapedParamName);
+        }
+    }
+
+    private void calculateFunctionArgs(Map<String, Node> namedArgValueMap,
+                                       Queue<Node> positionalArgs,
+                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        if (argumentNodes != null) {
+            for (FunctionArgumentNode argument : argumentNodes) {
+                switch (argument.kind()) {
+                    case NAMED_ARG -> {
+                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                namedArgument.expression());
+                    }
+                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                    default -> {
+                        // Ignore the default case
+                    }
+                }
+            }
+        }
+    }
+
     private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                                     FunctionSymbol methodSymbol,
-                                                     Map<String, String> documentationMap) {
-        Optional<List<ParameterSymbol>> funcParams = methodSymbol.typeDescriptor().params();
-        if (funcParams.isPresent()) {
-            List<ParameterSymbol> params = funcParams.get().stream()
-                    .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                    .toList();
-            nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, documentationMap, methodSymbol.external());
+                                                     FunctionSymbol functionSymbol) {
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+        LinkedHashMap<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
+                functionSymbol, semanticModel);
+        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+    }
+
+    private void buildPropsFromFuncCallArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                            FunctionTypeSymbol functionTypeSymbol,
+                                            LinkedHashMap<String, ParameterResult> funcParamMap,
+                                            Queue<Node> positionalArgs, Map<String, Node> namedArgValueMap) {
+        if (argumentNodes == null) { // cl->/path/to/'resource;
+            List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
+            boolean hasOnlyRestParams = functionParameters.size() == 1;
+            for (ParameterResult paramResult : functionParameters) {
+                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                    continue;
+                }
+
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
+                customPropBuilder
+                        .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                        .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                        .placeholder(paramResult.defaultValue())
+                        .typeConstraint(paramResult.type())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1);
+
+                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                } else {
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                }
+                customPropBuilder
+                        .stepOut()
+                        .addProperty(unescapedParamName);
+            }
+            return;
+        }
+
+        boolean hasOnlyRestParams = funcParamMap.size() == 1;
+        if (functionTypeSymbol.restParam().isPresent()) {
+            ParameterSymbol restParamSymbol = functionTypeSymbol.restParam().get();
+            Optional<List<ParameterSymbol>> paramsOptional = functionTypeSymbol.params();
+
+            if (paramsOptional.isPresent()) {
+                List<ParameterSymbol> paramsList = paramsOptional.get();
+                int paramCount = paramsList.size(); // param count without rest params
+                int argCount = positionalArgs.size();
+
+                List<String> restArgs = new ArrayList<>();
+                for (int i = 0; i < paramsList.size(); i++) {
+                    ParameterSymbol parameterSymbol = paramsList.get(i);
+                    String escapedParamName = parameterSymbol.getName().get();
+                    ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                    if (paramResult == null) {
+                        escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    }
+                    paramResult = funcParamMap.get(escapedParamName);
+                    Node paramValue = i < argCount ? positionalArgs.poll()
+                            : namedArgValueMap.get(paramResult.name());
+
+                    funcParamMap.remove(parameterSymbol.getName().get());
+                    Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                            nodeBuilder.properties().custom();
+                    String value = paramValue != null ? paramValue.toSourceCode() : null;
+                    String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                    customPropBuilder
+                            .metadata()
+                                .label(unescapedParamName)
+                                .description(paramResult.description())
+                                .stepOut()
+                            .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                            .typeConstraint(paramResult.type())
+                            .value(value)
+                            .placeholder(paramResult.defaultValue())
+                            .editable()
+                            .defaultable(paramResult.optional() == 1)
+                            .codedata()
+                                .kind(paramResult.kind().name())
+                                .originalName(paramResult.name())
+                                .stepOut()
+                            .stepOut()
+                            .addProperty(unescapedParamName);
+                }
+
+                for (int i = paramCount; i < argCount; i++) {
+                    restArgs.add(Objects.requireNonNull(positionalArgs.poll()).toSourceCode());
+                }
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                        nodeBuilder.properties().custom();
+                String escapedParamName = CommonUtil.escapeReservedKeyword(restParamSymbol.getName().get());
+                ParameterResult restParamResult = funcParamMap.get(escapedParamName);
+                funcParamMap.remove(restParamSymbol.getName().get());
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(restParamResult.name());
+                customPropBuilder
+                        .metadata()
+                            .label(unescapedParamName)
+                            .description(restParamResult.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(restParamResult.kind()))
+                        .typeConstraint(restParamResult.type())
+                        .value(restArgs)
+                        .placeholder(restParamResult.defaultValue())
+                        .editable()
+                        .defaultable(!hasOnlyRestParams)
+                        .codedata()
+                            .kind(restParamResult.kind().name())
+                            .originalName(restParamResult.name())
+                            .stepOut()
+                        .stepOut()
+                        .addProperty(unescapedParamName);
+            }
+            // iterate over functionParamMap
+            addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
+            return;
+        }
+        Optional<List<ParameterSymbol>> paramsOptional = functionTypeSymbol.params();
+        if (paramsOptional.isPresent()) {
+            List<ParameterSymbol> paramsList = paramsOptional.get();
+            int argCount = positionalArgs.size();
+
+            final List<LinkedHashMap<String, String>> includedRecordRestArgs = new ArrayList<>();
+            for (int i = 0; i < paramsList.size(); i++) {
+                ParameterSymbol parameterSymbol = paramsList.get(i);
+                String escapedParamName = parameterSymbol.getName().get();
+                ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                if (paramResult == null) {
+                    escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                }
+                paramResult = funcParamMap.get(escapedParamName);
+                Node paramValue;
+                if (i < argCount) {
+                    paramValue = positionalArgs.poll();
+                } else {
+                    paramValue = namedArgValueMap.get(paramResult.name());
+                    namedArgValueMap.remove(paramResult.name());
+                }
+                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                    if (argumentNodes.size() > i && argumentNodes.get(i).kind() == SyntaxKind.NAMED_ARG) {
+                        FunctionArgumentNode argNode = argumentNodes.get(i);
+                        funcParamMap.remove(escapedParamName);
+                        NamedArgumentNode namedArgumentNode = (NamedArgumentNode) argNode;
+                        String argName = namedArgumentNode.argumentName().name().text();
+                        if (argName.equals(paramResult.name())) {  // foo("a", b = {})
+                            paramResult = funcParamMap.get(escapedParamName);
+
+                            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                                    nodeBuilder.properties().custom();
+                            String value = paramValue != null ? paramValue.toSourceCode() : null;
+                            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                            customPropBuilder
+                                    .metadata()
+                                        .label(unescapedParamName)
+                                        .description(paramResult.description())
+                                        .stepOut()
+                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                    .typeConstraint(paramResult.type())
+                                    .value(value)
+                                    .placeholder(paramResult.defaultValue())
+                                    .editable()
+                                    .defaultable(paramResult.optional() == 1)
+                                    .codedata()
+                                        .kind(paramResult.kind().name())
+                                        .originalName(paramResult.name())
+                                        .stepOut()
+                                    .stepOut()
+                                    .addProperty(unescapedParamName, paramValue);
+                        } else {
+                            if (funcParamMap.containsKey(argName)) { // included record attribute
+                                paramResult = funcParamMap.get(argName);
+                                funcParamMap.remove(argName);
+                                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                                        nodeBuilder.properties().custom();
+                                if (paramValue == null) {
+                                    paramValue = namedArgValueMap.get(argName);
+                                    namedArgValueMap.remove(argName);
+                                }
+                                String value = paramValue != null ? paramValue.toSourceCode() : null;
+                                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                                customPropBuilder
+                                        .metadata()
+                                            .label(unescapedParamName)
+                                            .description(paramResult.description())
+                                            .stepOut()
+                                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                        .typeConstraint(paramResult.type())
+                                        .value(value)
+                                        .placeholder(paramResult.defaultValue())
+                                        .editable()
+                                        .defaultable(paramResult.optional() == 1)
+                                        .codedata()
+                                            .kind(paramResult.kind().name())
+                                            .originalName(paramResult.name())
+                                            .stepOut()
+                                        .stepOut()
+                                        .addProperty(unescapedParamName, paramValue);
+
+                            }
+                        }
+
+                    } else { // positional arg
+                        if (paramValue != null) {
+                            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                                    nodeBuilder.properties().custom();
+
+                            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                            funcParamMap.remove(escapedParamName);
+                            String value = paramValue.toSourceCode();
+                            customPropBuilder
+                                    .metadata()
+                                        .label(unescapedParamName)
+                                        .description(paramResult.description())
+                                        .stepOut()
+                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                    .typeConstraint(paramResult.type())
+                                    .value(value)
+                                    .placeholder(paramResult.defaultValue())
+                                    .editable()
+                                    .defaultable(paramResult.optional() == 1)
+                                    .codedata()
+                                        .kind(paramResult.kind().name())
+                                        .originalName(paramResult.name())
+                                        .stepOut()
+                                    .stepOut()
+                                    .addProperty(unescapedParamName, paramValue);
+                            return;
+                        }
+                    }
+                }
+
+                if (paramValue == null && paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                    funcParamMap.remove(escapedParamName);
+                    continue;
+                }
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                        nodeBuilder.properties().custom();
+                funcParamMap.remove(escapedParamName);
+                String value = paramValue != null ? paramValue.toSourceCode() : null;
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                customPropBuilder
+                        .metadata()
+                            .label(unescapedParamName)
+                            .description(paramResult.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                        .typeConstraint(paramResult.type())
+                        .value(value)
+                        .placeholder(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional() == 1)
+                        .codedata()
+                            .kind(paramResult.kind().name())
+                            .originalName(paramResult.name())
+                            .stepOut()
+                        .stepOut()
+                        .addProperty(unescapedParamName, paramValue);
+            }
+            for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) {
+                LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                map.put(entry.getKey(), entry.getValue().toSourceCode());
+                includedRecordRestArgs.add(map);
+            }
+            ParameterResult includedRecordRest = funcParamMap.get("Additional Values");
+            if (includedRecordRest != null) {
+                funcParamMap.remove("Additional Values");
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                        nodeBuilder.properties().custom();
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(includedRecordRest.name());
+                customPropBuilder
+                        .metadata()
+                            .label(unescapedParamName)
+                            .description(includedRecordRest.description())
+                            .stepOut()
+                        .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
+                        .typeConstraint(includedRecordRest.type())
+                        .value(includedRecordRestArgs)
+                        .placeholder(includedRecordRest.defaultValue())
+                        .editable()
+                        .defaultable(includedRecordRest.optional() == 1)
+                        .codedata()
+                            .kind(includedRecordRest.kind().name())
+                            .originalName(includedRecordRest.name())
+                            .stepOut()
+                        .stepOut()
+                        .addProperty("additionalValues");
+            }
+            addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
         }
     }
 
@@ -315,20 +726,18 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
-        Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
-
         SeparatedNodeList<Node> nodes = actionNode.resourceAccessPath();
         String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
         String fullPath = "/" + resourcePath;
 
-        String resourcePathTemplate = CommonUtils.buildResourcePathTemplate(methodSymbol);
+        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
 
-        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode)
+        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
                 .metadata()
-                .label(methodName)
-                .description(description)
-                .stepOut()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
                 .codedata()
                 .object("Client")
                 .symbol(methodName)
@@ -337,11 +746,33 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
                 .resourcePath(fullPath)
-                .variable(this.typedBindingPatternNode);
+                .data(this.typedBindingPatternNode, false, new HashSet<>());
 
-        handleFunctionCallActionCallsParams(argumentNodes, methodSymbol, documentationMap);
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        ModuleID id = symbol.get().getModule().get().id();
+        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                symbol.get().getName().get(), resourcePathTemplate, DatabaseManager.FunctionKind.RESOURCE);
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+
+        if (functionResult.isPresent()) { // function details are indexed
+            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
+                    methodSymbol, positionalArgs, namedArgValueMap);
+        } else {
+            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
+        }
         handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+    }
 
+    private Property.ValueType getPropertyTypeFromParamKind(Parameter.Kind kind) {
+        if (kind == Parameter.Kind.REST_PARAMETER) {
+            return Property.ValueType.EXPRESSION_SET;
+        } else if (kind == Parameter.Kind.INCLUDED_RECORD_REST) {
+            return Property.ValueType.MAPPING_EXPRESSION_SET;
+        }
+        return Property.ValueType.EXPRESSION;
     }
 
     @Override
@@ -399,10 +830,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void checkForNewConnection(NewExpressionNode newExpressionNode,
                                        SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        if (forceAssign) {
-            return;
-        }
-
         Optional<TypeSymbol> typeSymbol =
                 CommonUtils.getTypeSymbol(semanticModel, newExpressionNode).flatMap(symbol -> {
                     if (symbol.typeKind() == TypeDescKind.UNION) {
@@ -442,14 +869,31 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(description)
                     .stepOut()
                 .codedata()
-                    .object("Client")
-                    .symbol("init")
-                    .stepOut()
-                .properties().scope(connectionScope);
+                .object(NewConnection.CLIENT_SYMBOL)
+                .symbol(NewConnection.INIT_SYMBOL)
+                .stepOut()
+                .properties()
+                .scope(connectionScope)
+                .checkError(true, NewConnection.CHECK_ERROR_DOC, false);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
                             .orElseThrow();
+
+            DatabaseManager dbManager = DatabaseManager.getInstance();
+            ModuleID id = methodSymbol.getModule().get().id();
+            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                    methodSymbol.getName().get(), null, DatabaseManager.FunctionKind.CONNECTOR);
+
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+            calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+
+            if (functionResult.isPresent()) { // function details are indexed
+                analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
+                        methodSymbol, positionalArgs, namedArgValueMap);
+                return;
+            }
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     argumentNodes, params, documentationMap, methodSymbol.external()));
         } catch (RuntimeException ignored) {
@@ -513,9 +957,9 @@ class CodeAnalyzer extends NodeVisitor {
             implicit = true;
             startNode(NodeKind.VARIABLE, variableDeclarationNode)
                     .metadata()
-                        .description(Assign.DESCRIPTION)
-                        .stepOut()
-                    .properties().expression(null, true);
+                    .description(Assign.DESCRIPTION)
+                    .stepOut()
+                    .properties().expression((ExpressionNode) null, Variable.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -525,23 +969,26 @@ class CodeAnalyzer extends NodeVisitor {
                 implicit = true;
                 startNode(NodeKind.VARIABLE, variableDeclarationNode)
                         .metadata()
-                            .description(Assign.DESCRIPTION)
-                            .stepOut()
-                        .properties().expression(initializerNode, true);
+                        .description(Assign.DESCRIPTION)
+                        .stepOut()
+                        .properties().expression(initializerNode, Variable.EXPRESSION_DOC, true);
             }
         }
 
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
-            nodeBuilder.properties().data(this.typedBindingPatternNode);
+            nodeBuilder.properties().data(this.typedBindingPatternNode, new HashSet<>());
         } else if (nodeBuilder instanceof XmlPayload) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "xml");
         } else if (nodeBuilder instanceof JsonPayload) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
+        } else if (nodeBuilder instanceof NewConnection) {
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
+                    NewConnection.CONNECTION_TYPE_LABEL, false, new HashSet<>());
         } else {
-            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit);
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit, new HashSet<>());
         }
         finalKeyword.ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
@@ -561,16 +1008,16 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(NodeKind.ASSIGN, assignmentStatementNode)
                     .metadata()
-                        .description(Assign.DESCRIPTION)
-                        .stepOut()
+                    .description(Assign.DESCRIPTION)
+                    .stepOut()
                     .properties()
-                        .expression(expression)
-                        .variable(assignmentStatementNode.varRef(), true);
+                    .expression(expression, Assign.EXPRESSION_DOC, false)
+                    .data(assignmentStatementNode.varRef(), true, new HashSet<>());
         }
 
         if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload
                 || nodeBuilder instanceof BinaryData) {
-            nodeBuilder.properties().variable(assignmentStatementNode.varRef());
+            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>());
         }
         endNode(assignmentStatementNode);
     }
@@ -622,73 +1069,72 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
-        String orgName = CommonUtils.getOrgName(functionSymbol);
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
 
-        if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
-            String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            Optional<Documentation> documentation = functionSymbol.documentation();
-            String description = documentation.flatMap(Documentation::description).orElse("");
-            Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
+        Optional<Documentation> documentation = functionSymbol.documentation();
+        String description = documentation.flatMap(Documentation::description).orElse("");
+        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
 
-            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode)
-                    .symbolInfo(functionSymbol)
-                    .metadata()
-                        .label(functionName)
-                        .description(description)
-                        .stepOut()
-                    .codedata()
-                        .symbol(functionName);
+        String functionName = switch (nameReferenceNode.kind()) {
+            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
+            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
+            default -> "";
+        };
 
-            handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(),
-                    functionSymbol, documentationMap);
-            handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
-        } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
-            String functionName = simpleNameReferenceNode.name().text();
-            if (dataMappings.containsKey(functionName)) {
-                startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode)
-                        .properties()
-                        .functionName(functionName)
-                        .output(this.typedBindingPatternNode);
-
-                Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
-                if (funcParams.isPresent()) {
-                    List<ParameterSymbol> params = funcParams.get().stream()
-                            .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                            .toList();
-                    nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params);
-                }
-                nodeBuilder.properties().view(dataMappings.get(functionName));
-            } else {
-                startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode)
-                        .metadata()
-                            .label(functionName)
-                            .stepOut()
-                        .codedata()
-                            .org(orgName)
-                            .module(defaultModuleName)
-                            .version(functionSymbol.getModule().get().id().version())
-                            .symbol(functionName);
-
-                Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
-                if (funcParams.isPresent()) {
-                    List<ParameterSymbol> params = funcParams.get().stream()
-                            .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                            .toList();
-                    nodeBuilder.properties().functionArguments(
-                            functionCallExpressionNode.arguments(), params);
-                }
+        if (dataMappings.containsKey(functionName)) {
+            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode.parent()).properties()
+                    .functionName(functionName)
+                    .output(this.typedBindingPatternNode);
+            Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
+            if (funcParams.isPresent()) {
+                List<ParameterSymbol> params = funcParams.get().stream()
+                        .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
+                        .toList();
+                nodeBuilder.properties().inputs(arguments, params);
+            }
+            nodeBuilder.properties().view(dataMappings.get(functionName));
+        } else {
+            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
+            if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
                 functionSymbol.getLocation()
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
                                 CommonUtils.getDocument(project, location).syntaxTree()))
                         .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
-                handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION,
-                        functionSymbol.typeDescriptor());
             }
-        } else {
-            handleExpressionNode(functionCallExpressionNode);
+            nodeBuilder
+                    .symbolInfo(functionSymbol)
+                    .metadata()
+                    .label(functionName)
+                    .description(description)
+                    .stepOut()
+                    .codedata()
+                    .symbol(functionName);
+
+            DatabaseManager dbManager = DatabaseManager.getInstance();
+            ModuleID id = functionSymbol.getModule().get().id();
+            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                    functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+            calculateFunctionArgs(namedArgValueMap, positionalArgs, functionCallExpressionNode.arguments());
+
+            if (functionResult.isPresent()) { // function details are indexed
+                analyzeAndHandleExprArgs(functionCallExpressionNode.arguments(), dbManager, functionResult.get(),
+                        functionSymbol, positionalArgs, namedArgValueMap);
+            } else {
+                handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(), functionSymbol);
+            }
+            handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
         }
+
+        nodeBuilder
+                .symbolInfo(functionSymbol)
+                .metadata()
+                .label(functionName)
+                .description(description)
+                .stepOut()
+                .codedata().symbol(functionName);
     }
 
     @Override
@@ -771,7 +1217,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ForEachStatementNode forEachStatementNode) {
         startNode(NodeKind.FOREACH, forEachStatementNode)
                 .properties()
-                .dataVariable(forEachStatementNode.typedBindingPattern())
+                .dataVariable(forEachStatementNode.typedBindingPattern(), new HashSet<>())
                 .collection(forEachStatementNode.actionOrExpressionNode());
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
@@ -923,7 +1369,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(JsonPayload.DESCRIPTION)
                     .stepOut()
                     .properties().expression(constructorExprNode);
-            return;
         }
     }
 
@@ -947,7 +1392,7 @@ class CodeAnalyzer extends NodeVisitor {
     private NodeBuilder startNode(NodeKind kind) {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
-                .defaultModuleName(defaultModuleName);
+                .defaultModuleName(moduleInfo);
         return this.nodeBuilder;
     }
 
@@ -955,8 +1400,9 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
                 .semanticModel(semanticModel)
                 .diagnosticHandler(diagnosticHandler)
-                .defaultModuleName(defaultModuleName);
-        diagnosticHandler.handle(nodeBuilder, node.lineRange(), false);
+                .defaultModuleName(moduleInfo);
+        diagnosticHandler.handle(nodeBuilder,
+                node instanceof ExpressionNode ? node.parent().lineRange() : node.lineRange(), false);
         return this.nodeBuilder;
     }
 
@@ -980,7 +1426,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = null;
         return new Branch.Builder()
                 .semanticModel(semanticModel)
-                .defaultModuleName(defaultModuleName)
+                .defaultModuleName(moduleInfo)
                 .diagnosticHandler(diagnosticHandler)
                 .codedata().node(node).stepOut()
                 .label(label)

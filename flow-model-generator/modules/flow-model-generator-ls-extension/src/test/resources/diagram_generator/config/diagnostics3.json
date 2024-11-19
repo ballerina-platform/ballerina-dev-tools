@@ -182,7 +182,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"s\"",
@@ -197,7 +197,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "s",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

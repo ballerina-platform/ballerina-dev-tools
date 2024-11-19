@@ -28,7 +28,28 @@
       "sourceCode": "io:println(\"6 * 3 = \", result);"
     },
     "returning": false,
-    "properties": {},
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "value": [
+          "\"6 * 3 = \"",
+          "result"
+        ],
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
+      }
+    },
     "flags": 0
   },
   "output": {
@@ -57,7 +78,7 @@
             "character": 35
           }
         },
-        "newText": "io:println();"
+        "newText": "io:println(\"6 * 3 = \", result);"
       }
     ]
   }

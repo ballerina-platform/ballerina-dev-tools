@@ -72,9 +72,14 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"red apple\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
       },
       "headers": {
         "metadata": {
@@ -83,29 +88,48 @@
         },
         "valueType": "EXPRESSION",
         "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "mediaType": {
         "metadata": {
           "label": "mediaType",
           "description": "The MIME type header of the request entity"
         },
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        },
+        "value": "()"
       },
       "params": {
         "metadata": {
           "label": "params",
           "description": "The query parameters"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
+        "value": [
+          {"param1": "\"value1\""},
+          {"param2": "12"}
+        ]
       },
       "checkError": {
         "metadata": {

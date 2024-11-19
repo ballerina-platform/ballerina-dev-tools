@@ -28,7 +28,27 @@
       "sourceCode": "io:println(greeting + total.toString());"
     },
     "returning": false,
-    "properties": {},
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "value": [
+          "greeting + total.toString()"
+        ],
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
+      }
+    },
     "flags": 0
   },
   "output": {
@@ -57,7 +77,7 @@
             "character": 44
           }
         },
-        "newText": "io:println();"
+        "newText": "io:println(greeting + total.toString());"
       }
     ]
   }

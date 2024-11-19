@@ -18,24 +18,20 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
-import io.ballerina.compiler.api.symbols.PathParameterSymbol;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
-import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
-import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -44,6 +40,7 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
@@ -52,14 +49,17 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Diagnostic;
+import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Common utility functions used in the project.
@@ -69,6 +69,8 @@ import java.util.Optional;
 public class CommonUtils {
 
     private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
+    private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
+            Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
 
     /**
      * Removes the quotes from the given string.
@@ -80,68 +82,84 @@ public class CommonUtils {
         return inputString.replaceAll("^\"|\"$", "");
     }
 
-    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
-        return getTypeSignature(semanticModel, typeSymbol, ignoreError, ".");
-    }
-
     public static String getProjectName(Document document) {
         return document.module().descriptor().packageName().value();
     }
 
     /**
-     * Returns the type signature of the given type symbol.
+     * Retrieves the type signature of the given type symbol.
      *
-     * @param typeSymbol the type symbol
+     * @param semanticModel the semantic model
+     * @param typeSymbol    the type symbol
+     * @param ignoreError   whether to ignore errors
+     * @param moduleInfo    the default module descriptor
      * @return the type signature
+     * @see #getTypeSignature(TypeSymbol, ModuleInfo)
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
-                                          String defaultModuleName) {
-        return switch (typeSymbol.typeKind()) {
-            case TYPE_REFERENCE -> {
-                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
-                yield typeReferenceTypeSymbol.definition().getName()
-                        .map(name -> typeReferenceTypeSymbol.getModule()
-                                .flatMap(Symbol::getName)
-                                .filter(prefix -> !defaultModuleName.equals(prefix))
-                                .map(prefix -> prefix + ":" + name)
-                                .orElse(name))
-                        .orElseGet(() -> getTypeSignature(semanticModel, typeReferenceTypeSymbol.typeDescriptor(),
-                                ignoreError, defaultModuleName));
+                                          ModuleInfo moduleInfo) {
+        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            return unionTypeSymbol.memberTypeDescriptors().stream()
+                    .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
+                    .reduce((s1, s2) -> s1 + "|" + s2)
+                    .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
+        }
+        return getTypeSignature(typeSymbol, moduleInfo);
+    }
+
+    /**
+     * Retrieves the type signature of the given type symbol.
+     *
+     * @param semanticModel the semantic model
+     * @param typeSymbol    the type symbol
+     * @param ignoreError   whether to ignore errors
+     * @return the type signature
+     * @see #getTypeSignature(TypeSymbol, ModuleInfo)
+     */
+    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
+        return getTypeSignature(semanticModel, typeSymbol, ignoreError, null);
+    }
+
+    /**
+     * Returns the processed type signature of the type symbol. It removes the organization and the package, and checks
+     * if it is the default module which will remove the prefix.
+     *
+     * @param typeSymbol the type symbol
+     * @param moduleInfo the default module name descriptor
+     * @return the processed type signature
+     */
+    public static String getTypeSignature(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
+        String text = typeSymbol.signature();
+        StringBuilder newText = new StringBuilder();
+        Matcher matcher = FULLY_QUALIFIED_MODULE_ID_PATTERN.matcher(text);
+        int nextStart = 0;
+        while (matcher.find()) {
+            // Append up-to start of the match
+            newText.append(text, nextStart, matcher.start(1));
+
+            String modPart = matcher.group(2);
+            int last = modPart.lastIndexOf(".");
+            if (last != -1) {
+                modPart = modPart.substring(last + 1);
             }
-            case UNION -> {
-                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-                yield unionTypeSymbol.memberTypeDescriptors().stream()
-                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + "|" + s2)
-                        .orElse(unionTypeSymbol.signature());
+
+            String typeName = matcher.group(4);
+
+            if (!modPart.equals(moduleInfo.packageName())) {
+                newText.append(modPart);
+                newText.append(":");
             }
-            case INTERSECTION -> {
-                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .reduce((s1, s2) -> s1 + " & " + s2)
-                        .orElse(intersectionTypeSymbol.signature());
-            }
-            case TYPEDESC -> {
-                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
-                yield typeDescTypeSymbol.typeParameter()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
-                        .orElse(typeDescTypeSymbol.signature());
-            }
-            case ERROR -> {
-                Optional<String> moduleName = typeSymbol.getModule()
-                        .map(module -> {
-                            String prefix = module.id().modulePrefix();
-                            return "annotations".equals(prefix) ? null : prefix;
-                        });
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
-            }
-            default -> {
-                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
-                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
-            }
-        };
+            newText.append(typeName);
+            // Update next-start position
+            nextStart = matcher.end(4);
+        }
+        // Append the remaining
+        if (nextStart != 0 && nextStart < text.length()) {
+            newText.append(text.substring(nextStart));
+        }
+        return !newText.isEmpty() ? newText.toString() : text;
     }
 
     /**
@@ -347,13 +365,7 @@ public class CommonUtils {
             ModulePartNode node = document.syntaxTree().rootNode();
             NonTerminalNode currentNode = node.findNode(TextRange.from(startPos, endPos - startPos),
                     true);
-            while (currentNode != null) {
-                if (currentNode.kind() == SyntaxKind.DO_STATEMENT) {
-                    return ((DoStatementNode) currentNode).onFailClause().isPresent();
-                }
-                currentNode = currentNode.parent();
-            }
-            return false;
+            return withinDoClause(currentNode);
         } catch (Throwable t) {
             return false;
         }
@@ -361,6 +373,7 @@ public class CommonUtils {
 
     /**
      * Check whether the given node is within a do clause.
+     *
      * @param node the node to check
      * @return true if the node is within a do clause, false otherwise
      */
@@ -387,47 +400,8 @@ public class CommonUtils {
     }
 
     /**
-     * Builds the resource path template for the given function symbol.
-     * @param functionSymbol the function symbol
-     * @return the resource path template
-     */
-    public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
-        StringBuilder pathBuilder = new StringBuilder();
-        ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
-        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-        switch (resourcePath.kind()) {
-            case PATH_SEGMENT_LIST -> {
-                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
-                for (Symbol pathSegment : pathSegmentList.list()) {
-                    pathBuilder.append("/");
-                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        String type = CommonUtil.getRawType(pathParameterSymbol.typeDescriptor())
-                                .signature();
-                        pathBuilder.append("[").append(type).append("]");
-                    } else {
-                        pathBuilder.append(pathSegment.getName().orElse(""));
-                    }
-                }
-                ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    String type = CommonUtil.getRawType(pathRestParameter.typeDescriptor())
-                            .signature();
-                    pathBuilder.append("[").append(type).append("...]");
-                });
-            }
-            case PATH_REST_PARAM -> {
-                String type = CommonUtil.getRawType(((PathRestParam) resourcePath).parameter()
-                        .typeDescriptor()).signature();
-                pathBuilder.append("[").append(type).append("...]");
-            }
-            case DOT_RESOURCE_PATH -> {
-                pathBuilder.append(".");
-            }
-        }
-        return pathBuilder.toString();
-    }
-
-    /**
      * Check whether the given type is a subtype of the target type.
+     *
      * @param source the source type
      * @param target the target type
      * @return true if the source type is a subtype of the target type, false otherwise
@@ -455,5 +429,100 @@ public class CommonUtils {
             }
         }
         return sourceRawType.subtypeOf(target);
+    }
+
+    //TODO: Remove this once the diagnostic helper is exposed to LS extensions
+    public static Diagnostic transformBallerinaDiagnostic(io.ballerina.tools.diagnostics.Diagnostic diag) {
+        LineRange lineRange = diag.location().lineRange();
+        int startLine = lineRange.startLine().line();
+        int startChar = lineRange.startLine().offset();
+        int endLine = lineRange.endLine().line();
+        int endChar = lineRange.endLine().offset();
+
+        endLine = (endLine <= 0) ? startLine : endLine;
+        endChar = (endChar <= 0) ? startChar + 1 : endChar;
+
+        Range range = new Range(new Position(startLine, startChar), new Position(endLine, endChar));
+        Diagnostic diagnostic = new Diagnostic(range, diag.message(), null, null, diag.diagnosticInfo().code());
+
+        switch (diag.diagnosticInfo().severity()) {
+            case ERROR:
+                diagnostic.setSeverity(DiagnosticSeverity.Error);
+                break;
+            case WARNING:
+                diagnostic.setSeverity(DiagnosticSeverity.Warning);
+                break;
+            case HINT:
+                diagnostic.setSeverity(DiagnosticSeverity.Hint);
+                break;
+            case INFO:
+                diagnostic.setSeverity(DiagnosticSeverity.Information);
+                break;
+            default:
+                break;
+        }
+        return diagnostic;
+    }
+
+    /**
+     * Get the line range of a block node, excluding the opening and closing braces if they exist.
+     *
+     * @param node the block node
+     * @return the line range of the block node
+     */
+    public static LineRange getLineRangeOfBlockNode(NonTerminalNode node) {
+        ChildNodeList children = node.children();
+        int size = children.size();
+
+        if (size < 2) {
+            return node.lineRange();
+        }
+
+        Node startToken = children.get(0);
+        Node endToken = children.get(size - 1);
+
+        if (startToken.kind() == SyntaxKind.OPEN_BRACE_TOKEN && endToken.kind() == SyntaxKind.CLOSE_BRACE_TOKEN) {
+            return LineRange.from(node.lineRange().fileName(), startToken.lineRange().endLine(),
+                    endToken.lineRange().startLine());
+        }
+        return node.lineRange();
+    }
+
+    /**
+     * Checks if the given symbol belongs to the default package.
+     *
+     * @param symbol     the symbol to check
+     * @param moduleInfo the module descriptor of the current module
+     * @return true if the symbol belongs to the default package, false otherwise
+     * @see #isDefaultPackage(String, String, ModuleInfo)
+     */
+    public static boolean isDefaultPackage(Symbol symbol, ModuleInfo moduleInfo) {
+        Optional<ModuleID> moduleId = symbol.getModule().map(ModuleSymbol::id);
+        return moduleId.filter(
+                moduleID -> isDefaultPackage(moduleID.orgName(), moduleID.moduleName(), moduleInfo)).isPresent();
+    }
+
+    /**
+     * Checks if the given module is the default package.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param moduleInfo  the module descriptor of the current module
+     * @return true if the module is the default package, false otherwise
+     */
+    public static boolean isDefaultPackage(String orgName, String packageName, ModuleInfo moduleInfo) {
+        return (orgName.equals(moduleInfo.org()) && packageName.equals(moduleInfo.packageName()));
+    }
+
+    /**s
+     * Checks if the given line position is after another line position.
+     *
+     * @param position the line position to check
+     * @param other    the other line position to compare against
+     * @return true if the given line position is after the other line position, false otherwise
+     */
+    public static boolean isLinePositionAfter(LinePosition position, LinePosition other) {
+        return position.line() > other.line() ||
+                (position.line() == other.line() && position.offset() > other.offset());
     }
 }

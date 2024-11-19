@@ -1,5 +1,5 @@
 {
-  "source": "new_connection2/main.bal",
+  "source": "new_connection3/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "39846",
@@ -42,9 +42,14 @@
           "label": "config",
           "description": "configuration for the connector\n"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {
@@ -68,7 +73,20 @@
     "flags": 1
   },
   "output": {
-    "new_connection2/main.bal": [
+    "new_connection3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
       {
         "range": {
           "start": {
@@ -80,7 +98,7 @@
             "character": 42
           }
         },
-        "newText": "redis:Client localRedisCl = check new ();"
+        "newText": "final redis:Client localRedisCl = check new ();"
       }
     ]
   }

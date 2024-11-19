@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
+          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\", {});\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -72,19 +72,7 @@
             "valueType": "EXPRESSION",
             "value": "moduleCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleVal",
-            "placeholder": "item",
-            "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {
@@ -93,10 +81,16 @@
               "description": "Request path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/hello\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "path"
+            }
           },
           "headers": {
             "metadata": {
@@ -104,17 +98,50 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "checkError": {
             "metadata": {
-              "label": "Check Flag",
-              "description": "Whether to return the error"
+              "label": "Check Error",
+              "description": "Trigger error flow"
             },
             "valueType": "FLAG",
             "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "moduleVal",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -138,8 +165,7 @@
         "id": "46777",
         "metadata": {
           "label": "myRemoteFn",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "description": ""
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -171,20 +197,26 @@
             "valueType": "EXPRESSION",
             "value": "    myModuleCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
         "flags": 0
       },
       {
-        "id": "48794",
+        "id": "48798",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -193,50 +225,94 @@
             },
             "endLine": {
               "line": 17,
-              "offset": 62
+              "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\");"
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Local",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
-            "value": "check new (\"http://localhost:8080\")",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:8080\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientConfiguration",
+            "value": "{}",
+            "placeholder": "{}",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD",
+              "originalName": "config"
+            }
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "localCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "49773",
@@ -275,19 +351,7 @@
             "valueType": "EXPRESSION",
             "value": "localCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "localVal",
-            "placeholder": "item",
-            "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           },
           "path": {
@@ -296,10 +360,16 @@
               "description": "Request path"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"/hello\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "path"
+            }
           },
           "headers": {
             "metadata": {
@@ -307,17 +377,50 @@
               "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "checkError": {
             "metadata": {
-              "label": "Check Flag",
-              "description": "Whether to return the error"
+              "label": "Check Error",
+              "description": "Trigger error flow"
             },
             "valueType": "FLAG",
             "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "localVal",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -363,7 +466,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "new",
@@ -378,7 +481,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myLocalCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -402,8 +504,7 @@
         "id": "51736",
         "metadata": {
           "label": "myRemoteFn",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "description": ""
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -435,7 +536,7 @@
             "valueType": "EXPRESSION",
             "value": "    myLocalCl",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -481,7 +582,7 @@
     ],
     "connections": [
       {
-        "id": "39739",
+        "id": "39743",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -502,10 +603,10 @@
             },
             "endLine": {
               "line": 8,
-              "offset": 59
+              "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\");"
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -520,16 +621,33 @@
             "editable": true,
             "advanced": true
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
           "url": {
             "metadata": {
               "label": "url",
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
           "config": {
             "metadata": {
@@ -537,32 +655,38 @@
               "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "http:ClientConfiguration",
+            "value": "{}",
+            "placeholder": "{}",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD",
+              "originalName": "config"
+            }
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "moduleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -594,7 +718,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "new MyClient()",
@@ -609,7 +733,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myExplicitModuleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -655,7 +778,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "new",
@@ -670,7 +793,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myModuleCl",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

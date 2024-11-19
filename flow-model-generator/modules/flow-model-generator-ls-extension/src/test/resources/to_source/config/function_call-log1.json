@@ -38,24 +38,54 @@
         "valueType": "EXPRESSION",
         "value": "\"Getting apples\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "msg"
+        }
       },
       "error": {
         "metadata": {
           "label": "error"
         },
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'error"
+        }
       },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
           "description": "The error stack trace to be logged"
         },
+        "value": "e.stackTrace()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        }
+      },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture additional values"
+        },
+        "value": [],
+        "placeholder": "[]",
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "optional": true,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
       },
       "keyValues": {
         "metadata": {
@@ -64,7 +94,11 @@
         },
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "keyValues"
+        }
       }
     },
     "flags": 0
@@ -95,7 +129,7 @@
             "character": 40
           }
         },
-        "newText": "log:printInfo(\"Getting apples\");"
+        "newText": "log:printInfo(\"Getting apples\", stackTrace = e.stackTrace());"
       }
     ]
   }

@@ -103,9 +103,14 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/western/oranges\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
               },
               "headers": {
                 "metadata": {
@@ -115,7 +120,13 @@
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "value": "()",
+                "placeholder": "()",
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
               },
               "checkError": {
                 "metadata": {
@@ -363,9 +374,14 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"/log\"",
+                        "placeholder": "\"\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "codedata": {
+                          "kind": "REQUIRED",
+                          "originalName": "path"
+                        }
                       },
                       "message": {
                         "metadata": {
@@ -374,9 +390,14 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"Error occurred while getting the response\"",
+                        "placeholder": "\"\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "message"
+                        }
                       },
                       "headers": {
                         "metadata": {
@@ -384,9 +405,15 @@
                           "description": "The entity headers"
                         },
                         "valueType": "EXPRESSION",
+                        "placeholder": "()",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "value": "()",
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "headers"
+                        }
                       },
                       "mediaType": {
                         "metadata": {
@@ -394,9 +421,15 @@
                           "description": "The MIME type header of the request entity"
                         },
                         "valueType": "EXPRESSION",
+                        "placeholder": "()",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "value": "()",
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "mediaType"
+                        }
                       },
                       "checkError": {
                         "metadata": {

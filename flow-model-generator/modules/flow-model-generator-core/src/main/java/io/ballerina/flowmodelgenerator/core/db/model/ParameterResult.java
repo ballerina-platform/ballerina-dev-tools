@@ -18,12 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.db.model;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
-
 public record ParameterResult(
         int parameterId,
         String name,
         String type,
-        ParameterKind kind,
-        String description) {
+        Parameter.Kind kind,
+        String defaultValue,
+        String description,
+        Integer optional) {
 }

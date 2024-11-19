@@ -98,7 +98,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "start sum(40, 50)",
@@ -113,7 +113,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "futureVar",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

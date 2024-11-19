@@ -48,19 +48,29 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/bananas\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       }
     },
     "flags": 0

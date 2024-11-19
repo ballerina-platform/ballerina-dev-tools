@@ -33,9 +33,14 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
+        "placeholder": "0",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "base"
+        }
       },
       "exponent": {
         "metadata": {
@@ -43,9 +48,14 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
+        "placeholder": "2",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "exponent"
+        }
       },
       "view": {
         "metadata": {
@@ -108,7 +118,7 @@
             "character": 28
           }
         },
-        "newText": "int cubed = power(3, 3, {fileName= function_call.bal, startLine= {line= 37.0, offset= 0.0}, endLine= {line= 45.0, offset= 1.0}});"
+        "newText": "int cubed = power(3, 3);"
       }
     ]
   }

@@ -38,11 +38,16 @@
       {
         "id": "52725",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "New Connection",
+          "description": ""
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "init",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -58,39 +63,59 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Local",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "name": {
+            "metadata": {
+              "label": "name"
             },
             "valueType": "EXPRESSION",
-            "value": "new(\"foo\")",
-            "optional": true,
+            "value": "\"foo\"",
+            "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "f1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "Foo1",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -159,7 +184,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "start f1->getName()",
@@ -174,7 +199,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "name",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

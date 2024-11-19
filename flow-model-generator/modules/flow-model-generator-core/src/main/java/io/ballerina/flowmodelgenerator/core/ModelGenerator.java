@@ -38,6 +38,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
@@ -115,7 +116,7 @@ public class ModelGenerator {
 
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, Property.LOCAL_SCOPE, dataMappings,
-                textDocument, CommonUtils.getProjectName(document), true);
+                textDocument, ModuleInfo.from(document.module().descriptor()), true);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -184,7 +185,7 @@ public class ModelGenerator {
             return Optional.empty();
         }
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, scope, Map.of(),
-                document.textDocument(), CommonUtils.getProjectName(document), false);
+                document.textDocument(), ModuleInfo.from(document.module().descriptor()), false);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

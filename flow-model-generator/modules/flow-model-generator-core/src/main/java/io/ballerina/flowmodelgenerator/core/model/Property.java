@@ -39,11 +39,12 @@ import java.util.List;
  * @param editable            whether the property is not readonly
  * @param advanced            whether the property should be shown in the advanced tab
  * @param diagnostics         diagnostics of the property
+ * @param codedata            codedata of the property
  * @since 1.4.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced,
-                       Diagnostics diagnostics) {
+                       Diagnostics diagnostics, PropertyCodedata codedata) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -57,50 +58,46 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         return (T) value;
     }
 
-    public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
-    public static final String VARIABLE_DOC = "Result Variable";
+    public static final String VARIABLE_NAME = "Variable Name";
+    public static final String IMPLICIT_VARIABLE_LABEL = "Name";
+    public static final String VARIABLE_DOC = "Name of the variable";
 
-    public static final String EXPRESSION_LABEL = "Expression";
+    public static final String TYPE_KEY = "type";
+    public static final String TYPE_LABEL = "Variable Type";
+    public static final String IMPLICIT_TYPE_LABEL = "Type";
+    public static final String TYPE_DOC = "Type of the variable";
+
     public static final String EXPRESSION_KEY = "expression";
+    public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_DOC = "Expression";
 
-    public static final String CONDITION_LABEL = "Condition";
     public static final String CONDITION_KEY = "condition";
+    public static final String CONDITION_LABEL = "Condition";
     public static final String CONDITION_DOC = "Boolean Condition";
 
-    public static final String IGNORE_LABEL = "Ignore";
     public static final String IGNORE_KEY = "ignore";
+    public static final String IGNORE_LABEL = "Ignore";
     public static final String IGNORE_DOC = "Ignore the error value";
 
-    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
     public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
+    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
     public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
 
-    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
     public static final String ON_ERROR_TYPE_KEY = "errorType";
+    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
     public static final String ON_ERROR_TYPE_DOC = "Type of the error";
 
-    public static final String COLLECTION_LABEL = "Collection";
     public static final String COLLECTION_KEY = "collection";
+    public static final String COLLECTION_LABEL = "Collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
-    public static final String DATA_VARIABLE_LABEL = "Variable Name";
-    public static final String DATA_IMPLICIT_VARIABLE_LABEL = "Name";
-    public static final String DATA_VARIABLE_KEY = "variable";
-    public static final String DATA_VARIABLE_DOC = "Name of the variable";
-
-    public static final String DATA_TYPE_LABEL = "Variable Type";
-    public static final String DATA_IMPLICIT_TYPE_LABEL = "Type";
-    public static final String DATA_TYPE_KEY = "type";
-    public static final String DATA_TYPE_DOC = "Type of the variable";
-
-    public static final String CHECK_ERROR_LABEL = "Check Flag";
     public static final String CHECK_ERROR_KEY = "checkError";
-    public static final String CHECK_ERROR_DOC = "Whether to return the error";
+    public static final String CHECK_ERROR_LABEL = "Check Error";
+    public static final String CHECK_ERROR_DOC = "Trigger error flow";
 
-    public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_KEY = "scope";
+    public static final String SCOPE_LABEL = "Connection Scope";
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
     public static final String GLOBAL_SCOPE = "Global";
     public static final String SERVICE_SCOPE = "Service";
@@ -114,8 +111,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String RESOURCE_PATH_LABEL = "Resource Path";
     public static final String RESOURCE_PATH_DOC = "Resource Path";
 
-    public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_KEY = "comment";
+    public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_DOC = "Comment to describe the flow";
 
     public static final String PATTERNS_KEY = "patterns";
@@ -154,7 +151,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         VIEW,
         INCLUSION,
         UNION,
-        FLAG
+        FLAG,
+        MAPPING_EXPRESSION_SET,
+        EXPRESSION_SET
     }
 
     public static ValueType valueTypeFrom(String s) {
@@ -165,12 +164,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         };
     }
 
-    /**
-     * Represents a builder for the expression.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder implements DiagnosticHandler.DiagnosticCapable {
+    public static class Builder<T> extends FacetedBuilder<T> implements DiagnosticHandler.DiagnosticCapable {
 
         private String type;
         private Object value;
@@ -179,77 +173,81 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean editable;
         private boolean advanced;
         private Object typeConstraint;
-        private Metadata.Builder<Builder> metadataBuilder;
-        private Diagnostics.Builder<Builder> diagnosticsBuilder;
+        private Metadata.Builder<Builder<T>> metadataBuilder;
+        private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
+        private PropertyCodedata.Builder<Builder<T>> codedataBuilder;
 
-        private Builder() {
-
+        public Builder(T parentBuilder) {
+            super(parentBuilder);
         }
 
-        private static final class InstanceHolder {
-
-            private static final Builder instance = new Builder();
-        }
-
-        public static Builder getInstance() {
-            return InstanceHolder.instance;
-        }
-
-        public Builder type(TypeSymbol typeSymbol) {
+        public Builder<T> type(TypeSymbol typeSymbol) {
             this.type = CommonUtils.getTypeSignature(null, typeSymbol, false);
             return this;
         }
 
-        public Builder type(ValueType type) {
+        public Builder<T> type(ValueType type) {
             this.type = type.name();
             return this;
         }
 
-        public Builder typeConstraint(Object typeConstraint) {
+        public Builder<T> typeConstraint(Object typeConstraint) {
             this.typeConstraint = typeConstraint;
             return this;
         }
 
-        public Builder value(Object value) {
+        public Builder<T> value(Object value) {
             this.value = value;
             return this;
         }
 
-        public Builder optional(boolean optional) {
+        public Builder<T> optional(boolean optional) {
             this.optional = optional;
             return this;
         }
 
-        public Builder defaultable(boolean defaultable) {
+        public Builder<T> defaultable(boolean defaultable) {
             this.optional = defaultable;
             this.advanced = defaultable;
             return this;
         }
 
-        public Builder advanced(boolean advanced) {
+        public Builder<T> advanced(boolean advanced) {
             this.advanced = advanced;
             return this;
         }
 
-        public Builder editable() {
+        public Builder<T> editable() {
             this.editable = true;
             return this;
         }
 
-        public Builder placeholder(String placeholder) {
+        public Builder<T> editable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public Builder<T> placeholder(String placeholder) {
             this.placeholder = placeholder;
             return this;
         }
 
-        public Metadata.Builder<Builder> metadata() {
+        public Metadata.Builder<Builder<T>> metadata() {
             if (this.metadataBuilder == null) {
                 this.metadataBuilder = new Metadata.Builder<>(this);
             }
             return this.metadataBuilder;
         }
 
+        public PropertyCodedata.Builder<Builder<T>> codedata() {
+            if (this.codedataBuilder == null) {
+                this.codedataBuilder = new PropertyCodedata.Builder<>(this);
+            }
+            return this.codedataBuilder;
+        }
+
         @Override
-        public Diagnostics.Builder<Builder> diagnostics() {
+        public Diagnostics.Builder<Builder<T>> diagnostics() {
             if (this.diagnosticsBuilder == null) {
                 this.diagnosticsBuilder = new Diagnostics.Builder<>(this);
             }
@@ -260,7 +258,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
                             placeholder, optional, editable, advanced,
-                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build());
+                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
+                            codedataBuilder == null ? null : codedataBuilder.build());
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
@@ -270,6 +269,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             this.editable = false;
             this.advanced = false;
             this.diagnosticsBuilder = null;
+            this.codedataBuilder = null;
             return property;
         }
     }

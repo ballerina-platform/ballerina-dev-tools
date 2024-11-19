@@ -1,5 +1,9 @@
 {
   "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
@@ -30,24 +34,31 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "msg"
+        }
       },
-      "'error": {
+      "error": {
         "metadata": {
-          "label": "'error",
+          "label": "error",
           "description": "The error struct to be logged"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "error|()",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'error"
+        }
       },
       "stackTrace": {
         "metadata": {
@@ -56,11 +67,30 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        }
+      },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "valueTypeConstraint": "log:Value",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
       }
     },
     "flags": 0

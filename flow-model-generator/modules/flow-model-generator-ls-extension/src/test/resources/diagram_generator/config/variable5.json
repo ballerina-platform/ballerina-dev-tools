@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "{value: check calculate(amount)}",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

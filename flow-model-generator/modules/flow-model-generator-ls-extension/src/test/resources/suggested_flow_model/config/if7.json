@@ -70,7 +70,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "10",
@@ -85,7 +85,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -132,7 +131,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "20",
@@ -147,7 +146,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -194,7 +192,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "x + y",
@@ -209,7 +207,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "z",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -290,7 +287,8 @@
               {
                 "id": "43072",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -313,16 +311,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"Sum is greater than 30\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -343,6 +331,22 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"Sum is greater than 30\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
                   }
                 },
                 "flags": 0,
@@ -477,7 +481,8 @@
               {
                 "id": "49885",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -500,16 +505,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is greater than y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -530,6 +525,22 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is greater than y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
                   }
                 },
                 "flags": 0
@@ -559,7 +570,8 @@
               {
                 "id": "51865",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -582,16 +594,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is equal to y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -612,6 +614,22 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is equal to y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
                   }
                 },
                 "flags": 0

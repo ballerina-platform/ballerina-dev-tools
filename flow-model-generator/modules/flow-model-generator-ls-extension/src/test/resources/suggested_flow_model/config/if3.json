@@ -124,7 +124,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "12 - 1",
@@ -139,7 +139,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "j",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -186,7 +185,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "j.toString() + \".\"",
@@ -201,7 +200,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "val",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -254,7 +252,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "12",
@@ -269,7 +267,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -316,7 +313,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "i.toString()",
@@ -331,7 +328,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "val",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

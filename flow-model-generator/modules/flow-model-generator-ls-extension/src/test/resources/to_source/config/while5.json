@@ -103,19 +103,30 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"/food/pineapples\"",
+                "placeholder": "\"\"",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
               },
               "headers": {
                 "metadata": {
                   "label": "headers",
                   "description": "The entity headers"
                 },
+                "value": "()",
+                "placeholder": "()",
                 "valueType": "EXPRESSION",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
               },
               "checkError": {
                 "metadata": {
@@ -601,7 +612,11 @@
                         "value": "\"/admin/restart\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "codedata": {
+                          "kind": "REQUIRED",
+                          "originalName": "path"
+                        }
                       },
                       "message": {
                         "metadata": {
@@ -610,29 +625,46 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "{body: e.message()}",
+                        "placeholder": "\"\"",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "message"
+                        }
                       },
                       "headers": {
                         "metadata": {
                           "label": "headers",
                           "description": "The entity headers"
                         },
+                        "value": "()",
+                        "placeholder": "()",
                         "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "headers"
+                        }
                       },
                       "mediaType": {
                         "metadata": {
                           "label": "mediaType",
                           "description": "The MIME type header of the request entity"
                         },
+                        "value": "()",
+                        "placeholder": "()",
                         "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true,
-                        "advanced": true
+                        "advanced": true,
+                        "codedata": {
+                          "kind": "DEFAULTABLE",
+                          "originalName": "mediaType"
+                        }
                       },
                       "checkError": {
                         "metadata": {

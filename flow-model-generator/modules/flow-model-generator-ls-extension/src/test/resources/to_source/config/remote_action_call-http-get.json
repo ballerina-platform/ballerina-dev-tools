@@ -36,11 +36,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"/path/to/resource\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
       },
       "headers": {
         "metadata": {
@@ -49,11 +53,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "map<string|string[]>|()",
-        "value": "",
-        "placeholder": "",
+        "value": "()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "type": {
         "metadata": {
@@ -131,7 +139,7 @@
             "character": 0
           }
         },
-        "newText": "json|http:ClientError item = check httpClient->get();"
+        "newText": "json|http:ClientError item = check httpClient->get(\"/path/to/resource\");"
       }
     ]
   }

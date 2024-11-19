@@ -27,7 +27,7 @@
         }
       },
       "sourceCode": "var res4 = check foodClient->/apples.get(targetType = json);",
-      "resourcePath": "[boolean|int|float|decimal|string...]"
+      "resourcePath": "/path/to/resource"
     },
     "returning": false,
     "properties": {
@@ -70,20 +70,38 @@
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "params": {
         "metadata": {
           "label": "params",
           "description": "The query parameters"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "MAPPING_EXPRESSION_SET",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
       },
       "checkError": {
         "metadata": {
@@ -146,7 +164,7 @@
             "character": 68
           }
         },
-        "newText": "json res4 = check foodClient->/apples.get();"
+        "newText": "json res4 = check foodClient->/apples.get(param1 = \"value1\", param2 = 12);"
       }
     ]
   }

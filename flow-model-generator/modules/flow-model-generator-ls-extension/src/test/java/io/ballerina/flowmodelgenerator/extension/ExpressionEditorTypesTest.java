@@ -41,8 +41,8 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        VisibleVariableTypeRequest request = new VisibleVariableTypeRequest(
-                sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.position());
+        VisibleVariableTypeRequest request =
+                new VisibleVariableTypeRequest(getSourcePath(testConfig.source()), testConfig.position());
         JsonObject response = getResponse(request);
 
         JsonArray actualExpressionTypes = response.get("types").getAsJsonArray();

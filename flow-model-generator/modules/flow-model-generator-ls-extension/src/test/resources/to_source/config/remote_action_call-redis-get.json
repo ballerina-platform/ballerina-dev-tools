@@ -36,11 +36,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"key\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        }
       },
       "type": {
         "metadata": {
@@ -118,7 +122,7 @@
             "character": 0
           }
         },
-        "newText": "string|redis:Error|() item = check rc->get();"
+        "newText": "string|redis:Error|() item = check rc->get(\"key\");"
       }
     ]
   }

@@ -140,7 +140,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.quantity",
@@ -155,7 +155,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -201,7 +200,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.'type",
@@ -216,7 +215,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "'type",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

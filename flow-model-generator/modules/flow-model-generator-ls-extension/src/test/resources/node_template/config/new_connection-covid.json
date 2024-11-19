@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "",
   "codedata": {
     "node": "NEW_CONNECTION",
@@ -20,7 +25,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 189
+      "id": 1670
     },
     "returning": false,
     "properties": {
@@ -31,11 +36,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:ConnectionConfig",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "{}",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config"
+        }
       },
       "serviceUrl": {
         "metadata": {
@@ -44,11 +52,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "\"https://disease.sh\"",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        }
       },
       "type": {
         "metadata": {
@@ -57,18 +68,18 @@
         },
         "valueType": "TYPE",
         "value": "covid19:Client",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "covid19Client",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -86,14 +97,14 @@
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Terminate on error"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 0

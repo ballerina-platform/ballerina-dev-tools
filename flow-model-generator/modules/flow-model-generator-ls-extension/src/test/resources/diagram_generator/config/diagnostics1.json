@@ -13,7 +13,7 @@
     "fileName": "diagnostics1.bal",
     "nodes": [
       {
-        "id": "33419",
+        "id": "33450",
         "metadata": {
           "label": "Start"
         },
@@ -26,11 +26,11 @@
               "offset": 31
             },
             "endLine": {
-              "line": 23,
+              "line": 24,
               "offset": 1
             }
           },
-          "sourceCode": "public function main(string c) {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n    fn2(i, s, true, []);\n\n    int j = 12;\n    int k = i j;\n\n    string l = 1.5 \"b\";\n\n    if (s == 12) {\n        if (i == \"12\") {\n        }\n    } else if (s == 12) {\n\n    }\n\n    int num2 = -9223372036854775808;\n\n    return i == s;\n    c = \"h\";\n    int i = 12;\n}"
+          "sourceCode": "public function main(string c) {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n    fn2(i, s, true, []);\n\n    int j = 12;\n    int k = i j;\n\n    string l = 1.5 \"b\";\n\n    if (s == 12) {\n        if (i == \"12\") {\n        }\n    } else if (s == 12) {\n\n    }\n\n    int num2 = -9223372036854775808;\n\n    return i == s;\n    c = \"h\";\n    int i = 12;\n    str val = 4;\n}"
         },
         "returning": false,
         "diagnostics": {
@@ -41,7 +41,8 @@
       {
         "id": "32869",
         "metadata": {
-          "label": "fn"
+          "label": "fn",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -73,11 +74,11 @@
             "value": {
               "fileName": "diagnostics1.bal",
               "startLine": {
-                "line": 25,
+                "line": 26,
                 "offset": 0
               },
               "endLine": {
-                "line": 27,
+                "line": 28,
                 "offset": 1
               }
             },
@@ -123,7 +124,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "\"12\"",
@@ -147,7 +148,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -196,7 +196,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "\"12\"",
@@ -211,7 +211,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -234,7 +233,8 @@
       {
         "id": "35860",
         "metadata": {
-          "label": "fn2"
+          "label": "fn2",
+          "description": ""
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -257,12 +257,35 @@
         },
         "returning": false,
         "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "diagnostics1.bal",
+              "startLine": {
+                "line": 30,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 32,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
           "s": {
             "metadata": {
               "label": "s"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "i",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -274,6 +297,10 @@
                   "message": "incompatible types: expected 'string', found 'int'"
                 }
               ]
+            },
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "s"
             }
           },
           "i": {
@@ -281,7 +308,9 @@
               "label": "i"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
             "value": "s",
+            "placeholder": "0",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -293,6 +322,10 @@
                   "message": "incompatible types: expected 'int', found 'string'"
                 }
               ]
+            },
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "i"
             }
           },
           "b": {
@@ -300,17 +333,25 @@
               "label": "b"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
             "value": "true",
+            "placeholder": "false",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "b"
+            }
           },
           "j": {
             "metadata": {
               "label": "j"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<json>",
             "value": "[]",
+            "placeholder": "{}",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -322,28 +363,11 @@
                   "message": "incompatible types: expected 'map<json>', found '[]'"
                 }
               ]
+            },
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "j"
             }
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Function definition location"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "diagnostics1.bal",
-              "startLine": {
-                "line": 29,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 31,
-                "offset": 1
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
           }
         },
         "diagnostics": {
@@ -377,7 +401,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "12",
@@ -392,7 +416,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -438,10 +461,10 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
-            "value": "i  MISSING[+]j",
+            "value": "i j",
             "optional": true,
             "editable": true,
             "advanced": false,
@@ -462,7 +485,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "k",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -511,10 +533,10 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
-            "value": "1.5  MISSING[+]\"b\"",
+            "value": "1.5 \"b\"",
             "optional": true,
             "editable": true,
             "advanced": false,
@@ -535,7 +557,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "l",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -775,7 +796,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "-9223372036854775808",
@@ -799,7 +820,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "num2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -897,7 +917,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Assign value"
             },
             "valueType": "EXPRESSION",
             "value": "\"h\"",
@@ -908,7 +928,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "c",
@@ -957,7 +977,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "12",
@@ -972,7 +992,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -997,6 +1016,78 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      },
+      {
+        "id": "54700",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "diagnostics1.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 23,
+              "offset": 16
+            }
+          },
+          "sourceCode": "str val = 4;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "4",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "val",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "$CompilationError$",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "unknown type 'str'"
+                }
+              ]
+            }
           }
         },
         "diagnostics": {

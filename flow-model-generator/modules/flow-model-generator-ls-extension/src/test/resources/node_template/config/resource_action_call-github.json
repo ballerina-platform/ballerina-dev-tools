@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "RESOURCE_ACTION_CALL",
@@ -7,7 +12,7 @@
     "object": "Client",
     "symbol": "post",
     "parentSymbol": "githubClient",
-    "resourcePath": "/app\\-manifests/[string]/conversions"
+    "resourcePath": "/app\\-manifests/[\"\"]/conversions"
   },
   "output": {
     "id": "31",
@@ -22,10 +27,22 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 581
+      "id": 2421
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "github:Client",
+        "value": "githubClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -33,8 +50,9 @@
         },
         "valueType": "TYPE",
         "value": "github:ManifestConversions",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -43,21 +61,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
-        "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "github:Client",
-        "value": "",
-        "placeholder": "githubClient",
+        "value": "githubManifestconversions",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -68,21 +72,21 @@
           "description": "Resource Path"
         },
         "valueType": "EXPRESSION",
-        "value": "/app\\-manifests/[string]/conversions",
+        "value": "/app\\-manifests/[\"\"]/conversions",
         "optional": false,
         "editable": true,
         "advanced": false
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

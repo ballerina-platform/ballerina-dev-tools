@@ -36,11 +36,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "USA",
         "placeholder": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        }
       },
       "yesterday": {
         "metadata": {
@@ -49,11 +53,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "yesterday"
+        }
       },
       "twoDaysAgo": {
         "metadata": {
@@ -62,11 +70,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "twoDaysAgo"
+        }
       },
       "strict": {
         "metadata": {
@@ -75,11 +87,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
+        "value": "true",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        }
       },
       "allowNull": {
         "metadata": {
@@ -88,11 +104,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
+        "value": "()",
         "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
+        }
       },
       "type": {
         "metadata": {
@@ -170,7 +190,7 @@
             "character": 0
           }
         },
-        "newText": "covid19:CovidCountry|error item = check covid19Client->getStatusByCountry();"
+        "newText": "covid19:CovidCountry|error item = check covid19Client->getStatusByCountry(USA, (), (), true, ());"
       }
     ]
   }

@@ -35,7 +35,11 @@
         "value": "6",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "a"
+        }
       },
       "b": {
         "metadata": {
@@ -45,7 +49,11 @@
         "value": "3",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "b"
+        }
       },
       "func": {
         "metadata": {
@@ -55,7 +63,11 @@
         "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "func"
+        }
       },
       "view": {
         "metadata": {
@@ -118,7 +130,7 @@
             "character": 15
           }
         },
-        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        }, {fileName= function_call.bal, startLine= {line= 55.0, offset= 0.0}, endLine= {line= 59.0, offset= 1.0}});"
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
       }
     ]
   }

@@ -34,31 +34,32 @@
           "label": "v",
           "description": "Source JSON value"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "value": "jsonResult",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "v"
+        }
       },
       "options": {
         "metadata": {
           "label": "options",
           "description": "Options to be used for filtering in the projection"
         },
+        "value": "{}",
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
-      },
-      "t": {
-        "metadata": {
-          "label": "t",
-          "description": "Target type"
-        },
-        "valueType": "EXPRESSION",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "options"
+        }
       },
       "checkError": {
         "metadata": {

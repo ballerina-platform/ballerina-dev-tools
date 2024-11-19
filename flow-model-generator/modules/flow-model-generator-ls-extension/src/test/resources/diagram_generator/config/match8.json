@@ -118,7 +118,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "<int>quantity",
@@ -133,7 +133,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "q",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

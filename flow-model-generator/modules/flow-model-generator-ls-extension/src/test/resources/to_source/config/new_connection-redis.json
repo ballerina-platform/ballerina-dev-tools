@@ -36,9 +36,13 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionConfig",
-        "value": "",
+        "value": "{}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "type": {
         "metadata": {
@@ -99,7 +103,7 @@
             "character": 0
           }
         },
-        "newText": "redis:Client|redis:Error item = check new ();"
+        "newText": "final redis:Client|redis:Error item = check new ({});"
       }
     ]
   }

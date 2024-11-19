@@ -16,13 +16,26 @@
  *  under the License.
  */
 
+package io.ballerina.flowmodelgenerator.extension.response;
 
-package io.ballerina.flowmodelgenerator.extension.request;
+import org.eclipse.lsp4j.Diagnostic;
+
+import java.util.List;
 
 /**
- * A request to retrieve module nodes such as connections.
+ * This class represents the response containing diagnostics for the expression editor.
  *
- * @param filePath the path of the project
+ * @since 1.4.0
  */
-public record ModuleNodesRequest(String filePath) {
+public class ExpressionEditorDiagnosticsResponse extends AbstractFlowModelResponse {
+
+    List<Diagnostic> diagnostics;
+
+    public List<Diagnostic> diagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(List<Diagnostic> diagnostics) {
+        this.diagnostics = diagnostics;
+    }
 }

@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "REMOTE_ACTION_CALL",
@@ -21,10 +26,22 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 211
+      "id": 1686
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "covid19:Client",
+        "value": "covid19Client",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "country": {
         "metadata": {
           "label": "country",
@@ -32,11 +49,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        }
       },
       "yesterday": {
         "metadata": {
@@ -45,11 +66,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "yesterday"
+        }
       },
       "twoDaysAgo": {
         "metadata": {
@@ -58,11 +82,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "twoDaysAgo"
+        }
       },
       "strict": {
         "metadata": {
@@ -71,11 +98,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "\"true\"",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        }
       },
       "allowNull": {
         "metadata": {
@@ -84,11 +114,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
+        }
       },
       "type": {
         "metadata": {
@@ -97,8 +130,9 @@
         },
         "valueType": "TYPE",
         "value": "covid19:CovidCountry",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -107,35 +141,21 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
-        "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "covid19:Client",
-        "value": "",
-        "placeholder": "covid19Client",
+        "value": "covid19Covidcountry",
         "optional": false,
         "editable": true,
         "advanced": false
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

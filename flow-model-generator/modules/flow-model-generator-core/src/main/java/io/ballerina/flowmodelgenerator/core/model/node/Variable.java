@@ -39,7 +39,7 @@ public class Variable extends NodeBuilder {
 
     public static final String LABEL = "Variable";
     public static final String DESCRIPTION = "New variable with type";
-    public static final String NEW_DATA_EXPRESSION_DOC = "Create new variable";
+    public static final String EXPRESSION_DOC = "Initialize with value";
 
     @Override
     public void setConcreteConstData() {
@@ -49,7 +49,7 @@ public class Variable extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.DATA_TYPE_KEY);
+        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
         Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         if (type.isPresent() && variable.isPresent()) {
             sourceBuilder.token().expressionWithType(type.get(), variable.get());
@@ -68,6 +68,8 @@ public class Variable extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         metadata().description(DESCRIPTION);
-        properties().dataVariable(null, true).expression("", NEW_DATA_EXPRESSION_DOC, true);
+        properties()
+                .dataVariable(null, true, context.getAllVisibleSymbolNames())
+                .expression("", EXPRESSION_DOC, true);
     }
 }

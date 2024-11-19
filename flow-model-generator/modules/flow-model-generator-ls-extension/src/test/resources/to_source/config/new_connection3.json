@@ -44,17 +44,28 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:9090\"",
+        "placeholder": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "url"
+        }
       },
       "config": {
         "metadata": {
           "label": "config",
           "description": "The configurations to be used when initializing the `client`\n"
         },
+        "value": "{}",
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {
@@ -103,7 +114,7 @@
             "character": 0
           }
         },
-        "newText": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
+        "newText": "final http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});"
       }
     ]
   }

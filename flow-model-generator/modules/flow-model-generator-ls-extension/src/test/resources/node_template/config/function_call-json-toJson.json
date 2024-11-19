@@ -1,5 +1,9 @@
 {
   "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
@@ -30,11 +34,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "anydata",
-        "value": "",
-        "placeholder": "",
+        "value": "{}",
+        "placeholder": "{}",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "v"
+        }
       },
       "type": {
         "metadata": {
@@ -43,8 +51,9 @@
         },
         "valueType": "TYPE",
         "value": "json",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -53,22 +62,21 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "jsonResult",
         "optional": false,
         "editable": true,
         "advanced": false
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

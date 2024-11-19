@@ -18,19 +18,20 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -50,6 +51,9 @@ public class NewConnection extends NodeBuilder {
 
     public static final String INIT_SYMBOL = "init";
     public static final String CLIENT_SYMBOL = "Client";
+    public static final String CHECK_ERROR_DOC = "Terminate on error";
+    public static final String CONNECTION_NAME_LABEL = "Connection Name";
+    public static final String CONNECTION_TYPE_LABEL = "Connection Type";
 
     @Override
     public void setConcreteConstData() {
@@ -58,21 +62,17 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        fetchNodeTemplate(this, codedata);
-    }
-
-    @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder
+                .token().keyword(SyntaxKind.FINAL_KEYWORD).stepOut()
+                .newVariable();
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
                 .functionParameters(sourceBuilder.flowNode,
-                        Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY,
+                        Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
                                 Property.CHECK_ERROR_KEY));
 
         Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);
@@ -80,48 +80,88 @@ public class NewConnection extends NodeBuilder {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }
         return switch (scope.get().value().toString()) {
-            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
+            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).acceptImport().build();
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal", true).build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
         };
     }
 
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
                         DatabaseManager.FunctionKind.CONNECTOR);
         if (functionResult.isEmpty()) {
-            return null;
+            return;
         }
 
         FunctionResult function = functionResult.get();
-        nodeBuilder
-                .metadata()
-                    .label(function.packageName())
-                    .description(function.description())
-                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                    .stepOut()
-                .codedata()
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(function.org())
-                    .module(function.packageName())
-                    .object(CLIENT_SYMBOL)
-                    .symbol(INIT_SYMBOL)
-                    .id(function.functionId());
+        metadata()
+                .label(function.packageName())
+                .description(function.description())
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+        codedata()
+                .node(NodeKind.NEW_CONNECTION)
+                .org(function.org())
+                .module(function.packageName())
+                .object(CLIENT_SYMBOL)
+                .symbol(INIT_SYMBOL)
+                .id(function.functionId());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
-            boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                    Property.ValueType.EXPRESSION, paramResult.type(), "", optional, optional);
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                continue;
+            }
+
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1);
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                unescapedParamName = "additionalValues";
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+            } else {
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
+            }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(unescapedParamName);
         }
 
         if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+            properties()
+                    .type(function.returnType(), false)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
         }
-        nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
-        nodeBuilder.properties().checkError(true);
-        return nodeBuilder.build();
+        properties()
+                .scope(Property.GLOBAL_SCOPE)
+                .checkError(true, CHECK_ERROR_DOC, false);
     }
 }

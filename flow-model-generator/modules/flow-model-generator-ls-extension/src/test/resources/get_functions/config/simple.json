@@ -17,8 +17,8 @@
   "categories": [
     {
       "metadata": {
-        "label": "Project",
-        "description": "Functions defined within the project",
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
         "keywords": [
           "Project",
           "Local",
@@ -29,7 +29,7 @@
     },
     {
       "metadata": {
-        "label": "Utilities",
+        "label": "Library",
         "description": "Reusable functions from external libraries",
         "keywords": [
           "Utility",

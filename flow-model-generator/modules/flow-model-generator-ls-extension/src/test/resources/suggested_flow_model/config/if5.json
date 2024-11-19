@@ -67,7 +67,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "10",
@@ -82,7 +82,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -129,7 +128,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "20",
@@ -144,7 +143,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -282,7 +280,8 @@
                       {
                         "id": "44051",
                         "metadata": {
-                          "label": "print"
+                          "label": "print",
+                          "description": ""
                         },
                         "codedata": {
                           "node": "FUNCTION_CALL",
@@ -305,16 +304,6 @@
                         },
                         "returning": false,
                         "properties": {
-                          "val": {
-                            "metadata": {
-                              "label": "val"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "\"x is even\"",
-                            "optional": false,
-                            "editable": true,
-                            "advanced": false
-                          },
                           "view": {
                             "metadata": {
                               "label": "View",
@@ -335,6 +324,22 @@
                             "optional": false,
                             "editable": false,
                             "advanced": false
+                          },
+                          "val": {
+                            "metadata": {
+                              "label": "val"
+                            },
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
+                            "value": "\"x is even\"",
+                            "placeholder": "\"\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false,
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "val"
+                            }
                           }
                         },
                         "flags": 0,
@@ -365,7 +370,8 @@
                       {
                         "id": "46034",
                         "metadata": {
-                          "label": "print"
+                          "label": "print",
+                          "description": ""
                         },
                         "codedata": {
                           "node": "FUNCTION_CALL",
@@ -388,16 +394,6 @@
                         },
                         "returning": false,
                         "properties": {
-                          "val": {
-                            "metadata": {
-                              "label": "val"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "\"x is odd\"",
-                            "optional": false,
-                            "editable": true,
-                            "advanced": false
-                          },
                           "view": {
                             "metadata": {
                               "label": "View",
@@ -418,6 +414,22 @@
                             "optional": false,
                             "editable": false,
                             "advanced": false
+                          },
+                          "val": {
+                            "metadata": {
+                              "label": "val"
+                            },
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
+                            "value": "\"x is odd\"",
+                            "placeholder": "\"\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false,
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "val"
+                            }
                           }
                         },
                         "flags": 0,
@@ -432,7 +444,8 @@
               {
                 "id": "47069",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -455,16 +468,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is greater than y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -485,6 +488,22 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is greater than y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
                   }
                 },
                 "flags": 0,
@@ -515,7 +534,8 @@
               {
                 "id": "48889",
                 "metadata": {
-                  "label": "print"
+                  "label": "print",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -538,16 +558,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "val": {
-                    "metadata": {
-                      "label": "val"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"x is equal to y\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
                   "view": {
                     "metadata": {
                       "label": "View",
@@ -568,6 +578,22 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is equal to y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
                   }
                 },
                 "flags": 0

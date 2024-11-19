@@ -30,8 +30,10 @@
           },
           "valueType": "TYPE",
           "value": "int",
+          "placeholder": "var",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "variable": {
           "metadata": {
@@ -41,7 +43,8 @@
           "valueType": "IDENTIFIER",
           "value": "config3",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "defaultable": {
           "metadata": {
@@ -51,7 +54,8 @@
           "valueType": "EXPRESSION",
           "value": "10",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         }
       },
       "flags": 0
@@ -85,8 +89,10 @@
           },
           "valueType": "TYPE",
           "value": "string",
+          "placeholder": "var",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "variable": {
           "metadata": {
@@ -96,7 +102,8 @@
           "valueType": "IDENTIFIER",
           "value": "config4",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "defaultable": {
           "metadata": {
@@ -106,7 +113,8 @@
           "valueType": "EXPRESSION",
           "value": "\"new config\"",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         }
       },
       "flags": 0
@@ -140,8 +148,10 @@
           },
           "valueType": "TYPE",
           "value": "int",
+          "placeholder": "var",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "variable": {
           "metadata": {
@@ -151,7 +161,8 @@
           "valueType": "IDENTIFIER",
           "value": "config1",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "defaultable": {
           "metadata": {
@@ -161,7 +172,8 @@
           "valueType": "EXPRESSION",
           "value": "10",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         }
       },
       "flags": 0
@@ -195,8 +207,10 @@
           },
           "valueType": "TYPE",
           "value": "string",
+          "placeholder": "var",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "variable": {
           "metadata": {
@@ -206,7 +220,8 @@
           "valueType": "IDENTIFIER",
           "value": "config2",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         },
         "defaultable": {
           "metadata": {
@@ -216,7 +231,8 @@
           "valueType": "EXPRESSION",
           "value": "\"new config\"",
           "optional": false,
-          "editable": true
+          "editable": true,
+          "advanced": false
         }
       },
       "flags": 0

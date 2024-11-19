@@ -22,16 +22,19 @@
     "properties": {
       "x": {
         "metadata": {
-          "label": "x",
-          "description": ""
+          "label": "x"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "value": "",
+        "value": "0",
         "placeholder": "0",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "x"
+        }
       },
       "type": {
         "metadata": {
@@ -39,7 +42,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "",
+        "value": "int",
         "placeholder": "var",
         "optional": false,
         "editable": true,
@@ -51,8 +54,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "intResult",
         "optional": false,
         "editable": true,
         "advanced": false

@@ -18,8 +18,6 @@
 
 package io.ballerina.indexgenerator;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -103,9 +101,14 @@ class DatabaseManager {
     }
 
     public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,
-                                               String paramType, ParameterKind parameterKind) {
-        String sql = "INSERT INTO Parameter (function_id, name, description, type, kind) VALUES (?, ?, ?, ?, ?)";
-        insertEntry(sql, new Object[]{functionId, paramName, paramDescription, paramType, parameterKind.name()});
+                                               String paramType, String defaultValue,
+                                               IndexGenerator.FunctionParameterKind parameterKind,
+                                               int optional) {
+        String sql = "INSERT INTO Parameter (function_id, name, description, type, default_value, kind, optional) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        insertEntry(sql,
+                new Object[]{functionId, paramName, paramDescription, paramType, defaultValue,
+                        parameterKind.name(), optional});
     }
 
     public static void mapConnectorAction(int actionId, int connectorId) {

@@ -34,7 +34,11 @@
         "placeholder": "0",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "x"
+        }
       },
       "type": {
         "metadata": {

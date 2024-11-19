@@ -105,10 +105,10 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         private Repeatable repeatable;
 
         protected Codedata.Builder<Builder> codedataBuilder;
-        protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
+        protected FormBuilder<Builder> formBuilder;
         private SemanticModel semanticModel;
         private DiagnosticHandler diagnosticHandler;
-        private String defaultModuleName;
+        private ModuleInfo moduleInfo;
 
         public Builder() {
             children = new ArrayList<>();
@@ -124,8 +124,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public Builder defaultModuleName(String defaultModuleName) {
-            this.defaultModuleName = defaultModuleName;
+        public Builder defaultModuleName(ModuleInfo moduleInfo) {
+            this.moduleInfo = moduleInfo;
             return this;
         }
 
@@ -154,12 +154,12 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public NodeBuilder.PropertiesBuilder<Builder> properties() {
-            if (this.propertiesBuilder == null) {
-                this.propertiesBuilder =
-                        new NodeBuilder.PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
+        public FormBuilder<Builder> properties() {
+            if (this.formBuilder == null) {
+                this.formBuilder =
+                        new FormBuilder<>(semanticModel, diagnosticHandler, moduleInfo, this);
             }
-            return this.propertiesBuilder;
+            return this.formBuilder;
         }
 
         public Codedata.Builder<Builder> codedata() {
@@ -171,7 +171,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public Branch build() {
             return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(),
-                    repeatable, propertiesBuilder == null ? null : propertiesBuilder.build(), children);
+                    repeatable, formBuilder == null ? null : formBuilder.build(), children);
         }
     }
 }

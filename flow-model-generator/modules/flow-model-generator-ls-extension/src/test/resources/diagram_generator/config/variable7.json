@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "a",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -122,7 +121,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -183,7 +181,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -198,7 +196,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -244,7 +241,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -259,7 +256,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -305,7 +301,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Assign value"
             },
             "valueType": "EXPRESSION",
             "value": "5",
@@ -316,7 +312,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "a",
@@ -353,7 +349,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Assign value"
             },
             "valueType": "EXPRESSION",
             "value": "\"Ballerina\"",
@@ -364,7 +360,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "s",
@@ -401,7 +397,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Assign value"
             },
             "valueType": "EXPRESSION",
             "value": "{\"key\": \"value\"}",
@@ -412,7 +408,7 @@
           "variable": {
             "metadata": {
               "label": "Name",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "j",

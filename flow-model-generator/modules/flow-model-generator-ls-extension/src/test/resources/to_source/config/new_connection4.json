@@ -44,8 +44,13 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:9090\"",
+        "placeholder": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "url"
+        }
       },
       "config": {
         "metadata": {
@@ -54,7 +59,13 @@
         },
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "value": "{}",
+        "placeholder": "{}",
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {
@@ -90,7 +101,7 @@
             "character": 63
           }
         },
-        "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
+        "newText": "final http:Client moduleHttpExCl = check new (\"http://localhost:9090\", {});"
       }
     ]
   }

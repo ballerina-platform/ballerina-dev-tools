@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -176,19 +175,7 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "res2",
-                    "placeholder": "item",
-                    "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
                   "path": {
@@ -197,10 +184,16 @@
                       "description": "Request path"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
                     "value": "\"/western/apples\"",
+                    "placeholder": "\"\"",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "path"
+                    }
                   },
                   "headers": {
                     "metadata": {
@@ -208,17 +201,50 @@
                       "description": "The entity headers"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "map<string|string[]>|()",
+                    "placeholder": "()",
                     "optional": true,
                     "editable": true,
-                    "advanced": true
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "headers"
+                    }
+                  },
+                  "targetType": {
+                    "metadata": {
+                      "label": "targetType",
+                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "json",
+                    "placeholder": "json",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "PARAM_FOR_TYPE_INFER",
+                      "originalName": "targetType"
+                    }
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "res2",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -264,7 +290,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "res2.toString()",
@@ -275,7 +301,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -334,7 +360,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
@@ -345,7 +371,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "msg",
@@ -403,49 +429,343 @@
             "editable": true,
             "advanced": true
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
           "url": {
             "metadata": {
               "label": "url",
               "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
-          "config": {
+          "httpVersion": {
             "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`"
+              "label": "httpVersion",
+              "description": ""
             },
             "valueType": "EXPRESSION",
-            "optional": false,
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

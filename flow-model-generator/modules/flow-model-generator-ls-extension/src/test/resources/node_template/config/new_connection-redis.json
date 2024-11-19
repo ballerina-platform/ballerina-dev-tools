@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
@@ -20,22 +25,73 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "id": 7
+      "id": 669
     },
     "returning": false,
     "properties": {
-      "config": {
+      "connection": {
         "metadata": {
-          "label": "config",
-          "description": "configuration for the connector"
+          "label": "connection",
+          "description": ""
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:ConnectionConfig",
-        "value": "",
-        "placeholder": "",
-        "optional": false,
+        "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+        "placeholder": "\"redis://localhost:6379\"",
+        "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connection"
+        }
+      },
+      "connectionPooling": {
+        "metadata": {
+          "label": "connectionPooling",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connectionPooling"
+        }
+      },
+      "isClusterConnection": {
+        "metadata": {
+          "label": "isClusterConnection",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "isClusterConnection"
+        }
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:SecureSocket",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "secureSocket"
+        }
       },
       "type": {
         "metadata": {
@@ -44,18 +100,18 @@
         },
         "valueType": "TYPE",
         "value": "redis:Client",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
+        "value": "redisClient",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -73,14 +129,14 @@
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Terminate on error"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 0

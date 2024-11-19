@@ -36,11 +36,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"/path\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
       },
       "message": {
         "metadata": {
@@ -49,24 +53,31 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:RequestMessage",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "map<string|string[]>|()",
-        "value": "",
-        "placeholder": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "mediaType": {
         "metadata": {
@@ -75,11 +86,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "value": "",
-        "placeholder": "",
+        "value": "json",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        }
       },
       "type": {
         "metadata": {
@@ -157,7 +172,7 @@
             "character": 0
           }
         },
-        "newText": "json|http:ClientError item = check httpClient->post(, );"
+        "newText": "json|http:ClientError item = check httpClient->post(\"/path\", json);"
       }
     ]
   }

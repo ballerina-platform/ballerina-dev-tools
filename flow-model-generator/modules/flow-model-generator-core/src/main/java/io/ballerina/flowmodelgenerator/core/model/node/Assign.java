@@ -40,6 +40,7 @@ public class Assign extends NodeBuilder {
 
     public static final String LABEL = "Assign";
     public static final String DESCRIPTION = "Assign a value to a variable";
+    public static final String EXPRESSION_DOC = "Assign value";
 
     @Override
     public void setConcreteConstData() {
@@ -72,6 +73,8 @@ public class Assign extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().data(null, true).expression("", Property.EXPRESSION_DOC);
+        properties()
+                .data(null, true, context.getAllVisibleSymbolNames())
+                .expression("", EXPRESSION_DOC);
     }
 }

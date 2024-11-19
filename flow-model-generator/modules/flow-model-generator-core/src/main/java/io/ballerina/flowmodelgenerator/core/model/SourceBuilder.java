@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
@@ -73,7 +74,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable() {
-        return newVariable(Property.DATA_TYPE_KEY);
+        return newVariable(Property.TYPE_KEY);
     }
 
     public SourceBuilder newVariable(String typeKey) {
@@ -116,6 +117,26 @@ public class SourceBuilder {
         return this;
     }
 
+    // TODO: Need to reuse other textEdit methods
+    public SourceBuilder textEdit(boolean isExpression, String fileName, LineRange lineRange, boolean allowEdits) {
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
+        if (flowNodeLineRange != null && allowEdits) {
+            LinePosition startLine = flowNodeLineRange.startLine();
+            LinePosition endLine = flowNodeLineRange.endLine();
+
+            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
+                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
+                acceptImport(resolvedPath);
+                return this;
+            }
+        }
+
+        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange));
+        acceptImport(resolvedPath);
+        return this;
+    }
+
     public SourceBuilder acceptImport(Path resolvedPath) {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
@@ -124,7 +145,6 @@ public class SourceBuilder {
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
         }
-
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
@@ -181,7 +201,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder typedBindingPattern() {
-        return typedBindingPattern(Property.DATA_TYPE_KEY);
+        return typedBindingPattern(Property.TYPE_KEY);
     }
 
     public SourceBuilder typedBindingPattern(String typeKey) {
@@ -268,36 +288,138 @@ public class SourceBuilder {
         Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
 
-        boolean hasEmptyParam = false;
         boolean firstParamAdded = false;
+        boolean missedDefaultValue = false;
         for (String key : keys) {
             Optional<Property> property = flowNode.getProperty(key);
-            if (property.isEmpty() || property.get().value() == null ||
-                    (property.get().optional() && property.get().value().toString().isEmpty())) {
-                hasEmptyParam = true;
+            if (property.isEmpty()) {
                 continue;
             }
 
+            Property prop = property.get();
+            String kind = prop.codedata().kind();
+            boolean optional = prop.optional();
+
             if (firstParamAdded) {
-                tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-            } else {
-                firstParamAdded = true;
+                if ((kind.equals(Parameter.Kind.REST_PARAMETER.name()))) {
+                    if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                        continue;
+                    }
+                    if (hasRestParamValues(prop)) {
+                        addRestParamValues(prop);
+                        continue;
+                    }
+                } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                    if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                        continue;
+                    }
+                    if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                        addIncludedRecordRestParamValues(prop);
+                        continue;
+                    }
+                }
             }
 
-            if (hasEmptyParam) {
-                tokenBuilder
-                        .name(key)
-                        .keyword(SyntaxKind.EQUAL_TOKEN);
-                hasEmptyParam = false;
+            if (!optional && kind.equals(Parameter.Kind.REQUIRED.name())) {
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
+                if (isPropValueEmpty(prop)) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                tokenBuilder.expression(prop);
+            } else if (kind.equals(Parameter.Kind.DEFAULTABLE.name())) {
+                if (isPropValueEmpty(prop)) {
+                    missedDefaultValue = true;
+                    continue;
+                }
+                if (prop.placeholder().equals(prop.value())) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                if (missedDefaultValue) {
+                    tokenBuilder.name(prop.codedata().originalName()).whiteSpace()
+                            .keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+                } else {
+                    tokenBuilder.expression(prop);
+                }
+            } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
+                if (isPropValueEmpty(prop)) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                tokenBuilder.name(prop.codedata().originalName())
+                        .whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
+            } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
+                if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                addRestParamValues(prop);
+            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
+                    continue;
+                }
+                if (firstParamAdded) {
+                    tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                addIncludedRecordRestParamValues(prop);
             }
 
-            tokenBuilder.expression(property.get());
+            firstParamAdded = true;
         }
 
         tokenBuilder
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
         return this;
+    }
+
+    private boolean isPropValueEmpty(Property property) {
+        return property.value() == null || (property.optional() && property.value().toString().isEmpty());
+    }
+
+    private boolean hasRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?> values) {
+            return !values.isEmpty();
+        }
+        return false;
+    }
+
+    private void addRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?> values) {
+            if (!values.isEmpty()) {
+                List<String> strValues = ((List<?>) prop.value()).stream().map(Object::toString).toList();
+                tokenBuilder.expression(String.join(", ", strValues));
+            }
+        }
+    }
+
+    private void addIncludedRecordRestParamValues(Property prop) {
+        if (prop.value() instanceof List<?>) {
+            List<Map> values = (List<Map>) prop.value();
+            if (!values.isEmpty()) {
+                List<String> result = new ArrayList<>();
+                values.forEach(keyValuePair -> {
+                    String key = (String) keyValuePair.keySet().iterator().next();
+                    String value = keyValuePair.values().iterator().next().toString();
+                    result.add(key + " = " + value);
+                });
+                tokenBuilder.expression(String.join(", ", result));
+            }
+        }
     }
 
     public SourceBuilder textEdit(boolean isExpression) {
@@ -344,7 +466,7 @@ public class SourceBuilder {
                 treeModifier = new FormattingTreeModifier(FormattingOptions.builder().build(), (LineRange) null);
         private final StringBuilder sb;
 
-        protected TokenBuilder(SourceBuilder parentBuilder) {
+        public TokenBuilder(SourceBuilder parentBuilder) {
             super(parentBuilder);
             sb = new StringBuilder();
         }

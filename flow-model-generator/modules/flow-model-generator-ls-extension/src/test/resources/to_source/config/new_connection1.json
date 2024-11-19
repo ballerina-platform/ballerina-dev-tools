@@ -1,5 +1,5 @@
 {
-  "source": "new_connection1/main.bal",
+  "source": "new_connection3/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "38878",
@@ -44,17 +44,28 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"http://localhost:8080\"",
+        "placeholder": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "url"
+        }
       },
       "config": {
         "metadata": {
           "label": "config",
           "description": "The configurations to be used when initializing the `client`\n"
         },
+        "value": "{}",
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {
@@ -78,7 +89,20 @@
     "flags": 1
   },
   "output": {
-    "new_connection1/main.bal": [
+    "new_connection3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
       {
         "range": {
           "start": {
@@ -90,7 +114,7 @@
             "character": 66
           }
         },
-        "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
+        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
       }
     ]
   }

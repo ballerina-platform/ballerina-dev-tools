@@ -67,7 +67,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "12",
@@ -82,7 +82,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -129,7 +128,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "i.toString()",
@@ -144,7 +143,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "val",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -248,7 +246,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "i + 3",
@@ -259,7 +257,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "i",

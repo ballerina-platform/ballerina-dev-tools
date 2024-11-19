@@ -80,6 +80,19 @@ public class DeleteNodeTest extends AbstractLSTest {
         JsonObject deleteResponse = getResponse(deleteRequest).getAsJsonObject("textEdits");
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(deleteResponse, textEditListType);
 
+        assertTextEdits(actualTextEdits, testConfig, configJsonPath);
+    }
+
+    @Override
+    protected String[] skipList() {
+        // TODO: Remove after fixing the log symbol issue
+        return new String[]{
+                "delete_node8.json"
+        };
+    }
+
+    private void assertTextEdits(Map<String, List<TextEdit>> actualTextEdits,
+                                 TestConfig testConfig, Path configJsonPath) {
         boolean assertFailure = false;
         Map<String, List<TextEdit>> newMap = new HashMap<>();
         for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
@@ -104,14 +117,6 @@ public class DeleteNodeTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @Override
-    protected String[] skipList() {
-        // TODO: Remove after fixing the log symbol issue
-        return new String[]{
-                "delete_node8.json"
-        };
     }
 
     private Optional<FlowNode> findNodeToDelete(FlowNode node, LinePosition deleteNodeStart,

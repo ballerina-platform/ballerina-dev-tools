@@ -98,7 +98,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "0",
@@ -113,7 +113,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -239,7 +238,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "x + 1",
@@ -250,7 +249,7 @@
                   "variable": {
                     "metadata": {
                       "label": "Name",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",

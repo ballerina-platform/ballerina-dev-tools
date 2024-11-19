@@ -1,4 +1,9 @@
 {
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "REMOTE_ACTION_CALL",
@@ -21,10 +26,22 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "id": 36
+      "id": 689
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "redis:Client",
+        "value": "redisCl",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "key": {
         "metadata": {
           "label": "key",
@@ -32,11 +49,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        }
       },
       "value": {
         "metadata": {
@@ -45,11 +66,15 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "",
-        "placeholder": "",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "value"
+        }
       },
       "type": {
         "metadata": {
@@ -58,8 +83,9 @@
         },
         "valueType": "TYPE",
         "value": "string",
+        "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
@@ -68,35 +94,21 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
-        "placeholder": "item",
-        "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:Client",
-        "value": "",
-        "placeholder": "redisCl",
+        "value": "stringResult",
         "optional": false,
         "editable": true,
         "advanced": false
       },
       "checkError": {
         "metadata": {
-          "label": "Check Flag",
-          "description": "Whether to return the error"
+          "label": "Check Error",
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     },
     "flags": 0

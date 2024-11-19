@@ -40,8 +40,13 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "record",
         "value": "{}",
+        "placeholder": "{}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config"
+        }
       },
       "serviceUrl": {
         "metadata": {
@@ -50,9 +55,14 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "https://disease.sh",
+        "placeholder": "https://disease.sh",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        }
       },
       "type": {
         "metadata": {
@@ -113,7 +123,7 @@
             "character": 0
           }
         },
-        "newText": "covid19:Client item = check new ({}, \"\");"
+        "newText": "final covid19:Client item = check new ();"
       }
     ]
   }

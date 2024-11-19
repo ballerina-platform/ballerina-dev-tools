@@ -18,24 +18,21 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
-import io.ballerina.projects.Package;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -81,22 +78,17 @@ public class ResourceActionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(flowNode,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                                Property.DATA_TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
+                                Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
     }
 
-    @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata);
-    }
-
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
         if (codedata.org().equals("$anon")) {
-            return null;
+            return;
         }
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
@@ -104,57 +96,93 @@ public class ResourceActionCall extends NodeBuilder {
                 dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
                         DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
-            return null;
+            return;
         }
 
         FunctionResult function = functionResult.get();
-        nodeBuilder
+        metadata()
+                .label(function.name())
+                .description(function.description())
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+        codedata()
+                .org(function.org())
+                .module(function.packageName())
+                .object(NewConnection.CLIENT_SYMBOL)
+                .id(function.functionId())
+                .symbol(function.name());
+
+        properties().custom()
                 .metadata()
-                    .label(function.name())
-                    .description(function.description())
-                    .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                    .stepOut()
-                .codedata()
-                    .org(function.org())
-                    .module(function.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
-                    .id(function.functionId())
-                    .symbol(function.name());
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_DOC)
+                .stepOut()
+                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
+
+        properties().resourcePath(function.resourcePath());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
+            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
             }
-            if (paramResult.kind() == ParameterKind.INCLUDED_RECORD) {
-                Package modulePackage = PackageUtil
-                        .getModulePackage(function.org(), function.packageName(), function.version());
-                SemanticModel pkgModel = modulePackage.getDefaultModule().getCompilation().getSemanticModel();
-                Optional<Symbol> includedRecordType = pkgModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.nameEquals(paramResult.type().split(":")[1])).findFirst();
-                if (includedRecordType.isPresent() && includedRecordType.get() instanceof TypeDefinitionSymbol) {
-                    FunctionCall.addIncludedRecordToParams((
-                            (TypeDefinitionSymbol) includedRecordType.get()).typeDescriptor(), nodeBuilder);
+
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            customPropBuilder
+                    .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .stepOut()
+                    .placeholder(paramResult.defaultValue())
+                    .typeConstraint(paramResult.type())
+                    .editable()
+                    .defaultable(paramResult.optional() == 1);
+
+            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
                 }
+                unescapedParamName = "additionalValues";
+                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                if (hasOnlyRestParams) {
+                    customPropBuilder.defaultable(false);
+                }
+                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
-                boolean optional = paramResult.kind() == ParameterKind.DEFAULTABLE;
-                nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
-                        Property.ValueType.EXPRESSION, paramResult.type(), "", optional);
+                customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
+            customPropBuilder
+                    .stepOut()
+                    .addProperty(unescapedParamName);
         }
 
+        String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
-            nodeBuilder.properties().type(function.returnType()).data(null);
+            boolean editable = false;
+            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+                editable = true;
+            }
+            properties()
+                    .type(returnTypeName, editable)
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
-
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
-                Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
-                codedata.parentSymbol(), false);
-        nodeBuilder.properties().resourcePath(function.resourcePath());
 
         if (function.returnError() == 1) {
-            nodeBuilder.properties().checkError(true);
+            properties().checkError(true);
         }
-        return nodeBuilder.build();
     }
 }

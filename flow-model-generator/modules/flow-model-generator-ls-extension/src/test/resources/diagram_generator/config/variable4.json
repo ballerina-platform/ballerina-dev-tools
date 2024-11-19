@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "\"create xml\"",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "content",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -122,7 +121,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<p>${content}</p>`",
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -183,7 +181,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<book>The Lost World</book>`",
@@ -198,7 +196,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData1",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -122,7 +121,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "[1, 2]",
@@ -137,7 +136,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData2",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -183,7 +181,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
@@ -198,7 +196,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData3",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false

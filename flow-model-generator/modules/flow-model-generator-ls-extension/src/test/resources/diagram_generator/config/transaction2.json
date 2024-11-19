@@ -61,7 +61,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "i",
@@ -76,7 +76,6 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
-            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -169,7 +168,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -267,7 +265,6 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "res",
-                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false

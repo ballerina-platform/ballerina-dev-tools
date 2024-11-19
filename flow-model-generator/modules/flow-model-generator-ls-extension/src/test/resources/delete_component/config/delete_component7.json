@@ -1,0 +1,38 @@
+{
+  "description": "Delete Component",
+  "filePath": "delete_component2.bal",
+  "startLine": 13,
+  "startColumn": 0,
+  "endLine": 80,
+  "endColumn": 1,
+  "output": {
+    "delete_component2.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 0
+          },
+          "end": {
+            "line": 1,
+            "character": 30
+          }
+        },
+        "newText": ""
+      },
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 0
+          },
+          "end": {
+            "line": 80,
+            "character": 1
+          }
+        },
+        "newText": ""
+      }
+    ]
+  }
+}

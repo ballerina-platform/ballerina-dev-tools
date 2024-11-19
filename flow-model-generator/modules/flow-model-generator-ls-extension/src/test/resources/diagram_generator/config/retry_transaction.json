@@ -58,7 +58,8 @@
               {
                 "id": "34004",
                 "metadata": {
-                  "label": "nameOrError"
+                  "label": "nameOrError",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -104,14 +105,14 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1
@@ -204,7 +205,8 @@
               {
                 "id": "38964",
                 "metadata": {
-                  "label": "nameOrError"
+                  "label": "nameOrError",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -250,14 +252,14 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1
@@ -446,7 +448,8 @@
               {
                 "id": "45908",
                 "metadata": {
-                  "label": "nameOrError"
+                  "label": "nameOrError",
+                  "description": ""
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -492,14 +495,14 @@
                   },
                   "checkError": {
                     "metadata": {
-                      "label": "Check Flag",
-                      "description": "Whether to return the error"
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
                     },
                     "valueType": "FLAG",
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": true
                   }
                 },
                 "flags": 1

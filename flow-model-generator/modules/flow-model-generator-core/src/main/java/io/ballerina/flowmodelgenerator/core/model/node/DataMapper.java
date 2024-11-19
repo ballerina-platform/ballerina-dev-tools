@@ -16,10 +16,10 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -27,13 +27,21 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -83,21 +91,29 @@ public class DataMapper extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .data(null)
-                .custom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
-                        null, "transform", false);
+        Set<String> allVisibleSymbolNames = context.getAllVisibleSymbolNames();
+        properties().data(null, allVisibleSymbolNames);
+        properties().custom()
+                .metadata()
+                    .label(FUNCTION_NAME_LABEL)
+                    .description(FUNCTION_NAME_DOC)
+                    .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .value(NameUtil.generateTypeName("transform", allVisibleSymbolNames))
+                .editable()
+                .stepOut()
+                .addProperty(FUNCTION_NAME_KEY);
 
         // Obtain the visible variables to the cursor position
         WorkspaceManager workspaceManager = context.workspaceManager();
         SemanticModel semanticModel;
         Document document;
-        String projectName;
+        ModuleInfo currentModuleInfo;
         try {
             workspaceManager.loadProject(context.filePath());
             semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             document = workspaceManager.document(context.filePath()).orElseThrow();
-            projectName = CommonUtils.getProjectName(document);
+            currentModuleInfo = ModuleInfo.from(document.module().descriptor());
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -106,26 +122,54 @@ public class DataMapper extends NodeBuilder {
         Set<String> visibleRecordTypes = new TreeSet<>();
 
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
-            if (symbol.kind() == SymbolKind.VARIABLE &&
+            if (symbol.kind().equals(SymbolKind.VARIABLE) &&
                     symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
-                getVariableSignature(semanticModel, projectName, (VariableSymbol) symbol).ifPresent(
+                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
+                        ((VariableSymbol) symbol).typeDescriptor()).ifPresent(
+                        visibleVariables::add);
+            } else if (symbol.kind() == SymbolKind.PARAMETER) {
+                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
+                        ((ParameterSymbol) symbol).typeDescriptor()).ifPresent(
                         visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
             }
         }
 
-        properties().custom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
-                new ArrayList<>(visibleVariables), "", false);
-        properties().custom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
-                new ArrayList<>(visibleRecordTypes), "", false);
+        properties().custom()
+                .metadata()
+                    .label(INPUTS_LABEL)
+                    .description(INPUTS_DOC)
+                    .stepOut()
+                .type(Property.ValueType.MULTIPLE_SELECT)
+                .value("")
+                .typeConstraint(new ArrayList<>(visibleVariables))
+                .optional(false)
+                .editable()
+                .stepOut()
+                .addProperty(INPUTS_KEY);
+        properties().custom()
+                .metadata()
+                    .label(OUTPUT_LABEL)
+                    .description(OUTPUT_DOC)
+                    .stepOut()
+                .type(Property.ValueType.SINGLE_SELECT)
+                .value("")
+                .typeConstraint(new ArrayList<>(visibleRecordTypes))
+                .optional(false)
+                .editable()
+                .stepOut()
+                .addProperty(OUTPUT_KEY);
     }
 
-    private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,
-                                                         VariableSymbol symbol) {
-        Optional<String> name = symbol.getName();
-        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, projectName);
-        return name.map(s -> typeSignature + " " + s);
+    private static Optional<String> getVariableSignature(SemanticModel semanticModel, ModuleInfo moduleInfo,
+                                                         String name, TypeSymbol typeSymbol) {
+        if (name == null || name.isEmpty()) {
+            return Optional.empty();
+        }
+        String typeSignature =
+                CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleInfo);
+        return Optional.of(typeSignature + " " + name);
     }
 
     private static Optional<String> getRecordTypeSignature(TypeDefinitionSymbol symbol) {
@@ -141,17 +185,31 @@ public class DataMapper extends NodeBuilder {
         return symbol.getName();
     }
 
-    private boolean isNewFunction(SourceBuilder sourceBuilder, String functionNameString) {
+    private Optional<LineRange> getTransformFunctionLocation(SourceBuilder sourceBuilder, String functionNameString) {
+        Project project;
         try {
-            sourceBuilder.workspaceManager.loadProject(sourceBuilder.filePath);
+            project = sourceBuilder.workspaceManager.loadProject(sourceBuilder.filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
-            return true;
+            return Optional.empty();
         }
         Optional<SemanticModel> semanticModel = sourceBuilder.workspaceManager.semanticModel(sourceBuilder.filePath);
-        return semanticModel.map(model -> model.moduleSymbols().parallelStream()
+        Optional<Location> location = semanticModel.flatMap(model -> model.moduleSymbols().parallelStream()
                 .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(functionNameString))
                 .findAny()
-                .isEmpty()).orElse(true);
+                .flatMap(Symbol::getLocation));
+        if (location.isEmpty()) {
+            return Optional.empty();
+        }
+        Document document = CommonUtils.getDocument(project, location.get());
+        ModulePartNode node = document.syntaxTree().rootNode();
+        if (node.kind() != SyntaxKind.MODULE_PART) {
+            return Optional.empty();
+        }
+        return node.members().stream().parallel()
+                .filter(member -> member.kind() == SyntaxKind.FUNCTION_DEFINITION &&
+                        ((FunctionDefinitionNode) member).functionName().text().strip().equals(functionNameString))
+                .findAny()
+                .map(Node::lineRange);
     }
 
     @Override
@@ -173,39 +231,39 @@ public class DataMapper extends NodeBuilder {
             }
         }
 
-        if (isNewFunction(sourceBuilder, functionNameString)) {
-            Optional<Property> output = sourceBuilder.flowNode.getProperty(OUTPUT_KEY);
-            if (output.isEmpty()) {
-                throw new IllegalStateException("Output must be defined for a data mapper node");
-            }
-
-            String bodyText = "";
-            Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
-            if (recordSymbol.isPresent()) {
-                TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
-                if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
-                    bodyText =
-                            RecordUtil.getFillAllRecordFieldInsertText(
-                                    ((RecordTypeSymbol) typeSymbol).fieldDescriptors());
-                }
-            }
-
-            sourceBuilder.token()
-                    .keyword(SyntaxKind.FUNCTION_KEYWORD)
-                    .name(functionNameString)
-                    .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
-                    .name(String.join(", ", inputArray))
-                    .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                    .keyword(SyntaxKind.RETURNS_KEYWORD)
-                    .name(output.get().value().toString())
-                    .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
-                    .openBrace()
-                    .name(bodyText)
-                    .closeBrace()
-                    .endOfStatement()
-                    .stepOut()
-                    .textEdit(false, "data_mappings.bal", false);
+        Optional<Property> output = sourceBuilder.flowNode.getProperty(OUTPUT_KEY);
+        if (output.isEmpty()) {
+            throw new IllegalStateException("Output must be defined for a data mapper node");
         }
+
+        String bodyText = "";
+        Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
+        if (recordSymbol.isPresent()) {
+            TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
+            if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
+                bodyText =
+                        RecordUtil.getFillAllRecordFieldInsertText(
+                                ((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+            }
+        }
+
+        sourceBuilder.token()
+                .keyword(SyntaxKind.FUNCTION_KEYWORD)
+                .name(functionNameString)
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
+                .name(String.join(", ", inputArray))
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .keyword(SyntaxKind.RETURNS_KEYWORD)
+                .name(output.get().value().toString())
+                .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
+                .openBrace()
+                .name(bodyText)
+                .closeBrace()
+                .endOfStatement();
+
+        getTransformFunctionLocation(sourceBuilder, functionNameString).ifPresentOrElse(
+                lineRange -> sourceBuilder.textEdit(false, "data_mappings.bal", lineRange, false),
+                () -> sourceBuilder.textEdit(false, "data_mappings.bal", false));
 
         Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {

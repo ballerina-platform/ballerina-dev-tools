@@ -51,9 +51,9 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
         ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
-        PROJECT_FUNCTIONS("Project", "Functions defined within the project",
+        CURRENT_INTEGRATION("Current Integration", "Functions defined within the current integration",
                 List.of("Project", "Local", "Function")),
-        UTILITIES("Utilities", "Reusable functions from external libraries",
+        LIBRARY("Library", "Reusable functions from external libraries",
                 List.of("Utility", "Library", "Function", "External"));
 
         final String name;

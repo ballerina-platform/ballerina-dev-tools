@@ -35,7 +35,11 @@
         "value": "\"Alice\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "name"
+        }
       },
       "view": {
         "metadata": {
@@ -98,7 +102,7 @@
             "character": 37
           }
         },
-        "newText": "string greeting = greet(\"Alice\", {fileName= function_call.bal, startLine= {line= 33.0, offset= 0.0}, endLine= {line= 35.0, offset= 1.0}});"
+        "newText": "string greeting = greet(\"Alice\");"
       }
     ]
   }

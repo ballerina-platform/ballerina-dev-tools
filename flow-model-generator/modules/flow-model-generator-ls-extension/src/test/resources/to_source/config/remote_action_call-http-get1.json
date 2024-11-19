@@ -60,19 +60,30 @@
         },
         "valueType": "EXPRESSION",
         "value": "\"/pears\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
       },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
+        "value": "()",
+        "placeholder": "()",
         "valueType": "EXPRESSION",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
       },
       "type": {
         "metadata": {

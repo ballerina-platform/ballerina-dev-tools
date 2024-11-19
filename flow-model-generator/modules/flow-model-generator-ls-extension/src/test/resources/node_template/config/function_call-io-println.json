@@ -1,5 +1,9 @@
 {
   "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
@@ -28,13 +32,16 @@
           "label": "values",
           "description": "The value(s) to be printed"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "ballerina/io:1.6.1:Printable[]",
-        "value": "",
-        "placeholder": "",
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "placeholder": "()",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
       }
     },
     "flags": 0

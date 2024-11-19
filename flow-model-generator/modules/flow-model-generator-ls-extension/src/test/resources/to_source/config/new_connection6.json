@@ -53,9 +53,14 @@
           "label": "config",
           "description": "configuration for the connector\n"
         },
+        "placeholder": "{}",
         "valueType": "EXPRESSION",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
       },
       "variable": {
         "metadata": {
@@ -91,7 +96,7 @@
             "character": 56
           }
         },
-        "newText": "redis:Client moduleRedisExCl = check new ();"
+        "newText": "final redis:Client moduleRedisExCl = check new ();"
       }
     ]
   }
