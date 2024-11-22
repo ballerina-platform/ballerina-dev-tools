@@ -131,7 +131,6 @@
       }
     },
     "mappings": [],
-    "source": "Student student = {};",
-    "view": "root"
+    "source": "Student student = {};"
   }
 }

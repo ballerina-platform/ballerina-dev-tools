@@ -304,7 +304,6 @@
         "diagnostics": []
       }
     ],
-    "source": "Student student = {id: 1234, credentials: {username: userInfo.username, password: userInfo.}, length: 0};",
-    "view": "root"
+    "source": "Student student = {id: 1234, credentials: {username: userInfo.username, password: userInfo.}, length: 0};"
   }
 }

@@ -199,7 +199,6 @@
         ]
       }
     ],
-    "source": "Student student = {username: userInfo.};",
-    "view": "root"
+    "source": "Student student = {username: userInfo.};"
   }
 }

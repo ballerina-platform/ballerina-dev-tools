@@ -228,7 +228,6 @@
         "diagnostics": []
       }
     ],
-    "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username, length: 41};",
-    "view": "root"
+    "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username, length: 41};"
   }
 }

@@ -198,7 +198,6 @@
         ]
       }
     ],
-    "source": "Credentials credentials = userInf;",
-    "view": "root"
+    "source": "Credentials credentials = userInf;"
   }
 }

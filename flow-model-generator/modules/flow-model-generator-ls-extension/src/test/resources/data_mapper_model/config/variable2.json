@@ -196,7 +196,6 @@
         "diagnostics": []
       }
     ],
-    "source": "Student student = {username: userInfo.username};",
-    "view": "root"
+    "source": "Student student = {username: userInfo.username};"
   }
 }

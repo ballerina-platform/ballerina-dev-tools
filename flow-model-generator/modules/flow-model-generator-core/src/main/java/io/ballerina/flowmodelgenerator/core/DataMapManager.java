@@ -39,7 +39,6 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.PrimitiveType;
@@ -120,7 +119,6 @@ public class DataMapManager {
     public JsonElement getMappings(JsonElement node, LinePosition position, String propertyKey, Path filePath,
                                    String targetField, Project project) {
         // TODO: add tests for enum
-        // TODO: Add array tests with where, select clauses
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
         Map<Path, List<TextEdit>> textEdits =
@@ -155,15 +153,15 @@ public class DataMapManager {
 
         Type type = Type.fromSemanticSymbol(targetNode.typeSymbol());
         String name = targetNode.name();
-        MappingType output = getMappingType(name, type);
         List<Mapping> mappings = new ArrayList<>();
         ExpressionNode expressionNode = targetNode.expressionNode();
-        if (type.getTypeName().equals("record")) {
+        String typeKind = type.getTypeName();
+        if (typeKind.equals("record")) {
             generateRecordVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
-        } else if (type.getTypeName().equals("array")) {
+        } else if (typeKind.equals("array")) {
             generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
         }
-        return gson.toJsonTree(new Model(inputTypes, output, mappings, source, "root"));
+        return gson.toJsonTree(new Model(inputTypes, getMappingType(name, type), mappings, source));
     }
 
     private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
@@ -440,7 +438,7 @@ public class DataMapManager {
         for (Mapping mapping : fieldMapping) {
             genSourceForMapping(mapping, mappings);
         }
-        String mappingSource = genSourceV2(mappings);
+        String mappingSource = genSource(mappings);
         if (flowNode.codedata().node() == NodeKind.VARIABLE) {
             Optional<Property> optProperty = flowNode.getProperty("expression");
             if (optProperty.isPresent()) {
@@ -456,29 +454,7 @@ public class DataMapManager {
         return mappingSource;
     }
 
-    private String genSource(Map<String, Object> mappings) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-
-        int len = mappings.entrySet().size();
-        int i = 0;
-        for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
-            sb.append(stringObjectEntry.getKey()).append(":");
-            if (stringObjectEntry.getValue() instanceof Map<?, ?>) {
-                sb.append(genSource((Map<String, Object>) stringObjectEntry.getValue()));
-            } else {
-                sb.append(stringObjectEntry.getValue());
-            }
-            if (i != len - 1) {
-                sb.append(",");
-            }
-            i = i + 1;
-        }
-        sb.append("}");
-        return sb.toString();
-    }
-
-    private String genSourceV2(Object sourceObj) {
+    private String genSource(Object sourceObj) {
         if (sourceObj instanceof Map<?,?>) {
             StringBuilder sb = new StringBuilder();
             sb.append("{");
@@ -487,7 +463,7 @@ public class DataMapManager {
             int i = 0;
             for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
                 sb.append(stringObjectEntry.getKey()).append(":");
-                sb.append(genSourceV2(stringObjectEntry.getValue()));
+                sb.append(genSource(stringObjectEntry.getValue()));
 
                 if (i != len - 1) {
                     sb.append(",");
@@ -503,7 +479,7 @@ public class DataMapManager {
             int len = objects.size();
             int i = 0;
             for (Object object : objects) {
-                sb.append(genSourceV2(object));
+                sb.append(genSource(object));
 
                 if (i != len - 1) {
                     sb.append(",");
@@ -559,8 +535,7 @@ public class DataMapManager {
         currentMapping.put(splits[splits.length - 1], mapping.expression);
     }
 
-    private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings, String source,
-                         String view) {
+    private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings, String source) {
 
     }
 

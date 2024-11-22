@@ -300,7 +300,6 @@
         ]
       }
     ],
-    "source": "Credentials[] credentials = userInfo;",
-    "view": "root"
+    "source": "Credentials[] credentials = userInfo;"
   }
 }

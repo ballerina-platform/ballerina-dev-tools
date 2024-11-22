@@ -306,7 +306,6 @@
         "diagnostics": []
       }
     ],
-    "source": "Credentials[] credentials = from var item in userInfo\n    select {username: item.username, password: item.password};",
-    "view": "root"
+    "source": "Credentials[] credentials = from var item in userInfo\n    select {username: item.username, password: item.password};"
   }
 }
