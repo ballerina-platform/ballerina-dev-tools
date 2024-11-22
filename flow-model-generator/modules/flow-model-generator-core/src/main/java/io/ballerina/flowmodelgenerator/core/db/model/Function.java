@@ -25,8 +25,10 @@ import java.util.Set;
 public class Function {
 
     public enum Kind {
-        FUNCTION, CONNECTOR, REMOTE, RESOURCE
-
+        FUNCTION,
+        CONNECTOR,
+        REMOTE,
+        RESOURCE
     }
 
     @Id

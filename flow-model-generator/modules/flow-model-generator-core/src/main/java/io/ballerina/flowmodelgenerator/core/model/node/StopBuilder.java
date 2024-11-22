@@ -19,50 +19,43 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
- * Represents the properties of an error handler node in the flow model.
+ * Represents the properties of a stop node.
  *
  * @since 1.4.0
  */
-public class ErrorHandler extends NodeBuilder {
+public class StopBuilder extends NodeBuilder {
 
-    public static final String LABEL = "ErrorHandler";
-    public static final String DESCRIPTION = "Catch and handle errors";
-    public static final String ERROR_HANDLER_BODY = "Body";
+    public static final String LABEL = "Stop";
+    public static final String DESCRIPTION = "Stop the flow";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.ERROR_HANDLER);
+        codedata().node(NodeKind.STOP);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(ERROR_HANDLER_BODY);
-
-        sourceBuilder.token()
-                .keyword(SyntaxKind.DO_KEYWORD)
-                .stepOut()
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList());
-
-        sourceBuilder.onFailure();
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.RETURN_KEYWORD)
+                    .endOfStatement()
+                    .stepOut()
+                .textEdit(false)
+                .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(false));
     }
 }

@@ -62,7 +62,7 @@ import java.util.stream.Collectors;
  *
  * @since 1.4.0
  */
-public class DataMapper extends NodeBuilder {
+public class DataMapperBuilder extends NodeBuilder {
 
     public static final String LABEL = "Data Mapper";
     public static final String DESCRIPTION = "Map data from multiple variables to a record type";

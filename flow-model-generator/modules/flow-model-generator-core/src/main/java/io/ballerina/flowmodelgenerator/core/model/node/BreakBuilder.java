@@ -21,45 +21,42 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
- * Represents the properties of a panic node.
+ * Represents the properties of a break node.
  *
  * @since 1.4.0
  */
-public class Panic extends NodeBuilder {
+public class BreakBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Panic";
-    public static final String DESCRIPTION = "Panic and stop the execution";
-    public static final String PANIC_EXPRESSION_DOC = "Panic value";
+    public static final String LABEL = "Break";
+    public static final String DESCRIPTION = "Exit the current loop";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.PANIC);
+        codedata().node(NodeKind.BREAK);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.PANIC_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.token()
-                .whiteSpace()
-                .expression(value));
-        sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.BREAK_KEYWORD)
+                    .endOfStatement()
+                    .stepOut()
+                .textEdit(false)
+                .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", PANIC_EXPRESSION_DOC);
+
     }
 }

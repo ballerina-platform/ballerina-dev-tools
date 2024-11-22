@@ -107,7 +107,7 @@ public class ResourceActionCall extends NodeBuilder {
         codedata()
                 .org(function.org())
                 .module(function.packageName())
-                .object(NewConnection.CLIENT_SYMBOL)
+                .object(NewConnectionBuilder.CLIENT_SYMBOL)
                 .id(function.functionId())
                 .symbol(function.name());
 
@@ -116,7 +116,7 @@ public class ResourceActionCall extends NodeBuilder {
                 .label(Property.CONNECTION_LABEL)
                 .description(Property.CONNECTION_DOC)
                 .stepOut()
-                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .typeConstraint(function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())
                 .type(Property.ValueType.IDENTIFIER)
                 .stepOut()
@@ -172,8 +172,8 @@ public class ResourceActionCall extends NodeBuilder {
         String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
             boolean editable = false;
-            if (returnTypeName.contains(ActionCall.TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(ActionCall.TARGET_TYPE_KEY, "json");
+            if (returnTypeName.contains(ActionCallBuilder.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(ActionCallBuilder.TARGET_TYPE_KEY, "json");
                 editable = true;
             }
             properties()

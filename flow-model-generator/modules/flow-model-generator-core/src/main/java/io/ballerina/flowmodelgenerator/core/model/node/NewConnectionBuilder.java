@@ -45,7 +45,7 @@ import java.util.Set;
  *
  * @since 1.4.0
  */
-public class NewConnection extends NodeBuilder {
+public class NewConnectionBuilder extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 

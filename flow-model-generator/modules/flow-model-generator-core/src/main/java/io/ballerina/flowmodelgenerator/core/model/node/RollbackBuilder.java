@@ -31,35 +31,35 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a fail node.
+ * Represents the properties of a return node.
  *
  * @since 1.4.0
  */
-public class Fail extends NodeBuilder {
+public class RollbackBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Fail";
-    public static final String DESCRIPTION = "Fail the execution";
-    public static final String FAIL_EXPRESSION_DOC = "Fail value";
+    public static final String LABEL = "Rollback";
+    public static final String DESCRIPTION = "Rollback the transaction";
+    public static final String ROLLBACK_EXPRESSION_DOC = "Rollback transaction";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.FAIL);
+        codedata().node(NodeKind.ROLLBACK);
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        properties().expression("", ROLLBACK_EXPRESSION_DOC);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.FAIL_KEYWORD);
+        sourceBuilder.token().keyword(SyntaxKind.ROLLBACK_KEYWORD);
         Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
         sourceBuilder.token().endOfStatement();
         return sourceBuilder.textEdit(false).build();
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", FAIL_EXPRESSION_DOC);
     }
 }

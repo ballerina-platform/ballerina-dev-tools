@@ -30,27 +30,27 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of Binary Data node.
+ * Represents the properties of a xml payload node.
  *
  * @since 1.4.0
  */
-public class BinaryData extends NodeBuilder {
+public class XmlPayloadBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Assign Binary";
+    public static final String LABEL = "Assign XML";
     public static final String DESCRIPTION = LABEL;
-    public static final String BINARY_DATA_DOC = "Create new Binary Data";
-    private static final String DUMMY_BINARY_DATA_EXPR = "base64 `abcd`";
+    public static final String XML_PAYLOAD_DOC = "Create new XML payload";
+    private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.BINARY_DATA);
+        metadata().label(LABEL);
+        codedata().node(NodeKind.XML_PAYLOAD);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().payload(null, "byte[]")
-                .expression(DUMMY_BINARY_DATA_EXPR, BINARY_DATA_DOC);
+        properties().payload(null, "xml")
+                .expression(DUMMY_XML_PAYLOAD, XML_PAYLOAD_DOC);
     }
 
     @Override

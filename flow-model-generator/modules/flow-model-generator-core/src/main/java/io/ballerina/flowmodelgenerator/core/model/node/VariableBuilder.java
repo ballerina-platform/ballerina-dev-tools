@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -27,44 +26,50 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a while node in the flow model.
+ * Represents the properties of a variable declaration node.
  *
  * @since 1.4.0
  */
-public class While extends NodeBuilder {
+public class VariableBuilder extends NodeBuilder {
 
-    public static final String LABEL = "While";
-    public static final String DESCRIPTION = "Loop over a block of code.";
-    private static final String WHILE_CONDITION_DOC = "Boolean Condition";
+    public static final String LABEL = "Variable";
+    public static final String DESCRIPTION = "New variable with type";
+    public static final String EXPRESSION_DOC = "Initialize with value";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.WHILE);
+        metadata().label(LABEL);
+        codedata().node(NodeKind.VARIABLE);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
+        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
+        if (type.isPresent() && variable.isPresent()) {
+            sourceBuilder.token().expressionWithType(type.get(), variable.get());
+        }
 
-        sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
-        condition.ifPresent(expression -> sourceBuilder.token().expression(expression));
-        sourceBuilder.body(body.isPresent() ? body.get().children() : Collections.emptyList());
-
-        // Handle the on fail branch
-        sourceBuilder.onFailure();
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (exprProperty.isPresent() && !exprProperty.get().toSourceCode().isEmpty()) {
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.EQUAL_TOKEN)
+                    .expression(exprProperty.get());
+        }
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.textEdit(false).build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().condition(null);
+        metadata().description(DESCRIPTION);
+        properties()
+                .dataVariable(null, true, context.getAllVisibleSymbolNames())
+                .expression("", EXPRESSION_DOC, true);
     }
 }

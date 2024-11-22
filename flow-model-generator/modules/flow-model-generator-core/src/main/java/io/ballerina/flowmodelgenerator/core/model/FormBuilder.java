@@ -34,9 +34,9 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
-import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
-import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCallBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 
@@ -51,15 +51,15 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_KEY;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_LABEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_KEY;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_LABEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_KEY;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.OUTPUT_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.OUTPUT_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.OUTPUT_LABEL;
 
 /**
  * Represents a builder for the form of a flow node.
@@ -109,7 +109,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> data(String typeSignature, Set<String> names, String label) {
-        String varName = typeSignature.contains(ActionCall.TARGET_TYPE_KEY)
+        String varName = typeSignature.contains(ActionCallBuilder.TARGET_TYPE_KEY)
                 ? NameUtil.generateTypeName("var", names)
                 : NameUtil.generateVariableName(typeSignature, names);
         propertyBuilder
@@ -540,13 +540,13 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> statement(Node node) {
         propertyBuilder
                 .metadata()
-                    .label(DefaultExpression.STATEMENT_LABEL)
-                    .description(DefaultExpression.STATEMENT_DOC)
+                    .label(ExpressionBuilder.STATEMENT_LABEL)
+                    .description(ExpressionBuilder.STATEMENT_DOC)
                     .stepOut()
                 .value(node == null ? "" : node.toSourceCode().strip())
                 .type(Property.ValueType.EXPRESSION)
                 .editable();
-        addProperty(DefaultExpression.STATEMENT_KEY, node);
+        addProperty(ExpressionBuilder.STATEMENT_KEY, node);
         return this;
     }
 
@@ -641,12 +641,12 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> view(LineRange lineRange) {
         propertyBuilder
                 .metadata()
-                    .label(DataMapper.VIEW_LABEL)
-                    .description(DataMapper.VIEW_DOC)
+                    .label(DataMapperBuilder.VIEW_LABEL)
+                    .description(DataMapperBuilder.VIEW_DOC)
                     .stepOut()
                 .value(lineRange)
                 .type(Property.ValueType.VIEW);
-        addProperty(DataMapper.VIEW_KEY);
+        addProperty(DataMapperBuilder.VIEW_KEY);
         return this;
     }
 

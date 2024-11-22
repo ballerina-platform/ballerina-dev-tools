@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
-import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.EnumType;
@@ -98,7 +98,7 @@ public class TypeUtils {
     }
 
     public static String getClientType(String importPrefix, Type returnType) {
-        String clientType = String.format("%s:%s", importPrefix, NewConnection.CLIENT_SYMBOL);
+        String clientType = String.format("%s:%s", importPrefix, NewConnectionBuilder.CLIENT_SYMBOL);
         if (!returnType.getTypeName().equals(UNION_TYPE)) {
             return clientType;
         }

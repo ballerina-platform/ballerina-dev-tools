@@ -46,7 +46,7 @@ import java.util.Set;
  *
  * @since 1.4.0
  */
-public class ActionCall extends NodeBuilder {
+public class ActionCallBuilder extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
@@ -106,7 +106,7 @@ public class ActionCall extends NodeBuilder {
                 .codedata()
                 .org(function.org())
                 .module(function.packageName())
-                .object(NewConnection.CLIENT_SYMBOL)
+                .object(NewConnectionBuilder.CLIENT_SYMBOL)
                 .id(function.functionId())
                 .symbol(function.name());
 
@@ -116,7 +116,7 @@ public class ActionCall extends NodeBuilder {
                 .description(Property.CONNECTION_DOC)
                 .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .typeConstraint(function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);

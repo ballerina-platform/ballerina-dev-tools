@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -26,40 +27,48 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a return node.
+ * Represents retry block in the flow model.
  *
  * @since 1.4.0
  */
-public class Return extends NodeBuilder {
+public class RetryBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Return";
-    public static final String DESCRIPTION = "Value of '%s'";
-    public static final String RETURN_EXPRESSION_DOC = "Return value";
+    public static final String LABEL = "Retry Block";
+    public static final String DESCRIPTION = "Retry block.";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL);
-        codedata().node(NodeKind.RETURN);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.token()
-                .whiteSpace()
-                .expression(value));
-        sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.RETRY);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", RETURN_EXPRESSION_DOC);
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
+        properties().retryCount(3);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
+        Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
+
+        return sourceBuilder.token()
+                .keyword(SyntaxKind.RETRY_KEYWORD)
+                .openParen()
+                .expression(retryCount)
+                .closeParen()
+                .whiteSpace()
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                .onFailure()
+                .textEdit(false)
+                .build();
     }
 }

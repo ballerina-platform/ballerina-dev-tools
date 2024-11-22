@@ -45,7 +45,7 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -224,7 +224,7 @@ public class AvailableNodesGenerator {
     private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> connectorResult =
-                dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnection.INIT_SYMBOL,
+                dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnectionBuilder.INIT_SYMBOL,
                         DatabaseManager.FunctionKind.CONNECTOR);
         if (connectorResult.isEmpty()) {
             return List.of();
@@ -259,7 +259,7 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.REMOTE_ACTION_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
+                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
                     .symbol(connectorAction.name())
                     .parentSymbol(parentSymbol)
                     .id(connectorAction.functionId());
@@ -281,7 +281,7 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.RESOURCE_ACTION_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
+                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
                     .symbol(connectorAction.name())
                     .parentSymbol(parentSymbol)
                     .resourcePath(connectorAction.resourcePath())

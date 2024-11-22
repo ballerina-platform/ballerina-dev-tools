@@ -20,46 +20,35 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
- * Represents the properties of a xml payload node.
+ * Represents the properties of a HttpApiEvent node.
  *
  * @since 1.4.0
  */
-public class XmlPayload extends NodeBuilder {
+public class EventStartBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Assign XML";
-    public static final String DESCRIPTION = LABEL;
-    public static final String XML_PAYLOAD_DOC = "Create new XML payload";
-    private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
+    public static final String LABEL = "Start";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(NodeKind.XML_PAYLOAD);
+        codedata().node(NodeKind.EVENT_START);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder node) {
+        return null;
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().payload(null, "xml")
-                .expression(DUMMY_XML_PAYLOAD, XML_PAYLOAD_DOC);
-    }
 
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
-
-        return sourceBuilder.textEdit(false).build();
     }
 }

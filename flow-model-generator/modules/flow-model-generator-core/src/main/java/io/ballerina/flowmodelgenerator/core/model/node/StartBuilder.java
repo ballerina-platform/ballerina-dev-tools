@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -32,54 +31,35 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents configurable variable.
+ * Represents the properties of a start node in the flow model.
  *
  * @since 1.4.0
  */
-public class ConfigVariable extends NodeBuilder {
+public class StartBuilder extends NodeBuilder {
 
-    public static final String DEFAULTABLE = "defaultable";
-    public static final String LABEL = "Config";
-    public static final String DESCRIPTION = "Create a configurable variable";
+    public static final String LABEL = "Start";
+    public static final String DESCRIPTION = "Execute a function or a method invocation in a new strand";
+    public static final String START_EXPRESSION_DOC = "Call action or expression";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.CONFIG_VARIABLE);
+        codedata().node(NodeKind.START);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
-        if (variable.isEmpty()) {
-            throw new RuntimeException("Variable is not set for the Assign node");
-        }
-        sourceBuilder.token()
-                .keyword(SyntaxKind.CONFIGURABLE_KEYWORD)
+        sourceBuilder.token().keyword(SyntaxKind.START_KEYWORD);
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
-                .expression(variable.get())
-                .whiteSpace()
-                .keyword(SyntaxKind.EQUAL_TOKEN)
-                .whiteSpace();
-
-        Optional<Property> expressionOpt = sourceBuilder.flowNode.getProperty(DEFAULTABLE);
-        if (expressionOpt.isEmpty()) {
-            throw new RuntimeException("Expression is not set for configurable variable");
-        }
-
-        String value = expressionOpt.get().toSourceCode();
-        if (value.isEmpty()) {
-            value = "?";
-        }
-        sourceBuilder.token().expression(value).endOfStatement();
-
+                .expression(value));
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.textEdit(false).build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().defaultableName("").expression("", Property.EXPRESSION_DOC);
+        properties().expression("", START_EXPRESSION_DOC);
     }
 }

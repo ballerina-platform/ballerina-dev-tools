@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  *
  * @since 1.4.0
  */
-public class Match extends NodeBuilder {
+public class MatchBuilder extends NodeBuilder {
 
     public static final String LABEL = "Match";
     public static final String DESCRIPTION = "Switches the data flow based on the value of an expression.";
