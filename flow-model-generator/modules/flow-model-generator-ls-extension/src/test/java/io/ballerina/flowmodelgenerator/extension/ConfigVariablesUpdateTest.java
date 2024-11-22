@@ -22,10 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.TextEdit;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -106,9 +103,9 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      *
-     * @param configFile      Path to config file
+     * @param configFile     Path to config file
      * @param configVariable Config variables
-     * @param output          The expected output source code
+     * @param output         The expected output source code
      * @since 1.4.0
      */
     private record TestConfig(String configFile, JsonElement configVariable, Map<String, List<TextEdit>> output) {

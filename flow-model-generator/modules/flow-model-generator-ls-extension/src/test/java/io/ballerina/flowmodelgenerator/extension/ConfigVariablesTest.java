@@ -23,9 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -82,7 +79,7 @@ public class ConfigVariablesTest extends AbstractLSTest {
                 }
             }
         }
-        
+
         if (assertFalse) {
             ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.project(),
                     actualFlowNodes);
