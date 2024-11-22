@@ -514,7 +514,7 @@ public class CommonUtils {
         return (orgName.equals(moduleInfo.org()) && packageName.equals(moduleInfo.packageName()));
     }
 
-    /**s
+    /**
      * Checks if the given line position is after another line position.
      *
      * @param position the line position to check
@@ -524,5 +524,15 @@ public class CommonUtils {
     public static boolean isLinePositionAfter(LinePosition position, LinePosition other) {
         return position.line() > other.line() ||
                 (position.line() == other.line() && position.offset() > other.offset());
+    }
+
+    /**
+     * Checks if the given type name has a return type.
+     *
+     * @param typeName the type name to check
+     * @return true if the type name has a return type, false otherwise
+     */
+    public static boolean hasReturn(String typeName) {
+        return !typeName.equals("()");
     }
 }

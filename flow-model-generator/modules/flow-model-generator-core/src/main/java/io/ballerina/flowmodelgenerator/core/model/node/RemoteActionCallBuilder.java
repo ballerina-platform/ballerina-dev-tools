@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
@@ -167,7 +166,7 @@ public class RemoteActionCallBuilder extends NodeBuilder {
         }
 
         String returnTypeName = function.returnType();
-        if (TypeUtils.hasReturn(returnTypeName)) {
+        if (CommonUtils.hasReturn(returnTypeName)) {
             boolean editable = false;
             if (returnTypeName.contains(TARGET_TYPE_KEY)) {
                 returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
