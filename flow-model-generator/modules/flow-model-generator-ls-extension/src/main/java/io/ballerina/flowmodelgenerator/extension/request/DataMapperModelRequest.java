@@ -32,6 +32,7 @@ import io.ballerina.tools.text.LinePosition;
  * @since 1.4.0
  */
 public record DataMapperModelRequest(String filePath, JsonElement flowNode, LinePosition position,
-                                     String propertyKey) {
+                                     String propertyKey, String targetField) {
+    // TODO: move `targetField` into a separate call
 
 }

@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
  */
 public class DataMapperSourceResponse extends AbstractFlowModelResponse {
 
+    // TODO: Add diagram and mappings
     private String source;
 
     public DataMapperSourceResponse() {

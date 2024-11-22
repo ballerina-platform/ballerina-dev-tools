@@ -23,28 +23,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
-import io.ballerina.compiler.syntax.tree.ClauseNode;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
-import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
-import io.ballerina.compiler.syntax.tree.MappingFieldNode;
-import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.QueryExpressionNode;
-import io.ballerina.compiler.syntax.tree.SelectClauseNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.compiler.api.symbols.*;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -138,7 +118,7 @@ public class DataMapManager {
     }
 
     public JsonElement getMappings(JsonElement node, LinePosition position, String propertyKey, Path filePath,
-                                   Project project) {
+                                   String targetField, Project project) {
         // TODO: add tests for enum
         // TODO: Add array tests with where, select clauses
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
@@ -167,40 +147,105 @@ public class DataMapManager {
 
         List<MappingType> inputTypes = getInputTypes(newSemanticModel, modifiedDoc, position);
         inputTypes.sort(Comparator.comparing(mt -> mt.id));
-        MappingType output = null;
-        List<Mapping> mappings = new ArrayList<>();
 
-        if (stNode.kind() == SyntaxKind.LOCAL_VAR_DECL) {
-            Optional<Symbol> optSymbol = newSemanticModel.symbol(stNode);
-            if (optSymbol.isPresent()) {
-                Symbol symbol = optSymbol.get();
-                if (symbol.kind() == SymbolKind.VARIABLE) {
-                    Optional<String> optSymbolName = symbol.getName();
-                    if (optSymbolName.isPresent()) {
-                        String symbolName = optSymbolName.get();
-                        Type type = Type.fromSemanticSymbol(symbol);
-                        VariableDeclarationNode variableNode = (VariableDeclarationNode) stNode;
-                        if (type.getTypeName().equals("record")) {
-                            output = getMappingType(symbolName, type);
-                            generateRecordVariableDataMapping(variableNode, mappings, symbolName, newSemanticModel);
-                        } else if (type.getTypeName().equals("array")) {
-                            output = getMappingType(symbolName, type);
-                            generateArrayVariableDataMapping(variableNode, mappings, symbolName, newSemanticModel);
-                        }
-                    }
-                }
-            }
+        TargetNode targetNode = getTargetNode(stNode, targetField, newSemanticModel);
+        if (targetNode == null) {
+            return null;
+        }
+
+        Type type = Type.fromSemanticSymbol(targetNode.typeSymbol());
+        String name = targetNode.name();
+        MappingType output = getMappingType(name, type);
+        List<Mapping> mappings = new ArrayList<>();
+        ExpressionNode expressionNode = targetNode.expressionNode();
+        if (type.getTypeName().equals("record")) {
+            generateRecordVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
+        } else if (type.getTypeName().equals("array")) {
+            generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
         }
         return gson.toJsonTree(new Model(inputTypes, output, mappings, source, "root"));
     }
 
-    private void generateRecordVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
-                                                   String name, SemanticModel semanticModel) {
-        Optional<ExpressionNode> optInitializer = varDecl.initializer();
-        if (optInitializer.isEmpty()) {
-            return;
+    private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
+        if (parentNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+            return null;
         }
-        ExpressionNode expressionNode = optInitializer.get();
+
+        VariableDeclarationNode varDeclNode = (VariableDeclarationNode) parentNode;
+        Optional<ExpressionNode> optInitializer = varDeclNode.initializer();
+        if (optInitializer.isEmpty()) {
+            return null;
+        }
+
+        Optional<Symbol> optSymbol = semanticModel.symbol(parentNode);
+        if (optSymbol.isEmpty()) {
+            return null;
+        }
+        Symbol symbol = optSymbol.get();
+        if (symbol.kind() != SymbolKind.VARIABLE) {
+            return null;
+        }
+        VariableSymbol variableSymbol = (VariableSymbol) symbol;
+        TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
+        ExpressionNode initializer = optInitializer.get();
+        if (targetField == null) {
+            return new TargetNode(typeSymbol, variableSymbol.getName().get(), initializer);
+        }
+
+        if (initializer.kind() == SyntaxKind.QUERY_EXPRESSION) {
+            if (typeSymbol.typeKind() != TypeDescKind.ARRAY) {
+                return null;
+            }
+            typeSymbol = ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor();
+            initializer = ((SelectClauseNode) ((QueryExpressionNode) initializer).resultClause()).expression();
+        }
+
+        if (initializer.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
+            return null;
+        }
+        typeSymbol = CommonUtils.getRawType(typeSymbol);
+        if (typeSymbol.typeKind() != TypeDescKind.RECORD) {
+            return null;
+        }
+
+        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
+        MappingConstructorExpressionNode mappingCtrExprNode = (MappingConstructorExpressionNode) initializer;
+
+        String[] splits = targetField.split("\\.");
+        if (!splits[0].equals(varDeclNode.typedBindingPattern().bindingPattern().toSourceCode().trim())) {
+            return null;
+        }
+
+        Map<String, MappingFieldNode> mappingFieldsMap = convertMappingFieldsToMap(mappingCtrExprNode.fields());
+        Map<String, RecordFieldSymbol> fieldDescriptors = recordTypeSymbol.fieldDescriptors();
+        for (int i = 1; i < splits.length; i++) {
+            String split = splits[i];
+            MappingFieldNode mappingFieldNode = mappingFieldsMap.get(split);
+            if (mappingFieldNode != null) {
+                RecordFieldSymbol recordFieldSymbol = fieldDescriptors.get(split);
+                if (recordFieldSymbol != null) {
+                    return new TargetNode(recordFieldSymbol.typeDescriptor(), split, ((SpecificFieldNode) mappingFieldNode).valueExpr().get());
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
+    private record TargetNode(TypeSymbol typeSymbol, String name, ExpressionNode expressionNode) {}
+
+    private Map<String, MappingFieldNode> convertMappingFieldsToMap(SeparatedNodeList<MappingFieldNode> mappingFields) {
+        Map<String, MappingFieldNode> mappingFieldNodeMap = new HashMap<>();
+        int size = mappingFields.size();
+        for (int i = 0; i < size; i++) {
+            SpecificFieldNode mappingFieldNode = (SpecificFieldNode) mappingFields.get(i);
+            mappingFieldNodeMap.put(mappingFieldNode.fieldName().toSourceCode(), mappingFieldNode);
+        }
+        return mappingFieldNodeMap;
+    }
+
+    private void generateRecordVariableDataMapping(ExpressionNode expressionNode, List<Mapping> mappings,
+                                                   String name, SemanticModel semanticModel) {
         SyntaxKind exprKind = expressionNode.kind();
         if (exprKind == SyntaxKind.MAPPING_CONSTRUCTOR) {
             genMapping((MappingConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
@@ -209,13 +254,8 @@ public class DataMapManager {
         }
     }
 
-    private void generateArrayVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
+    private void generateArrayVariableDataMapping(ExpressionNode expressionNode, List<Mapping> mappings,
                                                   String name, SemanticModel semanticModel) {
-        Optional<ExpressionNode> optInitializer = varDecl.initializer();
-        if (optInitializer.isEmpty()) {
-            return;
-        }
-        ExpressionNode expressionNode = optInitializer.get();
         SyntaxKind exprKind = expressionNode.kind();
         if (exprKind == SyntaxKind.LIST_CONSTRUCTOR) {
             genMapping((ListConstructorExpressionNode) expressionNode, mappings, name, semanticModel);

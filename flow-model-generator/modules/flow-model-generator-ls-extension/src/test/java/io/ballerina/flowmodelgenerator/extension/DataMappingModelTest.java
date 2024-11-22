@@ -40,6 +40,7 @@ public class DataMappingModelTest extends AbstractLSTest {
                 {Path.of("variable17.json")},
                 {Path.of("variable18.json")},
                 {Path.of("variable19.json")},
+                {Path.of("variable20.json")},
         };
     }
 
@@ -52,13 +53,13 @@ public class DataMappingModelTest extends AbstractLSTest {
 
         DataMapperModelRequest request =
                 new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram(), testConfig.position(), testConfig.propertyKey());
+                        testConfig.diagram(), testConfig.position(), testConfig.propertyKey(), testConfig.targetField());
         JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappings");
 
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
-                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model);
-//            updateConfig(configJsonPath, updateConfig);
+                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model, testConfig.targetField());
+            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -95,7 +96,7 @@ public class DataMappingModelTest extends AbstractLSTest {
      * @param model       The expected data mapping model
      */
     private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
-                              LinePosition position, JsonElement model) {
+                              LinePosition position, JsonElement model, String targetField) {
 
         public String description() {
             return description == null ? "" : description;
