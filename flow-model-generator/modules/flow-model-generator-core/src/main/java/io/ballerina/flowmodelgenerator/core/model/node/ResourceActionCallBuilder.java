@@ -46,7 +46,7 @@ import java.util.Set;
  *
  * @since 1.4.0
  */
-public class ResourceActionCall extends NodeBuilder {
+public class ResourceActionCallBuilder extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
@@ -172,8 +172,8 @@ public class ResourceActionCall extends NodeBuilder {
         String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
             boolean editable = false;
-            if (returnTypeName.contains(ActionCallBuilder.TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(ActionCallBuilder.TARGET_TYPE_KEY, "json");
+            if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
                 editable = true;
             }
             properties()

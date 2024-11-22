@@ -139,8 +139,8 @@ public class FunctionCall extends NodeBuilder {
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
                 String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
                 boolean editable = true;
-                if (returnTypeName.contains(ActionCallBuilder.TARGET_TYPE_KEY)) {
-                    returnTypeName = returnTypeName.replace(ActionCallBuilder.TARGET_TYPE_KEY, "json");
+                if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
+                    returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
                     editable = true;
                 }
                 properties()
@@ -228,8 +228,8 @@ public class FunctionCall extends NodeBuilder {
         String returnTypeName = function.returnType();
         if (TypeUtils.hasReturn(function.returnType())) {
             boolean editable = false;
-            if (returnTypeName.contains(ActionCallBuilder.TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(ActionCallBuilder.TARGET_TYPE_KEY, "json");
+            if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
                 editable = true;
             }
             properties()

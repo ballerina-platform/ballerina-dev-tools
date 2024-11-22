@@ -34,7 +34,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCallBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.tools.text.LineRange;
@@ -109,7 +109,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> data(String typeSignature, Set<String> names, String label) {
-        String varName = typeSignature.contains(ActionCallBuilder.TARGET_TYPE_KEY)
+        String varName = typeSignature.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)
                 ? NameUtil.generateTypeName("var", names)
                 : NameUtil.generateVariableName(typeSignature, names);
         propertyBuilder

@@ -46,7 +46,7 @@ import java.util.Set;
  *
  * @since 1.4.0
  */
-public class ActionCallBuilder extends NodeBuilder {
+public class RemoteActionCallBuilder extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
