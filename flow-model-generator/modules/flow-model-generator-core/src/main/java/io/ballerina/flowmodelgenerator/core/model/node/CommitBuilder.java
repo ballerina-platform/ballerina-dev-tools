@@ -34,7 +34,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class Commit extends NodeBuilder {
+public class CommitBuilder extends NodeBuilder {
 
     public static final String LABEL = "Commit";
     public static final String DESCRIPTION = "Commit transaction";

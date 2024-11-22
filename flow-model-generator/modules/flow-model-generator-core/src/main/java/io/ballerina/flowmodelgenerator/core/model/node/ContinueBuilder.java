@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -28,23 +29,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents the properties of a HttpApiEvent node.
+ * Represents the properties of a continue node.
  *
  * @since 1.4.0
  */
-public class EventStart extends NodeBuilder {
+public class ContinueBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Start";
+    public static final String LABEL = "Continue";
+    public static final String DESCRIPTION = "Skip the current iteration and continue with the next one";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL);
-        codedata().node(NodeKind.EVENT_START);
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.CONTINUE);
     }
 
     @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder node) {
-        return null;
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        return sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.CONTINUE_KEYWORD)
+                    .endOfStatement()
+                    .stepOut()
+                .textEdit(false)
+                .build();
     }
 
     @Override

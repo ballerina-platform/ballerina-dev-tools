@@ -26,10 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.tools.text.LinePosition;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.TextEdit;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -62,8 +59,7 @@ public class DeleteNodeTest extends AbstractLSTest {
         String sourceFile = sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(sourceFile, testConfig.functionStart(),
                 testConfig.functionEnd());
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
-        JsonObject jsonMap = getResponse(endpoint, request, "getFlowModel").getAsJsonObject("flowModel");
+        JsonObject jsonMap = getResponse(request, "getFlowModel").getAsJsonObject("flowModel");
 
         Diagram diagram = gson.fromJson(jsonMap, Diagram.class);
         FlowNode nodeToDelete = null;

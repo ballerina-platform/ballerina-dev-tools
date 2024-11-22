@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -30,36 +31,35 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a JSON payload node.
+ * Represents the properties of a return node.
  *
  * @since 1.4.0
  */
-public class JsonPayload extends NodeBuilder {
+public class ReturnBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Assign JSON";
-    public static final String DESCRIPTION = LABEL;
-    public static final String JSON_PAYLOAD_DOC = "Create new JSON payload";
-    private static final String DUMMY_JSON_PAYLOAD = "{\"value\": \"Dummy JSON value\"}";
+    public static final String LABEL = "Return";
+    public static final String DESCRIPTION = "Value of '%s'";
+    public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(NodeKind.JSON_PAYLOAD);
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        properties().payload(null, "json")
-                .expression(DUMMY_JSON_PAYLOAD, JSON_PAYLOAD_DOC);
+        codedata().node(NodeKind.RETURN);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
-
+        sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token()
+                .whiteSpace()
+                .expression(value));
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.textEdit(false).build();
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        properties().expression("", RETURN_EXPRESSION_DOC);
     }
 }

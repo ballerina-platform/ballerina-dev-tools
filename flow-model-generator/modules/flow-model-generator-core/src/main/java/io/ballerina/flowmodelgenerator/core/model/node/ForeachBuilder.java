@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -31,45 +32,43 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a variable declaration node.
+ * Represents the properties of foreach node in the flow model.
  *
  * @since 1.4.0
  */
-public class Variable extends NodeBuilder {
+public class ForeachBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Variable";
-    public static final String DESCRIPTION = "New variable with type";
-    public static final String EXPRESSION_DOC = "Initialize with value";
+    public static final String LABEL = "Foreach";
+    public static final String DESCRIPTION = "Iterate over a block of code.";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL);
-        codedata().node(NodeKind.VARIABLE);
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.FOREACH);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
-        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
-        if (type.isPresent() && variable.isPresent()) {
-            sourceBuilder.token().expressionWithType(type.get(), variable.get());
-        }
+        sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
+                .stepOut()
+                .typedBindingPattern()
+                .token().keyword(SyntaxKind.IN_KEYWORD);
 
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        if (exprProperty.isPresent() && !exprProperty.get().toSourceCode().isEmpty()) {
-            sourceBuilder.token()
-                    .keyword(SyntaxKind.EQUAL_TOKEN)
-                    .expression(exprProperty.get());
-        }
-        sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.COLLECTION_KEY);
+        exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
+
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
+        body.ifPresent(branch -> sourceBuilder.body(branch.children()));
+
+        return sourceBuilder
+                .onFailure()
+                .textEdit(false)
+                .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        metadata().description(DESCRIPTION);
-        properties()
-                .dataVariable(null, true, context.getAllVisibleSymbolNames())
-                .expression("", EXPRESSION_DOC, true);
+        properties().dataVariable(null, context.getAllVisibleSymbolNames()).collection(null);
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
     }
 }

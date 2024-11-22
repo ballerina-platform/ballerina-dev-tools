@@ -22,10 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.TextEdit;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -51,13 +48,12 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         ConfigVariablesUpdateRequest request = new ConfigVariablesUpdateRequest(
                 sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString(), testConfig.configVariable());
-        JsonObject jsonMap = getResponse(endpoint, request).getAsJsonObject("textEdits");
+        JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
         boolean assertFailure = false;
@@ -82,7 +78,6 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
-        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override
@@ -108,9 +103,9 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      *
-     * @param configFile      Path to config file
+     * @param configFile     Path to config file
      * @param configVariable Config variables
-     * @param output          The expected output source code
+     * @param output         The expected output source code
      * @since 1.4.0
      */
     private record TestConfig(String configFile, JsonElement configVariable, Map<String, List<TextEdit>> output) {
