@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class FunctionEntryPointModelGenerator extends ModelGenerator {
 
-    public FunctionEntryPoint functionEntryPoint = null;
+    private FunctionEntryPoint functionEntryPoint = null;
 
     private final List<Connection> dependencies = new LinkedList<>();
 
