@@ -1,1 +1,2 @@
 io.ballerina.flowmodelgenerator.extension.FlowModelGeneratorClientCapabilitySetter
+io.ballerina.triggermodelgenerator.extension.TriggerModelGeneratorClientCapabilitySetter
