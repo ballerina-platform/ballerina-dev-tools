@@ -54,7 +54,7 @@ public class DataMappingModelTest extends AbstractLSTest {
         DataMapperModelRequest request =
                 new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
                         testConfig.diagram(), testConfig.position(), testConfig.propertyKey(), testConfig.targetField());
-        JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappings");
+        JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappingsModel");
 
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),

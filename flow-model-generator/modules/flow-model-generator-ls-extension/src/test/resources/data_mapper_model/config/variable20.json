@@ -66,410 +66,93 @@
     "inputs": [
       {
         "id": "CONST",
-        "category": "constant",
-        "type": {
-          "typeName": "CONST",
-          "optional": false,
-          "defaultable": false,
-          "isRestType": false
-        }
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
       },
       {
         "member": {
           "fields": [
             {
               "id": "banks.name",
-              "type": {
-                "name": "name",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "name",
+              "typeName": "string",
+              "kind": "string"
             },
             {
               "member": {
                 "fields": [
                   {
                     "id": "banks.userInfo.username",
-                    "type": {
-                      "name": "username",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
+                    "variableName": "username",
+                    "typeName": "string",
+                    "kind": "string"
                   },
                   {
                     "id": "banks.userInfo.password",
-                    "type": {
-                      "name": "password",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
+                    "variableName": "password",
+                    "typeName": "string",
+                    "kind": "string"
                   },
                   {
                     "id": "banks.userInfo.id",
-                    "type": {
-                      "name": "id",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
+                    "variableName": "id",
+                    "typeName": "int",
+                    "kind": "int"
                   }
                 ],
                 "id": "banks.userInfo",
-                "type": {
-                  "fields": [
-                    {
-                      "name": "username",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "password",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "id",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
-                  ],
-                  "hasRestType": false,
-                  "name": "UserInfo",
-                  "typeName": "record",
-                  "optional": false,
-                  "typeInfo": {
-                    "name": "UserInfo",
-                    "orgName": "$anon",
-                    "moduleName": ".",
-                    "version": "0.0.0"
-                  },
-                  "defaultable": false,
-                  "isRestType": false
-                }
+                "variableName": "banks.userInfo",
+                "typeName": "UserInfo",
+                "kind": "record"
               },
               "id": "banks.userInfo",
-              "type": {
-                "memberType": {
-                  "fields": [
-                    {
-                      "name": "username",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "password",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "id",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
-                  ],
-                  "hasRestType": false,
-                  "name": "UserInfo",
-                  "typeName": "record",
-                  "optional": false,
-                  "typeInfo": {
-                    "name": "UserInfo",
-                    "orgName": "$anon",
-                    "moduleName": ".",
-                    "version": "0.0.0"
-                  },
-                  "defaultable": false,
-                  "isRestType": false
-                },
-                "name": "userInfo",
-                "typeName": "array",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "banks.userInfo",
+              "typeName": "userInfo",
+              "kind": "array"
             }
           ],
           "id": "banks",
-          "type": {
-            "fields": [
-              {
-                "name": "name",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "memberType": {
-                  "fields": [
-                    {
-                      "name": "username",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "password",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "id",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
-                  ],
-                  "hasRestType": false,
-                  "name": "UserInfo",
-                  "typeName": "record",
-                  "optional": false,
-                  "typeInfo": {
-                    "name": "UserInfo",
-                    "orgName": "$anon",
-                    "moduleName": ".",
-                    "version": "0.0.0"
-                  },
-                  "defaultable": false,
-                  "isRestType": false
-                },
-                "name": "userInfo",
-                "typeName": "array",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "Bank",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Bank",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "banks",
+          "typeName": "Bank",
+          "kind": "record"
         },
         "id": "banks",
-        "category": "variable",
-        "type": {
-          "memberType": {
-            "fields": [
-              {
-                "name": "name",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "memberType": {
-                  "fields": [
-                    {
-                      "name": "username",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "password",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    },
-                    {
-                      "name": "id",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "isRestType": false
-                    }
-                  ],
-                  "hasRestType": false,
-                  "name": "UserInfo",
-                  "typeName": "record",
-                  "optional": false,
-                  "typeInfo": {
-                    "name": "UserInfo",
-                    "orgName": "$anon",
-                    "moduleName": ".",
-                    "version": "0.0.0"
-                  },
-                  "defaultable": false,
-                  "isRestType": false
-                },
-                "name": "userInfo",
-                "typeName": "array",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "Bank",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Bank",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          },
-          "typeName": "array",
-          "optional": false,
-          "defaultable": false,
-          "isRestType": false
-        }
+        "variableName": "banks",
+        "kind": "array",
+        "category": "variable"
       },
       {
         "member": {
           "fields": [
             {
               "id": "userInfo.username",
-              "type": {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "username",
+              "typeName": "string",
+              "kind": "string"
             },
             {
               "id": "userInfo.password",
-              "type": {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
             },
             {
               "id": "userInfo.id",
-              "type": {
-                "name": "id",
-                "typeName": "int",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "id",
+              "typeName": "int",
+              "kind": "int"
             }
           ],
           "id": "userInfo",
-          "type": {
-            "fields": [
-              {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "id",
-                "typeName": "int",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "UserInfo",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "UserInfo",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "userInfo",
+          "typeName": "UserInfo",
+          "kind": "record"
         },
         "id": "userInfo",
-        "category": "variable",
-        "type": {
-          "memberType": {
-            "fields": [
-              {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "id",
-                "typeName": "int",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "UserInfo",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "UserInfo",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          },
-          "typeName": "array",
-          "optional": false,
-          "defaultable": false,
-          "isRestType": false
-        }
+        "variableName": "userInfo",
+        "kind": "array",
+        "category": "variable"
       }
     ],
     "output": {
@@ -477,94 +160,25 @@
         "fields": [
           {
             "id": "credentials.username",
-            "type": {
-              "name": "username",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
           },
           {
             "id": "credentials.password",
-            "type": {
-              "name": "password",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
           }
         ],
         "id": "credentials",
-        "type": {
-          "fields": [
-            {
-              "name": "username",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            },
-            {
-              "name": "password",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
-          ],
-          "hasRestType": false,
-          "name": "Credentials",
-          "typeName": "record",
-          "optional": false,
-          "typeInfo": {
-            "name": "Credentials",
-            "orgName": "$anon",
-            "moduleName": ".",
-            "version": "0.0.0"
-          },
-          "defaultable": false,
-          "isRestType": false
-        }
+        "variableName": "credentials",
+        "typeName": "Credentials",
+        "kind": "record"
       },
       "id": "credentials",
-      "type": {
-        "memberType": {
-          "fields": [
-            {
-              "name": "username",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            },
-            {
-              "name": "password",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
-          ],
-          "hasRestType": false,
-          "name": "Credentials",
-          "typeName": "record",
-          "optional": false,
-          "typeInfo": {
-            "name": "Credentials",
-            "orgName": "$anon",
-            "moduleName": ".",
-            "version": "0.0.0"
-          },
-          "defaultable": false,
-          "isRestType": false
-        },
-        "typeName": "array",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      }
+      "variableName": "credentials",
+      "kind": "array"
     },
     "mappings": [
       {

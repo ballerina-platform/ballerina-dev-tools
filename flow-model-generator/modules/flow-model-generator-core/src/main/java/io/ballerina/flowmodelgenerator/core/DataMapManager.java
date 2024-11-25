@@ -143,8 +143,8 @@ public class DataMapManager {
                 new Position(endLine.line(), endLine.offset()));
         NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
 
-        List<MappingType> inputTypes = getInputTypes(newSemanticModel, modifiedDoc, position);
-        inputTypes.sort(Comparator.comparing(mt -> mt.id));
+        List<MappingPort> inputPorts = getInputPorts(newSemanticModel, modifiedDoc, position);
+        inputPorts.sort(Comparator.comparing(mt -> mt.id));
 
         TargetNode targetNode = getTargetNode(stNode, targetField, newSemanticModel);
         if (targetNode == null) {
@@ -161,7 +161,7 @@ public class DataMapManager {
         } else if (typeKind.equals("array")) {
             generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
         }
-        return gson.toJsonTree(new Model(inputTypes, getMappingType(name, type), mappings, source));
+        return gson.toJsonTree(new Model(inputPorts, getMappingPort(name, type), mappings, source));
     }
 
     private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
@@ -371,8 +371,8 @@ public class DataMapManager {
         return diagnosticMsgs;
     }
 
-    private List<MappingType> getInputTypes(SemanticModel semanticModel, Document document, LinePosition position) {
-        List<MappingType> mappingTypes = new ArrayList<>();
+    private List<MappingPort> getInputPorts(SemanticModel semanticModel, Document document, LinePosition position) {
+        List<MappingPort> mappingPorts = new ArrayList<>();
 
         List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
         for (Symbol symbol : symbols) {
@@ -383,46 +383,46 @@ public class DataMapManager {
                     continue;
                 }
                 Type type = Type.fromSemanticSymbol(symbol);
-                MappingType mappingType = getMappingType(optName.get(), type);
-                if (mappingType == null) {
+                MappingPort mappingPort = getMappingPort(optName.get(), type);
+                if (mappingPort == null) {
                     continue;
                 }
                 VariableSymbol varSymbol = (VariableSymbol) symbol;
                 if (varSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
-                    mappingType.category = "configurable";
+                    mappingPort.category = "configurable";
                 } else {
-                    mappingType.category = "variable";
+                    mappingPort.category = "variable";
                 }
-                mappingTypes.add(mappingType);
+                mappingPorts.add(mappingPort);
             } else if (kind == SymbolKind.CONSTANT) {
                 Type type = Type.fromSemanticSymbol(symbol);
                 // TODO: Name of constant is set to type name, check that
-                MappingType mappingType = getMappingType(type.getTypeName(), type);
-                if (mappingType == null) {
+                MappingPort mappingPort = getMappingPort(type.getTypeName(), type);
+                if (mappingPort == null) {
                     continue;
                 }
-                mappingType.category = "constant";
-                mappingTypes.add(mappingType);
+                mappingPort.category = "constant";
+                mappingPorts.add(mappingPort);
             }
         }
-        return mappingTypes;
+        return mappingPorts;
     }
 
-    private MappingType getMappingType(String name, Type type) {
+    private MappingPort getMappingPort(String name, Type type) {
         if (type.getTypeName().equals("record")) {
             RecordType recordType = (RecordType) type;
-            MappingRecordType mappingRecordType = new MappingRecordType(name, type);
+            MappingRecordPort recordPort = new MappingRecordPort(name, name, type.getName(), type.getTypeName());
             for (Type field : recordType.fields) {
-                mappingRecordType.fields.add(getMappingType(name + "." + field.getName(), field));
+                recordPort.fields.add(getMappingPort(name + "." + field.getName(), field));
             }
-            return mappingRecordType;
+            return recordPort;
         } else if (type instanceof PrimitiveType) {
-            return new MappingType(name, type);
+            return new MappingPort(name, type.getName(), type.getTypeName(), type.getTypeName());
         } else if (type.getTypeName().equals("array")) {
             ArrayType arrayType = (ArrayType) type;
-            MappingArrayType mappingArrayType = new MappingArrayType(name, type);
-            mappingArrayType.member = getMappingType(name, arrayType.memberType);
-            return mappingArrayType;
+            MappingArrayPort arrayPort = new MappingArrayPort(name, name, type.getName(), type.getTypeName());
+            arrayPort.member = getMappingPort(name, arrayType.memberType);
+            return arrayPort;
         } else {
             return null;
         }
@@ -535,7 +535,7 @@ public class DataMapManager {
         currentMapping.put(splits[splits.length - 1], mapping.expression);
     }
 
-    private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings, String source) {
+    private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings, String source) {
 
     }
 
@@ -544,38 +544,39 @@ public class DataMapManager {
     }
 
     // TODO: Recheck the constructor generation
-    private static class MappingType {
+    // TODO: Rename to MappingPort
+    private static class MappingPort {
         String id;
+        String variableName;
+        String typeName;
+        String kind;
         String category;
-        Type type;
 
-        MappingType(String id, Type type) {
+        MappingPort(String id, String variableName, String typeName, String kind) {
             this.id = id;
-            this.type = type;
+            this.variableName = variableName;
+            this.typeName = typeName;
+            this.kind = kind;
         }
 
         String getCategory() {
             return this.category;
         }
+    }
 
-        Type getType() {
-            return this.type;
+    private static class MappingRecordPort extends MappingPort {
+        List<MappingPort> fields = new ArrayList<>();
+
+        MappingRecordPort(String id, String variableName, String typeName, String kind) {
+            super(id, variableName, typeName, kind);
         }
     }
 
-    private static class MappingRecordType extends MappingType {
-        List<MappingType> fields = new ArrayList<>();
+    private static class MappingArrayPort extends MappingPort {
+        MappingPort member;
 
-        MappingRecordType(String id, Type type) {
-            super(id, type);
-        }
-    }
-
-    private static class MappingArrayType extends MappingType {
-        MappingType member;
-
-        MappingArrayType(String id, Type type) {
-            super(id, type);
+        MappingArrayPort(String id, String variableName, String typeName, String kind) {
+            super(id, variableName, typeName, kind);
         }
     }
 }

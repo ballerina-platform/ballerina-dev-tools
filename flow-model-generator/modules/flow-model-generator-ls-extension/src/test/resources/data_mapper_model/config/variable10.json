@@ -66,210 +66,71 @@
     "inputs": [
       {
         "id": "CONST",
-        "category": "constant",
-        "type": {
-          "typeName": "CONST",
-          "optional": false,
-          "defaultable": false,
-          "isRestType": false
-        }
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
       },
       {
         "fields": [
           {
             "id": "userInfo.username",
-            "type": {
-              "name": "username",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
           },
           {
             "id": "userInfo.password",
-            "type": {
-              "name": "password",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
           }
         ],
         "id": "userInfo",
-        "category": "variable",
-        "type": {
-          "fields": [
-            {
-              "name": "username",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            },
-            {
-              "name": "password",
-              "typeName": "string",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false
-            }
-          ],
-          "hasRestType": false,
-          "name": "UserInfo",
-          "typeName": "record",
-          "optional": false,
-          "typeInfo": {
-            "name": "UserInfo",
-            "orgName": "$anon",
-            "moduleName": ".",
-            "version": "0.0.0"
-          },
-          "defaultable": false,
-          "isRestType": false
-        }
+        "variableName": "userInfo",
+        "typeName": "UserInfo",
+        "kind": "record",
+        "category": "variable"
       }
     ],
     "output": {
       "fields": [
         {
           "id": "student.id",
-          "type": {
-            "name": "id",
-            "typeName": "decimal",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "id",
+          "typeName": "decimal",
+          "kind": "decimal"
         },
         {
           "fields": [
             {
               "id": "student.credentials.username",
-              "type": {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "username",
+              "typeName": "string",
+              "kind": "string"
             },
             {
               "id": "student.credentials.password",
-              "type": {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
             }
           ],
           "id": "student.credentials",
-          "type": {
-            "fields": [
-              {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "credentials",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Credentials",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "student.credentials",
+          "typeName": "credentials",
+          "kind": "record"
         },
         {
           "id": "student.length",
-          "type": {
-            "name": "length",
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "length",
+          "typeName": "int",
+          "kind": "int"
         }
       ],
       "id": "student",
-      "type": {
-        "fields": [
-          {
-            "name": "id",
-            "typeName": "decimal",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          },
-          {
-            "fields": [
-              {
-                "name": "username",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              },
-              {
-                "name": "password",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "credentials",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Credentials",
-              "orgName": "$anon",
-              "moduleName": ".",
-              "version": "0.0.0"
-            },
-            "defaultable": false,
-            "isRestType": false
-          },
-          {
-            "name": "length",
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        ],
-        "hasRestType": false,
-        "name": "Student",
-        "typeName": "record",
-        "optional": false,
-        "typeInfo": {
-          "name": "Student",
-          "orgName": "$anon",
-          "moduleName": ".",
-          "version": "0.0.0"
-        },
-        "defaultable": false,
-        "isRestType": false
-      }
+      "variableName": "student",
+      "typeName": "Student",
+      "kind": "record"
     },
     "mappings": [
       {

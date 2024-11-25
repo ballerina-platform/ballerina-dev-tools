@@ -66,69 +66,30 @@
     "inputs": [
       {
         "id": "CONST",
-        "category": "constant",
-        "type": {
-          "typeName": "CONST",
-          "optional": false,
-          "defaultable": false,
-          "isRestType": false
-        }
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
       }
     ],
     "output": {
       "fields": [
         {
           "id": "student.username",
-          "type": {
-            "name": "username",
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "username",
+          "typeName": "string",
+          "kind": "string"
         },
         {
           "id": "student.password",
-          "type": {
-            "name": "password",
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
+          "variableName": "password",
+          "typeName": "string",
+          "kind": "string"
         }
       ],
       "id": "student",
-      "type": {
-        "fields": [
-          {
-            "name": "username",
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          },
-          {
-            "name": "password",
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        ],
-        "hasRestType": false,
-        "name": "Student",
-        "typeName": "record",
-        "optional": false,
-        "typeInfo": {
-          "name": "Student",
-          "orgName": "$anon",
-          "moduleName": ".",
-          "version": "0.0.0"
-        },
-        "defaultable": false,
-        "isRestType": false
-      }
+      "variableName": "student",
+      "typeName": "Student",
+      "kind": "record"
     },
     "mappings": [],
     "source": "Student student = {};"
