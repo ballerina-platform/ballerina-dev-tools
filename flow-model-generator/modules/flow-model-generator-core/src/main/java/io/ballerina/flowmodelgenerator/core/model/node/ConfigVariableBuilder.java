@@ -32,20 +32,20 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents both variable initialization to a new variable, and assignment of a value to an existing variable.
+ * Represents configurable variable.
  *
  * @since 1.4.0
  */
-public class Assign extends NodeBuilder {
+public class ConfigVariableBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Assign";
-    public static final String DESCRIPTION = "Assign a value to a variable";
-    public static final String EXPRESSION_DOC = "Assign value";
+    public static final String DEFAULTABLE = "defaultable";
+    public static final String LABEL = "Config";
+    public static final String DESCRIPTION = "Create a configurable variable";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.ASSIGN);
+        codedata().node(NodeKind.CONFIG_VARIABLE);
     }
 
     @Override
@@ -57,24 +57,29 @@ public class Assign extends NodeBuilder {
             throw new RuntimeException("Variable is not set for the Assign node");
         }
         sourceBuilder.token()
+                .keyword(SyntaxKind.CONFIGURABLE_KEYWORD)
+                .whiteSpace()
                 .expression(variable.get())
                 .whiteSpace()
                 .keyword(SyntaxKind.EQUAL_TOKEN)
                 .whiteSpace();
 
-        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        if (expression.isEmpty()) {
-            throw new RuntimeException("Expression is not set for the Assign node");
+        Optional<Property> expressionOpt = sourceBuilder.flowNode.getProperty(DEFAULTABLE);
+        if (expressionOpt.isEmpty()) {
+            throw new RuntimeException("Expression is not set for configurable variable");
         }
-        sourceBuilder.token().expression(expression.get()).endOfStatement();
+
+        String value = expressionOpt.get().toSourceCode();
+        if (value.isEmpty()) {
+            value = "?";
+        }
+        sourceBuilder.token().expression(value).endOfStatement();
 
         return sourceBuilder.textEdit(false).build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .data(null, true, context.getAllVisibleSymbolNames())
-                .expression("", EXPRESSION_DOC);
+        properties().defaultableName("").expression("", Property.EXPRESSION_DOC);
     }
 }

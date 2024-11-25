@@ -19,47 +19,48 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a return node.
+ * Represents the properties of lock node in the flow model.
  *
  * @since 1.4.0
  */
-public class Rollback extends NodeBuilder {
+public class LockBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Rollback";
-    public static final String DESCRIPTION = "Rollback the transaction";
-    public static final String ROLLBACK_EXPRESSION_DOC = "Rollback transaction";
+    public static final String LABEL = "Lock";
+    public static final String DESCRIPTION = "Allow to access mutable states safely";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.ROLLBACK);
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", ROLLBACK_EXPRESSION_DOC);
+        codedata().node(NodeKind.LOCK);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.ROLLBACK_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.token()
-                .whiteSpace()
-                .expression(value));
-        sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
+        return sourceBuilder.token()
+                .keyword(SyntaxKind.LOCK_KEYWORD)
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                .onFailure()
+                .textEdit(false)
+                .build();
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
     }
 }

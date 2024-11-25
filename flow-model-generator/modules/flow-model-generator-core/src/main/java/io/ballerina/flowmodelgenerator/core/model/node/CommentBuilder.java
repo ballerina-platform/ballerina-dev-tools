@@ -18,44 +18,54 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
- * Represents the properties of a stop node.
+ * Represents the properties of a comment node.
  *
  * @since 1.4.0
  */
-public class Stop extends NodeBuilder {
+public class CommentBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Stop";
-    public static final String DESCRIPTION = "Stop the flow";
+    public static final String LABEL = "Comment";
+    public static final String DESCRIPTION = "Comment of a node";
+    private static final String DOUBLE_SLASH = "// ";
+    private static final String NEW_LINE = System.lineSeparator();
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.STOP);
+        metadata().label(LABEL);
+        codedata().node(NodeKind.COMMENT);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.COMMENT_KEY);
+        if (property.isEmpty()) {
+            throw new IllegalStateException("Comment must be defined for a comment node");
+        }
+        String formattedComment = Arrays.stream(property.get().toSourceCode().split("\n"))
+                .map(line -> DOUBLE_SLASH + line + NEW_LINE)
+                .collect(Collectors.joining());
         return sourceBuilder
-                .token()
-                    .keyword(SyntaxKind.RETURN_KEYWORD)
-                    .endOfStatement()
-                    .stepOut()
-                .textEdit(false)
+                .token().name(NEW_LINE).name(formattedComment).stepOut()
+                .comment()
                 .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
+        properties().comment("");
     }
 }

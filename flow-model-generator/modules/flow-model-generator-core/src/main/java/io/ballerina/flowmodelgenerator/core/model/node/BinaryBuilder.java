@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -27,48 +25,41 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents retry block in the flow model.
+ * Represents the properties of Binary Data node.
  *
  * @since 1.4.0
  */
-public class Retry extends NodeBuilder {
+public class BinaryBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Retry Block";
-    public static final String DESCRIPTION = "Retry block.";
+    public static final String LABEL = "Assign Binary";
+    public static final String DESCRIPTION = LABEL;
+    public static final String BINARY_DATA_DOC = "Create new Binary Data";
+    private static final String DUMMY_BINARY_DATA_EXPR = "base64 `abcd`";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.RETRY);
+        codedata().node(NodeKind.BINARY_DATA);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
-        properties().retryCount(3);
+        properties().payload(null, "byte[]")
+                .expression(DUMMY_BINARY_DATA_EXPR, BINARY_DATA_DOC);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-        Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
+        sourceBuilder.newVariable();
 
-        return sourceBuilder.token()
-                .keyword(SyntaxKind.RETRY_KEYWORD)
-                .openParen()
-                .expression(retryCount)
-                .closeParen()
-                .whiteSpace()
-                .stepOut()
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                .onFailure()
-                .textEdit(false)
-                .build();
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
+
+        return sourceBuilder.textEdit(false).build();
     }
 }

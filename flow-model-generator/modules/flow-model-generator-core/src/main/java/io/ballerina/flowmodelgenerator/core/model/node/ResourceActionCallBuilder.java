@@ -19,8 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.TypeUtils;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
@@ -32,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -42,17 +41,17 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents the generalized action invocation node in the flow model.
+ * Represents the resource action invocation node in the flow model.
  *
  * @since 1.4.0
  */
-public class ActionCall extends NodeBuilder {
+public class ResourceActionCallBuilder extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.REMOTE_ACTION_CALL);
+        codedata().node(NodeKind.RESOURCE_ACTION_CALL);
     }
 
     @Override
@@ -69,57 +68,60 @@ public class ActionCall extends NodeBuilder {
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-
         return sourceBuilder.token()
                 .name(connection.get().toSourceCode())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(flowNode.metadata().label())
+                .resourcePath(sourceBuilder.flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString())
+                .keyword(SyntaxKind.DOT_TOKEN)
+                .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE_KEY,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
+                                Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
                 .acceptImport()
                 .build();
     }
 
-    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata, TemplateContext context) {
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
         if (codedata.org().equals("$anon")) {
-            return null;
+            return;
         }
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), null,
-                        DatabaseManager.FunctionKind.REMOTE);
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
+                        DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
-            return null;
+            return;
         }
 
         FunctionResult function = functionResult.get();
-        nodeBuilder
-                .metadata()
+        metadata()
                 .label(function.name())
                 .description(function.description())
-                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()))
-                .stepOut()
-                .codedata()
+                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+        codedata()
                 .org(function.org())
                 .module(function.packageName())
-                .object(NewConnection.CLIENT_SYMBOL)
+                .object(NewConnectionBuilder.CLIENT_SYMBOL)
                 .id(function.functionId())
                 .symbol(function.name());
 
-        nodeBuilder.properties().custom()
+        properties().custom()
                 .metadata()
                 .label(Property.CONNECTION_LABEL)
                 .description(Property.CONNECTION_DOC)
                 .stepOut()
-                .type(Property.ValueType.IDENTIFIER)
-                .typeConstraint(function.packageName() + ":" + NewConnection.CLIENT_SYMBOL)
+                .typeConstraint(function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL)
                 .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
+
+        properties().resourcePath(function.resourcePath());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
@@ -130,7 +132,7 @@ public class ActionCall extends NodeBuilder {
             }
 
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
+            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
                         .label(unescapedParamName)
@@ -167,26 +169,19 @@ public class ActionCall extends NodeBuilder {
         }
 
         String returnTypeName = function.returnType();
-        if (TypeUtils.hasReturn(returnTypeName)) {
+        if (CommonUtils.hasReturn(function.returnType())) {
             boolean editable = false;
-            if (returnTypeName.contains(TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
+            if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
+                returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
                 editable = true;
             }
-            nodeBuilder.properties()
+            properties()
                     .type(returnTypeName, editable)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
         if (function.returnError() == 1) {
-            nodeBuilder.properties().checkError(true);
+            properties().checkError(true);
         }
-        return nodeBuilder.build();
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        this.cachedFlowNode = fetchNodeTemplate(this, codedata, context);
     }
 }

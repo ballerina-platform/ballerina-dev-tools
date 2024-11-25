@@ -23,9 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -50,14 +47,13 @@ public class ConfigVariablesTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
                 ConfigVariablesTestConfig.class);
 
         ConfigVariablesGetRequest request =
                 new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.project()).toAbsolutePath().toString());
-        JsonObject configVariables = getResponse(endpoint, request);
+        JsonObject configVariables = getResponse(request);
 
         Map<String, List<FlowNode>> m = gson.fromJson(configVariables, flowNodes);
         List<FlowNode> actualFlowNodes = m.get("configVariables");
@@ -83,14 +79,13 @@ public class ConfigVariablesTest extends AbstractLSTest {
                 }
             }
         }
-        
+
         if (assertFalse) {
             ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.project(),
                     actualFlowNodes);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
-        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override

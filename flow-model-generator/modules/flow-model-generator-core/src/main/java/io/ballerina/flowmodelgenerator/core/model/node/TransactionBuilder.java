@@ -27,40 +27,51 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of foreach node in the flow model.
+ * Represents the properties of a transaction node in the flow model.
  *
  * @since 1.4.0
  */
-public class Foreach extends NodeBuilder {
+public class TransactionBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Foreach";
-    public static final String DESCRIPTION = "Iterate over a block of code.";
+    public static final String LABEL = "Transaction";
+    public static final String DESCRIPTION = "Handle transaction.";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.FOREACH);
+        codedata().node(NodeKind.TRANSACTION);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
-                .stepOut()
-                .typedBindingPattern()
-                .token().keyword(SyntaxKind.IN_KEYWORD);
-
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.COLLECTION_KEY);
-        exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
-
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-        body.ifPresent(branch -> sourceBuilder.body(branch.children()));
 
-        return sourceBuilder
+        if (sourceBuilder.flowNode.properties() != null) {
+            Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
+            return sourceBuilder.token()
+                    .keyword(SyntaxKind.RETRY_KEYWORD)
+                    .openParen()
+                    .expression(retryCount)
+                    .closeParen()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.TRANSACTION_KEYWORD)
+                    .stepOut()
+                    .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                    .onFailure()
+                    .textEdit(false)
+                    .build();
+        }
+
+        return sourceBuilder.token()
+                .keyword(SyntaxKind.TRANSACTION_KEYWORD)
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
                 .onFailure()
                 .textEdit(false)
                 .build();
@@ -68,7 +79,7 @@ public class Foreach extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().dataVariable(null, context.getAllVisibleSymbolNames()).collection(null);
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
+        properties().retryCount(3, true);
     }
 }

@@ -37,7 +37,7 @@ import java.util.Optional;
  *
  * @since 1.4.0
  */
-public class If extends NodeBuilder {
+public class IfBuilder extends NodeBuilder {
 
     public static final String LABEL = "If";
     public static final String DESCRIPTION = "Add conditional branch to the integration flow.";

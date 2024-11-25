@@ -18,49 +18,48 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of lock node in the flow model.
+ * Represents the properties of a JSON payload node.
  *
  * @since 1.4.0
  */
-public class Lock extends NodeBuilder {
+public class JsonPayloadBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Lock";
-    public static final String DESCRIPTION = "Allow to access mutable states safely";
+    public static final String LABEL = "Assign JSON";
+    public static final String DESCRIPTION = LABEL;
+    public static final String JSON_PAYLOAD_DOC = "Create new JSON payload";
+    private static final String DUMMY_JSON_PAYLOAD = "{\"value\": \"Dummy JSON value\"}";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.LOCK);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-        return sourceBuilder.token()
-                .keyword(SyntaxKind.LOCK_KEYWORD)
-                .stepOut()
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                .onFailure()
-                .textEdit(false)
-                .build();
+        metadata().label(LABEL);
+        codedata().node(NodeKind.JSON_PAYLOAD);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
+        properties().payload(null, "json")
+                .expression(DUMMY_JSON_PAYLOAD, JSON_PAYLOAD_DOC);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
+
+        return sourceBuilder.textEdit(false).build();
     }
 }
