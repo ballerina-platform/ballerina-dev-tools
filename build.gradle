@@ -98,6 +98,7 @@ def artifactLibParent = file("$project.rootDir/build/architecture-model-generato
 def artifactGraphqlLibParent = file("$project.rootDir/build/graphql-model-generator/")
 def artifactSequenceLibParent = file("$project.rootDir/build/sequence-model-generator/")
 def artifactFlowLibParent = file("$project.rootDir/build/flow-model-generator/")
+def artifactTriggerLibParent = file("$project.rootDir/build/trigger-model-generator/")
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
@@ -105,6 +106,8 @@ def targetGraphqlModelGeneratorCore = file("$project.rootDir/graphql-model-gener
 def targetGraphqlModelGeneratorLSExt = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-ls-extension/build/libs/graphql-model-generator-ls-extension-${project.version}.jar")
 def targetFlowModelGeneratorCore = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-core/build/libs/flow-model-generator-core-${project.version}.jar")
 def targetFlowModelGeneratorLSExt = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-ls-extension/build/libs/flow-model-generator-ls-extension-${project.version}.jar")
+def targetTriggerModelGeneratorCore = file("$project.rootDir/trigger-model-generator/modules/trigger-model-generator-core/build/libs/trigger-model-generator-core-${project.version}.jar")
+def targetTriggerModelGeneratorLSExt = file("$project.rootDir/trigger-model-generator/modules/trigger-model-generator-ls-extension/build/libs/trigger-model-generator-ls-extension-${project.version}.jar")
 def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-core/build/libs/sequence-model-generator-core-${project.version}.jar")
 def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
 
@@ -117,6 +120,8 @@ task copyArtifactZip {
     dependsOn(":generatePomFileForMavenJavaPublication")
     dependsOn(":flow-model-generator:flow-model-generator-core:build")
     dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+    dependsOn(":trigger-model-generator:trigger-model-generator-core:build")
+    dependsOn(":trigger-model-generator:trigger-model-generator-ls-extension:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
     inputs.dir file(project.rootDir)
@@ -156,6 +161,14 @@ task copyArtifactZip {
         copy {
             from targetFlowModelGeneratorLSExt
             into file("$artifactFlowLibParent/ls-libs")
+        }
+        copy {
+            from targetTriggerModelGeneratorCore
+            into file("$artifactTriggerLibParent/libs")
+        }
+        copy {
+            from targetTriggerModelGeneratorLSExt
+            into file("$artifactTriggerLibParent/ls-libs")
         }
     }
     outputs.dir artifactLibParent
@@ -221,6 +234,11 @@ task clean {
 task buildFlow {
     dependsOn(":flow-model-generator:flow-model-generator-core:build")
     dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+}
+
+task buildTrigger {
+    dependsOn(":trigger-model-generator:trigger-model-generator-core:build")
+    dependsOn(":trigger-model-generator:trigger-model-generator-ls-extension:build")
 }
 
 task buildSequence {
