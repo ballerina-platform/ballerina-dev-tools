@@ -27,5 +27,4 @@ module io.ballerina.LSExtensions.TriggerService {
     requires io.ballerina.language.server.core;
     requires io.ballerina.parser;
     requires io.ballerina.tools.api;
-    requires io.ballerina.trigger.model.generator;
 }

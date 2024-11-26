@@ -34,8 +34,6 @@ configurations {
 }
 
 dependencies {
-    implementation project(':trigger-model-generator:trigger-model-generator-core')
-
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:formatter-core:${ballerinaLangVersion}"

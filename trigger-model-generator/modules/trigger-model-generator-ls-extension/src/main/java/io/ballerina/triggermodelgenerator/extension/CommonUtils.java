@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.triggermodelgenerator.core;
+package io.ballerina.triggermodelgenerator.extension;
 
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
