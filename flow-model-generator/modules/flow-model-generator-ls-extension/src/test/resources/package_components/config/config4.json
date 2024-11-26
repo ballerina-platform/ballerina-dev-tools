@@ -79,7 +79,16 @@
           "endColumn": 58
         }
       ],
-      "moduleVariables": [],
+      "moduleVariables": [
+        {
+          "name": "configuration ",
+          "filePath": "file.bal",
+          "startLine": 5,
+          "startColumn": 0,
+          "endLine": 9,
+          "endColumn": 2
+        }
+      ],
       "configurableVariables": [
         {
           "name": "configuration ",
