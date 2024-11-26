@@ -1,0 +1,138 @@
+{
+  "start": {
+    "line": 16,
+    "offset": 0
+  },
+  "end": {
+    "line": 19,
+    "offset": 1
+  },
+  "source": "panic.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "panic.bal",
+    "nodes": [
+      {
+        "id": "48392",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function panicFunc4() {\n    error e = error(\"AssertionError\");\n    panic e;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "48770",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 38
+            }
+          },
+          "sourceCode": "error e = error(\"AssertionError\");"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "error(\"AssertionError\")",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "e",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "49736",
+        "metadata": {
+          "label": "Panic",
+          "description": "Panic and stop the execution"
+        },
+        "codedata": {
+          "node": "PANIC",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 12
+            }
+          },
+          "sourceCode": "panic e;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Panic value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "e",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

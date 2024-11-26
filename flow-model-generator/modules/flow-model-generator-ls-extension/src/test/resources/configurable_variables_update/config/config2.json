@@ -1,0 +1,71 @@
+{
+  "configFile": "config2.bal",
+  "configVariable": {
+    "metadata": {
+      "label": "Config variables"
+    },
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "config2.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 30
+        }
+      }
+    },
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Config type",
+          "description": "Type of the configuration"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Config name",
+          "description": "Name of the config variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "config3",
+        "optional": false,
+        "editable": true
+      },
+      "defaultable": {
+        "metadata": {
+          "label": "Default value",
+          "description": "Default value for the config, if empty your need to provide a value at runtime"
+        },
+        "valueType": "EXPRESSION",
+        "value": "101",
+        "optional": false,
+        "editable": true
+      }
+    }
+  },
+  "output": {
+    "config2.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 30
+          }
+        },
+        "newText": "configurable int config3 = 101;"
+      }
+    ]
+  }
+}

@@ -78,6 +78,7 @@ subprojects {
         ballerinaStdLibs "io.ballerina.stdlib:uuid-ballerina:${stdlibUuidVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:auth-ballerina:${stdlibAuthVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:oauth2-ballerina:${stdlibOAuth2Version}"
+        ballerinaStdLibs "io.ballerina.lib:data.jsondata-ballerina:${stdlibJsonDataVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:http-ballerina:${stdlibHttpVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:graphql-ballerina:${stdlibGraphqlVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:grpc-ballerina:${stdlibGrpcVersion}"
@@ -95,14 +96,17 @@ if (moduleVersion.indexOf('-') != -1) {
 }
 def artifactLibParent = file("$project.rootDir/build/architecture-model-generator/")
 def artifactGraphqlLibParent = file("$project.rootDir/build/graphql-model-generator/")
-def artifactSequenceLibParent = file("$project.rootDir/build/sequence-diagram-model-generator/")
+def artifactSequenceLibParent = file("$project.rootDir/build/sequence-model-generator/")
+def artifactFlowLibParent = file("$project.rootDir/build/flow-model-generator/")
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
 def targetGraphqlModelGeneratorCore = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-core/build/libs/graphql-model-generator-core-${project.version}.jar")
 def targetGraphqlModelGeneratorLSExt = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-ls-extension/build/libs/graphql-model-generator-ls-extension-${project.version}.jar")
-def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-diagram-generator/modules/sequence-diagram-model-generator-core/build/libs/sequence-diagram-generator-core-${project.version}.jar")
-def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-diagram-generator/modules/sequence-diagram-model-generator-ls-extension/build/libs/sequence-diagram-generator-ls-extension-${project.version}.jar")
+def targetFlowModelGeneratorCore = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-core/build/libs/flow-model-generator-core-${project.version}.jar")
+def targetFlowModelGeneratorLSExt = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-ls-extension/build/libs/flow-model-generator-ls-extension-${project.version}.jar")
+def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-core/build/libs/sequence-model-generator-core-${project.version}.jar")
+def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
@@ -111,8 +115,10 @@ task copyArtifactZip {
     dependsOn(":graphql-model-generator:graphql-model-generator-core:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:build")
     dependsOn(":generatePomFileForMavenJavaPublication")
-    dependsOn(":sequence-diagram-model-generator:sequence-diagram-model-generator-core:build")
-    dependsOn(":sequence-diagram-model-generator:sequence-diagram-model-generator-ls-extension:build")
+    dependsOn(":flow-model-generator:flow-model-generator-core:build")
+    dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+    dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
+    dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
@@ -142,6 +148,14 @@ task copyArtifactZip {
         copy {
             from targetSequenceDiagramGeneratorLSExt
             into file("$artifactSequenceLibParent/ls-libs")
+        }
+        copy {
+            from targetFlowModelGeneratorCore
+            into file("$artifactFlowLibParent/libs")
+        }
+        copy {
+            from targetFlowModelGeneratorLSExt
+            into file("$artifactFlowLibParent/ls-libs")
         }
     }
     outputs.dir artifactLibParent
@@ -202,6 +216,16 @@ task build {
 task clean {
     delete "build"
     delete "dist"
+}
+
+task buildFlow {
+    dependsOn(":flow-model-generator:flow-model-generator-core:build")
+    dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+}
+
+task buildSequence {
+    dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
+    dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
 }
 
 build.doNotTrackState("build needs to run every time")

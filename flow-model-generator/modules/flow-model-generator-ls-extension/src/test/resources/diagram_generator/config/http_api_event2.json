@@ -1,0 +1,41 @@
+{
+  "start": {
+    "line": 10,
+    "offset": 0
+  },
+  "end": {
+    "line": 10,
+    "offset": 92
+  },
+  "source": "http_api_event_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_api_event_node.bal",
+    "nodes": [
+      {
+        "id": "43523",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "http_api_event_node.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 57
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 92
+            }
+          },
+          "sourceCode": "resource function get menu/[int year]() returns Menu => {year, modified: \"\", items: []};"
+        },
+        "returning": false,
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

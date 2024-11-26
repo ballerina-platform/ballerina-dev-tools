@@ -1,0 +1,203 @@
+{
+  "description": "",
+  "source": "error.bal",
+  "output": {
+    "error.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 46
+          },
+          "end": {
+            "line": 5,
+            "character": 46
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 48
+          },
+          "end": {
+            "line": 5,
+            "character": 48
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 0
+          },
+          "end": {
+            "line": 11,
+            "character": 0
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 55
+          },
+          "end": {
+            "line": 13,
+            "character": 55
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 57
+          },
+          "end": {
+            "line": 13,
+            "character": 57
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 0
+          },
+          "end": {
+            "line": 18,
+            "character": 0
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 40
+          },
+          "end": {
+            "line": 20,
+            "character": 40
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 42
+          },
+          "end": {
+            "line": 20,
+            "character": 42
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 30,
+            "character": 0
+          },
+          "end": {
+            "line": 30,
+            "character": 0
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 18
+          },
+          "end": {
+            "line": 32,
+            "character": 18
+          }
+        },
+        "newText": " returns error?"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 20
+          },
+          "end": {
+            "line": 32,
+            "character": 20
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 0
+          },
+          "end": {
+            "line": 34,
+            "character": 0
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 38,
+            "character": 54
+          },
+          "end": {
+            "line": 38,
+            "character": 54
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 38,
+            "character": 56
+          },
+          "end": {
+            "line": 38,
+            "character": 56
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 40,
+            "character": 4
+          },
+          "end": {
+            "line": 40,
+            "character": 4
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      }
+    ]
+  }
+}

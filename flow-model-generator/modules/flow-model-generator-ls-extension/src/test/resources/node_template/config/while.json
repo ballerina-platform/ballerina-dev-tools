@@ -1,0 +1,32 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "WHILE"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE"
+    },
+    "returning": false,
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "placeholder": "true",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

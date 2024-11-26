@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "filePath": "proj/main.bal",
+  "expression": "calculateSquareRoot()",
+  "startLine": {
+    "line": 7,
+    "offset": 18
+  },
+  "offset": 20,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "calculateSquareRoot(int value)",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nCalculates the square root of a given integer value."
+        }
+      },
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 24,
+              "second": 29
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`int`value**: The integer value for which the square root needs to be calculated."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

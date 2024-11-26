@@ -1,0 +1,71 @@
+{
+  "configFile": "config4.bal",
+  "configVariable": {
+    "metadata": {
+      "label": "Config variables"
+    },
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "config4.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 43
+        }
+      }
+    },
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Config type",
+          "description": "Type of the configuration"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Config name",
+          "description": "Name of the config variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "config21",
+        "optional": false,
+        "editable": true
+      },
+      "defaultable": {
+        "metadata": {
+          "label": "Default value",
+          "description": "Default value for the config, if empty your need to provide a value at runtime"
+        },
+        "valueType": "EXPRESSION",
+        "value": "11",
+        "optional": false,
+        "editable": true
+      }
+    }
+  },
+  "output": {
+    "config4.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 0
+          },
+          "end": {
+            "line": 1,
+            "character": 43
+          }
+        },
+        "newText": "configurable int config21 = 11;"
+      }
+    ]
+  }
+}

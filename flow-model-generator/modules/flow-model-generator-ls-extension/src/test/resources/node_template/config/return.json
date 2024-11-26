@@ -1,0 +1,30 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "RETURN"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Return"
+    },
+    "codedata": {
+      "node": "RETURN"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Return value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

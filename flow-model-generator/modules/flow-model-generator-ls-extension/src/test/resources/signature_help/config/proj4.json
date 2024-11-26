@@ -1,0 +1,35 @@
+{
+  "description": "",
+  "filePath": "proj/main.bal",
+  "expression": "processData();",
+  "startLine": {
+    "line": 7,
+    "offset": 4
+  },
+  "offset": 11,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "processData(int value)",
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 16,
+              "second": 21
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`int`value**"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

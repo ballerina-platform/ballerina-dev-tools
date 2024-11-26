@@ -1,0 +1,234 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 5,
+    "offset": 1
+  },
+  "source": "foreach.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "foreach.bal",
+    "nodes": [
+      {
+        "id": "32861",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function testForeach1() {\n    int[] intArr = [1, 2, 3];\n    foreach var item in intArr {\n        _ = item;\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "32889",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 29
+            }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "[1, 2, 3]",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "intArr",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int[]",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33919",
+        "metadata": {
+          "label": "Foreach",
+          "description": "Iterate over a block of code."
+        },
+        "codedata": {
+          "node": "FOREACH",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 5
+            }
+          },
+          "sourceCode": "foreach var item in intArr {\n        _ = item;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "34985",
+                "metadata": {
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "ASSIGN",
+                  "lineRange": {
+                    "fileName": "foreach.bal",
+                    "startLine": {
+                      "line": 3,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 3,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "_ = item;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Assign value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "item",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "item",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "collection": {
+            "metadata": {
+              "label": "Collection",
+              "description": "Collection to iterate"
+            },
+            "valueType": "EXPRESSION",
+            "value": "intArr ",
+            "placeholder": "[]",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

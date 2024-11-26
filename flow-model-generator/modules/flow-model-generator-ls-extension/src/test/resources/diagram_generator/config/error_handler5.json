@@ -1,0 +1,222 @@
+{
+  "start": {
+    "line": 12,
+    "offset": 0
+  },
+  "end": {
+    "line": 18,
+    "offset": 1
+  },
+  "source": "fail.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "fail.bal",
+    "nodes": [
+      {
+        "id": "45137",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 42
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function failInDoOnFail2() returns error? {\n    do {\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    } on fail var e {\n        return e;\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "44893",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 5
+            }
+          },
+          "sourceCode": "do {\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    } on fail var e {\n        return e;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 13,
+                  "offset": 7
+                },
+                "endLine": {
+                  "line": 15,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "45967",
+                "metadata": {
+                  "label": "Fail",
+                  "description": "Fail the execution"
+                },
+                "codedata": {
+                  "node": "FAIL",
+                  "lineRange": {
+                    "fileName": "fail.bal",
+                    "startLine": {
+                      "line": 14,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 14,
+                      "offset": 87
+                    }
+                  },
+                  "sourceCode": "fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Fail value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 15,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        return e;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "e ",
+                "placeholder": "err",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "placeholder": "error",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "47881",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'e'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "fail.bal",
+                    "startLine": {
+                      "line": 16,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "return e;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "e",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

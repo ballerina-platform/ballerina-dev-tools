@@ -1,0 +1,138 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 2,
+    "offset": 1
+  },
+  "source": "start.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "start.bal",
+    "nodes": [
+      {
+        "id": "32489",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "33649",
+        "metadata": {
+          "label": "Start",
+          "description": "Execute a function or a method invocation in a new strand"
+        },
+        "codedata": {
+          "node": "START",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 28
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 45
+            }
+          },
+          "sourceCode": "start sum(40, 50)"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Call action or expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "sum(40, 50)",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "32906",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 46
+            }
+          },
+          "sourceCode": "future<int> futureVar = start sum(40, 50);"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "start sum(40, 50)",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "futureVar",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "future<int>",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

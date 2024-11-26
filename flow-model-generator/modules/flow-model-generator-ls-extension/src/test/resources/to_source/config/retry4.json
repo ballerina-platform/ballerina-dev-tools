@@ -1,0 +1,207 @@
+{
+  "source": "empty.bal",
+  "description": "Test code generation for retry statement",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Retry Block",
+      "description": "Retry block."
+    },
+    "codedata": {
+      "node": "RETRY",
+      "lineRange": {
+        "fileName": "retry.bal",
+        "startLine": {
+          "line": 17,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 5
+        }
+      },
+      "sourceCode": "retry (4) {\n        fail error(\"failed retry\");\n    } on fail var err {\n        check err;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "retry.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        fail error(\"failed retry\");\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "49883",
+            "metadata": {
+              "label": "Fail",
+              "description": "Fail the execution"
+            },
+            "codedata": {
+              "node": "FAIL",
+              "lineRange": {
+                "fileName": "retry.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 35
+                }
+              },
+              "sourceCode": "fail error(\"failed retry\");"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Fail value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"failed retry\")",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "retry.bal",
+            "startLine": {
+              "line": 19,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        check err;\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "err ",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "51850",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "retry.bal",
+                "startLine": {
+                  "line": 20,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 20,
+                  "offset": 18
+                }
+              },
+              "sourceCode": "check err;"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "check err;",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 1
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "retryCount": {
+        "metadata": {
+          "label": "Retry Count",
+          "description": "Number of retries"
+        },
+        "valueType": "EXPRESSION",
+        "value": "4",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 17,
+            "character": 4
+          },
+          "end": {
+            "line": 21,
+            "character": 5
+          }
+        },
+        "newText": "retry(4) {\n    fail error(\"failed retry\");\n} on fail error err {\n    check err;\n; }"
+      }
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "RESOURCE_ACTION_CALL",
+    "org": "ballerinax",
+    "module": "github",
+    "object": "Client",
+    "symbol": "post",
+    "parentSymbol": "githubClient",
+    "resourcePath": "/app\\-manifests/[\"\"]/conversions"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "post",
+      "description": "Create a GitHub App from a manifest\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "github",
+      "object": "Client",
+      "symbol": "post",
+      "id": 2421
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "github:Client",
+        "value": "githubClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "github:ManifestConversions",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "githubManifestconversions",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/app\\-manifests/[\"\"]/conversions",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

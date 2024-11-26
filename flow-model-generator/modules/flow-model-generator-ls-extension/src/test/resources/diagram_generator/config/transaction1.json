@@ -1,0 +1,115 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 3,
+    "offset": 1
+  },
+  "source": "transaction.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "transaction.bal",
+    "nodes": [
+      {
+        "id": "32927",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 5
+            }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "34007",
+                "metadata": {
+                  "label": "Commit",
+                  "description": "Commit transaction"
+                },
+                "codedata": {
+                  "node": "COMMIT",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 31
+                    }
+                  },
+                  "sourceCode": "var res = check commit;"
+                },
+                "returning": false,
+                "properties": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "res",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Variable Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

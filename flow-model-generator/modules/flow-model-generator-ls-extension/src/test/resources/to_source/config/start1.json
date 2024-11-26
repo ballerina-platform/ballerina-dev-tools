@@ -1,0 +1,56 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "33649",
+    "metadata": {
+      "label": "Start",
+      "description": "Execute a function or a method invocation in a new strand"
+    },
+    "codedata": {
+      "node": "START",
+      "lineRange": {
+        "fileName": "start.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 28
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 45
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Call action or expression"
+        },
+        "valueType": "int",
+        "value": "sum(40, 50)",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 28
+          },
+          "end": {
+            "line": 1,
+            "character": 45
+          }
+        },
+        "newText": "start sum(40, 50);"
+      }
+    ]
+  }
+}

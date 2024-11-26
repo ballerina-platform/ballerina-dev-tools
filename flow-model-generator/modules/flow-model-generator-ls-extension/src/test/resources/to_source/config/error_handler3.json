@@ -1,0 +1,312 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "63900",
+    "metadata": {
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
+    },
+    "codedata": {
+      "node": "ERROR_HANDLER",
+      "lineRange": {
+        "fileName": "error_handler.bal",
+        "startLine": {
+          "line": 32,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 37,
+          "offset": 9
+        }
+      },
+      "sourceCode": "do {\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        } on fail http:ClientError err {\n            return err.message();\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 35,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "64920",
+            "metadata": {
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+            },
+            "codedata": {
+              "node": "REMOTE_ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
+              "version": "2.12.2",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 33,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 33,
+                  "offset": 68
+                }
+              },
+              "sourceCode": "json res = check foodClient->get(\"/western/pineapples\");"
+            },
+            "returning": false,
+            "properties": {
+              "connection": {
+                "metadata": {
+                  "label": "Connection",
+                  "description": "Connection to use"
+                },
+                "valueType": "EXPRESSION",
+                "value": "foodClient",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "res",
+                "placeholder": "item",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "path": {
+                "metadata": {
+                  "label": "path",
+                  "description": "Request path"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"/western/pineapples\"",
+                "placeholder": "\"\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
+              },
+              "headers": {
+                "metadata": {
+                  "label": "headers",
+                  "description": "The entity headers"
+                },
+                "value": "()",
+                "placeholder": "()",
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true,
+                "advanced": true,
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
+              },
+              "checkError": {
+                "metadata": {
+                  "label": "Check Flag",
+                  "description": "Whether to return the error"
+                },
+                "valueType": "FLAG",
+                "value": true,
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "json",
+                "placeholder": "var",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 1
+          },
+          {
+            "id": "65878",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'res.toString()'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 34,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 34,
+                  "offset": 34
+                }
+              },
+              "sourceCode": "return res.toString();"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "res.toString()",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 35,
+              "offset": 39
+            },
+            "endLine": {
+              "line": 37,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return err.message();\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "err ",
+            "placeholder": "err",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "http:ClientError",
+            "placeholder": "error",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "67861",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'err.message()'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 36,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 36,
+                  "offset": 33
+                }
+              },
+              "sourceCode": "return err.message();"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "err.message()",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 8
+          },
+          "end": {
+            "line": 37,
+            "character": 9
+          }
+        },
+        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n} on fail http:ClientError err {\n    return err.message();\n}"
+      }
+    ]
+  }
+}

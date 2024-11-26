@@ -1,0 +1,199 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "49952",
+    "metadata": {
+      "label": "post",
+      "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "post",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_post_node.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 11
+        }
+      },
+      "sourceCode": "json res5 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+      "resourcePath": "[boolean|int|float|decimal|string...]"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/apples",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "res5",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"red apple\"",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity"
+        },
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        },
+        "value": "()"
+      },
+      "params": {
+        "metadata": {
+          "label": "params",
+          "description": "The query parameters"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
+        "value": [
+          {"param1": "\"value1\""},
+          {"param2": "12"}
+        ]
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'res5'"
+        }
+      ]
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 8
+          },
+          "end": {
+            "line": 21,
+            "character": 11
+          }
+        },
+        "newText": "json res5 = check foodClient->/apples.post(\"red apple\", {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+      }
+    ]
+  }
+}

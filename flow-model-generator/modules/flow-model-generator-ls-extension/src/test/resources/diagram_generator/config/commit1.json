@@ -1,0 +1,90 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "source": "commit.bal",
+  "description": "Tests flow nodes generation for commit statement",
+  "diagram": {
+    "fileName": "commit.bal",
+    "nodes": [
+      {
+        "id": "32927",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "commit.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 5
+            }
+          },
+          "sourceCode": "transaction {\n        check commit;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "commit.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "33997",
+                "metadata": {
+                  "label": "Commit",
+                  "description": "Commit transaction"
+                },
+                "codedata": {
+                  "node": "COMMIT",
+                  "lineRange": {
+                    "fileName": "commit.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "check commit;"
+                },
+                "returning": false,
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

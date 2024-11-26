@@ -1,0 +1,171 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47869",
+    "metadata": {
+      "label": "Lock",
+      "description": "Allow to access mutable states safely"
+    },
+    "codedata": {
+      "node": "LOCK",
+      "lineRange": {
+        "fileName": "lock.bal",
+        "startLine": {
+          "line": 16,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 5
+        }
+      },
+      "sourceCode": "lock {\n        int i = 0;\n    } on fail {\n        return;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        int i = 0;\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "48874",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 18
+                }
+              },
+              "sourceCode": "int i = 0;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "0",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "i",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "int",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return;\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "50855",
+            "metadata": {
+              "label": "Stop",
+              "description": "Stop the flow"
+            },
+            "codedata": {
+              "node": "STOP",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 15
+                }
+              },
+              "sourceCode": "return;"
+            },
+            "returning": true,
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 4
+          },
+          "end": {
+            "line": 20,
+            "character": 5
+          }
+        },
+        "newText": "lock {\n    i = 0;\n} on fail {\n    return;\n}"
+      }
+    ]
+  }
+}

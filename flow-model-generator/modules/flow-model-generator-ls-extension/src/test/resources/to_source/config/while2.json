@@ -1,0 +1,82 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "51872",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE",
+      "lineRange": {
+        "fileName": "while.bal",
+        "startLine": {
+          "line": 20,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 9
+        }
+      },
+      "sourceCode": "while true {\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 19
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n        }"
+        },
+        "repeatable": "ONE",
+        "children": []
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "true ",
+        "placeholder": "true",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 8
+          },
+          "end": {
+            "line": 21,
+            "character": 9
+          }
+        },
+        "newText": "while true {\n}"
+      }
+    ]
+  }
+}

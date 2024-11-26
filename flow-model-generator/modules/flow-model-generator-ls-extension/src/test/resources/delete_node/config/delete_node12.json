@@ -1,0 +1,37 @@
+{
+  "description": "Delete node",
+  "functionStart": {
+    "line": 17,
+    "offset": 0
+  },
+  "functionEnd": {
+    "line": 28,
+    "offset": 1
+  },
+  "nodeStart": {
+    "line": 25,
+    "offset": 12
+  },
+  "nodeEnd": {
+    "line": 25,
+    "offset": 22
+  },
+  "source": "delete_node6.bal",
+  "output": {
+    "delete_node6.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 24,
+            "character": 10
+          },
+          "end": {
+            "line": 26,
+            "character": 9
+          }
+        },
+        "newText": ""
+      }
+    ]
+  }
+}

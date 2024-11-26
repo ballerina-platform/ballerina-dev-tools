@@ -1,0 +1,138 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo",
+      "version": "2.10.0",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "\"error\"",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "msg"
+        }
+      },
+      "error": {
+        "metadata": {
+          "label": "error",
+          "description": "The error struct to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "error|()",
+        "value": "()",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'error"
+        }
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+        "value": "()",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        }
+      },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "valueTypeConstraint": "log:Value",
+        "value": [
+          {
+            "key1": "\"value1\""
+          },
+          {
+            "key2": "\"value2\""
+          }
+        ],
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/log;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "log:printInfo(\"error\", (), (), key1 = \"value1\", key2 = \"value2\");"
+      }
+    ]
+  }
+}

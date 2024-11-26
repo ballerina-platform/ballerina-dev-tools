@@ -1,0 +1,138 @@
+{
+  "start": {
+    "line": 109,
+    "offset": 0
+  },
+  "end": {
+    "line": 112,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "140927",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 109,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 112,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function emptyComment() {\n    //\n    int i = 0;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "140870",
+        "metadata": {
+          "label": "Comment",
+          "description": ""
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 110,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 110,
+              "offset": 6
+            }
+          },
+          "sourceCode": ""
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "141994",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 111,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 111,
+              "offset": 14
+            }
+          },
+          "sourceCode": "//\n    int i = 0;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "0",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "i",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

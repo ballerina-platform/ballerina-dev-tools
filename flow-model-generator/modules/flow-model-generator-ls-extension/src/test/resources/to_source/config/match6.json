@@ -1,0 +1,312 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "141431",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 110,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 120,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match count {\n            var c if c > 0 => {\n                return \"available\";\n            }\n            0 => {\n                return \"out of stock\";\n            }\n            _ => {\n                return \"invalid count\";\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "var c if c > 0",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 111,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 113,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"available\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var c",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "c > 0 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "143379",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"available\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 112,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 112,
+                  "offset": 35
+                }
+              },
+              "sourceCode": "return \"available\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"available\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "0",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 114,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 116,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"out of stock\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "0",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "146358",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"out of stock\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 115,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 115,
+                  "offset": 38
+                }
+              },
+              "sourceCode": "return \"out of stock\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"out of stock\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 117,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 119,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"invalid count\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "149335",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"invalid count\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 118,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 118,
+                  "offset": 39
+                }
+              },
+              "sourceCode": "return \"invalid count\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"invalid count\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "count ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 110,
+            "character": 8
+          },
+          "end": {
+            "line": 120,
+            "character": 9
+          }
+        },
+        "newText": "match count {\n    var cif c > 0 => {\n        return \"available\";\n    }\n    0 => {\n        return \"out of stock\";\n    }\n    _ => {\n        return \"invalid count\";\n    }\n}"
+      }
+    ]
+  }
+}

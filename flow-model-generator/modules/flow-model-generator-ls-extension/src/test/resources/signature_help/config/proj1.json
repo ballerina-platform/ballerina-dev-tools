@@ -1,0 +1,26 @@
+{
+  "description": "",
+  "filePath": "proj/main.bal",
+  "expression": "io:println(1);",
+  "startLine": {
+    "line": 3,
+    "offset": 4
+  },
+  "offset": 12,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "println()",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nPrints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```"
+        }
+      },
+      "parameters": []
+    }
+  ]
+}

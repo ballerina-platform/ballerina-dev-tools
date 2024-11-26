@@ -1,0 +1,195 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "55805",
+    "metadata": {
+      "label": "Lock",
+      "description": "Allow to access mutable states safely"
+    },
+    "codedata": {
+      "node": "LOCK",
+      "lineRange": {
+        "fileName": "lock.bal",
+        "startLine": {
+          "line": 24,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 28,
+          "offset": 5
+        }
+      },
+      "sourceCode": "lock {\n        fail error(\"Error Message\");\n    } on fail var e {\n        return e;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        fail error(\"Error Message\");\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "56828",
+            "metadata": {
+              "label": "Fail",
+              "description": "Fail the execution"
+            },
+            "codedata": {
+              "node": "FAIL",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 25,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "fail error(\"Error Message\");"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Fail value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"Error Message\")",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 26,
+              "offset": 20
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return e;\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "58793",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'e'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 27,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "return e;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "e",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 24,
+            "character": 4
+          },
+          "end": {
+            "line": 28,
+            "character": 5
+          }
+        },
+        "newText": "lock {\n    fail error(\"Error Message\");\n} on fail error e {\n    return e;\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "source": "lock.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "lock.bal",
+    "nodes": [
+      {
+        "id": "32520",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 21
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testLock1() {\n    lock {\n        int i = 0;\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "32927",
+        "metadata": {
+          "label": "Lock",
+          "description": "Allow to access mutable states safely"
+        },
+        "codedata": {
+          "node": "LOCK",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 5
+            }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        int i = 0;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "33994",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "VARIABLE",
+                  "lineRange": {
+                    "fileName": "lock.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "int i = 0;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Initialize with value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "0",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "i",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

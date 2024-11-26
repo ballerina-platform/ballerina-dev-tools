@@ -1,0 +1,137 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "105353",
+    "metadata": {
+      "label": "operate"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "operate",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 74,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 76,
+          "offset": 15
+        }
+      },
+      "sourceCode": "int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });"
+    },
+    "returning": false,
+    "properties": {
+      "a": {
+        "metadata": {
+          "label": "a"
+        },
+        "valueType": "EXPRESSION",
+        "value": "6",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "a"
+        }
+      },
+      "b": {
+        "metadata": {
+          "label": "b"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "b"
+        }
+      },
+      "func": {
+        "metadata": {
+          "label": "func"
+        },
+        "valueType": "EXPRESSION",
+        "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "func"
+        }
+      },
+      "view": {
+        "metadata": {
+          "label": "View",
+          "description": "Function definition location"
+        },
+        "valueType": "VIEW",
+        "value": {
+          "fileName": "function_call.bal",
+          "startLine": {
+            "line": 55,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 59,
+            "offset": 1
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "result",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 74,
+            "character": 4
+          },
+          "end": {
+            "line": 76,
+            "character": 15
+          }
+        },
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
+      }
+    ]
+  }
+}

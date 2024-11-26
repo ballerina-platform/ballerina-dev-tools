@@ -1,0 +1,42 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "ASSIGN"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Assign",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "ASSIGN"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Assign value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

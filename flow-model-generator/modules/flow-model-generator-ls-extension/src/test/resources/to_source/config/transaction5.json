@@ -1,0 +1,183 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "60765",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION",
+      "lineRange": {
+        "fileName": "transaction.bal",
+        "startLine": {
+          "line": 29,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 5
+        }
+      },
+      "sourceCode": "transaction {\n        var _ = check commit;\n    } on fail {\n        return error(\"Found error\");\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        var _ = check commit;\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "61781",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 30,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 30,
+                  "offset": 29
+                }
+              },
+              "sourceCode": "var _ = check commit;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "check commit",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "()",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 1
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 31,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 33,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return error(\"Found error\");\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "63772",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'error(\"Found error\")'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "return error(\"Found error\");"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"Found error\")",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 4
+          },
+          "end": {
+            "line": 33,
+            "character": 5
+          }
+        },
+        "newText": "transaction {\n    () _ = check commit;\n} on fail {\n    return error(\"Found error\");\n}"
+      }
+    ]
+  }
+}

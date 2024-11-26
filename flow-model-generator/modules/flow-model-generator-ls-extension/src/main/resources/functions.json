@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "metadata": {
+        "label": "Logging"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Log Info",
+            "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "module": "log",
+            "symbol": "printInfo",
+            "org": "ballerina",
+            "importStmt": "import ballerina/log as log",
+            "version": "2.10.0",
+            "flags": 1
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Error",
+            "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "module": "log",
+            "symbol": "printError",
+            "org": "ballerina",
+            "importStmt": "import ballerina/log as log",
+            "version": "2.10.0",
+            "flags": 1
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Warn",
+            "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "module": "log",
+            "symbol": "printWarn",
+            "org": "ballerina",
+            "importStmt": "import ballerina/log as log",
+            "version": "2.10.0",
+            "flags": 1
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Debug",
+            "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "module": "log",
+            "symbol": "printDebug",
+            "org": "ballerina",
+            "importStmt": "import ballerina/log as log",
+            "version": "2.10.0",
+            "flags": 1
+          },
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "source": "empty.bal",
+  "description": "Test code generation for retry transaction statement",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION",
+      "lineRange": {
+        "fileName": "retry_transaction.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 4,
+          "offset": 5
+        }
+      },
+      "sourceCode": "retry transaction {\n        check nameOrError();\n        check commit;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        check nameOrError();\n        check commit;\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "34004",
+            "metadata": {
+              "label": "nameOrError"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "$anon",
+              "module": ".",
+              "symbol": "nameOrError",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 28
+                }
+              },
+              "sourceCode": "check nameOrError();"
+            },
+            "returning": false,
+            "properties": {},
+            "flags": 1
+          },
+          {
+            "id": "34989",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 21
+                }
+              },
+              "sourceCode": "check commit;"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "check commit;",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 1
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "retryCount": {
+        "metadata": {
+          "label": "Retry Count",
+          "description": "Number of retries"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 4
+          },
+          "end": {
+            "line": 4,
+            "character": 5
+          }
+        },
+        "newText": "retry(3) transaction {\n    nameOrError();\n    check commit;\n; }"
+      }
+    ]
+  }
+}

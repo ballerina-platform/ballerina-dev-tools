@@ -1,0 +1,538 @@
+{
+  "start": {
+    "line": 240,
+    "offset": 4
+  },
+  "end": {
+    "line": 255,
+    "offset": 5
+  },
+  "source": "match.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "match.bal",
+    "nodes": [
+      {
+        "id": "272619",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 240,
+              "offset": 75
+            },
+            "endLine": {
+              "line": 255,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get cherries(map<anydata> data) returns string|error {\n        match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "271476",
+        "metadata": {
+          "label": "Match",
+          "description": "Switches the data flow based on the value of an expression."
+        },
+        "codedata": {
+          "node": "MATCH",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 241,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 254,
+              "offset": 9
+            }
+          },
+          "sourceCode": "match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "var obj if obj is record {|int quantity; string 'type;|}",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 242,
+                  "offset": 72
+                },
+                "endLine": {
+                  "line": 246,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "{\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "patterns": {
+                "metadata": {
+                  "label": "Patterns",
+                  "description": "List of binding patterns"
+                },
+                "valueType": "SINGLE_SELECT",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Pattern",
+                      "description": "Binding pattern"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "var obj",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "guard": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Guard expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "obj is record {|int quantity; string 'type;|} ",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "273340",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "VARIABLE",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 243,
+                      "offset": 16
+                    },
+                    "endLine": {
+                      "line": 243,
+                      "offset": 44
+                    }
+                  },
+                  "sourceCode": "int quantity = obj.quantity;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Initialize with value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "obj.quantity",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "quantity",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "274329",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "VARIABLE",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 244,
+                      "offset": 16
+                    },
+                    "endLine": {
+                      "line": 244,
+                      "offset": 41
+                    }
+                  },
+                  "sourceCode": "string 'type = obj.'type;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Initialize with value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "obj.'type",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "'type",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "string",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "275359",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'string `Order for ${quantity} ${'type} cherries placed`'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 245,
+                      "offset": 16
+                    },
+                    "endLine": {
+                      "line": 245,
+                      "offset": 79
+                    }
+                  },
+                  "sourceCode": "return string `Order for ${quantity} ${'type} cherries placed`;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "string `Order for ${quantity} ${'type} cherries placed`",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "_",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 247,
+                  "offset": 17
+                },
+                "endLine": {
+                  "line": 249,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "{\n                return error(\"Invalid data format\");\n            }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "patterns": {
+                "metadata": {
+                  "label": "Patterns",
+                  "description": "List of binding patterns"
+                },
+                "valueType": "SINGLE_SELECT",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Pattern",
+                      "description": "Binding pattern"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "278308",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'error(\"Invalid data format\")'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 248,
+                      "offset": 16
+                    },
+                    "endLine": {
+                      "line": 248,
+                      "offset": 52
+                    }
+                  },
+                  "sourceCode": "return error(\"Invalid data format\");"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "error(\"Invalid data format\")",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 250,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 254,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "e ",
+                "placeholder": "err",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "placeholder": "error",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "281183",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 251,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 253,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "if e is error {\n                return error(\"Data processing failed\", e);\n            }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 251,
+                          "offset": 26
+                        },
+                        "endLine": {
+                          "line": 253,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n                return error(\"Data processing failed\", e);\n            }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "e is error ",
+                        "placeholder": "true",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "282282",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Value of 'error(\"Data processing failed\", e)'"
+                        },
+                        "codedata": {
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "match.bal",
+                            "startLine": {
+                              "line": 252,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 252,
+                              "offset": 58
+                            }
+                          },
+                          "sourceCode": "return error(\"Data processing failed\", e);"
+                        },
+                        "returning": true,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "error(\"Data processing failed\", e)",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "data ",
+            "placeholder": "true",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

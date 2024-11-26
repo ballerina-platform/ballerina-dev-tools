@@ -1,0 +1,136 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "43936",
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "object": "log",
+      "symbol": "printInfo",
+      "version": "2.10.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 12,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 12,
+          "offset": 40
+        }
+      },
+      "sourceCode": "log:printInfo(\"Getting apples\");"
+    },
+    "returning": false,
+    "properties": {
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"Getting apples\"",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "msg"
+        }
+      },
+      "error": {
+        "metadata": {
+          "label": "error"
+        },
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'error"
+        }
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged"
+        },
+        "value": "e.stackTrace()",
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        }
+      },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture additional values"
+        },
+        "value": [],
+        "placeholder": "[]",
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "optional": true,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
+      },
+      "keyValues": {
+        "metadata": {
+          "label": "keyValues",
+          "description": "The key-value pairs to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "keyValues"
+        }
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/log;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 12,
+            "character": 8
+          },
+          "end": {
+            "line": 12,
+            "character": 40
+          }
+        },
+        "newText": "log:printInfo(\"Getting apples\", stackTrace = e.stackTrace());"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "49736",
+    "metadata": {
+      "label": "Panic",
+      "description": "Panic and stop the execution"
+    },
+    "codedata": {
+      "node": "PANIC",
+      "lineRange": {
+        "fileName": "panic.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 18,
+          "offset": 12
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Panic value"
+        },
+        "valueType": "error",
+        "value": "e",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 4
+          },
+          "end": {
+            "line": 18,
+            "character": 12
+          }
+        },
+        "newText": "panic e;"
+      }
+    ]
+  }
+}

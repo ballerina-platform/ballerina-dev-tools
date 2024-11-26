@@ -1,0 +1,224 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 11,
+    "offset": 1
+  },
+  "source": "stop.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "stop.bal",
+    "nodes": [
+      {
+        "id": "37139",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 39
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testStop2(int x) returns int? {\n    if x == 2 {\n        return;\n    } else if x == 3 {\n        return x;\n    }\n    return;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "36957",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 5
+            }
+          },
+          "sourceCode": "if x == 2 {\n        return;\n    } else if x == 3 {\n        return x;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "stop.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        return;\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "x == 2 ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "37959",
+                "metadata": {
+                  "label": "Stop",
+                  "description": "Stop the flow"
+                },
+                "codedata": {
+                  "node": "STOP",
+                  "lineRange": {
+                    "fileName": "stop.bal",
+                    "startLine": {
+                      "line": 6,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 6,
+                      "offset": 15
+                    }
+                  },
+                  "sourceCode": "return;"
+                },
+                "returning": true,
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "x == 3",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "stop.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 21
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        return x;\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "x == 3 ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "39945",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'x'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "stop.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "return x;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "41799",
+        "metadata": {
+          "label": "Stop",
+          "description": "Stop the flow"
+        },
+        "codedata": {
+          "node": "STOP",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 11
+            }
+          },
+          "sourceCode": "return;"
+        },
+        "returning": true,
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

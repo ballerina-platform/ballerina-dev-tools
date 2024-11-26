@@ -1,0 +1,18 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "CONTINUE"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Continue",
+      "description": "Skip the current iteration and continue with the next one"
+    },
+    "codedata": {
+      "node": "CONTINUE"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32802",
+    "metadata": {
+      "label": "Comment",
+      "description": "Comment of a node"
+    },
+    "codedata": {
+      "node": "COMMENT",
+      "lineRange": {
+        "fileName": "comment.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 3,
+          "offset": 4
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "comment": {
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment to describe the flow"
+        },
+        "value": "Create variable name i\nThis is an additional comment",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 0
+          },
+          "end": {
+            "line": 3,
+            "character": 4
+          }
+        },
+        "newText": "\n// Create variable name i\n// This is an additional comment\n"
+      }
+    ]
+  }
+}

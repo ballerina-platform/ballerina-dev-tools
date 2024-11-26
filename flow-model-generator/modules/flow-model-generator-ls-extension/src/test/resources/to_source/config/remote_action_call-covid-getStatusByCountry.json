@@ -1,0 +1,197 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "getStatusByCountry",
+      "description": "Get COVID-19 totals for a specific country\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "covid19",
+      "object": "Client",
+      "symbol": "getStatusByCountry",
+      "id": 208,
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "country": {
+        "metadata": {
+          "label": "country",
+          "description": "A country name, iso2, iso3, or country ID code "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "USA",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        }
+      },
+      "yesterday": {
+        "metadata": {
+          "label": "yesterday",
+          "description": "Enter `true`(1) to receive data reported a day ago. Default is `false`(0) "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "value": "()",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "yesterday"
+        }
+      },
+      "twoDaysAgo": {
+        "metadata": {
+          "label": "twoDaysAgo",
+          "description": "Enter `true`(1) to receive data reported two days ago. Default is `false`(0) "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "value": "()",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "twoDaysAgo"
+        }
+      },
+      "strict": {
+        "metadata": {
+          "label": "strict",
+          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "true",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        }
+      },
+      "allowNull": {
+        "metadata": {
+          "label": "allowNull",
+          "description": "By default, value is 0. Enter `1` to allow nulls to be returned "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "value": "()",
+        "placeholder": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "covid19:CovidCountry|error",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "covid19:Client",
+        "value": "",
+        "placeholder": "covid19Client",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/covid19;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "covid19:CovidCountry|error item = check covid19Client->getStatusByCountry(USA, (), (), true, ());"
+      }
+    ]
+  }
+}
