@@ -155,8 +155,12 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                     return new TriggerSvcModelGenResponse();
                 }
                 Optional<Service> service = getServiceFromTriggerName(triggerName.get());
-                service.ifPresent(value -> updateTriggerServiceModel(value, serviceNode));
-                return service.map(TriggerSvcModelGenResponse::new).orElseGet(TriggerSvcModelGenResponse::new);
+                if (service.isEmpty()) {
+                    return new TriggerSvcModelGenResponse();
+                }
+                TriggerBasicInfo triggerBasicInfo = getTriggerBasicInfoByName(triggerName.get()).orElse(null);
+                updateTriggerServiceModel(service.get(), serviceNode);
+                return new TriggerSvcModelGenResponse(triggerBasicInfo, service.get());
             } catch (Throwable e) {
                 return new TriggerSvcModelGenResponse(e);
             }
