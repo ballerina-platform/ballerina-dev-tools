@@ -24,7 +24,7 @@ package io.ballerina.flowmodelgenerator.core.model;
  * @param metadata the metadata of the node
  * @param codedata the codedata of the node
  * @param enabled  whether the node is enabled
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record AvailableNode(Metadata metadata, Codedata codedata, boolean enabled)
         implements Item {

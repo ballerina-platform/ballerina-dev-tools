@@ -45,7 +45,7 @@ import java.util.Optional;
 /**
  * Utility class that contains methods to perform package-related operations.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class PackageUtil {
 

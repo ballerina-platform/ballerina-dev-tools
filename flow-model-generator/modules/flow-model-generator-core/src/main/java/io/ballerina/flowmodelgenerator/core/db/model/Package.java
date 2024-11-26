@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  * Represents a package entity with its details and associated functions.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 @Entity
 @Table(name = "Package")

@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Represents the properties of a HttpApiEvent node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class EventStartBuilder extends NodeBuilder {
 

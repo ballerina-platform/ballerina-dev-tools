@@ -34,7 +34,7 @@ import java.util.List;
  * @param displayAnnotation The display annotation for the connector.
  * @param packageInfo       The package information of the connector.
  * @param icon              The icon representing the connector.
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record ConnectorResponse(
         int id,

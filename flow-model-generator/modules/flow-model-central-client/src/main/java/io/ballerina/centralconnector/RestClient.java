@@ -47,7 +47,7 @@ import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
 /**
  * This class provides methods to interact with the Ballerina Central REST API.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 class RestClient {
 

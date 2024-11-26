@@ -50,7 +50,7 @@ import java.util.Optional;
 /**
  * Generates functions based on a given keyword.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class FunctionGenerator {
 

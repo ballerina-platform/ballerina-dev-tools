@@ -31,7 +31,7 @@ package io.ballerina.flowmodelgenerator.core.db.model;
  * @param resourcePath the resource path of the function
  * @param kind         the kind of the function
  * @param returnError  the return error of the function, if any
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record FunctionResult(
         int functionId,

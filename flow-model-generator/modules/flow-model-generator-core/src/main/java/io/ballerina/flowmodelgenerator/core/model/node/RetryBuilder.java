@@ -35,7 +35,7 @@ import java.util.Optional;
 /**
  * Represents retry block in the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class RetryBuilder extends NodeBuilder {
 

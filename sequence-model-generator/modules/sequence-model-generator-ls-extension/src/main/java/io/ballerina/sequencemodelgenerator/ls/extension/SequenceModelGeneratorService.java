@@ -41,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Extended language server service for the sequence diagram model generator service.
  *
- * @since 2201.9.0
+ * @since 2.0.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("sequenceModelGeneratorService")

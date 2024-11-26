@@ -49,7 +49,7 @@ import java.util.Stack;
 /**
  * Analyzes the body of a participant.
  *
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public class ParticipantBodyAnalyzer extends NodeVisitor {
 

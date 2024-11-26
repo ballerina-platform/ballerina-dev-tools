@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Represents the properties of a break node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class BreakBuilder extends NodeBuilder {
 

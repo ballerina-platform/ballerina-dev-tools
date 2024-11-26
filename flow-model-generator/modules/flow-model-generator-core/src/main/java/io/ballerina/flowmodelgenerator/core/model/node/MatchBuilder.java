@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * Represents the properties of a switch node in the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class MatchBuilder extends NodeBuilder {
 

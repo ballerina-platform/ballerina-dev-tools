@@ -32,7 +32,7 @@ import java.nio.file.Path;
 /**
  * Test cases for the flow model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ModelGeneratorTest extends AbstractLSTest {
 

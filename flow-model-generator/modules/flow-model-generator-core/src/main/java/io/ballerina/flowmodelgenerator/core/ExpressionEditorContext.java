@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 /**
  * Represents the context for the expression editor.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ExpressionEditorContext {
 
