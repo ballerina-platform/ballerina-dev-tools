@@ -19,5 +19,15 @@
       "network",
       "event"
     ]
+  },
+  "9": {
+    "name": "github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "github",
+      "trigger",
+      "event"
+    ]
   }
 }
