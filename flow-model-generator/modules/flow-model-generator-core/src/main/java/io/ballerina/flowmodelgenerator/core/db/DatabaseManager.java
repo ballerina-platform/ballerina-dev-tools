@@ -59,7 +59,7 @@ public class DatabaseManager {
         return Holder.INSTANCE;
     }
 
-    public DatabaseManager() {
+    private DatabaseManager() {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
