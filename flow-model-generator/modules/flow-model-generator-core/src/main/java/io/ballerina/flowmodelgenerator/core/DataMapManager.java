@@ -431,7 +431,7 @@ public class DataMapManager {
     private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {
     }.getType();
 
-    public String getSource(JsonElement mp, JsonElement fNode) {
+    public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
         FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
         List<Mapping> fieldMapping = gson.fromJson(mp, mt);
         Map<String, Object> mappings = new HashMap<>(); // TODO: Maintain the order of fields
@@ -444,14 +444,40 @@ public class DataMapManager {
             if (optProperty.isPresent()) {
                 Property property = optProperty.get();
                 String source = property.toSourceCode();
-                if (source.matches("^from.*in.*select.*$")) {
-                    String[] split = source.split("select");
-                    return split[0] + " select " + mappingSource + ";";
+                if (targetField == null) {
+                    if (source.matches("^from.*in.*select.*$")) {
+                        String[] split = source.split("select");
+                        return split[0] + " select " + mappingSource + ";";
+                    }
+                } else {
+                    String fieldsPattern = getFieldsPattern(targetField);
+                    if (source.matches(".*" + fieldsPattern + "\\s*:\\s*from.*in.*select.*$")) {
+                        String[] split = source.split(fieldsPattern + "\\s*:\\s*from");
+                        String newSource = split[0] + fieldsPattern + ": from";
+                        String[] splitBySelect = split[1].split("select");
+                        return newSource + splitBySelect[0] + "select" + splitBySelect[1].replaceFirst("\\{.*?}",
+                                mappingSource);
+                    }
                 }
             }
         }
 
         return mappingSource;
+    }
+
+    private String getFieldsPattern(String targetField) {
+        String[] splits = targetField.split("\\.");
+        StringBuilder pattern = new StringBuilder();
+        int length = splits.length;
+        for (int i = 1; i < length - 1; i++) {
+            String split = splits[i];
+            if (split.matches("^-?\\d+$")) {
+                continue;
+            }
+            pattern.append(split).append(".*");
+        }
+        pattern.append(splits[length - 1]);
+        return pattern.toString();
     }
 
     private String genSource(Object sourceObj) {

@@ -24,7 +24,8 @@ public class DataMappingSourceTest extends AbstractLSTest {
                 {Path.of("variable2.json")},
                 {Path.of("variable3.json")},
                 {Path.of("variable4.json")},
-                {Path.of("variable5.json")}
+                {Path.of("variable5.json")},
+                {Path.of("variable6.json")}
         };
     }
 
@@ -36,14 +37,14 @@ public class DataMappingSourceTest extends AbstractLSTest {
 
         DataMapperSourceRequest request =
                 new DataMapperSourceRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram(), testConfig.mappings(), "");
+                        testConfig.diagram(), testConfig.mappings(), "", testConfig.targetField());
         String source = getResponse(request).getAsJsonPrimitive("source").getAsString();
 
         if (!source.equals(testConfig.output())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(),
-                    source);
-            updateConfig(configJsonPath, updateConfig);
+                    source, testConfig.targetField());
+//            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -79,7 +80,7 @@ public class DataMappingSourceTest extends AbstractLSTest {
      */
     private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
                               JsonElement position, JsonArray mappings,
-                              String output) {
+                              String output, String targetField) {
 
         public String description() {
             return description == null ? "" : description;
