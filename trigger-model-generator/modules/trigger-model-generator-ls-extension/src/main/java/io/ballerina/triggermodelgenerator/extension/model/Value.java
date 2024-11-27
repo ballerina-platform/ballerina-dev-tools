@@ -16,14 +16,15 @@ public class Value {
     private boolean advanced;
     private Map<String, Value> properties;
     private List<String> items;
+    private Codedata codedata;
 
     public Value() {
-        this(null, false, false, null, null, null, false, null, false, false, null, null);
+        this(null, false, false, null, null, null, false, null, false, false, null, null, null);
     }
 
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
-                 boolean advanced, Map<String, Value> properties, List<String> items) {
+                 boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata) {
         this.metadata = metadata;
         this.enabled = enabled;
         this.editable = editable;
@@ -36,6 +37,7 @@ public class Value {
         this.advanced = advanced;
         this.properties = properties;
         this.items = items;
+        this.codedata = codedata;
     }
 
     public MetaData getMetadata() {
@@ -132,5 +134,13 @@ public class Value {
 
     public void setItems(List<String> items) {
         this.items = items;
+    }
+
+    public Codedata getCodedata() {
+        return codedata;
+    }
+
+    public void setCodedata(Codedata codedata) {
+        this.codedata = codedata;
     }
 }

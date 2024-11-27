@@ -1,7 +1,7 @@
 import ballerinax/kafka;
 import ballerinax/rabbitmq;
 
-service "newQueue" on new rabbitmq:Listener(host = "rabbitmq:DEFAULT_HOST", port = rabbitmq:DEFAULT_PORT) {
+service "OrderQueue" on new rabbitmq:Listener(host = "localhost", port = 9090, username = "admin", password = "admin") {
     remote function onRequest(rabbitmq:AnydataMessage message) returns anydata {
         do {
         } on fail error err {
@@ -10,7 +10,7 @@ service "newQueue" on new rabbitmq:Listener(host = "rabbitmq:DEFAULT_HOST", port
     }
 }
 
-service on new kafka:Listener(bootstrapServers = kafka:DEFAULT_URL, config = {groupId: "order-group-id", topics: ["order-topic"]}) {
+service on new kafka:Listener(bootstrapServers = "localhost:9092", groupId = "order-group-id", topics = ["order-topic"]}) {
     remote function onConsumerRecord(kafka:AnydataConsumerRecord[] records) returns error? {
         do {
         } on fail error err {

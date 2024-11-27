@@ -1,6 +1,15 @@
 package io.ballerina.triggermodelgenerator.extension.model;
 
+import io.ballerina.triggermodelgenerator.extension.Utils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
+import static io.ballerina.triggermodelgenerator.extension.Utils.getValueString;
 
 public class Trigger {
     private int id;
@@ -15,8 +24,8 @@ public class Trigger {
     private String listenerProtocol;
     private String icon;
     private DisplayAnnotation displayAnnotation;
-    private Value listener;
-    private List<Service> services;
+    private Map<String, Value> properties;
+    private Service service;
 
     public Trigger() {
         this(0, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -24,7 +33,7 @@ public class Trigger {
 
     public Trigger(int id, String name, String type, String displayName, String documentation, String moduleName,
                    String orgName, String version, String packageName, String listenerProtocol, String icon,
-                   DisplayAnnotation displayAnnotation, Value listener, List<Service> services) {
+                   DisplayAnnotation displayAnnotation, Map<String, Value> properties, Service service) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -37,8 +46,8 @@ public class Trigger {
         this.listenerProtocol = listenerProtocol;
         this.icon = icon;
         this.displayAnnotation = displayAnnotation;
-        this.listener = listener;
-        this.services = services;
+        this.properties = properties;
+        this.service = service;
     }
 
     public int getId() {
@@ -137,19 +146,73 @@ public class Trigger {
         this.displayAnnotation = displayAnnotation;
     }
 
-    public Value getListener() {
-        return listener;
+    public Map<String, Value> getProperties() {
+        return properties != null ? properties : new HashMap<>();
     }
 
-    public void setListener(Value listener) {
-        this.listener = listener;
+    public Value getProperty(String key) {
+        return properties != null ? properties.get(key) : null;
     }
 
-    public List<Service> getServices() {
-        return services;
+    public void addProperty(String key, Value value) {
+        if (properties == null) {
+            properties = new HashMap<>();
+        }
+        properties.put(key, value);
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
+    public void setProperties(Map<String, Value> properties) {
+        this.properties = properties;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public String getListenerDeclaration() {
+        List<String> params = new ArrayList<>();
+        properties.forEach((key, value) -> {
+            if (isListenerInitProperty(value) && value.isEnabled()) {
+                params.add(String.format("%s = %s", key, getValueString(value)));
+            }
+        });
+        return String.format("new %s:Listener(%s)", listenerProtocol, String.join(", ", params));
+    }
+
+    public boolean isListenerInitProperty(Value value) {
+        Codedata codedata = value.getCodedata();
+        if (Objects.isNull(codedata)) {
+            return false;
+        }
+        return codedata.isInListenerInit();
+    }
+
+    public boolean isBasePathProperty(Value value) {
+        Codedata codedata = value.getCodedata();
+        if (Objects.isNull(codedata)) {
+            return false;
+        }
+        return codedata.isBasePath();
+    }
+
+    public Optional<Value> getBasePathProperty() {
+        for (Map.Entry<String, Value> entry : properties.entrySet()) {
+            if (isBasePathProperty(entry.getValue()) && entry.getValue().isEnabled()) {
+                return Optional.of(entry.getValue());
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<String> getBasePath() {
+        return getBasePathProperty().map(Utils::getValueString);
+    }
+
+    public void setBasePath(String basePath) {
+        getBasePathProperty().ifPresent(value -> value.setValue(basePath));
     }
 }

@@ -1,34 +1,29 @@
 package io.ballerina.triggermodelgenerator.extension.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Service {
     private MetaData metadata;
+    private Codedata codedata;
     private Value serviceType;
-    private Value listener;
     private boolean enabled;
     private List<Function> functions;
-    private Map<String, Value> properties;
 
     public Service() {
-        this(null, null, null, false, null, null);
+        this(null,null, null, false, null);
     }
 
-    public Service(MetaData metadata, Value serviceType, Value listener, boolean enabled,
-                   List<Function> functions, Map<String, Value> properties) {
+    public Service(MetaData metadata, Codedata codedata, Value serviceType, boolean enabled, List<Function> functions) {
         this.metadata = metadata;
         this.serviceType = serviceType;
-        this.listener = listener;
         this.enabled = enabled;
         this.functions = functions;
-        this.properties = properties;
+        this.codedata = codedata;
     }
 
     public static Service getNewService() {
-        return new Service(null, new Value(), new Value(), false, new ArrayList<>(), Map.of("basePath", new Value()));
+        return new Service(null, null, new Value(), false, new ArrayList<>());
     }
 
     public MetaData getMetadata() {
@@ -45,25 +40,6 @@ public class Service {
 
     public void setServiceType(Value serviceType) {
         this.serviceType = serviceType;
-    }
-
-    public Value getBasePath() {
-        return properties == null ? null : properties.get("basePath");
-    }
-
-    public void setBasePath(Value basePath) {
-        if (this.properties == null) {
-            this.properties = new HashMap<>();
-        }
-        this.properties.put("basePath", basePath);
-    }
-
-    public Value getListener() {
-        return listener;
-    }
-
-    public void setListener(Value listener) {
-        this.listener = listener;
     }
 
     public boolean isEnabled() {
@@ -86,15 +62,11 @@ public class Service {
         this.functions.add(function);
     }
 
-    public Map<String, Value> getProperties() {
-        return properties;
+    public Codedata getCodedata() {
+        return codedata;
     }
 
-    public void setProperties(Map<String, Value> properties) {
-        this.properties = properties;
-    }
-
-    public Value getProperty(String key) {
-        return properties == null ? null : properties.get(key);
+    public void setCodedata(Codedata codedata) {
+        this.codedata = codedata;
     }
 }

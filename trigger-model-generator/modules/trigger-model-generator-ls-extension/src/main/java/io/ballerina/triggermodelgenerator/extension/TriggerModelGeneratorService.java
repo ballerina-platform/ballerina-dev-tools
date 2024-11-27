@@ -6,41 +6,32 @@ import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
-import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
-import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
-import io.ballerina.triggermodelgenerator.extension.model.Codedata;
-import io.ballerina.triggermodelgenerator.extension.model.Function;
-import io.ballerina.triggermodelgenerator.extension.model.Parameter;
 import io.ballerina.triggermodelgenerator.extension.model.Service;
 import io.ballerina.triggermodelgenerator.extension.model.Trigger;
 import io.ballerina.triggermodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerFunctionRequest;
-import io.ballerina.triggermodelgenerator.extension.request.TriggerSvcModelGenRequest;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerFunctionResponse;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerModelGenRequest;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerModifierRequest;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerCommonResponse;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerResponse;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerSvcModelGenResponse;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerModelGenResponse;
 import io.ballerina.triggermodelgenerator.extension.model.TriggerProperty;
-import io.ballerina.triggermodelgenerator.extension.request.TriggerSourceGenRequest;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerSourceGenResponse;
-import io.ballerina.triggermodelgenerator.extension.model.Value;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerSourceRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerListResponse;
@@ -61,10 +52,18 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
+
+import static io.ballerina.triggermodelgenerator.extension.Utils.expectsTriggerByName;
+import static io.ballerina.triggermodelgenerator.extension.Utils.filterTriggers;
+import static io.ballerina.triggermodelgenerator.extension.Utils.getFunction;
+import static io.ballerina.triggermodelgenerator.extension.Utils.getFunctionSignature;
+import static io.ballerina.triggermodelgenerator.extension.Utils.getListenerExpression;
+import static io.ballerina.triggermodelgenerator.extension.Utils.getServiceDeclarationNode;
+import static io.ballerina.triggermodelgenerator.extension.Utils.importExists;
+import static io.ballerina.triggermodelgenerator.extension.Utils.populateProperties;
+import static io.ballerina.triggermodelgenerator.extension.Utils.updateTriggerModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.
@@ -131,44 +130,43 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<TriggerSvcModelGenResponse> getTriggerModelFromCode(TriggerSvcModelGenRequest request) {
+    public CompletableFuture<TriggerModelGenResponse> getTriggerModelFromCode(TriggerModelGenRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return new TriggerSvcModelGenResponse();
+                    return new TriggerModelGenResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.codedata().lineRange();
+                LineRange lineRange = request.codedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
                 if (!(node instanceof ServiceDeclarationNode serviceNode)) {
-                    return new TriggerSvcModelGenResponse();
+                    return new TriggerModelGenResponse();
                 }
                 Optional<String> triggerName = getTriggerName(serviceNode);
                 if (triggerName.isEmpty()) {
-                    return new TriggerSvcModelGenResponse();
+                    return new TriggerModelGenResponse();
                 }
-                Optional<Service> service = getServiceFromTriggerName(triggerName.get());
-                if (service.isEmpty()) {
-                    return new TriggerSvcModelGenResponse();
+                Optional<Trigger> trigger = getTriggerByName(triggerName.get());
+                if (trigger.isEmpty()) {
+                    return new TriggerModelGenResponse();
                 }
-                TriggerBasicInfo triggerBasicInfo = getTriggerBasicInfoByName(triggerName.get()).orElse(null);
-                updateTriggerServiceModel(service.get(), serviceNode);
-                return new TriggerSvcModelGenResponse(triggerBasicInfo, service.get());
+                updateTriggerModel(trigger.get(), serviceNode);
+                return new TriggerModelGenResponse(trigger.get());
             } catch (Throwable e) {
-                return new TriggerSvcModelGenResponse(e);
+                return new TriggerModelGenResponse(e);
             }
         });
     }
 
     @JsonRequest
-    public CompletableFuture<TriggerSourceGenResponse> getSourceCode(TriggerSourceGenRequest request) {
+    public CompletableFuture<TriggerCommonResponse> getSourceCode(TriggerSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -176,37 +174,36 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return new TriggerSourceGenResponse();
+                    return new TriggerCommonResponse();
                 }
                 ModulePartNode node = document.get().syntaxTree().rootNode();
                 LineRange lineRange = node.lineRange();
 
                 Trigger trigger = request.trigger();
                 List<String> serviceDeclarations = new ArrayList<>();
-                trigger.getServices().forEach(service -> {
-                    if (service.isEnabled()) {
-                        populateServiceProperties(service);
-                        serviceDeclarations.add(getServiceDeclarationNode(trigger, service));
-                    }
-                });
-                TextEdit serviceEdit = new TextEdit(CommonUtils.toRange(lineRange.endLine()),
+                Service service = trigger.getService();
+                if (service.isEnabled()) {
+                    populateProperties(trigger);
+                    serviceDeclarations.add(getServiceDeclarationNode(trigger, service));
+                }
+                TextEdit serviceEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
                         System.lineSeparator() + String.join(System.lineSeparator(), serviceDeclarations));
                 if (!importExists(node, trigger.getOrgName(), trigger.getModuleName())) {
                     String importText = String.format("%simport %s/%s;%s", System.lineSeparator(), trigger.getOrgName(),
                             trigger.getModuleName(), System.lineSeparator());
-                    TextEdit importEdit = new TextEdit(CommonUtils.toRange(lineRange.startLine()), importText);
+                    TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
                     edits.add(importEdit);
                 }
                 edits.add(serviceEdit);
-                return new TriggerSourceGenResponse(Map.of(request.filePath(), edits));
+                return new TriggerCommonResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
-                return new TriggerSourceGenResponse(e);
+                return new TriggerCommonResponse(e);
             }
         });
     }
 
     @JsonRequest
-    public CompletableFuture<TriggerFunctionResponse> addTriggerFunction(TriggerFunctionRequest request) {
+    public CompletableFuture<TriggerCommonResponse> addTriggerFunction(TriggerFunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -214,17 +211,17 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return new TriggerFunctionResponse();
+                    return new TriggerCommonResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.function().getCodedata().lineRange();
+                LineRange lineRange = request.codedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
                 if (!(node instanceof ServiceDeclarationNode serviceNode)) {
-                    return new TriggerFunctionResponse();
+                    return new TriggerCommonResponse();
                 }
                 LineRange functionLineRange = serviceNode.openBraceToken().lineRange();
                 NodeList<Node> members = serviceNode.members();
@@ -233,17 +230,17 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 String functionNode = "\n\t" + getFunction(request.function()).replace(System.lineSeparator(),
                         System.lineSeparator() + "\t");
-                TextEdit functionEdit = new TextEdit(CommonUtils.toRange(functionLineRange.endLine()), functionNode);
+                TextEdit functionEdit = new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode);
                 edits.add(functionEdit);
-                return new TriggerFunctionResponse(Map.of(request.filePath(), edits));
+                return new TriggerCommonResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
-                return new TriggerFunctionResponse(e);
+                return new TriggerCommonResponse(e);
             }
         });
     }
 
     @JsonRequest
-    public CompletableFuture<TriggerFunctionResponse> updateTriggerFunction(TriggerFunctionRequest request) {
+    public CompletableFuture<TriggerCommonResponse> updateTriggerFunction(TriggerFunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -251,49 +248,76 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return new TriggerFunctionResponse();
+                    return new TriggerCommonResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.function().getCodedata().lineRange();
+                LineRange lineRange = request.function().getCodedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
                 if (!(node instanceof FunctionDefinitionNode functionDefinitionNode)) {
-                    return new TriggerFunctionResponse();
+                    return new TriggerCommonResponse();
                 }
                 LineRange functionLineRange = functionDefinitionNode.functionSignature().lineRange();
                 String functionSignature = getFunctionSignature(request.function());
-                TextEdit functionEdit = new TextEdit(CommonUtils.toRange(functionLineRange), functionSignature);
+                TextEdit functionEdit = new TextEdit(Utils.toRange(functionLineRange), functionSignature);
                 edits.add(functionEdit);
-                return new TriggerFunctionResponse(Map.of(request.filePath(), edits));
+                return new TriggerCommonResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
-                return new TriggerFunctionResponse(e);
+                return new TriggerCommonResponse(e);
             }
         });
     }
 
-    private void populateServiceProperties(Service service) {
-        Value value = service.getProperty("requiredFunctions");
-        if (Objects.nonNull(value) && value.isEnabled()) {
-            String requiredFunction = value.getValue();
-            service.getFunctions()
-                    .forEach(function -> function.setEnabled(
-                            function.getName().getValue().equals(requiredFunction)));
-        }
+    @JsonRequest
+    public CompletableFuture<TriggerCommonResponse> updateTrigger(TriggerModifierRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Trigger trigger = request.trigger();
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new TriggerCommonResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node instanceof ServiceDeclarationNode serviceNode)) {
+                    return new TriggerCommonResponse();
+                }
+                Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
+                if (listenerExpression.isEmpty() || !(listenerExpression.get() instanceof NewExpressionNode listener)) {
+                    return new TriggerCommonResponse();
+                }
+                Optional<String> basePath = trigger.getBasePath();
+                if (basePath.isPresent()) {
+                    NodeList<Node> nodes = serviceNode.absoluteResourcePath();
+                    if (!nodes.isEmpty() && nodes.size() == 1) {
+                        LineRange basePathLineRange = nodes.get(0).lineRange();
+                        TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), basePath.get());
+                        edits.add(basePathEdit);
+                    }
+                }
+                LineRange listenerLineRange = listener.lineRange();
+                String listenerDeclaration = trigger.getListenerDeclaration();
+                TextEdit listenerEdit = new TextEdit(Utils.toRange(listenerLineRange), listenerDeclaration);
+                edits.add(listenerEdit);
+                return new TriggerCommonResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new TriggerCommonResponse(e);
+            }
+        });
     }
 
-    private Optional<ExpressionNode> getListenerExpression(ServiceDeclarationNode serviceNode) {
-        SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
-        if (expressions.isEmpty()) {
-            return Optional.empty();
-        }
-        ExpressionNode expressionNode = expressions.get(0);
-        return Optional.of(expressionNode);
-    }
-
-    private Optional<String> getTriggerName(ServiceDeclarationNode serviceNode) {
+    public Optional<String> getTriggerName(ServiceDeclarationNode serviceNode) {
         Optional<ExpressionNode> expressionNode = getListenerExpression(serviceNode);
         if (expressionNode.isEmpty()) {
             return Optional.empty();
@@ -306,331 +330,6 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
             return Optional.empty();
         }
         return Optional.of(qualifiedNameReferenceNode.modulePrefix().text());
-    }
-
-    private Optional<Service> getServiceFromTriggerName(String name) {
-        if (triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("triggers/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
-
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            Trigger trigger = new Gson().fromJson(reader, Trigger.class);
-            Service service = trigger.getServices().get(0);
-            service.setListener(trigger.getListener());
-
-            return Optional.of(service);
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
-
-    private Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode) {
-        Service serviceModel = Service.getNewService();
-        serviceModel.setEnabled(true);
-        Optional<TypeDescriptorNode> serviceTypeDesc = serviceDeclarationNode.typeDescriptor();
-        if (serviceTypeDesc.isPresent()) {
-            Value serviceType = serviceModel.getServiceType();
-            serviceType.setValue(serviceTypeDesc.get().toString().trim());
-            serviceType.setValueType("TYPE");
-            serviceType.setEnabled(true);
-        }
-        NodeList<Node> paths = serviceDeclarationNode.absoluteResourcePath();
-        if (!paths.isEmpty()) {
-            Value basePath = serviceModel.getBasePath();
-            basePath.setValue(getPath(paths));
-            basePath.setValueType("EXPRESSION");
-            basePath.setEnabled(true);
-        }
-        Optional<ExpressionNode> listenerExp = getListenerExpression(serviceDeclarationNode);
-        if (listenerExp.isPresent()) {
-            Value listener = serviceModel.getListener();
-            listener.setEnabled(true);
-            listener.setValue(listenerExp.get().toString().trim());
-            listener.setValueType("EXPRESSION");
-        }
-        List<Function> functionModels = new ArrayList<>();
-        serviceDeclarationNode.members().forEach(member -> {
-            if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode);
-                functionModels.add(functionModel);
-            }
-        });
-        serviceModel.setFunctions(functionModels);
-        return serviceModel;
-    }
-
-    private String getPath(NodeList<Node> paths) {
-        return paths.stream().map(Node::toString).collect(Collectors.joining(""));
-    }
-
-    private Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode) {
-        Function functionModel = Function.getNewFunction();
-        functionModel.setEnabled(true);
-        Value functionName = functionModel.getName();
-        functionName.setValue(functionDefinitionNode.functionName().text().trim());
-        functionName.setValueType("IDENTIFIER");
-        functionName.setEnabled(true);
-        for (Token qualifier : functionDefinitionNode.qualifierList()) {
-            if (qualifier.text().trim().matches("remote")) {
-                functionModel.setKind("REMOTE");
-            } else if (qualifier.text().trim().matches("resource")) {
-                functionModel.setKind("RESOURCE");
-            } else {
-                functionModel.addQualifier(qualifier.text().trim());
-            }
-        }
-        FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
-        Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
-        if (returnTypeDesc.isPresent()) {
-            Value returnType = functionModel.getReturnType();
-            returnType.setValue(returnTypeDesc.get().type().toString().trim());
-            returnType.setValueType("TYPE");
-            returnType.setEnabled(true);
-        }
-        SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
-        List<Parameter> parameterModels = new ArrayList<>();
-        parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
-            parameterModel.ifPresent(parameterModels::add);
-        });
-        functionModel.setParameters(parameterModels);
-        functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
-        return functionModel;
-    }
-
-    private Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
-        if (parameterNode instanceof RequiredParameterNode parameter) {
-            Parameter parameterModel = Parameter.getNewParameter();
-            parameterModel.setKind("REQUIRED");
-            Value type = parameterModel.getType();
-            type.setValue(parameter.typeName().toString().trim());
-            type.setValueType("TYPE");
-            type.setType(true);
-            type.setEnabled(true);
-            Value name = parameterModel.getName();
-            name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType("STRING");
-            name.setEnabled(true);
-            parameterModel.setEnabled(true);
-            return Optional.of(parameterModel);
-        }
-        // Need to support other parameter types
-        return Optional.empty();
-    }
-
-    private void updateTriggerServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode) {
-        Service commonSvcModel = getServiceModel(serviceNode);
-        updateValue(serviceModel.getServiceType(), commonSvcModel.getServiceType());
-        updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
-        updateValue(serviceModel.getListener(), commonSvcModel.getListener());
-        serviceModel.getFunctions().forEach(functionModel -> {
-            Optional<Function> function = commonSvcModel.getFunctions().stream()
-                    .filter(func -> func.getName().getValue().equals(functionModel.getName().getValue())
-                            && func.getKind().equals(functionModel.getKind()))
-                    .findFirst();
-            function.ifPresentOrElse(
-                    func -> updateFunction(functionModel, func),
-                    () -> functionModel.setEnabled(false)
-            );
-        });
-        List<Function> defaultFunctions = commonSvcModel.getFunctions().stream()
-                .filter(func -> func.getKind().equals("DEFAULT")).toList();
-        serviceModel.getFunctions().addAll(defaultFunctions);
-    }
-
-    private void updateValue(Value target, Value source) {
-        if (Objects.isNull(target) || Objects.isNull(source)) {
-            return;
-        }
-        target.setEnabled(source.isEnabled());
-        target.setValue(source.getValue());
-        target.setValueType(source.getValueType());
-    }
-
-    private void updateFunction(Function target, Function source) {
-        target.setEnabled(source.isEnabled());
-        target.setCodedata(source.getCodedata());
-        updateValue(target.getAccessor(), source.getAccessor());
-        updateValue(target.getName(), source.getName());
-        target.getParameters().forEach(param -> {
-            Optional<Parameter> parameter = source.getParameters().stream()
-                    .filter(p -> p.getName().getValue().equals(param.getName().getValue()))
-                    .findFirst();
-            parameter.ifPresent(value -> updateParameter(param, value));
-        });
-        updateValue(target.getReturnType(), source.getReturnType());
-    }
-
-    private void updateParameter(Parameter target, Parameter source) {
-        target.setEnabled(source.isEnabled());
-        target.setKind(source.getKind());
-        updateValue(target.getType(), source.getType());
-        updateValue(target.getName(), source.getName());
-    }
-
-    private String getServiceDeclarationNode(Trigger trigger, Service service) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("service ");
-        if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabled()) {
-            builder.append(getValueString(service.getServiceType()));
-            builder.append(" ");
-        }
-        if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabled()) {
-            builder.append(getValueString(service.getBasePath()));
-            builder.append(" ");
-        }
-        builder.append("on ");
-        Value listener = getListener(service, trigger);
-        if (listener.isEnabled()) {
-            builder.append(getValueString(listener));
-        } else {
-            builder.append("new ");
-            builder.append(trigger.getListenerProtocol());
-            builder.append(":Listener(");
-            builder.append(getListenerParams(listener));
-            builder.append(")");
-        }
-        builder.append(" {");
-        builder.append(System.lineSeparator());
-        List<String> functions = new ArrayList<>();
-        service.getFunctions().forEach(function -> {
-            if (function.isEnabled()) {
-                String functionNode = "\t" + getFunction(function).replace(System.lineSeparator(),
-                        System.lineSeparator() + "\t");
-                functions.add(functionNode);
-            }
-        });
-        builder.append(String.join(System.lineSeparator() + System.lineSeparator(), functions));
-        builder.append(System.lineSeparator());
-        builder.append("}");
-        return builder.toString();
-    }
-
-    private Value getListener(Service service, Trigger trigger) {
-        return Objects.nonNull(service.getListener()) ? service.getListener() : trigger.getListener();
-    }
-
-    private String getValueString(Value value) {
-        if (!value.isEnabled()) {
-           return "";
-        }
-        if (!value.getValue().trim().isEmpty()) {
-            return value.getValueType().equals("STRING") ? String.format("\"%s\"", value.getValue()) : value.getValue();
-        }
-        if (!value.getPlaceholder().trim().isEmpty()) {
-            return value.getValueType().equals("STRING") ? String.format("\"%s\"", value.getPlaceholder()) :
-                    value.getPlaceholder();
-        }
-        Map<String, Value> properties = value.getProperties();
-        if (Objects.isNull(properties)) {
-            return "";
-        }
-        List<String> params = new ArrayList<>();
-        properties.forEach((key, val) -> {
-            if (val.isEnabled()) {
-                params.add(String.format("%s: %s", key, getValueString(val)));
-            }
-        });
-        return String.format("{%s}", String.join(", ", params));
-    }
-
-    private String getListenerParams(Value listener) {
-        Map<String, Value> properties = listener.getProperties();
-        List<String> params = new ArrayList<>();
-        properties.forEach((key, value) -> {
-            if (value.isEnabled()) {
-                params.add(String.format("%s = %s", key, getValueString(value)));
-            }
-        });
-        return String.join(", ", params);
-    }
-
-    private String getFunction(Function function) {
-        StringBuilder builder = new StringBuilder();
-        String functionQualifiers = getFunctionQualifiers(function);
-        if (!functionQualifiers.isEmpty()) {
-            builder.append(functionQualifiers);
-            builder.append(" ");
-        }
-        builder.append("function ");
-        if (function.getKind().equals("RESOURCE") && Objects.nonNull(function.getAccessor())
-                && function.getAccessor().isEnabled()) {
-            builder.append(getValueString(function.getAccessor()));
-            builder.append(" ");
-        }
-        builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function));
-        builder.append("{");
-        builder.append(System.lineSeparator());
-        builder.append("\tdo {");
-        builder.append(System.lineSeparator());
-        builder.append("\t} on fail error err {");
-        builder.append(System.lineSeparator());
-        builder.append("\t\t// handle error");
-        builder.append(System.lineSeparator());
-        builder.append("\t}");
-        builder.append(System.lineSeparator());
-        builder.append("}");
-        return builder.toString();
-    }
-
-    private String getFunctionSignature(Function function) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("(");
-        List<String> params = new ArrayList<>();
-        function.getParameters().forEach(param -> {
-            if (param.isEnabled()) {
-                params.add(String.format("%s %s", getValueString(param.getType()), getValueString(param.getName())));
-            }
-        });
-        builder.append(String.join(", ", params));
-        builder.append(")");
-        if (function.getReturnType().isEnabled()) {
-            builder.append(" returns ");
-            builder.append(getValueString(function.getReturnType()));
-        }
-        builder.append(" ");
-        return builder.toString();
-    }
-
-    private String getFunctionQualifiers(Function function) {
-        List<String> qualifiers = function.getQualifiers();
-        qualifiers = Objects.isNull(qualifiers) ? new ArrayList<>() : qualifiers;
-        String kind = function.getKind();
-        switch (kind) {
-            case "REMOTE" -> qualifiers.add("remote");
-            case "RESOURCE" -> qualifiers.add("resource");
-        }
-        return String.join(" ", qualifiers);
-    }
-
-    private boolean importExists(ModulePartNode node, String org, String module) {
-        return node.imports().stream().anyMatch(importDeclarationNode -> {
-            String moduleName = importDeclarationNode.moduleName().stream()
-                    .map(IdentifierToken::text)
-                    .collect(Collectors.joining("."));
-            return importDeclarationNode.orgName().isPresent() &&
-                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                    module.equals(moduleName);
-        });
-    }
-
-    private boolean filterTriggers(TriggerProperty triggerProperty, TriggerListRequest request) {
-        return (request == null) || ((request.organization() == null || request.organization().equals(triggerProperty.orgName())) &&
-                (request.packageName() == null || request.packageName().equals(triggerProperty.packageName())) &&
-                (request.keyWord() == null || triggerProperty.keywords().stream()
-                        .anyMatch(keyword -> keyword.equalsIgnoreCase(request.keyWord()))) &&
-                (request.query() == null || triggerProperty.keywords().stream()
-                        .anyMatch(keyword -> keyword.contains(request.query()))));
-    }
-
-    private static boolean expectsTriggerByName(TriggerRequest request) {
-        return request.id() == null && request.organization() != null && request.packageName() != null;
     }
 
     private Optional<TriggerBasicInfo> getTriggerBasicInfoByName(String name) {
