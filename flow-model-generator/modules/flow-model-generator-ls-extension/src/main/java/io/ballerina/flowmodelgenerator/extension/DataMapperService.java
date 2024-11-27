@@ -131,7 +131,8 @@ public class DataMapperService implements ExtendedLanguageServerService {
                     return response;
                 }
                 DataMapManager dataMapManager = new DataMapManager(null, null, document.get());
-                response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(), Path.of(request.filePath()), request.position(), project));
+                response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(),
+                        Path.of(request.filePath()), request.position(), project));
             } catch (Throwable e) {
                 response.setError(e);
             }

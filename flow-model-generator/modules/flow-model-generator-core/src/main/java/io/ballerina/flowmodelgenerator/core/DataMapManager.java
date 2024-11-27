@@ -146,33 +146,12 @@ public class DataMapManager {
                                    String targetField, Project project) {
         // TODO: add tests for enum
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
-        Map<Path, List<TextEdit>> textEdits =
-                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
-        String source = textEdits.entrySet().stream().iterator().next().getValue().get(0).getNewText();
-        TextDocument textDocument = document.textDocument();
-        int startTextPosition = textDocument.textPositionFrom(position);
-        io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
-                0), source);
-        io.ballerina.tools.text.TextEdit[] tes = {te};
-        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
-        Document modifiedDoc =
-                project.duplicate().currentPackage().module(document.module().moduleId())
-                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                modifiedTextDoc.textLines())).apply();
-
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                .getSemanticModel(modifiedDoc.module().moduleId());
-        LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
-        LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
-        Range range = new Range(new Position(startLine.line(), startLine.offset()),
-                new Position(endLine.line(), endLine.offset()));
-        NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
-
-        List<MappingPort> inputPorts = getInputPorts(newSemanticModel, modifiedDoc, position);
+        SourceModification modification = applyNode(flowNode, project, filePath, position);
+        SemanticModel newSemanticModel = modification.semanticModel();
+        List<MappingPort> inputPorts = getInputPorts(newSemanticModel, modification.document(), position);
         inputPorts.sort(Comparator.comparing(mt -> mt.id));
 
-        TargetNode targetNode = getTargetNode(stNode, targetField, newSemanticModel);
+        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, newSemanticModel);
         if (targetNode == null) {
             return null;
         }
@@ -187,7 +166,7 @@ public class DataMapManager {
         } else if (typeKind.equals("array")) {
             generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
         }
-        return gson.toJsonTree(new Model(inputPorts, getMappingPort(name, type), mappings, source));
+        return gson.toJsonTree(new Model(inputPorts, getMappingPort(name, type), mappings, modification.source()));
     }
 
     private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
@@ -592,30 +571,9 @@ public class DataMapManager {
     public String getQuery(JsonElement fNode, String targetField, Path filePath, LinePosition position,
                            Project project) {
         FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
-        Map<Path, List<TextEdit>> textEdits =
-                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
-        String source = textEdits.entrySet().stream().iterator().next().getValue().get(0).getNewText();
-        TextDocument textDocument = document.textDocument();
-        int startTextPosition = textDocument.textPositionFrom(position);
-        io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
-                0), source);
-        io.ballerina.tools.text.TextEdit[] tes = {te};
-        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
-        Document modifiedDoc =
-                project.duplicate().currentPackage().module(document.module().moduleId())
-                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                modifiedTextDoc.textLines())).apply();
+        SourceModification modification = applyNode(flowNode, project, filePath, position);
 
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                .getSemanticModel(modifiedDoc.module().moduleId());
-        LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
-        LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
-        Range range = new Range(new Position(startLine.line(), startLine.offset()),
-                new Position(endLine.line(), endLine.offset()));
-        NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
-
-        TargetNode targetNode = getTargetNode(stNode, targetField, newSemanticModel);
+        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, modification.semanticModel());
         if (targetNode == null) {
             return "";
         }
@@ -645,6 +603,36 @@ public class DataMapManager {
         return expr.replace(targetNode.expressionNode().toSourceCode(), query);
     }
 
+    private SourceModification applyNode(FlowNode flowNode, Project project, Path filePath, LinePosition position) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
+        Map<Path, List<TextEdit>> textEdits =
+                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
+        String source = textEdits.entrySet().stream().iterator().next().getValue().get(0).getNewText();
+        TextDocument textDocument = document.textDocument();
+        int startTextPosition = textDocument.textPositionFrom(position);
+        io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
+                0), source);
+        io.ballerina.tools.text.TextEdit[] tes = {te};
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
+        Document modifiedDoc =
+                project.duplicate().currentPackage().module(document.module().moduleId())
+                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
+                                modifiedTextDoc.textLines())).apply();
+
+        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+                .getSemanticModel(modifiedDoc.module().moduleId());
+        LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
+        LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
+        Range range = new Range(new Position(startLine.line(), startLine.offset()),
+                new Position(endLine.line(), endLine.offset()));
+        NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
+
+        return new SourceModification(source, modifiedDoc, newSemanticModel, stNode);
+    }
+
+    private record SourceModification(String source, Document document, SemanticModel semanticModel, Node stNode) {
+    }
+
     private String getQuerySource(ExpressionNode inputExpr, RecordTypeSymbol recordTypeSymbol) {
         String name = "item";
         SyntaxKind kind = inputExpr.kind();
@@ -656,15 +644,15 @@ public class DataMapManager {
         }
 
         StringBuilder sb = new StringBuilder("from var " + name + " in " + inputExpr.toSourceCode());
-        sb.append(" select ");
-        sb.append("{");
+        sb.append(" ").append(SyntaxKind.SELECT_KEYWORD.stringValue()).append(" ");
+        sb.append(SyntaxKind.OPEN_BRACE_TOKEN.stringValue());
         List<String> keys = new ArrayList<>(recordTypeSymbol.fieldDescriptors().keySet());
         int size = keys.size();
         for (int i = 0; i < size - 1; i++) {
-            sb.append(keys.get(i)).append(": ").append(",");
+            sb.append(keys.get(i)).append(": ").append(SyntaxKind.COMMA_TOKEN.stringValue());
         }
         sb.append(keys.get(size - 1)).append(": ");
-        sb.append("}");
+        sb.append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue());
         return sb.toString();
     }
 
@@ -677,7 +665,6 @@ public class DataMapManager {
     }
 
     // TODO: Recheck the constructor generation
-    // TODO: Rename to MappingPort
     private static class MappingPort {
         String id;
         String variableName;
