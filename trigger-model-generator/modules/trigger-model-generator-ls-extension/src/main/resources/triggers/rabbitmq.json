@@ -18,7 +18,9 @@
         "host": {
             "metadata": {
                 "label": "Server Hostname",
-                "description": "The RabbitMQ server host name used for establishing the connection"
+                "description": "The RabbitMQ server host name used for establishing the connection",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -37,7 +39,9 @@
         "port": {
             "metadata": {
                 "label": "Server Port",
-                "description": "The RabbitMQ server port used for establishing the connection"
+                "description": "The RabbitMQ server port used for establishing the connection",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -63,7 +67,9 @@
             "advanced": false,
             "metadata": {
                 "label": "Queue Name",
-                "description": "The RabbitMQ queue name"
+                "description": "The RabbitMQ queue name",
+                "groupNo": 2,
+                "groupName": "Service Configurations"
             },
             "codedata": {
                 "isBasePath": true
@@ -80,7 +86,9 @@
             "advanced": false,
             "metadata": {
                 "label": "Required Functions",
-                "description": "The required remote method to be implemented"
+                "description": "The required remote method to be implemented",
+                "groupNo": 2,
+                "groupName": "Service Configurations"
             },
             "placeholder": "onMessage",
             "items": [
@@ -91,7 +99,9 @@
         "qosSettings": {
             "metadata": {
                 "label": "QoS Settings",
-                "description": "The consumer prefetch settings"
+                "description": "The consumer prefetch settings",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -157,7 +167,9 @@
         "username": {
             "metadata": {
                 "label": "Username",
-                "description": "The username used for establishing the connection"
+                "description": "The username used for establishing the connection",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -176,7 +188,9 @@
         "password": {
             "metadata": {
                 "label": "Password",
-                "description": "The password used for establishing the connection"
+                "description": "The password used for establishing the connection",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -195,7 +209,9 @@
         "virtualHost": {
             "metadata": {
                 "label": "Virtual Host",
-                "description": "The virtual host to use when connecting to the broker"
+                "description": "The virtual host to use when connecting to the broker",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -214,7 +230,9 @@
         "connectionTimeout": {
             "metadata": {
                 "label": "Connection Timeout",
-                "description": "Connection TCP establishment timeout in seconds and zero for infinite"
+                "description": "Connection TCP establishment timeout in seconds and zero for infinite",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -233,7 +251,9 @@
         "handshakeTimeout": {
             "metadata": {
                 "label": "Handshake Timeout",
-                "description": "The AMQP 0-9-1 protocol handshake timeout in seconds"
+                "description": "The AMQP 0-9-1 protocol handshake timeout in seconds",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -252,7 +272,9 @@
         "shutdownTimeout": {
             "metadata": {
                 "label": "Shutdown Timeout",
-                "description": "Shutdown timeout in seconds, zero for infinite, and the default value is 10. If the consumers exceed this timeout, then any remaining queued deliveries (and other Consumer callbacks) will be lost"
+                "description": "Shutdown timeout in seconds, zero for infinite, and the default value is 10. If the consumers exceed this timeout, then any remaining queued deliveries (and other Consumer callbacks) will be lost",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -271,7 +293,9 @@
         "heartbeat": {
             "metadata": {
                 "label": "Heartbeat Timeout",
-                "description": "The initially-requested heartbeat timeout in seconds and zero for none"
+                "description": "The initially-requested heartbeat timeout in seconds and zero for none",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -290,7 +314,9 @@
         "validation": {
             "metadata": {
                 "label": "Constraint Validation",
-                "description": "Configuration related to constraint validation check"
+                "description": "Configuration related to constraint validation check",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -309,7 +335,9 @@
         "secureSocket": {
             "metadata": {
                 "label": "Secure Socket Configuration",
-                "description": "Configurations for facilitating secure connections"
+                "description": "Configurations for facilitating secure connections",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -454,52 +482,58 @@
                         "advanced": true
                     }
                 }
+            }
+        },
+        "auth": {
+            "metadata": {
+                "label": "Authentication Configuration",
+                "description": "Configurations related to authentication",
+                "groupNo": 1,
+                "groupName": "Listener Configurations"
             },
-            "auth": {
-                "metadata": {
-                    "label": "Authentication Configuration",
-                    "description": "Configurations related to authentication."
-                },
-                "enabled": false,
-                "editable": true,
-                "value": "",
-                "valueType": "EXPRESSION",
-                "isType": false,
-                "valueTypeConstraint": "rabbitmq:Credentials",
-                "placeholder": "",
-                "optional": true,
-                "advanced": true,
-                "properties": {
-                    "username": {
-                        "metadata": {
-                            "label": "Username",
-                            "description": "Username to use for authentication"
-                        },
-                        "enabled": false,
-                        "editable": true,
-                        "value": "",
-                        "valueType": "EXPRESSION",
-                        "isType": false,
-                        "valueTypeConstraint": "string",
-                        "placeholder": "",
-                        "optional": true,
-                        "advanced": true
+            "codedata": {
+                "inListenerInit": true,
+                "argKind": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "rabbitmq:Credentials",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true,
+            "properties": {
+                "username": {
+                    "metadata": {
+                        "label": "Username",
+                        "description": "Username to use for authentication"
                     },
-                    "password": {
-                        "metadata": {
-                            "label": "Password",
-                            "description": "Password/secret/token to use for authentication"
-                        },
-                        "enabled": false,
-                        "editable": true,
-                        "value": "",
-                        "valueType": "EXPRESSION",
-                        "isType": false,
-                        "valueTypeConstraint": "string",
-                        "placeholder": "",
-                        "optional": true,
-                        "advanced": true
-                    }
+                    "enabled": false,
+                    "editable": true,
+                    "value": "",
+                    "valueType": "EXPRESSION",
+                    "isType": false,
+                    "valueTypeConstraint": "string",
+                    "placeholder": "",
+                    "optional": true,
+                    "advanced": true
+                },
+                "password": {
+                    "metadata": {
+                        "label": "Password",
+                        "description": "Password/secret/token to use for authentication"
+                    },
+                    "enabled": false,
+                    "editable": true,
+                    "value": "",
+                    "valueType": "EXPRESSION",
+                    "isType": false,
+                    "valueTypeConstraint": "string",
+                    "placeholder": "",
+                    "optional": true,
+                    "advanced": true
                 }
             }
         }

@@ -18,7 +18,9 @@
     "url": {
       "metadata": {
         "label": "Broker URL",
-        "description": "The NATS broker URL. For a clustered use case, provide the URLs as a string array"
+        "description": "The NATS broker URL. For a clustered use case, provide the URLs as a string array",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -44,7 +46,9 @@
       "advanced": false,
       "metadata": {
         "label": "Subject Name",
-        "description": "The NATS subject name"
+        "description": "The NATS subject name",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
       },
       "codedata": {
         "isBasePath": true
@@ -61,7 +65,9 @@
       "advanced": false,
       "metadata": {
         "label": "Required Functions",
-        "description": "The required remote method to be implemented"
+        "description": "The required remote method to be implemented",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
       },
       "placeholder": "onMessage",
       "items": [
@@ -72,7 +78,9 @@
     "connectionName": {
       "metadata": {
         "label": "Connection Name",
-        "description": "The name of the connection"
+        "description": "The name of the connection",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -91,7 +99,9 @@
     "retryConfig": {
       "metadata": {
         "label": "Retry Configurations",
-        "description": "The configurations related to connection reconnect attempts"
+        "description": "The configurations related to connection reconnect attempts",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -157,7 +167,9 @@
     "ping": {
       "metadata": {
         "label": "Ping Configurations",
-        "description": "The configurations related to pinging the server"
+        "description": "The configurations related to pinging the server",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -172,7 +184,7 @@
       "placeholder": "",
       "optional": true,
       "advanced": true,
-      "propertie": {
+      "properties": {
         "pingInterval": {
           "metadata": {
             "label": "Ping Interval",
@@ -208,7 +220,9 @@
     "auth": {
       "metadata": {
         "label": "Auth Configurations",
-        "description": "The configurations related to authentication"
+        "description": "The configurations related to authentication",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -244,7 +258,9 @@
     "inboxPrefix": {
       "metadata": {
         "label": "Inbox Prefix",
-        "description": "The connection's inbox prefix, which all inboxes will start with"
+        "description": "The connection's inbox prefix, which all inboxes will start with",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -263,7 +279,9 @@
     "noEcho": {
       "metadata": {
         "label": "No Echo",
-        "description": "Turns off echoing. This prevents the server from echoing messages back to the connection if it has subscriptions on the subject being published to"
+        "description": "Turns off echoing. This prevents the server from echoing messages back to the connection if it has subscriptions on the subject being published to",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -282,7 +300,9 @@
     "secureSocket": {
       "metadata": {
         "label": "secure Socket Configurations",
-        "description": "The configurations related to SSL/TLS"
+        "description": "The configurations related to SSL/TLS",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
@@ -417,7 +437,9 @@
     "validation": {
       "metadata": {
         "label": "Constraint Validation",
-        "description": "Configuration related to constraint validation check"
+        "description": "Configuration related to constraint validation check",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
       },
       "codedata": {
         "inListenerInit": true,
