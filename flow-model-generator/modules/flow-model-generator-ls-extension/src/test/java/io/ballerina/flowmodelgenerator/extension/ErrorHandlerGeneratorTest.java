@@ -41,8 +41,7 @@ import java.util.Map;
  */
 public class ErrorHandlerGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -96,7 +95,6 @@ public class ErrorHandlerGeneratorTest extends AbstractLSTest {
     protected String getApiName() {
         return "addErrorHandler";
     }
-
 
     private record TestConfig(String description, String source, Map<String, List<TextEdit>> output) {
 
