@@ -1,0 +1,47 @@
+{
+  "description": "",
+  "source": "mapping.bal",
+  "output": {
+    "mapping.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 61
+          },
+          "end": {
+            "line": 16,
+            "character": 61
+          }
+        },
+        "newText": "|error"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 62
+          },
+          "end": {
+            "line": 16,
+            "character": 62
+          }
+        },
+        "newText": "do {\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 21,
+            "character": 2
+          },
+          "end": {
+            "line": 21,
+            "character": 2
+          }
+        },
+        "newText": "\n} on fail var e {\n   return e;\n}"
+      }
+    ]
+  }
+}
