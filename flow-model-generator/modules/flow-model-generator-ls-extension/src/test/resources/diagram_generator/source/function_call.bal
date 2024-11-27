@@ -1,4 +1,4 @@
-// import ballerina/data.jsondata; TODO: Uncomment after fixing #442
+// import ballerina/data.jsondata; TODO: Enable after fixing #442
 import ballerina/http;
 import ballerina/io;
 import ballerina/log;
