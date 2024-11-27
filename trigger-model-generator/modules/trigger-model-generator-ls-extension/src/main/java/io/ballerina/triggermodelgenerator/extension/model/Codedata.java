@@ -6,15 +6,17 @@ public class Codedata {
     private LineRange lineRange;
     private boolean inListenerInit;
     private boolean isBasePath;
+    private boolean inDisplayAnnotation;
 
     public Codedata(LineRange lineRange) {
-        this(lineRange, false, false);
+        this(lineRange, false, false, false);
     }
 
-    public Codedata(LineRange lineRange, boolean inListenerInit, boolean isBasePath) {
+    public Codedata(LineRange lineRange, boolean inListenerInit, boolean isBasePath, boolean inDisplayAnnotation) {
         this.lineRange = lineRange;
         this.inListenerInit = inListenerInit;
         this.isBasePath = isBasePath;
+        this.inDisplayAnnotation = inDisplayAnnotation;
     }
 
     public LineRange getLineRange() {
@@ -39,5 +41,13 @@ public class Codedata {
 
     public void setBasePath(boolean isBasePath) {
         this.isBasePath = isBasePath;
+    }
+
+    public boolean isInDisplayAnnotation() {
+        return inDisplayAnnotation;
+    }
+
+    public void setInDisplayAnnotation(boolean inDisplayAnnotation) {
+        this.inDisplayAnnotation = inDisplayAnnotation;
     }
 }

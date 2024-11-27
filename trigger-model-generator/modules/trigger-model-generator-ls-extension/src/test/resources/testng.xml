@@ -22,7 +22,7 @@ under the License.
 <suite name="trigger-model-test-suite">
     <test name="trigger-model-test" parallel="false">
         <classes>
-            <class name="io.ballerina.triggermodelgenerator.extension.SourceGeneratorTest"/>
+            <class name="io.ballerina.triggermodelgenerator.extension.TriggerServiceTest"/>
         </classes>
     </test>
 </suite>

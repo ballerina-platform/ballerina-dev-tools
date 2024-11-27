@@ -18,11 +18,14 @@
 
 package io.ballerina.triggermodelgenerator.extension;
 
+import io.ballerina.compiler.syntax.tree.AnnotationNode;
+import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -32,6 +35,8 @@ import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.tools.text.LinePosition;
@@ -191,7 +196,6 @@ public final class Utils {
             parameterModel.setEnabled(true);
             return Optional.of(parameterModel);
         }
-        // Need to support other parameter types
         return Optional.empty();
     }
 
@@ -232,6 +236,43 @@ public final class Utils {
         if (!paths.isEmpty()) {
             trigger.setBasePath(getPath(paths));
         }
+        Optional<MappingFieldNode> mappingFieldNode = serviceNode.metadata()
+                .flatMap(metadataNode -> metadataNode.annotations().stream()
+                        .filter(Utils::isDisplayAnnotation).findFirst()
+                        .flatMap(AnnotationNode::annotValue)
+                        .flatMap(annotValue -> annotValue.fields().stream()
+                                .filter(Utils::isLabelField).findFirst()));
+        if (mappingFieldNode.isPresent()) {
+            Optional<String> labelValue = getLabelValue(mappingFieldNode.get());
+            Optional<LineRange> labelValueLocation = getLabelValueLocation(mappingFieldNode.get());
+            trigger.setSvcDisplayAnnotation(labelValue.orElse(""), labelValueLocation.orElse(null));
+        }
+    }
+
+    private static boolean isDisplayAnnotation(AnnotationNode annotationNode) {
+        return annotationNode.annotReference() instanceof SimpleNameReferenceNode simpleNameReferenceNode && simpleNameReferenceNode.name().text().trim().equals("display");
+    }
+
+    private static boolean isLabelField(MappingFieldNode fieldNode) {
+        if (!(fieldNode instanceof SpecificFieldNode specificFieldNode)) {
+            return false;
+        }
+        if (!(specificFieldNode.fieldName() instanceof IdentifierToken fieldNameToken)) {
+            return false;
+        }
+        return fieldNameToken.text().trim().equals("label");
+    }
+
+    private static Optional<String> getLabelValue(MappingFieldNode fieldNode) {
+        Optional<ExpressionNode> expressionNode = ((SpecificFieldNode) fieldNode).valueExpr();
+        if (expressionNode.isEmpty() || !(expressionNode.get() instanceof BasicLiteralNode basicLiteralNode)) {
+            return Optional.empty();
+        }
+        return Optional.of(basicLiteralNode.literalToken().text().trim());
+    }
+
+    private static Optional<LineRange> getLabelValueLocation(MappingFieldNode fieldNode) {
+        return ((SpecificFieldNode) fieldNode).valueExpr().map(ExpressionNode::lineRange);
     }
 
     public static void updateValue(Value target, Value source) {
@@ -272,6 +313,7 @@ public final class Utils {
 
     public static String getServiceDeclarationNode(Trigger trigger, Service service) {
         StringBuilder builder = new StringBuilder();
+        getDisplayAnnotation(trigger).ifPresent(builder::append);
         builder.append("service ");
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabled()) {
             builder.append(getValueString(service.getServiceType()));
@@ -297,6 +339,22 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append("}");
         return builder.toString();
+    }
+
+    public static Optional<String> getDisplayAnnotation(Trigger trigger) {
+        Optional<String> svcDisplayAnnotation = trigger.getSvcDisplayAnnotation();
+        if (svcDisplayAnnotation.isEmpty()) {
+            return Optional.empty();
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("@display {");
+        builder.append(System.lineSeparator());
+        builder.append("\tlabel: ");
+        builder.append(svcDisplayAnnotation.get());
+        builder.append(System.lineSeparator());
+        builder.append("}");
+        builder.append(System.lineSeparator());
+        return Optional.of(builder.toString());
     }
 
     public static String getValueString(Value value) {

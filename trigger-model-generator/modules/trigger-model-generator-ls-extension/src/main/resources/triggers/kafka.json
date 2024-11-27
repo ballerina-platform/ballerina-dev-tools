@@ -78,6 +78,26 @@
       "optional": false,
       "advanced": false
     },
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the Service",
+        "groupNo": "2",
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "inDisplayAnnotation": true
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "STRING",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
     "offsetReset": {
       "metadata": {
         "label": "Offset Reset Strategy",

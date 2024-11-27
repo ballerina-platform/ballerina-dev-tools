@@ -1,5 +1,6 @@
 package io.ballerina.triggermodelgenerator.extension.model;
 
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.triggermodelgenerator.extension.Utils;
 
 import java.util.ArrayList;
@@ -199,6 +200,14 @@ public class Trigger {
         return codedata.isBasePath();
     }
 
+    public boolean isDisplayAnnotationProperty(Value value) {
+        Codedata codedata = value.getCodedata();
+        if (Objects.isNull(codedata)) {
+            return false;
+        }
+        return codedata.isInDisplayAnnotation();
+    }
+
     public Optional<Value> getBasePathProperty() {
         for (Map.Entry<String, Value> entry : properties.entrySet()) {
             if (isBasePathProperty(entry.getValue()) && entry.getValue().isEnabled()) {
@@ -214,5 +223,26 @@ public class Trigger {
 
     public void setBasePath(String basePath) {
         getBasePathProperty().ifPresent(value -> value.setValue(basePath));
+    }
+
+    public Optional<Value> getSvcDisplayAnnotationProperty() {
+        for (Map.Entry<String, Value> entry : properties.entrySet()) {
+            if (isDisplayAnnotationProperty(entry.getValue()) && entry.getValue().isEnabled()) {
+                return Optional.of(entry.getValue());
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<String> getSvcDisplayAnnotation() {
+        return getSvcDisplayAnnotationProperty().map(Utils::getValueString);
+    }
+
+    public void setSvcDisplayAnnotation(String svcDisplayAnnotation, LineRange lineRange) {
+        getSvcDisplayAnnotationProperty().ifPresent(value -> {
+            value.setValue(svcDisplayAnnotation.replaceAll("^\"|\"$", ""));
+            value.setEnabled(true);
+            value.getCodedata().setLineRange(lineRange);
+        });
     }
 }

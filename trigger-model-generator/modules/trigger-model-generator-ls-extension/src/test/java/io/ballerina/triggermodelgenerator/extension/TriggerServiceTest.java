@@ -34,7 +34,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class SourceGeneratorTest {
+public class TriggerServiceTest {
     private Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
     private Path resDir;
@@ -102,7 +102,7 @@ public class SourceGeneratorTest {
     @Test
     public void testTriggerModelFromCodeGenerator() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(10, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(13, 1)));
         TriggerModelGenRequest request = new TriggerModelGenRequest(filePath, codedata);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
         TriggerModelGenResponse response = (TriggerModelGenResponse) result.get();
@@ -111,7 +111,7 @@ public class SourceGeneratorTest {
         CompletableFuture<?> result1 = serviceEndpoint.request("triggerDesignService/getSourceCode", request1);
         TriggerCommonResponse response1 = (TriggerCommonResponse) result1.get();
 
-        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(12, 0), LinePosition.from(26, 1)));
+        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(15, 0), LinePosition.from(32, 1)));
         request = new TriggerModelGenRequest(filePath, codedata);
         result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
         response = (TriggerModelGenResponse) result.get();
@@ -189,6 +189,22 @@ public class SourceGeneratorTest {
         trigger.getProperty("username").setValue("\"user\"");
         Optional<Value> basePathProperty = trigger.getBasePathProperty();
         basePathProperty.ifPresent(value -> value.setValue("\"/New-Queue\""));
+        filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
+        TriggerModifierRequest request = new TriggerModifierRequest(filePath, trigger, codedata);
+        result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);
+        TriggerCommonResponse response = (TriggerCommonResponse) result.get();
+    }
+
+    @Test
+    public void testTriggerModifierWithName() throws ExecutionException, InterruptedException {
+        String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(10, 1)));
+        TriggerModelGenRequest modelRequest = new TriggerModelGenRequest(filePath, codedata);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", modelRequest);
+        TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
+
+        Trigger trigger = modelResponse.trigger();
+        trigger.getProperty("name").setValue("service-kafka");
         filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
         TriggerModifierRequest request = new TriggerModifierRequest(filePath, trigger, codedata);
         result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);

@@ -12,7 +12,6 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
@@ -24,6 +23,7 @@ import io.ballerina.tools.text.TextRange;
 import io.ballerina.triggermodelgenerator.extension.model.Service;
 import io.ballerina.triggermodelgenerator.extension.model.Trigger;
 import io.ballerina.triggermodelgenerator.extension.model.TriggerBasicInfo;
+import io.ballerina.triggermodelgenerator.extension.model.Value;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerFunctionRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerModifierRequest;
@@ -180,14 +180,14 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 LineRange lineRange = node.lineRange();
 
                 Trigger trigger = request.trigger();
-                List<String> serviceDeclarations = new ArrayList<>();
                 Service service = trigger.getService();
-                if (service.isEnabled()) {
-                    populateProperties(trigger);
-                    serviceDeclarations.add(getServiceDeclarationNode(trigger, service));
+                if (!service.isEnabled()) {
+                    return new TriggerCommonResponse();
                 }
+                populateProperties(trigger);
+                String serviceDeclaration = getServiceDeclarationNode(trigger, service);
                 TextEdit serviceEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
-                        System.lineSeparator() + String.join(System.lineSeparator(), serviceDeclarations));
+                        System.lineSeparator() + serviceDeclaration);
                 if (!importExists(node, trigger.getOrgName(), trigger.getModuleName())) {
                     String importText = String.format("%simport %s/%s;%s", System.lineSeparator(), trigger.getOrgName(),
                             trigger.getModuleName(), System.lineSeparator());
@@ -296,6 +296,13 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
                 if (listenerExpression.isEmpty() || !(listenerExpression.get() instanceof NewExpressionNode listener)) {
                     return new TriggerCommonResponse();
+                }
+                Optional<Value> displayAnnotation = trigger.getSvcDisplayAnnotationProperty();
+                if (displayAnnotation.isPresent()) {
+                    LineRange labelValueLineRange = displayAnnotation.get().getCodedata().getLineRange();
+                    TextEdit labelValueEdit = new TextEdit(Utils.toRange(labelValueLineRange),
+                            displayAnnotation.get().getValue());
+                    edits.add(labelValueEdit);
                 }
                 Optional<String> basePath = trigger.getBasePath();
                 if (basePath.isPresent()) {
