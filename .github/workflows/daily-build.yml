@@ -22,6 +22,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21.0.3
+
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
+
       - name: Build with Gradle
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
@@ -45,6 +51,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21.0.3
+
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
+
       - name: Build with Gradle
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}

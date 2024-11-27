@@ -22,6 +22,11 @@ jobs:
           distribution: 'temurin'
           java-version: 21.0.3
 
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
+
       - name: Change to Timestamped Version
         run: |
           startTime=$(TZ="Asia/Kolkata" date +'%Y%m%d-%H%M00')
