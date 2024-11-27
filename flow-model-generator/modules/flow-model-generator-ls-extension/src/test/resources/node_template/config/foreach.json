@@ -1,0 +1,112 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FOREACH"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Foreach",
+      "description": "Iterate over a block of code."
+    },
+    "codedata": {
+      "node": "FOREACH"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "repeatable": "ONE",
+        "children": []
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "true",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "",
+            "placeholder": "err",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "placeholder": "error",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      }
+    ],
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "collection": {
+        "metadata": {
+          "label": "Collection",
+          "description": "Collection to iterate"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "placeholder": "[]",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

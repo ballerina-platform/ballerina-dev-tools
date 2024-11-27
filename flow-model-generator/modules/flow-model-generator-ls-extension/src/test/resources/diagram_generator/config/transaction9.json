@@ -1,0 +1,234 @@
+{
+  "start": {
+    "line": 10,
+    "offset": 0
+  },
+  "end": {
+    "line": 18,
+    "offset": 1
+  },
+  "source": "rollback.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "rollback.bal",
+    "nodes": [
+      {
+        "id": "43742",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "rollback.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 59
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testRollbackWithExpression(int? i) returns error? {\n    transaction {\n        if i is () {\n            check commit;\n        } else {\n            rollback error(\"Rollback the transaction\");\n        }\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "42971",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "rollback.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 5
+            }
+          },
+          "sourceCode": "transaction {\n        if i is () {\n            check commit;\n        } else {\n            rollback error(\"Rollback the transaction\");\n        }\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "rollback.bal",
+                "startLine": {
+                  "line": 11,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        if i is () {\n            check commit;\n        } else {\n            rollback error(\"Rollback the transaction\");\n        }\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "44029",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "rollback.bal",
+                    "startLine": {
+                      "line": 12,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "if i is () {\n            check commit;\n        } else {\n            rollback error(\"Rollback the transaction\");\n        }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "rollback.bal",
+                        "startLine": {
+                          "line": 12,
+                          "offset": 19
+                        },
+                        "endLine": {
+                          "line": 14,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            check commit;\n        }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "i is () ",
+                        "placeholder": "true",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "45037",
+                        "metadata": {
+                          "label": "Commit",
+                          "description": "Commit transaction"
+                        },
+                        "codedata": {
+                          "node": "COMMIT",
+                          "lineRange": {
+                            "fileName": "rollback.bal",
+                            "startLine": {
+                              "line": 13,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 13,
+                              "offset": 25
+                            }
+                          },
+                          "sourceCode": "check commit;"
+                        },
+                        "returning": false,
+                        "flags": 1
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "rollback.bal",
+                        "startLine": {
+                          "line": 14,
+                          "offset": 15
+                        },
+                        "endLine": {
+                          "line": 16,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            rollback error(\"Rollback the transaction\");\n        }"
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "47051",
+                        "metadata": {
+                          "label": "Rollback",
+                          "description": "Rollback the transaction"
+                        },
+                        "codedata": {
+                          "node": "ROLLBACK",
+                          "lineRange": {
+                            "fileName": "rollback.bal",
+                            "startLine": {
+                              "line": 15,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 15,
+                              "offset": 55
+                            }
+                          },
+                          "sourceCode": "rollback error(\"Rollback the transaction\");"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Rollback transaction"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "error(\"Rollback the transaction\")",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

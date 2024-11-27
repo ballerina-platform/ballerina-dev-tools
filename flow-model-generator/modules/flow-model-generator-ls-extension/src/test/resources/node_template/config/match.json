@@ -1,0 +1,102 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "MATCH"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "case",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [],
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "true",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "",
+            "placeholder": "err",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "placeholder": "error",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "placeholder": "true",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

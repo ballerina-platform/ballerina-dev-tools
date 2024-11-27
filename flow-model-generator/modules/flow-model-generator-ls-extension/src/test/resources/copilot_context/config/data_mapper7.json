@@ -1,0 +1,10 @@
+{
+  "description": "",
+  "position": {
+    "line": 4,
+    "offset": 53
+  },
+  "source": "data_mapper/greetings.bal",
+  "prefix": "import ballerina/http;\nimport ballerina/io;\nfunction transform(Person person, Admission admission) returns Employee => {\n    name: person.name,\n    empId: admission.empId,\n    email: person.email,\n    location: {\n        city: person.address.city,\n        country: person.address.country\n    }\n};\n\ntype Location record {|\n    string city;\n    string country;\n|};\n\ntype Address record {|\n    string houseNo;\n    string line1;\n    string line2;\n    string city;\n    string country;\n|};\n\ntype Employee record {|\n    string name;\n    string empId;\n    string email;\n    Location location;\n|};\n\ntype Person record {|\n    string name;\n    string email;\n    Address address;\n|};\n\ntype Admission record {\n    string empId;\n    string admissionDate;\n};\n\ntype Input record {\n    string name;\n    int age;\n};\n\ntype Output record {\n    string name;\n    int age;\n};\n\n\nfinal http:Client httpEp = check new (\"http://localhost:9090\");\n\n\nservice / on new http:Listener(8080) {\n    resource function get greeting() returns string {\n        ",
+  "suffix": "\n\n    }\n}\n"
+}

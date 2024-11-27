@@ -1,0 +1,161 @@
+{
+  "source": "source2.bal",
+  "output": [
+    {
+      "functions": [
+        {
+          "name": "calculateTuition",
+          "filePath": "file.bal",
+          "startLine": 54,
+          "startColumn": 0,
+          "endLine": 62,
+          "endColumn": 1
+        },
+        {
+          "name": "main",
+          "filePath": "file.bal",
+          "startLine": 91,
+          "startColumn": 0,
+          "endLine": 94,
+          "endColumn": 1
+        }
+      ],
+      "services": [
+        {
+          "name": "/danceschool ",
+          "filePath": "file.bal",
+          "startLine": 64,
+          "startColumn": 0,
+          "endLine": 87,
+          "endColumn": 1,
+          "resources": [
+            {
+              "name": "get-students",
+              "filePath": "file.bal",
+              "startLine": 66,
+              "startColumn": 4,
+              "endLine": 86,
+              "endColumn": 5
+            }
+          ]
+        }
+      ],
+      "records": [
+        {
+          "name": "Student",
+          "filePath": "file.bal",
+          "startLine": 13,
+          "startColumn": 0,
+          "endLine": 17,
+          "endColumn": 2
+        },
+        {
+          "name": "DanceSchool",
+          "filePath": "file.bal",
+          "startLine": 49,
+          "startColumn": 0,
+          "endLine": 52,
+          "endColumn": 2
+        }
+      ],
+      "objects": [
+        {
+          "name": "DanceClass",
+          "filePath": "file.bal",
+          "startLine": 19,
+          "startColumn": 0,
+          "endLine": 25,
+          "endColumn": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "BalletClass",
+          "filePath": "file.bal",
+          "startLine": 27,
+          "startColumn": 0,
+          "endLine": 47,
+          "endColumn": 1,
+          "functions": [
+            {
+              "name": "init",
+              "filePath": "file.bal",
+              "startLine": 30,
+              "startColumn": 4,
+              "endLine": 33,
+              "endColumn": 5
+            },
+            {
+              "name": "addStudent",
+              "filePath": "file.bal",
+              "startLine": 35,
+              "startColumn": 4,
+              "endLine": 38,
+              "endColumn": 5
+            },
+            {
+              "name": "removeStudent",
+              "filePath": "file.bal",
+              "startLine": 40,
+              "startColumn": 4,
+              "endLine": 46,
+              "endColumn": 5
+            }
+          ]
+        }
+      ],
+      "types": [],
+      "constants": [
+        {
+          "name": "REGISTRATION_FEE",
+          "filePath": "file.bal",
+          "startLine": 9,
+          "startColumn": 0,
+          "endLine": 9,
+          "endColumn": 36
+        }
+      ],
+      "enums": [
+        {
+          "name": "DanceLevel",
+          "filePath": "file.bal",
+          "startLine": 3,
+          "startColumn": 0,
+          "endLine": 7,
+          "endColumn": 1
+        }
+      ],
+      "listeners": [
+        {
+          "name": "httpListener",
+          "filePath": "file.bal",
+          "startLine": 89,
+          "startColumn": 0,
+          "endLine": 89,
+          "endColumn": 49
+        }
+      ],
+      "moduleVariables": [
+        {
+          "name": "totalStudents ",
+          "filePath": "file.bal",
+          "startLine": 11,
+          "startColumn": 0,
+          "endLine": 11,
+          "endColumn": 22
+        }
+      ],
+      "configurableVariables": [],
+      "automations": [
+        {
+          "name": "main",
+          "filePath": "file.bal",
+          "startLine": 91,
+          "startColumn": 0,
+          "endLine": 94,
+          "endColumn": 1
+        }
+      ]
+    }
+  ]
+}

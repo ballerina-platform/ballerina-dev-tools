@@ -1,0 +1,223 @@
+{
+  "start": {
+    "line": 69,
+    "offset": 0
+  },
+  "end": {
+    "line": 76,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "101557",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 69,
+              "offset": 37
+            },
+            "endLine": {
+              "line": 76,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function commentInLockBody1() {\n    lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "101468",
+        "metadata": {
+          "label": "Lock",
+          "description": "Allow to access mutable states safely"
+        },
+        "codedata": {
+          "node": "LOCK",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 70,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 75,
+              "offset": 5
+            }
+          },
+          "sourceCode": "lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 70,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 75,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "102201",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Initialize `i`"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 71,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 71,
+                      "offset": 25
+                    }
+                  },
+                  "sourceCode": "Initialize `i`"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "Initialize `i`",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "103434",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "VARIABLE",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 72,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 72,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "// Initialize `i`\n        int i = 0;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Initialize with value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "0",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "i",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "104223",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Lock the variable `i`"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 73,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 74,
+                      "offset": 32
+                    }
+                  },
+                  "sourceCode": "Lock the variable `i`"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "Lock the variable `i`",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

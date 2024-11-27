@@ -1,0 +1,235 @@
+{
+  "source": "function_call2.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "function_call2.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 4,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "42693",
+        "name": "fn3",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 11,
+                "offset": 35
+              },
+              "endLine": {
+                "line": 11,
+                "offset": 36
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call2.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 11,
+            "offset": 37
+          }
+        }
+      },
+      {
+        "id": "37791",
+        "name": "fn2",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "42693",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn3"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "2"
+                }
+              ],
+              "value": {
+                "type": "int",
+                "value": "i"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 7,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 7,
+                "offset": 18
+              }
+            }
+          },
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 8,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 8,
+                "offset": 17
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call2.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 2
+          }
+        }
+      },
+      {
+        "id": "31869",
+        "name": "fn1",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "37791",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn2"
+              },
+              "params": [],
+              "value": {
+                "type": "int",
+                "value": "ret2"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 15
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 20
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "42693",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn3"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "2"
+                }
+              ],
+              "value": {
+                "type": "int",
+                "value": "ret3"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 15
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 21
+              }
+            }
+          },
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "function_call2.bal",
+              "startLine": {
+                "line": 3,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 3,
+                "offset": 23
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call2.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

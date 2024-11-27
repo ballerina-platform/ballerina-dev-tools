@@ -1,0 +1,78 @@
+{
+  "start": {
+    "line": 12,
+    "offset": 0
+  },
+  "end": {
+    "line": 14,
+    "offset": 1
+  },
+  "source": "panic.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "panic.bal",
+    "nodes": [
+      {
+        "id": "44393",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function panicFunc3() {\n    panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "44848",
+        "metadata": {
+          "label": "Panic",
+          "description": "Panic and stop the execution"
+        },
+        "codedata": {
+          "node": "PANIC",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 84
+            }
+          },
+          "sourceCode": "panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Panic value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

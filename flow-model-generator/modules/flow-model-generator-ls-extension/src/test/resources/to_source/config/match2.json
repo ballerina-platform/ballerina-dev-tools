@@ -1,0 +1,474 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "57297",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 25,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 41,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match ripeness {\n            1 => {\n                return \"unripe\";\n            }\n            2 => {\n                return \"ripe\";\n            }\n            3 => {\n                return \"overripe\";\n            }\n            var r if r > 3 => {\n                return \"spoiled\";\n            }\n            _ => {\n                return \"invalid ripeness level\";\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "1",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 26,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"unripe\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "1",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "59056",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"unripe\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 27,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 32
+                }
+              },
+              "sourceCode": "return \"unripe\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"unripe\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "2",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"ripe\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "2",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "62030",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"ripe\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 30,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 30,
+                  "offset": 30
+                }
+              },
+              "sourceCode": "return \"ripe\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"ripe\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "3",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 34,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"overripe\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "3",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "65010",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"overripe\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 33,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 33,
+                  "offset": 34
+                }
+              },
+              "sourceCode": "return \"overripe\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"overripe\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "var r if r > 3",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 35,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 37,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"spoiled\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var r",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "r > 3 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "67985",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"spoiled\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 36,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 36,
+                  "offset": 33
+                }
+              },
+              "sourceCode": "return \"spoiled\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"spoiled\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 40,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"invalid ripeness level\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "70976",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"invalid ripeness level\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 39,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 39,
+                  "offset": 48
+                }
+              },
+              "sourceCode": "return \"invalid ripeness level\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"invalid ripeness level\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "ripeness ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 25,
+            "character": 8
+          },
+          "end": {
+            "line": 41,
+            "character": 9
+          }
+        },
+        "newText": "match ripeness {\n    1 => {\n        return \"unripe\";\n    }\n    2 => {\n        return \"ripe\";\n    }\n    3 => {\n        return \"overripe\";\n    }\n    var rif r > 3 => {\n        return \"spoiled\";\n    }\n    _ => {\n        return \"invalid ripeness level\";\n    }\n}"
+      }
+    ]
+  }
+}

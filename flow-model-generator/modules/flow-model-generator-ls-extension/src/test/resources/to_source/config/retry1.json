@@ -1,0 +1,108 @@
+{
+  "source": "empty.bal",
+  "description": "Test code generation for retry statement",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Retry Block",
+      "description": "Retry block."
+    },
+    "codedata": {
+      "node": "RETRY",
+      "lineRange": {
+        "fileName": "empty.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 3,
+          "offset": 5
+        }
+      },
+      "sourceCode": "retry {\n        check nameOrError();\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "empty.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 10
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        check nameOrError();\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "34004",
+            "metadata": {
+              "label": "nameOrError"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "$anon",
+              "module": ".",
+              "symbol": "nameOrError",
+              "lineRange": {
+                "fileName": "empty.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 28
+                }
+              },
+              "sourceCode": "check nameOrError();"
+            },
+            "returning": false,
+            "properties": {},
+            "flags": 1
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "retryCount": {
+        "metadata": {
+          "label": "Retry Count",
+          "description": "Number of retries"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 4
+          },
+          "end": {
+            "line": 3,
+            "character": 5
+          }
+        },
+        "newText": "retry(3) {\n    nameOrError();\n}"
+      }
+    ]
+  }
+}

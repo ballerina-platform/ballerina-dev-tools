@@ -1,0 +1,105 @@
+{
+  "source": "new_connection3/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "39846",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "init",
+      "lineRange": {
+        "fileName": "new_connection.bal",
+        "startLine": {
+          "line": 8,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 8,
+          "offset": 42
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Local",
+        "optional": false,
+        "editable": true
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "configuration for the connector\n"
+        },
+        "placeholder": "{}",
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "localRedisCl",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "redis:Client",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "new_connection3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 4
+          },
+          "end": {
+            "line": 8,
+            "character": 42
+          }
+        },
+        "newText": "final redis:Client localRedisCl = check new ();"
+      }
+    ]
+  }
+}

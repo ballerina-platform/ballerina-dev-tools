@@ -1,0 +1,44 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 0
+  },
+  "end": {
+    "line": 16,
+    "offset": 1
+  },
+  "source": "flags.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "flags.bal",
+    "nodes": [
+      {
+        "id": "48923",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "flags.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 104
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 5
+            }
+          },
+          "sourceCode": "remote function onFileChange(ftp:Caller caller, ftp:WatchEvent & readonly event) returns ftp:Error? {\n\n    }"
+        },
+        "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

@@ -1,0 +1,494 @@
+{
+  "ballerina": [
+    {
+      "name": "http",
+      "version": "2.12.2"
+    },
+    {
+      "name": "time",
+      "version": "2.5.0"
+    },
+    {
+      "name": "crypto",
+      "version": "2.7.2"
+    },
+    {
+      "name": "observe",
+      "version": "1.3.0"
+    },
+    {
+      "name": "log",
+      "version": "2.10.0"
+    },
+    {
+      "name": "oauth2",
+      "version": "2.12.0"
+    },
+    {
+      "name": "io",
+      "version": "1.6.1"
+    },
+    {
+      "name": "jwt",
+      "version": "2.13.0"
+    },
+    {
+      "name": "url",
+      "version": "2.4.0"
+    },
+    {
+      "name": "auth",
+      "version": "2.12.0"
+    },
+    {
+      "name": "file",
+      "version": "1.10.0"
+    },
+    {
+      "name": "regex",
+      "version": "1.3.2"
+    },
+    {
+      "name": "mime",
+      "version": "2.10.1"
+    },
+    {
+      "name": "constraint",
+      "version": "1.5.0"
+    },
+    {
+      "name": "task",
+      "version": "2.5.0"
+    },
+    {
+      "name": "cache",
+      "version": "3.8.0"
+    },
+    {
+      "name": "os",
+      "version": "1.8.0"
+    },
+    {
+      "name": "cloud",
+      "version": "3.1.0"
+    },
+    {
+      "name": "protobuf",
+      "version": "1.6.1"
+    },
+    {
+      "name": "sql",
+      "version": "1.14.1"
+    },
+    {
+      "name": "graphql",
+      "version": "1.14.0"
+    },
+    {
+      "name": "websocket",
+      "version": "2.12.0"
+    },
+    {
+      "name": "grpc",
+      "version": "1.12.1"
+    },
+    {
+      "name": "websubhub",
+      "version": "1.12.0"
+    },
+    {
+      "name": "openapi",
+      "version": "2.1.0"
+    },
+    {
+      "name": "random",
+      "version": "1.5.0"
+    },
+    {
+      "name": "uuid",
+      "version": "1.8.0"
+    },
+    {
+      "name": "websub",
+      "version": "2.12.0"
+    },
+    {
+      "name": "xmldata",
+      "version": "2.8.0"
+    },
+    {
+      "name": "tcp",
+      "version": "1.11.1"
+    },
+    {
+      "name": "email",
+      "version": "2.10.0"
+    },
+    {
+      "name": "udp",
+      "version": "1.11.0"
+    },
+    {
+      "name": "ftp",
+      "version": "2.11.0"
+    },
+    {
+      "name": "yaml",
+      "version": "0.6.0"
+    },
+    {
+      "name": "persist",
+      "version": "1.4.0"
+    },
+    {
+      "name": "avro",
+      "version": "1.0.2"
+    },
+    {
+      "name": "jballerina.java.arrays",
+      "version": "1.4.0"
+    },
+    {
+      "name": "data.xmldata",
+      "version": "1.0.0"
+    },
+    {
+      "name": "xslt",
+      "version": "2.7.0"
+    },
+    {
+      "name": "soap",
+      "version": "2.0.1"
+    },
+    {
+      "name": "data.jsondata",
+      "version": "0.2.0"
+    },
+    {
+      "name": "data.csv",
+      "version": "0.1.0"
+    },
+    {
+      "name": "toml",
+      "version": "0.6.0"
+    },
+    {
+      "name": "edi",
+      "version": "1.3.0"
+    },
+    {
+      "name": "ldap",
+      "version": "1.1.0"
+    },
+    {
+      "name": "mqtt",
+      "version": "1.2.0"
+    },
+    {
+      "name": "math.vector",
+      "version": "1.0.2"
+    },
+    {
+      "name": "copybook",
+      "version": "1.0.0"
+    },
+    {
+      "name": "editoolspackage",
+      "version": "2.0.3"
+    },
+    {
+      "name": "wsdltool",
+      "version": "0.1.0"
+    },
+    {
+      "name": "data.yaml",
+      "version": "0.1.0"
+    },
+    {
+      "name": "lang.array",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.boolean",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.decimal",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.error",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.float",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.function",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.future",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.int",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.map",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.object",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.query",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.regexp",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.runtime",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.stream",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.string",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.table",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.transaction",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.typedesc",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.value",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "lang.xml",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "test",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "jballerina.java",
+      "version": "2201.10.2"
+    },
+    {
+      "name": "tool_scan",
+      "version": "0.5.0"
+    }
+  ],
+  "ballerinax": [
+    {
+      "name": "googleapis.sheets",
+      "version": "3.5.1"
+    },
+    {
+      "name": "googleapis.drive",
+      "version": "3.3.0"
+    },
+    {
+      "name": "microsoft.onedrive",
+      "version": "2.4.0"
+    },
+    {
+      "name": "aws.dynamodb",
+      "version": "2.3.0"
+    },
+    {
+      "name": "aws.dynamodbstreams",
+      "version": "1.0.0"
+    },
+    {
+      "name": "aws.marketplace.mpe",
+      "version": "0.1.0"
+    },
+    {
+      "name": "aws.marketplace.mpm",
+      "version": "0.1.0"
+    },
+    {
+      "name": "aws.redshift",
+      "version": "1.1.0"
+    },
+    {
+      "name": "aws.sns",
+      "version": "3.0.0"
+    },
+    {
+      "name": "asb",
+      "version": "3.8.2"
+    },
+    {
+      "name": "confluent.cavroserdes",
+      "version": "0.2.1"
+    },
+    {
+      "name": "confluent.cregistry",
+      "version": "0.2.1"
+    },
+    {
+      "name": "ibm.ibmmq",
+      "version": "1.2.0"
+    },
+    {
+      "name": "java.jdbc",
+      "version": "1.12.1"
+    },
+    {
+      "name": "java.jms",
+      "version": "1.0.1"
+    },
+    {
+      "name": "kafka",
+      "version": "4.2.0"
+    },
+    {
+      "name": "mongodb",
+      "version": "5.0.0"
+    },
+    {
+      "name": "mssql",
+      "version": "1.13.1"
+    },
+    {
+      "name": "mysql",
+      "version": "1.13.1"
+    },
+    {
+      "name": "nats",
+      "version": "3.1.0"
+    },
+    {
+      "name": "oracledb",
+      "version": "1.11.1"
+    },
+    {
+      "name": "postgresql",
+      "version": "1.13.1"
+    },
+    {
+      "name": "rabbitmq",
+      "version": "3.1.0"
+    },
+    {
+      "name": "redis",
+      "version": "3.0.2"
+    },
+    {
+      "name": "salesforce",
+      "version": "8.1.0"
+    },
+    {
+      "name": "sap",
+      "version": "1.1.0"
+    },
+    {
+      "name": "snowflake",
+      "version": "2.0.0"
+    },
+    {
+      "name": "asana",
+      "version": "2.0.0"
+    },
+    {
+      "name": "candid",
+      "version": "0.1.1"
+    },
+    {
+      "name": "dayforce",
+      "version": "0.1.0"
+    },
+    {
+      "name": "covid19",
+      "version": "1.5.1"
+    },
+    {
+      "name": "discord",
+      "version": "1.0.0"
+    },
+    {
+      "name": "docusign.dsadmin",
+      "version": "2.0.0"
+    },
+    {
+      "name": "docusign.dsclick",
+      "version": "2.0.0"
+    },
+    {
+      "name": "docusign.dsesign",
+      "version": "1.0.0"
+    },
+    {
+      "name": "github",
+      "version": "5.0.2"
+    },
+    {
+      "name": "googleapis.calendar",
+      "version": "3.2.0"
+    },
+    {
+      "name": "googleapis.gmail",
+      "version": "4.0.1"
+    },
+    {
+      "name": "guidewire.insnow",
+      "version": "0.1.0"
+    },
+    {
+      "name": "openai.audio",
+      "version": "2.0.0"
+    },
+    {
+      "name": "openai.chat",
+      "version": "3.0.0"
+    },
+    {
+      "name": "openai.finetunes",
+      "version": "2.0.0"
+    },
+    {
+      "name": "openai.images",
+      "version": "2.0.0"
+    },
+    {
+      "name": "slack",
+      "version": "4.0.0"
+    },
+    {
+      "name": "stripe",
+      "version": "2.0.0"
+    },
+    {
+      "name": "twilio",
+      "version": "4.0.1"
+    },
+    {
+      "name": "twitter",
+      "version": "4.0.0"
+    },
+    {
+      "name": "zendesk",
+      "version": "2.0.0"
+    }
+  ]
+}

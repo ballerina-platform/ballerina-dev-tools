@@ -1,0 +1,188 @@
+{
+  "source": "project/main.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 2,
+    "offset": 0
+  },
+  "end": {
+    "line": 5,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "main.bal",
+      "startLine": {
+        "line": 2,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 5,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "31807",
+        "name": "isEven",
+        "kind": "FUNCTION",
+        "moduleName": "mod1",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "location": {
+              "fileName": "mod1.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 24
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "mod1.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 1
+          }
+        }
+      },
+      {
+        "id": "38744",
+        "name": "isOdd",
+        "kind": "FUNCTION",
+        "moduleName": "project",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "location": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 7,
+                "offset": 43
+              },
+              "endLine": {
+                "line": 7,
+                "offset": 55
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "main.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 56
+          }
+        }
+      },
+      {
+        "id": "33822",
+        "name": "main",
+        "kind": "FUNCTION",
+        "moduleName": "project",
+        "nodes": [
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "31807",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "mod1:isEven"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "2"
+                }
+              ],
+              "value": {
+                "type": "boolean",
+                "value": "_"
+              }
+            },
+            "location": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 3,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 3,
+                "offset": 22
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "38744",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "isOdd"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "3"
+                }
+              ],
+              "value": {
+                "type": "boolean",
+                "value": "_"
+              }
+            },
+            "location": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 4,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 4,
+                "offset": 16
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "main.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 5,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

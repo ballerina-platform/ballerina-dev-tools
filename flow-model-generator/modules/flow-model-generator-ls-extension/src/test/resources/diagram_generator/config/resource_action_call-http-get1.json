@@ -1,0 +1,1658 @@
+{
+  "start": {
+    "line": 13,
+    "offset": 0
+  },
+  "end": {
+    "line": 25,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "46939",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 61
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get apples() returns http:ClientError? {\n        json res1 = check foodClient->/western/apples.get();\n        json res2 = check foodClient->/apples.get(param1=\"param1\", param2=\"param2\");\n        json res3 = check foodClient->/.get();\n        var res4 = check foodClient->/apples.get(targetType = json);\n        json res5 = check foodClient->/apples.get();\n        json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res7 = check foodClient->/apples.get();\n        json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();\n        Food res9 = check foodClient->/apples;\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "45940",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 60
+            }
+          },
+          "sourceCode": "json res1 = check foodClient->/western/apples.get();",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/western/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res1",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "46956",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 84
+            }
+          },
+          "sourceCode": "json res2 = check foodClient->/apples.get(param1=\"param1\", param2=\"param2\");",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res2",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [
+              {
+                "param1": "\"param1\""
+              },
+              {
+                "param2": "\"param2\""
+              }
+            ],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "47910",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 46
+            }
+          },
+          "sourceCode": "json res3 = check foodClient->/.get();",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res3",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "48924",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 68
+            }
+          },
+          "sourceCode": "var res4 = check foodClient->/apples.get(targetType = json);",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res4",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "value": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "49900",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 52
+            }
+          },
+          "sourceCode": "json res5 = check foodClient->/apples.get();",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res5",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "50944",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 19,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 11
+            }
+          },
+          "sourceCode": "json res6 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res6",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "54860",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 23,
+              "offset": 52
+            }
+          },
+          "sourceCode": "Food res7 = check foodClient->/apples.get();",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res7",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Food",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "55870",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 70
+            }
+          },
+          "sourceCode": "json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples/[varRef]/[12 + 3]",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res8",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "json",
+            "placeholder": "json",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
+          "additionalValues": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "value": [],
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "56838",
+        "metadata": {
+          "label": "get",
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 25,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 46
+            }
+          },
+          "sourceCode": "Food res9 = check foodClient->/apples;",
+          "resourcePath": "/path/to/subdirectory"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "res9",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "map<string|string[]>|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "headers"
+            }
+          },
+          "Additional Values": {
+            "metadata": {
+              "label": "Additional Values",
+              "description": "Capture key value pairs"
+            },
+            "valueType": "MAPPING_EXPRESSION_SET",
+            "valueTypeConstraint": "http:QueryParamType",
+            "placeholder": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_RECORD_REST",
+              "originalName": "Additional Values"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Food",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "connections": [
+      {
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"/food\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

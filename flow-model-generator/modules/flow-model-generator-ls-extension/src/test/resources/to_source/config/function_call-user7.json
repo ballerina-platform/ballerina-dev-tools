@@ -1,0 +1,85 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "108287",
+    "metadata": {
+      "label": "println",
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "println",
+      "version": "1.6.1",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 77,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 77,
+          "offset": 35
+        }
+      },
+      "sourceCode": "io:println(\"6 * 3 = \", result);"
+    },
+    "returning": false,
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "value": [
+          "\"6 * 3 = \"",
+          "result"
+        ],
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/io;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 77,
+            "character": 4
+          },
+          "end": {
+            "line": 77,
+            "character": 35
+          }
+        },
+        "newText": "io:println(\"6 * 3 = \", result);"
+      }
+    ]
+  }
+}

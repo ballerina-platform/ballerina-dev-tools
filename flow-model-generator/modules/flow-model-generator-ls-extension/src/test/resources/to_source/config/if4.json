@@ -1,0 +1,415 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "87956",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 56,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 69,
+          "offset": 9
+        }
+      },
+      "sourceCode": "if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 56,
+              "offset": 23
+            },
+            "endLine": {
+              "line": 58,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return;\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "price > 100 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "88679",
+            "metadata": {
+              "label": "Stop",
+              "description": "Stop the flow"
+            },
+            "codedata": {
+              "node": "STOP",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 57,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 57,
+                  "offset": 19
+                }
+              },
+              "sourceCode": "return;"
+            },
+            "returning": true,
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Else",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 58,
+              "offset": 15
+            },
+            "endLine": {
+              "line": 69,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "90843",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 59,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 65,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 59,
+                      "offset": 26
+                    },
+                    "endLine": {
+                      "line": 65,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "{\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "price < 50 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "91901",
+                    "metadata": {
+                      "label": "If",
+                      "description": "Add conditional branch to the integration flow."
+                    },
+                    "codedata": {
+                      "node": "IF",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 60,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 64,
+                          "offset": 17
+                        }
+                      },
+                      "sourceCode": "if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
+                    },
+                    "returning": false,
+                    "branches": [
+                      {
+                        "label": "Then",
+                        "kind": "BLOCK",
+                        "codedata": {
+                          "node": "CONDITIONAL",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 60,
+                              "offset": 30
+                            },
+                            "endLine": {
+                              "line": 64,
+                              "offset": 17
+                            }
+                          },
+                          "sourceCode": "{\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
+                        },
+                        "repeatable": "ONE_OR_MORE",
+                        "properties": {
+                          "condition": {
+                            "metadata": {
+                              "label": "Condition",
+                              "description": "Boolean Condition"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "price < 25 ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "children": [
+                          {
+                            "id": "92959",
+                            "metadata": {
+                              "label": "If",
+                              "description": "Add conditional branch to the integration flow."
+                            },
+                            "codedata": {
+                              "node": "IF",
+                              "lineRange": {
+                                "fileName": "if_node.bal",
+                                "startLine": {
+                                  "line": 61,
+                                  "offset": 20
+                                },
+                                "endLine": {
+                                  "line": 63,
+                                  "offset": 21
+                                }
+                              },
+                              "sourceCode": "if price < 10 && mod == 1 {\n                        return;\n                    }"
+                            },
+                            "returning": false,
+                            "branches": [
+                              {
+                                "label": "Then",
+                                "kind": "BLOCK",
+                                "codedata": {
+                                  "node": "CONDITIONAL",
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 61,
+                                      "offset": 46
+                                    },
+                                    "endLine": {
+                                      "line": 63,
+                                      "offset": 21
+                                    }
+                                  },
+                                  "sourceCode": "{\n                        return;\n                    }"
+                                },
+                                "repeatable": "ONE_OR_MORE",
+                                "properties": {
+                                  "condition": {
+                                    "metadata": {
+                                      "label": "Condition",
+                                      "description": "Boolean Condition"
+                                    },
+                                    "valueType": "EXPRESSION",
+                                    "value": "price < 10 && mod == 1 ",
+                                    "optional": false,
+                                    "editable": true
+                                  }
+                                },
+                                "children": [
+                                  {
+                                    "id": "94023",
+                                    "metadata": {
+                                      "label": "Stop",
+                                      "description": "Stop the flow"
+                                    },
+                                    "codedata": {
+                                      "node": "STOP",
+                                      "lineRange": {
+                                        "fileName": "if_node.bal",
+                                        "startLine": {
+                                          "line": 62,
+                                          "offset": 24
+                                        },
+                                        "endLine": {
+                                          "line": 62,
+                                          "offset": 31
+                                        }
+                                      },
+                                      "sourceCode": "return;"
+                                    },
+                                    "returning": true,
+                                    "flags": 0
+                                  }
+                                ]
+                              }
+                            ],
+                            "flags": 0
+                          }
+                        ]
+                      }
+                    ],
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          },
+          {
+            "id": "97663",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 66,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 68,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "if mod == 0 {\n                return;\n            }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 66,
+                      "offset": 24
+                    },
+                    "endLine": {
+                      "line": 68,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "{\n                return;\n            }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "mod == 0 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "98727",
+                    "metadata": {
+                      "label": "Stop",
+                      "description": "Stop the flow"
+                    },
+                    "codedata": {
+                      "node": "STOP",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 67,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 67,
+                          "offset": 23
+                        }
+                      },
+                      "sourceCode": "return;"
+                    },
+                    "returning": true,
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 56,
+            "character": 8
+          },
+          "end": {
+            "line": 69,
+            "character": 9
+          }
+        },
+        "newText": "if price > 100 {\n    return;\n} else {\n    if price < 50 {\n        if price < 25 {\n            if price < 10 && mod == 1 {\n                return;\n            }\n        }\n    }\n    if mod == 0 {\n        return;\n    }\n}"
+      }
+    ]
+  }
+}

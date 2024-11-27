@@ -1,0 +1,103 @@
+{
+  "source": "new_connection6/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "43704",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "init",
+      "lineRange": {
+        "fileName": "new_connection.bal",
+        "startLine": {
+          "line": 12,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 12,
+          "offset": 56
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to check the expression error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "configuration for the connector\n"
+        },
+        "placeholder": "{}",
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "moduleRedisExCl",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "redis:Client",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "new_connection6/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 12,
+            "character": 0
+          },
+          "end": {
+            "line": 12,
+            "character": 56
+          }
+        },
+        "newText": "final redis:Client moduleRedisExCl = check new ();"
+      }
+    ]
+  }
+}

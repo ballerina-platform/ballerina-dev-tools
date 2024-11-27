@@ -1,0 +1,271 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47036",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 9
+        }
+      },
+      "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            int a = 1;\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "flag ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "48010",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 22
+                }
+              },
+              "sourceCode": "int a = 1;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "1",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "a",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "int",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Else",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 15
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "49994",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 22
+                }
+              },
+              "sourceCode": "int b = 2;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "2",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "b",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "int",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "50992",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 28
+                }
+              },
+              "sourceCode": "string c = \"12\";"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"12\"",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "c",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "string",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 15,
+            "character": 8
+          },
+          "end": {
+            "line": 20,
+            "character": 9
+          }
+        },
+        "newText": "if flag {\n    a = 1;\n} else {\n    b = 2;\n    c = \"12\";\n}"
+      }
+    ]
+  }
+}

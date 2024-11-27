@@ -1,0 +1,97 @@
+{
+  "source": "source1.bal",
+  "output": [
+    {
+      "functions": [],
+      "services": [
+        {
+          "name": "/bookstore ",
+          "filePath": "file.bal",
+          "startLine": 21,
+          "startColumn": 0,
+          "endLine": 57,
+          "endColumn": 1,
+          "resources": [
+            {
+              "name": "post-book",
+              "filePath": "file.bal",
+              "startLine": 24,
+              "startColumn": 4,
+              "endLine": 29,
+              "endColumn": 5
+            },
+            {
+              "name": "get-book/[ISBN isbn]",
+              "filePath": "file.bal",
+              "startLine": 32,
+              "startColumn": 4,
+              "endLine": 38,
+              "endColumn": 5
+            },
+            {
+              "name": "put-book/[ISBN isbn]",
+              "filePath": "file.bal",
+              "startLine": 41,
+              "startColumn": 4,
+              "endLine": 47,
+              "endColumn": 5
+            },
+            {
+              "name": "delete-book/[ISBN isbn]",
+              "filePath": "file.bal",
+              "startLine": 50,
+              "startColumn": 4,
+              "endLine": 56,
+              "endColumn": 5
+            }
+          ]
+        }
+      ],
+      "records": [
+        {
+          "name": "Book",
+          "filePath": "file.bal",
+          "startLine": 6,
+          "startColumn": 0,
+          "endLine": 11,
+          "endColumn": 2
+        },
+        {
+          "name": "BookSummary",
+          "filePath": "file.bal",
+          "startLine": 13,
+          "startColumn": 0,
+          "endLine": 16,
+          "endColumn": 2
+        }
+      ],
+      "objects": [],
+      "classes": [],
+      "types": [
+        {
+          "name": "ISBN",
+          "filePath": "file.bal",
+          "startLine": 4,
+          "startColumn": 0,
+          "endLine": 4,
+          "endColumn": 17
+        }
+      ],
+      "constants": [],
+      "enums": [],
+      "listeners": [],
+      "moduleVariables": [
+        {
+          "name": "bookStore ",
+          "filePath": "file.bal",
+          "startLine": 19,
+          "startColumn": 0,
+          "endLine": 19,
+          "endColumn": 25
+        }
+      ],
+      "configurableVariables": [],
+      "automations": []
+    }
+  ]
+}

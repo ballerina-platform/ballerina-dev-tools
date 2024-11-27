@@ -1,0 +1,41 @@
+{
+  "start": {
+    "line": 20,
+    "offset": 0
+  },
+  "end": {
+    "line": 22,
+    "offset": 1
+  },
+  "source": "flags.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "flags.bal",
+    "nodes": [
+      {
+        "id": "52829",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "flags.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 38
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function accessor path() {\n\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "start": {
+    "line": 22,
+    "offset": 0
+  },
+  "end": {
+    "line": 27,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "54995",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 41
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function commentInFunctionBody2() {\n\n    // This is a function body comment\n    // to generate AI flow for function\n    // `commentInFunctionBody2`\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "54684",
+        "metadata": {
+          "label": "Comment",
+          "description": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 31
+            }
+          },
+          "sourceCode": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`"
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

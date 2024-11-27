@@ -1,0 +1,348 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "58971",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE",
+      "lineRange": {
+        "fileName": "while.bal",
+        "startLine": {
+          "line": 27,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 9
+        }
+      },
+      "sourceCode": "while i < count {\n            json response = check foodClient->get(\"/food/oranges\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        } on fail {\n            msg = \"Error occurred while invoking food service\";\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 24
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            json response = check foodClient->get(\"/food/oranges\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "59959",
+            "metadata": {
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+            },
+            "codedata": {
+              "node": "REMOTE_ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
+              "version": "2.12.2",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 28,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 67
+                }
+              },
+              "sourceCode": "json response = check foodClient->get(\"/food/oranges\");"
+            },
+            "returning": false,
+            "properties": {
+              "connection": {
+                "metadata": {
+                  "label": "Connection",
+                  "description": "Connection to use"
+                },
+                "valueType": "EXPRESSION",
+                "value": "foodClient",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "response",
+                "placeholder": "item",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "path": {
+                "metadata": {
+                  "label": "path",
+                  "description": "Request path"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"/food/oranges\"",
+                "placeholder": "\"\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "path"
+                }
+              },
+              "headers": {
+                "metadata": {
+                  "label": "headers",
+                  "description": "The entity headers"
+                },
+                "value": "()",
+                "placeholder": "()",
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true,
+                "advanced": true,
+                "codedata": {
+                  "kind": "DEFAULTABLE",
+                  "originalName": "headers"
+                }
+              },
+              "checkError": {
+                "metadata": {
+                  "label": "Check Flag",
+                  "description": "Whether to return the error"
+                },
+                "valueType": "FLAG",
+                "value": true,
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "json",
+                "placeholder": "var",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 1
+          },
+          {
+            "id": "60964",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 29,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 29,
+                  "offset": 80
+                }
+              },
+              "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"Response received from food service: \" + response.toString()",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Result Variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "msg",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "61895",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 30,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 30,
+                  "offset": 19
+                }
+              },
+              "sourceCode": "i += 1;"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "i += 1;",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 31,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 33,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            msg = \"Error occurred while invoking food service\";\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "63923",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 63
+                }
+              },
+              "sourceCode": "msg = \"Error occurred while invoking food service\";"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"Error occurred while invoking food service\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Result Variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "msg",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "i < count ",
+        "placeholder": "true",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 27,
+            "character": 8
+          },
+          "end": {
+            "line": 33,
+            "character": 9
+          }
+        },
+        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/oranges\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; } on fail {\n    msg = \"Error occurred while invoking food service\";\n}"
+      }
+    ]
+  }
+}

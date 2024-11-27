@@ -1,0 +1,65 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 2,
+    "offset": 1
+  },
+  "source": "stop.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "stop.bal",
+    "nodes": [
+      {
+        "id": "32458",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 21
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testStop1() {\n    return;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "32871",
+        "metadata": {
+          "label": "Stop",
+          "description": "Stop the flow"
+        },
+        "codedata": {
+          "node": "STOP",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 11
+            }
+          },
+          "sourceCode": "return;"
+        },
+        "returning": true,
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

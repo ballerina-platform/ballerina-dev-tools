@@ -1,0 +1,496 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "155536",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 124,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 141,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match quantity {\n            var q if q > 10 => {\n                return \"bulk order\";\n            }\n            var q if q > 5 => {\n                match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }\n            }\n            _ => {\n                return \"small pack\";\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "var q if q > 10",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 125,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 127,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"bulk order\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "157268",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"bulk order\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 126,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 126,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "return \"bulk order\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"bulk order\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "var q if q > 5",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 128,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 137,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 5 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "160442",
+            "metadata": {
+              "label": "Match",
+              "description": "Switches the data flow based on the value of an expression."
+            },
+            "codedata": {
+              "node": "MATCH",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 129,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 136,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "var n if n > 8",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 130,
+                      "offset": 38
+                    },
+                    "endLine": {
+                      "line": 132,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"large pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "var n",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  },
+                  "guard": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Guard expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "n > 8 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "162484",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"large pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 131,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 131,
+                          "offset": 44
+                        }
+                      },
+                      "sourceCode": "return \"large pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"large pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "_",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 133,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 135,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"medium pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "_",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "165461",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"medium pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 134,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 134,
+                          "offset": 45
+                        }
+                      },
+                      "sourceCode": "return \"medium pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"medium pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "q ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 138,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 140,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"small pack\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "170164",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"small pack\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 139,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 139,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "return \"small pack\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"small pack\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "quantity ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 124,
+            "character": 8
+          },
+          "end": {
+            "line": 141,
+            "character": 9
+          }
+        },
+        "newText": "match quantity {\n    var qif q > 10 => {\n        return \"bulk order\";\n    }\n    var qif q > 5 => {\n        match q {\n            var nif n > 8 => {\n                return \"large pack\";\n            }\n            _ => {\n                return \"medium pack\";\n            }\n        }\n    }\n    _ => {\n        return \"small pack\";\n    }\n}"
+      }
+    ]
+  }
+}

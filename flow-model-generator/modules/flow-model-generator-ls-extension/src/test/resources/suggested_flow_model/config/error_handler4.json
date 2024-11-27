@@ -1,0 +1,23 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 4
+  },
+  "end": {
+    "line": 20,
+    "offset": 5
+  },
+  "source": "error_handler/service.bal",
+  "text": "     return http:INTERNAL_SERVER_ERROR;",
+  "position": {
+    "line": 10,
+    "offset": 0
+  },
+  "description": "",
+  "forceAssign": false,
+  "diagram": {
+    "fileName": "service.bal",
+    "nodes": [],
+    "connections": []
+  }
+}

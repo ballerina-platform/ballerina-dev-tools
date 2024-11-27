@@ -20,6 +20,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21.0.3
+
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
+
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}
@@ -27,7 +33,7 @@ jobs:
         run: ./gradlew build -x :docerina-ui:npmTestDocerinaUI
 
       - name: Generate Codecov Report
-        if:  github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: codecov/codecov-action@v1
         with:
           directory: ./docerina-ui/coverage/
@@ -47,8 +53,45 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21.0.3
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI
+
+  windows-build-2:
+
+    runs-on: windows-latest
+
+    steps:
+      - name: Initialize
+        run: |
+          git config --system core.longpaths true
+      - uses: actions/checkout@v4
+        with:
+          path: 'test folder'
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.22.1'
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21.0.3
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: latest
+      - name: Build with Gradle
+        env:
+          packageUser: ${{ github.actor }}
+          packagePAT: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI -x test
+          ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
+        working-directory: ${{ github.workspace }}/test folder

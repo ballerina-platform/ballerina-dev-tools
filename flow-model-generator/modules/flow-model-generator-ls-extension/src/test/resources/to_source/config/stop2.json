@@ -1,0 +1,44 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "41799",
+    "metadata": {
+      "label": "Stop",
+      "description": "Stop the flow"
+    },
+    "codedata": {
+      "node": "STOP",
+      "lineRange": {
+        "fileName": "stop.bal",
+        "startLine": {
+          "line": 10,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 11
+        }
+      }
+    },
+    "returning": true,
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 4
+          },
+          "end": {
+            "line": 10,
+            "character": 11
+          }
+        },
+        "newText": "return;"
+      }
+    ]
+  }
+}

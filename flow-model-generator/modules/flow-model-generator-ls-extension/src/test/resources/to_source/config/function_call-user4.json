@@ -1,0 +1,87 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "102361",
+    "metadata": {
+      "label": "println",
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "println",
+      "version": "1.6.1",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 71,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 71,
+          "offset": 61
+        }
+      },
+      "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
+    },
+    "returning": false,
+    "properties": {
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "The value(s) to be printed"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "io:Printable",
+        "value": [
+          "\"arg2\"",
+          "\"arg1\"",
+          "0",
+          "1"
+        ],
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/io;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 71,
+            "character": 4
+          },
+          "end": {
+            "line": 71,
+            "character": 61
+          }
+        },
+        "newText": "io:println(\"arg2\", \"arg1\", 0, 1);"
+      }
+    ]
+  }
+}

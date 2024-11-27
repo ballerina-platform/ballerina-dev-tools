@@ -1,0 +1,88 @@
+{
+  "description": "Test node template for the retry node",
+  "codedata": {
+    "node": "RETRY"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Retry Block",
+      "description": "Retry block."
+    },
+    "codedata": {
+      "node": "RETRY"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "repeatable": "ONE",
+        "children": []
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "true",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "",
+            "placeholder": "err",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "placeholder": "error",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      }
+    ],
+    "properties": {
+      "retryCount": {
+        "metadata": {
+          "label": "Retry Count",
+          "description": "Number of retries"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

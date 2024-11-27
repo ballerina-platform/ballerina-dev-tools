@@ -1,0 +1,142 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "59820",
+    "metadata": {
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_get_node.bal",
+        "startLine": {
+          "line": 28,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 28,
+          "offset": 52
+        }
+      },
+      "sourceCode": "json|error res1 = foodClient->get(\"/pears\");"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "res1",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Request path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"/pears\"",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "value": "()",
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'res1'"
+        }
+      ]
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 28,
+            "character": 8
+          },
+          "end": {
+            "line": 28,
+            "character": 52
+          }
+        },
+        "newText": "json res1 = foodClient->get(\"/pears\");"
+      }
+    ]
+  }
+}

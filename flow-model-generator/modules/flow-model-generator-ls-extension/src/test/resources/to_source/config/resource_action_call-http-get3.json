@@ -1,0 +1,171 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47910",
+    "metadata": {
+      "label": "get",
+      "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_get_node.bal",
+        "startLine": {
+          "line": 16,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 16,
+          "offset": 46
+        }
+      },
+      "sourceCode": "json res3 = check foodClient->/.get();",
+      "resourcePath": "[boolean|int|float|decimal|string...]"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "res3",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "value": "()",
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "params": {
+        "metadata": {
+          "label": "params",
+          "description": "The query parameters"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "params"
+        },
+        "value": [
+          {
+            "param1": "\"value1\""
+          },
+          {
+            "param2": "12"
+          }
+        ]
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'res3'"
+        }
+      ]
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 8
+          },
+          "end": {
+            "line": 16,
+            "character": 46
+          }
+        },
+        "newText": "json res3 = check foodClient->/.get(param1 = \"value1\", param2 = 12);"
+      }
+    ]
+  }
+}

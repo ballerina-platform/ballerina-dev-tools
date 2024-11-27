@@ -1,0 +1,200 @@
+{
+  "source": "source3.bal",
+  "output": [
+    {
+      "functions": [
+        {
+          "name": "createDanceRoutine",
+          "filePath": "file.bal",
+          "startLine": 22,
+          "startColumn": 0,
+          "endLine": 28,
+          "endColumn": 1
+        },
+        {
+          "name": "main",
+          "filePath": "file.bal",
+          "startLine": 42,
+          "startColumn": 0,
+          "endLine": 88,
+          "endColumn": 1
+        }
+      ],
+      "services": [],
+      "records": [
+        {
+          "name": "Performance",
+          "filePath": "file.bal",
+          "startLine": 30,
+          "startColumn": 0,
+          "endLine": 34,
+          "endColumn": 3
+        },
+        {
+          "name": "Dancer",
+          "filePath": "file.bal",
+          "startLine": 36,
+          "startColumn": 0,
+          "endLine": 40,
+          "endColumn": 2
+        }
+      ],
+      "objects": [],
+      "classes": [],
+      "types": [],
+      "constants": [],
+      "enums": [],
+      "listeners": [],
+      "moduleVariables": [
+        {
+          "name": "numberOfDancers ",
+          "filePath": "file.bal",
+          "startLine": 2,
+          "startColumn": 0,
+          "endLine": 2,
+          "endColumn": 37
+        },
+        {
+          "name": "performanceName ",
+          "filePath": "file.bal",
+          "startLine": 3,
+          "startColumn": 0,
+          "endLine": 3,
+          "endColumn": 50
+        },
+        {
+          "name": "ticketPrice ",
+          "filePath": "file.bal",
+          "startLine": 4,
+          "startColumn": 0,
+          "endLine": 4,
+          "endColumn": 38
+        },
+        {
+          "name": "hasIntermission ",
+          "filePath": "file.bal",
+          "startLine": 5,
+          "startColumn": 0,
+          "endLine": 5,
+          "endColumn": 44
+        },
+        {
+          "name": "danceMoves ",
+          "filePath": "file.bal",
+          "startLine": 6,
+          "startColumn": 0,
+          "endLine": 6,
+          "endColumn": 76
+        },
+        {
+          "name": "maxCapacity ",
+          "filePath": "file.bal",
+          "startLine": 7,
+          "startColumn": 0,
+          "endLine": 7,
+          "endColumn": 33
+        },
+        {
+          "name": "performances ",
+          "filePath": "file.bal",
+          "startLine": 8,
+          "startColumn": 0,
+          "endLine": 12,
+          "endColumn": 2
+        },
+        {
+          "name": "dancerRoles ",
+          "filePath": "file.bal",
+          "startLine": 13,
+          "startColumn": 0,
+          "endLine": 18,
+          "endColumn": 2
+        },
+        {
+          "name": "value ",
+          "filePath": "file.bal",
+          "startLine": 20,
+          "startColumn": 0,
+          "endLine": 20,
+          "endColumn": 15
+        }
+      ],
+      "configurableVariables": [
+        {
+          "name": "numberOfDancers ",
+          "filePath": "file.bal",
+          "startLine": 2,
+          "startColumn": 0,
+          "endLine": 2,
+          "endColumn": 37
+        },
+        {
+          "name": "performanceName ",
+          "filePath": "file.bal",
+          "startLine": 3,
+          "startColumn": 0,
+          "endLine": 3,
+          "endColumn": 50
+        },
+        {
+          "name": "ticketPrice ",
+          "filePath": "file.bal",
+          "startLine": 4,
+          "startColumn": 0,
+          "endLine": 4,
+          "endColumn": 38
+        },
+        {
+          "name": "hasIntermission ",
+          "filePath": "file.bal",
+          "startLine": 5,
+          "startColumn": 0,
+          "endLine": 5,
+          "endColumn": 44
+        },
+        {
+          "name": "danceMoves ",
+          "filePath": "file.bal",
+          "startLine": 6,
+          "startColumn": 0,
+          "endLine": 6,
+          "endColumn": 76
+        },
+        {
+          "name": "maxCapacity ",
+          "filePath": "file.bal",
+          "startLine": 7,
+          "startColumn": 0,
+          "endLine": 7,
+          "endColumn": 33
+        },
+        {
+          "name": "performances ",
+          "filePath": "file.bal",
+          "startLine": 8,
+          "startColumn": 0,
+          "endLine": 12,
+          "endColumn": 2
+        },
+        {
+          "name": "dancerRoles ",
+          "filePath": "file.bal",
+          "startLine": 13,
+          "startColumn": 0,
+          "endLine": 18,
+          "endColumn": 2
+        }
+      ],
+      "automations": [
+        {
+          "name": "main",
+          "filePath": "file.bal",
+          "startLine": 42,
+          "startColumn": 0,
+          "endLine": 88,
+          "endColumn": 1
+        }
+      ]
+    }
+  ]
+}

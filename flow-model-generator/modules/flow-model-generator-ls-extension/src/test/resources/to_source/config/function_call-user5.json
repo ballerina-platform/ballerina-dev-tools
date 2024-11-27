@@ -1,0 +1,118 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "103328",
+    "metadata": {
+      "label": "asum"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "asum",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 72,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 72,
+          "offset": 36
+        }
+      },
+      "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+    },
+    "returning": false,
+    "properties": {
+      "view": {
+        "metadata": {
+          "label": "View",
+          "description": "Function definition location"
+        },
+        "valueType": "VIEW",
+        "value": {
+          "fileName": "function_call.bal",
+          "startLine": {
+            "line": 47,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 53,
+            "offset": 1
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "total",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "values": {
+        "metadata": {
+          "label": "values",
+          "description": "Take the sum of value"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "int",
+        "value": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "values"
+        }
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 72,
+            "character": 4
+          },
+          "end": {
+            "line": 72,
+            "character": 36
+          }
+        },
+        "newText": "int total = asum(1, 2, 3, 4, 5);"
+      }
+    ]
+  }
+}

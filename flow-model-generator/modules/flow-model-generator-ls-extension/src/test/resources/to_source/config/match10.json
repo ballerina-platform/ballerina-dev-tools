@@ -1,0 +1,417 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "255573",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 225,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 237,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match data {\n            [var quantity, var ripeness] if quantity is int && ripeness is int => {\n                if quantity < 0 || ripeness < 1 || ripeness > 5 {\n                    panic error(\"Invalid input values\");\n                }\n                return string `Order for ${quantity} peaches with ripeness ${ripeness}`;\n            }\n            _ => {\n                panic error(\"Invalid data format\");\n            }\n        } on fail var e {\n            return string `Error processing peach order: ${e.message()}`;\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "[var quantity, var ripeness] if quantity is int && ripeness is int",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 226,
+              "offset": 82
+            },
+            "endLine": {
+              "line": 231,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                if quantity < 0 || ripeness < 1 || ripeness > 5 {\n                    panic error(\"Invalid input values\");\n                }\n                return string `Order for ${quantity} peaches with ripeness ${ripeness}`;\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "[var quantity, var ripeness]",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "quantity is int && ripeness is int ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "257503",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 227,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 229,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "if quantity < 0 || ripeness < 1 || ripeness > 5 {\n                    panic error(\"Invalid input values\");\n                }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 227,
+                      "offset": 64
+                    },
+                    "endLine": {
+                      "line": 229,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "{\n                    panic error(\"Invalid input values\");\n                }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "quantity < 0 || ripeness < 1 || ripeness > 5 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "258596",
+                    "metadata": {
+                      "label": "Panic",
+                      "description": "Panic and stop the execution"
+                    },
+                    "codedata": {
+                      "node": "PANIC",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 228,
+                          "offset": 20
+                        },
+                        "endLine": {
+                          "line": 228,
+                          "offset": 56
+                        }
+                      },
+                      "sourceCode": "panic error(\"Invalid input values\");"
+                    },
+                    "returning": false,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Panic value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "error(\"Invalid input values\")",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          },
+          {
+            "id": "260488",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'string `Order for ${quantity} peaches with ripeness ${ripeness}`'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 230,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 230,
+                  "offset": 88
+                }
+              },
+              "sourceCode": "return string `Order for ${quantity} peaches with ripeness ${ripeness}`;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "string `Order for ${quantity} peaches with ripeness ${ripeness}`",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 232,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 234,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                panic error(\"Invalid data format\");\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "263427",
+            "metadata": {
+              "label": "Panic",
+              "description": "Panic and stop the execution"
+            },
+            "codedata": {
+              "node": "PANIC",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 233,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 233,
+                  "offset": 51
+                }
+              },
+              "sourceCode": "panic error(\"Invalid data format\");"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Panic value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"Invalid data format\")",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 235,
+              "offset": 24
+            },
+            "endLine": {
+              "line": 237,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return string `Error processing peach order: ${e.message()}`;\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "266301",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'string `Error processing peach order: ${e.message()}`'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 236,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 236,
+                  "offset": 73
+                }
+              },
+              "sourceCode": "return string `Error processing peach order: ${e.message()}`;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "string `Error processing peach order: ${e.message()}`",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "data ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 225,
+            "character": 8
+          },
+          "end": {
+            "line": 237,
+            "character": 9
+          }
+        },
+        "newText": "match data {\n    [var quantity, var ripeness] if quantity is int && ripeness is int => {\n        if quantity < 0 || ripeness < 1 || ripeness > 5 {\n            panic error(\"Invalid input values\");\n        }\n        return string `Order for ${quantity} peaches with ripeness ${ripeness}`;\n    }\n    _ => {\n        panic error(\"Invalid data format\");\n    }\n} on fail error e {\n    return string `Error processing peach order: ${e.message()}`;\n}"
+      }
+    ]
+  }
+}

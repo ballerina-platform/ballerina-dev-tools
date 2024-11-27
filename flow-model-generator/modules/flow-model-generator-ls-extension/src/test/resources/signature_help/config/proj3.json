@@ -1,0 +1,83 @@
+{
+  "description": "",
+  "filePath": "proj/internal.bal",
+  "expression": "log:printInfo(\"message\", );",
+  "startLine": {
+    "line": 2,
+    "offset": 23
+  },
+  "offset": 23,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "printInfo(string msg, error? 'error, error:StackFrame[]? stackTrace, log:KeyValues keyValues)",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nPrints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```"
+        }
+      },
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 17,
+              "second": 20
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`string`msg**: The message to be logged"
+            }
+          }
+        },
+        {
+          "label": {
+            "right": {
+              "first": 29,
+              "second": 35
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`error?`'error**: The error struct to be logged"
+            }
+          }
+        },
+        {
+          "label": {
+            "right": {
+              "first": 57,
+              "second": 67
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`error:StackFrame[]?`stackTrace**: The error stack trace to be logged"
+            }
+          }
+        },
+        {
+          "label": {
+            "right": {
+              "first": 83,
+              "second": 92
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`log:KeyValues`keyValues**: The key-value pairs to be logged"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

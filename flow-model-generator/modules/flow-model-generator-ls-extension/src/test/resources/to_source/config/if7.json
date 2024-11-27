@@ -1,0 +1,363 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "123575",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 92,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 102,
+          "offset": 9
+        }
+      },
+      "sourceCode": "if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        } else {\n            return \"tiny\";\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 92,
+              "offset": 25
+            },
+            "endLine": {
+              "line": 94,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return \"large\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "quantity > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "124399",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"large\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 93,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 93,
+                  "offset": 27
+                }
+              },
+              "sourceCode": "return \"large\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"large\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "quantity > 5",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 94,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 100,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "quantity > 5 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "126493",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 95,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 99,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 95,
+                      "offset": 28
+                    },
+                    "endLine": {
+                      "line": 97,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "{\n                return \"medium\";\n            }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "quantity > 8 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "127504",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"medium\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 96,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 96,
+                          "offset": 32
+                        }
+                      },
+                      "sourceCode": "return \"medium\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"medium\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "ELSE",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 97,
+                      "offset": 19
+                    },
+                    "endLine": {
+                      "line": 99,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "{\n                return \"small\";\n            }"
+                },
+                "repeatable": "ZERO_OR_ONE",
+                "children": [
+                  {
+                    "id": "129487",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"small\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 98,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 98,
+                          "offset": 31
+                        }
+                      },
+                      "sourceCode": "return \"small\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"small\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Else",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 100,
+              "offset": 15
+            },
+            "endLine": {
+              "line": 102,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return \"tiny\";\n        }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "132334",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"tiny\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 101,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 101,
+                  "offset": 26
+                }
+              },
+              "sourceCode": "return \"tiny\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"tiny\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 92,
+            "character": 8
+          },
+          "end": {
+            "line": 102,
+            "character": 9
+          }
+        },
+        "newText": "if quantity > 10 {\n    return \"large\";\n} else if quantity > 5 {\n    if quantity > 8 {\n        return \"medium\";\n    } else {\n        return \"small\";\n    }\n} else {\n    return \"tiny\";\n}"
+      }
+    ]
+  }
+}

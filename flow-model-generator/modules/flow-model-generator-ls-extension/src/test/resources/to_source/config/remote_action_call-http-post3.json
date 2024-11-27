@@ -1,0 +1,152 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "64820",
+    "metadata": {
+      "label": "post",
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "post",
+      "version": "2.12.2",
+      "lineRange": {
+        "fileName": "http_post_node.bal",
+        "startLine": {
+          "line": 33,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 92
+        }
+      },
+      "sourceCode": "_ = check foodClient->post(\"/bananas\", targetType = json, message = \"green banana\");"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "foodClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Resource path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"/bananas\"",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"green banana\"",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "message"
+        }
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "value": "()",
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity"
+        },
+        "value": "()",
+        "placeholder": "()",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "mediaType"
+        }
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Flag",
+          "description": "Whether to return the error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 33,
+            "character": 8
+          },
+          "end": {
+            "line": 33,
+            "character": 92
+          }
+        },
+        "newText": "check foodClient->post(\"/bananas\", \"green banana\");"
+      }
+    ]
+  }
+}

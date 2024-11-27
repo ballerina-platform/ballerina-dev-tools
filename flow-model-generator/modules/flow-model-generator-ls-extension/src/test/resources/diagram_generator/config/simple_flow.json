@@ -1,0 +1,1216 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 4
+  },
+  "end": {
+    "line": 14,
+    "offset": 5
+  },
+  "source": "simple_flow.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "simple_flow.bal",
+    "nodes": [
+      {
+        "id": "40305",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 76
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get search/doctors/[string area]() returns json|error {\n        if area == \"kandy\" {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        } else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "39131",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 9
+            }
+          },
+          "sourceCode": "if area == \"kandy\" {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        } else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 27
+                },
+                "endLine": {
+                  "line": 10,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "area == \"kandy\" ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "40115",
+                "metadata": {
+                  "label": "get",
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+                },
+                "codedata": {
+                  "node": "REMOTE_ACTION_CALL",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "get",
+                  "version": "2.13.0",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 63
+                    }
+                  },
+                  "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
+                },
+                "returning": false,
+                "properties": {
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "asiri",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "path": {
+                    "metadata": {
+                      "label": "path",
+                      "description": "Request path"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"/doctors/kandy\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "path"
+                    }
+                  },
+                  "headers": {
+                    "metadata": {
+                      "label": "headers",
+                      "description": "The entity headers"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "map<string|string[]>|()",
+                    "placeholder": "()",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "headers"
+                    }
+                  },
+                  "targetType": {
+                    "metadata": {
+                      "label": "targetType",
+                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "json",
+                    "placeholder": "json",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "PARAM_FOR_TYPE_INFER",
+                      "originalName": "targetType"
+                    }
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "j",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Variable Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "json",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 1
+              },
+              {
+                "id": "41065",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'j'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 9,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 9,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "return j;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "j",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "43081",
+                "metadata": {
+                  "label": "get",
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+                },
+                "codedata": {
+                  "node": "REMOTE_ACTION_CALL",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "get",
+                  "version": "2.13.0",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 53
+                    }
+                  },
+                  "sourceCode": "json j = check nawaloka->get(\"/doctors\");"
+                },
+                "returning": false,
+                "properties": {
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "nawaloka",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "path": {
+                    "metadata": {
+                      "label": "path",
+                      "description": "Request path"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"/doctors\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "path"
+                    }
+                  },
+                  "headers": {
+                    "metadata": {
+                      "label": "headers",
+                      "description": "The entity headers"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "map<string|string[]>|()",
+                    "placeholder": "()",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "headers"
+                    }
+                  },
+                  "targetType": {
+                    "metadata": {
+                      "label": "targetType",
+                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "json",
+                    "placeholder": "json",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "PARAM_FOR_TYPE_INFER",
+                      "originalName": "targetType"
+                    }
+                  },
+                  "checkError": {
+                    "metadata": {
+                      "label": "Check Error",
+                      "description": "Trigger error flow"
+                    },
+                    "valueType": "FLAG",
+                    "value": true,
+                    "optional": false,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "j",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Variable Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "json",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 1
+              },
+              {
+                "id": "44041",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'j'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 12,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 12,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "return j;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "j",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "33790",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 62
+            }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "asiri",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "34785",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 65
+            }
+          },
+          "sourceCode": "final http:Client nawaloka = check new (\"http://localhost:9091\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:9091\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "nawaloka",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

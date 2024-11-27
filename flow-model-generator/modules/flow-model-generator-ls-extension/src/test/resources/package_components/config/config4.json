@@ -1,0 +1,105 @@
+{
+  "source": "source4.bal",
+  "output": [
+    {
+      "functions": [],
+      "services": [
+        {
+          "name": "sfdc:RecordService",
+          "filePath": "file.bal",
+          "startLine": 12,
+          "startColumn": 0,
+          "endLine": 32,
+          "endColumn": 1,
+          "functions": [
+            {
+              "name": "onUpdate",
+              "filePath": "file.bal",
+              "startLine": 13,
+              "startColumn": 4,
+              "endLine": 15,
+              "endColumn": 5
+            },
+            {
+              "name": "onCreate",
+              "filePath": "file.bal",
+              "startLine": 17,
+              "startColumn": 4,
+              "endLine": 19,
+              "endColumn": 5
+            },
+            {
+              "name": "onDelete",
+              "filePath": "file.bal",
+              "startLine": 21,
+              "startColumn": 4,
+              "endLine": 23,
+              "endColumn": 5
+            },
+            {
+              "name": "onRestore",
+              "filePath": "file.bal",
+              "startLine": 25,
+              "startColumn": 4,
+              "endLine": 27,
+              "endColumn": 5
+            },
+            {
+              "name": "nonRemoteFunction",
+              "filePath": "file.bal",
+              "startLine": 29,
+              "startColumn": 4,
+              "endLine": 31,
+              "endColumn": 5
+            }
+          ]
+        }
+      ],
+      "records": [],
+      "objects": [],
+      "classes": [],
+      "types": [],
+      "constants": [],
+      "enums": [],
+      "listeners": [
+        {
+          "name": "httpListener",
+          "filePath": "file.bal",
+          "startLine": 4,
+          "startColumn": 0,
+          "endLine": 4,
+          "endColumn": 49
+        },
+        {
+          "name": "sfdcListener",
+          "filePath": "file.bal",
+          "startLine": 10,
+          "startColumn": 0,
+          "endLine": 10,
+          "endColumn": 58
+        }
+      ],
+      "moduleVariables": [
+        {
+          "name": "configuration ",
+          "filePath": "file.bal",
+          "startLine": 5,
+          "startColumn": 0,
+          "endLine": 9,
+          "endColumn": 2
+        }
+      ],
+      "configurableVariables": [
+        {
+          "name": "configuration ",
+          "filePath": "file.bal",
+          "startLine": 5,
+          "startColumn": 0,
+          "endLine": 9,
+          "endColumn": 2
+        }
+      ],
+      "automations": []
+    }
+  ]
+}

@@ -1,0 +1,776 @@
+{
+  "start": {
+    "line": 91,
+    "offset": 0
+  },
+  "end": {
+    "line": 103,
+    "offset": 1
+  },
+  "source": "if_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "if_node.bal",
+    "nodes": [
+      {
+        "id": "124346",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 91,
+              "offset": 63
+            },
+            "endLine": {
+              "line": 103,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get mangoes(int quantity) returns string {\n        if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        } else {\n            return \"tiny\";\n        }\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "123575",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 92,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 102,
+              "offset": 9
+            }
+          },
+          "sourceCode": "if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        } else {\n            return \"tiny\";\n        }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 92,
+                  "offset": 25
+                },
+                "endLine": {
+                  "line": 94,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"large\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "quantity > 10 ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "124399",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"large\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 93,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 93,
+                      "offset": 27
+                    }
+                  },
+                  "sourceCode": "return \"large\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"large\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "quantity > 5",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 94,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 100,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "quantity > 5 ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "126493",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 95,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 99,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 95,
+                          "offset": 28
+                        },
+                        "endLine": {
+                          "line": 97,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n                return \"medium\";\n            }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "quantity > 8 ",
+                        "placeholder": "true",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "127504",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Value of '\"medium\"'"
+                        },
+                        "codedata": {
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 96,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 96,
+                              "offset": 32
+                            }
+                          },
+                          "sourceCode": "return \"medium\";"
+                        },
+                        "returning": true,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "\"medium\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 97,
+                          "offset": 19
+                        },
+                        "endLine": {
+                          "line": 99,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n                return \"small\";\n            }"
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "129487",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Value of '\"small\"'"
+                        },
+                        "codedata": {
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 98,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 98,
+                              "offset": 31
+                            }
+                          },
+                          "sourceCode": "return \"small\";"
+                        },
+                        "returning": true,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "\"small\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 100,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 102,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"tiny\";\n        }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "132334",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"tiny\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 101,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 101,
+                      "offset": 26
+                    }
+                  },
+                  "sourceCode": "return \"tiny\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"tiny\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "version": "2.13.0",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"/food\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

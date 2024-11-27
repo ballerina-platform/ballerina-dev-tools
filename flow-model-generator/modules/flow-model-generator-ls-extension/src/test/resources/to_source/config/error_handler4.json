@@ -1,0 +1,202 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "36957",
+    "metadata": {
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
+    },
+    "codedata": {
+      "node": "ERROR_HANDLER",
+      "lineRange": {
+        "fileName": "fail.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 9,
+          "offset": 5
+        }
+      },
+      "sourceCode": "do {\n        fail error(\"Failing\");\n    } on fail var e {\n        return e;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 7
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        fail error(\"Failing\");\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "37974",
+            "metadata": {
+              "label": "Fail",
+              "description": "Fail the execution"
+            },
+            "codedata": {
+              "node": "FAIL",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 30
+                }
+              },
+              "sourceCode": "fail error(\"Failing\");"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Fail value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"Failing\")",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 20
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return e;\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "e ",
+            "placeholder": "err",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "placeholder": "error",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "39945",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'e'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "return e;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "e",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 9,
+            "character": 5
+          }
+        },
+        "newText": "do {\n    fail error(\"Failing\");\n} on fail error e {\n    return e;\n}"
+      }
+    ]
+  }
+}

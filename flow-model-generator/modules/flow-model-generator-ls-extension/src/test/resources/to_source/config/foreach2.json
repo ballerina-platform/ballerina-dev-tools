@@ -1,0 +1,205 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47869",
+    "metadata": {
+      "label": "Foreach",
+      "description": "Iterate over a block of code."
+    },
+    "codedata": {
+      "node": "FOREACH",
+      "lineRange": {
+        "fileName": "foreach.bal",
+        "startLine": {
+          "line": 16,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 5
+        }
+      },
+      "sourceCode": "foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        _ = item;\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "48873",
+            "metadata": {
+              "label": "Assign",
+              "description": "Assign a value to a variable"
+            },
+            "codedata": {
+              "node": "ASSIGN",
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "_ = item;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "item",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return error(\"Error message\");\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": [
+          {
+            "id": "50878",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'error(\"Error message\")'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 38
+                }
+              },
+              "sourceCode": "return error(\"Error message\");"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "error(\"Error message\")",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      },
+      "collection": {
+        "metadata": {
+          "label": "Collection",
+          "description": "Collection to iterate"
+        },
+        "valueType": "EXPRESSION",
+        "value": "intArr ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 4
+          },
+          "end": {
+            "line": 20,
+            "character": 5
+          }
+        },
+        "newText": "foreach int item in intArr {\n    _ = item;\n} on fail {\n    return error(\"Error message\");\n}"
+      }
+    ]
+  }
+}

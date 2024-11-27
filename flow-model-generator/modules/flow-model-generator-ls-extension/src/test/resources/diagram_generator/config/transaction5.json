@@ -1,0 +1,234 @@
+{
+  "start": {
+    "line": 36,
+    "offset": 0
+  },
+  "end": {
+    "line": 42,
+    "offset": 1
+  },
+  "source": "transaction.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "transaction.bal",
+    "nodes": [
+      {
+        "id": "69162",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 36,
+              "offset": 49
+            },
+            "endLine": {
+              "line": 42,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function transactionWithOnFail2() returns error? {\n    transaction {\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "68701",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 37,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 41,
+              "offset": 5
+            }
+          },
+          "sourceCode": "transaction {\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 37,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 39,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        var _ = check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "69717",
+                "metadata": {
+                  "label": "Commit",
+                  "description": "Commit transaction"
+                },
+                "codedata": {
+                  "node": "COMMIT",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 38,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 38,
+                      "offset": 29
+                    }
+                  },
+                  "sourceCode": "var _ = check commit;"
+                },
+                "returning": false,
+                "properties": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Variable Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
+                    "placeholder": "var",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 39,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 41,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        return e;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "e ",
+                "placeholder": "err",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "placeholder": "error",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "71689",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'e'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 40,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 40,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "return e;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "e",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

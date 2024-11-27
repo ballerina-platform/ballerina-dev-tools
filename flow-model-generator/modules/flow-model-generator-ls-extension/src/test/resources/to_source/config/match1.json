@@ -1,0 +1,312 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "43223",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 11,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match color {\n            \"red\"|\"blue\" => {\n                return \"sweet\";\n            }\n            \"green\" => {\n                return \"sour\";\n            }\n            _ => {\n                return \"unknown\";\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "\"red\"|\"blue\"",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 28
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"sweet\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"red\"",
+                "optional": false,
+                "editable": true
+              },
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"blue\"",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "45167",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"sweet\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 13,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "return \"sweet\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"sweet\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "\"green\"",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 23
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"sour\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"green\"",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "48142",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"sour\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 30
+                }
+              },
+              "sourceCode": "return \"sour\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"sour\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"unknown\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "51121",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"unknown\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 33
+                }
+              },
+              "sourceCode": "return \"unknown\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"unknown\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "color ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 8
+          },
+          "end": {
+            "line": 21,
+            "character": 9
+          }
+        },
+        "newText": "match color {\n    \"red\"|\"blue\" => {\n        return \"sweet\";\n    }\n    \"green\" => {\n        return \"sour\";\n    }\n    _ => {\n        return \"unknown\";\n    }\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "start": {
+    "line": 46,
+    "offset": 0
+  },
+  "end": {
+    "line": 56,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "78989",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 46,
+              "offset": 42
+            },
+            "endLine": {
+              "line": 56,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "78506",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 47,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 47,
+              "offset": 14
+            }
+          },
+          "sourceCode": "int x = 0;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "0",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "x",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "79419",
+        "metadata": {
+          "label": "Comment",
+          "description": "This is a while block"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 48,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 49,
+              "offset": 28
+            }
+          },
+          "sourceCode": "This is a while block"
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "This is a while block",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "81628",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 50,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 5
+            }
+          },
+          "sourceCode": "// This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 55,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "82357",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "update `x`"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 51,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 51,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "update `x`"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "update `x`",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "83594",
+                "metadata": {
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "ASSIGN",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 52,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "// update `x`\n        x = x + 1;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Assign value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "x + 1",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "84379",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Generate new node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 53,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 54,
+                      "offset": 28
+                    }
+                  },
+                  "sourceCode": "Generate new node"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "Generate new node",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "i > 3 ",
+            "placeholder": "true",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

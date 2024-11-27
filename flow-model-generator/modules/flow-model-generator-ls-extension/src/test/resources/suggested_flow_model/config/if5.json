@@ -1,0 +1,610 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 0
+  },
+  "end": {
+    "line": 15,
+    "offset": 1
+  },
+  "source": "if.bal",
+  "text": "   if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }",
+  "position": {
+    "line": 11,
+    "offset": 4
+  },
+  "description": "",
+  "forceAssign": false,
+  "diagram": {
+    "fileName": "if.bal",
+    "nodes": [
+      {
+        "id": "38565",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 15
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "38827",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int x = 10;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "10",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "x",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      },
+      {
+        "id": "39819",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int y = 20;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "20",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "y",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      },
+      {
+        "id": "42041",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "if (x > y) {\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "(x > y) ",
+                "placeholder": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "43006",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 7
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 11,
+                          "offset": 23
+                        },
+                        "endLine": {
+                          "line": 13,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            print(\"x is even\");\n        }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "(x % 2 == 0) ",
+                        "placeholder": "true",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "44051",
+                        "metadata": {
+                          "label": "print",
+                          "description": ""
+                        },
+                        "codedata": {
+                          "node": "FUNCTION_CALL",
+                          "org": "$anon",
+                          "module": ".",
+                          "symbol": "print",
+                          "version": "0.0.0",
+                          "lineRange": {
+                            "fileName": "if.bal",
+                            "startLine": {
+                              "line": 12,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 12,
+                              "offset": 31
+                            }
+                          },
+                          "sourceCode": "print(\"x is even\");"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "view": {
+                            "metadata": {
+                              "label": "View",
+                              "description": "Function definition location"
+                            },
+                            "valueType": "VIEW",
+                            "value": {
+                              "fileName": "if.bal",
+                              "startLine": {
+                                "line": 21,
+                                "offset": 0
+                              },
+                              "endLine": {
+                                "line": 23,
+                                "offset": 1
+                              }
+                            },
+                            "optional": false,
+                            "editable": false,
+                            "advanced": false
+                          },
+                          "val": {
+                            "metadata": {
+                              "label": "val"
+                            },
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
+                            "value": "\"x is even\"",
+                            "placeholder": "\"\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false,
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "val"
+                            }
+                          }
+                        },
+                        "flags": 0,
+                        "suggested": true
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 13,
+                          "offset": 15
+                        },
+                        "endLine": {
+                          "line": 15,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            print(\"x is odd\");\n        }"
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "46034",
+                        "metadata": {
+                          "label": "print",
+                          "description": ""
+                        },
+                        "codedata": {
+                          "node": "FUNCTION_CALL",
+                          "org": "$anon",
+                          "module": ".",
+                          "symbol": "print",
+                          "version": "0.0.0",
+                          "lineRange": {
+                            "fileName": "if.bal",
+                            "startLine": {
+                              "line": 14,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 14,
+                              "offset": 30
+                            }
+                          },
+                          "sourceCode": "print(\"x is odd\");"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "view": {
+                            "metadata": {
+                              "label": "View",
+                              "description": "Function definition location"
+                            },
+                            "valueType": "VIEW",
+                            "value": {
+                              "fileName": "if.bal",
+                              "startLine": {
+                                "line": 21,
+                                "offset": 0
+                              },
+                              "endLine": {
+                                "line": 23,
+                                "offset": 1
+                              }
+                            },
+                            "optional": false,
+                            "editable": false,
+                            "advanced": false
+                          },
+                          "val": {
+                            "metadata": {
+                              "label": "val"
+                            },
+                            "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "string",
+                            "value": "\"x is odd\"",
+                            "placeholder": "\"\"",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false,
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "val"
+                            }
+                          }
+                        },
+                        "flags": 0,
+                        "suggested": true
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0,
+                "suggested": true
+              },
+              {
+                "id": "47069",
+                "metadata": {
+                  "label": "print",
+                  "description": ""
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "print",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 15,
+                      "offset": 13
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 42
+                    }
+                  },
+                  "sourceCode": "print(\"x is greater than y\");"
+                },
+                "returning": false,
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 21,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 23,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is greater than y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
+                  }
+                },
+                "flags": 0,
+                "suggested": false
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        print(\"x is equal to y\");\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "48889",
+                "metadata": {
+                  "label": "print",
+                  "description": ""
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "print",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 17,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 17,
+                      "offset": 33
+                    }
+                  },
+                  "sourceCode": "print(\"x is equal to y\");"
+                },
+                "returning": false,
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 21,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 23,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "val": {
+                    "metadata": {
+                      "label": "val"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"x is equal to y\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "val"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "suggested": false
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

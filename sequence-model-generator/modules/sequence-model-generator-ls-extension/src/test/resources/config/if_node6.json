@@ -1,0 +1,179 @@
+{
+  "source": "if_node6.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 6,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "if_node6.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 6,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "41696",
+        "name": "fn2",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "if_node6.bal",
+              "startLine": {
+                "line": 10,
+                "offset": 30
+              },
+              "endLine": {
+                "line": 10,
+                "offset": 31
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node6.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 10,
+            "offset": 32
+          }
+        }
+      },
+      {
+        "id": "31993",
+        "name": "fn1",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "IF",
+            "branches": [
+              {
+                "label": "Then",
+                "children": []
+              },
+              {
+                "label": "Else",
+                "children": [
+                  {
+                    "kind": "IF",
+                    "branches": [
+                      {
+                        "label": "Then",
+                        "children": [
+                          {
+                            "interactionType": "FUNCTION_CALL",
+                            "targetId": "41696",
+                            "kind": "INTERACTION",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "value": "fn2"
+                              },
+                              "params": [],
+                              "value": {
+                                "type": "int",
+                                "value": "b"
+                              }
+                            },
+                            "location": {
+                              "fileName": "if_node6.bal",
+                              "startLine": {
+                                "line": 4,
+                                "offset": 16
+                              },
+                              "endLine": {
+                                "line": 4,
+                                "offset": 21
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Else",
+                        "children": [
+                          {
+                            "branches": [],
+                            "properties": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "properties": {
+                      "condition": {
+                        "type": "boolean",
+                        "value": "price > 20"
+                      }
+                    },
+                    "location": {
+                      "fileName": "if_node6.bal",
+                      "startLine": {
+                        "line": 3,
+                        "offset": 11
+                      },
+                      "endLine": {
+                        "line": 7,
+                        "offset": 5
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "type": "boolean",
+                "value": "price > 10"
+              }
+            },
+            "location": {
+              "fileName": "if_node6.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 7,
+                "offset": 5
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node6.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}
