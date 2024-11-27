@@ -17,8 +17,8 @@
     "properties": {
         "host": {
             "metadata": {
-                "label": "host",
-                "description": "The RabbitMQ server host name used for establishing the connection."
+                "label": "Server Hostname",
+                "description": "The RabbitMQ server host name used for establishing the connection"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -36,8 +36,8 @@
         },
         "port": {
             "metadata": {
-                "label": "port",
-                "description": "The RabbitMQ server port used for establishing the connection."
+                "label": "Server Port",
+                "description": "The RabbitMQ server port used for establishing the connection"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -53,7 +53,7 @@
             "optional": false,
             "advanced": false
         },
-        "basePath": {
+        "queueName": {
             "enabled": true,
             "editable": true,
             "value": "",
@@ -62,8 +62,8 @@
             "optional": false,
             "advanced": false,
             "metadata": {
-                "label": "queueName",
-                "description": "The RabbitMQ queue name."
+                "label": "Queue Name",
+                "description": "The RabbitMQ queue name"
             },
             "codedata": {
                 "isBasePath": true
@@ -79,8 +79,8 @@
             "optional": false,
             "advanced": false,
             "metadata": {
-                "label": "requiredFunctions",
-                "description": "The required remote method to be implemented."
+                "label": "Required Functions",
+                "description": "The required remote method to be implemented"
             },
             "placeholder": "onMessage",
             "items": [
@@ -90,8 +90,8 @@
         },
         "qosSettings": {
             "metadata": {
-                "label": "qosSettings",
-                "description": "The consumer prefetch settings."
+                "label": "QoS Settings",
+                "description": "The consumer prefetch settings"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -109,7 +109,7 @@
             "properties": {
                 "prefetchCount": {
                     "metadata": {
-                        "label": "prefetchCount",
+                        "label": "Prefetch Count",
                         "description": "The maximum number of messages that the server will deliver. Give the value as 0 if unlimited"
                     },
                     "enabled": false,
@@ -124,7 +124,7 @@
                 },
                 "prefetchSize": {
                     "metadata": {
-                        "label": "prefetchSize",
+                        "label": "Prefetch Size",
                         "description": "The maximum amount of content (measured in octets) that the server will deliver and 0 if unlimited"
                     },
                     "enabled": false,
@@ -139,8 +139,8 @@
                 },
                 "global": {
                     "metadata": {
-                        "label": "global",
-                        "description": "Indicates whether the settings should be shared among all the consumers."
+                        "label": "Global",
+                        "description": "Indicates whether the settings should be shared among all the consumers"
                     },
                     "enabled": false,
                     "editable": true,
@@ -156,8 +156,8 @@
         },
         "username": {
             "metadata": {
-                "label": "username",
-                "description": "The username used for establishing the connection."
+                "label": "Username",
+                "description": "The username used for establishing the connection"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -175,8 +175,8 @@
         },
         "password": {
             "metadata": {
-                "label": "password",
-                "description": "The password used for establishing the connection."
+                "label": "Password",
+                "description": "The password used for establishing the connection"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -194,8 +194,8 @@
         },
         "virtualHost": {
             "metadata": {
-                "label": "virtualHost",
-                "description": "The virtual host to use when connecting to the broker."
+                "label": "Virtual Host",
+                "description": "The virtual host to use when connecting to the broker"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -213,8 +213,8 @@
         },
         "connectionTimeout": {
             "metadata": {
-                "label": "connectionTimeout",
-                "description": "Connection TCP establishment timeout in seconds and zero for infinite."
+                "label": "Connection Timeout",
+                "description": "Connection TCP establishment timeout in seconds and zero for infinite"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -232,8 +232,8 @@
         },
         "handshakeTimeout": {
             "metadata": {
-                "label": "handshakeTimeout",
-                "description": "The AMQP 0-9-1 protocol handshake timeout in seconds."
+                "label": "Handshake Timeout",
+                "description": "The AMQP 0-9-1 protocol handshake timeout in seconds"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -251,8 +251,8 @@
         },
         "shutdownTimeout": {
             "metadata": {
-                "label": "shutdownTimeout",
-                "description": "Shutdown timeout in seconds, zero for infinite, and the default value is 10. If the consumers exceed this timeout, then any remaining queued deliveries (and other Consumer callbacks) will be lost."
+                "label": "Shutdown Timeout",
+                "description": "Shutdown timeout in seconds, zero for infinite, and the default value is 10. If the consumers exceed this timeout, then any remaining queued deliveries (and other Consumer callbacks) will be lost"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -270,8 +270,8 @@
         },
         "heartbeat": {
             "metadata": {
-                "label": "heartbeat",
-                "description": "The initially-requested heartbeat timeout in seconds and zero for none."
+                "label": "Heartbeat Timeout",
+                "description": "The initially-requested heartbeat timeout in seconds and zero for none"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -289,8 +289,8 @@
         },
         "validation": {
             "metadata": {
-                "label": "validation",
-                "description": "Configuration related to constraint validation check."
+                "label": "Constraint Validation",
+                "description": "Configuration related to constraint validation check"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -308,8 +308,8 @@
         },
         "secureSocket": {
             "metadata": {
-                "label": "secureSocket",
-                "description": "Configurations for facilitating secure connections."
+                "label": "Secure Socket Configuration",
+                "description": "Configurations for facilitating secure connections"
             },
             "codedata": {
                 "inListenerInit": true,
@@ -327,7 +327,7 @@
             "properties": {
                 "cert": {
                     "metadata": {
-                        "label": "cert",
+                        "label": "Certificate",
                         "description": "Configurations associated with `crypto:TrustStore` or single certificate file that the client trusts"
                     },
                     "enabled": false,
@@ -342,7 +342,7 @@
                 },
                 "key": {
                     "metadata": {
-                        "label": "key",
+                        "label": "Private Key",
                         "description": "Configurations associated with `crypto:KeyStore` or combination of certificate and private key of the client"
                     },
                     "enabled": false,
@@ -357,7 +357,7 @@
                     "properties": {
                         "certFile": {
                             "metadata": {
-                                "label": "certFile",
+                                "label": "Certificate File",
                                 "description": "A file containing the certificate"
                             },
                             "enabled": false,
@@ -372,7 +372,7 @@
                         },
                         "keyFile": {
                             "metadata": {
-                                "label": "keyFile",
+                                "label": "Private Key File",
                                 "description": "A file containing the private key in PKCS8 format"
                             },
                             "enabled": false,
@@ -387,7 +387,7 @@
                         },
                         "keyPassword": {
                             "metadata": {
-                                "label": "keyPassword",
+                                "label": "Private Key Password",
                                 "description": "Password of the private key if it is encrypted"
                             },
                             "enabled": false,
@@ -403,7 +403,7 @@
                     },
                     "protocol": {
                         "metadata": {
-                            "label": "protocol",
+                            "label": "Protocol",
                             "description": "SSL/TLS protocol related options"
                         },
                         "enabled": false,
@@ -418,7 +418,7 @@
                         "properties": {
                             "name": {
                                 "metadata": {
-                                    "label": "name",
+                                    "label": "Name",
                                     "description": "The name of the protocol"
                                 },
                                 "enabled": false,
@@ -440,7 +440,7 @@
                     },
                     "verifyHostName": {
                         "metadata": {
-                            "label": "verifyHostName",
+                            "label": "Verify Host Name",
                             "description": "Enable/disable host name verification"
                         },
                         "enabled": false,
@@ -457,7 +457,7 @@
             },
             "auth": {
                 "metadata": {
-                    "label": "auth",
+                    "label": "Authentication Configuration",
                     "description": "Configurations related to authentication."
                 },
                 "enabled": false,
@@ -472,7 +472,7 @@
                 "properties": {
                     "username": {
                         "metadata": {
-                            "label": "username",
+                            "label": "Username",
                             "description": "Username to use for authentication"
                         },
                         "enabled": false,
@@ -487,7 +487,7 @@
                     },
                     "password": {
                         "metadata": {
-                            "label": "password",
+                            "label": "Password",
                             "description": "Password/secret/token to use for authentication"
                         },
                         "enabled": false,
@@ -512,13 +512,13 @@
             {
                 "metadata": {
                     "label": "onMessage",
-                    "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue."
+                    "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue"
                 },
                 "kind": "REMOTE",
                 "name": {
                     "metadata": {
                         "label": "name",
-                        "description": "The name of the remote method."
+                        "description": "The name of the remote method"
                     },
                     "enabled": true,
                     "editable": false,
@@ -537,13 +537,13 @@
                     {
                         "metadata": {
                             "label": "message",
-                            "description": "The message received from the RabbitMQ queue."
+                            "description": "The message received from the RabbitMQ queue"
                         },
                         "kind": "REQUIRED",
                         "name": {
                             "metadata": {
                                 "label": "RabbitMQ message",
-                                "description": "The RabbitMQ message."
+                                "description": "The RabbitMQ message"
                             },
                             "enabled": true,
                             "editable": true,
@@ -558,13 +558,13 @@
                         "type": {
                             "metadata": {
                                 "label": "type",
-                                "description": "The type of the parameter."
+                                "description": "The type of the parameter"
                             },
                             "enabled": true,
                             "editable": true,
                             "value": "",
                             "valueType": "TYPE",
-                            "valueTypeConstraint": "rabbitmq:AnydataMessage",
+                            "valueTypeConstraint": "anydata|rabbitmq:AnydataMessage",
                             "isType": true,
                             "placeholder": "rabbitmq:AnydataMessage",
                             "optional": false,
@@ -577,13 +577,13 @@
                     {
                         "metadata": {
                             "label": "Caller",
-                            "description": "The RabbitMQ caller object to acknowledge the message."
+                            "description": "The RabbitMQ caller object to acknowledge the message"
                         },
                         "kind": "REQUIRED",
                         "name": {
                             "metadata": {
                                 "label": "caller",
-                                "description": "The RabbitMQ caller object."
+                                "description": "The RabbitMQ caller object"
                             },
                             "enabled": true,
                             "editable": true,
@@ -598,7 +598,7 @@
                         "type": {
                             "metadata": {
                                 "label": "type",
-                                "description": "The type of the parameter."
+                                "description": "The type of the parameter"
                             },
                             "enabled": true,
                             "editable": true,
@@ -618,7 +618,7 @@
                 "returnType": {
                     "metadata": {
                         "label": "returnType",
-                        "description": "The return type of the remote method."
+                        "description": "The return type of the remote method"
                     },
                     "enabled": true,
                     "editable": true,
@@ -634,13 +634,13 @@
             {
                 "metadata": {
                     "label": "onRequest",
-                    "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected."
+                    "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected"
                 },
                 "kind": "REMOTE",
                 "name": {
                     "metadata": {
                         "label": "name",
-                        "description": "The name of the remote method."
+                        "description": "The name of the remote method"
                     },
                     "enabled": true,
                     "editable": false,
@@ -659,13 +659,13 @@
                     {
                         "metadata": {
                             "label": "message",
-                            "description": "The message received from the RabbitMQ queue."
+                            "description": "The message received from the RabbitMQ queue"
                         },
                         "kind": "REQUIRED",
                         "name": {
                             "metadata": {
                                 "label": "RabbitMQ message",
-                                "description": "The RabbitMQ message."
+                                "description": "The RabbitMQ message"
                             },
                             "enabled": true,
                             "editable": true,
@@ -680,13 +680,13 @@
                         "type": {
                             "metadata": {
                                 "label": "type",
-                                "description": "The type of the parameter."
+                                "description": "The type of the parameter"
                             },
                             "enabled": true,
                             "editable": true,
                             "value": "",
                             "valueType": "TYPE",
-                            "valueTypeConstraint": "rabbitmq:AnydataMessage",
+                            "valueTypeConstraint": "anydata|rabbitmq:AnydataMessage",
                             "isType": true,
                             "placeholder": "rabbitmq:AnydataMessage",
                             "optional": false,
@@ -699,13 +699,13 @@
                     {
                         "metadata": {
                             "label": "Caller",
-                            "description": "The RabbitMQ caller object to acknowledge the message."
+                            "description": "The RabbitMQ caller object to acknowledge the message"
                         },
                         "kind": "REQUIRED",
                         "name": {
                             "metadata": {
                                 "label": "caller",
-                                "description": "The RabbitMQ caller object."
+                                "description": "The RabbitMQ caller object"
                             },
                             "enabled": true,
                             "editable": true,
@@ -720,7 +720,7 @@
                         "type": {
                             "metadata": {
                                 "label": "type",
-                                "description": "The type of the parameter."
+                                "description": "The type of the parameter"
                             },
                             "enabled": true,
                             "editable": true,
@@ -740,7 +740,7 @@
                 "returnType": {
                     "metadata": {
                         "label": "returnType",
-                        "description": "The return type of the remote method."
+                        "description": "The return type of the remote method"
                     },
                     "enabled": true,
                     "editable": true,
@@ -756,13 +756,13 @@
             {
                 "metadata": {
                     "label": "onError",
-                    "description": "The `onError` remote method will be triggered when an error occurs during the message processing."
+                    "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
                 },
                 "kind": "REMOTE",
                 "name": {
                     "metadata": {
                         "label": "name",
-                        "description": "The name of the remote method."
+                        "description": "The name of the remote method"
                     },
                     "enabled": true,
                     "editable": false,
@@ -781,7 +781,7 @@
                     {
                         "metadata": {
                             "label": "message",
-                            "description": "The message received from the RabbitMQ queue."
+                            "description": "The message received from the RabbitMQ queue"
                         },
                         "kind": "REQUIRED",
                         "name": {
@@ -813,7 +813,7 @@
                     {
                         "metadata": {
                             "label": "RabbitMQ Error",
-                            "description": "The error occurred during the message processing."
+                            "description": "The error occurred during the message processing"
                         },
                         "kind": "REQUIRED",
                         "name": {
@@ -846,7 +846,7 @@
                 "returnType": {
                     "metadata": {
                         "label": "returnType",
-                        "description": "The return type of the remote method."
+                        "description": "The return type of the remote method"
                     },
                     "enabled": true,
                     "editable": true,

@@ -19,5 +19,15 @@
       "network",
       "event"
     ]
+  },
+  "3": {
+    "name": "nats",
+    "orgName": "ballerinax",
+    "packageName": "nats",
+    "keywords": [
+      "messaging",
+      "network",
+      "event"
+    ]
   }
 }
