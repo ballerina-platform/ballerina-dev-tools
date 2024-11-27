@@ -102,7 +102,7 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerModelFromCodeGenerator() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(13, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(6, 0), LinePosition.from(13, 1)));
         TriggerModelGenRequest request = new TriggerModelGenRequest(filePath, codedata);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
         TriggerModelGenResponse response = (TriggerModelGenResponse) result.get();
@@ -111,7 +111,7 @@ public class TriggerServiceTest {
         CompletableFuture<?> result1 = serviceEndpoint.request("triggerDesignService/getSourceCode", request1);
         TriggerCommonResponse response1 = (TriggerCommonResponse) result1.get();
 
-        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(15, 0), LinePosition.from(32, 1)));
+        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(18, 0), LinePosition.from(32, 1)));
         request = new TriggerModelGenRequest(filePath, codedata);
         result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
         response = (TriggerModelGenResponse) result.get();

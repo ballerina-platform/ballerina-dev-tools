@@ -29,5 +29,17 @@
       "network",
       "event"
     ]
+  },
+  "4": {
+    "name": "mqtt",
+    "orgName": "ballerina",
+    "packageName": "mqtt",
+    "keywords": [
+      "mqtt",
+      "messaging",
+      "network",
+      "iot",
+      "event"
+    ]
   }
 }
