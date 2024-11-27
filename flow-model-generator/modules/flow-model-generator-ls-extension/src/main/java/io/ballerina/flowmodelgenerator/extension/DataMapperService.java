@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.extension;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DataMapManager;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
+import io.ballerina.flowmodelgenerator.extension.request.DataMapperQueryConvertRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperSourceRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperModelResponse;
@@ -110,6 +111,27 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 DataMapManager dataMapManager = new DataMapManager(null, null, null);
                 response.setSource(dataMapManager.getSource(request.mappings(), request.flowNode(),
                         request.targetField()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<DataMapperSourceResponse> convertToQuery(DataMapperQueryConvertRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            DataMapperSourceResponse response = new DataMapperSourceResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+                DataMapManager dataMapManager = new DataMapManager(null, null, document.get());
+                response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(), Path.of(request.filePath()), request.position(), project));
             } catch (Throwable e) {
                 response.setError(e);
             }

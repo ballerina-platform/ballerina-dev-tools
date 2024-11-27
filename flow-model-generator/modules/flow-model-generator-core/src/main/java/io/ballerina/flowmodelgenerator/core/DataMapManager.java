@@ -23,8 +23,34 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ClauseNode;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
+import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.QueryExpressionNode;
+import io.ballerina.compiler.syntax.tree.SelectClauseNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -222,7 +248,8 @@ public class DataMapManager {
             if (mappingFieldNode != null) {
                 RecordFieldSymbol recordFieldSymbol = fieldDescriptors.get(split);
                 if (recordFieldSymbol != null) {
-                    return new TargetNode(recordFieldSymbol.typeDescriptor(), split, ((SpecificFieldNode) mappingFieldNode).valueExpr().get());
+                    return new TargetNode(recordFieldSymbol.typeDescriptor(), split,
+                            ((SpecificFieldNode) mappingFieldNode).valueExpr().get());
                 }
                 break;
             }
@@ -230,7 +257,8 @@ public class DataMapManager {
         return null;
     }
 
-    private record TargetNode(TypeSymbol typeSymbol, String name, ExpressionNode expressionNode) {}
+    private record TargetNode(TypeSymbol typeSymbol, String name, ExpressionNode expressionNode) {
+    }
 
     private Map<String, MappingFieldNode> convertMappingFieldsToMap(SeparatedNodeList<MappingFieldNode> mappingFields) {
         Map<String, MappingFieldNode> mappingFieldNodeMap = new HashMap<>();
@@ -481,7 +509,7 @@ public class DataMapManager {
     }
 
     private String genSource(Object sourceObj) {
-        if (sourceObj instanceof Map<?,?>) {
+        if (sourceObj instanceof Map<?, ?>) {
             StringBuilder sb = new StringBuilder();
             sb.append("{");
             Map<String, Object> mappings = (Map<String, Object>) sourceObj;
@@ -559,6 +587,85 @@ public class DataMapManager {
             }
         }
         currentMapping.put(splits[splits.length - 1], mapping.expression);
+    }
+
+    public String getQuery(JsonElement fNode, String targetField, Path filePath, LinePosition position,
+                           Project project) {
+        FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
+        Map<Path, List<TextEdit>> textEdits =
+                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
+        String source = textEdits.entrySet().stream().iterator().next().getValue().get(0).getNewText();
+        TextDocument textDocument = document.textDocument();
+        int startTextPosition = textDocument.textPositionFrom(position);
+        io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
+                0), source);
+        io.ballerina.tools.text.TextEdit[] tes = {te};
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
+        Document modifiedDoc =
+                project.duplicate().currentPackage().module(document.module().moduleId())
+                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
+                                modifiedTextDoc.textLines())).apply();
+
+        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+                .getSemanticModel(modifiedDoc.module().moduleId());
+        LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
+        LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
+        Range range = new Range(new Position(startLine.line(), startLine.offset()),
+                new Position(endLine.line(), endLine.offset()));
+        NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
+
+        TargetNode targetNode = getTargetNode(stNode, targetField, newSemanticModel);
+        if (targetNode == null) {
+            return "";
+        }
+
+        TypeSymbol targetTypeSymbol = CommonUtils.getRawType(targetNode.typeSymbol());
+        if (targetTypeSymbol.typeKind() != TypeDescKind.ARRAY) {
+            return "";
+        }
+        TypeSymbol typeSymbol = CommonUtils.getRawType(((ArrayTypeSymbol) targetTypeSymbol).memberTypeDescriptor());
+        if (typeSymbol.typeKind() != TypeDescKind.RECORD) {
+            return "";
+        }
+
+        String query = getQuerySource(targetNode.expressionNode(), (RecordTypeSymbol) typeSymbol);
+        if (targetField == null) {
+            return query;
+        }
+        if (flowNode.codedata().node() != NodeKind.VARIABLE) {
+            return query;
+        }
+        Optional<Property> optProperty = flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (optProperty.isEmpty()) {
+            return query;
+        }
+        Property property = optProperty.get();
+        String expr = property.toSourceCode();
+        return expr.replace(targetNode.expressionNode().toSourceCode(), query);
+    }
+
+    private String getQuerySource(ExpressionNode inputExpr, RecordTypeSymbol recordTypeSymbol) {
+        String name = "item";
+        SyntaxKind kind = inputExpr.kind();
+        if (kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            name = inputExpr.toSourceCode() + "Item";
+        } else if (kind == SyntaxKind.FIELD_ACCESS) {
+            FieldAccessExpressionNode fieldAccessExpr = (FieldAccessExpressionNode) inputExpr;
+            name = fieldAccessExpr.fieldName().toSourceCode() + "Item";
+        }
+
+        StringBuilder sb = new StringBuilder("from var " + name + " in " + inputExpr.toSourceCode());
+        sb.append(" select ");
+        sb.append("{");
+        List<String> keys = new ArrayList<>(recordTypeSymbol.fieldDescriptors().keySet());
+        int size = keys.size();
+        for (int i = 0; i < size - 1; i++) {
+            sb.append(keys.get(i)).append(": ").append(",");
+        }
+        sb.append(keys.get(size - 1)).append(": ");
+        sb.append("}");
+        return sb.toString();
     }
 
     private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings, String source) {
