@@ -24,7 +24,7 @@ package io.ballerina.flowmodelgenerator.core.model;
  *
  * @param kind         The kind of the property
  * @param originalName The original name of the property
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record PropertyCodedata(String kind, String originalName) {
 

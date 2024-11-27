@@ -32,7 +32,7 @@ import java.nio.file.Path;
 /**
  * Test cases for the flow model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ModelGeneratorTest extends AbstractLSTest {
 
@@ -66,10 +66,11 @@ public class ModelGeneratorTest extends AbstractLSTest {
 
     @Override
     protected String[] skipList() {
-        // TODO: Remove after fixing the log symbol issue
+        // TODO: Remove after fixing the jsondata module issue #442
         return new String[]{
-                "function_call-log1.json",
-                "currency_converter1.json"
+                "function_call-json1.json",
+                "force_assign_function.json",
+                "diagnostics4.json",
         };
     }
 

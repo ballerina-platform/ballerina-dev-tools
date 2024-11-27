@@ -47,7 +47,7 @@ import java.util.Map;
 /**
  * Manage the configurable variables.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ConfigVariablesManager {
 

@@ -34,7 +34,7 @@ import java.util.Optional;
 /**
  * Represents configurable variable.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ConfigVariableBuilder extends NodeBuilder {
 

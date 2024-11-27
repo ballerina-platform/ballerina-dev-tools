@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 /**
  * Represents an item in the available nodes.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public interface Item {
 

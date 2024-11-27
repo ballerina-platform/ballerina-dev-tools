@@ -22,7 +22,7 @@ package io.ballerina.flowmodelgenerator.core.model;
  * Represents a faceted builder that can be used within other builders.
  *
  * @param <T> Parent builder type
- * @since 1.4.0
+ * @since 2.0.0
  */
 public abstract class FacetedBuilder<T> {
 

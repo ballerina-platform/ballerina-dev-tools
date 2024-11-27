@@ -50,7 +50,7 @@ import java.util.Optional;
 /**
  * Generates error handlers for function definitions that does not contain a global error handler.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ErrorHandlerGenerator {
 

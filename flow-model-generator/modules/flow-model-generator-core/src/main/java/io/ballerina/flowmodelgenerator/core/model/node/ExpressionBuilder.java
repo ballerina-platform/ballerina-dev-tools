@@ -32,7 +32,7 @@ import java.util.Optional;
 /**
  * Represents the properties of a default expression node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ExpressionBuilder extends NodeBuilder {
 

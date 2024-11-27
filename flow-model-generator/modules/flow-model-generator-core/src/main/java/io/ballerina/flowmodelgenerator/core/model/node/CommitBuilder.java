@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Represents the properties of a commit node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class CommitBuilder extends NodeBuilder {
 

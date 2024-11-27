@@ -35,7 +35,7 @@ import io.ballerina.tools.text.LineRange;
  * @param parentSymbol The parent symbol of the component
  * @param resourcePath The path of the resource function
  * @param id           The unique identifier of the component if exists
- * @since 1.5.0
+ * @since 2.0.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
                        String version, LineRange lineRange, String sourceCode, String parentSymbol,

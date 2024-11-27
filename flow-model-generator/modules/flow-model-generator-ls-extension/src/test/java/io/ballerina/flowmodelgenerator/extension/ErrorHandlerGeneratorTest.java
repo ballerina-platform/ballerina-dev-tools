@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Tests for the wrapping function bodies with global error handlers.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ErrorHandlerGeneratorTest extends AbstractLSTest {
 

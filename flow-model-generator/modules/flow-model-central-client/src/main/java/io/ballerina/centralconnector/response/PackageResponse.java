@@ -30,7 +30,7 @@ import java.util.Map;
  * @param count        Total number of packages.
  * @param offset       Offset for pagination.
  * @param limit        Limit for pagination.
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record PackageResponse(
         List<Package> packages,

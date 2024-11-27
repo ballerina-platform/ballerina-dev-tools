@@ -28,14 +28,14 @@ import java.util.List;
  * @param type     type of the expression list
  * @param value    the list of expressions
  * @param optional whether the expression list is optional
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record ExpressionList(String label, String type, List<Property> value, boolean optional) {
 
     /**
      * Represents a builder for the expression list.
      *
-     * @since 1.4.0
+     * @since 2.0.0
      */
     public static class Builder {
 

@@ -28,7 +28,7 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
  * This class is a JPA attribute converter that converts between the `Type` object and its JSON string representation
  * for database storage.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 @Converter
 public class TypeConverter implements AttributeConverter<Type, String> {

@@ -32,7 +32,7 @@ import java.util.Optional;
 /**
  * Represents the properties of Binary Data node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class BinaryBuilder extends NodeBuilder {
 

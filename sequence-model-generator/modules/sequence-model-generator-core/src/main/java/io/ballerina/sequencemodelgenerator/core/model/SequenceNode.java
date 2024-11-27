@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Represents a sequence node in the sequence diagram.
  *
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public class SequenceNode {
 
@@ -73,7 +73,7 @@ public class SequenceNode {
      *
      * @param label    Label of the branch
      * @param children Children of the branch
-     * @since 2201.9.0
+     * @since 2.0.0
      */
     public record Branch(String label, List<SequenceNode> children) {
 
@@ -82,7 +82,7 @@ public class SequenceNode {
     /**
      * Represents the kind of the sequence node.
      *
-     * @since 2201.9.0
+     * @since 2.0.0
      */
     public enum NodeKind {
         IF,
@@ -96,7 +96,7 @@ public class SequenceNode {
     /**
      * Represents the builder for the {@link SequenceNode}.
      *
-     * @since 2201.9.0
+     * @since 2.0.0
      */
     public static class Builder {
 

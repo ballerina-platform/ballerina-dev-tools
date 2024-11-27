@@ -15,7 +15,7 @@ import java.nio.file.Path;
 /**
  * Generates the node template for the given node kind.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class NodeTemplateGenerator {
 

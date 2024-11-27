@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.ls.extension;
 /**
  * Constants for the sequence diagram model generator service.
  *
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public class SequenceDiagramConstants {
     public static final String CAPABILITY_NAME = "sequenceModelGeneratorServiceLSExtension";
