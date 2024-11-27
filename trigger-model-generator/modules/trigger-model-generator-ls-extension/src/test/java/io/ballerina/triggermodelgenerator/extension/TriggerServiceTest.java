@@ -204,7 +204,7 @@ public class TriggerServiceTest {
         TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
 
         Trigger trigger = modelResponse.trigger();
-        trigger.getProperty("name").setValue("service-kafka");
+        trigger.getProperty("name").setValue("service-rabbitmq");
         filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
         TriggerModifierRequest request = new TriggerModifierRequest(filePath, trigger, codedata);
         result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);

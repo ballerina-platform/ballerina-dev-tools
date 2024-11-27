@@ -301,7 +301,7 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 if (displayAnnotation.isPresent()) {
                     LineRange labelValueLineRange = displayAnnotation.get().getCodedata().getLineRange();
                     TextEdit labelValueEdit = new TextEdit(Utils.toRange(labelValueLineRange),
-                            displayAnnotation.get().getValue());
+                            Utils.getValueString(displayAnnotation.get()));
                     edits.add(labelValueEdit);
                 }
                 Optional<String> basePath = trigger.getBasePath();
