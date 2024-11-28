@@ -65,5 +65,17 @@
       "file",
       "event"
     ]
+  },
+  "8": {
+    "name": "salesforce",
+    "orgName": "ballerinax",
+    "packageName": "salesforce",
+    "keywords": [
+      "salesforce",
+      "service",
+      "messaging",
+      "network",
+      "event"
+    ]
   }
 }
