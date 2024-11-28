@@ -1,7 +1,7 @@
 {
   "id": 7,
   "name": "ASB Service",
-  "type": "inbuilt",
+  "type": "event",
   "displayName": "ASB",
   "documentation": "This ASB service can be attached to a ASB listener which listens to a given ASB topic/queue and triggers the service when a message is received. The service should have the `onMessage` remote function to handle the received message. Additionally, the service can have the `onError` remote method to handle errors that occur during the message processing.",
   "moduleName": "asb",
