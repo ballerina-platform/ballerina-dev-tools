@@ -53,5 +53,17 @@
       "network",
       "event"
     ]
+  },
+  "6": {
+    "name": "ftp",
+    "orgName": "ballerina",
+    "packageName": "ftp",
+    "keywords": [
+      "FTP",
+      "SFTP",
+      "remote file",
+      "file",
+      "event"
+    ]
   }
 }
