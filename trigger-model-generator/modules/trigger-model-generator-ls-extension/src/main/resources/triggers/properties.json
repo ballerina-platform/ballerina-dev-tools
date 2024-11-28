@@ -90,5 +90,16 @@
       "network",
       "event"
     ]
+  },
+  "9": {
+    "name": "file",
+    "orgName": "ballerina",
+    "packageName": "file",
+    "keywords": [
+      "file",
+      "directory",
+      "service",
+      "event"
+    ]
   }
 }

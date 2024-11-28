@@ -165,9 +165,11 @@ public final class Utils {
         Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
         if (returnTypeDesc.isPresent()) {
             Value returnType = functionModel.getReturnType();
-            returnType.setValue(returnTypeDesc.get().type().toString().trim());
-            returnType.setValueType("TYPE");
-            returnType.setEnabled(true);
+            if (Objects.nonNull(returnType)) {
+                returnType.setValue(returnTypeDesc.get().type().toString().trim());
+                returnType.setValueType("TYPE");
+                returnType.setEnabled(true);
+            }
         }
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
@@ -432,9 +434,10 @@ public final class Utils {
         });
         builder.append(String.join(", ", params));
         builder.append(")");
-        if (function.getReturnType().isEnabled()) {
+        Value returnType = function.getReturnType();
+        if (Objects.nonNull(returnType) && returnType.isEnabled()) {
             builder.append(" returns ");
-            builder.append(getValueString(function.getReturnType()));
+            builder.append(getValueString(returnType));
         }
         builder.append(" ");
         return builder.toString();
