@@ -1,7 +1,7 @@
 {
   "id": 1,
   "name": "Kafka Service",
-  "type": "inbuilt",
+  "type": "event",
   "displayName": "Kafka",
   "documentation": "The Kafka service can be attached to a Kafka listener which listens to Kafka topic(s) and triggers the service when a message is received for Kafka topic(s). The service should implement the `onConsumerRecord` remote method to process the received message(s). Additionally, the service can implement the `onError` remote method to handle errors that occur during the message processing.",
   "moduleName": "kafka",

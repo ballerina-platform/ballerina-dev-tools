@@ -1,11 +1,11 @@
 {
   "id": 4,
   "name": "MQTT Service",
-  "type": "inbuilt",
+  "type": "event",
   "displayName": "MQTT",
   "documentation": "This MQTT service can be attached to a MQTT listener which subscribes to MQTT topic(s) and triggers the service when a message is received for MQTT topic(s). The service should have the `onMessage` remote method to process the received message(s). Additionally, the service can have the `onError` remote method to handle errors that occur during the message processing.",
   "moduleName": "mqtt",
-  "orgName": "ballerinax",
+  "orgName": "ballerina",
   "packageName": "mqtt",
   "version": "1.2.0",
   "listenerProtocol": "mqtt",

@@ -1,7 +1,7 @@
 {
   "id": 3,
   "name": "NATS Service",
-  "type": "inbuilt",
+  "type": "event",
   "displayName": "NATS",
   "documentation": "The NATS service can be attached to a NATS listener to listen to messages from the NATS server. The service should define the subject name as the base path and should implement wither the `onMessage` or `onRequest` remote method to handle incoming messages. Additionally, the service can implement the `onError` remote method to handle errors.",
   "moduleName": "nats",

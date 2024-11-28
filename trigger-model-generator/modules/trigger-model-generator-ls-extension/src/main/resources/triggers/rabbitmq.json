@@ -1,7 +1,7 @@
 {
     "id": 2,
     "name": "RabbitMQ Service",
-    "type": "inbuilt",
+    "type": "event",
     "displayName": "RabbitMQ",
     "documentation": "The RabbitMQ service can be attached to a RabbitMQ listener which listens to messages from a RabbitMQ server. The service should define the queue name as the base path and should implement either the `onMessage` or `onRequest` remote method to handle the incoming messages. Additionally, the service can implement the `onError` remote method to handle errors.",
     "moduleName": "rabbitmq",

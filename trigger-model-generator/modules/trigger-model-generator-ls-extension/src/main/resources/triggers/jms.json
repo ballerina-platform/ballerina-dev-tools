@@ -1,7 +1,7 @@
 {
   "id": 5,
   "name": "JMS Service",
-  "type": "inbuilt",
+  "type": "event",
   "displayName": "JMS",
   "documentation": "The JMS service can be attached to a JMS listener which listens to messages from a JMS broker. The service should implement the `onMessage` remote method to process the received messages. Additionally, the service can implement the `onError` remote method to handle errors that occur during message processing.",
   "moduleName": "java.jms",
