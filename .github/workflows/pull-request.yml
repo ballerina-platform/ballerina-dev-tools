@@ -30,13 +30,11 @@ jobs:
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew build -x :createArtifactZip -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew build -x :createArtifactZip
 
       - name: Generate Codecov Report
         if: github.event_name == 'pull_request'
         uses: codecov/codecov-action@v1
-        with:
-          directory: ./docerina-ui/coverage/
 
   windows-build:
 
@@ -61,7 +59,7 @@ jobs:
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew.bat build -x :createArtifactZip -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew.bat build -x :createArtifactZip
 
   windows-build-2:
 
@@ -92,6 +90,6 @@ jobs:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew.bat build -x :createArtifactZip -x :docerina-ui:npmTestDocerinaUI -x test
+          ./gradlew.bat build -x :createArtifactZip -x test
           ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
         working-directory: ${{ github.workspace }}/test folder
