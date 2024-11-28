@@ -41,5 +41,17 @@
       "iot",
       "event"
     ]
+  },
+  "5": {
+    "name": "jms",
+    "orgName": "ballerinax",
+    "packageName": "java.jms",
+    "keywords": [
+      "jms",
+      "java",
+      "messaging",
+      "network",
+      "event"
+    ]
   }
 }

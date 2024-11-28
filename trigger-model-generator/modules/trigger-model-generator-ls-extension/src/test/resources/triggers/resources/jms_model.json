@@ -309,7 +309,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "",
+      "value": "jms-service",
       "valueType": "STRING",
       "valueTypeConstraint": "string",
       "isType": false,
