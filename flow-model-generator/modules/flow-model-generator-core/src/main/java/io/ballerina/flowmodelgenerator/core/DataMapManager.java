@@ -66,6 +66,7 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
+import org.ballerinalang.diagramutil.connector.models.connector.TypeInfo;
 import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.PrimitiveType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
@@ -158,15 +159,18 @@ public class DataMapManager {
 
         Type type = Type.fromSemanticSymbol(targetNode.typeSymbol());
         String name = targetNode.name();
+        MappingPort outputPort = getMappingPort(name, name, type);
         List<Mapping> mappings = new ArrayList<>();
         ExpressionNode expressionNode = targetNode.expressionNode();
-        String typeKind = type.getTypeName();
-        if (typeKind.equals("record")) {
-            generateRecordVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
-        } else if (typeKind.equals("array")) {
-            generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
+        if (expressionNode != null) {
+            String typeKind = type.getTypeName();
+            if (typeKind.equals("record")) {
+                generateRecordVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
+            } else if (typeKind.equals("array")) {
+                generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
+            }
         }
-        return gson.toJsonTree(new Model(inputPorts, getMappingPort(name, type), mappings, modification.source()));
+        return gson.toJsonTree(new Model(inputPorts, outputPort, mappings, modification.source()));
     }
 
     private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
@@ -175,10 +179,6 @@ public class DataMapManager {
         }
 
         VariableDeclarationNode varDeclNode = (VariableDeclarationNode) parentNode;
-        Optional<ExpressionNode> optInitializer = varDeclNode.initializer();
-        if (optInitializer.isEmpty()) {
-            return null;
-        }
 
         Optional<Symbol> optSymbol = semanticModel.symbol(parentNode);
         if (optSymbol.isEmpty()) {
@@ -190,6 +190,10 @@ public class DataMapManager {
         }
         VariableSymbol variableSymbol = (VariableSymbol) symbol;
         TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
+        Optional<ExpressionNode> optInitializer = varDeclNode.initializer();
+        if (optInitializer.isEmpty()) {
+            return new TargetNode(typeSymbol, variableSymbol.getName().get(), null);
+        }
         ExpressionNode initializer = optInitializer.get();
         if (targetField == null) {
             return new TargetNode(typeSymbol, variableSymbol.getName().get(), initializer);
@@ -292,7 +296,7 @@ public class DataMapManager {
                 } else {
                     List<String> inputs = new ArrayList<>();
                     genInputs(fieldExpr, inputs);
-                    Mapping mapping = new Mapping(name + "." + f.fieldName(), inputs,
+                    Mapping mapping = new Mapping(name + "." + f.fieldName().toSourceCode().trim(), inputs,
                             fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel));
                     mappings.add(mapping);
                 }
@@ -390,7 +394,7 @@ public class DataMapManager {
                     continue;
                 }
                 Type type = Type.fromSemanticSymbol(symbol);
-                MappingPort mappingPort = getMappingPort(optName.get(), type);
+                MappingPort mappingPort = getMappingPort(optName.get(), optName.get(), type);
                 if (mappingPort == null) {
                     continue;
                 }
@@ -404,7 +408,7 @@ public class DataMapManager {
             } else if (kind == SymbolKind.CONSTANT) {
                 Type type = Type.fromSemanticSymbol(symbol);
                 // TODO: Name of constant is set to type name, check that
-                MappingPort mappingPort = getMappingPort(type.getTypeName(), type);
+                MappingPort mappingPort = getMappingPort(type.getTypeName(), type.getTypeName(), type);
                 if (mappingPort == null) {
                     continue;
                 }
@@ -415,20 +419,22 @@ public class DataMapManager {
         return mappingPorts;
     }
 
-    private MappingPort getMappingPort(String name, Type type) {
+    private MappingPort getMappingPort(String id, String name, Type type) {
         if (type.getTypeName().equals("record")) {
             RecordType recordType = (RecordType) type;
-            MappingRecordPort recordPort = new MappingRecordPort(name, name, type.getName(), type.getTypeName());
+            TypeInfo typeInfo = type.getTypeInfo();
+            MappingRecordPort recordPort = new MappingRecordPort(id, name, typeInfo != null ?
+                    typeInfo.name : type.getTypeName(), type.getTypeName());
             for (Type field : recordType.fields) {
-                recordPort.fields.add(getMappingPort(name + "." + field.getName(), field));
+                recordPort.fields.add(getMappingPort(id + "." + field.getName(), field.getName(), field));
             }
             return recordPort;
         } else if (type instanceof PrimitiveType) {
-            return new MappingPort(name, type.getName(), type.getTypeName(), type.getTypeName());
+            return new MappingPort(id, type.getName(), type.getTypeName(), type.getTypeName());
         } else if (type.getTypeName().equals("array")) {
             ArrayType arrayType = (ArrayType) type;
-            MappingArrayPort arrayPort = new MappingArrayPort(name, name, type.getName(), type.getTypeName());
-            arrayPort.member = getMappingPort(name, arrayType.memberType);
+            MappingArrayPort arrayPort = new MappingArrayPort(id, id, type.getName(), type.getTypeName());
+            arrayPort.member = getMappingPort(id, id, arrayType.memberType);
             return arrayPort;
         } else {
             return null;

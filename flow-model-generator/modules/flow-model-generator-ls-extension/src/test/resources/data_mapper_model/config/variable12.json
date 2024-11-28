@@ -116,8 +116,8 @@
             }
           ],
           "id": "student.credentials",
-          "variableName": "student.credentials",
-          "typeName": "credentials",
+          "variableName": "credentials",
+          "typeName": "Credentials",
           "kind": "record"
         },
         {
