@@ -28,7 +28,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "",
+      "value": "connectionString",
       "valueType": "EXPRESSION",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -49,7 +49,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "",
+      "value": "{queueName: \"myQueue\"}",
       "valueType": "EXPRESSION",
       "valueTypeConstraint": "asb:TopicSubsConfig|asb:QueueConfig",
       "isType": false,
@@ -69,7 +69,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "",
+      "value": "ASB Service",
       "valueType": "STRING",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -395,7 +395,7 @@
               "optional": false,
               "advanced": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": true,
             "optional": false
           }
@@ -438,7 +438,7 @@
           "advanced": false
         },
         "optional": true,
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "parameters": [
           {

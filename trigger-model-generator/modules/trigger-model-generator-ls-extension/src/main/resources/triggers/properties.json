@@ -66,6 +66,19 @@
       "event"
     ]
   },
+  "7": {
+    "name": "asb",
+    "orgName": "ballerinax",
+    "packageName": "asb",
+    "keywords": [
+      "asb",
+      "azure",
+      "service",
+      "messaging",
+      "network",
+      "event"
+    ]
+  },
   "8": {
     "name": "salesforce",
     "orgName": "ballerinax",
