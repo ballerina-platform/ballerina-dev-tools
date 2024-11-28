@@ -37,7 +37,7 @@ import java.util.List;
  * @param descriptionSections   The list of description sections of the function.
  * @param isDeprecated          Indicates if the function is deprecated.
  * @param isReadOnly            Indicates if the function is read-only.
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record Function(
         String accessor,

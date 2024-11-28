@@ -40,6 +40,7 @@ import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
@@ -60,7 +61,7 @@ import java.util.function.Function;
 /**
  * Generator for the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ModelGenerator {
 

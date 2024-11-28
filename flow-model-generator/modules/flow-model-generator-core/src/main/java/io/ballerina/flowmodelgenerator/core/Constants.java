@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 /**
  * Constants used in the flow model generator.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class Constants {
 

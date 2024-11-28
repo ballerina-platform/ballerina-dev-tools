@@ -36,7 +36,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
-import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
@@ -51,7 +50,7 @@ import java.util.Map;
 /**
  * Utility class for handling parameters of functions and methods.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ParamUtils {
 

@@ -26,7 +26,8 @@ import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import java.util.Map;
 /**
  * Generates the connectors for the provided parameters.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ConnectorGenerator {
 
@@ -75,8 +76,8 @@ public class ConnectorGenerator {
                     .node(NodeKind.NEW_CONNECTION)
                     .org(connectorResult.org())
                     .module(connectorResult.packageName())
-                    .object(NewConnection.CLIENT_SYMBOL)
-                    .symbol(NewConnection.INIT_SYMBOL)
+                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
                     .id(connectorResult.functionId())
                     .build();
             connectors.add(new AvailableNode(metadata, codedata, true));

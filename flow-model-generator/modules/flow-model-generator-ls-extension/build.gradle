@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -120,20 +120,6 @@ def pullBallerinaModule(String packageName) {
     }
 }
 
-// TODO: This should be removed once https://github.com/ballerina-platform/ballerina-distribution/issues/5811 is completed
-shadowJar {
-    archiveBaseName.set(project.name)
-    archiveClassifier.set('')
-    archiveVersion.set(project.version.toString())
-    configurations = [project.configurations.runtimeClasspath]
-    dependencies {
-        include(dependency("org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"))
-        exclude('META-INF/*.SF')
-        exclude('META-INF/*.DSA')
-        exclude('META-INF/*.RSA')
-    }
-}
-
 test.dependsOn pullBallerinaModule('ballerinax/redis')
 test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 test.dependsOn pullBallerinaModule('ballerinax/github')
@@ -165,8 +151,4 @@ compileJava {
         ]
         classpath = files()
     }
-}
-
-artifacts {
-    archives shadowJar
 }

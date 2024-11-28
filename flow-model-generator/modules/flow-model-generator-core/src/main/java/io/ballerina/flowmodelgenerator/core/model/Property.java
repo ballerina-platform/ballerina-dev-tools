@@ -22,8 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ import java.util.List;
  * @param advanced            whether the property should be shown in the advanced tab
  * @param diagnostics         diagnostics of the property
  * @param codedata            codedata of the property
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced,

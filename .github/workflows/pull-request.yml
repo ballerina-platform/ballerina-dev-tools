@@ -15,11 +15,11 @@ jobs:
         with:
           node-version: '10.22.1'
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.7
+          java-version: 21.0.3
 
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
@@ -30,13 +30,11 @@ jobs:
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew build -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew build -x :createArtifactZip
 
       - name: Generate Codecov Report
         if: github.event_name == 'pull_request'
         uses: codecov/codecov-action@v1
-        with:
-          directory: ./docerina-ui/coverage/
 
   windows-build:
 
@@ -48,11 +46,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.22.1'
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.7
+          java-version: 21.0.3
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
@@ -61,7 +59,7 @@ jobs:
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew.bat build -x :createArtifactZip
 
   windows-build-2:
 
@@ -78,11 +76,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.22.1'
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.7
+          java-version: 21.0.3
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
@@ -92,6 +90,6 @@ jobs:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI -x test
+          ./gradlew.bat build -x :createArtifactZip -x test
           ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
         working-directory: ${{ github.workspace }}/test folder

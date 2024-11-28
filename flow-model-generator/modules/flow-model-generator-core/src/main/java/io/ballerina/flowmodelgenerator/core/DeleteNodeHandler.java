@@ -30,6 +30,7 @@ import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -54,7 +55,7 @@ import java.util.Map;
 /**
  * Generates text edits for the nodes that are requested to delete.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DeleteNodeHandler {
 

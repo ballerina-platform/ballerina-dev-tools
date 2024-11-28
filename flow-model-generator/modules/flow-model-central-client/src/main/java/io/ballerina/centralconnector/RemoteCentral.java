@@ -31,7 +31,7 @@ import java.util.Map;
  * An implementation {@code CentralAPI} to interact with the Ballerina central to obtain information about the Ballerina
  * libraries. This class provides a facade for interacting with REST and GraphQL clients.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class RemoteCentral implements CentralAPI {
 

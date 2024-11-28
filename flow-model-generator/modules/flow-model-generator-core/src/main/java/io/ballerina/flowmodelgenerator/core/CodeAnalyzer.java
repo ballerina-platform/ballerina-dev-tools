@@ -105,19 +105,20 @@ import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.node.Assign;
-import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
-import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
-import io.ballerina.flowmodelgenerator.core.model.node.Fail;
-import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
-import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
-import io.ballerina.flowmodelgenerator.core.model.node.Panic;
-import io.ballerina.flowmodelgenerator.core.model.node.Return;
-import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
-import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.Variable;
-import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.AssignBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.BinaryBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ReturnBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.RollbackBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
@@ -141,36 +142,38 @@ import java.util.stream.Collectors;
 /**
  * Analyzes the source code and generates the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 class CodeAnalyzer extends NodeVisitor {
 
-    //TODO: Wrap the class variables inside another class
+    // Readonly fields
     private final Project project;
-    private final List<FlowNode> flowNodeList;
     private final SemanticModel semanticModel;
-    private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Map<String, LineRange> dataMappings;
-    private final String connectionScope;
     private final TextDocument textDocument;
     private final ModuleInfo moduleInfo;
-    private final boolean forceAssign;
     private final DiagnosticHandler diagnosticHandler;
+    private final boolean forceAssign;
+    private final String connectionScope;
+
+    // State fields
     private NodeBuilder nodeBuilder;
+    private final List<FlowNode> flowNodeList;
+    private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
                         Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
                         boolean forceAssign) {
         this.project = project;
-        this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
-        this.flowNodeBuilderStack = new Stack<>();
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
         this.moduleInfo = moduleInfo;
         this.forceAssign = forceAssign;
+        this.flowNodeList = new ArrayList<>();
+        this.flowNodeBuilderStack = new Stack<>();
         this.diagnosticHandler = new DiagnosticHandler(semanticModel);
     }
 
@@ -230,11 +233,8 @@ class CodeAnalyzer extends NodeVisitor {
             expr.accept(this);
             if (isNodeUnidentified()) {
                 startNode(NodeKind.RETURN, returnStatementNode)
-                        .metadata()
-                        .description(String.format(Return.DESCRIPTION, expr))
-                        .stepOut()
-                        .properties()
-                        .expression(expr, Return.RETURN_EXPRESSION_DOC);
+                        .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
+                        .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
             }
         }
         nodeBuilder.returning();
@@ -244,31 +244,12 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
         String methodName = remoteMethodCallActionNode.methodName().name().text();
-        ExpressionNode expression = remoteMethodCallActionNode.expression();
+        ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
-        handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes);
-        nodeBuilder.codedata().nodeInfo(remoteMethodCallActionNode);
-    }
 
-    @Override
-    public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
-        String methodName = clientResourceAccessActionNode.methodName()
-                .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
-        ExpressionNode expression = clientResourceAccessActionNode.expression();
-        SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
-                clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
-        if (functionArgumentNodes == null) { // cl->/path/to/'resource;
-            methodName = "get";
-        }
-        handleResourceActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
-        nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
-    }
-
-    private void handleActionNode(NonTerminalNode actionNode, String methodName, ExpressionNode expressionNode,
-                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        Optional<Symbol> symbol = semanticModel.symbol(actionNode);
+        Optional<Symbol> symbol = semanticModel.symbol(remoteMethodCallActionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD)) {
-            handleExpressionNode(actionNode);
+            handleExpressionNode(remoteMethodCallActionNode);
             return;
         }
 
@@ -303,7 +284,71 @@ class CodeAnalyzer extends NodeVisitor {
         } else {
             handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
         }
-        handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+        handleCheckFlag(remoteMethodCallActionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+
+        nodeBuilder.codedata().nodeInfo(remoteMethodCallActionNode);
+    }
+
+    @Override
+    public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
+        String methodName = clientResourceAccessActionNode.methodName()
+                .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
+        ExpressionNode expressionNode = clientResourceAccessActionNode.expression();
+        SeparatedNodeList<FunctionArgumentNode> argumentNodes =
+                clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
+        if (argumentNodes == null) { // cl->/path/to/'resource;
+            methodName = "get";
+        }
+
+        Optional<Symbol> symbol = semanticModel.symbol(clientResourceAccessActionNode);
+        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
+                symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+            handleExpressionNode(clientResourceAccessActionNode);
+            return;
+        }
+
+        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
+        Optional<Documentation> documentation = methodSymbol.documentation();
+        String description = documentation.flatMap(Documentation::description).orElse("");
+        SeparatedNodeList<Node> nodes = clientResourceAccessActionNode.resourceAccessPath();
+        String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
+        String fullPath = "/" + resourcePath;
+
+        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
+
+        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
+                .symbolInfo(methodSymbol)
+                .metadata()
+                    .label(methodName)
+                    .description(description)
+                    .stepOut()
+                .codedata()
+                .object("Client")
+                .symbol(methodName)
+                .resourcePath(resourcePathTemplate)
+                .stepOut()
+                .properties()
+                .callExpression(expressionNode, Property.CONNECTION_KEY)
+                .resourcePath(fullPath)
+                .data(this.typedBindingPatternNode, false, new HashSet<>());
+
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        ModuleID id = symbol.get().getModule().get().id();
+        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                symbol.get().getName().get(), resourcePathTemplate, DatabaseManager.FunctionKind.RESOURCE);
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+
+        if (functionResult.isPresent()) { // function details are indexed
+            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
+                    methodSymbol, positionalArgs, namedArgValueMap);
+        } else {
+            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
+        }
+        handleCheckFlag(clientResourceAccessActionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
+        nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
     }
 
     private void analyzeAndHandleExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
@@ -713,59 +758,6 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private void handleResourceActionNode(ClientResourceAccessActionNode actionNode, String methodName,
-                                          ExpressionNode expressionNode,
-                                          SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        Optional<Symbol> symbol = semanticModel.symbol(actionNode);
-        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
-                symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
-            handleExpressionNode(actionNode);
-            return;
-        }
-
-        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        Optional<Documentation> documentation = methodSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
-        SeparatedNodeList<Node> nodes = actionNode.resourceAccessPath();
-        String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
-        String fullPath = "/" + resourcePath;
-
-        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
-
-        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
-                .symbolInfo(methodSymbol)
-                .metadata()
-                    .label(methodName)
-                    .description(description)
-                    .stepOut()
-                .codedata()
-                .object("Client")
-                .symbol(methodName)
-                .resourcePath(resourcePathTemplate)
-                .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .resourcePath(fullPath)
-                .data(this.typedBindingPatternNode, false, new HashSet<>());
-
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), resourcePathTemplate, DatabaseManager.FunctionKind.RESOURCE);
-
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                    methodSymbol, positionalArgs, namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
-        }
-        handleCheckFlag(actionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
-    }
-
     private Property.ValueType getPropertyTypeFromParamKind(Parameter.Kind kind) {
         if (kind == Parameter.Kind.REST_PARAMETER) {
             return Property.ValueType.EXPRESSION_SET;
@@ -778,7 +770,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         startNode(NodeKind.IF, ifElseStatementNode);
-        addConditionalBranch(ifElseStatementNode.condition(), ifElseStatementNode.ifBody(), If.IF_THEN_LABEL);
+        addConditionalBranch(ifElseStatementNode.condition(), ifElseStatementNode.ifBody(), IfBuilder.IF_THEN_LABEL);
         ifElseStatementNode.elseBody().ifPresent(this::analyzeElseBody);
         endNode(ifElseStatementNode);
     }
@@ -795,7 +787,7 @@ class CodeAnalyzer extends NodeVisitor {
             case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
             case BLOCK_STATEMENT -> {
                 Branch.Builder branchBuilder =
-                        startBranch(If.IF_ELSE_LABEL, NodeKind.ELSE, Branch.BranchKind.BLOCK,
+                        startBranch(IfBuilder.IF_ELSE_LABEL, NodeKind.ELSE, Branch.BranchKind.BLOCK,
                                 Branch.Repeatable.ZERO_OR_ONE);
                 analyzeBlock((BlockStatementNode) elseBody, branchBuilder);
                 endBranch(branchBuilder, elseBody);
@@ -869,12 +861,12 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(description)
                     .stepOut()
                 .codedata()
-                .object(NewConnection.CLIENT_SYMBOL)
-                .symbol(NewConnection.INIT_SYMBOL)
+                .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                .symbol(NewConnectionBuilder.INIT_SYMBOL)
                 .stepOut()
                 .properties()
                 .scope(connectionScope)
-                .checkError(true, NewConnection.CHECK_ERROR_DOC, false);
+                .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
@@ -909,7 +901,7 @@ class CodeAnalyzer extends NodeVisitor {
         if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
             startNode(NodeKind.XML_PAYLOAD, templateExpressionNode)
                     .metadata()
-                    .description(XmlPayload.DESCRIPTION)
+                    .description(XmlPayloadBuilder.DESCRIPTION)
                     .stepOut()
                     .properties().expression(templateExpressionNode);
         }
@@ -957,9 +949,9 @@ class CodeAnalyzer extends NodeVisitor {
             implicit = true;
             startNode(NodeKind.VARIABLE, variableDeclarationNode)
                     .metadata()
-                    .description(Assign.DESCRIPTION)
+                    .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
-                    .properties().expression((ExpressionNode) null, Variable.EXPRESSION_DOC, true);
+                    .properties().expression((ExpressionNode) null, VariableBuilder.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -969,24 +961,25 @@ class CodeAnalyzer extends NodeVisitor {
                 implicit = true;
                 startNode(NodeKind.VARIABLE, variableDeclarationNode)
                         .metadata()
-                        .description(Assign.DESCRIPTION)
+                        .description(AssignBuilder.DESCRIPTION)
                         .stepOut()
-                        .properties().expression(initializerNode, Variable.EXPRESSION_DOC, true);
+                        .properties().expression(initializerNode, VariableBuilder.EXPRESSION_DOC, true);
             }
         }
 
         // TODO: Find a better way on how we can achieve this
-        if (nodeBuilder instanceof DataMapper) {
+        if (nodeBuilder instanceof DataMapperBuilder) {
             nodeBuilder.properties().data(this.typedBindingPatternNode, new HashSet<>());
-        } else if (nodeBuilder instanceof XmlPayload) {
+        } else if (nodeBuilder instanceof XmlPayloadBuilder) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "xml");
-        } else if (nodeBuilder instanceof JsonPayload) {
+        } else if (nodeBuilder instanceof JsonPayloadBuilder) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
-        } else if (nodeBuilder instanceof BinaryData) {
+        } else if (nodeBuilder instanceof BinaryBuilder) {
             nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
-        } else if (nodeBuilder instanceof NewConnection) {
-            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, NewConnection.CONNECTION_NAME_LABEL,
-                    NewConnection.CONNECTION_TYPE_LABEL, false, new HashSet<>());
+        } else if (nodeBuilder instanceof NewConnectionBuilder) {
+            nodeBuilder.properties()
+                    .dataVariable(this.typedBindingPatternNode, NewConnectionBuilder.CONNECTION_NAME_LABEL,
+                            NewConnectionBuilder.CONNECTION_TYPE_LABEL, false, new HashSet<>());
         } else {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit, new HashSet<>());
         }
@@ -1008,15 +1001,15 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(NodeKind.ASSIGN, assignmentStatementNode)
                     .metadata()
-                    .description(Assign.DESCRIPTION)
+                    .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
                     .properties()
-                    .expression(expression, Assign.EXPRESSION_DOC, false)
+                    .expression(expression, AssignBuilder.EXPRESSION_DOC, false)
                     .data(assignmentStatementNode.varRef(), true, new HashSet<>());
         }
 
-        if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload
-                || nodeBuilder instanceof BinaryData) {
+        if (nodeBuilder instanceof XmlPayloadBuilder || nodeBuilder instanceof JsonPayloadBuilder
+                || nodeBuilder instanceof BinaryBuilder) {
             nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>());
         }
         endNode(assignmentStatementNode);
@@ -1041,7 +1034,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FailStatementNode failStatementNode) {
         startNode(NodeKind.FAIL, failStatementNode)
-                .properties().expression(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
+                .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC);
         endNode(failStatementNode);
     }
 
@@ -1167,7 +1160,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
         startNode(NodeKind.PANIC, panicStatementNode)
-                .properties().expression(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
+                .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC);
         endNode(panicStatementNode);
     }
 
@@ -1180,7 +1173,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(StartActionNode startActionNode) {
         startNode(NodeKind.START, startActionNode)
-                .properties().expression(startActionNode.expression(), Start.START_EXPRESSION_DOC);
+                .properties().expression(startActionNode.expression(), StartBuilder.START_EXPRESSION_DOC);
         endNode(startActionNode);
     }
 
@@ -1235,7 +1228,7 @@ class CodeAnalyzer extends NodeVisitor {
         if (optExpr.isPresent()) {
             ExpressionNode expr = optExpr.get();
             expr.accept(this);
-            nodeBuilder.properties().expression(expr, Rollback.ROLLBACK_EXPRESSION_DOC);
+            nodeBuilder.properties().expression(expr, RollbackBuilder.ROLLBACK_EXPRESSION_DOC);
         }
         endNode(rollbackStatementNode);
     }
@@ -1366,7 +1359,7 @@ class CodeAnalyzer extends NodeVisitor {
                 !forceAssign) {
             startNode(NodeKind.JSON_PAYLOAD, constructorExprNode)
                     .metadata()
-                    .description(JsonPayload.DESCRIPTION)
+                    .description(JsonPayloadBuilder.DESCRIPTION)
                     .stepOut()
                     .properties().expression(constructorExprNode);
         }

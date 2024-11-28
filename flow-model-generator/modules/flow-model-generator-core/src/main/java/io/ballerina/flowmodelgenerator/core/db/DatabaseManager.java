@@ -42,7 +42,7 @@ import java.util.logging.Logger;
 /**
  * Manages database operations for retrieving information about external connectors and functions.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DatabaseManager {
 
@@ -59,7 +59,7 @@ public class DatabaseManager {
         return Holder.INSTANCE;
     }
 
-    public DatabaseManager() {
+    private DatabaseManager() {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {

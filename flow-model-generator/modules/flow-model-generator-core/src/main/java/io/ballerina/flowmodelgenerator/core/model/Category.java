@@ -28,14 +28,14 @@ import java.util.Map;
  *
  * @param metadata metadata of the category
  * @param items    items in the category
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record Category(Metadata metadata, List<Item> items) implements Item {
 
     /**
      * Represents the name of a category which contains the metadata of the category.
      *
-     * @since 1.4.0
+     * @since 2.0.0
      */
     public enum Name {
         ROOT("Root", "The topmost category of the palette", null),
@@ -70,7 +70,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
     /**
      * Represents a builder for the category. The builder can build the categories in a nested manner.
      *
-     * @since 1.4.0
+     * @since 2.0.0
      */
     public static class Builder {
 

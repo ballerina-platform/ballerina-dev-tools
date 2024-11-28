@@ -80,5 +80,5 @@
       "diagnostics": []
     }
   ],
-  "output": "from var item in userInfo  select {password:item.password,username:item.username};"
+  "output": "from var item in userInfo  select {username:item.username,password:item.password};"
 }

@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Generates source code from the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class SourceGenerator {
 

@@ -48,7 +48,7 @@ import java.util.stream.Collectors;
 /**
  * This class provides a client to interact with the GraphQL API of Ballerina Central.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 class GraphQlClient {
 

@@ -60,9 +60,10 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
 
     @Override
     protected String[] skipList() {
-        // TODO: Enable this test after fixing the module compilation error in Windows.
+        // TODO: Enable this test after fixing the module compilation error in Windows #446
         return new String[]{
-                "new_connection1.json"
+                "new_connection1.json",
+                "function_call2.json"
         };
     }
 

@@ -178,7 +178,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Initialize with value"
                     },
                     "valueType": "EXPRESSION",
                     "value": "'from + \"-\" + to",
@@ -301,7 +301,10 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "kind": "REQUIRED"
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "key"
+                    }
                   },
                   "checkError": {
                     "metadata": {
@@ -497,7 +500,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Initialize with value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
@@ -669,7 +672,7 @@
                         "metadata": {
                           "label": "get",
                           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
                         },
                         "codedata": {
                           "node": "REMOTE_ACTION_CALL",
@@ -677,7 +680,7 @@
                           "module": "http",
                           "object": "Client",
                           "symbol": "get",
-                          "version": "2.12.2",
+                          "version": "2.13.0",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -716,7 +719,10 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
-                            "kind": "REQUIRED"
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "path"
+                            }
                           },
                           "headers": {
                             "metadata": {
@@ -725,12 +731,14 @@
                             },
                             "valueType": "EXPRESSION",
                             "valueTypeConstraint": "map<string|string[]>|()",
-                            "value": "()",
                             "placeholder": "()",
                             "optional": true,
                             "editable": true,
                             "advanced": true,
-                            "kind": "DEFAULTABLE"
+                            "codedata": {
+                              "kind": "DEFAULTABLE",
+                              "originalName": "headers"
+                            }
                           },
                           "targetType": {
                             "metadata": {
@@ -739,12 +747,14 @@
                             },
                             "valueType": "EXPRESSION",
                             "valueTypeConstraint": "json",
-                            "value": "json",
                             "placeholder": "json",
                             "optional": true,
                             "editable": true,
                             "advanced": true,
-                            "kind": "PARAM_FOR_TYPE_INFER"
+                            "codedata": {
+                              "kind": "PARAM_FOR_TYPE_INFER",
+                              "originalName": "targetType"
+                            }
                           },
                           "checkError": {
                             "metadata": {
@@ -846,7 +856,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Initialize with value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "check response.value",
@@ -976,7 +986,10 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
-                            "kind": "REQUIRED"
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "amount"
+                            }
                           },
                           "cacheValue": {
                             "metadata": {
@@ -989,7 +1002,10 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
-                            "kind": "REQUIRED"
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "cacheValue"
+                            }
                           },
                           "checkError": {
                             "metadata": {
@@ -1117,7 +1133,10 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
-                            "kind": "REQUIRED"
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "key"
+                            }
                           },
                           "value": {
                             "metadata": {
@@ -1131,7 +1150,10 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
-                            "kind": "REQUIRED"
+                            "codedata": {
+                              "kind": "REQUIRED",
+                              "originalName": "value"
+                            }
                           },
                           "checkError": {
                             "metadata": {
@@ -1210,7 +1232,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Initialize with value"
                             },
                             "valueType": "EXPRESSION",
                             "value": "{\n                    value\n                }",
@@ -1424,14 +1446,14 @@
                 "metadata": {
                   "label": "printError",
                   "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
                   "symbol": "printError",
-                  "version": "2.10.0",
+                  "version": "2.11.0",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -1459,11 +1481,14 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "kind": "REQUIRED"
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "msg"
+                    }
                   },
-                  "'error": {
+                  "error": {
                     "metadata": {
-                      "label": "'error",
+                      "label": "error",
                       "description": "The error struct to be logged"
                     },
                     "valueType": "EXPRESSION",
@@ -1473,7 +1498,10 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
-                    "kind": "DEFAULTABLE"
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "'error"
+                    }
                   },
                   "stackTrace": {
                     "metadata": {
@@ -1482,14 +1510,16 @@
                     },
                     "valueType": "EXPRESSION",
                     "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
-                    "value": "()",
                     "placeholder": "()",
                     "optional": true,
                     "editable": true,
                     "advanced": true,
-                    "kind": "DEFAULTABLE"
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "stackTrace"
+                    }
                   },
-                  "Additional Values": {
+                  "additionalValues": {
                     "metadata": {
                       "label": "Additional Values",
                       "description": "Capture key value pairs"
@@ -1497,11 +1527,14 @@
                     "valueType": "MAPPING_EXPRESSION_SET",
                     "valueTypeConstraint": "log:Value",
                     "value": [],
-                    "placeholder": "",
+                    "placeholder": "{}",
                     "optional": true,
                     "editable": true,
                     "advanced": true,
-                    "kind": "INCLUDED_RECORD_REST"
+                    "codedata": {
+                      "kind": "INCLUDED_RECORD_REST",
+                      "originalName": "Additional Values"
+                    }
                   }
                 },
                 "flags": 0
@@ -1592,7 +1625,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -1600,7 +1633,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.2",
+          "version": "2.13.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -1650,7 +1683,10 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "kind": "REQUIRED"
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            }
           },
           "httpVersion": {
             "metadata": {
@@ -1658,13 +1694,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "\"2.0\"|\"1.1\"|\"1.0\"",
-            "value": "\"2.0\"",
+            "valueTypeConstraint": "http:HttpVersion",
             "placeholder": "\"2.0\"",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            }
           },
           "http1Settings": {
             "metadata": {
@@ -1672,13 +1710,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|ballerina/http:2.12.2:KeepAlive keepAlive; ballerina/http:2.12.2:Chunking chunking; ballerina/http:2.12.2:ProxyConfig? proxy;|}",
-            "value": "{}",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            }
           },
           "http2Settings": {
             "metadata": {
@@ -1686,13 +1726,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|boolean http2PriorKnowledge; int http2InitialWindowSize;|}",
-            "value": "{}",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            }
           },
           "timeout": {
             "metadata": {
@@ -1701,12 +1743,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "decimal",
-            "value": "0.0d",
             "placeholder": "0.0d",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            }
           },
           "forwarded": {
             "metadata": {
@@ -1715,12 +1759,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "\"\"",
             "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            }
           },
           "followRedirects": {
             "metadata": {
@@ -1729,12 +1775,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:FollowRedirects|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            }
           },
           "poolConfig": {
             "metadata": {
@@ -1743,12 +1791,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:PoolConfiguration|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            }
           },
           "cache": {
             "metadata": {
@@ -1756,13 +1806,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|boolean enabled; boolean isShared; int capacity; float evictionFactor; ballerina/http:2.12.2:CachingPolicy policy;|}",
-            "value": "{}",
+            "valueTypeConstraint": "http:CacheConfig",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            }
           },
           "compression": {
             "metadata": {
@@ -1770,13 +1822,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "\"AUTO\"|\"ALWAYS\"|\"NEVER\"",
-            "value": "\"AUTO\"",
+            "valueTypeConstraint": "http:Compression",
             "placeholder": "\"AUTO\"",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            }
           },
           "auth": {
             "metadata": {
@@ -1785,12 +1839,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            }
           },
           "circuitBreaker": {
             "metadata": {
@@ -1799,12 +1855,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CircuitBreakerConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            }
           },
           "retryConfig": {
             "metadata": {
@@ -1813,12 +1871,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:RetryConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            }
           },
           "cookieConfig": {
             "metadata": {
@@ -1827,12 +1887,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CookieConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            }
           },
           "responseLimits": {
             "metadata": {
@@ -1840,13 +1902,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|int maxStatusLineLength; int maxHeaderSize; int maxEntityBodySize;|}",
-            "value": "{}",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            }
           },
           "proxy": {
             "metadata": {
@@ -1855,12 +1919,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ProxyConfig|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            }
           },
           "validation": {
             "metadata": {
@@ -1869,12 +1935,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
-            "value": "false",
             "placeholder": "false",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            }
           },
           "socketConfig": {
             "metadata": {
@@ -1882,13 +1950,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|decimal connectTimeOut; int receiveBufferSize; int sendBufferSize; boolean tcpNoDelay; boolean socketReuse; boolean keepAlive;|}",
-            "value": "{}",
+            "valueTypeConstraint": "http:ClientSocketConfig",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            }
           },
           "secureSocket": {
             "metadata": {
@@ -1897,12 +1967,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "value": "()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
           },
           "variable": {
             "metadata": {
@@ -1924,7 +1996,7 @@
             "value": "http:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -1993,7 +2065,10 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "connection"
+            }
           },
           "connectionPooling": {
             "metadata": {
@@ -2002,12 +2077,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
-            "value": "false",
             "placeholder": "false",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "connectionPooling"
+            }
           },
           "isClusterConnection": {
             "metadata": {
@@ -2016,12 +2093,14 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
-            "value": "false",
             "placeholder": "false",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "isClusterConnection"
+            }
           },
           "secureSocket": {
             "metadata": {
@@ -2029,13 +2108,15 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "record {|ballerina/crypto:2.6.2:TrustStore|string cert?; ballerina/crypto:2.6.2:KeyStore|ballerinax/redis:3.0.2:CertKey key?; string[] protocols?; string[] ciphers?; ballerinax/redis:3.0.2:SslVerifyMode verifyMode; boolean startTls;|}",
-            "value": "{}",
+            "valueTypeConstraint": "redis:SecureSocket",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
-            "kind": "INCLUDED_FIELD"
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
           },
           "variable": {
             "metadata": {
@@ -2057,7 +2138,7 @@
             "value": "redis:Client",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },

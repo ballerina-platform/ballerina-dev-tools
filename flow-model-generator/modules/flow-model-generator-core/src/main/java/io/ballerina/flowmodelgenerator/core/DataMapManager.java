@@ -57,6 +57,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
@@ -77,17 +78,12 @@ import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Generates types of the data mapper model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DataMapManager {
 
@@ -288,8 +284,8 @@ public class DataMapManager {
                 ExpressionNode fieldExpr = optFieldExpr.get();
                 SyntaxKind kind = fieldExpr.kind();
                 if (kind == SyntaxKind.MAPPING_CONSTRUCTOR) {
-                    genMapping((MappingConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
-                            semanticModel);
+                    genMapping((MappingConstructorExpressionNode) fieldExpr, mappings,
+                            name + "." + f.fieldName().toSourceCode().trim(), semanticModel);
                 } else if (kind == SyntaxKind.LIST_CONSTRUCTOR) {
                     genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
                             semanticModel);
@@ -405,6 +401,17 @@ public class DataMapManager {
                     mappingPort.category = "variable";
                 }
                 mappingPorts.add(mappingPort);
+            } else if (kind == SymbolKind.PARAMETER) {
+                Optional<String> optName = symbol.getName();
+                if (optName.isEmpty()) {
+                    continue;
+                }
+                Type type = Type.fromSemanticSymbol(symbol);
+                MappingPort mappingPort = getMappingPort(optName.get(), optName.get(), type);
+                if (mappingPort == null) {
+                    continue;
+                }
+                mappingPorts.add(mappingPort);
             } else if (kind == SymbolKind.CONSTANT) {
                 Type type = Type.fromSemanticSymbol(symbol);
                 // TODO: Name of constant is set to type name, check that
@@ -447,7 +454,7 @@ public class DataMapManager {
     public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
         FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
         List<Mapping> fieldMapping = gson.fromJson(mp, mt);
-        Map<String, Object> mappings = new HashMap<>(); // TODO: Maintain the order of fields
+        Map<String, Object> mappings = new LinkedHashMap<>();
         for (Mapping mapping : fieldMapping) {
             genSourceForMapping(mapping, mappings);
         }

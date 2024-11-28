@@ -33,7 +33,7 @@ import java.util.Optional;
  * @param properties  The properties of the node.
  * @param diagnostics The diagnostics of the node.
  * @param flags       The flags of the node.
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record FlowNode(
         String id,

@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -46,7 +47,7 @@ import java.util.Map;
 /**
  * Manage the configurable variables.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ConfigVariablesManager {
 
