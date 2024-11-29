@@ -82,6 +82,7 @@
             "editable": true,
             "value": "",
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "isType": false,
             "optional": false,
             "advanced": false,
