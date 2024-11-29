@@ -65,16 +65,6 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
-    protected String[] skipList() {
-        // TODO: Remove after fixing the jsondata module issue #442
-        return new String[]{
-                "function_call-json1.json",
-                "force_assign_function.json",
-                "diagnostics4.json",
-        };
-    }
-
-    @Override
     protected String getResourceDir() {
         return "diagram_generator";
     }
