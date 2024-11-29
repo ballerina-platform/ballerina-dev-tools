@@ -43,8 +43,9 @@ import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
+import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
@@ -71,12 +72,13 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("expressionEditor")
 public class ExpressionEditorService implements ExtendedLanguageServerService {
 
-    private WorkspaceManager workspaceManager;
+    private WorkspaceManagerProxy workspaceManagerProxy;
     private LanguageServer langServer;
 
     @Override
-    public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
-        this.workspaceManager = workspaceManager;
+    public void init(LanguageServer langServer, WorkspaceManagerProxy workspaceManagerProxy,
+                     LanguageServerContext serverContext) {
+        this.workspaceManagerProxy = workspaceManagerProxy;
         this.langServer = langServer;
     }
 
@@ -91,9 +93,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             VisibleVariableTypesResponse response = new VisibleVariableTypesResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
+                this.workspaceManagerProxy.get().loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath);
+                Optional<Document> document = this.workspaceManagerProxy.get().document(filePath);
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
@@ -115,8 +117,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElseGet(
+                Project project = this.workspaceManagerProxy.get().loadProject(filePath);
+                SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
                         () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
 
                 TypesGenerator typesGenerator = new TypesGenerator(semanticModel);
@@ -135,8 +137,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
+                this.workspaceManagerProxy.get().loadProject(filePath);
+                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
 
                 // Load the shadowed project
                 ProjectCacheManager projectCacheManager =
@@ -148,10 +150,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 DidChangeWatchedFilesParams didChangeWatchedFilesParams =
                         new DidChangeWatchedFilesParams(List.of(fileEvent));
                 this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                this.workspaceManagerProxy.get().loadProject(destination);
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
                 if (document.isEmpty()) {
                     return new SignatureHelp();
                 }
@@ -198,8 +200,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
+                this.workspaceManagerProxy.get().loadProject(filePath);
+                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
 
                 // Load the shadowed project
                 ProjectCacheManager projectCacheManager =
@@ -211,10 +213,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 DidChangeWatchedFilesParams didChangeWatchedFilesParams =
                         new DidChangeWatchedFilesParams(List.of(fileEvent));
                 this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                this.workspaceManagerProxy.get().loadProject(destination);
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
                 if (document.isEmpty()) {
                     return Either.forLeft(List.of());
                 }
@@ -262,8 +264,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
+                this.workspaceManagerProxy.get().loadProject(filePath);
+                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
 
                 // Load the shadowed project
                 ProjectCacheManager projectCacheManager =
@@ -275,17 +277,17 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 DidChangeWatchedFilesParams didChangeWatchedFilesParams =
                         new DidChangeWatchedFilesParams(List.of(fileEvent));
                 this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                this.workspaceManagerProxy.get().loadProject(destination);
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
                 if (document.isEmpty()) {
                     return response;
                 }
                 TextDocument textDocument = document.get().textDocument();
 
                 ExpressionEditorContext context =
-                        new ExpressionEditorContext(workspaceManager, request.context(), filePath);
+                        new ExpressionEditorContext(workspaceManagerProxy.get(), request.context(), filePath);
                 // Determine the cursor position
                 LinePosition startLine = context.getStartLine();
                 int textPosition = textDocument.textPositionFrom(startLine);
@@ -321,7 +323,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
 
-                Optional<Module> module = workspaceManager.module(destination);
+                Optional<Module> module = workspaceManagerProxy.get().module(destination);
                 if (module.isEmpty()) {
                     return response;
                 }
