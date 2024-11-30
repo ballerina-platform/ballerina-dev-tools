@@ -34,6 +34,9 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
@@ -59,20 +62,15 @@ public class ExpressionEditorContext {
     private final WorkspaceManager workspaceManager;
     private final Path filePath;
     private final List<ImportDeclarationNode> imports;
+    private final Document document;
 
-    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath) {
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
         this.info = info;
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+        this.document = document;
 
-        Document document;
-        try {
-            this.workspaceManager.loadProject(filePath);
-            document = workspaceManager.document(filePath).orElseThrow();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error while loading the project");
-        }
         SyntaxTree syntaxTree = document.syntaxTree();
         imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART ?
                 ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList() :
@@ -154,12 +152,12 @@ public class ExpressionEditorContext {
     }
 
     /**
-     * Generates a Ballerina statement based on the availability of the type.Based on the availability of the type, the
-     * statement will be in the format: `<type>? _ = <expr>;`.
+     * Generates a Ballerina statement based on the availability of the type, and applies it to the document. Based on
+     * the availability of the type, the statement will be in the format: `<type>? _ = <expr>;`.
      *
-     * @return The generated Ballerina statement
+     * @return the line range of the generated statement.
      */
-    public String getStatement() {
+    public LineRange generateStatement() {
         String type = getProperty()
                 .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
                 .map(Object::toString)
@@ -171,7 +169,30 @@ public class ExpressionEditorContext {
         } else {
             statement = String.format("%s _ = %s;%n", type, info.expression());
         }
-        return statement;
+
+        TextDocument textDocument = document.textDocument();
+        int textPosition = textDocument.textPositionFrom(info.startLine());
+
+        TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+        TextDocument newTextDocument =
+                textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+        applyContent(newTextDocument);
+
+        LinePosition startLine = info.startLine();
+        LinePosition endLineRange = LinePosition.from(startLine.line(),
+                startLine.offset() + statement.length());
+        return LineRange.from(filePath.toString(), startLine, endLineRange);
+    }
+
+    /**
+     * Applies the content of the given TextDocument to the current document.
+     *
+     * @param textDocument The TextDocument containing the new content
+     */
+    public void applyContent(TextDocument textDocument) {
+        document.modify()
+                .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
+                .apply();
     }
 
     /**

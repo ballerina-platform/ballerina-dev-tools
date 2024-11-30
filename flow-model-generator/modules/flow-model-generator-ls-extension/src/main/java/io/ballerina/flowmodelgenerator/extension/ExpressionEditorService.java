@@ -34,7 +34,6 @@ import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesRe
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
-import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -265,30 +264,16 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 String fileUri = URI.create("expr://" + filePath).toString();
 
                 // Get the document
-                ExpressionEditorContext context =
-                        new ExpressionEditorContext(workspaceManagerProxy.get(fileUri), request.context(), filePath);
-
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return response;
                 }
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                String statement = context.getStatement();
-                LinePosition startLine = request.context().startLine();
-                LinePosition endLineRange = LinePosition.from(startLine.line(),
-                        startLine.offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
-
-                TextDocument textDocument = document.get().textDocument();
-                int textPosition = textDocument.textPositionFrom(startLine);
-
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
-
+                // Generate the diagnostics
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                LineRange lineRange = context.generateStatement();
                 Optional<Module> module = workspaceManagerProxy.get(fileUri).module(filePath);
                 if (module.isEmpty()) {
                     return response;
@@ -298,6 +283,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
                         .toList();
+                context.applyContent(oldTextDocument);
                 response.setDiagnostics(diagnostics);
             } catch (Throwable e) {
                 response.setError(e);
