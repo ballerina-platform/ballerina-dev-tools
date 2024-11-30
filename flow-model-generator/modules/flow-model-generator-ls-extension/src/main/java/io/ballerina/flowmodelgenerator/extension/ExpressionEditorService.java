@@ -267,28 +267,21 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 // Get the document
                 ExpressionEditorContext context =
                         new ExpressionEditorContext(workspaceManagerProxy.get(fileUri), request.context(), filePath);
-                String type = context.getProperty()
-                        .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
-                        .map(Object::toString)
-                        .orElse("");
-
-                String statement;
-                if (type.isEmpty()) {
-                    statement = String.format("_ = %s;%n", context.info().expression());
-                } else {
-                    statement = String.format("%s _ = %s;%n", type, context.info().expression());
-                }
-                LinePosition startLine = request.context().startLine();
-                LinePosition endLineRange = LinePosition.from(startLine.line(),
-                        startLine.offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
 
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return response;
                 }
+
+                String statement = context.getStatement();
+                LinePosition startLine = request.context().startLine();
+                LinePosition endLineRange = LinePosition.from(startLine.line(),
+                        startLine.offset() + statement.length());
+                LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
+
                 TextDocument textDocument = document.get().textDocument();
                 int textPosition = textDocument.textPositionFrom(startLine);
+
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
@@ -312,4 +305,5 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             return response;
         });
     }
+
 }

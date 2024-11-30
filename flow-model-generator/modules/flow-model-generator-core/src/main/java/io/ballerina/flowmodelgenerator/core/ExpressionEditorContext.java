@@ -154,6 +154,27 @@ public class ExpressionEditorContext {
     }
 
     /**
+     * Generates a Ballerina statement based on the availability of the type.Based on the availability of the type, the
+     * statement will be in the format: `<type>? _ = <expr>;`.
+     *
+     * @return The generated Ballerina statement
+     */
+    public String getStatement() {
+        String type = getProperty()
+                .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
+                .map(Object::toString)
+                .orElse("");
+
+        String statement;
+        if (type.isEmpty()) {
+            statement = String.format("_ = %s;%n", info.expression());
+        } else {
+            statement = String.format("%s _ = %s;%n", type, info.expression());
+        }
+        return statement;
+    }
+
+    /**
      * Represents the json format of the expression editor context.
      *
      * @param expression The modified expression
