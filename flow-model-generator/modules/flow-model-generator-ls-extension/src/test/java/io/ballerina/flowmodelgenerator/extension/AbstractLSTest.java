@@ -28,7 +28,9 @@ import com.google.gson.JsonPrimitive;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
+import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
+import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -130,7 +134,7 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request) throws IOException {
-        return getResponse(request, getApiName());
+        return getResponse(request, getServiceName() + "/" + getApiName());
     }
 
     protected JsonObject getResponseAndCloseFile(Object request, String source) throws IOException {
@@ -142,7 +146,7 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request, String api) {
-        CompletableFuture<?> result = serviceEndpoint.request(getServiceName() + "/" + api, request);
+        CompletableFuture<?> result = serviceEndpoint.request(api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
@@ -151,6 +155,29 @@ abstract class AbstractLSTest {
             Assert.fail("Error occurred: " + errorMsg.getAsString());
         }
         return jsonObject;
+    }
+
+    protected void sendNotification(String api, Object request) {
+        serviceEndpoint.notify(api, request);
+    }
+
+    protected void notifyDidOpen(String sourcePath) throws IOException {
+        TextDocumentItem textDocumentItem = new TextDocumentItem();
+        String text;
+        try (FileInputStream fis = new FileInputStream(sourcePath)) {
+            text = new String(fis.readAllBytes());
+        }
+        textDocumentItem.setUri(URI.create("expr://" + sourcePath).toString());
+        textDocumentItem.setText(text);
+        textDocumentItem.setLanguageId("ballerina");
+        textDocumentItem.setVersion(1);
+        sendNotification("textDocument/didOpen", new DidOpenTextDocumentParams(textDocumentItem));
+    }
+
+    protected void notifyDidClose(String sourcePath) {
+        TextDocumentIdentifier textDocumentIdentifier = new TextDocumentIdentifier();
+        textDocumentIdentifier.setUri(URI.create("expr://" + sourcePath).toString());
+        sendNotification("textDocument/didClose", new DidCloseTextDocumentParams(textDocumentIdentifier));
     }
 
     /**

@@ -44,12 +44,16 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        ExpressionEditorDiagnosticsRequest request =
-                new ExpressionEditorDiagnosticsRequest(getSourcePath(testConfig.filePath()), testConfig.context());
-        JsonObject response = getResponse(request);
+        String sourcePath = getSourcePath(testConfig.filePath());
 
+        notifyDidOpen(sourcePath);
+        ExpressionEditorDiagnosticsRequest request =
+                new ExpressionEditorDiagnosticsRequest(sourcePath, testConfig.context());
+        JsonObject response = getResponse(request);
         List<Diagnostic> actualDiagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
                 new TypeToken<List<Diagnostic>>() { }.getType());
+        notifyDidClose(sourcePath);
+
         if (!assertArray("diagnostics", actualDiagnostics, testConfig.diagnostics())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.context(), actualDiagnostics);

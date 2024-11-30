@@ -59,7 +59,7 @@ public class DeleteNodeTest extends AbstractLSTest {
         String sourceFile = sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(sourceFile, testConfig.functionStart(),
                 testConfig.functionEnd());
-        JsonObject jsonMap = getResponse(request, "getFlowModel").getAsJsonObject("flowModel");
+        JsonObject jsonMap = getResponse(request, "flowDesignService/getFlowModel").getAsJsonObject("flowModel");
 
         Diagram diagram = gson.fromJson(jsonMap, Diagram.class);
         FlowNode nodeToDelete = null;

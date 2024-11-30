@@ -23,7 +23,6 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
@@ -62,8 +61,8 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
+import java.net.URI;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -260,49 +259,18 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorDiagnosticsRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             ExpressionEditorDiagnosticsResponse response = new ExpressionEditorDiagnosticsResponse();
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManagerProxy.get().loadProject(filePath);
-                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManagerProxy.get().loadProject(destination);
+                String fileUri = URI.create("expr://" + filePath).toString();
 
                 // Get the document
-                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
-                if (document.isEmpty()) {
-                    return response;
-                }
-                TextDocument textDocument = document.get().textDocument();
-
                 ExpressionEditorContext context =
-                        new ExpressionEditorContext(workspaceManagerProxy.get(), request.context(), filePath);
-                // Determine the cursor position
-                LinePosition startLine = context.getStartLine();
-                int textPosition = textDocument.textPositionFrom(startLine);
-
+                        new ExpressionEditorContext(workspaceManagerProxy.get(fileUri), request.context(), filePath);
                 String type = context.getProperty()
                         .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
                         .map(Object::toString)
                         .orElse("");
-
-                List<TextEdit> textEdits = new ArrayList<>();
-                if (context.isNodeKind(
-                        List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
-                                NodeKind.RESOURCE_ACTION_CALL))) {
-                    context.getImport().ifPresent(textEdits::add);
-                }
 
                 String statement;
                 if (type.isEmpty()) {
@@ -310,20 +278,25 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 } else {
                     statement = String.format("%s _ = %s;%n", type, context.info().expression());
                 }
+                LinePosition startLine = request.context().startLine();
                 LinePosition endLineRange = LinePosition.from(startLine.line(),
                         startLine.offset() + statement.length());
                 LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
 
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TextDocument textDocument = document.get().textDocument();
+                int textPosition = textDocument.textPositionFrom(startLine);
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                textEdits.add(textEdit);
                 TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
+                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
                 document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
 
-                Optional<Module> module = workspaceManagerProxy.get().module(destination);
+                Optional<Module> module = workspaceManagerProxy.get(fileUri).module(filePath);
                 if (module.isEmpty()) {
                     return response;
                 }
@@ -332,14 +305,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
                         .toList();
-                projectCacheManager.deleteContent();
                 response.setDiagnostics(diagnostics);
             } catch (Throwable e) {
                 response.setError(e);
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
             return response;
         });
