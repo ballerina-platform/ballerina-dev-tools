@@ -226,6 +226,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         request.context(), filePath, document.get());
                 LineRange lineRange = context.generateStatement();
 
+                // TODO: Use the module once the issue is resolved: #446
                 Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(filePath);
                 if (semanticModel.isEmpty()) {
                     return response;
