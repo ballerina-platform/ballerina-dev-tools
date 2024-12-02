@@ -252,7 +252,8 @@ public final class Utils {
     }
 
     private static boolean isDisplayAnnotation(AnnotationNode annotationNode) {
-        return annotationNode.annotReference() instanceof SimpleNameReferenceNode simpleNameReferenceNode && simpleNameReferenceNode.name().text().trim().equals("display");
+        return annotationNode.annotReference() instanceof SimpleNameReferenceNode simpleNameReferenceNode
+                && simpleNameReferenceNode.name().text().trim().equals("display");
     }
 
     private static boolean isLabelField(MappingFieldNode fieldNode) {
@@ -450,6 +451,8 @@ public final class Utils {
         switch (kind) {
             case "REMOTE" -> qualifiers.add("remote");
             case "RESOURCE" -> qualifiers.add("resource");
+            default -> {
+            }
         }
         return String.join(" ", qualifiers);
     }
@@ -466,7 +469,8 @@ public final class Utils {
     }
 
     public static boolean filterTriggers(TriggerProperty triggerProperty, TriggerListRequest request) {
-        return (request == null) || ((request.organization() == null || request.organization().equals(triggerProperty.orgName())) &&
+        return (request == null) ||
+                ((request.organization() == null || request.organization().equals(triggerProperty.orgName())) &&
                 (request.packageName() == null || request.packageName().equals(triggerProperty.packageName())) &&
                 (request.keyWord() == null || triggerProperty.keywords().stream()
                         .anyMatch(keyword -> keyword.equalsIgnoreCase(request.keyWord()))) &&

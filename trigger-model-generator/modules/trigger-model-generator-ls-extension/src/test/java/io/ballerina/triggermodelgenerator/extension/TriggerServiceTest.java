@@ -10,14 +10,14 @@ import io.ballerina.triggermodelgenerator.extension.model.Service;
 import io.ballerina.triggermodelgenerator.extension.model.Trigger;
 import io.ballerina.triggermodelgenerator.extension.model.Value;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerFunctionRequest;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerModifierRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerSourceRequest;
-import io.ballerina.triggermodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerCommonResponse;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerListResponse;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerResponse;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerModelGenResponse;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerResponse;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -77,7 +77,8 @@ public class TriggerServiceTest {
         } catch (IOException e) {
             throw new RuntimeException("Error reading trigger model from file: " + triggerPath, e);
         }
-        TriggerSourceRequest request = new TriggerSourceRequest(resDir.resolve("sample1/triggers.bal").toAbsolutePath().toString(), trigger);
+        TriggerSourceRequest request = new TriggerSourceRequest(resDir.resolve("sample1/triggers.bal")
+                .toAbsolutePath().toString(), trigger);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getSourceCode", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }
@@ -94,7 +95,8 @@ public class TriggerServiceTest {
         }
         Value required = trigger.getProperties().get("requiredFunctions");
         required.setValue("onRequest");
-        TriggerSourceRequest request = new TriggerSourceRequest(resDir.resolve("sample1/triggers.bal").toAbsolutePath().toString(), trigger);
+        TriggerSourceRequest request = new TriggerSourceRequest(resDir.resolve("sample1/triggers.bal")
+                .toAbsolutePath().toString(), trigger);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getSourceCode", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }
@@ -102,16 +104,19 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerModelFromCodeGenerator() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(6, 0), LinePosition.from(13, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(6, 0),
+                LinePosition.from(13, 1)));
         TriggerModelGenRequest request = new TriggerModelGenRequest(filePath, codedata);
-        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode",
+                request);
         TriggerModelGenResponse response = (TriggerModelGenResponse) result.get();
 
         TriggerSourceRequest request1 = new TriggerSourceRequest(filePath, response.trigger());
         CompletableFuture<?> result1 = serviceEndpoint.request("triggerDesignService/getSourceCode", request1);
         TriggerCommonResponse response1 = (TriggerCommonResponse) result1.get();
 
-        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(18, 0), LinePosition.from(32, 1)));
+        codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(18, 0),
+                LinePosition.from(32, 1)));
         request = new TriggerModelGenRequest(filePath, codedata);
         result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", request);
         response = (TriggerModelGenResponse) result.get();
@@ -134,7 +139,8 @@ public class TriggerServiceTest {
         Function function = trigger.getService().getFunctions().get(1);
         function.setEnabled(true);
         String filePath = resDir.resolve("sample2/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0), LinePosition.from(9, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0),
+                LinePosition.from(9, 1)));
         TriggerFunctionRequest request = new TriggerFunctionRequest(filePath, function, codedata);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/addTriggerFunction", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
@@ -143,9 +149,11 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerFunctionModifier() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample3/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0), LinePosition.from(16, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0),
+                LinePosition.from(16, 1)));
         TriggerModelGenRequest modelRequest = new TriggerModelGenRequest(filePath, codedata);
-        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", modelRequest);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode",
+                modelRequest);
         TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
 
         Service service = modelResponse.trigger().getService();
@@ -160,9 +168,11 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerModifier() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample3/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0), LinePosition.from(16, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0),
+                LinePosition.from(16, 1)));
         TriggerModelGenRequest modelRequest = new TriggerModelGenRequest(filePath, codedata);
-        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", modelRequest);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode",
+                modelRequest);
         TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
 
         Trigger trigger = modelResponse.trigger();
@@ -179,9 +189,11 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerModifierWithBasePath() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(10, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0),
+                LinePosition.from(10, 1)));
         TriggerModelGenRequest modelRequest = new TriggerModelGenRequest(filePath, codedata);
-        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", modelRequest);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode",
+                modelRequest);
         TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
 
         Trigger trigger = modelResponse.trigger();
@@ -198,9 +210,11 @@ public class TriggerServiceTest {
     @Test
     public void testTriggerModifierWithName() throws ExecutionException, InterruptedException {
         String filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0), LinePosition.from(10, 1)));
+        Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(3, 0),
+                LinePosition.from(10, 1)));
         TriggerModelGenRequest modelRequest = new TriggerModelGenRequest(filePath, codedata);
-        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode", modelRequest);
+        CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/getTriggerModelFromCode",
+                modelRequest);
         TriggerModelGenResponse modelResponse = (TriggerModelGenResponse) result.get();
 
         Trigger trigger = modelResponse.trigger();

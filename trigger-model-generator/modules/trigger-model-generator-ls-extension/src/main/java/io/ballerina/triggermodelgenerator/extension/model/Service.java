@@ -11,10 +11,11 @@ public class Service {
     private List<Function> functions;
 
     public Service() {
-        this(null,null, null, false, null);
+        this(null, null, null, false, null);
     }
 
-    public Service(MetaData metadata, Codedata codedata, Value serviceType, boolean enabled, List<Function> functions) {
+    public Service(MetaData metadata, Codedata codedata, Value serviceType, boolean enabled,
+                   List<Function> functions) {
         this.metadata = metadata;
         this.serviceType = serviceType;
         this.enabled = enabled;

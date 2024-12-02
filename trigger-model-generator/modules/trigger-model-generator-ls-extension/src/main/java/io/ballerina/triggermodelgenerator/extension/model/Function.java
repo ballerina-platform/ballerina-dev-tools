@@ -37,7 +37,8 @@ public class Function {
     }
 
     public static Function getNewFunction() {
-        return new Function(null, new ArrayList<>(), "DEFAULT", new Value(), new Value(), new ArrayList<>(), new Value(), false, false, false, null);
+        return new Function(null, new ArrayList<>(), "DEFAULT", new Value(), new Value(),
+                new ArrayList<>(), new Value(), false, false, false, null);
     }
 
     public MetaData getMetadata() {

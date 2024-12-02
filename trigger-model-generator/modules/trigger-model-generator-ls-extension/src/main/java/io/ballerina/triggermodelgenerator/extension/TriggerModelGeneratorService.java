@@ -23,18 +23,18 @@ import io.ballerina.tools.text.TextRange;
 import io.ballerina.triggermodelgenerator.extension.model.Service;
 import io.ballerina.triggermodelgenerator.extension.model.Trigger;
 import io.ballerina.triggermodelgenerator.extension.model.TriggerBasicInfo;
+import io.ballerina.triggermodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.triggermodelgenerator.extension.model.Value;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerFunctionRequest;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerModifierRequest;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerCommonResponse;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerResponse;
-import io.ballerina.triggermodelgenerator.extension.response.TriggerModelGenResponse;
-import io.ballerina.triggermodelgenerator.extension.model.TriggerProperty;
-import io.ballerina.triggermodelgenerator.extension.request.TriggerSourceRequest;
-import io.ballerina.triggermodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.triggermodelgenerator.extension.request.TriggerRequest;
+import io.ballerina.triggermodelgenerator.extension.request.TriggerSourceRequest;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerCommonResponse;
 import io.ballerina.triggermodelgenerator.extension.response.TriggerListResponse;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerModelGenResponse;
+import io.ballerina.triggermodelgenerator.extension.response.TriggerResponse;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -76,15 +76,15 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
 
     private WorkspaceManager workspaceManager;
     private final Map<String, TriggerProperty> triggerProperties;
+    private static Type propertyMapType = new TypeToken<Map<String, TriggerProperty>>() { }.getType();
 
     public TriggerModelGeneratorService() {
         InputStream propertiesStream = getClass().getClassLoader()
                 .getResourceAsStream("triggers/properties.json");
-        Type mapType = new TypeToken<Map<String, TriggerProperty>>() {}.getType();
         Map<String, TriggerProperty> triggerProperties = Map.of();
         if (propertiesStream != null) {
             try (JsonReader reader = new JsonReader(new InputStreamReader(propertiesStream, StandardCharsets.UTF_8))) {
-                triggerProperties = new Gson().fromJson(reader, mapType);
+                triggerProperties = new Gson().fromJson(reader, propertyMapType);
             } catch (IOException e) {
                 // Ignore
             }
