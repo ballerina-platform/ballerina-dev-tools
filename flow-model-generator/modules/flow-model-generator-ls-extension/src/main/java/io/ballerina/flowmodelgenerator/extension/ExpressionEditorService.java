@@ -32,7 +32,6 @@ import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagno
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -58,6 +57,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("expressionEditor")
@@ -224,15 +225,18 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
                         request.context(), filePath, document.get());
                 LineRange lineRange = context.generateStatement();
-                Optional<Module> module = workspaceManagerProxy.get(fileUri).module(filePath);
-                if (module.isEmpty()) {
+
+                Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
-                List<Diagnostic> diagnostics = module.get().getCompilation().diagnostics().diagnostics().stream()
+                List<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
+                                StreamSupport.stream(context.syntaxDiagnostics().spliterator(), false))
                         .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
                         .toList();
+
                 context.applyContent(oldTextDocument);
                 response.setDiagnostics(diagnostics);
             } catch (Throwable e) {

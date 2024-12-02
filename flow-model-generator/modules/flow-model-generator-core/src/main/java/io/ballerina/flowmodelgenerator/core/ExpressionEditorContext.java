@@ -33,6 +33,7 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -63,9 +64,9 @@ public class ExpressionEditorContext {
     private final WorkspaceManager workspaceManager;
     private final Path filePath;
     private final List<ImportDeclarationNode> imports;
-    private final Document document;
 
     // State variables
+    private final Document document;
     private int expressionOffset;
     private LineRange statementLineRange;
 
@@ -208,6 +209,10 @@ public class ExpressionEditorContext {
         document.modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
+    }
+
+    public Iterable<Diagnostic> syntaxDiagnostics() {
+        return document.syntaxTree().diagnostics();
     }
 
     /**
