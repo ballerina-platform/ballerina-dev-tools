@@ -166,12 +166,11 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String type = getProperty()
+        String prefix = getProperty()
                 .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
-                .map(Object::toString)
-                .orElse("");
+                .map(obj -> obj + " _ = ")
+                .orElse("_ = ");
 
-        String prefix = type.isEmpty() ? "_ = " : type + " _ = ";
         String statement = String.format("%s%s;%n", prefix, info.expression());
         this.expressionOffset = prefix.length();
 
@@ -201,7 +200,7 @@ public class ExpressionEditorContext {
     }
 
     /**
-     * Applies the content of the given TextDocument to the current document. x
+     * Applies the content of the given TextDocument to the current document.
      *
      * @param textDocument The TextDocument containing the new content
      */

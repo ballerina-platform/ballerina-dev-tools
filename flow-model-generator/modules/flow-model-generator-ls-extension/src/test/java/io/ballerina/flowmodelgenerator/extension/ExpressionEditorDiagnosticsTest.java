@@ -43,7 +43,6 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-
         String sourcePath = getSourcePath(testConfig.filePath());
 
         notifyDidOpen(sourcePath);

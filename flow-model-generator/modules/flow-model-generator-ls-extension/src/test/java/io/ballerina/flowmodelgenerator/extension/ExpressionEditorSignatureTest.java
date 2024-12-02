@@ -24,7 +24,6 @@ import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import org.eclipse.lsp4j.SignatureHelpContext;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -43,7 +42,6 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-
         String sourcePath = getSourcePath(testConfig.filePath());
 
         notifyDidOpen(sourcePath);
@@ -58,7 +56,7 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
                     new TestConfig(testConfig.description(), testConfig.filePath(), testConfig.context(),
                             testConfig.signatureHelpContext(), actualSignatureHelp);
             compareJsonElements(actualSignatureHelp, testConfig.signatureHelp());
-            // updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

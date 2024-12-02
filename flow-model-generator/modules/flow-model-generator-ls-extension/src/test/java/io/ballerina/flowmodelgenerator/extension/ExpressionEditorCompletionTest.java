@@ -47,7 +47,6 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-
         String sourcePath = getSourcePath(testConfig.filePath());
 
         notifyDidOpen(sourcePath);
@@ -61,7 +60,7 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.context(), testConfig.completionContext(), actualCompletions);
-            // updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -70,10 +69,9 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
     public void testMultipleRequests() throws IOException {
         Path configJsonPath = configDir.resolve("config.json");
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-
         String sourcePath = getSourcePath(testConfig.filePath());
-        notifyDidOpen(sourcePath);
 
+        notifyDidOpen(sourcePath);
         ExpressionEditorCompletionRequest request = new ExpressionEditorCompletionRequest(sourcePath,
                 testConfig.context(), testConfig.completionContext());
         getResponse(request);
@@ -89,7 +87,6 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
                 gson.fromJson(secondResponse.get("left").getAsJsonArray(), COMPLETION_RESPONSE_TYPE);
         Assert.assertEquals(secondCompletions.size(), 1);
         Assert.assertEquals(secondCompletions.getFirst().getLabel(), "classVar");
-
         notifyDidClose(sourcePath);
     }
 
