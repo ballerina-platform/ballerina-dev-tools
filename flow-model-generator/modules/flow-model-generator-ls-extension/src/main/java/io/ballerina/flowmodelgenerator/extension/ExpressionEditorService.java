@@ -54,7 +54,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.net.URI;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +127,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                String fileUri = URI.create("expr://" + filePath).toString();
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
@@ -170,7 +169,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                String fileUri = URI.create("expr://" + filePath).toString();
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
@@ -212,7 +211,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                String fileUri = URI.create("expr://" + filePath).toString();
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);

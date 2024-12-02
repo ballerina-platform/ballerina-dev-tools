@@ -25,6 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
@@ -43,7 +44,6 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -167,7 +167,7 @@ abstract class AbstractLSTest {
         try (FileInputStream fis = new FileInputStream(sourcePath)) {
             text = new String(fis.readAllBytes());
         }
-        textDocumentItem.setUri(URI.create("expr://" + sourcePath).toString());
+        textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
         textDocumentItem.setText(text);
         textDocumentItem.setLanguageId("ballerina");
         textDocumentItem.setVersion(1);
@@ -176,7 +176,7 @@ abstract class AbstractLSTest {
 
     protected void notifyDidClose(String sourcePath) {
         TextDocumentIdentifier textDocumentIdentifier = new TextDocumentIdentifier();
-        textDocumentIdentifier.setUri(URI.create("expr://" + sourcePath).toString());
+        textDocumentIdentifier.setUri(CommonUtils.getExprUri(sourcePath));
         sendNotification("textDocument/didClose", new DidCloseTextDocumentParams(textDocumentIdentifier));
     }
 
