@@ -21,7 +21,7 @@ service / on new http:Listener(9090) {
     function init() returns error? {
     }
 
-    resource function get greeting(Student std) returns json|http:InternalServerError {
+    resource function post greeting(Student std) returns json|http:InternalServerError {
         do {
             // Person var1909 = {name: std.firstName + std.lastName, age: std.stdAge};
             // Person tnfed = transform(std);

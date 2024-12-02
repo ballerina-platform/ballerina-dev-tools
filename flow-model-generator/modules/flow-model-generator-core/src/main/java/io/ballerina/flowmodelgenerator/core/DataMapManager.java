@@ -31,6 +31,7 @@ import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
@@ -411,6 +412,7 @@ public class DataMapManager {
                 if (mappingPort == null) {
                     continue;
                 }
+                mappingPort.category = "parameter";
                 mappingPorts.add(mappingPort);
             } else if (kind == SymbolKind.CONSTANT) {
                 Type type = Type.fromSemanticSymbol(symbol);
@@ -667,6 +669,46 @@ public class DataMapManager {
         sb.append(keys.get(size - 1)).append(": ");
         sb.append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue());
         return sb.toString();
+    }
+
+    public JsonElement getVisualizableProperties(JsonElement node, LinePosition position) {
+        FlowNode flowNode = gson.fromJson(node, FlowNode.class);
+
+        List<String> visualizableProperties = new ArrayList<>();
+        if (flowNode.codedata().node() != NodeKind.VARIABLE) {
+            return gson.toJsonTree(visualizableProperties);
+        }
+
+        Map<String, Property> properties = flowNode.properties();
+        Property property = properties.get("type");
+        Object value = property.value();
+        if (!(value instanceof String typeName)) {
+            return gson.toJsonTree(visualizableProperties);
+        }
+        if (typeName.matches(".*\\d*]")) {
+            typeName = typeName.split("\\[")[0];
+        }
+        Map<String, Symbol> visibleVariables = visibleTypeSymbols(this.semanticModel.visibleSymbols(this.document,
+                position));
+        Symbol symbol = visibleVariables.get(typeName);
+        if (symbol != null) {
+            visualizableProperties.add("expression");
+        }
+        return gson.toJsonTree(visualizableProperties);
+    }
+
+    private Map<String, Symbol> visibleTypeSymbols(List<Symbol> symbols) {
+        Map<String, Symbol> variableSymbols = new HashMap<>();
+        for (Symbol symbol : symbols) {
+            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
+                TypeSymbol rawType = CommonUtils.getRawType(((TypeDefinitionSymbol) symbol).typeDescriptor());
+                TypeDescKind typeKind = rawType.typeKind();
+                if (typeKind == TypeDescKind.RECORD || typeKind == TypeDescKind.ARRAY) {
+                    variableSymbols.put(symbol.getName().get(), rawType);
+                }
+            }
+        }
+        return variableSymbols;
     }
 
     private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings, String source) {

@@ -1,8 +1,10 @@
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
+import io.ballerina.flowmodelgenerator.extension.request.DataMapperVisualizeRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class DataMappingModelTest extends AbstractLSTest {
+public class DataMappingVisualizeTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override
@@ -24,29 +26,6 @@ public class DataMappingModelTest extends AbstractLSTest {
                 {Path.of("variable1.json")},
                 {Path.of("variable2.json")},
                 {Path.of("variable3.json")},
-                {Path.of("variable4.json")},
-                {Path.of("variable5.json")},
-                {Path.of("variable6.json")},
-                {Path.of("variable7.json")},
-                {Path.of("variable8.json")},
-                {Path.of("variable9.json")},
-                {Path.of("variable10.json")},
-                {Path.of("variable11.json")},
-                {Path.of("variable12.json")},
-                {Path.of("variable13.json")},
-                {Path.of("variable14.json")},
-                {Path.of("variable15.json")},
-                {Path.of("variable16.json")},
-                {Path.of("variable17.json")},
-                {Path.of("variable18.json")},
-                {Path.of("variable19.json")},
-                {Path.of("variable20.json")},
-                {Path.of("variable21.json")},
-                {Path.of("variable22.json")},
-                {Path.of("variable23.json")},
-                {Path.of("variable24.json")},
-                {Path.of("variable25.json")},
-                {Path.of("variable26.json")},
         };
     }
 
@@ -57,23 +36,23 @@ public class DataMappingModelTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        DataMapperModelRequest request =
-                new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram(), testConfig.position(), testConfig.propertyKey(), testConfig.targetField());
-        JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappingsModel");
+        DataMapperVisualizeRequest request =
+                new DataMapperVisualizeRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
+                        testConfig.diagram(), testConfig.position());
+        JsonArray model = getResponse(endpoint, request).getAsJsonArray("visualizableProperties");
 
-        if (!model.equals(testConfig.model())) {
+        if (!model.equals(testConfig.visualizableProperties())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
-                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model, testConfig.targetField());
+                    testConfig.diagram(), testConfig.position(), model);
 //            updateConfig(configJsonPath, updateConfig);
-            compareJsonElements(model, testConfig.model());
+            compareJsonElements(model, testConfig.visualizableProperties());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
     @Override
     protected String getResourceDir() {
-        return "data_mapper_model";
+        return "data_mapper_visualize";
     }
 
     @Override
@@ -83,7 +62,7 @@ public class DataMappingModelTest extends AbstractLSTest {
 
     @Override
     protected String getApiName() {
-        return "mappings";
+        return "visualizable";
     }
 
     @Override
@@ -97,12 +76,10 @@ public class DataMappingModelTest extends AbstractLSTest {
      * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
-     * @param propertyKey The property that needs to consider to get the type
-     * @param position    position of the end of previous statement
-     * @param model       The expected data mapping model
+     * @param visualizableProperties       The expected visualizable properties
      */
-    private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
-                              LinePosition position, JsonElement model, String targetField) {
+    private record TestConfig(String source, String description, JsonElement diagram, LinePosition position,
+                              JsonElement visualizableProperties) {
 
         public String description() {
             return description == null ? "" : description;

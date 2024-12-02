@@ -10,7 +10,7 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "variable11.bal",
+        "fileName": "variable12.bal",
         "startLine": {
           "line": 0,
           "offset": 0
@@ -88,7 +88,8 @@
         "id": "std",
         "variableName": "std",
         "typeName": "Student",
-        "kind": "record"
+        "kind": "record",
+        "category": "parameter"
       }
     ],
     "output": {

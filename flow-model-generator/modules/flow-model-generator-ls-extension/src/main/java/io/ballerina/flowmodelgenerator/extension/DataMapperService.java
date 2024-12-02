@@ -24,9 +24,11 @@ import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperQueryConvertRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperSourceRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
+import io.ballerina.flowmodelgenerator.extension.request.DataMapperVisualizeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperModelResponse;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperSourceResponse;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperTypesResponse;
+import io.ballerina.flowmodelgenerator.extension.response.DataMapperVisualizeResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -133,6 +135,29 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 DataMapManager dataMapManager = new DataMapManager(null, null, document.get());
                 response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(),
                         Path.of(request.filePath()), request.position(), project));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<DataMapperVisualizeResponse> visualizable(DataMapperVisualizeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            DataMapperVisualizeResponse response = new DataMapperVisualizeResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+                DataMapManager dataMapManager = new DataMapManager(workspaceManager, semanticModel.get(),
+                        document.get());
+                response.setVisualizableProperties(dataMapManager.getVisualizableProperties(request.flowNode(),
+                        request.position()));
             } catch (Throwable e) {
                 response.setError(e);
             }
