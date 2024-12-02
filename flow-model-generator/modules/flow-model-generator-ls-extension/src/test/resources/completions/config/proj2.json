@@ -1,16 +1,18 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "+ ",
-  "startLine": {
-    "line": 7,
-    "offset": 33
-  },
-  "offset": 2,
   "context": {
+    "expression": "+ ",
+    "startLine": {
+      "line": 7,
+      "offset": 33
+    },
+    "offset": 2,
+    "node": {}
+  },
+  "completionContext": {
     "triggerKind": "Invoked"
   },
-  "node": {},
   "completions": [
     {
       "label": "start",

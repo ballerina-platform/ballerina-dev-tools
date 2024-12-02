@@ -187,7 +187,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
                 // Generate the completion params
                 Position position = new Position(lineRange.startLine().line(),
-                        lineRange.startLine().offset() + request.context().offset());
+                        lineRange.startLine().offset() + request.context().offset() + context.expressionOffset());
                 TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
                 CompletionParams params = new CompletionParams(identifier, position, request.completionContext());
 

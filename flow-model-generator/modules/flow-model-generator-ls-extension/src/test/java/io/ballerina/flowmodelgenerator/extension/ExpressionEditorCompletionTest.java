@@ -25,7 +25,6 @@ import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorComplet
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
