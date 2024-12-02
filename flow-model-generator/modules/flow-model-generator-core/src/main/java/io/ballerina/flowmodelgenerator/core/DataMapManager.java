@@ -442,8 +442,10 @@ public class DataMapManager {
             return new MappingPort(id, type.getName(), type.getTypeName(), type.getTypeName());
         } else if (type.getTypeName().equals("array")) {
             ArrayType arrayType = (ArrayType) type;
-            MappingArrayPort arrayPort = new MappingArrayPort(id, id, type.getName(), type.getTypeName());
-            arrayPort.member = getMappingPort(id, id, arrayType.memberType);
+            MappingPort memberPort = getMappingPort(id, id, arrayType.memberType);
+            MappingArrayPort arrayPort = new MappingArrayPort(id, name, memberPort == null ? "record" :
+                    memberPort.typeName + "[]", type.getTypeName());
+            arrayPort.member = memberPort;
             return arrayPort;
         } else {
             return null;

@@ -107,8 +107,8 @@
                 "kind": "record"
               },
               "id": "banks.userInfo",
-              "variableName": "banks.userInfo",
-              "typeName": "userInfo",
+              "variableName": "userInfo",
+              "typeName": "UserInfo[]",
               "kind": "array"
             }
           ],
@@ -119,6 +119,7 @@
         },
         "id": "banks",
         "variableName": "banks",
+        "typeName": "Bank[]",
         "kind": "array",
         "category": "variable"
       },
@@ -151,6 +152,7 @@
         },
         "id": "userInfo",
         "variableName": "userInfo",
+        "typeName": "UserInfo[]",
         "kind": "array",
         "category": "variable"
       }
@@ -178,6 +180,7 @@
       },
       "id": "credentials",
       "variableName": "credentials",
+      "typeName": "Credentials[]",
       "kind": "array"
     },
     "mappings": [

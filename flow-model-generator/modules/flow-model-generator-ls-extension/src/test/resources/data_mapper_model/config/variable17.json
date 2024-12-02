@@ -93,6 +93,7 @@
         },
         "id": "credentials",
         "variableName": "credentials",
+        "typeName": "Credentials[]",
         "kind": "array",
         "category": "variable"
       },
@@ -119,6 +120,7 @@
         },
         "id": "userInfo",
         "variableName": "userInfo",
+        "typeName": "UserInfo[]",
         "kind": "array",
         "category": "variable"
       }
@@ -153,8 +155,8 @@
             "kind": "record"
           },
           "id": "student.credentials",
-          "variableName": "student.credentials",
-          "typeName": "credentials",
+          "variableName": "credentials",
+          "typeName": "Credentials[]",
           "kind": "array"
         },
         {

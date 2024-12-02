@@ -93,6 +93,7 @@
         },
         "id": "userInfo",
         "variableName": "userInfo",
+        "typeName": "UserInfo[]",
         "kind": "array",
         "category": "variable"
       }
@@ -120,6 +121,7 @@
       },
       "id": "credentials",
       "variableName": "credentials",
+      "typeName": "Credentials[]",
       "kind": "array"
     },
     "mappings": [
