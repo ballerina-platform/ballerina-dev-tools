@@ -140,11 +140,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 // Generate signature help using context
                 ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
                         request.context(), filePath, document.get());
-                LineRange lineRange = context.generateStatement();
+                context.generateStatement();
 
                 // Generate the signature help params
-                Position position = new Position(lineRange.startLine().line(),
-                        lineRange.startLine().offset() + request.context().offset() + context.expressionOffset());
+                Position position = context.getCursorPosition();
                 TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
                 SignatureHelpParams params =
                         new SignatureHelpParams(identifier, position, request.signatureHelpContext());
@@ -183,11 +182,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 // Generate completions using context
                 ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
                         request.context(), filePath, document.get());
-                LineRange lineRange = context.generateStatement();
+                context.generateStatement();
 
                 // Generate the completion params
-                Position position = new Position(lineRange.startLine().line(),
-                        lineRange.startLine().offset() + request.context().offset() + context.expressionOffset());
+                Position position = context.getCursorPosition();
                 TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
                 CompletionParams params = new CompletionParams(identifier, position, request.completionContext());
 

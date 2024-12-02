@@ -43,6 +43,7 @@ import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -64,8 +65,9 @@ public class ExpressionEditorContext {
     private final List<ImportDeclarationNode> imports;
     private final Document document;
 
-    // Output variables
+    // State variables
     private int expressionOffset;
+    private LineRange statementLineRange;
 
     public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
@@ -184,15 +186,22 @@ public class ExpressionEditorContext {
         LinePosition startLine = info.startLine();
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
-        return LineRange.from(filePath.toString(), startLine, endLineRange);
-    }
-
-    public int expressionOffset() {
-        return expressionOffset;
+        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        return statementLineRange;
     }
 
     /**
-     * Applies the content of the given TextDocument to the current document.
+     * Gets the cursor position within the generated statement.
+     *
+     * @return the cursor position as a Position object
+     */
+    public Position getCursorPosition() {
+        return new Position(statementLineRange.startLine().line(),
+                statementLineRange.startLine().offset() + info.offset() + expressionOffset);
+    }
+
+    /**
+     * Applies the content of the given TextDocument to the current document. x
      *
      * @param textDocument The TextDocument containing the new content
      */
