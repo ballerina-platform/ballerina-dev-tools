@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "processData();",
-  "startLine": {
-    "line": 7,
-    "offset": 4
-  },
-  "offset": 11,
   "context": {
+    "expression": "processData();",
+    "startLine": {
+      "line": 7,
+      "offset": 4
+    },
+    "offset": 11
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

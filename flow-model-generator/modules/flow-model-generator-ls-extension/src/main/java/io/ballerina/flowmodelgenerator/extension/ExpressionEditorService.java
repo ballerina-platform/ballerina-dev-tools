@@ -36,9 +36,6 @@ import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextDocumentChange;
-import io.ballerina.tools.text.TextEdit;
-import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -48,9 +45,6 @@ import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
 import org.eclipse.lsp4j.Diagnostic;
-import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
-import org.eclipse.lsp4j.FileChangeType;
-import org.eclipse.lsp4j.FileEvent;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
 import org.eclipse.lsp4j.SignatureHelpParams;
@@ -131,61 +125,41 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     @JsonRequest
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManagerProxy.get().loadProject(filePath);
-                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManagerProxy.get().loadProject(destination);
+                String fileUri = URI.create("expr://" + filePath).toString();
 
                 // Get the document
-                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return new SignatureHelp();
                 }
-                TextDocument textDocument = document.get().textDocument();
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(request.startLine());
-                String statement = String.format("%s;%n", request.expression());
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
+                // Generate signature help using context
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                LineRange lineRange = context.generateStatement();
 
                 // Generate the signature help params
-                Position position =
-                        new Position(request.startLine().line(), request.startLine().offset() + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
-                SignatureHelpParams params = new SignatureHelpParams(identifier, position, request.context());
+                Position position = new Position(lineRange.startLine().line(),
+                        lineRange.startLine().offset() + request.context().offset() + context.expressionOffset());
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+                SignatureHelpParams params =
+                        new SignatureHelpParams(identifier, position, request.signatureHelpContext());
 
-                // Get the signature help
+                // Get signature help from language server
                 CompletableFuture<SignatureHelp> completableFuture =
                         langServer.getTextDocumentService().signatureHelp(params);
                 SignatureHelp signatureHelp = completableFuture.join();
-                projectCacheManager.deleteContent();
+
+                // Restore original content
+                context.applyContent(oldTextDocument);
+
                 return signatureHelp;
             } catch (Throwable e) {
                 return new SignatureHelp();
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
         });
     }

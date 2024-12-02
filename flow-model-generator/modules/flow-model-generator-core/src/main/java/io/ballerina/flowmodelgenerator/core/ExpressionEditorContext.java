@@ -64,6 +64,9 @@ public class ExpressionEditorContext {
     private final List<ImportDeclarationNode> imports;
     private final Document document;
 
+    // Output variables
+    private int expressionOffset;
+
     public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
         this.info = info;
@@ -72,12 +75,15 @@ public class ExpressionEditorContext {
         this.document = document;
 
         SyntaxTree syntaxTree = document.syntaxTree();
-        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART ?
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList() :
-                List.of();
+        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
+                ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
+                : List.of();
     }
 
     public Optional<Property> getProperty() {
+        if (info.property() == null || info.property().isEmpty()) {
+            return Optional.empty();
+        }
         if (info.branch() == null || info.branch().isEmpty()) {
             return flowNode.getProperty(info.property());
         }
@@ -163,25 +169,26 @@ public class ExpressionEditorContext {
                 .map(Object::toString)
                 .orElse("");
 
-        String statement;
-        if (type.isEmpty()) {
-            statement = String.format("_ = %s;%n", info.expression());
-        } else {
-            statement = String.format("%s _ = %s;%n", type, info.expression());
-        }
+        String prefix = type.isEmpty() ? "_ = " : type + " _ = ";
+        String statement = String.format("%s%s;%n", prefix, info.expression());
+        this.expressionOffset = prefix.length();
 
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
         TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-        TextDocument newTextDocument =
-                textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+        TextDocument newTextDocument = textDocument
+                .apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
         applyContent(newTextDocument);
 
         LinePosition startLine = info.startLine();
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
         return LineRange.from(filePath.toString(), startLine, endLineRange);
+    }
+
+    public int expressionOffset() {
+        return expressionOffset;
     }
 
     /**
