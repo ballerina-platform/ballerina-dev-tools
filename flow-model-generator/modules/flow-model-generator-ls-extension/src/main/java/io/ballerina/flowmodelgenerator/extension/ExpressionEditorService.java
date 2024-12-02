@@ -194,61 +194,40 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(
             ExpressionEditorCompletionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManagerProxy.get().loadProject(filePath);
-                projectPath = this.workspaceManagerProxy.get().projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManagerProxy.get().loadProject(destination);
+                String fileUri = URI.create("expr://" + filePath).toString();
 
                 // Get the document
-                Optional<Document> document = this.workspaceManagerProxy.get().document(destination);
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return Either.forLeft(List.of());
                 }
-                TextDocument textDocument = document.get().textDocument();
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(request.startLine());
-                String statement = String.format("_ = %s;%n", request.expression());
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
+                // Generate completions using context
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                LineRange lineRange = context.generateStatement();
 
                 // Generate the completion params
-                Position position =
-                        new Position(request.startLine().line(), request.startLine().offset() + 4 + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
-                CompletionParams params = new CompletionParams(identifier, position, request.context());
+                Position position = new Position(lineRange.startLine().line(),
+                        lineRange.startLine().offset() + request.context().offset());
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+                CompletionParams params = new CompletionParams(identifier, position, request.completionContext());
 
-                // Get the completions
+                // Get completions from language server
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                         langServer.getTextDocumentService().completion(params);
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
-                projectCacheManager.deleteContent();
+
+                // Restore original content
+                context.applyContent(oldTextDocument);
+
                 return completions;
             } catch (Throwable e) {
                 return Either.forLeft(List.of());
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
         });
     }

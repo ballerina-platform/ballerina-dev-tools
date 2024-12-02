@@ -16,16 +16,16 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -46,19 +46,21 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        ExpressionEditorCompletionRequest request = new ExpressionEditorCompletionRequest(
-                sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(), testConfig.expression(),
-                testConfig.branch(), testConfig.property(), testConfig.startLine(), testConfig.offset(),
-                testConfig.context(), testConfig.node());
-        JsonObject response = getResponse(request);
+        String sourcePath = getSourcePath(testConfig.filePath());
 
+        notifyDidOpen(sourcePath);
+        ExpressionEditorCompletionRequest request = new ExpressionEditorCompletionRequest(sourcePath,
+                testConfig.context(), testConfig.completionContext());
+        JsonObject response = getResponse(request);
         List<CompletionItem> actualCompletions = gson.fromJson(response.get("left").getAsJsonArray(),
-                new TypeToken<List<CompletionItem>>() { }.getType());
+                new TypeToken<List<CompletionItem>>() {
+                }.getType());
+        notifyDidClose(sourcePath);
+
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.expression(), testConfig.branch(), testConfig.property(), testConfig.startLine(),
-                    testConfig.offset(), testConfig.context(), testConfig.node(), actualCompletions);
-//            updateConfig(configJsonPath, updatedConfig);
+                    testConfig.context(), testConfig.completionContext(), actualCompletions);
+            // updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -83,8 +85,7 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, String expression, String branch, String property,
-                              LinePosition startLine, int offset, CompletionContext context, JsonObject node,
-                              List<CompletionItem> completions) {
+    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+                              CompletionContext completionContext, List<CompletionItem> completions) {
     }
 }
