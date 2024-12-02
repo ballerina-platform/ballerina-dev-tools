@@ -28,6 +28,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -38,6 +39,8 @@ import java.util.List;
  * @since 1.4.0
  */
 public class ExpressionEditorCompletionTest extends AbstractLSTest {
+
+    private static final Type COMPLETION_RESPONSE_TYPE = new TypeToken<List<CompletionItem>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -51,9 +54,8 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         ExpressionEditorCompletionRequest request = new ExpressionEditorCompletionRequest(sourcePath,
                 testConfig.context(), testConfig.completionContext());
         JsonObject response = getResponse(request);
-        List<CompletionItem> actualCompletions = gson.fromJson(response.get("left").getAsJsonArray(),
-                new TypeToken<List<CompletionItem>>() {
-                }.getType());
+        List<CompletionItem> actualCompletions =
+                gson.fromJson(response.get("left").getAsJsonArray(), COMPLETION_RESPONSE_TYPE);
         notifyDidClose(sourcePath);
 
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
@@ -62,6 +64,33 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
             // updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @Test
+    public void testMultipleRequests() throws IOException {
+        Path configJsonPath = configDir.resolve("config.json");
+        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+
+        String sourcePath = getSourcePath(testConfig.filePath());
+        notifyDidOpen(sourcePath);
+
+        ExpressionEditorCompletionRequest request = new ExpressionEditorCompletionRequest(sourcePath,
+                testConfig.context(), testConfig.completionContext());
+        getResponse(request);
+
+        ExpressionEditorContext.Info firstContext = testConfig.context();
+        ExpressionEditorContext.Info info =
+                new ExpressionEditorContext.Info("self.classVar > localVar + self. +  21", firstContext.startLine(),
+                        32, firstContext.node(), firstContext.branch(), firstContext.property());
+        ExpressionEditorCompletionRequest secondRequest = new ExpressionEditorCompletionRequest(sourcePath, info,
+                testConfig.completionContext());
+        JsonObject secondResponse = getResponse(secondRequest);
+        List<CompletionItem> secondCompletions =
+                gson.fromJson(secondResponse.get("left").getAsJsonArray(), COMPLETION_RESPONSE_TYPE);
+        Assert.assertEquals(secondCompletions.size(), 1);
+        Assert.assertEquals(secondCompletions.getFirst().getLabel(), "classVar");
+
+        notifyDidClose(sourcePath);
     }
 
     @Override
