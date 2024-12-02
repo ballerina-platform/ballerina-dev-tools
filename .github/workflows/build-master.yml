@@ -46,7 +46,7 @@ jobs:
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
         if: github.event_name == 'workflow_dispatch'
         run: |
-          ./gradlew -Pversion=${TIMESTAMPED_VERSION} clean publish -x :docerina-ui:npmTestDocerinaUI --scan
+          ./gradlew -Pversion=${TIMESTAMPED_VERSION} clean publish --scan
 
       - name: Build and Publish
         env:
@@ -54,10 +54,8 @@ jobs:
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
         if: github.event_name == 'push'
         run: |
-          ./gradlew clean publish -x :docerina-ui:npmTestDocerinaUI --scan
+          ./gradlew clean publish --scan
 
       - name: Generate Codecov Report
         uses: codecov/codecov-action@v1
-        with:
-          directory: ./docerina-ui/coverage/
 

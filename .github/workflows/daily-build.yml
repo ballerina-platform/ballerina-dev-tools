@@ -32,7 +32,7 @@ jobs:
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        run: ./gradlew build -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew build
 
   windows-build:
 
@@ -61,4 +61,4 @@ jobs:
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        run: ./gradlew.bat build -x :docerina-ui:npmTestDocerinaUI
+        run: ./gradlew.bat build

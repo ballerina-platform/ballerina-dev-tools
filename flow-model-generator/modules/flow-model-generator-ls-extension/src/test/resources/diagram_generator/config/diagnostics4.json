@@ -414,14 +414,14 @@
         "metadata": {
           "label": "prettify",
           "description": "Prettifies a `json` value to print it.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
           "symbol": "prettify",
-          "version": "0.2.0",
+          "version": "1.0.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {

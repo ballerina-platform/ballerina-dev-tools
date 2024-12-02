@@ -27,10 +27,6 @@ hs_err_pid*
 # mac
 .DS_Store
 
-/docerina-ui/dist/
-/docerina-ui/coverage/
-/docerina-ui/node_modules/
-/docerina-ui/package-lock.json
 /testerina-report-tools/build/
 /testerina-report-tools/node_modules/
 /testerina-report-tools/package-lock.json
