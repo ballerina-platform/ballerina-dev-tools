@@ -192,7 +192,8 @@
         "expression": "",
         "diagnostics": [
           "missing identifier"
-        ]
+        ],
+        "elements": []
       },
       {
         "output": "credentials.username",
@@ -200,7 +201,8 @@
           "info.username"
         ],
         "expression": "info.username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Store[] stores = from var bank in banks\n    select {name: bank.name, credentials: from var info in bank.userInfo\n            select {password: , username: info.username}};"

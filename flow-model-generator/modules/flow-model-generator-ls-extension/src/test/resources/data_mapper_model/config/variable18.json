@@ -139,7 +139,8 @@
         "expression": "userInfo",
         "diagnostics": [
           "incompatible types: expected 'Credentials[]', found 'UserInfo[]'"
-        ]
+        ],
+        "elements": []
       }
     ],
     "source": "Credentials[] credentials = userInfo;"

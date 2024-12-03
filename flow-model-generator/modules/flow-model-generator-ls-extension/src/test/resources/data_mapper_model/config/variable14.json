@@ -121,7 +121,8 @@
         "expression": "userInf",
         "diagnostics": [
           "undefined symbol 'userInf'"
-        ]
+        ],
+        "elements": []
       }
     ],
     "source": "Credentials credentials = userInf;"

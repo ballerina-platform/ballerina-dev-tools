@@ -159,7 +159,8 @@
           "std.lastName"
         ],
         "expression": "std.lastName",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "var1909.foo.bar.firstName",
@@ -167,7 +168,8 @@
           "std.firstName"
         ],
         "expression": "std.firstName",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Person var1909 = {\n    city: std.lastName,\n    foo: {bar: {firstName: std.firstName}}\n};"

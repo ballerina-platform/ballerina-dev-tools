@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "",
+        "value": "{contacts: [user.phoneNumber[0], user.phoneNumber[1], user.phoneNumber[2]]}",
         "optional": false,
         "editable": true
       },

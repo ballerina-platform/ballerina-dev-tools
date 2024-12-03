@@ -122,7 +122,8 @@
         "diagnostics": [
           "undeclared field '$missingNode$_0' in record 'UserInfo'",
           "missing identifier"
-        ]
+        ],
+        "elements": []
       }
     ],
     "source": "Student student = {username: userInfo.};"

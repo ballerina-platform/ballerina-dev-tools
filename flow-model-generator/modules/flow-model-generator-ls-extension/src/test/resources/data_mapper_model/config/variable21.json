@@ -160,7 +160,8 @@
           "std.lastName"
         ],
         "expression": "std.firstName + std.lastName",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "var1909.age",
@@ -168,7 +169,8 @@
           "std.stdAge"
         ],
         "expression": "std.stdAge",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Person var1909 = {name: std.firstName + std.lastName, age: std.stdAge};"

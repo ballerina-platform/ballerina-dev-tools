@@ -121,7 +121,8 @@
         "expression": "userInfo",
         "diagnostics": [
           "incompatible types: expected 'string', found 'UserInfo'"
-        ]
+        ],
+        "elements": []
       }
     ],
     "source": "Student student = {username: userInfo};"

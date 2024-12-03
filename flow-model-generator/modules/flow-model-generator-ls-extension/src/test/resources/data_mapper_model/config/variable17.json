@@ -176,7 +176,8 @@
         "output": "student.id",
         "inputs": [],
         "expression": "1234",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "student.credentials.0.username",
@@ -184,7 +185,8 @@
           "userInfo"
         ],
         "expression": "userInfo[0].username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "student.credentials.0.password",
@@ -192,13 +194,15 @@
           "userInfo"
         ],
         "expression": "userInfo[1].password",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "student.length",
         "inputs": [],
         "expression": "0",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Student student = {id: 1234, credentials: [{username: userInfo[0].username, password: userInfo[1].password}], length: 0};"

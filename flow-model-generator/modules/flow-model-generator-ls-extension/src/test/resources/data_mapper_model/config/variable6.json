@@ -119,7 +119,8 @@
           "userInfo.username"
         ],
         "expression": "userInfo.username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "student.password",
@@ -128,7 +129,8 @@
           "userInfo.username"
         ],
         "expression": "userInfo.password + userInfo.username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username};"

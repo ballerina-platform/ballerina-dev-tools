@@ -137,7 +137,8 @@
           "item.username"
         ],
         "expression": "item.username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "credentials.password",
@@ -145,7 +146,8 @@
           "item.password"
         ],
         "expression": "item.password",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Credentials[] credentials = from var item in userInfo\n    select {username: item.username, password: item.password};"

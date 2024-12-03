@@ -119,7 +119,8 @@
           "userInfo"
         ],
         "expression": "userInfo",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Credentials credentials = userInfo;"

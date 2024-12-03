@@ -159,7 +159,8 @@
           "std.lastName"
         ],
         "expression": "std.lastName\n",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Person var1909 = {\n    city: std.lastName\n};"

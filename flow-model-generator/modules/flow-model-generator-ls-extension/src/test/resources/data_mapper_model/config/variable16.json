@@ -131,7 +131,8 @@
           "userInfo"
         ],
         "expression": "userInfo[0].username",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       },
       {
         "output": "credentials.0.password",
@@ -139,7 +140,8 @@
           "userInfo"
         ],
         "expression": "userInfo[0].password",
-        "diagnostics": []
+        "diagnostics": [],
+        "elements": []
       }
     ],
     "source": "Credentials[] credentials = [{username: userInfo[0].username, password: userInfo[0].password}];"
