@@ -28,14 +28,14 @@ import io.ballerina.sequencemodelgenerator.core.CommonUtil;
  *
  * @param type  type of the expression
  * @param value value of the expression
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public record Expression(String type, String value) {
 
     /**
      * Represents a factory to create an {@link Expression} instance.
      *
-     * @since 2201.9.0
+     * @since 2.0.0
      */
     public static class Factory {
 

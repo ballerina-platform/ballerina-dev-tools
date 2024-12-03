@@ -59,7 +59,7 @@ import java.util.Optional;
 /**
  * Generates available nodes for a given position in the diagram.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class AvailableNodesGenerator {
 

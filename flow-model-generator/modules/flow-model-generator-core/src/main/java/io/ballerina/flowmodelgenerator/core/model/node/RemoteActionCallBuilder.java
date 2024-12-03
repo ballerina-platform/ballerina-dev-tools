@@ -43,7 +43,7 @@ import java.util.Set;
 /**
  * Represents the generalized action invocation node in the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class RemoteActionCallBuilder extends NodeBuilder {
 

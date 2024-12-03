@@ -28,7 +28,7 @@ package io.ballerina.flowmodelgenerator.core.db.model;
  * @param defaultValue the default value of the parameter
  * @param description  the description of the parameter
  * @param optional     whether the parameter is optional
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record ParameterResult(
         int parameterId,

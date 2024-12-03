@@ -43,7 +43,7 @@ import java.util.Optional;
 /**
  * Generates types of the visible variable types for the given cursor position.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class VisibleVariableTypesGenerator {
 
@@ -115,7 +115,7 @@ public class VisibleVariableTypesGenerator {
      *
      * @param name  the name of the category
      * @param types the list of variables in the category
-     * @since 1.4.0
+     * @since 2.0.0
      */
     private record Category(String name, List<Variable> types) {
 

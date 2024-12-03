@@ -32,7 +32,7 @@ import java.nio.file.Path;
 /**
  * Test cases for the flow model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ModelGeneratorTest extends AbstractLSTest {
 
@@ -62,15 +62,6 @@ public class ModelGeneratorTest extends AbstractLSTest {
             compareJsonElements(modifiedDiagram, testConfig.diagram());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @Override
-    protected String[] skipList() {
-        // TODO: Remove after fixing the log symbol issue
-        return new String[]{
-                "function_call-log1.json",
-                "currency_converter1.json"
-        };
     }
 
     @Override

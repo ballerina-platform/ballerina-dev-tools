@@ -37,12 +37,11 @@ import java.util.Map;
 /**
  * Tests for the wrapping function bodies with global error handlers.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ErrorHandlerGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -96,7 +95,6 @@ public class ErrorHandlerGeneratorTest extends AbstractLSTest {
     protected String getApiName() {
         return "addErrorHandler";
     }
-
 
     private record TestConfig(String description, String source, Map<String, List<TextEdit>> output) {
 

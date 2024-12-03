@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @param hasDiagnostics whether there are diagnostics
  * @param diagnostics    list of diagnostic information
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record Diagnostics(boolean hasDiagnostics, List<Info> diagnostics) {
 
@@ -37,7 +37,7 @@ public record Diagnostics(boolean hasDiagnostics, List<Info> diagnostics) {
      *
      * @param severity severity of the diagnostic
      * @param message  message of the diagnostic
-     * @since 1.4.0
+     * @since 2.0.0
      */
     public record Info(DiagnosticSeverity severity, String message) { }
 

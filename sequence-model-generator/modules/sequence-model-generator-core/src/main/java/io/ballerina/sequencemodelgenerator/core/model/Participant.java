@@ -31,7 +31,7 @@ import java.util.List;
  * @param moduleName Module name in which the participant is defined
  * @param nodes      sequence nodes of the participant
  * @param location   location of the participant
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public record Participant(String id, String name, ParticipantKind kind, String moduleName, List<SequenceNode> nodes,
                           LineRange location) {
@@ -39,7 +39,7 @@ public record Participant(String id, String name, ParticipantKind kind, String m
     /**
      * Represents the kind of the participant.
      *
-     * @since 2201.9.0
+     * @since 2.0.0
      */
     public enum ParticipantKind {
         FUNCTION,

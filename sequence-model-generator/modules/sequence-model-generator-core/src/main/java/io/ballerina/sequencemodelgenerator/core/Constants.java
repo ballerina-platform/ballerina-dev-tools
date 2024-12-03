@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.core;
 /**
  * Represents the constants used in the sequence model generator.
  *
- * @since 2201.9.0
+ * @since 2.0.0
  */
 public class Constants {
 

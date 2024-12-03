@@ -38,7 +38,7 @@ import java.util.Optional;
 /**
  * Generates types of the data mapper model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DataMapManager {
 

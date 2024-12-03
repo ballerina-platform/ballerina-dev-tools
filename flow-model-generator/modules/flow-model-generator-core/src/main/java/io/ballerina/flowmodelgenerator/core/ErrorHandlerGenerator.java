@@ -50,7 +50,7 @@ import java.util.Optional;
 /**
  * Generates error handlers for function definitions that does not contain a global error handler.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class ErrorHandlerGenerator {
 
@@ -99,6 +99,12 @@ public class ErrorHandlerGenerator {
         public void visit(FunctionDefinitionNode functionDefinitionNode) {
             // Check if the function already contains a global error handler
             FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
+
+            // Ignore if the function body is an expression bodied function
+            if (functionBodyNode.kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
+                return;
+            }
+
             ChildNodeList children = functionBodyNode.children();
             if (children.size() == 3 && children.get(1).kind() == SyntaxKind.DO_STATEMENT) {
                 return;

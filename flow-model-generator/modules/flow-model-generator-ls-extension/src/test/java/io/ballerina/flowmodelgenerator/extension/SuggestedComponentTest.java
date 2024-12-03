@@ -30,7 +30,7 @@ import java.nio.file.Path;
 /**
  * Tests for the package component service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class SuggestedComponentTest extends AbstractLSTest {
 
@@ -71,7 +71,7 @@ public class SuggestedComponentTest extends AbstractLSTest {
      *
      * @param source The source file
      * @param output The expected output
-     * @since 1.4.0
+     * @since 2.0.0
      */
     private record TestConfig(String source, JsonArray output) {
 

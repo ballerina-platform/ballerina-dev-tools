@@ -34,7 +34,7 @@ import java.util.Optional;
 /**
  * Represents both variable initialization to a new variable, and assignment of a value to an existing variable.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class AssignBuilder extends NodeBuilder {
 

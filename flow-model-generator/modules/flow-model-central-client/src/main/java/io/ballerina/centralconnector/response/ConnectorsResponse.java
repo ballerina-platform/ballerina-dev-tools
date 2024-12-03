@@ -29,7 +29,7 @@ import java.util.List;
  * @param count      The total number of connectors
  * @param offset     The offset for pagination
  * @param limit      The limit for pagination
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record ConnectorsResponse(List<Connector> connectors, int count, int offset, int limit) {
 }

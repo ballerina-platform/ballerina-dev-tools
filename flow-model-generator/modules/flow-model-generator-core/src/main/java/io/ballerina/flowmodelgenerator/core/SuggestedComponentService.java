@@ -25,7 +25,7 @@ import org.ballerinalang.langserver.extensions.ballerina.packages.BallerinaPacka
 /**
  * Represents the ballerina package component service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class SuggestedComponentService {
     private final BallerinaPackageService ballerinaPackageService;

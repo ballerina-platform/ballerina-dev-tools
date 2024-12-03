@@ -24,7 +24,7 @@ import java.util.List;
  * Represents the Connector API response from the GraphQL endpoint.
  *
  * @param data the data in the response
- * @since 1.4.0
+ * @since 2.0.0
  */
 public record ConnectorApiResponse(
         Data data

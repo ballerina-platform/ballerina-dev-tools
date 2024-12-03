@@ -34,7 +34,7 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
 /**
  * Represents a parameter entity of the table.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 @Entity
 @Table(name = "Parameter")

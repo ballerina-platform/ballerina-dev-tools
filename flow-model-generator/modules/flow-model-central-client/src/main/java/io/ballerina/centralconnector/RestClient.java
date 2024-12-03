@@ -30,7 +30,6 @@ import io.ballerina.projects.internal.model.Central;
 import io.ballerina.projects.internal.model.Proxy;
 import org.ballerinalang.central.client.CentralAPIClient;
 import org.ballerinalang.central.client.exceptions.CentralClientException;
-import org.ballerinalang.toml.exceptions.SettingsTomlException;
 import org.wso2.ballerinalang.util.RepoUtils;
 
 import java.io.BufferedReader;
@@ -47,7 +46,7 @@ import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
 /**
  * This class provides methods to interact with the Ballerina Central REST API.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 class RestClient {
 
@@ -62,11 +61,7 @@ class RestClient {
         gson = new Gson();
 
         Settings settings;
-        try {
-            settings = RepoUtils.readSettings();
-        } catch (SettingsTomlException e) {
-            throw new RuntimeException(e);
-        }
+        settings = RepoUtils.readSettings();
         Central central = settings.getCentral();
         Proxy proxy = settings.getProxy();
         centralClient = new CentralAPIClient(RepoUtils.getRemoteRepoURL(), initializeProxy(proxy), proxy.username(),

@@ -38,7 +38,7 @@ import java.util.Set;
 /**
  * Generates the context for the copilot service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class CopilotContextGenerator {
 

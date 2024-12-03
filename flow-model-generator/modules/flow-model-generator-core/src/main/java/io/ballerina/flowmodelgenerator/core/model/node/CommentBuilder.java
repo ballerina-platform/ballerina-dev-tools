@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Represents the properties of a comment node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class CommentBuilder extends NodeBuilder {
 

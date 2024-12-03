@@ -75,7 +75,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a builder for the flow node.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable {
 

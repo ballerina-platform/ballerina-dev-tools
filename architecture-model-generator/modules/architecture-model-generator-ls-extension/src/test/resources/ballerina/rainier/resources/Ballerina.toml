@@ -2,7 +2,7 @@
 org = "foo"
 name = "association"
 version = "0.1.0"
-distribution = "2201.3.0"
+distribution = "2201.11.0-20241117-133400-a3054b77"
 
 [build-options]
 observabilityIncluded = false
@@ -14,10 +14,10 @@ user = "root"
 password = "Test123#"
 database = "rainier_db"
 
-[[platform.java17.repository]]
+[[platform.java21.repository]]
 id="wso2-nexus"
 url = "https://maven.wso2.org/nexus/content/groups/public/"
 
-[[platform.java17.repository]]
+[[platform.java21.repository]]
 id="wso2-nexus-snapshot"
 url = "https://maven.wso2.org/nexus/content/repositories/snapshots/"

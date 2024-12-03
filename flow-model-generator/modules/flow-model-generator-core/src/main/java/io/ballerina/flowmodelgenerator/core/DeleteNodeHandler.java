@@ -55,7 +55,7 @@ import java.util.Map;
 /**
  * Generates text edits for the nodes that are requested to delete.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DeleteNodeHandler {
 

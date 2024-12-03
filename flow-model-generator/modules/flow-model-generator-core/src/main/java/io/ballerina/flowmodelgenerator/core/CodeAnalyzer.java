@@ -142,7 +142,7 @@ import java.util.stream.Collectors;
 /**
  * Analyzes the source code and generates the flow model.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 class CodeAnalyzer extends NodeVisitor {
 
