@@ -24,7 +24,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabili
 /**
  * Represents client capability setter for the trigger model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter")
 public class TriggerModelGeneratorClientCapabilitySetter extends

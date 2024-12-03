@@ -63,7 +63,7 @@ import java.util.stream.Collectors;
 /**
  * Common utility functions used in the project.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public final class Utils {
 

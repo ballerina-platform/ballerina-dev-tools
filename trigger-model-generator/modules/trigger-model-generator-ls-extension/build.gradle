@@ -97,46 +97,6 @@ task copyStdlibs() {
     }
 }
 
-// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
-    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
-        doLast {
-            def errOutput = new ByteArrayOutputStream()
-            def result = exec {
-                ignoreExitValue = true
-                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
-                } else {
-                    commandLine 'bal', 'pull', packageName
-                }
-                errorOutput = errOutput
-            }
-            if (result.exitValue != 0 && !errOutput.toString().contains("package already exists in the home repository")) {
-                println errOutput
-                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
-            }
-        }
-    }
-}
-
-// TODO: This should be removed once https://github.com/ballerina-platform/ballerina-distribution/issues/5811 is completed
-shadowJar {
-    archiveBaseName.set(project.name)
-    archiveClassifier.set('')
-    archiveVersion.set(project.version.toString())
-    configurations = [project.configurations.runtimeClasspath]
-    dependencies {
-        include(dependency("org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"))
-        exclude('META-INF/*.SF')
-        exclude('META-INF/*.DSA')
-        exclude('META-INF/*.RSA')
-    }
-}
-
-test.dependsOn pullBallerinaModule('ballerinax/redis')
-test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
-test.dependsOn pullBallerinaModule('ballerinax/github')
-
 test {
     dependsOn {
         copyStdlibs

@@ -23,7 +23,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabili
 /**
  * Represents client capabilities for the trigger model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class TriggerModelGeneratorClientCapabilities extends BallerinaClientCapability {
 

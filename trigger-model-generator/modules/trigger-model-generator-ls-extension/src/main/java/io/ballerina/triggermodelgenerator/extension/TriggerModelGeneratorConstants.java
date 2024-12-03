@@ -21,7 +21,7 @@ package io.ballerina.triggermodelgenerator.extension;
 /**
  * Represents constants for the trigger model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class TriggerModelGeneratorConstants {
     public static final String CAPABILITY_NAME = "triggerModel";

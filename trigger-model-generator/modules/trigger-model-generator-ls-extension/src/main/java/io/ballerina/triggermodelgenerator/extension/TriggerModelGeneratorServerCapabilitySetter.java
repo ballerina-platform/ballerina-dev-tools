@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Represents server capability setter for the trigger model generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaServerCapabilitySetter")
 public class TriggerModelGeneratorServerCapabilitySetter extends
