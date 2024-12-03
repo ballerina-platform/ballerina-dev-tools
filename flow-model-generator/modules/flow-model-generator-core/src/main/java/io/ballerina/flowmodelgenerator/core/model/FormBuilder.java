@@ -665,6 +665,66 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> name(String value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_NAME_LABEL)
+                    .description(Property.TYPE_NAME_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.IDENTIFIER);
+        addProperty(Property.NAME_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> description(String value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_NAME_LABEL)
+                    .description(Property.TYPE_NAME_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.IDENTIFIER);
+        addProperty(Property.DESCRIPTION_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> isArray(String value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_NAME_LABEL)
+                    .description(Property.TYPE_NAME_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.IDENTIFIER);
+        addProperty(Property.IS_ARRAY_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> arraySize(String value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_NAME_LABEL)
+                    .description(Property.TYPE_NAME_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.IDENTIFIER);
+        addProperty(Property.ARRAY_SIZE);
+        return this;
+    }
+
     public final void addProperty(String key) {
         addProperty(key, (Node) null);
     }

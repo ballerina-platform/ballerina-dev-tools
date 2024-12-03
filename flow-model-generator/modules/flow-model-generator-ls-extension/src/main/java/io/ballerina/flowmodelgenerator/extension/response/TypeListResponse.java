@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 /**
