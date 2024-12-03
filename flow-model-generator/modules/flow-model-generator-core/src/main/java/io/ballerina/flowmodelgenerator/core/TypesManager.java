@@ -19,8 +19,8 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
@@ -31,6 +31,10 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.flowmodelgenerator.core.model.Member;
+import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.projects.Package;
+import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +51,13 @@ import java.util.stream.Collectors;
  */
 public class TypesManager {
     private static final Gson gson = new Gson();
+    private final Package currentPackage;
 
-    private static Predicate<Symbol> supportedTypesPredicate = symbol -> {
+    private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
+        if (symbol.getName().isEmpty()) {
+            return false;
+        }
+
         if (symbol.kind().equals(SymbolKind.ENUM)) {
             return true;
         }
@@ -58,7 +67,7 @@ public class TypesManager {
         }
 
         switch (((TypeDefinitionSymbol) symbol).typeDescriptor().typeKind()) {
-            case RECORD, ARRAY, TUPLE, UNION, ERROR -> {
+            case RECORD, ARRAY, UNION, ERROR -> {
                 return true;
             }
             default -> {
@@ -67,26 +76,41 @@ public class TypesManager {
         }
     };
 
-    public static JsonElement getAllTypes(SemanticModel semanticModel) {
+    public TypesManager(Package currentPackage) {
+        this.currentPackage = currentPackage;
+    }
+
+    public JsonElement getAllTypes() {
+        SemanticModel semanticModel = this.currentPackage.getDefaultModule().getCompilation().getSemanticModel();
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
                 .filter(supportedTypesPredicate)
-                .collect(Collectors.toMap(symbol -> symbol.getName().orElse(""), symbol -> symbol));
+                .collect(Collectors.toMap(symbol -> symbol.getName().get(), symbol -> symbol));
 
         // Now we have all the defined types in the module scope
         // Now we need to get foreign types that we have defined members of the types
         // e.g: ballerina\time:UTC in Person record as a type of field `dateOfBirth`
-        symbolMap.forEach((key, element) -> {
+        new HashMap<>(symbolMap).forEach((key, element) -> {
             if (!element.kind().equals(SymbolKind.TYPE_DEFINITION)) {
                 return;
             }
             TypeSymbol typeSymbol = ((TypeDefinitionSymbol) element).typeDescriptor();
-            addForeignTypes(typeSymbol, symbolMap);
+            addMemberTypes(typeSymbol, symbolMap);
         });
 
-        return gson.toJsonTree(symbolMap.keySet());
+        List<TypeData> allTypes = new ArrayList<>();
+        symbolMap.values().forEach(symbol -> {
+            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
+                TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol;
+                if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
+                    allTypes.add(getRecordType(typeDef));
+                }
+            }
+        });
+
+        return gson.toJsonTree(allTypes);
     }
 
-    private static void addForeignTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
+    private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
         // Record
         if (typeSymbol.typeKind().equals(TypeDescKind.RECORD)) {
             RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
@@ -94,32 +118,34 @@ public class TypesManager {
             // Type inclusions
             List<TypeSymbol> inclusions = recordTypeSymbol.typeInclusions();
             inclusions.forEach(inc -> {
-                addToForeignSymbolsIfNotAdded(symbolMap, inc);
+                addToMapIfForeignAndNotAdded(symbolMap, inc);
             });
 
             // Rest field
             Optional<TypeSymbol> restTypeDescriptor = recordTypeSymbol.restTypeDescriptor();
             if (restTypeDescriptor.isPresent()) {
                 TypeSymbol restType = restTypeDescriptor.get();
-                addToForeignSymbolsIfNotAdded(symbolMap, restType);
+                addToMapIfForeignAndNotAdded(symbolMap, restType);
             }
-            
+
             // Field members
             Map<String, RecordFieldSymbol> fieldSymbolMap = recordTypeSymbol.fieldDescriptors();
             fieldSymbolMap.forEach((key, field) -> {
                 TypeSymbol ts = field.typeDescriptor();
-                addToForeignSymbolsIfNotAdded(symbolMap, ts);
+                addToMapIfForeignAndNotAdded(symbolMap, ts);
             });
         }
 
         // Union
         if (typeSymbol.typeKind().equals(TypeDescKind.UNION)) {
             UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            List<TypeSymbol> unionMembers = unionTypeSymbol.userSpecifiedMemberTypes();
+            List<TypeSymbol> unionMembers = unionTypeSymbol.memberTypeDescriptors();
             unionMembers.forEach(member -> {
-                addToForeignSymbolsIfNotAdded(symbolMap, member);
-                // TODO: Handle union within the union type (e.g. type UnionType Color|(Person|User);
-                // TODO: Handle different kinds within a union type. (e.g. type UnionType Color|time:UTC[])
+                if (member.typeKind().equals(TypeDescKind.ARRAY)) {
+                    addMemberTypes(member, symbolMap);
+                } else {
+                    addToMapIfForeignAndNotAdded(symbolMap, member);
+                }
             });
         }
 
@@ -129,20 +155,116 @@ public class TypesManager {
             TypeSymbol arrMemberTypeDesc = arrayTypeSymbol.memberTypeDescriptor();
             if (arrMemberTypeDesc.typeKind().equals(TypeDescKind.ARRAY)
                     || arrMemberTypeDesc.typeKind().equals(TypeDescKind.UNION)) {
-                addForeignTypes(arrayTypeSymbol, symbolMap);
+                addMemberTypes(arrMemberTypeDesc, symbolMap);
             } else {
-                addToForeignSymbolsIfNotAdded(symbolMap, arrMemberTypeDesc);
+                addToMapIfForeignAndNotAdded(symbolMap, arrMemberTypeDesc);
             }
         }
     }
 
-    private static void addToForeignSymbolsIfNotAdded(Map<String, Symbol> foreignSymbols, TypeSymbol inc) {
-        if (isForeignType(inc) && !foreignSymbols.containsKey(inc.getName().get())) {
-            foreignSymbols.put(inc.getName().get(), inc);
+    private void addToMapIfForeignAndNotAdded(Map<String, Symbol> foreignSymbols, TypeSymbol type) {
+        if (!type.typeKind().equals(TypeDescKind.TYPE_REFERENCE)
+                || type.getName().isEmpty()
+                || type.getModule().isEmpty()) {
+            return;
+        }
+
+        String name = type.getName().get();
+
+        if (!isForeignType(type)) {
+            return;
+        }
+
+        String typeName = getTypeName(type);
+        if (!foreignSymbols.containsKey(name)) {
+            foreignSymbols.put(typeName, type);
         }
     }
 
-    private static boolean isForeignType(TypeSymbol type) {
-        return true;
+    private TypeData getRecordType(TypeDefinitionSymbol recTypeDefSymbol) {
+        TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
+        String typeName = getTypeName(recTypeDefSymbol);
+        typeDataBuilder
+                .name(typeName)
+                .editable()
+                .metadata()
+                    .label(typeName)
+                    .description(recTypeDefSymbol.documentation().isEmpty() ? "" :
+                            recTypeDefSymbol.documentation().get().description().orElse(""))
+                    .stepOut()
+                .codedata()
+                    .lineRange(recTypeDefSymbol.getLocation().get().lineRange())
+                    .kind(TypeKind.RECORD);
+
+        // properties
+        typeDataBuilder.properties()
+                .name(typeName, false, true, false)
+                .description(
+                        recTypeDefSymbol.documentation().isEmpty() ? ""
+                                : recTypeDefSymbol.documentation().get().description().orElse(""),
+                        false, true, false)
+                .isArray("false", true, true, true)
+                .arraySize("", true, true, true);
+
+        RecordTypeSymbol typeDesc = (RecordTypeSymbol) recTypeDefSymbol.typeDescriptor();
+
+        // includes
+        List<String> inclusions = new ArrayList<>();
+        typeDesc.typeInclusions().forEach(inc -> {
+            if (inc.typeKind() == TypeDescKind.TYPE_REFERENCE) {
+                inclusions.add(getTypeName(inc));
+            }
+        });
+        typeDataBuilder.includes(inclusions);
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+
+        // rest member
+        Optional<TypeSymbol> restTypeDesc = typeDesc.restTypeDescriptor();
+        if (restTypeDesc.isPresent()) {
+            TypeSymbol restTypeSymbol = restTypeDesc.get();
+            typeDataBuilder.restMember(memberBuilder
+                    .kind(Member.MemberKind.FIELD)
+                    .type(restTypeSymbol.signature())
+                    .ref(isForeignType(restTypeSymbol) ? getTypeName(restTypeSymbol) : restTypeSymbol.signature())
+                    .build());
+        }
+
+        // members
+        Map<String, Member> fieldMembers = new HashMap<>();
+        typeDesc.fieldDescriptors().forEach((name, field) -> {
+            TypeSymbol fieldTypeDesc = field.typeDescriptor();
+            fieldMembers.put(name,
+                    memberBuilder
+                            .kind(Member.MemberKind.FIELD)
+                            .ref(isForeignType(fieldTypeDesc) ? getTypeName(fieldTypeDesc) : fieldTypeDesc.signature())
+                            .name(name)
+                            .docs(field.documentation().isEmpty() ? ""
+                                    : field.documentation().get().description().orElse(""))
+                            // TODO: Add default value
+                            .build());
+        });
+
+        // TODO: Add support for annotations
+
+        return typeDataBuilder.build();
+    }
+
+    private boolean isForeignType(Symbol symbol) {
+        if (symbol.getModule().isEmpty()) {
+            return false;
+        }
+        ModuleID moduleId = symbol.getModule().get().id();
+        return !(this.currentPackage.packageName().value().equals(moduleId.packageName())
+                && this.currentPackage.packageOrg().value().equals(moduleId.orgName()));
+    }
+
+    private String getTypeName(Symbol symbol) {
+        if (!isForeignType(symbol)) {
+            return symbol.getName().get();
+        }
+        String name = symbol.getName().get();
+        ModuleID moduleId = symbol.getModule().get().id();
+        return String.format("%s/%s:%s", moduleId.orgName(), moduleId.packageName(), name);
     }
 }
