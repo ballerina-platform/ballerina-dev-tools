@@ -165,7 +165,7 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new TriggerModelGenResponse();
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
@@ -240,7 +240,7 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new TriggerCommonResponse();
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
@@ -311,7 +311,7 @@ public class TriggerModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new TriggerCommonResponse();
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
