@@ -45,9 +45,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Generates text edits for the nodes that are requested to delete.
+ * Manage creation, retrieving and updating operations related to types.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class TypesManager {
     private static final Gson gson = new Gson();
@@ -58,11 +58,11 @@ public class TypesManager {
             return false;
         }
 
-        if (symbol.kind().equals(SymbolKind.ENUM)) {
+        if (symbol.kind() == SymbolKind.ENUM) {
             return true;
         }
 
-        if (!symbol.kind().equals(SymbolKind.TYPE_DEFINITION)) {
+        if (symbol.kind() != SymbolKind.TYPE_DEFINITION) {
             return false;
         }
 
@@ -90,7 +90,7 @@ public class TypesManager {
         // Now we need to get foreign types that we have defined members of the types
         // e.g: ballerina\time:UTC in Person record as a type of field `dateOfBirth`
         new HashMap<>(symbolMap).forEach((key, element) -> {
-            if (!element.kind().equals(SymbolKind.TYPE_DEFINITION)) {
+            if (element.kind() != SymbolKind.TYPE_DEFINITION) {
                 return;
             }
             TypeSymbol typeSymbol = ((TypeDefinitionSymbol) element).typeDescriptor();
@@ -112,7 +112,7 @@ public class TypesManager {
 
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
         // Record
-        if (typeSymbol.typeKind().equals(TypeDescKind.RECORD)) {
+        if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
             RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
 
             // Type inclusions
@@ -137,11 +137,11 @@ public class TypesManager {
         }
 
         // Union
-        if (typeSymbol.typeKind().equals(TypeDescKind.UNION)) {
+        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
             UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
             List<TypeSymbol> unionMembers = unionTypeSymbol.memberTypeDescriptors();
             unionMembers.forEach(member -> {
-                if (member.typeKind().equals(TypeDescKind.ARRAY)) {
+                if (member.typeKind() == TypeDescKind.ARRAY) {
                     addMemberTypes(member, symbolMap);
                 } else {
                     addToMapIfForeignAndNotAdded(symbolMap, member);
@@ -150,11 +150,11 @@ public class TypesManager {
         }
 
         // Array
-        if (typeSymbol.typeKind().equals(TypeDescKind.ARRAY)) {
+        if (typeSymbol.typeKind() == TypeDescKind.ARRAY) {
             ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
             TypeSymbol arrMemberTypeDesc = arrayTypeSymbol.memberTypeDescriptor();
-            if (arrMemberTypeDesc.typeKind().equals(TypeDescKind.ARRAY)
-                    || arrMemberTypeDesc.typeKind().equals(TypeDescKind.UNION)) {
+            if (arrMemberTypeDesc.typeKind() == TypeDescKind.ARRAY
+                    || arrMemberTypeDesc.typeKind() == TypeDescKind.UNION) {
                 addMemberTypes(arrMemberTypeDesc, symbolMap);
             } else {
                 addToMapIfForeignAndNotAdded(symbolMap, arrMemberTypeDesc);
@@ -163,7 +163,7 @@ public class TypesManager {
     }
 
     private void addToMapIfForeignAndNotAdded(Map<String, Symbol> foreignSymbols, TypeSymbol type) {
-        if (!type.typeKind().equals(TypeDescKind.TYPE_REFERENCE)
+        if (type.typeKind() != TypeDescKind.TYPE_REFERENCE
                 || type.getName().isEmpty()
                 || type.getModule().isEmpty()) {
             return;

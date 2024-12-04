@@ -18,12 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import com.google.gson.JsonElement;
+
 /**
  * Represents the request to get types.
  *
- * @param projectPath path of the project
- *
+ * @param typesFilePath path of the type file
+ * @param type new type data
  * @since 2.0.0
  */
-public record TypeListGetRequest(String projectPath) {
+public record TypeUpdateRequest(String typesFilePath, JsonElement type) {
 }

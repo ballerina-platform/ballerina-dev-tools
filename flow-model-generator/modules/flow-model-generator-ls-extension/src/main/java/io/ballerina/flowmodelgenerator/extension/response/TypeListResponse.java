@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 /**
  * Represents the response for the list of types.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class TypeListResponse extends AbstractFlowModelResponse {
 
