@@ -126,22 +126,30 @@
     },
     "mappings": [
       {
-        "output": "credentials.0.username",
-        "inputs": [
-          "userInfo"
-        ],
-        "expression": "userInfo[0].username",
+        "output": "credentials",
+        "inputs": [],
+        "expression": "[{username: userInfo[0].username, password: userInfo[0].password}]",
         "diagnostics": [],
-        "elements": []
-      },
-      {
-        "output": "credentials.0.password",
-        "inputs": [
-          "userInfo"
-        ],
-        "expression": "userInfo[0].password",
-        "diagnostics": [],
-        "elements": []
+        "elements": [
+          {
+            "output": "credentials.0.username",
+            "inputs": [
+              "userInfo"
+            ],
+            "expression": "userInfo[0].username",
+            "diagnostics": [],
+            "elements": []
+          },
+          {
+            "output": "credentials.0.password",
+            "inputs": [
+              "userInfo"
+            ],
+            "expression": "userInfo[0].password",
+            "diagnostics": [],
+            "elements": []
+          }
+        ]
       }
     ],
     "source": "Credentials[] credentials = [{username: userInfo[0].username, password: userInfo[0].password}];"

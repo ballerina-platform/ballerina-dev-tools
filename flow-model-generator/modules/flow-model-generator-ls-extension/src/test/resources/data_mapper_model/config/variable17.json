@@ -180,22 +180,30 @@
         "elements": []
       },
       {
-        "output": "student.credentials.0.username",
-        "inputs": [
-          "userInfo"
-        ],
-        "expression": "userInfo[0].username",
+        "output": "student.credentials",
+        "inputs": [],
+        "expression": "[{username: userInfo[0].username, password: userInfo[1].password}]",
         "diagnostics": [],
-        "elements": []
-      },
-      {
-        "output": "student.credentials.0.password",
-        "inputs": [
-          "userInfo"
-        ],
-        "expression": "userInfo[1].password",
-        "diagnostics": [],
-        "elements": []
+        "elements": [
+          {
+            "output": "student.credentials.0.username",
+            "inputs": [
+              "userInfo"
+            ],
+            "expression": "userInfo[0].username",
+            "diagnostics": [],
+            "elements": []
+          },
+          {
+            "output": "student.credentials.0.password",
+            "inputs": [
+              "userInfo"
+            ],
+            "expression": "userInfo[1].password",
+            "diagnostics": [],
+            "elements": []
+          }
+        ]
       },
       {
         "output": "student.length",

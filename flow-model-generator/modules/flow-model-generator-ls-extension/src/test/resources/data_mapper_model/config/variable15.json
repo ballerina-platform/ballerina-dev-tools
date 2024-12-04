@@ -124,7 +124,15 @@
       "typeName": "Credentials[]",
       "kind": "array"
     },
-    "mappings": [],
+    "mappings": [
+      {
+        "output": "credentials",
+        "inputs": [],
+        "expression": "[]",
+        "diagnostics": [],
+        "elements": []
+      }
+    ],
     "source": "Credentials[] credentials = [];"
   }
 }

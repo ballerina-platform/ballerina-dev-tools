@@ -124,7 +124,43 @@
       "typeName": "Person",
       "kind": "record"
     },
-    "mappings": [],
-    "source": "Person u;"
+    "mappings": [
+      {
+        "output": "u.contacts",
+        "inputs": [],
+        "expression": "[user.phoneNumber[0], user.phoneNumber[1], user.phoneNumber[2]]",
+        "diagnostics": [],
+        "elements": [
+          {
+            "output": "u.contacts.0",
+            "inputs": [
+              "user.phoneNumber.0"
+            ],
+            "expression": "user.phoneNumber[0]",
+            "diagnostics": [],
+            "elements": []
+          },
+          {
+            "output": "u.contacts.1",
+            "inputs": [
+              "user.phoneNumber.1"
+            ],
+            "expression": "user.phoneNumber[1]",
+            "diagnostics": [],
+            "elements": []
+          },
+          {
+            "output": "u.contacts.2",
+            "inputs": [
+              "user.phoneNumber.2"
+            ],
+            "expression": "user.phoneNumber[2]",
+            "diagnostics": [],
+            "elements": []
+          }
+        ]
+      }
+    ],
+    "source": "Person u = {contacts: [user.phoneNumber[0], user.phoneNumber[1], user.phoneNumber[2]]};"
   }
 }

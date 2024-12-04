@@ -39,6 +39,7 @@ import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
+import io.ballerina.compiler.syntax.tree.IndexedExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
@@ -294,7 +295,7 @@ public class DataMapManager {
                     List<String> inputs = new ArrayList<>();
                     genInputs(fieldExpr, inputs);
                     Mapping mapping = new Mapping(name + "." + f.fieldName().toSourceCode().trim(), inputs,
-                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel));
+                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel), new ArrayList<>());
                     mappings.add(mapping);
                 }
             }
@@ -306,7 +307,7 @@ public class DataMapManager {
         List<String> inputs = new ArrayList<>();
         genInputs(varRef, inputs);
         Mapping mapping = new Mapping(name, inputs, varRef.toSourceCode(),
-                getDiagnostics(varRef.lineRange(), semanticModel));
+                getDiagnostics(varRef.lineRange(), semanticModel), new ArrayList<>());
         mappings.add(mapping);
     }
 
@@ -314,13 +315,19 @@ public class DataMapManager {
                             SemanticModel semanticModel) {
         SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
         int size = expressions.size();
+        List<Mapping> mappingElements = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Node expr = expressions.get(i);
-            if (expr.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
-                continue;
+            if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                genMapping((MappingConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
             }
-            genMapping((MappingConstructorExpressionNode) expr, mappings, name + "." + i, semanticModel);
+            else if (expr.kind() == SyntaxKind.INDEXED_EXPRESSION) {
+                genMapping((IndexedExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
+            }
         }
+        List<String> inputs = new ArrayList<>();
+        Mapping mapping = new Mapping(name, inputs, listCtrExpr.toSourceCode(), getDiagnostics(listCtrExpr.lineRange(), semanticModel), mappingElements);
+        mappings.add(mapping);
     }
 
     private void genMapping(QueryExpressionNode queryExpr, List<Mapping> mappings, String name,
@@ -335,6 +342,16 @@ public class DataMapManager {
         if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
             genMapping((MappingConstructorExpressionNode) expr, mappings, name, semanticModel);
         }
+    }
+
+    private void genMapping(IndexedExpressionNode indexedExprNode, List<Mapping> mappings, String name,
+                            SemanticModel semanticModel) {
+        String indexedExprSource = indexedExprNode.toSourceCode();
+        List<String> inputs = new ArrayList<>();
+        inputs.add(indexedExprSource.replace("[", ".").substring(0, indexedExprSource.length() - 1)); // TODO: Change this
+        // TODO: check element here
+        Mapping mapping = new Mapping(name, inputs, indexedExprSource, getDiagnostics(indexedExprNode.lineRange(), semanticModel), new ArrayList<>());
+        mappings.add(mapping);
     }
 
     private void genInputs(Node expr, List<String> inputs) {
@@ -717,7 +734,7 @@ public class DataMapManager {
 
     }
 
-    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics) {
+    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics, List<Mapping> elements) {
 
     }
 
