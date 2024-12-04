@@ -1,7 +1,8 @@
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.flowmodelgenerator.extension.typesmanager;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeListGetRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
