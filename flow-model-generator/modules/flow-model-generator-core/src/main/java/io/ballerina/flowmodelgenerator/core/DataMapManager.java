@@ -256,8 +256,12 @@ public class DataMapManager {
         SyntaxKind exprKind = expressionNode.kind();
         if (exprKind == SyntaxKind.MAPPING_CONSTRUCTOR) {
             genMapping((MappingConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
-        } else if (exprKind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            genMapping((SimpleNameReferenceNode) expressionNode, mappings, name, semanticModel);
+        } else {
+            List<String> inputs = new ArrayList<>();
+            genInputs(expressionNode, inputs);
+            Mapping mapping = new Mapping(name, inputs, expressionNode.toSourceCode(),
+                    getDiagnostics(expressionNode.lineRange(), semanticModel), new ArrayList<>());
+            mappings.add(mapping);
         }
     }
 
@@ -268,10 +272,14 @@ public class DataMapManager {
             genMapping((ListConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
         } else if (exprKind == SyntaxKind.QUERY_EXPRESSION) {
             genMapping((QueryExpressionNode) expressionNode, mappings, name, semanticModel);
-        } else if (exprKind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            genMapping((SimpleNameReferenceNode) expressionNode, mappings, name, semanticModel);
+        } else {
+            // TODO: Move this to a new method
+            List<String> inputs = new ArrayList<>();
+            genInputs(expressionNode, inputs);
+            Mapping mapping = new Mapping(name, inputs, expressionNode.toSourceCode(),
+                    getDiagnostics(expressionNode.lineRange(), semanticModel), new ArrayList<>());
+            mappings.add(mapping);
         }
-
     }
 
     private void genMapping(MappingConstructorExpressionNode mappingCtrExpr, List<Mapping> mappings, String name,
@@ -302,15 +310,6 @@ public class DataMapManager {
         }
     }
 
-    private void genMapping(SimpleNameReferenceNode varRef, List<Mapping> mappings, String name,
-                            SemanticModel semanticModel) {
-        List<String> inputs = new ArrayList<>();
-        genInputs(varRef, inputs);
-        Mapping mapping = new Mapping(name, inputs, varRef.toSourceCode(),
-                getDiagnostics(varRef.lineRange(), semanticModel), new ArrayList<>());
-        mappings.add(mapping);
-    }
-
     private void genMapping(ListConstructorExpressionNode listCtrExpr, List<Mapping> mappings, String name,
                             SemanticModel semanticModel) {
         SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
@@ -320,9 +319,11 @@ public class DataMapManager {
             Node expr = expressions.get(i);
             if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
                 genMapping((MappingConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
-            }
-            else if (expr.kind() == SyntaxKind.INDEXED_EXPRESSION) {
-                genMapping((IndexedExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
+            } else {
+                List<String> inputs = new ArrayList<>();
+                genInputs(expr, inputs);
+                Mapping mapping = new Mapping(name + "." + i, inputs, expr.toSourceCode(), getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
+                mappingElements.add(mapping);
             }
         }
         List<String> inputs = new ArrayList<>();
@@ -384,6 +385,9 @@ public class DataMapManager {
                     genInputs(field, inputs);
                 }
             }
+        } else if (kind == SyntaxKind.INDEXED_EXPRESSION) {
+            String source = expr.toSourceCode().trim();
+            inputs.add(expr.toSourceCode().replace("[", ".").substring(0, source.length() - 1));
         }
     }
 
