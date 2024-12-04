@@ -1,0 +1,300 @@
+{
+  "id": 9,
+  "name": "Directory Service",
+  "type": "file",
+  "displayName": "File",
+  "documentation": "The File directory service can be attached to a File listener which listens to the files changes, such as file creation, deletion, and modification, in a specified directory, and trigger the service",
+  "moduleName": "file",
+  "orgName": "ballerina",
+  "packageName": "file",
+  "version": "1.10.0",
+  "listenerProtocol": "file",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_file_1.10.0.png",
+  "displayAnnotation": {
+    "label": "FTP",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "listenerConfig": {
+      "metadata": {
+        "label": "Listener Configuration",
+        "description": "The File listener configuration",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "file:ListenerConfig",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "properties": {
+        "path": {
+          "metadata": {
+            "label": "Path",
+            "description": "Directory path which need to listen"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "\"/Users/ballerina/Documents/ballerina-integrator/triggers-design\"",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"/Users/ballerina/Documents/ballerina-integrator/triggers-design\"",
+          "optional": false,
+          "advanced": false
+        },
+        "recursive": {
+          "metadata": {
+            "label": "Recursive",
+            "description": "Recursively monitor all sub folders or not in the given direcotry path"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "false",
+          "valueType": "BOOLEAN",
+          "isType": false,
+          "valueTypeConstraint": "boolean",
+          "placeholder": "false",
+          "optional": true,
+          "advanced": true
+        }
+      }
+    },
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the Service",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "inDisplayAnnotation": true
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "Directory Service",
+      "valueType": "STRING",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    }
+  },
+  "service": {
+    "name": "File",
+    "description": "Directory Service",
+    "enabled": true,
+    "functions": [
+      {
+        "metadata": {
+          "label": "onCreate",
+          "description": "The `onCreate` remote method will be triggered when a file is created in the specified directory"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The File event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onCreate",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onCreate",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "event",
+              "description": "The File event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "The File event",
+                "description": "The File event"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "event",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "file:FileEvent",
+              "isType": true,
+              "placeholder": "file:FileEvent",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "label": "onDelete",
+          "description": "The `onDelete` remote method will be triggered when a file is deleted in the specified directory"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The File event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onDelete",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onDelete",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "event",
+              "description": "The File event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "The File event",
+                "description": "The File event"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "event",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "file:FileEvent",
+              "isType": true,
+              "placeholder": "file:FileEvent",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "label": "onModify",
+          "description": "The `onModify` remote method will be triggered when a file is modified in the specified directory"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The File event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onModify",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onModify",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "event",
+              "description": "The File event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "The File event",
+                "description": "The File event"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "event",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "file:FileEvent",
+              "isType": true,
+              "placeholder": "file:FileEvent",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ]
+      }
+    ]
+  }
+}

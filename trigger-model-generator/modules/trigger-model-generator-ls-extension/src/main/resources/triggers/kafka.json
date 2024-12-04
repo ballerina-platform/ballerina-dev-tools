@@ -1,0 +1,1246 @@
+{
+  "id": 1,
+  "name": "Kafka Service",
+  "type": "event",
+  "displayName": "Kafka",
+  "documentation": "The Kafka service can be attached to a Kafka listener which listens to Kafka topic(s) and triggers the service when a message is received for Kafka topic(s). The service should implement the `onConsumerRecord` remote method to process the received message(s). Additionally, the service can implement the `onError` remote method to handle errors that occur during the message processing.",
+  "moduleName": "kafka",
+  "orgName": "ballerinax",
+  "packageName": "kafka",
+  "version": "4.2.0",
+  "listenerProtocol": "kafka",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+  "displayAnnotation": {
+    "label": "Kafka",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "bootstrapServers": {
+      "metadata": {
+        "label": "Bootstrap Servers",
+        "description": "The Kafka bootstrap server URL. For a clustered use case, provide a comma-separated list of URLs",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION_SET",
+      "valueTypeConstraint": "string|string[]",
+      "isType": false,
+      "placeholder": "\"localhost:9092\"",
+      "optional": false,
+      "advanced": false
+    },
+    "groupId": {
+      "metadata": {
+        "label": "Group ID",
+        "description": "Unique string that identifies the consumer",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
+    "topics": {
+      "metadata": {
+        "label": "Topics",
+        "description": "Topics to be subscribed by the consumer",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION_SET",
+      "valueTypeConstraint": "string|string[]",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the Service",
+        "groupNo": "2",
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "inDisplayAnnotation": true
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "STRING",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
+    "offsetReset": {
+      "metadata": {
+        "label": "Offset Reset Strategy",
+        "description": "Offset reset strategy if no initial offset",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"earliest\"",
+        "\"latest\"",
+        "\"none\""
+      ]
+    },
+    "partitionAssignmentStrategy": {
+      "metadata": {
+        "label": "Partition Assignment Strategy",
+        "description": "Strategy class for handling the partition assignment among consumers",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metricsRecordingLevel": {
+      "metadata": {
+        "label": "Metrics Recording Level",
+        "description": "Metrics recording level",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metricsReporterClasses": {
+      "metadata": {
+        "label": "Metrics Reporter Classes",
+        "description": "Metrics reporter classes",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "clientId": {
+      "metadata": {
+        "label": "Client ID",
+        "description": "Identifier to be used for server side logging",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "interceptorClasses": {
+      "metadata": {
+        "label": "Interceptor Classes",
+        "description": "Interceptor classes to be used before sending the records",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "isolationLevel": {
+      "metadata": {
+        "label": "Isolation Level",
+        "description": "Transactional message reading method",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"read_committed\"",
+        "\"read_uncommitted\""
+      ]
+    },
+    "schemaRegistryUrl": {
+      "metadata": {
+        "label": "Schema Registry URL",
+        "description": "Avro schema registry URL. Use this field to specify the schema registry URL, if the Avro serializer is used",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "additionalProperties": {
+      "metadata": {
+        "label": "Additional Properties",
+        "description": "Additional properties for the property fields not provided by the Ballerina `kafka` module. Use this with caution since this can override any of the fields. It is not recommended to use this field except in an extreme situation",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "map<string>",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "sessionTimeout": {
+      "metadata": {
+        "label": "Session Timeout",
+        "description": "Timeout (in seconds) used to detect consumer failures when the heartbeat threshold is reached",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "heartBeatInterval": {
+      "metadata": {
+        "label": "Heartbeat Interval",
+        "description": "Expected time (in seconds) between the heartbeats",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metadataMaxAge": {
+      "metadata": {
+        "label": "Metadata Maximum Age",
+        "description": "Maximum time (in seconds) to force a refresh of metadata",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "autoCommitInterval": {
+      "metadata": {
+        "label": "Auto Commit Interval",
+        "description": "Auto committing interval (in seconds) for commit offset when auto-committing is enabled",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "maxPartitionFetchBytes": {
+      "metadata": {
+        "label": "Maximum Partition Fetch Bytes",
+        "description": "The maximum amount of data the server returns per partition",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "sendBuffer": {
+      "metadata": {
+        "label": "Send Buffer Size",
+        "description": "Size of the TCP send buffer (SO_SNDBUF)",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "receiveBuffer": {
+      "metadata": {
+        "label": "Receive Buffer Size",
+        "description": "Size of the TCP receive buffer (SO_RCVBUF)",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "fetchMinBytes": {
+      "metadata": {
+        "label": "Fetch Minimum Bytes",
+        "description": "Minimum amount of data the server should return for a fetch request",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "fetchMaxBytes": {
+      "metadata": {
+        "label": "Fetch Max Bytes",
+        "description": "Maximum amount of data the server should return for a fetch request",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "fetchMaxWaitTime": {
+      "metadata": {
+        "label": "Fetch Max Wait Time",
+        "description": "Maximum amount of time (in seconds) the server will block before answering the fetch request",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "reconnectBackoffTimeMax": {
+      "metadata": {
+        "label": "Maximum Reconnect Backoff Time",
+        "description": "Maximum amount of time in seconds to wait when reconnecting",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "retryBackoff": {
+      "metadata": {
+        "label": "Retry Backoff Time",
+        "description": "Time (in seconds) to wait before attempting to retry a failed request",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "metricsSampleWindow": {
+      "metadata": {
+        "label": "Metrics Sample Window Time",
+        "description": "Window of time (in seconds) a metrics sample is computed over",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "metricsNumSamples": {
+      "metadata": {
+        "label": "Metrics Number of Samples",
+        "description": "Number of samples maintained to compute metrics",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "requestTimeout": {
+      "metadata": {
+        "label": "Request Timeout",
+        "description": "Wait time (in seconds) for response of a request",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "connectionMaxIdleTime": {
+      "metadata": {
+        "label": "Maximum Connection Idle Time",
+        "description": "Close idle connections after the number of seconds",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "maxPollRecords": {
+      "metadata": {
+        "label": "Maximum Number of Records to Poll",
+        "description": "Maximum number of records returned in a single call to poll",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "maxPollInterval": {
+      "metadata": {
+        "label": "Maximum Poll Interval",
+        "description": "Maximum delay between invocations of poll",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "reconnectBackoffTime": {
+      "metadata": {
+        "label": "Reconnect Backoff Time",
+        "description": "Time (in seconds) to wait before attempting to reconnect",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "pollingTimeout": {
+      "metadata": {
+        "label": "Polling Timeout",
+        "description": "Timeout interval for polling in seconds",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "pollingInterval": {
+      "metadata": {
+        "label": "Polling Interval",
+        "description": "Polling interval for the consumer in seconds",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "concurrentConsumers": {
+      "metadata": {
+        "label": "Number of Concurrent Consumers",
+        "description": "Number of concurrent consumers",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "defaultApiTimeout": {
+      "metadata": {
+        "label": "Default API Timeout",
+        "description": "Default API timeout value (in seconds) for APIs with duration",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "autoCommit": {
+      "metadata": {
+        "label": "Auto Commit",
+        "description": "Enables auto committing offsets",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "checkCRCS": {
+      "metadata": {
+        "label": "Check CRC32",
+        "description": "Checks the CRC32 of the records consumed. This ensures that no on-the-wire or on-disk corruption occurred to the messages. This may add some overhead and might need to be set to `false` if extreme performance is required",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "excludeInternalTopics": {
+      "metadata": {
+        "label": "Exclude Internal Topics",
+        "description": "Whether records from internal topics should be exposed to the consumer",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "decoupleProcessing": {
+      "metadata": {
+        "label": "Decouple Processing",
+        "description": "Decouples processing",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "validation": {
+      "metadata": {
+        "label": "Constraint Validation",
+        "description": "Configuration related to constraint validation check",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "autoSeekOnValidationFailure": {
+      "metadata": {
+        "label": "Auto Seek on Validation Failure",
+        "description": "Automatically seeks past the errornous records in the event of an data-binding or validating constraints failure",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "secureSocket": {
+      "metadata": {
+        "label": "Secure Socket Configuration",
+        "description": "Configurations related to SSL/TLS encryption",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "kafka:SecureSocket",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true,
+      "properties": {
+        "cert": {
+          "metadata": {
+            "label": "Certificate",
+            "description": "Configurations associated with crypto:TrustStore or single certificate file that the client trusts"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": false
+        },
+        "key": {
+          "metadata": {
+            "label": "Private Key",
+            "description": "Configurations associated with crypto:KeyStore or combination of certificate and private key of the client"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": false
+        },
+        "protocol": {
+          "metadata": {
+            "label": "Protocol",
+            "description": "SSL/TLS protocol related options"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "record",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "properties": {
+            "name": {
+              "metadata": {
+                "label": "Name",
+                "description": "The name of the protocol"
+              },
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": "string",
+              "value": "",
+              "placeholder": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "items": [
+                "\"SSL\"",
+                "\"TLS\"",
+                "\"DTLS\""
+              ]
+            },
+            "versions": {
+              "metadata": {
+                "label": "Versions",
+                "description": "The versions of the protocol"
+              },
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string[]",
+              "value": "",
+              "placeholder": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            }
+          }
+        },
+        "ciphers": {
+          "metadata": {
+            "label": "Ciphers",
+            "description": "List of ciphers to be used. By default, all the available cipher suites are supported"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string[]",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": true
+        },
+        "provider": {
+          "metadata": {
+            "label": "Security Provider Name",
+            "description": "Name of the security provider used for SSL connections. The default value is the default security provider of the JVM"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": true
+        }
+      }
+    },
+    "auth": {
+      "metadata": {
+        "label": "Authentication Configuration",
+        "description": "Authentication-related configurations for the `kafka:Consumer`",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "kafka:AuthenticationConfiguration",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true,
+      "properties": {
+        "mechanism": {
+          "metadata": {
+            "label": "Authentication Mechanism",
+            "description": "Type of the authentication mechanism. Currently `SASL_PLAIN`, `SASL_SCRAM_256` & `SASL_SCRAM_512` is supported"
+          },
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "PLAIN",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": false,
+          "items": [
+            "\"PLAIN\"",
+            "\"SCRAM-SHA-256\"",
+            "\"SCRAM-SHA-512\""
+          ]
+        },
+        "username": {
+          "metadata": {
+            "label": "Username",
+            "description": "The username to authenticate the Kafka producer/consumer"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": true
+        },
+        "password": {
+          "metadata": {
+            "label": "Password",
+            "description": "The password to authenticate the Kafka producer/consumer"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "",
+          "placeholder": "",
+          "optional": true,
+          "editable": true,
+          "enabled": false,
+          "advanced": true
+        }
+      }
+    },
+    "securityProtocol": {
+      "metadata": {
+        "label": "Security Protocol",
+        "description": "Type of the security protocol to use in the broker connection",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "kafka:SecurityProtocol",
+      "value": "",
+      "placeholder": "PLAINTEXT",
+      "optional": true,
+      "editable": true,
+      "enabled": false,
+      "advanced": true,
+      "items": [
+        "\"PLAINTEXT\"",
+        "\"SASL_PLAINTEXT\"",
+        "\"SASL_SSL\"",
+        "\"SSL\""
+      ]
+    }
+  },
+  "service": {
+    "name": "Kafka",
+    "description": "Kafka Service",
+    "enabled": true,
+    "functions": [
+      {
+        "metadata": {
+          "label": "onConsumerRecord",
+          "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "enabled": true,
+          "editable": false,
+          "value": "onConsumerRecord",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onConsumerRecord",
+          "optional": false,
+          "advanced": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Consumer records",
+              "description": "The records received for Kafka topic(s)"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:AnydataConsumerRecord[]|anydata[]",
+              "isType": true,
+              "placeholder": "kafka:AnydataConsumerRecord[]",
+              "optional": false,
+              "advanced": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "records",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          },
+          {
+            "metadata": {
+              "label": "Caller",
+              "description": "The Kafka caller object to commit the offsets"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": false,
+              "value": "kafka:Caller",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:Caller",
+              "isType": true,
+              "placeholder": "kafka:Caller",
+              "optional": false,
+              "advanced": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": true
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function. The function can return an error or nil"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onError",
+          "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "enabled": true,
+          "editable": false,
+          "value": "onError",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onError",
+          "optional": false,
+          "advanced": false
+        },
+        "enabled": false,
+        "optional": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Kafka Error",
+              "description": "The error occurred during the message processing"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": false,
+              "value": "kafka:Error",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:Error",
+              "isType": true,
+              "placeholder": "kafka:Error",
+              "optional": false,
+              "advanced": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "kafkaError",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function. The function can return an error or nil"
+          },
+          "enabled": "true",
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      }
+    ]
+  }
+}

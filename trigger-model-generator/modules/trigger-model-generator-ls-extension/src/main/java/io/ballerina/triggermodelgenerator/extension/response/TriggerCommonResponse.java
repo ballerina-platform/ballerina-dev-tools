@@ -16,16 +16,25 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.diagram.util;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
-    requires io.ballerina.language.server.core;
-    requires io.ballerina.parser;
-    requires io.ballerina.tools.api;
+package io.ballerina.triggermodelgenerator.extension.response;
+
+import org.eclipse.lsp4j.TextEdit;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+public record TriggerCommonResponse(Map<String, List<TextEdit>> textEdits, String errorMsg, String stacktrace) {
+
+    public TriggerCommonResponse() {
+        this(Map.of(), null, null);
+    }
+
+    public TriggerCommonResponse(Map<String, List<TextEdit>> textEdits) {
+        this(textEdits, null, null);
+    }
+
+    public TriggerCommonResponse(Throwable e) {
+        this(Map.of(), e.toString(), Arrays.toString(e.getStackTrace()));
+    }
 }
