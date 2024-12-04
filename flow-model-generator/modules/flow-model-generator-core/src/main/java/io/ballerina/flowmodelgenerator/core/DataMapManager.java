@@ -319,6 +319,8 @@ public class DataMapManager {
             Node expr = expressions.get(i);
             if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
                 genMapping((MappingConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
+            } else if (expr.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+                genMapping((ListConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
             } else {
                 List<String> inputs = new ArrayList<>();
                 genInputs(expr, inputs);
