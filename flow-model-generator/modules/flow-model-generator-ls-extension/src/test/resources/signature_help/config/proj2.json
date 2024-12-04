@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "sumNumbers(1, 2, 3, );",
-  "startLine": {
-    "line": 4,
-    "offset": 4
-  },
-  "offset": 18,
   "context": {
+    "expression": "sumNumbers(1, 2, 3, );",
+    "startLine": {
+      "line": 4,
+      "offset": 4
+    },
+    "offset": 18
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

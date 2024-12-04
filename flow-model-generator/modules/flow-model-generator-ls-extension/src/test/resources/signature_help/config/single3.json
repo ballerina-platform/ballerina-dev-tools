@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "source.bal",
-  "expression": "multiplyByTwo();",
-  "startLine": {
-    "line": 19,
-    "offset": 17
-  },
-  "offset": 13,
   "context": {
+    "expression": "multiplyByTwo();",
+    "startLine": {
+      "line": 19,
+      "offset": 17
+    },
+    "offset": 13
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

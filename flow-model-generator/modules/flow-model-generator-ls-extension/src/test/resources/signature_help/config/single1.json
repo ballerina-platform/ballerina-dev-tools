@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "source.bal",
-  "expression": "info(",
-  "startLine": {
-    "line": 18,
-    "offset": 24
-  },
-  "offset": 4,
   "context": {
+    "expression": "info(",
+    "startLine": {
+      "line": 18,
+      "offset": 24
+    },
+    "offset": 4
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

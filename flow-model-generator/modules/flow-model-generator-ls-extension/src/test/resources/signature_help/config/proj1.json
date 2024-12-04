@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "io:println(1);",
-  "startLine": {
-    "line": 3,
-    "offset": 4
-  },
-  "offset": 12,
   "context": {
+    "expression": "io:println(1);",
+    "startLine": {
+      "line": 3,
+      "offset": 4
+    },
+    "offset": 12
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

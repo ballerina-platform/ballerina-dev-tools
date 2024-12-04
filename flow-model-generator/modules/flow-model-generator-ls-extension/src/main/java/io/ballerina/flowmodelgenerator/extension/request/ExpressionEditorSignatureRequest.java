@@ -18,18 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.tools.text.LinePosition;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import org.eclipse.lsp4j.SignatureHelpContext;
 
 /**
  * Represents a request for expression editor signature help.
  *
- * @param filePath   The file path which contains the expression
- * @param expression The modified expression
- * @param startLine  The start line of the node
- * @param offset     The offset of cursor compared to the start of the expression
- * @param context    The signature help context
+ * @param filePath             The file path which contains the expression
+ * @param context              The context of the expression editor
+ * @param signatureHelpContext The signature help context
  */
-public record ExpressionEditorSignatureRequest(String filePath, String expression, LinePosition startLine, int offset,
-                                               SignatureHelpContext context) {
+public record ExpressionEditorSignatureRequest(String filePath, ExpressionEditorContext.Info context,
+                                               SignatureHelpContext signatureHelpContext) {
 }

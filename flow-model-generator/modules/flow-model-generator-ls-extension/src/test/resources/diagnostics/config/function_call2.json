@@ -81,18 +81,35 @@
       "range": {
         "start": {
           "line": 13,
-          "character": 23
+          "character": 8
         },
         "end": {
           "line": 13,
-          "character": 25
+          "character": 18
         }
       },
       "severity": "Error",
       "code": {
-        "left": "BCE2066"
+        "left": "BCE2000"
       },
-      "message": "incompatible types: expected 'ballerina/time:2.6.0:Civil', found 'int'"
+      "message": "undefined module 'time'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 8
+        },
+        "end": {
+          "line": 13,
+          "character": 18
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2069"
+      },
+      "message": "unknown type 'Civil'"
     }
   ]
 }
