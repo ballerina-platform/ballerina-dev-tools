@@ -87,7 +87,6 @@
             }
           ],
           "id": "credentials",
-          "variableName": "credentials",
           "typeName": "Credentials",
           "kind": "record"
         },
@@ -114,7 +113,6 @@
             }
           ],
           "id": "userInfo",
-          "variableName": "userInfo",
           "typeName": "UserInfo",
           "kind": "record"
         },
@@ -150,7 +148,6 @@
               }
             ],
             "id": "student.credentials",
-            "variableName": "student.credentials",
             "typeName": "Credentials",
             "kind": "record"
           },
