@@ -16,14 +16,13 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
+module io.ballerina.LSExtensions.TriggerService {
     requires io.ballerina.language.server.commons;
     requires io.ballerina.lang;
     requires org.eclipse.lsp4j.jsonrpc;
     requires org.eclipse.lsp4j;
     requires com.google.gson;
     requires io.ballerina.diagram.util;
-    requires io.ballerina.flow.model.generator;
     requires io.ballerina.openapi.core;
     requires io.ballerina.language.server.core;
     requires io.ballerina.parser;

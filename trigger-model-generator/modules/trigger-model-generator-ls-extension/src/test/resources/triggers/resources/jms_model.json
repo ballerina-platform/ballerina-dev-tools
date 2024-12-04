@@ -1,0 +1,524 @@
+{
+  "id": 5,
+  "name": "JMS Service",
+  "type": "inbuilt",
+  "displayName": "JMS",
+  "documentation": "The JMS service can be attached to a JMS listener which listens to messages from a JMS broker. The service should implement the `onMessage` remote method to process the received messages. Additionally, the service can implement the `onError` remote method to handle errors that occur during message processing.",
+  "moduleName": "java.jms",
+  "orgName": "ballerinax",
+  "packageName": "java.jms",
+  "version": "1.0.1",
+  "listenerProtocol": "jms",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jms_1.0.1.png",
+  "displayAnnotation": {
+    "label": "jms",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "connectionConfig": {
+      "metadata": {
+        "label": "Connection Configuration",
+        "description": "Configurations related to the broker connection",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "jms:ConnectionConfiguration",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "properties": {
+        "initialContextFactory": {
+          "metadata": {
+            "label": "Initial Context Factory",
+            "description": "JMS provider specific initial context factory"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"org.apache.activemq.jndi.ActiveMQInitialContextFactory\"",
+          "optional": false,
+          "advanced": false
+        },
+        "providerUrl": {
+          "metadata": {
+            "label": "Provider URL",
+            "description": "JMS provider specific provider URL used to configure a connection"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"tcp://localhost:61616\"",
+          "optional": false,
+          "advanced": false
+        },
+        "connectionFactoryName": {
+          "metadata": {
+            "label": "Connection Factory Name",
+            "description": "JMS connection factory to be used in creating JMS connections"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "\"ConnectionFactory\"",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"ConnectionFactory\"",
+          "optional": true,
+          "advanced": true
+        },
+        "username": {
+          "metadata": {
+            "label": "Username",
+            "description": "Username for the JMS connection"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "",
+          "optional": true,
+          "advanced": true
+        },
+        "password": {
+          "metadata": {
+            "label": "Password",
+            "description": "Password for the JMS connection"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "",
+          "optional": true,
+          "advanced": true
+        },
+        "properties": {
+          "metadata": {
+            "label": "Additional Properties",
+            "description": "Additional properties used in initializing the initial context"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "{}",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "map<string>",
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true
+        }
+      }
+    },
+    "acknowledgementMode": {
+      "metadata": {
+        "label": "Acknowledgement Mode",
+        "description": "Configuration indicating how messages received by the session will be acknowledged",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "\"AUTO_ACKNOWLEDGE\"",
+      "valueType": "SINGLE_SELECT",
+      "isType": false,
+      "valueTypeConstraint": "jms:AcknowledgementMode",
+      "placeholder": "\"AUTO_ACKNOWLEDGE\"",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"SESSION_TRANSACTED\"",
+        "\"AUTO_ACKNOWLEDGE\"",
+        "\"CLIENT_ACKNOWLEDGE\"",
+        "\"DUPS_OK_ACKNOWLEDGE\""
+      ]
+    },
+    "consumerOptions": {
+      "metadata": {
+        "label": "Consumer Options",
+        "description": "Underlying JMS message consumer configurations",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "jms:ConsumerOptions",
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "properties": {
+        "type": {
+          "metadata": {
+            "label": "Type",
+            "description": "Message consumer type"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "\"DEFAULT\"",
+          "valueType": "SINGLE_SELECT",
+          "isType": false,
+          "valueTypeConstraint": "jms:ConsumerType",
+          "placeholder": "\"DEFAULT\"",
+          "optional": true,
+          "advanced": true,
+          "items": [
+            "\"DURABLE\"",
+            "\"SHARED\"",
+            "\"SHARED_DURABLE\"",
+            "\"DEFAULT\""
+          ]
+        },
+        "destination": {
+          "metadata": {
+            "label": "Destination",
+            "description": "Name of the JMS destination"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "jms:Destination",
+          "placeholder": "",
+          "optional": true,
+          "advanced": true,
+          "properties": {
+            "'type": {
+              "metadata": {
+                "label": "Type",
+                "description": "JMS destination types"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "\"QUEUE\"",
+              "valueType": "SINGLE_SELECT",
+              "isType": false,
+              "valueTypeConstraint": "jms:DestinationType",
+              "placeholder": "\"QUEUE\"",
+              "optional": false,
+              "advanced": false,
+              "items": [
+                "\"QUEUE\"",
+                "\"TEMPORARY_QUEUE\"",
+                "\"TOPIC\"",
+                "\"TEMPORARY_TOPIC\""
+              ]
+            },
+            "name": {
+              "metadata": {
+                "label": "Name",
+                "description": "Name of the destination"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "\"name\"",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "valueTypeConstraint": "string",
+              "placeholder": "\"name\"",
+              "optional": false,
+              "advanced": false
+            }
+          }
+        },
+        "messageSelector": {
+          "metadata": {
+            "label": "messageSelector",
+            "description": "Only messages with properties matching the message selector expression are added to the durable subscription. An empty string indicates that there is no message selector for the durable subscription."
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "\"\"",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true
+        },
+        "noLocal": {
+          "metadata": {
+            "label": "noLocal",
+            "description": "If true then any messages published to the topic using this session's connection, or any other connection with the same client identifier, will not be added to the durable subscription."
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "false",
+          "valueType": "BOOLEAN",
+          "isType": false,
+          "valueTypeConstraint": "boolean",
+          "placeholder": "false",
+          "optional": true,
+          "advanced": true
+        },
+        "subscriberName": {
+          "metadata": {
+            "label": "subscriberName",
+            "description": "The name used to identify the subscription"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "",
+          "optional": true,
+          "advanced": true
+        }
+      }
+    },
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the Service",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "inDisplayAnnotation": true
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "jms-service",
+      "valueType": "STRING",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    }
+  },
+  "service": {
+    "name": "JMS",
+    "description": "JMS Service",
+    "enabled": true,
+    "functions": [
+      {
+        "metadata": {
+          "label": "onMessage",
+          "description": "The `onMessage` remote method will be triggered when a message is received from the JMS broker"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The message received from the JMS broker"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onMessage",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onMessage",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "message",
+              "description": "The message received from the JMS broker"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "JMS message",
+                "description": "The JMS message"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "message",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "jms:Message",
+              "isType": true,
+              "placeholder": "jms:Message",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          },
+          {
+            "metadata": {
+              "label": "Caller",
+              "description": "The JMS caller object to acknowledge the message"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "caller",
+                "description": "The MQTT caller object"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "jms:Caller",
+              "isType": true,
+              "placeholder": "jms:Caller",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onError",
+          "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The name of the remote method"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onError",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onError",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": true,
+        "enabled": false,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "JMS Error",
+              "description": "The error occurred during the message processing"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "jmsError",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "jms:Error",
+              "isType": true,
+              "placeholder": "jms:Error",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      }
+    ]
+  }
+}

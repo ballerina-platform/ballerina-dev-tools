@@ -20,7 +20,7 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "java"
 
-description = 'LS extension for flow diagram generation'
+description = 'LS extension for trigger model generation'
 
 configurations.all {
     resolutionStrategy.preferProjectModules()
@@ -34,8 +34,6 @@ configurations {
 }
 
 dependencies {
-    implementation project(':flow-model-generator:flow-model-generator-core')
-
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:formatter-core:${ballerinaLangVersion}"
@@ -99,32 +97,6 @@ task copyStdlibs() {
     }
 }
 
-// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
-    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
-        doLast {
-            def errOutput = new ByteArrayOutputStream()
-            def result = exec {
-                ignoreExitValue = true
-                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
-                } else {
-                    commandLine 'bal', 'pull', packageName
-                }
-                errorOutput = errOutput
-            }
-            if (result.exitValue != 0 && !errOutput.toString().contains("package already exists in the home repository")) {
-                println errOutput
-                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
-            }
-        }
-    }
-}
-
-test.dependsOn pullBallerinaModule('ballerinax/redis')
-test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
-test.dependsOn pullBallerinaModule('ballerinax/github')
-
 test {
     dependsOn {
         copyStdlibs
@@ -136,7 +108,7 @@ test {
     }
 }
 
-ext.moduleName = 'io.ballerina.flowmodelgenerator.extension'
+ext.moduleName = 'io.ballerina.triggermodelgenerator.extension'
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     dependsOn configurations.dist
@@ -152,4 +124,8 @@ compileJava {
         ]
         classpath = files()
     }
+}
+
+artifacts {
+    archives shadowJar
 }

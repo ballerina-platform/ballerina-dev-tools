@@ -16,16 +16,23 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.diagram.util;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
-    requires io.ballerina.language.server.core;
-    requires io.ballerina.parser;
-    requires io.ballerina.tools.api;
+package io.ballerina.triggermodelgenerator.extension.response;
+
+import io.ballerina.triggermodelgenerator.extension.model.Trigger;
+
+import java.util.Arrays;
+
+public record TriggerModelGenResponse(Trigger trigger, String errorMsg, String stacktrace) {
+    public TriggerModelGenResponse() {
+        this(null, null, null);
+    }
+
+    public TriggerModelGenResponse(Trigger trigger) {
+        this(trigger, null, null);
+    }
+
+    public TriggerModelGenResponse(Throwable e) {
+        this(null, e.toString(), Arrays.toString(e.getStackTrace()));
+    }
+
 }
