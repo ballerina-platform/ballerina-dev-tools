@@ -297,8 +297,8 @@ public class DataMapManager {
                     genMapping((MappingConstructorExpressionNode) fieldExpr, mappings,
                             name + "." + f.fieldName().toSourceCode().trim(), semanticModel);
                 } else if (kind == SyntaxKind.LIST_CONSTRUCTOR) {
-                    genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
-                            semanticModel);
+                    genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." +
+                                    f.fieldName().toSourceCode().trim(), semanticModel);
                 } else {
                     List<String> inputs = new ArrayList<>();
                     genInputs(fieldExpr, inputs);
@@ -381,7 +381,7 @@ public class DataMapManager {
             }
         } else if (kind == SyntaxKind.INDEXED_EXPRESSION) {
             String source = expr.toSourceCode().trim();
-            inputs.add(expr.toSourceCode().replace("[", ".").substring(0, source.length() - 1));
+            inputs.add(source.replace("[", ".").substring(0, source.length() - 1));
         }
     }
 
