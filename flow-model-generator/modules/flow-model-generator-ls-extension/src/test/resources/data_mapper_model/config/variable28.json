@@ -132,32 +132,44 @@
         "diagnostics": [],
         "elements": [
           {
-            "output": "u.contacts.0",
-            "inputs": [
-              "user.phoneNumber.0",
-              "user.phoneNumber.4"
-            ],
-            "expression": "user.phoneNumber[0] + user.phoneNumber[4]",
-            "diagnostics": [],
-            "elements": []
+            "mappings": [
+              {
+                "output": "u.contacts.0",
+                "inputs": [
+                  "user.phoneNumber.0",
+                  "user.phoneNumber.4"
+                ],
+                "expression": "user.phoneNumber[0] + user.phoneNumber[4]",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
           },
           {
-            "output": "u.contacts.1",
-            "inputs": [
-              "user.phoneNumber.1"
-            ],
-            "expression": "user.phoneNumber[1]",
-            "diagnostics": [],
-            "elements": []
+            "mappings": [
+              {
+                "output": "u.contacts.1",
+                "inputs": [
+                  "user.phoneNumber.1"
+                ],
+                "expression": "user.phoneNumber[1]",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
           },
           {
-            "output": "u.contacts.2",
-            "inputs": [
-              "user.phoneNumber.2"
-            ],
-            "expression": "user.phoneNumber[2]",
-            "diagnostics": [],
-            "elements": []
+            "mappings": [
+              {
+                "output": "u.contacts.2",
+                "inputs": [
+                  "user.phoneNumber.2"
+                ],
+                "expression": "user.phoneNumber[2]",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
           }
         ]
       }

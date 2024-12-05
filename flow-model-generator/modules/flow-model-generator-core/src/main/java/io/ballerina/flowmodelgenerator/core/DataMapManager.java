@@ -314,22 +314,24 @@ public class DataMapManager {
                             SemanticModel semanticModel) {
         SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
         int size = expressions.size();
-        List<Mapping> mappingElements = new ArrayList<>();
+        List<MappingElements> mappingElements = new ArrayList<>();
         for (int i = 0; i < size; i++) {
+            List<Mapping> elements = new ArrayList<>();
             Node expr = expressions.get(i);
             if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
-                genMapping((MappingConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
+                genMapping((MappingConstructorExpressionNode) expr, elements, name + "." + i, semanticModel);
             } else if (expr.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                genMapping((ListConstructorExpressionNode) expr, mappingElements, name + "." + i, semanticModel);
+                genMapping((ListConstructorExpressionNode) expr, elements, name + "." + i, semanticModel);
             } else {
                 List<String> inputs = new ArrayList<>();
                 genInputs(expr, inputs);
+                // TODO: Replace `null` with empty array list
                 Mapping mapping = new Mapping(name + "." + i, inputs, expr.toSourceCode(), getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
-                mappingElements.add(mapping);
+                elements.add(mapping);
             }
+            mappingElements.add(new MappingElements(elements));
         }
-        List<String> inputs = new ArrayList<>();
-        Mapping mapping = new Mapping(name, inputs, listCtrExpr.toSourceCode(), getDiagnostics(listCtrExpr.lineRange(), semanticModel), mappingElements);
+        Mapping mapping = new Mapping(name, new ArrayList<>(), listCtrExpr.toSourceCode(), getDiagnostics(listCtrExpr.lineRange(), semanticModel), mappingElements);
         mappings.add(mapping);
     }
 
@@ -345,16 +347,6 @@ public class DataMapManager {
         if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
             genMapping((MappingConstructorExpressionNode) expr, mappings, name, semanticModel);
         }
-    }
-
-    private void genMapping(IndexedExpressionNode indexedExprNode, List<Mapping> mappings, String name,
-                            SemanticModel semanticModel) {
-        String indexedExprSource = indexedExprNode.toSourceCode();
-        List<String> inputs = new ArrayList<>();
-        inputs.add(indexedExprSource.replace("[", ".").substring(0, indexedExprSource.length() - 1)); // TODO: Change this
-        // TODO: check element here
-        Mapping mapping = new Mapping(name, inputs, indexedExprSource, getDiagnostics(indexedExprNode.lineRange(), semanticModel), new ArrayList<>());
-        mappings.add(mapping);
     }
 
     private void genInputs(Node expr, List<String> inputs) {
@@ -740,7 +732,11 @@ public class DataMapManager {
 
     }
 
-    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics, List<Mapping> elements) {
+    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics, List<MappingElements> elements) {
+
+    }
+
+    private record MappingElements(List<Mapping> mappings) {
 
     }
 

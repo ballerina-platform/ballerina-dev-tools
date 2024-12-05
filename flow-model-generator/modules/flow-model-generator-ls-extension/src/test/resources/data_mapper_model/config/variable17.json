@@ -183,22 +183,26 @@
         "diagnostics": [],
         "elements": [
           {
-            "output": "student.credentials.0.username",
-            "inputs": [
-              "userInfo"
-            ],
-            "expression": "userInfo[0].username",
-            "diagnostics": [],
-            "elements": []
-          },
-          {
-            "output": "student.credentials.0.password",
-            "inputs": [
-              "userInfo"
-            ],
-            "expression": "userInfo[1].password",
-            "diagnostics": [],
-            "elements": []
+            "mappings": [
+              {
+                "output": "student.credentials.0.username",
+                "inputs": [
+                  "userInfo"
+                ],
+                "expression": "userInfo[0].username",
+                "diagnostics": [],
+                "elements": []
+              },
+              {
+                "output": "student.credentials.0.password",
+                "inputs": [
+                  "userInfo"
+                ],
+                "expression": "userInfo[1].password",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
           }
         ]
       },

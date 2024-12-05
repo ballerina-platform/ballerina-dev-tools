@@ -117,62 +117,90 @@
         "diagnostics": [],
         "elements": [
           {
-            "output": "td.values.0",
-            "inputs": [],
-            "expression": "[user.phoneNumber[0]]",
-            "diagnostics": [],
-            "elements": [
+            "mappings": [
               {
-                "output": "td.values.0.0",
-                "inputs": [
-                  "user.phoneNumber.0"
-                ],
-                "expression": "user.phoneNumber[0]",
+                "output": "td.values.0",
+                "inputs": [],
+                "expression": "[user.phoneNumber[0]]",
                 "diagnostics": [],
-                "elements": []
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.0.0",
+                        "inputs": [
+                          "user.phoneNumber.0"
+                        ],
+                        "expression": "user.phoneNumber[0]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           {
-            "output": "td.values.1",
-            "inputs": [],
-            "expression": "[user.phoneNumber[1]]",
-            "diagnostics": [],
-            "elements": [
+            "mappings": [
               {
-                "output": "td.values.1.0",
-                "inputs": [
-                  "user.phoneNumber.1"
-                ],
-                "expression": "user.phoneNumber[1]",
+                "output": "td.values.1",
+                "inputs": [],
+                "expression": "[user.phoneNumber[1]]",
                 "diagnostics": [],
-                "elements": []
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.1.0",
+                        "inputs": [
+                          "user.phoneNumber.1"
+                        ],
+                        "expression": "user.phoneNumber[1]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           {
-            "output": "td.values.2",
-            "inputs": [],
-            "expression": "[user.phoneNumber[2], user.phoneNumber[3]]",
-            "diagnostics": [],
-            "elements": [
+            "mappings": [
               {
-                "output": "td.values.2.0",
-                "inputs": [
-                  "user.phoneNumber.2"
-                ],
-                "expression": "user.phoneNumber[2]",
+                "output": "td.values.2",
+                "inputs": [],
+                "expression": "[user.phoneNumber[2], user.phoneNumber[3]]",
                 "diagnostics": [],
-                "elements": []
-              },
-              {
-                "output": "td.values.2.1",
-                "inputs": [
-                  "user.phoneNumber.3"
-                ],
-                "expression": "user.phoneNumber[3]",
-                "diagnostics": [],
-                "elements": []
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.2.0",
+                        "inputs": [
+                          "user.phoneNumber.2"
+                        ],
+                        "expression": "user.phoneNumber[2]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  },
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.2.1",
+                        "inputs": [
+                          "user.phoneNumber.3"
+                        ],
+                        "expression": "user.phoneNumber[3]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
