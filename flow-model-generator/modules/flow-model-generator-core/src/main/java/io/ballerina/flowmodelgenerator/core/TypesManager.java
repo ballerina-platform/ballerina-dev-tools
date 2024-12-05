@@ -33,7 +33,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
-import io.ballerina.projects.Package;
+import io.ballerina.projects.Module;
 import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
  */
 public class TypesManager {
     private static final Gson gson = new Gson();
-    private final Package currentPackage;
+    private final Module module;
 
     private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
         if (symbol.getName().isEmpty()) {
@@ -76,12 +76,12 @@ public class TypesManager {
         }
     };
 
-    public TypesManager(Package currentPackage) {
-        this.currentPackage = currentPackage;
+    public TypesManager(Module module) {
+        this.module = module;
     }
 
     public JsonElement getAllTypes() {
-        SemanticModel semanticModel = this.currentPackage.getDefaultModule().getCompilation().getSemanticModel();
+        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
                 .filter(supportedTypesPredicate)
                 .collect(Collectors.toMap(symbol -> symbol.getName().get(), symbol -> symbol));
@@ -255,8 +255,8 @@ public class TypesManager {
             return false;
         }
         ModuleID moduleId = symbol.getModule().get().id();
-        return !(this.currentPackage.packageName().value().equals(moduleId.packageName())
-                && this.currentPackage.packageOrg().value().equals(moduleId.orgName()));
+        return !(this.module.packageInstance().packageName().value().equals(moduleId.packageName())
+                && this.module.packageInstance().packageOrg().value().equals(moduleId.orgName()));
     }
 
     private String getTypeName(Symbol symbol) {

@@ -21,9 +21,9 @@ package io.ballerina.flowmodelgenerator.extension.request;
 /**
  * Represents the request to get types.
  *
- * @param projectPath path of the project
+ * @param filePath file path where the types reside
  *
  * @since 2.0.0
  */
-public record TypeListGetRequest(String projectPath) {
+public record TypeListGetRequest(String filePath) {
 }

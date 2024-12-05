@@ -22,6 +22,8 @@ import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.extension.request.TypeListGetRequest;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -31,6 +33,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
@@ -53,9 +56,13 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             TypeListResponse response = new TypeListResponse();
             try {
-                Path projectPath = Path.of(request.projectPath());
-                Project project = this.workspaceManager.loadProject(projectPath);
-                TypesManager typesManager = new TypesManager(project.currentPackage());
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TypesManager typesManager = new TypesManager(document.get().module());
                 JsonElement allTypes = typesManager.getAllTypes();
                 response.setTypes(allTypes);
             } catch (Throwable e) {
