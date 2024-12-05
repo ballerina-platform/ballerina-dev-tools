@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
@@ -44,7 +45,13 @@ public class GetEnclosedFunctionDefTest extends AbstractLSTest {
         String filePath = getSourcePath(testConfig.filePath());
         EnclosedFuncDefRequest request = new EnclosedFuncDefRequest(filePath, testConfig.position());
         JsonObject response = getResponse(request);
+        JsonObject acutalJsonObj = testConfig.response();
+        acutalJsonObj.add("filePath", new JsonPrimitive(
+                getSourcePath(testConfig.response().get("filePath").getAsString())));
         if (!testConfig.response().equals(response)) {
+            String pathToReplace = response.get("filePath").getAsString()
+                    .replace(sourceDir.toString() + "/", "");
+            response.addProperty("filePath", pathToReplace);
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.position(), response);
 //            updateConfig(configJsonPath, updatedConfig);

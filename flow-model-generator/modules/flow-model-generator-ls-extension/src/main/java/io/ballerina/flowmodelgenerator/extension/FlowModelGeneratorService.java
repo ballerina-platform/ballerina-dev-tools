@@ -472,14 +472,14 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             EnclosedFuncDefResponse response = new EnclosedFuncDefResponse();
             try {
                 Path path = Path.of(request.filePath());
-                this.workspaceManager.loadProject(path);
+                Project project = this.workspaceManager.loadProject(path);
                 Optional<Document> document = this.workspaceManager.document(path);
                 if (document.isEmpty()) {
                     return response;
                 }
                 EnclosedNodeFinder enclosedNodeFinder = new EnclosedNodeFinder(document.get(), request.position());
                 LineRange enclosedRange = enclosedNodeFinder.findEnclosedNode();
-                response.setFilePath(enclosedRange.fileName());
+                response.setFilePath(project.sourceRoot().resolve(enclosedRange.fileName()).toString());
                 response.setStartLine(enclosedRange.startLine());
                 response.setEndLine(enclosedRange.endLine());
             } catch (Throwable e) {
