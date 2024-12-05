@@ -130,8 +130,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                );
+                        rs.getInt("return_error"));
                 functionResults.add(functionResult);
             }
             return functionResults;
@@ -174,8 +173,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                );
+                        rs.getInt("return_error"));
                 functionResults.add(functionResult);
             }
             return functionResults;
@@ -228,8 +226,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                );
+                        rs.getInt("return_error"));
                 functionResults.add(functionResult);
             }
             return functionResults;
@@ -276,8 +273,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                ));
+                        rs.getInt("return_error")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -332,8 +328,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                ));
+                        rs.getInt("return_error")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -373,8 +368,7 @@ public class DatabaseManager {
                         rs.getString("version"),
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                ));
+                        rs.getInt("return_error")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -407,8 +401,7 @@ public class DatabaseManager {
                         Parameter.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
-                        rs.getInt("optional")
-                );
+                        rs.getInt("optional"));
                 parameterResults.add(parameterResult);
             }
             return parameterResults;
@@ -443,8 +436,7 @@ public class DatabaseManager {
                         Parameter.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
-                        rs.getInt("optional")
-                );
+                        rs.getInt("optional"));
                 parameterResults.put(paramName, parameterResult);
             }
             return parameterResults;
@@ -480,11 +472,91 @@ public class DatabaseManager {
                         rs.getString("return_type"),
                         null, // packageName is not selected in this query
                         null, // org is not selected in this query
-                        null,  // version is not selected in this query
+                        null, // version is not selected in this query
                         rs.getString("resource_path"),
                         Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getInt("return_error")
-                );
+                        rs.getInt("return_error"));
+                functionResults.add(functionResult);
+            }
+            return functionResults;
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    public List<FunctionResult> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
+                                                       FunctionKind kind) {
+        if (packageNames == null || packageNames.isEmpty()) {
+            return List.of();
+        }
+
+        StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append("f.function_id, ");
+        sql.append("f.name AS function_name, ");
+        sql.append("f.description AS function_description, ");
+        sql.append("f.return_type, ");
+        sql.append("f.resource_path, ");
+        sql.append("f.kind, ");
+        sql.append("f.return_error, ");
+        sql.append("p.name AS package_name, ");
+        sql.append("p.org, ");
+        sql.append("p.version ");
+        sql.append("FROM Function f ");
+        sql.append("JOIN Package p ON f.package_id = p.package_id ");
+        sql.append("WHERE p.name IN (");
+        for (int i = 0; i < packageNames.size(); i++) {
+            sql.append("?");
+            if (i < packageNames.size() - 1) {
+                sql.append(", ");
+            }
+        }
+        sql.append(") AND f.kind = ? ");
+
+        boolean hasQuery = queryMap.containsKey("q");
+        if (hasQuery) {
+            sql.append("AND (f.name LIKE ? OR p.name LIKE ?) ");
+        }
+
+        sql.append("LIMIT ? OFFSET ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int paramIndex = 1;
+
+            // Set package name parameters
+            for (String packageName : packageNames) {
+                stmt.setString(paramIndex++, packageName);
+            }
+
+            // Set function kind parameter
+            stmt.setString(paramIndex++, kind.name());
+
+            // Set wildcard parameters if search query exists
+            if (hasQuery) {
+                String wildcardKeyword = "%" + queryMap.get("q") + "%";
+                stmt.setString(paramIndex++, wildcardKeyword);
+                stmt.setString(paramIndex++, wildcardKeyword);
+            }
+
+            // Set limit and offset with defaults if not provided
+            stmt.setInt(paramIndex++, queryMap.containsKey("limit") ? Integer.parseInt(queryMap.get("limit")) : 10);
+            stmt.setInt(paramIndex, queryMap.containsKey("offset") ? Integer.parseInt(queryMap.get("offset")) : 0);
+
+            ResultSet rs = stmt.executeQuery();
+            List<FunctionResult> functionResults = new ArrayList<>();
+            while (rs.next()) {
+                FunctionResult functionResult = new FunctionResult(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("function_description"),
+                        rs.getString("return_type"),
+                        rs.getString("package_name"),
+                        rs.getString("org"),
+                        rs.getString("version"),
+                        rs.getString("resource_path"),
+                        Function.Kind.valueOf(rs.getString("kind")),
+                        rs.getInt("return_error"));
                 functionResults.add(functionResult);
             }
             return functionResults;

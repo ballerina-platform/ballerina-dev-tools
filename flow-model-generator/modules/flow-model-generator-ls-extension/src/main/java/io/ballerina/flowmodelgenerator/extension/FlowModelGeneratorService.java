@@ -349,7 +349,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                FunctionGenerator connectorGenerator = new FunctionGenerator(semanticModel.get(), document.get());
+                FunctionGenerator connectorGenerator = new FunctionGenerator(semanticModel.get());
                 response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
             } catch (Throwable e) {
                 response.setError(e);

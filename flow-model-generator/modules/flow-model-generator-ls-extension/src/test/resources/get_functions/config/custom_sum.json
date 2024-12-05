@@ -12,7 +12,8 @@
     }
   },
   "queryMap": {
-    "q": "sum"
+    "q": "sum",
+    "includeAvailableFunctions": "true"
   },
   "categories": [
     {
@@ -51,13 +52,24 @@
     },
     {
       "metadata": {
-        "label": "Library",
-        "description": "Reusable functions from external libraries",
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
         "keywords": [
-          "Utility",
-          "Library",
+          "Imported",
           "Function",
-          "External"
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
         ]
       },
       "items": [
