@@ -88,6 +88,20 @@ subprojects {
         /* Ballerina Persist Tool */
         ballerinaStdLibs "io.ballerina:persist-tools:${persistToolVersion}"
     }
+
+    ext.defineSyncTask = { String pathParam ->
+        tasks.register('localSync') {
+            doLast {
+                def version = ballerinaLangVersion.contains('-') ? ballerinaLangVersion.split('-')[0] : ballerinaLangVersion
+                copy {
+                    from fileTree(dir: 'build/libs', include: '*.jar')
+                    def destinationPath = file("${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${version}/${pathParam}")
+                    println "Updating ${destinationPath}"
+                    into destinationPath
+                }
+             }
+        }
+    }
 }
 
 def moduleVersion = project.version

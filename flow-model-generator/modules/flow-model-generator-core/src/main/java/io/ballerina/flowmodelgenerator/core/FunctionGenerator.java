@@ -36,7 +36,6 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
-import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
@@ -58,7 +57,9 @@ public class FunctionGenerator {
     private final SemanticModel semanticModel;
     private final Category.Builder rootBuilder;
 
-    public FunctionGenerator(SemanticModel semanticModel, Document document) {
+    private static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
+
+    public FunctionGenerator(SemanticModel semanticModel) {
         gson = new Gson();
         this.semanticModel = semanticModel;
         this.rootBuilder = new Category.Builder(null);
@@ -74,7 +75,10 @@ public class FunctionGenerator {
         if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
             modifiedQueryMap.put("offset", "0");
         }
-        buildUtilityNodes(modifiedQueryMap);
+        if (CommonUtils.hasNoKeyword(queryMap, INCLUDE_AVAILABLE_FUNCTIONS_FLAG)) {
+            modifiedQueryMap.put(INCLUDE_AVAILABLE_FUNCTIONS_FLAG, "false");
+        }
+        buildLibraryFunctions(modifiedQueryMap);
 
         return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
     }
@@ -125,14 +129,35 @@ public class FunctionGenerator {
 
     }
 
-    private void buildUtilityNodes(Map<String, String> queryMap) {
-        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.LIBRARY);
+    private void buildLibraryFunctions(Map<String, String> queryMap) {
+        // Obtain the imported module names
+        List<String> moduleNames = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
+                .flatMap(symbol -> symbol.getName().stream())
+                .toList();
+
+        // Build the imported library functions if exists
         DatabaseManager dbManager = DatabaseManager.getInstance();
+        if (!moduleNames.isEmpty()) {
+            List<FunctionResult> functionsByPackages =
+                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, DatabaseManager.FunctionKind.FUNCTION);
+            Category.Builder libraryBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
+            addLibraryFunction(functionsByPackages, libraryBuilder);
+        }
 
-        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getFunctionsByOrg("ballerina", DatabaseManager.FunctionKind.FUNCTION) :
-                dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
+        // Build the available library functions if flag is set
+        if (queryMap.get(INCLUDE_AVAILABLE_FUNCTIONS_FLAG).equals("false")) {
+            return;
+        }
+        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
+        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q")
+                ? dbManager.getFunctionsByOrg("ballerina", DatabaseManager.FunctionKind.FUNCTION)
+                : dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
+        functionResults.removeIf(functionResult -> moduleNames.contains(functionResult.packageName()));
+        addLibraryFunction(functionResults, utilityBuilder);
+    }
 
+    private static void addLibraryFunction(List<FunctionResult> functionResults, Category.Builder utilityBuilder) {
         for (FunctionResult functionResult : functionResults) {
             String icon = CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
                     functionResult.version());
