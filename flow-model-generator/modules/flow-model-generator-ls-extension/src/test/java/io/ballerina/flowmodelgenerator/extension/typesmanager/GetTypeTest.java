@@ -33,7 +33,7 @@ public class GetTypeTest extends AbstractLSTest {
         if (!response.equals(testConfig.type())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.position(),
                     testConfig.description(), response);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(response, testConfig.type());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
