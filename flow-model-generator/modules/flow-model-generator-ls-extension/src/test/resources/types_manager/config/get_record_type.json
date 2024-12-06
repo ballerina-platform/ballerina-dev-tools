@@ -43,7 +43,7 @@
           "label": "Type description",
           "description": "Detailed description about the type"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "STRING",
         "value": "Person record\nUsed to represent person object",
         "optional": false,
         "editable": true,
@@ -54,7 +54,7 @@
           "label": "Is array type",
           "description": "Is this type an array or list value"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "FLAG",
         "value": "false",
         "optional": true,
         "editable": true,
@@ -65,7 +65,7 @@
           "label": "Size of the array",
           "description": "Array dimensions"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "STRING",
         "value": "",
         "optional": true,
         "editable": true,
