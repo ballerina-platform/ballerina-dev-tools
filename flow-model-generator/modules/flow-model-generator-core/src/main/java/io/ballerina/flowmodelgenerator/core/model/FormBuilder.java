@@ -690,7 +690,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .optional(optional)
                 .advanced(advanced)
                 .value(value)
-                .type(Property.ValueType.IDENTIFIER);
+                .type(Property.ValueType.STRING);
         addProperty(Property.DESCRIPTION_KEY);
         return this;
     }
@@ -705,7 +705,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .optional(optional)
                 .advanced(advanced)
                 .value(value)
-                .type(Property.ValueType.IDENTIFIER);
+                .type(Property.ValueType.FLAG);
         addProperty(Property.IS_ARRAY_KEY);
         return this;
     }
@@ -720,7 +720,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .optional(optional)
                 .advanced(advanced)
                 .value(value)
-                .type(Property.ValueType.IDENTIFIER);
+                .type(Property.ValueType.STRING);
         addProperty(Property.ARRAY_SIZE);
         return this;
     }
