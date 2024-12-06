@@ -18,14 +18,15 @@ public class DataMappingSourceTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override
-    protected Object[] getConfigsList() {
+    protected Object[] getConfigsList() { 
         return new Object[][]{
                 {Path.of("variable1.json")},
                 {Path.of("variable2.json")},
                 {Path.of("variable3.json")},
                 {Path.of("variable4.json")},
                 {Path.of("variable5.json")},
-                {Path.of("variable6.json")}
+                {Path.of("variable6.json")},
+                {Path.of("variable7.json")},
         };
     }
 
@@ -44,7 +45,7 @@ public class DataMappingSourceTest extends AbstractLSTest {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(),
                     source, testConfig.targetField());
-//            updateConfig(configJsonPath, updateConfig);
+            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
