@@ -112,52 +112,56 @@ public class TypesManager {
 
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
         // Record
-        if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
-            RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
+        switch (typeSymbol.typeKind()) {
+            case RECORD -> {
+                RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
 
-            // Type inclusions
-            List<TypeSymbol> inclusions = recordTypeSymbol.typeInclusions();
-            inclusions.forEach(inc -> {
-                addToMapIfForeignAndNotAdded(symbolMap, inc);
-            });
+                // Type inclusions
+                List<TypeSymbol> inclusions = recordTypeSymbol.typeInclusions();
+                inclusions.forEach(inc -> {
+                    addToMapIfForeignAndNotAdded(symbolMap, inc);
+                });
 
-            // Rest field
-            Optional<TypeSymbol> restTypeDescriptor = recordTypeSymbol.restTypeDescriptor();
-            if (restTypeDescriptor.isPresent()) {
-                TypeSymbol restType = restTypeDescriptor.get();
-                addToMapIfForeignAndNotAdded(symbolMap, restType);
-            }
-
-            // Field members
-            Map<String, RecordFieldSymbol> fieldSymbolMap = recordTypeSymbol.fieldDescriptors();
-            fieldSymbolMap.forEach((key, field) -> {
-                TypeSymbol ts = field.typeDescriptor();
-                addToMapIfForeignAndNotAdded(symbolMap, ts);
-            });
-        }
-
-        // Union
-        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            List<TypeSymbol> unionMembers = unionTypeSymbol.memberTypeDescriptors();
-            unionMembers.forEach(member -> {
-                if (member.typeKind() == TypeDescKind.ARRAY) {
-                    addMemberTypes(member, symbolMap);
-                } else {
-                    addToMapIfForeignAndNotAdded(symbolMap, member);
+                // Rest field
+                Optional<TypeSymbol> restTypeDescriptor = recordTypeSymbol.restTypeDescriptor();
+                if (restTypeDescriptor.isPresent()) {
+                    TypeSymbol restType = restTypeDescriptor.get();
+                    addToMapIfForeignAndNotAdded(symbolMap, restType);
                 }
-            });
-        }
 
-        // Array
-        if (typeSymbol.typeKind() == TypeDescKind.ARRAY) {
-            ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
-            TypeSymbol arrMemberTypeDesc = arrayTypeSymbol.memberTypeDescriptor();
-            if (arrMemberTypeDesc.typeKind() == TypeDescKind.ARRAY
-                    || arrMemberTypeDesc.typeKind() == TypeDescKind.UNION) {
-                addMemberTypes(arrMemberTypeDesc, symbolMap);
-            } else {
-                addToMapIfForeignAndNotAdded(symbolMap, arrMemberTypeDesc);
+                // Field members
+                Map<String, RecordFieldSymbol> fieldSymbolMap = recordTypeSymbol.fieldDescriptors();
+                fieldSymbolMap.forEach((key, field) -> {
+                    TypeSymbol ts = field.typeDescriptor();
+                    if (ts.typeKind() == TypeDescKind.ARRAY || ts.typeKind() == TypeDescKind.UNION) {
+                        addMemberTypes(ts, symbolMap);
+                    } else {
+                        addToMapIfForeignAndNotAdded(symbolMap, ts);
+                    }
+                });
+            }
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                List<TypeSymbol> unionMembers = unionTypeSymbol.memberTypeDescriptors();
+                unionMembers.forEach(member -> {
+                    if (member.typeKind() == TypeDescKind.ARRAY) {
+                        addMemberTypes(member, symbolMap);
+                    } else {
+                        addToMapIfForeignAndNotAdded(symbolMap, member);
+                    }
+                });
+            }
+            case ARRAY -> {
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                TypeSymbol arrMemberTypeDesc = arrayTypeSymbol.memberTypeDescriptor();
+                if (arrMemberTypeDesc.typeKind() == TypeDescKind.ARRAY
+                        || arrMemberTypeDesc.typeKind() == TypeDescKind.UNION) {
+                    addMemberTypes(arrMemberTypeDesc, symbolMap);
+                } else {
+                    addToMapIfForeignAndNotAdded(symbolMap, arrMemberTypeDesc);
+                }
+            }
+            default -> {
             }
         }
     }

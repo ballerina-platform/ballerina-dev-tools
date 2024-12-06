@@ -20,11 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
-import io.ballerina.flowmodelgenerator.extension.request.TypeListGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.DocumentId;
-import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -52,7 +50,7 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<TypeListResponse> getTypes(TypeListGetRequest request) {
+    public CompletableFuture<TypeListResponse> getTypes(FilePathRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             TypeListResponse response = new TypeListResponse();
             try {
