@@ -328,11 +328,11 @@
       "range": {
         "start": {
           "line": 0,
-          "character": 44
+          "character": 22
         },
         "end": {
           "line": 0,
-          "character": 49
+          "character": 27
         }
       },
       "severity": "Error",

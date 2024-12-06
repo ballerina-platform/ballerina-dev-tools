@@ -18,16 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
-import org.eclipse.lsp4j.SignatureHelpContext;
+import io.ballerina.tools.text.LinePosition;
 
 /**
- * Represents a request for expression editor signature help.
+ * Represents the request for the flow model getEnclosedFlowDesignModel API.
  *
- * @param filePath             The file path which contains the expression
- * @param context              The context of the expression editor
- * @param signatureHelpContext The signature help context
+ * @param filePath The file path of the source file.
+ * @param position The position of the source.
+ *
+ * @since 2.0.0
  */
-public record ExpressionEditorSignatureRequest(String filePath, ExpressionEditorContext.Info context,
-                                               SignatureHelpContext signatureHelpContext) {
+public record EnclosedFuncDefRequest(String filePath, LinePosition position) {
 }

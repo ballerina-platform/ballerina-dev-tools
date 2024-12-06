@@ -1,16 +1,18 @@
 {
   "description": "",
   "filePath": "proj/fn.bal",
-  "expression": "",
-  "startLine": {
-    "line": 33,
-    "offset": 20
-  },
-  "offset": 0,
   "context": {
+    "expression": "",
+    "startLine": {
+      "line": 33,
+      "offset": 20
+    },
+    "offset": 0,
+    "node": {}
+  },
+  "completionContext": {
     "triggerKind": "Invoked"
   },
-  "node": {},
   "completions": [
     {
       "label": "decimal",

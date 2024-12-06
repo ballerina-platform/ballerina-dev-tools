@@ -18,23 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import com.google.gson.JsonObject;
-import io.ballerina.tools.text.LinePosition;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import org.eclipse.lsp4j.CompletionContext;
 
 /**
  * Represents a request for expression editor completion.
  *
- * @param filePath   The file path which contains the expression
- * @param expression The modified expression
- * @param branch     The branch of the expression if exists
- * @param property   The property of the expression
- * @param startLine  The start line of the node
- * @param offset     The offset of cursor compared to the start of the expression
- * @param context    The completion context
- * @param node       The node which contains the expression
+ * @param filePath          The file path which contains the expression
+ * @param context           The context of the expression editor
+ * @param completionContext The completion completionContext
  */
-public record ExpressionEditorCompletionRequest(String filePath, String expression, String branch, String property,
-                                                LinePosition startLine, int offset, CompletionContext context,
-                                                JsonObject node) {
+public record ExpressionEditorCompletionRequest(String filePath, ExpressionEditorContext.Info context,
+                                                CompletionContext completionContext) {
 }

@@ -1,0 +1,6 @@
+[package]
+org = "wso2"
+name = "proj_1"
+version = "0.1.0"
+
+bi = true

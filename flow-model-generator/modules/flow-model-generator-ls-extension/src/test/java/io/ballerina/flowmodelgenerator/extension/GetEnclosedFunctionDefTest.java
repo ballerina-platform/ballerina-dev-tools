@@ -19,43 +19,41 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
-import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
-import org.eclipse.lsp4j.Diagnostic;
+import com.google.gson.JsonPrimitive;
+import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
+import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 /**
- * Tests for the expression editor diagnostics service.
+ * Tests for the flow model source generator service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
-public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
+public class GetEnclosedFunctionDefTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        String sourcePath = getSourcePath(testConfig.filePath());
 
-        notifyDidOpen(sourcePath);
-        ExpressionEditorDiagnosticsRequest request =
-                new ExpressionEditorDiagnosticsRequest(sourcePath, testConfig.context());
+        String filePath = getSourcePath(testConfig.filePath());
+        EnclosedFuncDefRequest request = new EnclosedFuncDefRequest(filePath, testConfig.position());
         JsonObject response = getResponse(request);
-        List<Diagnostic> actualDiagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
-                new TypeToken<List<Diagnostic>>() { }.getType());
-        notifyDidClose(sourcePath);
-
-        if (!assertArray("diagnostics", actualDiagnostics, testConfig.diagnostics())) {
+        JsonObject acutalJsonObj = testConfig.response();
+        acutalJsonObj.add("filePath", new JsonPrimitive(
+                getSourcePath(testConfig.response().get("filePath").getAsString())));
+        if (!testConfig.response().equals(response)) {
+            String pathToReplace = response.get("filePath").getAsString()
+                    .replace(sourceDir.toString() + "/", "");
+            response.addProperty("filePath", pathToReplace);
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.context(), actualDiagnostics);
+                    testConfig.position(), response);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -63,25 +61,27 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "diagnostics";
+        return "get_enclosed_func_def";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return ExpressionEditorDiagnosticsTest.class;
+        return GetEnclosedFunctionDefTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "diagnostics";
+        return "getEnclosedFunctionDef";
     }
 
-    @Override
-    protected String getServiceName() {
-        return "expressionEditor";
-    }
-
-    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
-                              List<Diagnostic> diagnostics) {
+    /**
+     * Represents the test configuration for the delete node test.
+     *
+     * @param description The description of the test.
+     * @param filePath    The path to the source file that contains the nodes to be deleted.
+     * @param position    The position of the node to be deleted.
+     * @param response    The expected response.
+     */
+    private record TestConfig(String description, String filePath, LinePosition position, JsonObject response) {
     }
 }

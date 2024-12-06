@@ -20,8 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.SignatureHelpContext;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -42,17 +42,19 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        String sourcePath = getSourcePath(testConfig.filePath());
 
+        notifyDidOpen(sourcePath);
         ExpressionEditorSignatureRequest request = new ExpressionEditorSignatureRequest(
-                sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(), testConfig.expression(),
-                testConfig.startLine(), testConfig.offset(), testConfig.context());
+                sourcePath, testConfig.context(), testConfig.signatureHelpContext());
         JsonObject response = getResponse(request);
-
         JsonElement actualSignatureHelp = response.get("signatures");
+        notifyDidClose(sourcePath);
+
         if (!actualSignatureHelp.equals(testConfig.signatureHelp())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.expression(), testConfig.startLine(), testConfig.offset(), testConfig.context(),
-                    actualSignatureHelp);
+            TestConfig updatedConfig =
+                    new TestConfig(testConfig.description(), testConfig.filePath(), testConfig.context(),
+                            testConfig.signatureHelpContext(), actualSignatureHelp);
             compareJsonElements(actualSignatureHelp, testConfig.signatureHelp());
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
@@ -79,7 +81,7 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, String expression, LinePosition startLine,
-                              int offset, SignatureHelpContext context, JsonElement signatureHelp) {
+    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+                              SignatureHelpContext signatureHelpContext, JsonElement signatureHelp) {
     }
 }

@@ -108,6 +108,8 @@ task copyStdlibs() {
     }
 }
 
+defineSyncTask("bre/lib")
+
 test {
     dependsOn {
         copyStdlibs

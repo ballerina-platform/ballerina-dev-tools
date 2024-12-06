@@ -1,13 +1,15 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "calculateSquareRoot()",
-  "startLine": {
-    "line": 7,
-    "offset": 18
-  },
-  "offset": 20,
   "context": {
+    "expression": "calculateSquareRoot()",
+    "startLine": {
+      "line": 7,
+      "offset": 18
+    },
+    "offset": 20
+  },
+  "signatureHelpContext": {
     "triggerKind": "Invoked",
     "isRetrigger": false
   },

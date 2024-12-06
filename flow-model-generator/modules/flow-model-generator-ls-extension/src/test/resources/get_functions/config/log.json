@@ -12,7 +12,8 @@
     }
   },
   "queryMap": {
-    "q": "log"
+    "q": "log",
+    "includeAvailableFunctions": "true"
   },
   "categories": [
     {
@@ -29,13 +30,12 @@
     },
     {
       "metadata": {
-        "label": "Library",
-        "description": "Reusable functions from external libraries",
+        "label": "Available Functions",
+        "description": "Functions available in the library",
         "keywords": [
-          "Utility",
-          "Library",
+          "Available",
           "Function",
-          "External"
+          "Library"
         ]
       },
       "items": [

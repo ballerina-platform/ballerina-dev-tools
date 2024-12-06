@@ -53,8 +53,11 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         CURRENT_INTEGRATION("Current Integration", "Functions defined within the current integration",
                 List.of("Project", "Local", "Function")),
-        LIBRARY("Library", "Reusable functions from external libraries",
-                List.of("Utility", "Library", "Function", "External"));
+        IMPORTED_FUNCTIONS("Imported Functions", "Functions imported from other integrations",
+                List.of("Imported", "Function", "Library")),
+        AVAILABLE_FUNCTIONS("Available Functions", "Functions available in the library",
+                List.of("Available", "Function", "Library")),
+        ;
 
         final String name;
         final String description;

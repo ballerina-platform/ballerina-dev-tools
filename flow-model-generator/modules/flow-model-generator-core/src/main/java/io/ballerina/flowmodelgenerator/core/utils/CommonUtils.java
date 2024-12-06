@@ -55,7 +55,9 @@ import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.net.URI;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -534,5 +536,16 @@ public class CommonUtils {
      */
     public static boolean hasReturn(String typeName) {
         return !typeName.equals("()");
+    }
+
+    /**
+     * Generates the URI for the given source path.
+     *
+     * @param sourcePath the source path
+     * @return the generated URI as a string
+     */
+    public static String getExprUri(String sourcePath) {
+        String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
+        return URI.create(exprUriString).toString();
     }
 }

@@ -33,13 +33,18 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -60,26 +65,28 @@ public class ExpressionEditorContext {
     private final Path filePath;
     private final List<ImportDeclarationNode> imports;
 
-    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath) {
+    // State variables
+    private final Document document;
+    private int expressionOffset;
+    private LineRange statementLineRange;
+
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
         this.info = info;
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+        this.document = document;
 
-        Document document;
-        try {
-            this.workspaceManager.loadProject(filePath);
-            document = workspaceManager.document(filePath).orElseThrow();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error while loading the project");
-        }
         SyntaxTree syntaxTree = document.syntaxTree();
-        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART ?
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList() :
-                List.of();
+        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
+                ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
+                : List.of();
     }
 
     public Optional<Property> getProperty() {
+        if (info.property() == null || info.property().isEmpty()) {
+            return Optional.empty();
+        }
         if (info.branch() == null || info.branch().isEmpty()) {
             return flowNode.getProperty(info.property());
         }
@@ -151,6 +158,61 @@ public class ExpressionEditorContext {
             return Optional.of(textEdit);
         }
         return Optional.empty();
+    }
+
+    /**
+     * Generates a Ballerina statement based on the availability of the type, and applies it to the document. Based on
+     * the availability of the type, the statement will be in the format: `<type>? _ = <expr>;`.
+     *
+     * @return the line range of the generated statement.
+     */
+    public LineRange generateStatement() {
+        String prefix = getProperty()
+                .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
+                .map(obj -> obj + " _ = ")
+                .orElse("_ = ");
+
+        String statement = String.format("%s%s;%n", prefix, info.expression());
+        this.expressionOffset = prefix.length();
+
+        TextDocument textDocument = document.textDocument();
+        int textPosition = textDocument.textPositionFrom(info.startLine());
+
+        TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+        TextDocument newTextDocument = textDocument
+                .apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+        applyContent(newTextDocument);
+
+        LinePosition startLine = info.startLine();
+        LinePosition endLineRange = LinePosition.from(startLine.line(),
+                startLine.offset() + statement.length());
+        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        return statementLineRange;
+    }
+
+    /**
+     * Gets the cursor position within the generated statement.
+     *
+     * @return the cursor position as a Position object
+     */
+    public Position getCursorPosition() {
+        return new Position(statementLineRange.startLine().line(),
+                statementLineRange.startLine().offset() + info.offset() + expressionOffset);
+    }
+
+    /**
+     * Applies the content of the given TextDocument to the current document.
+     *
+     * @param textDocument The TextDocument containing the new content
+     */
+    public void applyContent(TextDocument textDocument) {
+        document.modify()
+                .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
+                .apply();
+    }
+
+    public Iterable<Diagnostic> syntaxDiagnostics() {
+        return document.syntaxTree().diagnostics();
     }
 
     /**

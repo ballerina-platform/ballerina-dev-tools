@@ -1,0 +1,19 @@
+{
+  "description": "current package reference",
+  "filePath": "proj_1/functions.bal",
+  "position": {
+    "line": 9,
+    "offset": 0
+  },
+  "response": {
+    "filePath": "proj_1/functions.bal",
+    "startLine": {
+      "line": 8,
+      "offset": 0
+    },
+    "endLine": {
+      "line": 10,
+      "offset": 1
+    }
+  }
+}
