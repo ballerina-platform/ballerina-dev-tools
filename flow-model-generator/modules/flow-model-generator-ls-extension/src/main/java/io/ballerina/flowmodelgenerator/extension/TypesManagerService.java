@@ -21,7 +21,9 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
+import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
+import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -63,6 +65,27 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 TypesManager typesManager = new TypesManager(document.get().module());
                 JsonElement allTypes = typesManager.getAllTypes();
                 response.setTypes(allTypes);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<TypeResponse> getType(GetTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            TypeResponse response = new TypeResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TypesManager typesManager = new TypesManager(document.get().module());
+                JsonElement type = typesManager.getType(document.get(), request.linePosition());
+                response.setType(type);
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
