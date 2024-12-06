@@ -33,7 +33,9 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
+import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
@@ -266,5 +268,21 @@ public class TypesManager {
         String name = symbol.getName().get();
         ModuleID moduleId = symbol.getModule().get().id();
         return String.format("%s/%s:%s", moduleId.orgName(), moduleId.packageName(), name);
+    }
+
+    public JsonElement getType(Document document, LinePosition linePosition) {
+        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
+        Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
+        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.TYPE_DEFINITION) {
+            return null;
+        }
+
+        TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
+        // Only supports records so far. TODO: support unions, array, errors
+        if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
+            return gson.toJsonTree(getRecordType(typeDef));
+        }
+
+        return null;
     }
 }

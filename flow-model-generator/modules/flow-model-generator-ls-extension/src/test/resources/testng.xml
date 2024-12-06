@@ -47,7 +47,8 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.GetEnclosedFunctionDefTest"/>
 
             <!--types manager-->
-            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>
         </classes>
     </test>
 </suite>
