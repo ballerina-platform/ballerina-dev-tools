@@ -31,6 +31,7 @@ import java.util.List;
  * @param defaultValue  Default value of the member.
  * @param docs          Documentation of the member
  * @param annotations   Annotations of the member.
+ * @since 2.0.0
  */
 public record Member(
         MemberKind kind,

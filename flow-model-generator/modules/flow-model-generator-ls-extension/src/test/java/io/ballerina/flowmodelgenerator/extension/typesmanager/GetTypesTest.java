@@ -3,7 +3,7 @@ package io.ballerina.flowmodelgenerator.extension.typesmanager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
-import io.ballerina.flowmodelgenerator.extension.request.TypeListGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,7 +23,7 @@ public class GetTypesTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        TypeListGetRequest request = new TypeListGetRequest(
+        FilePathRequest request = new FilePathRequest(
                 sourceDir.resolve(testConfig.projectPath()).toAbsolutePath().toString());
         JsonArray response = getResponse(request).getAsJsonArray("types");
         if (!response.equals(testConfig.types())) {

@@ -683,8 +683,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> description(String value, boolean optional, boolean editable, boolean advanced) {
         propertyBuilder
                 .metadata()
-                    .label(Property.TYPE_NAME_LABEL)
-                    .description(Property.TYPE_NAME_DOC)
+                    .label(Property.TYPE_DESC_LABEL)
+                    .description(Property.TYPE_DESC_DOC)
                     .stepOut()
                 .editable(editable)
                 .optional(optional)
@@ -698,8 +698,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> isArray(String value, boolean optional, boolean editable, boolean advanced) {
         propertyBuilder
                 .metadata()
-                    .label(Property.TYPE_NAME_LABEL)
-                    .description(Property.TYPE_NAME_DOC)
+                    .label(Property.TYPE_IS_ARRAY_LABEL)
+                    .description(Property.TYPE_IS_ARRAY_DOC)
                     .stepOut()
                 .editable(editable)
                 .optional(optional)
@@ -713,8 +713,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> arraySize(String value, boolean optional, boolean editable, boolean advanced) {
         propertyBuilder
                 .metadata()
-                    .label(Property.TYPE_NAME_LABEL)
-                    .description(Property.TYPE_NAME_DOC)
+                    .label(Property.TYPE_ARRAY_SIZE_LABEL)
+                    .description(Property.TYPE_ARRAY_SIZE_DOC)
                     .stepOut()
                 .editable(editable)
                 .optional(optional)
