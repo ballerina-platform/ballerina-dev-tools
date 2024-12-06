@@ -66,14 +66,10 @@ public class TypesManager {
             return false;
         }
 
-        switch (((TypeDefinitionSymbol) symbol).typeDescriptor().typeKind()) {
-            case RECORD, ARRAY, UNION, ERROR -> {
-                return true;
-            }
-            default -> {
-                return false;
-            }
-        }
+        return switch (((TypeDefinitionSymbol) symbol).typeDescriptor().typeKind()) {
+            case RECORD, ARRAY, UNION, ERROR -> true;
+            default -> false;
+        };
     };
 
     public TypesManager(Module module) {
