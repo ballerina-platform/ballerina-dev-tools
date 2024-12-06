@@ -1,5 +1,5 @@
 {
-  "projectPath": "test_pack1/types.bal",
+  "filePath": "test_pack1/types.bal",
   "description": "Get all types associated with the package",
   "types": [
     {
