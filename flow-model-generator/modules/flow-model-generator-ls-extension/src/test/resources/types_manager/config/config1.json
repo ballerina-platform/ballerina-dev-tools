@@ -37,8 +37,8 @@
         },
         "description": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Type description",
+            "description": "Detailed description about the type"
           },
           "valueType": "IDENTIFIER",
           "value": "",
@@ -48,8 +48,8 @@
         },
         "isArray": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
           },
           "valueType": "IDENTIFIER",
           "value": "false",
@@ -59,8 +59,8 @@
         },
         "arraySize": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Size of the array",
+            "description": "Array dimensions"
           },
           "valueType": "IDENTIFIER",
           "value": "",
@@ -106,8 +106,8 @@
         },
         "description": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Type description",
+            "description": "Detailed description about the type"
           },
           "valueType": "IDENTIFIER",
           "value": "Person record\nUsed to represent person object",
@@ -117,8 +117,8 @@
         },
         "isArray": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
           },
           "valueType": "IDENTIFIER",
           "value": "false",
@@ -128,8 +128,8 @@
         },
         "arraySize": {
           "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
+            "label": "Size of the array",
+            "description": "Array dimensions"
           },
           "valueType": "IDENTIFIER",
           "value": "",
