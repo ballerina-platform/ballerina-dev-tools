@@ -39,7 +39,6 @@ import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
-import io.ballerina.compiler.syntax.tree.IndexedExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
@@ -49,7 +48,6 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.QueryExpressionNode;
 import io.ballerina.compiler.syntax.tree.SelectClauseNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
@@ -60,6 +58,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
@@ -726,6 +725,97 @@ public class DataMapManager {
             }
         }
         return variableSymbols;
+    }
+
+    public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project, LinePosition position) {
+        FlowNode flowNode = gson.fromJson(node, FlowNode.class);
+        if (flowNode.codedata().node() != NodeKind.VARIABLE) {
+            return "";
+        }
+        Optional<Property> optProperty = flowNode.getProperty(propertyKey);
+        if (optProperty.isEmpty()) {
+            return "";
+        }
+        Property property = optProperty.get();
+        String source = property.toSourceCode();
+
+        SourceModification sourceModification = applyNode(flowNode, project, filePath, position);
+        Node stNode = sourceModification.stNode();
+        if (stNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+            return "";
+        }
+        Optional<Symbol> symbol = sourceModification.semanticModel().symbol(stNode);
+        if (symbol.isEmpty()) {
+            return "";
+        }
+        TypeSymbol targetType = getTargetType(((VariableSymbol) symbol.get()).typeDescriptor(), targetField);
+        if (targetType == null) {
+            return "";
+        }
+        if (targetType.typeKind() == TypeDescKind.ARRAY) {
+            targetType = ((ArrayTypeSymbol) targetType).memberTypeDescriptor();
+        }
+        String defaultVal = DefaultValueGeneratorUtil.getDefaultValueForType(targetType);
+        if (source.equals("[]")) {
+            return "[" + defaultVal + "]";
+        }
+        String fieldsPattern = getFieldsPattern(targetField);
+        if (source.matches(".*" + fieldsPattern + "\\s*:\\s*\\[.*$")) {
+            String[] splits = source.split(".*" + fieldsPattern + "\\s*:\\s*\\[");
+            String lastSplit = splits[1];
+            if (!lastSplit.trim().startsWith("]")) {
+                defaultVal = ", " + defaultVal;
+            }
+            String firstSplit = source.substring(0, source.length() - lastSplit.length());
+            StringBuilder sb = new StringBuilder(firstSplit);
+            int openBraceCount = 0;
+            for (int i = 0; i < lastSplit.length(); i++) {
+                char c = lastSplit.charAt(i);
+                if (c == '[') {
+                    openBraceCount = openBraceCount + 1;
+                } else if (c == ']') {
+                    if (openBraceCount == 0) {
+                        sb.append(defaultVal);
+                        sb.append(lastSplit.substring(i));
+                        break;
+                    } else {
+                        openBraceCount = openBraceCount - 1;
+                    }
+                }
+                sb.append(c);
+            }
+            return sb.toString();
+        }
+        return "";
+    }
+
+    private TypeSymbol getTargetType(TypeSymbol typeSymbol, String targetField) {
+        if (targetField == null || targetField.isEmpty()) {
+            return typeSymbol;
+        }
+        String[] splits = targetField.split("\\.");
+        if (splits.length == 1) {
+            return typeSymbol;
+        }
+
+        TypeSymbol targetType = typeSymbol;
+        for (int i = 1; i < splits.length; i++) {
+            targetType = CommonUtils.getRawType(targetType);
+            String split = splits[i];
+            if (split.matches("\\d+")) {
+                if (targetType.typeKind() != TypeDescKind.ARRAY) {
+                    return null;
+                }
+                targetType = ((ArrayTypeSymbol) targetType).memberTypeDescriptor();
+            } else {
+                if (targetType.typeKind() != TypeDescKind.RECORD) {
+                    return null;
+                }
+                RecordFieldSymbol recordFieldSymbol = ((RecordTypeSymbol) targetType).fieldDescriptors().get(split);
+                targetType = recordFieldSymbol.typeDescriptor();
+            }
+        }
+        return targetType;
     }
 
     private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings, String source) {

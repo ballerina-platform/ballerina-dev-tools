@@ -47,6 +47,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingSourceTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingQueryConvertTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingVisualizeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingAddElementTest"/>
         </classes>
     </test>
 </suite>
