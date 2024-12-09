@@ -21,6 +21,7 @@ module io.ballerina.architecturemodelgenerator {
     requires io.ballerina.lang;
     requires io.ballerina.parser;
     requires io.ballerina.tools.api;
+    requires io.ballerina.language.server.commons;
 
     exports io.ballerina.architecturemodelgenerator.core;
     exports io.ballerina.architecturemodelgenerator.core.diagnostics;
@@ -30,4 +31,6 @@ module io.ballerina.architecturemodelgenerator {
     exports io.ballerina.architecturemodelgenerator.core.model.service;
     exports io.ballerina.architecturemodelgenerator.core.model.functionentrypoint;
     exports io.ballerina.architecturemodelgenerator.core.generators.entity;
+    exports io.ballerina.designmodelgenerator.core;
+    exports io.ballerina.designmodelgenerator.core.model;
 }
