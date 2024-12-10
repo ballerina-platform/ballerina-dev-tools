@@ -72,6 +72,36 @@
         "advanced": true
       }
     },
+    "members": {
+      "address": {
+        "kind": "FIELD",
+        "ref": "Address",
+        "type": "Address",
+        "name": "address",
+        "docs": ""
+      },
+      "dob": {
+        "kind": "FIELD",
+        "ref": "ballerina/time:Utc",
+        "type": "ballerina/time:Utc",
+        "name": "dob",
+        "docs": ""
+      },
+      "name": {
+        "kind": "FIELD",
+        "ref": "",
+        "type": "string",
+        "name": "name",
+        "docs": ""
+      },
+      "id": {
+        "kind": "FIELD",
+        "ref": "",
+        "type": "int",
+        "name": "id",
+        "docs": ""
+      }
+    },
     "includes": []
   }
 }
