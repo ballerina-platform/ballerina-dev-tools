@@ -30,4 +30,12 @@ import io.ballerina.tools.text.LinePosition;
  * @since 2.0.0
  */
 public record Location(String filePath, LinePosition startLine, LinePosition endLine) {
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Location location)) {
+            return false;
+        }
+        return startLine().equals(location.startLine()) && endLine().equals(location.endLine());
+    }
 }

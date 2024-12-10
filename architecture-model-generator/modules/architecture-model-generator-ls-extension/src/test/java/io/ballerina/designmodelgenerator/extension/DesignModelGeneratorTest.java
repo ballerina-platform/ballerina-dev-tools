@@ -21,12 +21,18 @@ package io.ballerina.designmodelgenerator.extension;
 import com.google.gson.JsonObject;
 import io.ballerina.desginmodelgenerator.extension.request.GetDesignModelRequest;
 import io.ballerina.desginmodelgenerator.extension.response.GetDesignModelResponse;
+import io.ballerina.designmodelgenerator.core.model.Automation;
+import io.ballerina.designmodelgenerator.core.model.Connection;
+import io.ballerina.designmodelgenerator.core.model.DesignModel;
+import io.ballerina.designmodelgenerator.core.model.Listener;
+import io.ballerina.designmodelgenerator.core.model.Service;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Tests for getting the design model for a package.
@@ -45,13 +51,46 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
         JsonObject jsonObject = getResponse(request);
         GetDesignModelResponse expectedResponse = gson.fromJson(testConfig.output, GetDesignModelResponse.class);
         GetDesignModelResponse actualResponse = gson.fromJson(jsonObject, GetDesignModelResponse.class);
-//        Assert.assertEquals(jsonObject, testConfig.output());
-        boolean failed = true;
-        if (failed) {
+        boolean asserted = assertDesignModel(actualResponse.getDesignModel(), expectedResponse.getDesignModel());
+        if (!asserted) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.projectPath(), jsonObject);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    private boolean assertDesignModel(DesignModel actual, DesignModel expected) {
+        return assertAutomation(actual.automation(), expected.automation()) &&
+                assertConnections(actual.connections(), expected.connections()) &&
+                assertListeners(actual.listeners(), expected.listeners()) &&
+                assertServices(actual.services(), expected.services());
+    }
+
+    private boolean assertServices(List<Service> actual, List<Service> expected) {
+        if (actual.size() != expected.size()) {
+            return false;
+        }
+        for (int i = 0; i < actual.size(); i++) {
+            if (actual.get(i).hashCode() != expected.get(i).hashCode()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean assertConnections(List<Connection> actual, List<Connection> expected) {
+        return actual.size() == expected.size();
+    }
+
+    private boolean assertListeners(List<Listener> actual, List<Listener> expected) {
+        return actual.size() == expected.size();
+    }
+
+    private boolean assertAutomation(Automation actual, Automation expected) {
+        return actual.getName().equals(expected.getName()) &&
+                actual.getDisplayName().equals(expected.getDisplayName())
+                && actual.getLocation().equals(expected.getLocation())
+                && actual.getConnections().size() == expected.getConnections().size();
     }
 
     @Override

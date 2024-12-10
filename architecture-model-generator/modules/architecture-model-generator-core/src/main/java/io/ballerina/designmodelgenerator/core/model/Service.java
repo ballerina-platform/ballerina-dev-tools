@@ -80,4 +80,24 @@ public class Service extends DesignGraphNode {
     public String getAbsolutePath() {
         return absolutePath;
     }
+
+    @Override
+    public int hashCode() {
+        return location.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Service service)) {
+            return false;
+        }
+        return service.name.equals(this.name)
+                && service.absolutePath.equals(this.absolutePath)
+                && service.location.equals(this.location)
+                && service.listener.equals(this.listener)
+                && service.connections.size() == this.connections.size()
+                && service.functions.size() == this.functions.size()
+                && service.remoteFunctions.size() == this.remoteFunctions.size()
+                && service.resourceFunctions.size() == this.resourceFunctions.size();
+    }
 }
