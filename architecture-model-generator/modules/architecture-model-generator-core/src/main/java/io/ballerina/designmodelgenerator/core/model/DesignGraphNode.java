@@ -18,43 +18,22 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import io.ballerina.designmodelgenerator.core.CommonUtils;
+
 /**
- * Represents a module client declaration node.
+ * Represents the design graph of a Ballerina package.
  *
  * @since 2.0.0
  */
-public class Connection extends DesignGraphNode {
+public abstract class DesignGraphNode {
 
-    private final String symbol;
-    private final Location location;
-    private final Scope scope;
+    private final String uuid;
 
-    public Connection(String symbol, Location location, Scope scope) {
-        super();
-        this.symbol = symbol;
-        this.location = location;
-        this.scope = scope;
+    public DesignGraphNode() {
+        this.uuid = CommonUtils.generateUUID();
     }
 
-    public enum Scope {
-        LOCAL,
-        GLOBAL
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public Scope getScope() {
-        return scope;
-    }
-
-    @Override
-    public int hashCode() {
-        return location.hashCode();
+    public String getUuid() {
+        return uuid;
     }
 }

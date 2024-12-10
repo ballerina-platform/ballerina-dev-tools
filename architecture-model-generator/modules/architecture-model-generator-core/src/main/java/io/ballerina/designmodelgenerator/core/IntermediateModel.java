@@ -38,14 +38,14 @@ public class IntermediateModel {
 
     protected final Map<String, FunctionModel> functionModelMap;
     protected final Map<String, ServiceModel> serviceModelMap;
-    protected final List<Listener> listeners;
-    protected final List<Connection> connections;
+    protected final Map<String, Listener> listeners;
+    protected final Map<String, Connection> connectionMap;
 
     public IntermediateModel() {
         this.functionModelMap = new HashMap<>();
         this.serviceModelMap = new HashMap<>();
-        this.listeners = new ArrayList<>();
-        this.connections = new ArrayList<>();
+        this.listeners = new HashMap<>();
+        this.connectionMap = new HashMap<>();
     }
 
     public static class ServiceModel {
@@ -54,30 +54,40 @@ public class IntermediateModel {
         protected List<FunctionModel> otherFunctions;
         protected String listener;
         protected Location location;
+        protected Listener anonListener;
+        protected String absolutePath;
 
-        public ServiceModel(String listenerSymbol) {
+        public ServiceModel(Listener anonListener, String absolutePath) {
+            this.remoteFunctions = new ArrayList<>();
+            this.resourceFunctions = new ArrayList<>();
+            this.otherFunctions = new ArrayList<>();
+            this.anonListener = anonListener;
+            this.absolutePath = absolutePath;
+        }
+
+        public ServiceModel(String listenerSymbol, String absolutePath) {
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
             this.otherFunctions = new ArrayList<>();
             this.listener = listenerSymbol;
+            this.absolutePath = absolutePath;
         }
     }
 
     public static class FunctionModel {
         protected final String name;
         protected final Set<String> dependentFuncs;
-        protected final Set<String> connections;
         protected boolean analyzed;
         protected boolean visited;
         protected final Set<String> allDependentConnections;
         protected Location location;
         protected String path;
         protected String displayName;
+        protected final Set<String> connections = new HashSet<>();
 
         public FunctionModel(String name) {
             this.name = name;
             this.dependentFuncs = new HashSet<>();
-            this.connections = new HashSet<>();
             this.analyzed = false;
             this.visited = false;
             this.allDependentConnections = new HashSet<>();

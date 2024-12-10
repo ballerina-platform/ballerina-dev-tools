@@ -16,11 +16,11 @@
  *  under the License.
  */
 
-
 package io.ballerina.designmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import io.ballerina.desginmodelgenerator.extension.request.GetDesignModelRequest;
+import io.ballerina.desginmodelgenerator.extension.response.GetDesignModelResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -43,7 +43,15 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
         String sourceFile = sourceDir.resolve(testConfig.projectPath()).toAbsolutePath().toString();
         GetDesignModelRequest request = new GetDesignModelRequest(sourceFile);
         JsonObject jsonObject = getResponse(request);
-        Assert.assertEquals(jsonObject, testConfig.output());
+        GetDesignModelResponse expectedResponse = gson.fromJson(testConfig.output, GetDesignModelResponse.class);
+        GetDesignModelResponse actualResponse = gson.fromJson(jsonObject, GetDesignModelResponse.class);
+//        Assert.assertEquals(jsonObject, testConfig.output());
+        boolean failed = true;
+        if (failed) {
+            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.projectPath(), jsonObject);
+            updateConfig(configJsonPath, updatedConfig);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
     }
 
     @Override
@@ -62,6 +70,5 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
     }
 
     public record TestConfig(String description, String projectPath, JsonObject output) {
-
     }
 }

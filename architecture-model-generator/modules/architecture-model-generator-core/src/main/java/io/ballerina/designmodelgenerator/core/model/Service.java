@@ -23,17 +23,61 @@ import java.util.List;
 /**
  * Represents a service definition node.
  *
- * @param name name of the service
- * @param location location of the service
- * @param listener listener of the service
- * @param connections dependent connections of the service
- * @param functions normal function in the service
- * @param remoteFunctions remote function in the service
- * @param resourceFunctions resource function in the service
- *
  * @since 2.0.0
  */
-public record Service(String name, Location location, String listener, List<String> connections,
-                      List<Function> functions, List<Function> remoteFunctions,
-                      List<ResourceFunction> resourceFunctions) {
+public class Service extends DesignGraphNode {
+
+    private final String name;
+    private final Location location;
+    private final String listener;
+    private final List<String> connections;
+    private final List<Function> functions;
+    private final List<Function> remoteFunctions;
+    private final List<ResourceFunction> resourceFunctions;
+    private final String absolutePath;
+
+    public Service(String name, String absolutePath, Location location, String listener, List<String> connections,
+                   List<Function> functions, List<Function> remoteFunctions, List<ResourceFunction> resourceFunctions) {
+        super();
+        this.name = name;
+        this.absolutePath = absolutePath;
+        this.location = location;
+        this.listener = listener;
+        this.connections = connections;
+        this.functions = functions;
+        this.remoteFunctions = remoteFunctions;
+        this.resourceFunctions = resourceFunctions;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public String getListener() {
+        return listener;
+    }
+
+    public List<String> getConnections() {
+        return connections;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
+    }
+
+    public List<Function> getRemoteFunctions() {
+        return remoteFunctions;
+    }
+
+    public List<ResourceFunction> getResourceFunctions() {
+        return resourceFunctions;
+    }
+
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
 }

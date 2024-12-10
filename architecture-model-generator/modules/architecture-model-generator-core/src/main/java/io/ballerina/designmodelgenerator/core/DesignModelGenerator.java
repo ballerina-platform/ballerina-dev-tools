@@ -19,17 +19,28 @@
 package io.ballerina.designmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.designmodelgenerator.core.model.Automation;
+import io.ballerina.designmodelgenerator.core.model.Connection;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
 import io.ballerina.designmodelgenerator.core.model.Function;
+import io.ballerina.designmodelgenerator.core.model.Listener;
+import io.ballerina.designmodelgenerator.core.model.Location;
 import io.ballerina.designmodelgenerator.core.model.ResourceFunction;
 import io.ballerina.designmodelgenerator.core.model.Service;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
+import io.ballerina.tools.text.LineRange;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -46,18 +57,28 @@ public class DesignModelGenerator {
     private final Module defaultModule;
     private final Path rootPath;
     public static final String MAIN_FUNCTION_NAME = "main";
+    private static final String AUTOMATION = "automation";
+    private final Map<String, ModulePartNode> documentMap;
 
     public DesignModelGenerator(Package ballerinaPackage) {
         this.defaultModule = ballerinaPackage.getDefaultModule();
         this.semanticModel = this.defaultModule.getCompilation().getSemanticModel();
         this.rootPath = ballerinaPackage.project().sourceRoot();
+        this.documentMap = new HashMap<>();
+        this.defaultModule.documentIds().forEach(documentId -> {
+            Document document = this.defaultModule.document(documentId);
+            documentMap.put(document.name(), document.syntaxTree().rootNode());
+        });
     }
 
     public DesignModel generate() {
         IntermediateModel intermediateModel = new IntermediateModel();
+        this.populateModuleLevelConnections(intermediateModel);
+        ConnectionFinder connectionFinder = new ConnectionFinder(semanticModel, rootPath, documentMap,
+                intermediateModel);
         this.defaultModule.documentIds().forEach(d -> {
             ModulePartNode rootNode =  this.defaultModule.document(d).syntaxTree().rootNode();
-            CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, intermediateModel, rootPath);
+            CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, intermediateModel, rootPath, connectionFinder);
             codeAnalyzer.visit(rootNode);
         });
 
@@ -66,7 +87,7 @@ public class DesignModelGenerator {
         if (intermediateModel.functionModelMap.containsKey(MAIN_FUNCTION_NAME)) {
             IntermediateModel.FunctionModel main = intermediateModel.functionModelMap.get(MAIN_FUNCTION_NAME);
             buildConnectionGraph(intermediateModel, main);
-            builder.setAutomation(new Automation(MAIN_FUNCTION_NAME, main.displayName, main.location,
+            builder.setAutomation(new Automation(AUTOMATION, main.displayName, main.location,
                     main.allDependentConnections.stream().toList()));
         }
 
@@ -95,13 +116,34 @@ public class DesignModelGenerator {
                         resourceFunction.location));
                 connections.addAll(resourceFunction.allDependentConnections);
             });
-            builder.addService(new Service(serviceEntry.getKey(), serviceModel.location, serviceModel.listener,
-                    connections.stream().toList(), functions, remoteFunctions, resourceFunctions));
+            Listener listener = serviceModel.listener == null ?
+                    serviceModel.anonListener : intermediateModel.listeners.get(serviceModel.listener);
+            Service service = new Service(serviceEntry.getKey(), serviceModel.absolutePath, serviceModel.location,
+                    listener.getUuid(), connections.stream().toList(), functions, remoteFunctions, resourceFunctions);
+            listener.getAttachedServices().add(service.getUuid());
+            builder.addService(service);
         }
         return builder
-                .setConnections(intermediateModel.connections)
-                .setListeners(intermediateModel.listeners)
+                .setListeners(intermediateModel.listeners.values().stream().toList())
+                .setConnections(intermediateModel.connectionMap.values().stream().toList())
                 .build();
+    }
+
+    private void populateModuleLevelConnections(IntermediateModel intermediateModel) {
+        for (Symbol symbol : this.semanticModel.moduleSymbols()) {
+            if (symbol instanceof VariableSymbol variableSymbol) {
+                TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
+                if (typeSymbol instanceof ObjectTypeSymbol objectTypeSymbol) {
+                    if (objectTypeSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                        Location location = getLocation(variableSymbol.getLocation().get().lineRange());
+                        Connection connection = new Connection(variableSymbol.getName().get(), location,
+                                Connection.Scope.GLOBAL);
+                        intermediateModel.connectionMap.put(
+                                String.valueOf(variableSymbol.getLocation().get().hashCode()), connection);
+                    }
+                }
+            }
+        }
     }
 
     private void buildConnectionGraph(IntermediateModel intermediateModel,
@@ -122,5 +164,11 @@ public class DesignModelGenerator {
         functionModel.allDependentConnections.addAll(functionModel.connections);
         functionModel.allDependentConnections.addAll(connections);
         functionModel.analyzed = true;
+    }
+
+    public Location getLocation(LineRange lineRange) {
+        Path filePath = rootPath.resolve(lineRange.fileName());
+        return new Location(filePath.toAbsolutePath().toString(), lineRange.startLine(),
+                lineRange.endLine());
     }
 }

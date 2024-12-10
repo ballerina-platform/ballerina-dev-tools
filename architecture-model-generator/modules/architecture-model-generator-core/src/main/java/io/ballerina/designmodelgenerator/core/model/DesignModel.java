@@ -33,7 +33,7 @@ public record DesignModel(Automation automation, List<Connection> connections,
                           List<Listener> listeners, List<Service> services) {
 
     /**
-     * Builder use to create a DesignModel instance.
+     * Builder used to create a DesignModel instance.
      */
     public static class DesignModelBuilder {
         private Automation automation;

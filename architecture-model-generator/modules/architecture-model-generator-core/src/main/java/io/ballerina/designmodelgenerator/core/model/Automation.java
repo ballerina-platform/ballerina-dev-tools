@@ -23,12 +23,36 @@ import java.util.List;
 /**
  * Represents the main function in a ballerina package.
  *
- * @param name name of the automation.
- * @param displayName display name of the automation.
- * @param location location of the main function node.
- * @param connections all dependent connections for the main function.
- *
  * @since 2.0.0
  */
-public record Automation(String name, String displayName, Location location, List<String> connections) {
+public final class Automation extends DesignGraphNode {
+
+    private final String name;
+    private final String displayName;
+    private final Location location;
+    private final List<String> connections;
+
+    public Automation(String name, String displayName, Location location, List<String> connections) {
+        super();
+        this.name = name;
+        this.displayName = displayName;
+        this.location = location;
+        this.connections = connections;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public List<String> getConnections() {
+        return connections;
+    }
 }

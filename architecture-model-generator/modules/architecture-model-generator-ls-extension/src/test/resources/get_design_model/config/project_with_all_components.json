@@ -2,6 +2,586 @@
   "description": "Project with all types of components",
   "projectPath": "project_1",
   "output": {
-
+    "designModel": {
+      "automation": {
+        "name": "main",
+        "displayName": "Order Dispatcher",
+        "location": {
+          "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/automation.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 1
+          }
+        },
+        "connections": [
+          "829dfba0-99ca-4acd-928c-e2dc7a5964f4",
+          "42737193-4281-4822-a2a5-010e76d1d8e0"
+        ]
+      },
+      "connections": [
+        {
+          "symbol": "httpClient4",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 29
+            }
+          },
+          "scope": "GLOBAL",
+          "uuid": "764cadf1-6310-477a-90d1-2e48b9e31d04"
+        },
+        {
+          "symbol": "httpClient10",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 20
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 32
+            }
+          },
+          "scope": "LOCAL",
+          "uuid": "6456ad47-ab55-48cd-9b4f-d299ac9d5fd0"
+        },
+        {
+          "symbol": "httpClient",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 28
+            }
+          },
+          "scope": "GLOBAL",
+          "uuid": "6c4be620-ad36-47fd-8773-f8c7d81b2bab"
+        },
+        {
+          "symbol": "httpClient3",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 29
+            }
+          },
+          "scope": "GLOBAL",
+          "uuid": "33b85428-5469-4d34-a412-1fb25518ab8d"
+        },
+        {
+          "symbol": "httpClient",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 24
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 34
+            }
+          },
+          "scope": "LOCAL",
+          "uuid": "91db65ec-be1b-4430-a643-563cc474c8ae"
+        },
+        {
+          "symbol": "httpClient",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 28
+            }
+          },
+          "scope": "GLOBAL",
+          "uuid": "6c4be620-ad36-47fd-8773-f8c7d81b2bab"
+        },
+        {
+          "symbol": "httpClient2",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 13
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 24
+            }
+          },
+          "scope": "LOCAL",
+          "uuid": "779e6650-7f40-426a-b628-ac1f5f1b28b7"
+        },
+        {
+          "symbol": "httpClient",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/automation.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 26
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 36
+            }
+          },
+          "scope": "LOCAL",
+          "uuid": "829dfba0-99ca-4acd-928c-e2dc7a5964f4"
+        },
+        {
+          "symbol": "httpClient2",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 29
+            }
+          },
+          "scope": "GLOBAL",
+          "uuid": "42737193-4281-4822-a2a5-010e76d1d8e0"
+        }
+      ],
+      "listeners": [
+        {
+          "symbol": "ANON",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 40,
+              "offset": 1
+            }
+          },
+          "attachedServices": [
+            "ff405ed3-8c80-4080-97ff-9de0a9c82188"
+          ],
+          "kind": "ANON",
+          "uuid": "2566f01c-0695-42e1-b716-2146c05c0e0d"
+        },
+        {
+          "symbol": "ANON",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 39,
+              "offset": 1
+            }
+          },
+          "attachedServices": [
+            "a4a588bc-e091-4198-bbda-6e0089057bf0"
+          ],
+          "kind": "ANON",
+          "uuid": "e6872676-281e-412f-8d5a-c9e522b07b69"
+        },
+        {
+          "symbol": "ls",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 52
+            }
+          },
+          "attachedServices": [
+            "5f7bdae9-fc62-45d8-a84d-750ac6a42664",
+            "9ad4d1b1-ea7e-4d9c-9504-108ff77e2a7f"
+          ],
+          "kind": "NAMED",
+          "uuid": "7018c802-3e6d-4dfc-b3b4-9128e6c52d2d"
+        },
+        {
+          "symbol": "orderListener",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 3
+            }
+          },
+          "attachedServices": [
+            "1bf31f59-270a-47b5-b7ee-7bc0e4d2f0e5"
+          ],
+          "kind": "NAMED",
+          "uuid": "2f456798-9931-4fc9-a994-59a929b6782b"
+        },
+        {
+          "symbol": "ANON",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 1
+            }
+          },
+          "attachedServices": [
+            "a24ba565-f614-49c2-933f-9cc3bd4e9613"
+          ],
+          "kind": "ANON",
+          "uuid": "52b683b5-b777-4185-82bf-702369c055e1"
+        }
+      ],
+      "services": [
+        {
+          "name": "IITService",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 1
+            }
+          },
+          "listener": "52b683b5-b777-4185-82bf-702369c055e1",
+          "connections": [
+            "42737193-4281-4822-a2a5-010e76d1d8e0"
+          ],
+          "functions": [
+            {
+              "name": "init",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 37
+                }
+              }
+            }
+          ],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "greeting",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 14,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "uuid": "a24ba565-f614-49c2-933f-9cc3bd4e9613"
+        },
+        {
+          "name": "kafka",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 1
+            }
+          },
+          "listener": "2f456798-9931-4fc9-a994-59a929b6782b",
+          "connections": [],
+          "functions": [],
+          "remoteFunctions": [
+            {
+              "name": "onConsumerRecord",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 24,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "resourceFunctions": [],
+          "uuid": "1bf31f59-270a-47b5-b7ee-7bc0e4d2f0e5"
+        },
+        {
+          "name": "kafka_1",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 40,
+              "offset": 1
+            }
+          },
+          "listener": "2566f01c-0695-42e1-b716-2146c05c0e0d",
+          "connections": [],
+          "functions": [],
+          "remoteFunctions": [
+            {
+              "name": "onConsumerRecord",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/kafka.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 39,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "resourceFunctions": [],
+          "uuid": "ff405ed3-8c80-4080-97ff-9de0a9c82188"
+        },
+        {
+          "name": "BITService",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 39,
+              "offset": 1
+            }
+          },
+          "listener": "e6872676-281e-412f-8d5a-c9e522b07b69",
+          "connections": [
+            "550e2ade-3741-457a-8d87-ec8e4bfed30a",
+            "6c90edd1-7e50-422a-bc04-9dc01f1dbbf3",
+            "6c4be620-ad36-47fd-8773-f8c7d81b2bab",
+            "6456ad47-ab55-48cd-9b4f-d299ac9d5fd0",
+            "779e6650-7f40-426a-b628-ac1f5f1b28b7",
+            "91db65ec-be1b-4430-a643-563cc474c8ae"
+          ],
+          "functions": [
+            {
+              "name": "init",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 5
+                }
+              }
+            },
+            {
+              "name": "foo1",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 29,
+                  "offset": 5
+                }
+              }
+            },
+            {
+              "name": "foo2",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+                "startLine": {
+                  "line": 31,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 34,
+                  "offset": 5
+                }
+              }
+            },
+            {
+              "name": "foo3",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+                "startLine": {
+                  "line": 36,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 38,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "greeting",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+                "startLine": {
+                  "line": 13,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "uuid": "a4a588bc-e091-4198-bbda-6e0089057bf0"
+        },
+        {
+          "name": "multi_service_1",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 1
+            }
+          },
+          "listener": "7018c802-3e6d-4dfc-b3b4-9128e6c52d2d",
+          "connections": [
+            "42737193-4281-4822-a2a5-010e76d1d8e0"
+          ],
+          "functions": [],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "path",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "uuid": "5f7bdae9-fc62-45d8-a84d-750ac6a42664"
+        },
+        {
+          "name": "multi_service",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 1
+            }
+          },
+          "listener": "7018c802-3e6d-4dfc-b3b4-9128e6c52d2d",
+          "connections": [
+            "42737193-4281-4822-a2a5-010e76d1d8e0"
+          ],
+          "functions": [
+            {
+              "name": "baz",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 12,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "path",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/multi_service.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "uuid": "9ad4d1b1-ea7e-4d9c-9504-108ff77e2a7f"
+        }
+      ]
+    }
   }
 }

@@ -18,11 +18,46 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a listener declaration node.
  *
- * @param symbol variable name of the listener.
- * @param location variable location.
+ * @since 2.0.0
  */
-public record Listener(String symbol, Location location) {
+public final class Listener extends DesignGraphNode {
+
+    private final String symbol;
+    private final Location location;
+    private final Set<String> attachedServices;
+    private final Kind kind;
+
+    public Listener(String symbol, Location location, Kind kind) {
+        super();
+        this.symbol = symbol;
+        this.location = location;
+        this.kind = kind;
+        this.attachedServices = new HashSet<>();
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Set<String> getAttachedServices() {
+        return attachedServices;
+    }
+
+    public Kind getKind() {
+        return kind;
+    }
+
+    public enum Kind {
+        ANON, NAMED
+    }
 }

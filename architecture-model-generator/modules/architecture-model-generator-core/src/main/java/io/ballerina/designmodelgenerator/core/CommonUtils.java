@@ -5,6 +5,8 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 
+import java.util.UUID;
+
 public class CommonUtils {
 
     /**
@@ -30,5 +32,9 @@ public class CommonUtils {
             return rawType;
         }
         return typeDescriptor;
+    }
+
+    public static String generateUUID() {
+        return UUID.randomUUID().toString();
     }
 }
