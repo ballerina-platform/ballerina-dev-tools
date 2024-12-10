@@ -25,6 +25,7 @@ public class DataMappingAddElementTest extends AbstractLSTest {
                 {Path.of("variable4.json")},
                 {Path.of("variable5.json")},
                 {Path.of("variable6.json")},
+                {Path.of("variable7.json")},
         };
     }
 

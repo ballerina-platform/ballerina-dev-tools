@@ -476,6 +476,7 @@ public class DataMapManager {
         for (Mapping mapping : fieldMapping) {
             genSourceForMapping(mapping, mappings);
         }
+//        genSourceForMs(fieldMapping, mappings);
         String mappingSource = genSource(mappings);
         if (flowNode.codedata().node() == NodeKind.VARIABLE) {
             Optional<Property> optProperty = flowNode.getProperty("expression");
@@ -555,6 +556,31 @@ public class DataMapManager {
         } else {
             return sourceObj.toString();
         }
+    }
+
+    private void genSourceForMs(List<Mapping> mappings, Map<String, Object> x) {
+        for (Mapping mapping : mappings) {
+            Object o = genSourceForM(mapping);
+            x.put(genKey(mapping), o);
+        }
+    }
+
+    private Object genSourceForM(Mapping mapping) {
+        List<MappingElements> elements = mapping.elements();
+        if (elements == null || elements.isEmpty()) {
+            // gen Source for single line
+        }
+        List<Map<String, Object>> xs = new ArrayList<>();
+        for (MappingElements element : elements) {
+            Map<String, Object> x = new HashMap<>();
+            genSourceForMs(element.mappings(), x);
+            xs.add(x);
+        }
+        return xs;
+    }
+
+    private String genKey(Mapping mapping) {
+        return "";
     }
 
     // TODO: Check the logic
@@ -760,7 +786,7 @@ public class DataMapManager {
             return "[" + defaultVal + "]";
         }
         String fieldsPattern = getFieldsPattern(targetField);
-        if (source.matches(".*" + fieldsPattern + "\\s*:\\s*\\[.*$")) {
+        if (source.matches("(?s).*" + fieldsPattern + "\\s*:\\s*\\[.*$")) {
             String[] splits = source.split(".*" + fieldsPattern + "\\s*:\\s*\\[");
             String lastSplit = splits[1];
             if (!lastSplit.trim().startsWith("]")) {
