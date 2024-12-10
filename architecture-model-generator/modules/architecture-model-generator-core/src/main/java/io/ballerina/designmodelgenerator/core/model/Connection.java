@@ -18,6 +18,8 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.Objects;
+
 /**
  * Represents a module client declaration node.
  *
@@ -56,5 +58,13 @@ public class Connection extends DesignGraphNode {
     @Override
     public int hashCode() {
         return location.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Connection connection)) {
+            return false;
+        }
+        return Objects.equals(connection.getUuid(), this.getUuid());
     }
 }
