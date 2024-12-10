@@ -108,6 +108,22 @@ public class TypesManager {
         return gson.toJsonTree(allTypes);
     }
 
+    public JsonElement getType(Document document, LinePosition linePosition) {
+        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
+        Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
+        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.TYPE_DEFINITION) {
+            return null;
+        }
+
+        TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
+        // Only supports records so far. TODO: support unions, array, errors
+        if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
+            return gson.toJsonTree(getRecordType(typeDef));
+        }
+
+        return null;
+    }
+
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
         // Record
         switch (typeSymbol.typeKind()) {
@@ -239,13 +255,17 @@ public class TypesManager {
             fieldMembers.put(name,
                     memberBuilder
                             .kind(Member.MemberKind.FIELD)
-                            .ref(isForeignType(fieldTypeDesc) ? getTypeName(fieldTypeDesc) : fieldTypeDesc.signature())
+                            .type(fieldTypeDesc.typeKind() == TypeDescKind.TYPE_REFERENCE ?
+                                    getTypeName(fieldTypeDesc) : fieldTypeDesc.typeKind().getName())
+                            .ref(isForeignType(fieldTypeDesc) ?
+                                    getTypeName(fieldTypeDesc) : fieldTypeDesc.getName().orElse(""))
                             .name(name)
                             .docs(field.documentation().isEmpty() ? ""
                                     : field.documentation().get().description().orElse(""))
                             // TODO: Add default value
                             .build());
         });
+        typeDataBuilder.members(fieldMembers);
 
         // TODO: Add support for annotations
 
@@ -268,21 +288,5 @@ public class TypesManager {
         String name = symbol.getName().get();
         ModuleID moduleId = symbol.getModule().get().id();
         return String.format("%s/%s:%s", moduleId.orgName(), moduleId.packageName(), name);
-    }
-
-    public JsonElement getType(Document document, LinePosition linePosition) {
-        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
-        Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
-        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.TYPE_DEFINITION) {
-            return null;
-        }
-
-        TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
-        // Only supports records so far. TODO: support unions, array, errors
-        if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-            return gson.toJsonTree(getRecordType(typeDef));
-        }
-
-        return null;
     }
 }
