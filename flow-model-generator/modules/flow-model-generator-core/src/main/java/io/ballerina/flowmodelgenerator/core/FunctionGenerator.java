@@ -134,7 +134,7 @@ public class FunctionGenerator {
         List<String> moduleNames = module.moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
-        //TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695
+        // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
 //        List<String> moduleNames = semanticModel.moduleSymbols().stream()
 //                .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
 //                .flatMap(symbol -> symbol.getName().stream())
