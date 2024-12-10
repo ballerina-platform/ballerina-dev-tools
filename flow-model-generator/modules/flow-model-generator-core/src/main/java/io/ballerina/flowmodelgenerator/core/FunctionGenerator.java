@@ -21,7 +21,6 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.ModuleID;
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
@@ -36,6 +35,7 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
@@ -54,14 +54,14 @@ import java.util.Optional;
 public class FunctionGenerator {
 
     private final Gson gson;
-    private final SemanticModel semanticModel;
+    private final Module module;
     private final Category.Builder rootBuilder;
 
     private static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
 
-    public FunctionGenerator(SemanticModel semanticModel) {
+    public FunctionGenerator(Module module) {
         gson = new Gson();
-        this.semanticModel = semanticModel;
+        this.module = module;
         this.rootBuilder = new Category.Builder(null);
     }
 
@@ -84,7 +84,7 @@ public class FunctionGenerator {
     }
 
     private void buildProjectNodes(Map<String, String> queryMap, LineRange position) {
-        List<Symbol> functionSymbols = semanticModel.moduleSymbols().stream()
+        List<Symbol> functionSymbols = module.getCompilation().getSemanticModel().moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
 
@@ -131,10 +131,14 @@ public class FunctionGenerator {
 
     private void buildLibraryFunctions(Map<String, String> queryMap) {
         // Obtain the imported module names
-        List<String> moduleNames = semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
-                .flatMap(symbol -> symbol.getName().stream())
+        List<String> moduleNames = module.moduleDependencies().stream()
+                .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
+        // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
+//        List<String> moduleNames = semanticModel.moduleSymbols().stream()
+//                .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
+//                .flatMap(symbol -> symbol.getName().stream())
+//                .toList();
 
         // Build the imported library functions if exists
         DatabaseManager dbManager = DatabaseManager.getInstance();
