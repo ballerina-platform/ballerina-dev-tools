@@ -20,6 +20,7 @@ package io.ballerina.indexgenerator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
@@ -27,15 +28,22 @@ import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
+import io.ballerina.compiler.api.symbols.MemberTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
+import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -56,6 +64,7 @@ import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
@@ -89,6 +98,7 @@ class IndexGenerator {
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
+    private static final List<String> NON_DEFAULT_LANG_LIBS = List.of("array", "regexp", "value");
 
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
@@ -101,8 +111,7 @@ class IndexGenerator {
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
             forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
-                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)
-            ))).join();
+                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -130,8 +139,8 @@ class IndexGenerator {
 
         SemanticModel semanticModel;
         try {
-            semanticModel =
-                    resolvedPackage.getCompilation().getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
+            semanticModel = resolvedPackage.getCompilation()
+                    .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
         } catch (Exception e) {
             LOGGER.severe("Error reading semantic model: " + e.getMessage());
             return;
@@ -163,9 +172,9 @@ class IndexGenerator {
                 if (!classSymbol.nameEquals("Client")) {
                     continue;
                 }
-                int connectorId =
-                        processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR,
-                                descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                int connectorId = processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId,
+                        FunctionType.CONNECTOR,
+                        descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 if (connectorId == -1) {
                     continue;
                 }
@@ -217,15 +226,15 @@ class IndexGenerator {
 
         // Obtain the description of the function
         String description = getDescription(documentable);
-        Map<String, String> documentationMap =
-                functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
+        Map<String, String> documentationMap = functionSymbol.documentation().map(Documentation::parameterMap)
+                .orElse(Map.of());
 
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> functionSymbol.nameEquals("init") ?
-                        getClientType(packageName) :
-                        getTypeSignature(returnTypeDesc, errorTypeSymbol, true)).orElse("");
+                .map(returnTypeDesc -> functionSymbol.nameEquals("init") ? getClientType(packageName)
+                        : getTypeSignature(returnTypeDesc, errorTypeSymbol, true))
+                .orElse("");
 
         ParamForTypeInfer paramForTypeInfer = null;
         if (functionSymbol.external()) {
@@ -235,8 +244,7 @@ class IndexGenerator {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap =
-                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
                     returnType = "json";
@@ -251,17 +259,20 @@ class IndexGenerator {
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
-        int functionId =
-                DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                        functionType.name(), pathBuilder, returnError);
+        int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
+                functionType.name(), pathBuilder, returnError);
 
         // Handle the parameters of the function
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
-        functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage,
-                        finalParamForTypeInfer)));
-        functionTypeSymbol.restParam().ifPresent(paramSymbol ->
-                processParameterSymbol(paramSymbol, documentationMap, functionId, resolvedPackage, null));
+        ModuleDescriptor defaultModuleDescriptor = resolvedPackage.getDefaultModule().descriptor();
+        functionTypeSymbol.params()
+                .ifPresent(paramList -> paramList.forEach(paramSymbol -> processParameterSymbol(paramSymbol,
+                        documentationMap, functionId, resolvedPackage,
+                        finalParamForTypeInfer, defaultModuleDescriptor)));
+        functionTypeSymbol.restParam()
+                .ifPresent(paramSymbol -> processParameterSymbol(paramSymbol, documentationMap, functionId,
+                        resolvedPackage, null,
+                        defaultModuleDescriptor));
         return functionId;
     }
 
@@ -283,28 +294,115 @@ class IndexGenerator {
         return members;
     }
 
+    private static String getImportStatements(TypeSymbol typeSymbol, ModuleDescriptor moduleDescriptor) {
+        List<String> imports = new ArrayList<>();
+        analyzeTypeSymbolForImports(imports, typeSymbol, moduleDescriptor);
+        return String.join(",", imports);
+    }
+
+    private static void analyzeTypeSymbolForImports(List<String> imports, TypeSymbol typeSymbol,
+                                                    ModuleDescriptor defaultDescriptor) {
+        switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                unionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, defaultDescriptor));
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                intersectionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, defaultDescriptor));
+            }
+            case TABLE -> {
+                TableTypeSymbol tableTypeSymbol = (TableTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, tableTypeSymbol.rowTypeParameter(), defaultDescriptor);
+                tableTypeSymbol.keyConstraintTypeParameter()
+                        .ifPresent(keyType -> analyzeTypeSymbolForImports(imports, keyType, defaultDescriptor));
+            }
+            case TUPLE -> {
+                TupleTypeSymbol tupleTypeSymbol = (TupleTypeSymbol) typeSymbol;
+                tupleTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, defaultDescriptor));
+            }
+            case STREAM -> {
+                StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, streamTypeSymbol.typeParameter(), defaultDescriptor);
+            }
+            case FUTURE -> {
+                FutureTypeSymbol futureTypeSymbol = (FutureTypeSymbol) typeSymbol;
+                futureTypeSymbol.typeParameter()
+                        .ifPresent(typeParam -> analyzeTypeSymbolForImports(imports, typeParam, defaultDescriptor));
+            }
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                typeDescTypeSymbol.typeParameter()
+                        .ifPresent(typeParam -> analyzeTypeSymbolForImports(imports, typeParam, defaultDescriptor));
+            }
+            case ARRAY -> {
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, arrayTypeSymbol.memberTypeDescriptor(), defaultDescriptor);
+            }
+            case MAP -> {
+                MapTypeSymbol memberTypeSymbol = (MapTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, memberTypeSymbol.typeParam(), defaultDescriptor);
+            }
+            default -> {
+                Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
+                if (moduleSymbol.isEmpty()) {
+                    return;
+                }
+                ModuleID moduleId = moduleSymbol.get().id();
+                String orgName = moduleId.orgName();
+                String packageName = moduleId.packageName();
+                String moduleName = moduleId.moduleName();
+                String modulePrefix = moduleId.modulePrefix();
+
+                if (isPredefinedLangLib(orgName, packageName, modulePrefix) ||
+                        isWithinCurrentModule(defaultDescriptor, orgName, packageName, moduleName)) {
+                    return;
+                }
+                imports.add(CommonUtils.getImportSignature(orgName, packageName, moduleName));
+            }
+        }
+    }
+
+    private static boolean isWithinCurrentModule(ModuleDescriptor defaultDescriptor, String orgName, String packageName,
+                                                 String moduleName) {
+        return orgName.equals(defaultDescriptor.org().toString()) &&
+                packageName.equals(defaultDescriptor.packageName().value()) &&
+                moduleName.equals(defaultDescriptor.name().toString());
+    }
+
+    private static boolean isPredefinedLangLib(String orgName, String packageName, String modulePrefix) {
+        return orgName.equals("ballerina") && packageName.startsWith("lang.") &&
+                !NON_DEFAULT_LANG_LIBS.contains(modulePrefix);
+    }
+
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
                                                int functionId, Package resolvedPackage,
-                                               ParamForTypeInfer paramForTypeInfer) {
+                                               ParamForTypeInfer paramForTypeInfer,
+                                               ModuleDescriptor defaultModuleDescriptor) {
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
         FunctionParameterKind parameterKind = FunctionParameterKind.fromString(paramSymbol.paramKind().toString());
         String paramType;
         int optional = 1;
         String defaultValue;
+        TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
+        String importStatement = getImportStatements(typeSymbol, defaultModuleDescriptor);
         if (parameterKind == FunctionParameterKind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
-                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
-            paramType = getTypeSignature(((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
+                    ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
+            paramType = getTypeSignature(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(),
                     null, false);
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
-            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
-            addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
-                    functionId, resolvedPackage);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            paramType = getTypeSignature(typeSymbol, null, false);
+            addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
+                    functionId, resolvedPackage, defaultModuleDescriptor);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
-            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            paramType = getTypeSignature(typeSymbol, null, false);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             optional = 0;
         } else {
             if (paramForTypeInfer != null) {
@@ -312,32 +410,35 @@ class IndexGenerator {
                     defaultValue = paramForTypeInfer.type();
                     paramType = paramForTypeInfer.type();
                     DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription,
-                            paramType, defaultValue, FunctionParameterKind.PARAM_FOR_TYPE_INFER, optional);
+                            paramType, defaultValue, FunctionParameterKind.PARAM_FOR_TYPE_INFER, optional,
+                            importStatement);
                     return;
                 }
             }
             Location symbolLocation = paramSymbol.getLocation().get();
             Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             if (document != null) {
                 defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
                         symbolLocation, resolvedPackage.packageName().value());
             }
-            paramType = getTypeSignature(paramSymbol.typeDescriptor(), null, false);
+            paramType = getTypeSignature(typeSymbol, null, false);
         }
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                parameterKind, optional);
+                parameterKind, optional, importStatement);
     }
 
     protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId,
-                                                      Package resolvedPackage) {
+                                                      Package resolvedPackage,
+                                                      ModuleDescriptor defaultModuleDescriptor) {
         recordTypeSymbol.typeInclusions().forEach(includedType -> {
             addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId,
-                    resolvedPackage);
+                    resolvedPackage, defaultModuleDescriptor);
         });
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
+            TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
+            TypeSymbol fieldType = CommonUtil.getRawType(typeSymbol);
             if (fieldType.typeKind() == TypeDescKind.NEVER) {
                 continue;
             }
@@ -356,20 +457,22 @@ class IndexGenerator {
             }
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = getTypeSignature(recordFieldSymbol.typeDescriptor(), null, false);
+            String paramType = getTypeSignature(typeSymbol, null, false);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
             }
             DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                    FunctionParameterKind.INCLUDED_FIELD, optional);
+                    FunctionParameterKind.INCLUDED_FIELD, optional,
+                    getImportStatements(typeSymbol, defaultModuleDescriptor));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = getTypeSignature(typeSymbol, null, false);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
-                    FunctionParameterKind.INCLUDED_RECORD_REST, 1);
+                    FunctionParameterKind.INCLUDED_RECORD_REST, 1,
+                    getImportStatements(typeSymbol, defaultModuleDescriptor));
         });
     }
 

@@ -548,4 +548,20 @@ public class CommonUtils {
         String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
         return URI.create(exprUriString).toString();
     }
+
+    /**
+     * Generates an import signature of the form <org>/<package>[.<module>].
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param moduleName  the module name
+     * @return the generated import signature
+     */
+    public static String getImportSignature(String orgName, String packageName, String moduleName) {
+        StringBuilder result = new StringBuilder(orgName).append("/").append(packageName);
+        if (!packageName.equals(moduleName)) {
+            result.append(".").append(moduleName);
+        }
+        return result.toString();
+    }
 }
