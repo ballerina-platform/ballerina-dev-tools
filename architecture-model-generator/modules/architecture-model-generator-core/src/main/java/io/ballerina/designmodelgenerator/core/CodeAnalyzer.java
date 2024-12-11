@@ -90,7 +90,6 @@ import io.ballerina.tools.text.LineRange;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -314,7 +313,7 @@ public class CodeAnalyzer extends NodeVisitor {
             if (rawType instanceof ClassSymbol classSymbol) {
                 Node initializer = listenerDeclarationNode.initializer();
                 if (initializer instanceof NewExpressionNode newExpressionNode) {
-                    arguments =getInitMethodParamNames(classSymbol, getArgList(newExpressionNode));
+                    arguments = getInitMethodParamNames(classSymbol, getArgList(newExpressionNode));
                 }
             }
         }
