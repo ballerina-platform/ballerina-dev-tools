@@ -30,11 +30,10 @@ configurations {
 }
 
 dependencies {
-    compileOnly "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
-    compileOnly "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
-    compileOnly "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
-    compileOnly "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
-
+    implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
+    implementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
     implementation project(':architecture-model-generator:architecture-model-generator-core')
 

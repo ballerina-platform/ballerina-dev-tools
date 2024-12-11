@@ -71,7 +71,9 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
             return false;
         }
         for (int i = 0; i < actual.size(); i++) {
-            if (actual.get(i).hashCode() != expected.get(i).hashCode()) {
+            Service actualService = actual.get(i);
+            Service expectedService = expected.get(i);
+            if (actualService.hashCode() != expectedService.hashCode() && !actualService.equals(expectedService)) {
                 return false;
             }
         }

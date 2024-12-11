@@ -118,7 +118,7 @@ public class DesignModelGenerator {
             });
             Listener listener = serviceModel.listener == null ?
                     serviceModel.anonListener : intermediateModel.listeners.get(serviceModel.listener);
-            Service service = new Service(serviceEntry.getKey(), serviceModel.absolutePath, serviceModel.location,
+            Service service = new Service(serviceModel.displayName, serviceModel.absolutePath, serviceModel.location,
                     listener.getUuid(), connections.stream().toList(), functions, remoteFunctions, resourceFunctions);
             listener.getAttachedServices().add(service.getUuid());
             builder.addService(service);

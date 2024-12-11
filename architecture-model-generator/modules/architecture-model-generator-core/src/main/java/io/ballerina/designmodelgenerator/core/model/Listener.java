@@ -19,6 +19,7 @@
 package io.ballerina.designmodelgenerator.core.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,13 +33,18 @@ public final class Listener extends DesignGraphNode {
     private final Location location;
     private final Set<String> attachedServices;
     private final Kind kind;
+    private final String type;
+    private final List<KeyValue> args;
 
-    public Listener(String symbol, Location location, Kind kind) {
+
+    public Listener(String symbol, Location location, String type, Kind kind, List<KeyValue> args) {
         super();
         this.symbol = symbol;
         this.location = location;
         this.kind = kind;
         this.attachedServices = new HashSet<>();
+        this.type = type;
+        this.args = args;
     }
 
     public String getSymbol() {
@@ -57,7 +63,18 @@ public final class Listener extends DesignGraphNode {
         return kind;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public List<KeyValue> getArgs() {
+        return args;
+    }
+
     public enum Kind {
         ANON, NAMED
+    }
+
+    public record KeyValue(String key, String value) {
     }
 }

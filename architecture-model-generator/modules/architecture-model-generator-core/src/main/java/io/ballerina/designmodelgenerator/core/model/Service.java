@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Service extends DesignGraphNode {
 
-    private final String name;
+    private final String displayName;
     private final Location location;
     private final String listener;
     private final List<String> connections;
@@ -39,7 +39,7 @@ public class Service extends DesignGraphNode {
     public Service(String name, String absolutePath, Location location, String listener, List<String> connections,
                    List<Function> functions, List<Function> remoteFunctions, List<ResourceFunction> resourceFunctions) {
         super();
-        this.name = name;
+        this.displayName = name;
         this.absolutePath = absolutePath;
         this.location = location;
         this.listener = listener;
@@ -49,8 +49,8 @@ public class Service extends DesignGraphNode {
         this.resourceFunctions = resourceFunctions;
     }
 
-    public String getName() {
-        return name;
+    public String getDisplayName() {
+        return displayName;
     }
 
     public Location getLocation() {
@@ -83,7 +83,7 @@ public class Service extends DesignGraphNode {
 
     @Override
     public int hashCode() {
-        return location.hashCode();
+        return location.startLine().hashCode() + location.endLine().hashCode();
     }
 
     @Override
@@ -91,9 +91,8 @@ public class Service extends DesignGraphNode {
         if (!(obj instanceof Service service)) {
             return false;
         }
-        return service.name.equals(this.name)
+        return service.displayName.equals(this.displayName)
                 && service.absolutePath.equals(this.absolutePath)
-                && service.location.equals(this.location)
                 && service.listener.equals(this.listener)
                 && service.connections.size() == this.connections.size()
                 && service.functions.size() == this.functions.size()

@@ -21,11 +21,16 @@ package io.ballerina.designmodelgenerator.core;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.AnnotationSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.values.ConstantValue;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -40,6 +45,7 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
+import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -53,15 +59,21 @@ import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeFactory;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
+import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
+import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
@@ -79,6 +91,7 @@ import io.ballerina.tools.text.LineRange;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -95,7 +108,6 @@ public class CodeAnalyzer extends NodeVisitor {
     private IntermediateModel.FunctionModel currentFunctionModel;
     private IntermediateModel.ServiceModel currentServiceModel;
     private final Path rootPath;
-    private int serviceCount;
     private final ConnectionFinder connectionFinder;
 
     public CodeAnalyzer(SemanticModel semanticModel, IntermediateModel intermediateModel, Path rootPath,
@@ -103,7 +115,6 @@ public class CodeAnalyzer extends NodeVisitor {
         this.semanticModel = semanticModel;
         this.intermediateModel = intermediateModel;
         this.rootPath = rootPath;
-        this.serviceCount = 0;
         this.connectionFinder = connectionFinder;
     }
 
@@ -118,23 +129,37 @@ public class CodeAnalyzer extends NodeVisitor {
         IntermediateModel.ServiceModel serviceModel;
         String absoluteResourcePath = String.join("", serviceDeclarationNode.absoluteResourcePath()
                 .stream().map(Node::toSourceCode).toList());
-        if (expressionNode instanceof ExplicitNewExpressionNode) {
+        String displayName = null;
+        Optional<Symbol> serviceSymbol = this.semanticModel.symbol(serviceDeclarationNode);
+        if (serviceSymbol.isPresent()) {
+            displayName = getDisplayName(((ServiceDeclarationSymbol) serviceSymbol.get()).annotAttachments());
+        }
+        if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            List<Listener.KeyValue> arguments = new ArrayList<>();
+            Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
+            if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
+                TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+                if (rawType instanceof ClassSymbol classSymbol) {
+                    getInitMethodParamNames(classSymbol, explicitNewExpressionNode.parenthesizedArgList().arguments());
+                }
+            }
             Listener listener = new Listener("ANON", getLocation(serviceDeclarationNode.lineRange()),
-                    Listener.Kind.ANON);
-            serviceModel = new IntermediateModel.ServiceModel(listener, absoluteResourcePath);
+                    explicitNewExpressionNode.typeDescriptor().toSourceCode(),
+                    Listener.Kind.ANON, arguments);
+            serviceModel = new IntermediateModel.ServiceModel(displayName, listener, absoluteResourcePath);
             intermediateModel.listeners.put(listener.getUuid(), listener);
         } else {
             if (expressionNode instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
-                serviceModel = new IntermediateModel.ServiceModel(simpleNameReferenceNode.name().text(),
+                serviceModel = new IntermediateModel.ServiceModel(displayName, simpleNameReferenceNode.name().text(),
                         absoluteResourcePath);
             } else {
-                serviceModel = new IntermediateModel.ServiceModel("ANON", absoluteResourcePath);
+                serviceModel = new IntermediateModel.ServiceModel(displayName, "ANON", absoluteResourcePath);
             }
         }
         this.currentServiceModel = serviceModel;
         serviceDeclarationNode.members().forEach(member -> member.accept(this));
         serviceModel.location = getLocation(serviceDeclarationNode.lineRange());
-        intermediateModel.serviceModelMap.put(getServiceName(serviceDeclarationNode.lineRange().fileName()),
+        intermediateModel.serviceModelMap.put(String.valueOf(serviceDeclarationNode.lineRange().hashCode()),
                 serviceModel);
         this.currentServiceModel = null;
     }
@@ -282,9 +307,22 @@ public class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ListenerDeclarationNode listenerDeclarationNode) {
+        List<Listener.KeyValue> arguments = new ArrayList<>();
+        Optional<Symbol> symbol = semanticModel.symbol(listenerDeclarationNode.typeDescriptor().get());
+        if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
+            TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+            if (rawType instanceof ClassSymbol classSymbol) {
+                Node initializer = listenerDeclarationNode.initializer();
+                if (initializer instanceof NewExpressionNode newExpressionNode) {
+                    arguments =getInitMethodParamNames(classSymbol, getArgList(newExpressionNode));
+                }
+            }
+        }
         this.intermediateModel.listeners.put(listenerDeclarationNode.variableName().text(),
                 new Listener(listenerDeclarationNode.variableName().text(),
-                        getLocation(listenerDeclarationNode.lineRange()), Listener.Kind.NAMED));
+                        getLocation(listenerDeclarationNode.lineRange()),
+                        listenerDeclarationNode.typeDescriptor().get().toSourceCode().strip(),
+                        Listener.Kind.NAMED, arguments));
     }
 
     @Override
@@ -405,13 +443,6 @@ public class CodeAnalyzer extends NodeVisitor {
         listConstructorExpressionNode.expressions().forEach(expr -> expr.accept(this));
     }
 
-    private String getServiceName(String fileName) {
-        String name = Arrays.stream(fileName.split("\\.")).toList().get(0);
-        name = serviceCount > 0 ? name + "_" + serviceCount : name;
-        serviceCount++;
-        return name;
-    }
-
     private String getDisplayName(List<AnnotationAttachmentSymbol> annotationAttachmentSymbols) {
         return annotationAttachmentSymbols
                 .stream()
@@ -429,12 +460,51 @@ public class CodeAnalyzer extends NodeVisitor {
                 .flatMap(v -> ((Optional<?>) v))
                 .map(m -> ((Map<?, ?>) m).get("label"))
                 .map(v -> ((ConstantValue) v).value().toString())
-                .orElse("");
+                .orElse(null);
     }
 
     public Location getLocation(LineRange lineRange) {
         Path filePath = rootPath.resolve(lineRange.fileName());
         return new Location(filePath.toAbsolutePath().toString(), lineRange.startLine(),
                 lineRange.endLine());
+    }
+
+    private List<Listener.KeyValue> getInitMethodParamNames(ClassSymbol classSymbol,
+                                                            SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        Optional<MethodSymbol> methodSymbol = classSymbol.initMethod();
+        List<Listener.KeyValue> keyValues = new ArrayList<>();
+        if (methodSymbol.isPresent()) {
+            FunctionTypeSymbol functionTypeSymbol = methodSymbol.get().typeDescriptor();
+            List<ParameterSymbol> parameterSymbols = functionTypeSymbol.params().get();
+            for (int argIdx = 0; argIdx < argumentNodes.size() && argIdx < parameterSymbols.size(); argIdx++) {
+                Node argument = argumentNodes.get(argIdx);
+                if (argument == null) {
+                    return Collections.emptyList();
+                }
+                SyntaxKind argKind = argument.kind();
+                if (argKind == SyntaxKind.NAMED_ARG) {
+                    argument = ((NamedArgumentNode) argument).expression();
+                } else if (argKind == SyntaxKind.POSITIONAL_ARG) {
+                    argument = ((PositionalArgumentNode) argument).expression();
+                } else {
+                    return Collections.emptyList();
+                }
+                ParameterSymbol parameterSymbol = parameterSymbols.get(argIdx);
+                String paramName = parameterSymbol.getName().orElse("");
+                keyValues.add(new Listener.KeyValue(paramName, argument.toSourceCode()));
+            }
+        }
+        return keyValues;
+    }
+
+    private SeparatedNodeList<FunctionArgumentNode> getArgList(NewExpressionNode newExpressionNode) {
+        if (newExpressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            return explicitNewExpressionNode.parenthesizedArgList().arguments();
+        } else {
+            Optional<ParenthesizedArgList> parenthesizedArgList = ((ImplicitNewExpressionNode) newExpressionNode)
+                    .parenthesizedArgList();
+            return parenthesizedArgList.isPresent() ? parenthesizedArgList.get().arguments() :
+                    NodeFactory.createSeparatedNodeList();
+        }
     }
 }

@@ -56,8 +56,10 @@ public class IntermediateModel {
         protected Location location;
         protected Listener anonListener;
         protected String absolutePath;
+        protected String displayName;
 
-        public ServiceModel(Listener anonListener, String absolutePath) {
+        public ServiceModel(String displayName, Listener anonListener, String absolutePath) {
+            this.displayName = displayName;
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
             this.otherFunctions = new ArrayList<>();
@@ -65,7 +67,8 @@ public class IntermediateModel {
             this.absolutePath = absolutePath;
         }
 
-        public ServiceModel(String listenerSymbol, String absolutePath) {
+        public ServiceModel(String displayName, String listenerSymbol, String absolutePath) {
+            this.displayName = displayName;
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
             this.otherFunctions = new ArrayList<>();

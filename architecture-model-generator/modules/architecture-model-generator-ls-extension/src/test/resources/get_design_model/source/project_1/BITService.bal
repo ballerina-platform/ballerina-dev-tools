@@ -1,6 +1,9 @@
 import ballerina/http;
 import ballerina/log;
 
+@display {
+    label: "BIT Service"
+}
 service /api/v1 on new http:Listener(9092) {
 
     private http:Client httpClient = check new ("");
