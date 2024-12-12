@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -31,6 +32,8 @@ import java.util.UUID;
  * @since 2.0.0
  */
 public class CommonUtils {
+
+    private static final Random random = new Random();
 
     /**
      * Get the raw type of the type descriptor. If the type descriptor is a type reference then return the associated
@@ -58,6 +61,6 @@ public class CommonUtils {
     }
 
     public static String generateUUID() {
-        return UUID.randomUUID().toString();
+        return new UUID(random.nextLong(), random.nextLong()).toString();
     }
 }
