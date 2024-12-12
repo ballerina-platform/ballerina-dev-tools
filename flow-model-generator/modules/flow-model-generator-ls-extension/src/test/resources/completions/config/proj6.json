@@ -1,0 +1,3989 @@
+{
+  "description": "",
+  "filePath": "proj/types.bal",
+  "context": {
+    "expression": "{}",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 1,
+    "node": {
+      "id": "31",
+      "metadata": {
+        "label": "New Connection",
+        "description": "An API for an organization administrator to manage organizations, accounts and users",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsadmin_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "docusign.dsadmin",
+        "object": "Client",
+        "symbol": "init",
+        "id": 1569
+      },
+      "returning": false,
+      "properties": {
+        "serviceUrl": {
+          "metadata": {
+            "label": "serviceUrl",
+            "description": "URL of the target service "
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "serviceUrl"
+          }
+        },
+        "auth": {
+          "metadata": {
+            "label": "auth",
+            "description": "Configurations related to client authentication"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:BearerTokenConfig|docusign.dsadmin:OAuth2RefreshTokenGrantConfig",
+          "placeholder": "{token: \"\"}",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "auth",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "httpVersion": {
+          "metadata": {
+            "label": "httpVersion",
+            "description": "The HTTP version understood by the client"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:HttpVersion",
+          "placeholder": "http:HTTP_2_0",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "httpVersion",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "http1Settings": {
+          "metadata": {
+            "label": "http1Settings",
+            "description": "Configurations related to HTTP/1.x protocol"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "docusign.dsadmin:ClientHttp1Settings",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "http1Settings"
+          }
+        },
+        "http2Settings": {
+          "metadata": {
+            "label": "http2Settings",
+            "description": "Configurations related to HTTP/2 protocol"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ClientHttp2Settings",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "http2Settings",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "timeout": {
+          "metadata": {
+            "label": "timeout",
+            "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "placeholder": "60",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "timeout"
+          }
+        },
+        "forwarded": {
+          "metadata": {
+            "label": "forwarded",
+            "description": "The choice of setting `forwarded`/`x-forwarded` header"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "placeholder": "\"disable\"",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "forwarded"
+          }
+        },
+        "poolConfig": {
+          "metadata": {
+            "label": "poolConfig",
+            "description": "Configurations associated with request pooling"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:PoolConfiguration",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "poolConfig",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "cache": {
+          "metadata": {
+            "label": "cache",
+            "description": "HTTP caching related configurations"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:CacheConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "cache",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "compression": {
+          "metadata": {
+            "label": "compression",
+            "description": "Specifies the way of handling compression (`accept-encoding`) header"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:Compression",
+          "placeholder": "http:COMPRESSION_AUTO",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "compression",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "circuitBreaker": {
+          "metadata": {
+            "label": "circuitBreaker",
+            "description": "Configurations associated with the behaviour of the Circuit Breaker"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:CircuitBreakerConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "circuitBreaker",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "retryConfig": {
+          "metadata": {
+            "label": "retryConfig",
+            "description": "Configurations associated with retrying"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:RetryConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "retryConfig",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "responseLimits": {
+          "metadata": {
+            "label": "responseLimits",
+            "description": "Configurations associated with inbound response size limits"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ResponseLimitConfigs",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "responseLimits",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "secureSocket": {
+          "metadata": {
+            "label": "secureSocket",
+            "description": "SSL/TLS-related options"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ClientSecureSocket",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "secureSocket",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "proxy": {
+          "metadata": {
+            "label": "proxy",
+            "description": "Proxy server related options"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ProxyConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "proxy",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "validation": {
+          "metadata": {
+            "label": "validation",
+            "description": "Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "placeholder": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "validation"
+          }
+        },
+        "type": {
+          "metadata": {
+            "label": "Variable Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "dsadmin:Client",
+          "placeholder": "var",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "variable": {
+          "metadata": {
+            "label": "Connection Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "dsadminClient",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "scope": {
+          "metadata": {
+            "label": "Connection Scope",
+            "description": "Scope of the connection, Global or Local"
+          },
+          "valueType": "ENUM",
+          "value": "Global",
+          "optional": false,
+          "editable": true,
+          "advanced": true
+        },
+        "checkError": {
+          "metadata": {
+            "label": "Check Error",
+            "description": "Terminate on error"
+          },
+          "valueType": "FLAG",
+          "value": true,
+          "optional": false,
+          "editable": false,
+          "advanced": true
+        }
+      },
+      "flags": 0
+    },
+    "property": "auth"
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "CredentialsConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents credentials for Basic Auth authentication."
+      },
+      "sortText": "CA",
+      "insertText": "CredentialsConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "BearerTokenConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents token for Bearer token authentication.\n"
+      },
+      "sortText": "CA",
+      "insertText": "BearerTokenConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "JwtIssuerConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents JWT issuer configurations for JWT authentication."
+      },
+      "sortText": "CA",
+      "insertText": "JwtIssuerConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2ClientCredentialsGrantConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents OAuth2 client credentials grant configurations for OAuth2 authentication."
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2ClientCredentialsGrantConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2PasswordGrantConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents OAuth2 password grant configurations for OAuth2 authentication."
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2PasswordGrantConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2RefreshTokenGrantConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents OAuth2 refresh token grant configurations for OAuth2 authentication."
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2RefreshTokenGrantConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2JwtBearerGrantConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents OAuth2 JWT bearer grant configurations for OAuth2 authentication."
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2JwtBearerGrantConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2GrantConfig",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Represents OAuth2 grant configurations for OAuth2 authentication."
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2GrantConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FileUserStoreConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents file user store configurations for Basic Auth authentication."
+      },
+      "sortText": "CA",
+      "insertText": "FileUserStoreConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LdapUserStoreConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents LDAP user store configurations for Basic Auth authentication."
+      },
+      "sortText": "CA",
+      "insertText": "LdapUserStoreConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "JwtValidatorConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents JWT validator configurations for JWT authentication.\n"
+      },
+      "sortText": "CA",
+      "insertText": "JwtValidatorConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2IntrospectionConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents OAuth2 introspection server configurations for OAuth2 authentication.\n"
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2IntrospectionConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientAuthConfig",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the authentication configurations for the HTTP client."
+      },
+      "sortText": "CA",
+      "insertText": "ClientAuthConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientBasicAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the Basic Auth handler for client authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ClientBasicAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientBearerTokenAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the Bearer token auth handler for client authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ClientBearerTokenAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientSelfSignedJwtAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the self signed JWT handler for client authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ClientSelfSignedJwtAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientOAuth2Handler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the OAuth2 handler for client authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ClientOAuth2Handler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FileUserStoreConfigWithScopes",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the auth annotation for file user store configurations with scopes.\n"
+      },
+      "sortText": "CA",
+      "insertText": "FileUserStoreConfigWithScopes",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LdapUserStoreConfigWithScopes",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the auth annotation for LDAP user store configurations with scopes.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LdapUserStoreConfigWithScopes",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "JwtValidatorConfigWithScopes",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the auth annotation for JWT validator configurations with scopes.\n"
+      },
+      "sortText": "CA",
+      "insertText": "JwtValidatorConfigWithScopes",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OAuth2IntrospectionConfigWithScopes",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the auth annotation for OAuth2 introspection server configurations with scopes.\n"
+      },
+      "sortText": "CA",
+      "insertText": "OAuth2IntrospectionConfigWithScopes",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Scopes",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the annotation used for authorization.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Scopes",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerAuthConfig",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the authentication configurations for the HTTP listener."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerAuthConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerFileUserStoreBasicAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the file store Basic Auth handler for listener authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerFileUserStoreBasicAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerLdapUserStoreBasicAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the LDAP store Basic Auth handler for listener authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerLdapUserStoreBasicAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerJwtAuthHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the JWT auth handler for listener authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerJwtAuthHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerOAuth2Handler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Defines the OAuth2 handler for listener authentication."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerOAuth2Handler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "SseEvent",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents a Server Sent Event emitted from a service."
+      },
+      "sortText": "CA",
+      "insertText": "SseEvent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CachingPolicy",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Used for configuring the caching behaviour. Setting the `policy` field in the `CacheConfig` record allows\nthe user to control the caching behaviour."
+      },
+      "sortText": "CA",
+      "insertText": "CachingPolicy",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CacheConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of configurations for controlling the caching behaviour of the endpoint.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CacheConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CookieOptions",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The options to be used when initializing the `http:Cookie`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CookieOptions",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PersistentCookieHandler",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The representation of a persistent cookie handler object type for managing persistent cookies."
+      },
+      "sortText": "CA",
+      "insertText": "PersistentCookieHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpServiceConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Contains the configurations for an HTTP service.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpServiceConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CompressionConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "A record for providing configurations for content compression."
+      },
+      "sortText": "CA",
+      "insertText": "CompressionConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Compression",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Options to compress using gzip or deflate.\n\n`AUTO`: When service behaves as a HTTP gateway inbound request/response accept-encoding option is set as the\noutbound request/response accept-encoding/content-encoding option\n`ALWAYS`: Always set accept-encoding/content-encoding in outbound request/response\n`NEVER`: Never set accept-encoding/content-encoding header in outbound request/response"
+      },
+      "sortText": "CA",
+      "insertText": "Compression",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Chunking",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the possible values for the chunking configuration in HTTP services and clients.\n\n`AUTO`: If the payload is less than 8KB, content-length header is set in the outbound request/response,\notherwise chunking header is set in the outbound request/response\n`ALWAYS`: Always set chunking header in the response\n`NEVER`: Never set the chunking header even if the payload is larger than 8KB in the outbound request/response"
+      },
+      "sortText": "CA",
+      "insertText": "Chunking",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CorsConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Configurations for CORS support.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CorsConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Service",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP service type."
+      },
+      "sortText": "CA",
+      "insertText": "Service",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ServiceContract",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP service contract type."
+      },
+      "sortText": "CA",
+      "insertText": "ServiceContract",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpResourceConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Configuration for an HTTP resource.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpResourceConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LinkedTo",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "LinkedTo",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpPayload",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Defines the Payload resource signature parameter and return parameter.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpPayload",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpCallerInfo",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Configures the typing details type of the Caller resource signature parameter.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpCallerInfo",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Response",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents an HTTP response.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Response",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResponseCacheControl",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Configures cache control directives for an `http:Response`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ResponseCacheControl",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResponseMessage",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "The types of messages that are accepted by HTTP `listener` when sending out the outbound response."
+      },
+      "sortText": "CA",
+      "insertText": "ResponseMessage",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CommonResponse",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The common attributed of response status code record type.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CommonResponse",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Continue",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Continue`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Continue",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Status",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The `Status` object creates the distinction for the different response status code types.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Status",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusContinue",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_CONTINUE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusContinue",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "SwitchingProtocols",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `SwitchingProtocols`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "SwitchingProtocols",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusSwitchingProtocols",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_SWITCHING_PROTOCOLS`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusSwitchingProtocols",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Processing",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Processing`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Processing",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusProcessing",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PROCESSING`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusProcessing",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "EarlyHints",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `EarlyHints`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "EarlyHints",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusEarlyHints",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_EARLY_HINTS`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusEarlyHints",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Ok",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Ok`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Ok",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusOK",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_OK`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusOK",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Created",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Created`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Created",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCreated",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_CREATED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCreated",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Accepted",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Accepted`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Accepted",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusAccepted",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_ACCEPTED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusAccepted",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NonAuthoritativeInformation",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NonAuthoritativeInformation`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NonAuthoritativeInformation",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNonAuthoritativeInformation",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NON_AUTHORITATIVE_INFORMATION`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNonAuthoritativeInformation",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NoContent",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NoContent`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NoContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNoContent",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NO_CONTENT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNoContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResetContent",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `ResetContent`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ResetContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusResetContent",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_RESET_CONTENT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusResetContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PartialContent",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PartialContent`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PartialContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPartialContent",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PARTIAL_CONTENT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPartialContent",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MultiStatus",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `MultiStatus`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MultiStatus",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusMultiStatus",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_MULTI_STATUS`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusMultiStatus",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "AlreadyReported",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `AlreadyReported`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "AlreadyReported",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusAlreadyReported",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_ALREADY_REPORTED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusAlreadyReported",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "IMUsed",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `IMUsed`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "IMUsed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusIMUsed",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_IM_USED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusIMUsed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MultipleChoices",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `MultipleChoices`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MultipleChoices",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusMultipleChoices",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_MULTIPLE_CHOICES`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusMultipleChoices",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MovedPermanently",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `MovedPermanently`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MovedPermanently",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusMovedPermanently",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_MOVED_PERMANENTLY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusMovedPermanently",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Found",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Found`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Found",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusFound",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_FOUND`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusFound",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "SeeOther",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `SeeOther`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "SeeOther",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusSeeOther",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_SEE_OTHER`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusSeeOther",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NotModified",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NotModified`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NotModified",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNotModified",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NOT_MODIFIED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNotModified",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UseProxy",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UseProxy`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UseProxy",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUseProxy",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_USE_PROXY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUseProxy",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TemporaryRedirect",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `TemporaryRedirect`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "TemporaryRedirect",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusTemporaryRedirect",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_TEMPORARY_REDIRECT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusTemporaryRedirect",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PermanentRedirect",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PermanentRedirect`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PermanentRedirect",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPermanentRedirect",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PERMANENT_REDIRECT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPermanentRedirect",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "BadRequest",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `BadRequest`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "BadRequest",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusBadRequest",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_BAD_REQUEST`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusBadRequest",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Unauthorized",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Unauthorized`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Unauthorized",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUnauthorized",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_UNAUTHORIZED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUnauthorized",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PaymentRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PaymentRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PaymentRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPaymentRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PAYMENT_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPaymentRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Forbidden",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Forbidden`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Forbidden",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusForbidden",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_FORBIDDEN`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusForbidden",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NotFound",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NotFound`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NotFound",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNotFound",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NOT_FOUND`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNotFound",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MethodNotAllowed",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `MethodNotAllowed`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MethodNotAllowed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusMethodNotAllowed",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_METHOD_NOT_ALLOWED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusMethodNotAllowed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NotAcceptable",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NotAcceptable`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NotAcceptable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNotAcceptable",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NOT_ACCEPTABLE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNotAcceptable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ProxyAuthenticationRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `ProxyAuthenticationRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ProxyAuthenticationRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusProxyAuthenticationRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PROXY_AUTHENTICATION_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusProxyAuthenticationRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestTimeout",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `RequestTimeout`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RequestTimeout",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusRequestTimeout",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_REQUEST_TIMEOUT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusRequestTimeout",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Conflict",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Conflict`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Conflict",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusConflict",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_CONFLICT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusConflict",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Gone",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Gone`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Gone",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusGone",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_GONE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusGone",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LengthRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `LengthRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LengthRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusLengthRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_LENGTH_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusLengthRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PreconditionFailed",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PreconditionFailed`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PreconditionFailed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPreconditionFailed",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PRECONDITION_FAILED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPreconditionFailed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PayloadTooLarge",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PayloadTooLarge`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PayloadTooLarge",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPayloadTooLarge",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PAYLOAD_TOO_LARGE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPayloadTooLarge",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UriTooLong",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UriTooLong`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UriTooLong",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUriTooLong",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_URI_TOO_LONG`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUriTooLong",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UnsupportedMediaType",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UnsupportedMediaType`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UnsupportedMediaType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUnsupportedMediaType",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_UNSUPPORTED_MEDIA_TYPE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUnsupportedMediaType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RangeNotSatisfiable",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `RangeNotSatisfiable`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RangeNotSatisfiable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusRangeNotSatisfiable",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_RANGE_NOT_SATISFIABLE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusRangeNotSatisfiable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ExpectationFailed",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `ExpectationFailed`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ExpectationFailed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusExpectationFailed",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_EXPECTATION_FAILED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusExpectationFailed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MisdirectedRequest",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `MisdirectedRequest`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MisdirectedRequest",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusMisdirectedRequest",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_MISDIRECTED_REQUEST`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusMisdirectedRequest",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UnprocessableEntity",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UnprocessableEntity`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UnprocessableEntity",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUnprocessableEntity",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_UNPROCESSABLE_ENTITY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUnprocessableEntity",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Locked",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `Locked`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Locked",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusLocked",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_LOCKED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusLocked",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FailedDependency",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `FailedDependency`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "FailedDependency",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusFailedDependency",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_FAILED_DEPENDENCY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusFailedDependency",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TooEarly",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `TooEarly`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "TooEarly",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusTooEarly",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_TOO_EARLY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusTooEarly",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PreconditionRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `PreconditionRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PreconditionRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusPreconditionRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_PRECONDITION_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusPreconditionRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UnavailableDueToLegalReasons",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UnavailableDueToLegalReasons`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UnavailableDueToLegalReasons",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUnavailableDueToLegalReasons",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_UNAVAILABLE_DUE_TO_LEGAL_REASONS`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUnavailableDueToLegalReasons",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UpgradeRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `UpgradeRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "UpgradeRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusUpgradeRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_UPGRADE_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusUpgradeRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TooManyRequests",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `TooManyRequests`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "TooManyRequests",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusTooManyRequests",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_TOO_MANY_REQUESTS`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusTooManyRequests",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestHeaderFieldsTooLarge",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `RequestHeaderFieldsTooLarge`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RequestHeaderFieldsTooLarge",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusRequestHeaderFieldsTooLarge",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusRequestHeaderFieldsTooLarge",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InternalServerError",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `InternalServerError`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "InternalServerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusInternalServerError",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_INTERNAL_SERVER_ERROR`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusInternalServerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NotImplemented",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NotImplemented`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NotImplemented",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNotImplemented",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NOT_IMPLEMENTED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNotImplemented",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "BadGateway",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `BadGateway`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "BadGateway",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusBadGateway",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_BAD_GATEWAY`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusBadGateway",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ServiceUnavailable",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `ServiceUnavailable`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ServiceUnavailable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusServiceUnavailable",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_SERVICE_UNAVAILABLE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusServiceUnavailable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "GatewayTimeout",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `GatewayTimeout`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "GatewayTimeout",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusGatewayTimeout",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_GATEWAY_TIMEOUT`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusGatewayTimeout",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpVersionNotSupported",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `HttpVersionNotSupported`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpVersionNotSupported",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusHttpVersionNotSupported",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_HTTP_VERSION_NOT_SUPPORTED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusHttpVersionNotSupported",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "VariantAlsoNegotiates",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `VariantAlsoNegotiates`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "VariantAlsoNegotiates",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusVariantAlsoNegotiates",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_VARIANT_ALSO_NEGOTIATES`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusVariantAlsoNegotiates",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InsufficientStorage",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `InsufficientStorage`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "InsufficientStorage",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusInsufficientStorage",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_INSUFFICIENT_STORAGE`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusInsufficientStorage",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoopDetected",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `LoopDetected`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LoopDetected",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusLoopDetected",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_LOOP_DETECTED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusLoopDetected",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NotExtended",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NotExtended`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NotExtended",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNotExtended",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NOT_EXTENDED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNotExtended",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NetworkAuthenticationRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NetworkAuthenticationRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NetworkAuthenticationRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusNetworkAuthenticationRequired",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the status code of `STATUS_NETWORK_AUTHENTICATION_REQUIRED`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusNetworkAuthenticationRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "DefaultStatusCodeResponse",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The default status code response record.\n"
+      },
+      "sortText": "CA",
+      "insertText": "DefaultStatusCodeResponse",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "DefaultStatus",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "The default status code class."
+      },
+      "sortText": "CA",
+      "insertText": "DefaultStatus",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeResponse",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the possible status code response record types."
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeResponse",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Error",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the common error type for the module."
+      },
+      "sortText": "CA",
+      "insertText": "Error",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpHeader",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Defines the Header resource signature parameter.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpHeader",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpQuery",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Defines the query resource signature parameter.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpQuery",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpCacheConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Defines the HTTP response cache configuration. By default the `no-cache` directive is setted to the `cache-control`\nheader. In addition to that `etag` and `last-modified` headers are also added for cache validation.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpCacheConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TargetService",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents a single service and its related configurations.\n"
+      },
+      "sortText": "CA",
+      "insertText": "TargetService",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientSecureSocket",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides configurations for facilitating secure communication with a remote HTTP endpoint.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ClientSecureSocket",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CertKey",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents combination of certificate, private key and private key password if encrypted.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CertKey",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CommonClientConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Common client configurations for the next level clients."
+      },
+      "sortText": "CA",
+      "insertText": "CommonClientConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientHttp1Settings",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides settings related to HTTP/1.x protocol.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ClientHttp1Settings",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "KeepAlive",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the possible values for the keep-alive configuration in service and client endpoints."
+      },
+      "sortText": "CA",
+      "insertText": "KeepAlive",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ProxyConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Proxy server configurations to be used with the HTTP client endpoint.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ProxyConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientHttp2Settings",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides settings related to HTTP/2 protocol.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ClientHttp2Settings",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FollowRedirects",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides configurations for controlling the endpoint's behaviour in response to HTTP redirect related responses.\nThe response status codes of 301, 302, and 303 are redirected using a GET request while 300, 305, 307, and 308\nstatus codes use the original request HTTP method during redirection.\n"
+      },
+      "sortText": "CA",
+      "insertText": "FollowRedirects",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PoolConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Configurations for managing HTTP client connection pool.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PoolConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CircuitBreakerConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of configurations for controlling the behaviour of the Circuit Breaker."
+      },
+      "sortText": "CA",
+      "insertText": "CircuitBreakerConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RollingWindow",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents a rolling window in the Circuit Breaker.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RollingWindow",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RetryConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides configurations for controlling the retrying behavior in failure scenarios.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RetryConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CookieConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Client configuration for cookies.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CookieConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResponseLimitConfigs",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides inbound response status line, total header and entity body size threshold configurations.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ResponseLimitConfigs",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientSocketConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides settings related to client socket configuration.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ClientSocketConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of configurations for controlling the behaviours when communicating with a remote HTTP endpoint.\nThe following fields are inherited from the other configuration records in addition to the `Client`-specific\nconfigs.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ClientConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientObject",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The representation of the http Client object type for managing resilient clients."
+      },
+      "sortText": "CA",
+      "insertText": "ClientObject",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PathParamType",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the path parameter types."
+      },
+      "sortText": "CA",
+      "insertText": "PathParamType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "SimpleQueryParamType",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the possible simple query parameter types."
+      },
+      "sortText": "CA",
+      "insertText": "SimpleQueryParamType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "QueryParamType",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the query parameter type supported with client resource methods."
+      },
+      "sortText": "CA",
+      "insertText": "QueryParamType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "QueryParams",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Defines the record type of query parameters supported with client resource methods."
+      },
+      "sortText": "CA",
+      "insertText": "QueryParams",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RedirectCode",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the HTTP redirect codes as a type."
+      },
+      "sortText": "CA",
+      "insertText": "RedirectCode",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HeaderPosition",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the position of the headers in the request/response.\n\n`LEADING`: Header is placed before the payload of the request/response\n`TRAILING`: Header is placed after the payload of the request/response"
+      },
+      "sortText": "CA",
+      "insertText": "HeaderPosition",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Detail",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the details of an HTTP error.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Detail",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeBindingErrorDetail",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the details of an HTTP status code binding client error.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeBindingErrorDetail",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalanceActionErrorData",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the details of the `LoadBalanceActionError`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalanceActionErrorData",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the possible listener error types."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the possible client error types."
+      },
+      "sortText": "CA",
+      "insertText": "ClientError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HeaderNotFoundError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a header not found error when retrieving headers."
+      },
+      "sortText": "CA",
+      "insertText": "HeaderNotFoundError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HeaderBindingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to header binding."
+      },
+      "sortText": "CA",
+      "insertText": "HeaderBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PayloadBindingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to payload binding."
+      },
+      "sortText": "CA",
+      "insertText": "PayloadBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MediaTypeBindingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to media-type binding."
+      },
+      "sortText": "CA",
+      "insertText": "MediaTypeBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InboundRequestError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the listener error types that returned while receiving inbound request."
+      },
+      "sortText": "CA",
+      "insertText": "InboundRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OutboundResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the listener error types that returned while sending outbound response."
+      },
+      "sortText": "CA",
+      "insertText": "OutboundResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "GenericListenerError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a generic listener error."
+      },
+      "sortText": "CA",
+      "insertText": "GenericListenerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InterceptorReturnError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a failure in interceptor return."
+      },
+      "sortText": "CA",
+      "insertText": "InterceptorReturnError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HeaderValidationError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a header constraint validation."
+      },
+      "sortText": "CA",
+      "insertText": "HeaderValidationError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NoContentError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to the absence of the payload."
+      },
+      "sortText": "CA",
+      "insertText": "NoContentError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PayloadValidationError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to payload constraint validation."
+      },
+      "sortText": "CA",
+      "insertText": "PayloadValidationError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "QueryParameterBindingError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a query parameter binding."
+      },
+      "sortText": "CA",
+      "insertText": "QueryParameterBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "QueryParameterValidationError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a query parameter constraint validation."
+      },
+      "sortText": "CA",
+      "insertText": "QueryParameterValidationError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PathParameterBindingError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a path parameter binding."
+      },
+      "sortText": "CA",
+      "insertText": "PathParameterBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MediaTypeValidationError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to media type validation."
+      },
+      "sortText": "CA",
+      "insertText": "MediaTypeValidationError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestDispatchingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred during the request dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "RequestDispatchingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ServiceDispatchingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred during the service dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "ServiceDispatchingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResourceDispatchingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred during the resource dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "ResourceDispatchingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerAuthError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the auth error types that returned from listener."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerAuthError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerAuthnError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Defines the authentication error types that returned from listener."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerAuthnError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerAuthzError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Defines the authorization error types that returned from listener."
+      },
+      "sortText": "CA",
+      "insertText": "ListenerAuthzError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "OutboundRequestError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the client error types that returned while sending outbound request."
+      },
+      "sortText": "CA",
+      "insertText": "OutboundRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InboundResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the client error types that returned while receiving inbound response."
+      },
+      "sortText": "CA",
+      "insertText": "InboundResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientAuthError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the Auth error types that returned from client."
+      },
+      "sortText": "CA",
+      "insertText": "ClientAuthError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResiliencyError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Defines the resiliency error types that returned from client."
+      },
+      "sortText": "CA",
+      "insertText": "ResiliencyError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "GenericClientError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a generic client error."
+      },
+      "sortText": "CA",
+      "insertText": "GenericClientError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Http2ClientError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an HTTP/2 client generic error."
+      },
+      "sortText": "CA",
+      "insertText": "Http2ClientError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "SslError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to SSL failure."
+      },
+      "sortText": "CA",
+      "insertText": "SslError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ApplicationResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents both 4XX and 5XX application response client error."
+      },
+      "sortText": "CA",
+      "insertText": "ApplicationResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UnsupportedActionError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to unsupported action invocation."
+      },
+      "sortText": "CA",
+      "insertText": "UnsupportedActionError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MaximumWaitTimeExceededError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred exceeding maximum wait time."
+      },
+      "sortText": "CA",
+      "insertText": "MaximumWaitTimeExceededError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CookieHandlingError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a cookie error that occurred when using the cookies."
+      },
+      "sortText": "CA",
+      "insertText": "CookieHandlingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientConnectorError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client connector error that occurred."
+      },
+      "sortText": "CA",
+      "insertText": "ClientConnectorError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ClientRequestError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to bad syntax or incomplete info in the client request(4xx HTTP response)."
+      },
+      "sortText": "CA",
+      "insertText": "ClientRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RemoteServerError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a failure of the remote server(5xx HTTP response)."
+      },
+      "sortText": "CA",
+      "insertText": "RemoteServerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FailoverAllEndpointsFailedError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to all the failover endpoint failure."
+      },
+      "sortText": "CA",
+      "insertText": "FailoverAllEndpointsFailedError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FailoverActionFailedError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to failover action failure."
+      },
+      "sortText": "CA",
+      "insertText": "FailoverActionFailedError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UpstreamServiceUnavailableError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to upstream service unavailability."
+      },
+      "sortText": "CA",
+      "insertText": "UpstreamServiceUnavailableError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "AllLoadBalanceEndpointsFailedError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to all the load balance endpoint failure."
+      },
+      "sortText": "CA",
+      "insertText": "AllLoadBalanceEndpointsFailedError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CircuitBreakerConfigError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to circuit breaker configuration error."
+      },
+      "sortText": "CA",
+      "insertText": "CircuitBreakerConfigError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "AllRetryAttemptsFailed",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to all the the retry attempts failure."
+      },
+      "sortText": "CA",
+      "insertText": "AllRetryAttemptsFailed",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "IdleTimeoutError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents the error that triggered upon a request/response idle timeout."
+      },
+      "sortText": "CA",
+      "insertText": "IdleTimeoutError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalanceActionError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error occurred in an remote function of the Load Balance connector."
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalanceActionError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InitializingOutboundRequestError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to outbound request initialization failure."
+      },
+      "sortText": "CA",
+      "insertText": "InitializingOutboundRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "WritingOutboundRequestHeadersError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred while writing outbound request headers."
+      },
+      "sortText": "CA",
+      "insertText": "WritingOutboundRequestHeadersError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "WritingOutboundRequestBodyError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred while writing outbound request entity body."
+      },
+      "sortText": "CA",
+      "insertText": "WritingOutboundRequestBodyError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InitializingInboundResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred due to inbound response initialization failure."
+      },
+      "sortText": "CA",
+      "insertText": "InitializingInboundResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReadingInboundResponseHeadersError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred while reading inbound response headers."
+      },
+      "sortText": "CA",
+      "insertText": "ReadingInboundResponseHeadersError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReadingInboundResponseBodyError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a client error that occurred while reading inbound response entity body."
+      },
+      "sortText": "CA",
+      "insertText": "ReadingInboundResponseBodyError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InitializingInboundRequestError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred due to inbound request initialization failure."
+      },
+      "sortText": "CA",
+      "insertText": "InitializingInboundRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReadingInboundRequestHeadersError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred while reading inbound request headers."
+      },
+      "sortText": "CA",
+      "insertText": "ReadingInboundRequestHeadersError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReadingInboundRequestBodyError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred while writing the inbound request entity body."
+      },
+      "sortText": "CA",
+      "insertText": "ReadingInboundRequestBodyError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InitializingOutboundResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred due to outbound response initialization failure."
+      },
+      "sortText": "CA",
+      "insertText": "InitializingOutboundResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "WritingOutboundResponseHeadersError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred while writing outbound response headers."
+      },
+      "sortText": "CA",
+      "insertText": "WritingOutboundResponseHeadersError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "WritingOutboundResponseBodyError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a listener error that occurred while writing outbound response entity body."
+      },
+      "sortText": "CA",
+      "insertText": "WritingOutboundResponseBodyError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Initiating100ContinueResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error that occurred due to 100 continue response initialization failure."
+      },
+      "sortText": "CA",
+      "insertText": "Initiating100ContinueResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Writing100ContinueResponseError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents an error that occurred while writing 100 continue response."
+      },
+      "sortText": "CA",
+      "insertText": "Writing100ContinueResponseError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InvalidCookieError",
+      "kind": "Event",
+      "detail": "Error",
+      "documentation": {
+        "left": "Represents a cookie error that occurred when sending cookies in the response."
+      },
+      "sortText": "CA",
+      "insertText": "InvalidCookieError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ServiceNotFoundError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents Service Not Found error."
+      },
+      "sortText": "CA",
+      "insertText": "ServiceNotFoundError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "BadMatrixParamError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents Bad Matrix Parameter in the request error."
+      },
+      "sortText": "CA",
+      "insertText": "BadMatrixParamError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResourceNotFoundError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred when the resource is not found during dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "ResourceNotFoundError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResourcePathValidationError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred due to a path parameter constraint validation."
+      },
+      "sortText": "CA",
+      "insertText": "ResourcePathValidationError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResourceMethodNotAllowedError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred when the resource method is not allowed during dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "ResourceMethodNotAllowedError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "UnsupportedRequestMediaTypeError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred when the media type is not supported during dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "UnsupportedRequestMediaTypeError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestNotAcceptableError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents an error, which occurred when the payload is not acceptable during dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "RequestNotAcceptableError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResourceDispatchingServerError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents other internal server errors during dispatching."
+      },
+      "sortText": "CA",
+      "insertText": "ResourceDispatchingServerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeResponseBindingError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents the client status code binding error"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeResponseBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeBindingClientRequestError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents the status code binding error that occurred due to 4XX status code response binding"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeBindingClientRequestError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeBindingRemoteServerError",
+      "kind": "TypeParameter",
+      "detail": "Intersection",
+      "documentation": {
+        "left": "Represents the status code binding error that occurred due to 5XX status code response binding"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeBindingRemoteServerError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeResponseDataBindingError",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Represents the client status code response data binding error"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeResponseDataBindingError",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestInterceptor",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP request interceptor service object type"
+      },
+      "sortText": "CA",
+      "insertText": "RequestInterceptor",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResponseInterceptor",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP response interceptor service object type"
+      },
+      "sortText": "CA",
+      "insertText": "ResponseInterceptor",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestErrorInterceptor",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP request error interceptor service object type"
+      },
+      "sortText": "CA",
+      "insertText": "RequestErrorInterceptor",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ResponseErrorInterceptor",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The HTTP response error interceptor service object type"
+      },
+      "sortText": "CA",
+      "insertText": "ResponseErrorInterceptor",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InterceptableService",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The service type to be used when engaging interceptors at the service level"
+      },
+      "sortText": "CA",
+      "insertText": "InterceptableService",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NextService",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "The return type of an interceptor service function"
+      },
+      "sortText": "CA",
+      "insertText": "NextService",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Interceptor",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Types of HTTP interceptor services"
+      },
+      "sortText": "CA",
+      "insertText": "Interceptor",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TraceLogAdvancedConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents HTTP trace log configuration.\n"
+      },
+      "sortText": "CA",
+      "insertText": "TraceLogAdvancedConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "AccessLogConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents HTTP access log configuration.\n"
+      },
+      "sortText": "CA",
+      "insertText": "AccessLogConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MutualSslHandshake",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "A record for providing mutual SSL handshake results.\n"
+      },
+      "sortText": "CA",
+      "insertText": "MutualSslHandshake",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MutualSslStatus",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the possible values for the mutual ssl status.\n\n`passed`: Mutual SSL handshake is successful.\n`failed`: Mutual SSL handshake has failed."
+      },
+      "sortText": "CA",
+      "insertText": "MutualSslStatus",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Cloneable",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Represents a non-error type that can be cloned."
+      },
+      "sortText": "CA",
+      "insertText": "Cloneable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReqCtxMember",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "Request context member type."
+      },
+      "sortText": "CA",
+      "insertText": "ReqCtxMember",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ReqCtxMemberType",
+      "kind": "TypeParameter",
+      "detail": "Typedesc",
+      "documentation": {
+        "left": "Request context member type descriptor."
+      },
+      "sortText": "CA",
+      "insertText": "ReqCtxMemberType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Remote",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Presents a read-only view of the remote address.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Remote",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Local",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Presents a read-only view of the local address.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Local",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of configurations for HTTP service endpoints.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ListenerConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerHttp1Settings",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides settings related to HTTP/1.x protocol.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ListenerHttp1Settings",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ListenerSecureSocket",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Configures the SSL/TLS options to be used for HTTP service.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ListenerSecureSocket",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestLimitConfigs",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides inbound request URI, total header and entity body size threshold configurations.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RequestLimitConfigs",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ServerSocketConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides settings related to server socket configuration.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ServerSocketConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "InferredListenerConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of cloneable configurations for HTTP listener.\n"
+      },
+      "sortText": "CA",
+      "insertText": "InferredListenerConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeClientObject",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "The representation of the http Status Code Client object type for managing resilient clients."
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeClientObject",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "NetworkAuthorizationRequired",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The status code response record of `NetworkAuthorizationRequired`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "NetworkAuthorizationRequired",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "ErrorPayload",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the structure of the HTTP error payload.\n"
+      },
+      "sortText": "CA",
+      "insertText": "ErrorPayload",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Request",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents an HTTP request.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Request",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestCacheControl",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Configures the cache control directives for an `http:Request`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "RequestCacheControl",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestMessage",
+      "kind": "Enum",
+      "detail": "Union",
+      "documentation": {
+        "left": "The types of messages that are accepted by HTTP `client` when sending out the outbound request."
+      },
+      "sortText": "CA",
+      "insertText": "RequestMessage",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "TargetType",
+      "kind": "TypeParameter",
+      "detail": "Typedesc",
+      "documentation": {
+        "left": "The types of data values that are expected by the HTTP `client` to return after the data binding operation."
+      },
+      "sortText": "CA",
+      "insertText": "TargetType",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpOperation",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "Defines the HTTP operations related to circuit breaker, failover and load balancer.\n\n`FORWARD`: Forward the specified payload\n`GET`: Request a resource\n`POST`: Create a new resource\n`DELETE`: Deletes the specified resource\n`OPTIONS`: Request communication options available\n`PUT`: Replace the target resource\n`PATCH`: Apply partial modification to the resource\n`HEAD`: Identical to `GET` but no resource body should be returned\n`SUBMIT`: Submits a http request and returns an HttpFuture object\n`NONE`: No operation should be performed"
+      },
+      "sortText": "CA",
+      "insertText": "HttpOperation",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpFuture",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents a 'future' that returns as a result of an asynchronous HTTP request submission.\nThis can be used as a reference to fetch the results of the submission."
+      },
+      "sortText": "CA",
+      "insertText": "HttpFuture",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Link",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents a server-provided hyperlink"
+      },
+      "sortText": "CA",
+      "insertText": "Link",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Links",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents available server-provided links"
+      },
+      "sortText": "CA",
+      "insertText": "Links",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HeaderValue",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents the parsed header value details"
+      },
+      "sortText": "CA",
+      "insertText": "HeaderValue",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FailoverClientConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Provides a set of HTTP related configurations and failover related configurations.\nThe following fields are inherited from the other configuration records in addition to the failover client-specific\nconfigs."
+      },
+      "sortText": "CA",
+      "insertText": "FailoverClientConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CircuitState",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "documentation": {
+        "left": "A finite type for modeling the states of the Circuit Breaker. The Circuit Breaker starts in the `CLOSED` state.\nIf any failure thresholds are exceeded during execution, the circuit trips and goes to the `OPEN` state. After\nthe specified timeout period expires, the circuit goes to the `HALF_OPEN` state. If the trial request sent while\nin the `HALF_OPEN` state succeeds, the circuit goes back to the `CLOSED` state."
+      },
+      "sortText": "CA",
+      "insertText": "CircuitState",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CircuitHealth",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Maintains the health of the Circuit Breaker."
+      },
+      "sortText": "CA",
+      "insertText": "CircuitHealth",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Bucket",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Represents a discrete sub-part of the time window (Bucket).\n"
+      },
+      "sortText": "CA",
+      "insertText": "Bucket",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CircuitBreakerInferredConfig",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Derived set of configurations from the `CircuitBreakerConfig`.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CircuitBreakerInferredConfig",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalancerRule",
+      "kind": "Interface",
+      "detail": "Object",
+      "documentation": {
+        "left": "LoadBalancerRule object type provides a required abstraction to implement different algorithms."
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalancerRule",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalanceClientConfiguration",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "The configurations related to the load balancing client endpoint. The following fields are inherited from the other\nconfiguration records in addition to the load balancing client specific configs.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalanceClientConfiguration",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "HttpCache",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Implements a cache for storing HTTP responses. This cache complies with the caching policy set when configuring\nHTTP caching in the HTTP client endpoint.\n"
+      },
+      "sortText": "CA",
+      "insertText": "HttpCache",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Cookie",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents a Cookie.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Cookie",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CookieStore",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the cookie store.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CookieStore",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "CsvPersistentCookieHandler",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents a default persistent cookie handler, which stores persistent cookies in a CSV file.\n"
+      },
+      "sortText": "CA",
+      "insertText": "CsvPersistentCookieHandler",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "PushPromise",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents an HTTP/2 `PUSH_PROMISE` frame.\n"
+      },
+      "sortText": "CA",
+      "insertText": "PushPromise",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Client",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs."
+      },
+      "sortText": "CA",
+      "insertText": "Client",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Caller",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "The caller actions for responding to client requests.\n"
+      },
+      "sortText": "CA",
+      "insertText": "Caller",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Headers",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents the headers of the inbound request."
+      },
+      "sortText": "CA",
+      "insertText": "Headers",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "RequestContext",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Represents an HTTP Context that allows user to pass data between interceptors."
+      },
+      "sortText": "CA",
+      "insertText": "RequestContext",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Listener",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "This is used for creating HTTP server endpoints. An HTTP server endpoint is capable of responding to\nremote callers. The `Listener` is responsible for initializing the endpoint using the provided configurations."
+      },
+      "sortText": "CA",
+      "insertText": "Listener",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StatusCodeClient",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "The HTTP status code client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs. The responses can be binded to `http:StatusCodeResponse` types"
+      },
+      "sortText": "CA",
+      "insertText": "StatusCodeClient",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "FailoverClient",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "An HTTP client endpoint which provides failover support over multiple HTTP clients.\n"
+      },
+      "sortText": "CA",
+      "insertText": "FailoverClient",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalancerRoundRobinRule",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "Implementation of round robin load balancing strategy.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalancerRoundRobinRule",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "LoadBalanceClient",
+      "kind": "Interface",
+      "detail": "Class",
+      "documentation": {
+        "left": "LoadBalanceClient endpoint provides load balancing functionality over multiple HTTP clients.\n"
+      },
+      "sortText": "CA",
+      "insertText": "LoadBalanceClient",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

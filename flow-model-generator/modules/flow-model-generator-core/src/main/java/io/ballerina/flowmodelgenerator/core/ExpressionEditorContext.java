@@ -162,7 +162,7 @@ public class ExpressionEditorContext {
         if (!importExists) {
             String stmt = new SourceBuilder.TokenBuilder(null)
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(flowNode.codedata().getImportSignature())
+                    .name(importStatement)
                     .endOfStatement()
                     .build(false);
             TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
