@@ -103,15 +103,15 @@ class DatabaseManager {
     public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,
                                                String paramType, String defaultValue,
                                                IndexGenerator.FunctionParameterKind parameterKind,
-                                               int optional, String importStatement) {
+                                               int optional, String importStatements) {
 
         String sql =
                 "INSERT INTO Parameter (function_id, name, description, type, default_value, kind, optional, " +
-                        "import_statement) " +
+                        "import_statements) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         insertEntry(sql,
                 new Object[]{functionId, paramName, paramDescription, paramType, defaultValue,
-                        parameterKind.name(), optional, importStatement});
+                        parameterKind.name(), optional, importStatements});
     }
 
     public static void mapConnectorAction(int actionId, int connectorId) {

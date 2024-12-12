@@ -127,6 +127,7 @@ public class NewConnectionBuilder extends NodeBuilder {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())

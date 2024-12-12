@@ -37,5 +37,6 @@ public record ParameterResult(
         Parameter.Kind kind,
         String defaultValue,
         String description,
-        Integer optional) {
+        Integer optional,
+        String importStatements) {
 }
