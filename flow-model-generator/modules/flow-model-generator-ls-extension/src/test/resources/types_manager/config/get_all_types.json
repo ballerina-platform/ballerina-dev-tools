@@ -1,0 +1,211 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "description": "Get all types associated with the package",
+  "types": [
+    {
+      "name": "Address",
+      "editable": true,
+      "metadata": {
+        "label": "Address",
+        "description": ""
+      },
+      "codedata": {
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 12
+          }
+        },
+        "kind": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Address",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "country": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "country",
+          "docs": ""
+        },
+        "city": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        "houseNo": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "houseNo",
+          "docs": ""
+        },
+        "line2": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "line2",
+          "docs": ""
+        },
+        "line1": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "line1",
+          "docs": ""
+        }
+      },
+      "includes": []
+    },
+    {
+      "name": "Person",
+      "editable": true,
+      "metadata": {
+        "label": "Person",
+        "description": "Person record\nUsed to represent person object"
+      },
+      "codedata": {
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 12,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 11
+          }
+        },
+        "kind": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Person",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "Person record\nUsed to represent person object",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "address": {
+          "kind": "FIELD",
+          "ref": "Address",
+          "type": "Address",
+          "name": "address",
+          "docs": ""
+        },
+        "dob": {
+          "kind": "FIELD",
+          "ref": "ballerina/time:Utc",
+          "type": "ballerina/time:Utc",
+          "name": "dob",
+          "docs": ""
+        },
+        "name": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        "id": {
+          "kind": "FIELD",
+          "ref": "",
+          "type": "int",
+          "name": "id",
+          "docs": ""
+        }
+      },
+      "includes": []
+    }
+  ]
+}

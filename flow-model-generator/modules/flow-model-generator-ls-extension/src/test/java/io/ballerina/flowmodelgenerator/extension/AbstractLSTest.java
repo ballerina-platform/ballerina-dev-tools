@@ -59,7 +59,7 @@ import java.util.stream.Stream;
  *
  * @since 1.4.0
  */
-abstract class AbstractLSTest {
+public abstract class AbstractLSTest {
 
     protected static Logger log;
     protected static Path resDir, sourceDir, configDir;
