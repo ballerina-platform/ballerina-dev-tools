@@ -66,9 +66,11 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -565,15 +567,18 @@ public class CommonUtils {
      *
      * @param typeSymbol the type symbol to analyze
      * @param moduleInfo the module information of the current module
-     * @return a comma-separated list of import statements
+     * @return an Optional containing comma-separated list of import statements, or empty if no imports needed
      */
-    public static String getImportStatements(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
-        List<String> imports = new ArrayList<>();
+    public static Optional<String> getImportStatements(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
+        Set<String> imports = new HashSet<>();
         analyzeTypeSymbolForImports(imports, typeSymbol, moduleInfo);
-        return String.join(",", imports);
+        if (imports.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(String.join(",", imports));
     }
 
-    private static void analyzeTypeSymbolForImports(List<String> imports, TypeSymbol typeSymbol,
+    private static void analyzeTypeSymbolForImports(Set<String> imports, TypeSymbol typeSymbol,
                                                     ModuleInfo moduleInfo) {
         switch (typeSymbol.typeKind()) {
             case UNION -> {

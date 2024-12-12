@@ -177,7 +177,7 @@ public class ParamUtils {
             }
             funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
                     Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional,
-                    CommonUtils.getImportStatements(recordFieldTypeDescriptor, moduleInfo)));
+                    CommonUtils.getImportStatements(recordFieldTypeDescriptor, moduleInfo).orElse(null)));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo);
@@ -185,7 +185,7 @@ public class ParamUtils {
             funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
                     "Additional Values", paramType,
                     Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1,
-                    CommonUtils.getImportStatements(typeSymbol, moduleInfo)));
+                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         });
     }
 
@@ -204,7 +204,7 @@ public class ParamUtils {
         ModuleInfo moduleInfo = ModuleInfo.from(paramSymbol.getModule().get().id());
         TypeSymbol paramTypeDescriptor = paramSymbol.typeDescriptor();
         String importStatements = CommonUtils.getImportStatements(
-                paramTypeDescriptor, moduleInfo);
+                paramTypeDescriptor, moduleInfo).orElse(null);
         if (parameterKind == ParameterKind.REST) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) paramTypeDescriptor).memberTypeDescriptor());

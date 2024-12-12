@@ -296,7 +296,7 @@ class IndexGenerator {
         int optional = 1;
         String defaultValue;
         TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
-        String importStatements = CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo);
+        String importStatements = CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null);
         if (parameterKind == FunctionParameterKind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
@@ -371,7 +371,7 @@ class IndexGenerator {
             }
             DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
                     FunctionParameterKind.INCLUDED_FIELD, optional,
-                    CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo));
+                    CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = getTypeSignature(typeSymbol, null, false);
@@ -379,7 +379,7 @@ class IndexGenerator {
             DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
                     FunctionParameterKind.INCLUDED_RECORD_REST, 1,
-                    CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo));
+                    CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
         });
     }
 
