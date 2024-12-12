@@ -93,6 +93,9 @@ public class ExpressionEditorContext {
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
+        if (flowNode.codedata() == null) {
+            return false;
+        }
         return nodeKinds.contains(flowNode.codedata().node());
     }
 
@@ -186,11 +189,13 @@ public class ExpressionEditorContext {
                 prefix = "_ = ";
             }
 
-            String importStatements = property.codedata().importStatements();
-            if (importStatements != null && !importStatements.isEmpty()) {
-                List.of(importStatements.split(",")).forEach(importStmt -> {
-                    getImport(importStmt).ifPresent(textEdits::add);
-                });
+            if (property.codedata() != null) {
+                String importStatements = property.codedata().importStatements();
+                if (importStatements != null && !importStatements.isEmpty()) {
+                    List.of(importStatements.split(",")).forEach(importStmt -> {
+                        getImport(importStmt).ifPresent(textEdits::add);
+                    });
+                }
             }
         } else {
             prefix = "_ = ";

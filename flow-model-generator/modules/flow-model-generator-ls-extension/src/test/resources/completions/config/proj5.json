@@ -1,0 +1,693 @@
+{
+  "description": "",
+  "filePath": "proj/fn.bal",
+  "context": {
+    "expression": "``",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 1,
+    "node": {
+      "id": "31",
+      "metadata": {
+        "label": "query",
+        "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
+      },
+      "codedata": {
+        "node": "REMOTE_ACTION_CALL",
+        "org": "ballerinax",
+        "module": "snowflake",
+        "object": "Client",
+        "symbol": "query",
+        "id": 1181
+      },
+      "returning": false,
+      "properties": {
+        "connection": {
+          "metadata": {
+            "label": "Connection",
+            "description": "Connection to use"
+          },
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "snowflake:Client",
+          "value": "snowflakeCl",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "sqlQuery": {
+          "metadata": {
+            "label": "sqlQuery",
+            "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "sql:ParameterizedQuery",
+          "value": "object {}",
+          "placeholder": "object {}",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "sqlQuery",
+            "importStatements": "ballerina/sql"
+          }
+        },
+        "rowType": {
+          "metadata": {
+            "label": "rowType",
+            "description": "The `typedesc` of the record to which the result needs to be returned"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "record {|anydata...;|}",
+          "placeholder": "<>",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "DEFAULTABLE",
+            "originalName": "rowType"
+          }
+        },
+        "type": {
+          "metadata": {
+            "label": "Variable Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "stream<rowType, ballerina/sql:1.13.0:Error?>",
+          "placeholder": "var",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "variable": {
+          "metadata": {
+            "label": "Variable Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "streamRowtypeBallerinaSql1130Error",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "flags": 0
+    },
+    "property": "sqlQuery"
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "type",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "type",
+      "insertText": "type ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "public",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "public",
+      "insertText": "public ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "isolated",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "isolated",
+      "insertText": "isolated ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "final",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "final",
+      "insertText": "final ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "const",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "const",
+      "insertText": "const ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "listener",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "listener",
+      "insertText": "listener ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "client",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "client",
+      "insertText": "client ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "var",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "var",
+      "insertText": "var ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "enum",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "enum",
+      "insertText": "enum ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "xmlns",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "xmlns",
+      "insertText": "xmlns ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "class",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "class",
+      "insertText": "class ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "transactional",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "transactional",
+      "insertText": "transactional",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "function",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "AE",
+      "filterText": "function",
+      "insertText": "function ${1:name}(${2})${3} {\n\t${4}\n}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "function <name>(..) => <expression>",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "function",
+      "insertText": "function ${1:name}(${2})${3} => (${4});",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "configurable",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "configurable",
+      "insertText": "configurable",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "annotation",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "annotation",
+      "insertText": "annotation ${1:typeName} ${2:name} on ${3:attachmentPoint};",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type <RecordName> record {}",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "AG",
+      "filterText": "type_record",
+      "insertText": "type ${1:RecordName} record {\n\t${2}\n};",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "xmlns",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "xmlns",
+      "insertText": "xmlns \"${1}\" as ${2:ns};",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type <ObjectName> object",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "type_object",
+      "insertText": "type ${1:ObjectName} object {${2}};",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "class",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "class",
+      "insertText": "class ${1:className} {\n\t${2}\n}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "enum",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "enum",
+      "insertText": "enum ${1:enumName} {\n\t${2}\n}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type <RecordName> record {||}",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "AF",
+      "filterText": "type_record",
+      "insertText": "type ${1:RecordName} record {|\n\t${2}\n|};",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type <ErrorName> error<?>",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "type_error",
+      "insertText": "type ${1:ErrorName} error<${2:map<anydata>}>;",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type TypeName table<>;",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "type_table",
+      "insertText": "type ${1:TypeName} table<${2}>;",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "type TypeName table<> key",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "type_table_key",
+      "insertText": "type ${1:TypeName} table<${2}> key${3}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "stream<> streamName = new;",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "stream",
+      "insertText": "stream<${1}> ${2:streamName} = new;",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "service",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "AB",
+      "filterText": "service",
+      "insertText": "service on ${1:listenerName} {\n\t${2}\n}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "import",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "import",
+      "insertText": "import ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Thread",
+      "kind": "TypeParameter",
+      "detail": "Union",
+      "sortText": "CA",
+      "insertText": "Thread",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Employee",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "Employee",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Person",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "Person",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Location",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "Location",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "StrandData",
+      "kind": "Struct",
+      "detail": "Record",
+      "documentation": {
+        "left": "Describes Strand execution details for the runtime.\n"
+      },
+      "sortText": "CA",
+      "insertText": "StrandData",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Address",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "Address",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Admission",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "CA",
+      "insertText": "Admission",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "readonly",
+      "kind": "TypeParameter",
+      "detail": "Readonly",
+      "sortText": "CA",
+      "insertText": "readonly",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "handle",
+      "kind": "TypeParameter",
+      "detail": "Handle",
+      "sortText": "CA",
+      "insertText": "handle",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "never",
+      "kind": "TypeParameter",
+      "detail": "Never",
+      "sortText": "CA",
+      "insertText": "never",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "json",
+      "kind": "TypeParameter",
+      "detail": "Json",
+      "sortText": "CA",
+      "insertText": "json",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "anydata",
+      "kind": "TypeParameter",
+      "detail": "Anydata",
+      "sortText": "CA",
+      "insertText": "anydata",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "any",
+      "kind": "TypeParameter",
+      "detail": "Any",
+      "sortText": "CA",
+      "insertText": "any",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "byte",
+      "kind": "TypeParameter",
+      "detail": "Byte",
+      "sortText": "CA",
+      "insertText": "byte",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "service",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "AD",
+      "filterText": "service",
+      "insertText": "service",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "record",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "record",
+      "insertText": "record ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "function",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "AD",
+      "filterText": "function",
+      "insertText": "function ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "record {}",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "record",
+      "insertText": "record {${1}}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "record {||}",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "record",
+      "insertText": "record {|${1}|}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "distinct",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "distinct",
+      "insertText": "distinct",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "object {}",
+      "kind": "Snippet",
+      "detail": "Snippet",
+      "sortText": "B",
+      "filterText": "object",
+      "insertText": "object {${1}}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "true",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "true",
+      "insertText": "true",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "false",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "false",
+      "insertText": "false",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "null",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "D",
+      "filterText": "null",
+      "insertText": "null",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "snowflake",
+      "kind": "Module",
+      "detail": "Module",
+      "sortText": "F",
+      "filterText": "snowflake",
+      "insertText": "snowflake",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "decimal",
+      "kind": "TypeParameter",
+      "detail": "Decimal",
+      "sortText": "CA",
+      "insertText": "decimal",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "error",
+      "kind": "Event",
+      "detail": "Error",
+      "sortText": "CA",
+      "insertText": "error",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "object",
+      "kind": "Unit",
+      "detail": "type",
+      "sortText": "E",
+      "insertText": "object",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "transaction",
+      "kind": "Unit",
+      "detail": "type",
+      "sortText": "E",
+      "insertText": "transaction",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "xml",
+      "kind": "TypeParameter",
+      "detail": "Xml",
+      "sortText": "CA",
+      "insertText": "xml",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "table",
+      "kind": "Unit",
+      "detail": "type",
+      "sortText": "E",
+      "insertText": "table",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "map",
+      "kind": "Unit",
+      "detail": "type",
+      "sortText": "E",
+      "insertText": "map",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "stream",
+      "kind": "Unit",
+      "detail": "type",
+      "sortText": "E",
+      "insertText": "stream",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "boolean",
+      "kind": "TypeParameter",
+      "detail": "Boolean",
+      "sortText": "CA",
+      "insertText": "boolean",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "future",
+      "kind": "TypeParameter",
+      "detail": "Future",
+      "sortText": "CA",
+      "insertText": "future",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "int",
+      "kind": "TypeParameter",
+      "detail": "Int",
+      "sortText": "CA",
+      "insertText": "int",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "float",
+      "kind": "TypeParameter",
+      "detail": "Float",
+      "sortText": "CA",
+      "insertText": "float",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "function",
+      "kind": "TypeParameter",
+      "detail": "Function",
+      "sortText": "CA",
+      "insertText": "function",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "string",
+      "kind": "TypeParameter",
+      "detail": "String",
+      "sortText": "CA",
+      "insertText": "string",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "typedesc",
+      "kind": "TypeParameter",
+      "detail": "Typedesc",
+      "sortText": "CA",
+      "insertText": "typedesc",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}
