@@ -93,7 +93,7 @@ public class ExpressionEditorContext {
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
-        if (flowNode.codedata() == null) {
+        if (flowNode == null || flowNode.codedata() == null) {
             return false;
         }
         return nodeKinds.contains(flowNode.codedata().node());
