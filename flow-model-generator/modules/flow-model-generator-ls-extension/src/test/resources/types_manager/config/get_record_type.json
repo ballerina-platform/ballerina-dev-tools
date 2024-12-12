@@ -13,6 +13,7 @@
       "description": "Person record\nUsed to represent person object"
     },
     "codedata": {
+      "node": "RECORD",
       "lineRange": {
         "fileName": "types.bal",
         "startLine": {
@@ -23,8 +24,7 @@
           "line": 12,
           "offset": 11
         }
-      },
-      "kind": "RECORD"
+      }
     },
     "properties": {
       "name": {

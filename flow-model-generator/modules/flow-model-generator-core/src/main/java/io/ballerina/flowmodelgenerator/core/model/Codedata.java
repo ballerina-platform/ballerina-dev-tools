@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.model.types.TypeKind;
 
 /**
  * Represents the properties that uniquely identifies a node in the diagram.
@@ -36,12 +35,11 @@ import org.ballerinalang.model.types.TypeKind;
  * @param parentSymbol The parent symbol of the component
  * @param resourcePath The path of the resource function
  * @param id           The unique identifier of the component if exists
- * @param kind         Type kind of the component
  * @since 2.0.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
                        String version, LineRange lineRange, String sourceCode, String parentSymbol,
-                       String resourcePath, Integer id, String kind) {
+                       String resourcePath, Integer id) {
 
     @Override
     public String toString() {
@@ -73,7 +71,6 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private String parentSymbol;
         private String resourcePath;
         private Integer id;
-        private String kind;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -140,14 +137,9 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
-        public Builder<T> kind(TypeKind typeKind) {
-            this.kind = typeKind.name();
-            return this;
-        }
-
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
-                    resourcePath, id, kind);
+                    resourcePath, id);
         }
     }
 }

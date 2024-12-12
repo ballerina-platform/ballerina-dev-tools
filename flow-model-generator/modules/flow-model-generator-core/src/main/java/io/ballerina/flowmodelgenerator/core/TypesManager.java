@@ -212,7 +212,7 @@ public class TypesManager {
                     .stepOut()
                 .codedata()
                     .lineRange(recTypeDefSymbol.getLocation().get().lineRange())
-                    .kind(TypeKind.RECORD);
+                    .node(NodeKind.RECORD);
 
         // properties
         typeDataBuilder.properties()
