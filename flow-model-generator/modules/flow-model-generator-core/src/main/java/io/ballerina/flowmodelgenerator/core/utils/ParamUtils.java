@@ -87,7 +87,6 @@ public class ParamUtils {
         return pathBuilder.toString();
     }
 
-
     /**
      * Removes the leading single quote from the input string if it exists.
      *
@@ -162,7 +161,8 @@ public class ParamUtils {
 
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldSymbol.typeDescriptor());
+            TypeSymbol recordFieldTypeDescriptor = recordFieldSymbol.typeDescriptor();
+            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldTypeDescriptor);
             if (fieldType.typeKind() == TypeDescKind.NEVER) {
                 continue;
             }
@@ -170,21 +170,22 @@ public class ParamUtils {
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldSymbol.typeDescriptor(),
-                    true, moduleInfo);
+            String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldTypeDescriptor, true, moduleInfo);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
             }
             funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                    Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional));
+                    Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional,
+                    CommonUtils.getImportStatements(recordFieldTypeDescriptor, moduleInfo).orElse(null)));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
                     "Additional Values", paramType,
-                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1));
+                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1,
+                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         });
     }
 
@@ -201,23 +202,26 @@ public class ParamUtils {
         String defaultValue;
         Parameter.Kind kind;
         ModuleInfo moduleInfo = ModuleInfo.from(paramSymbol.getModule().get().id());
+        TypeSymbol paramTypeDescriptor = paramSymbol.typeDescriptor();
+        String importStatements = CommonUtils.getImportStatements(
+                paramTypeDescriptor, moduleInfo).orElse(null);
         if (parameterKind == ParameterKind.REST) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
-                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor());
+                    ((ArrayTypeSymbol) paramTypeDescriptor).memberTypeDescriptor());
             paramType = CommonUtils.getTypeSignature(semanticModel,
-                    ((ArrayTypeSymbol) paramSymbol.typeDescriptor()).memberTypeDescriptor(),
+                    ((ArrayTypeSymbol) paramTypeDescriptor).memberTypeDescriptor(),
                     true, moduleInfo);
             kind = Parameter.Kind.REST_PARAMETER;
         } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true,
+            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true,
                     moduleInfo);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
             kind = Parameter.Kind.INCLUDED_RECORD;
-            buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(paramSymbol.typeDescriptor()),
+            buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(paramTypeDescriptor),
                     semanticModel, moduleInfo, funcParamMap);
         } else if (parameterKind == ParameterKind.REQUIRED) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true, moduleInfo);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
+            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true, moduleInfo);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
             optional = 0;
             kind = Parameter.Kind.REQUIRED;
         } else {
@@ -226,17 +230,17 @@ public class ParamUtils {
                     defaultValue = paramForTypeInfer.type();
                     paramType = paramForTypeInfer.type();
                     funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                            Parameter.Kind.PARAM_FOR_TYPE_INFER, defaultValue, paramDescription, 1));
+                            Parameter.Kind.PARAM_FOR_TYPE_INFER, defaultValue, paramDescription, 1, importStatements));
                     return;
                 }
             }
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramSymbol.typeDescriptor());
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramSymbol.typeDescriptor(), true,
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
+            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true,
                     moduleInfo);
             kind = Parameter.Kind.DEFAULTABLE;
         }
         funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType, kind,
-                defaultValue, paramDescription, optional));
+                defaultValue, paramDescription, optional, importStatements));
     }
 
     public record ParamForTypeInfer(String paramName, String defaultValue, String type) {

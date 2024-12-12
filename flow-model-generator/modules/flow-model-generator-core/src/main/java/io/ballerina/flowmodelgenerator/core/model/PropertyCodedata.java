@@ -22,16 +22,18 @@ package io.ballerina.flowmodelgenerator.core.model;
 /**
  * Represents the codedata of a property.
  *
- * @param kind         The kind of the property
- * @param originalName The original name of the property
+ * @param kind             The kind of the property
+ * @param originalName     The original name of the property
+ * @param importStatements import statements of the dependent types
  * @since 2.0.0
  */
-public record PropertyCodedata(String kind, String originalName) {
+public record PropertyCodedata(String kind, String originalName, String importStatements) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private String kind;
         private String originalName;
+        private String importStatements;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -47,8 +49,13 @@ public record PropertyCodedata(String kind, String originalName) {
             return this;
         }
 
+        public Builder<T> importStatements(String importStatements) {
+            this.importStatements = importStatements;
+            return this;
+        }
+
         public PropertyCodedata build() {
-            return new PropertyCodedata(kind, originalName);
+            return new PropertyCodedata(kind, originalName, importStatements);
         }
     }
 }

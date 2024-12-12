@@ -1,0 +1,175 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "{}",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 1,
+    "node": {
+      "id": "35776",
+      "metadata": {
+        "label": "New Connection",
+        "description": "Represents a Snowflake database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "snowflake",
+        "object": "Client",
+        "symbol": "init",
+        "version": "2.0.0",
+        "lineRange": {
+          "fileName": "connections.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 64
+          }
+        },
+        "sourceCode": "final snowflake:Client snowflakeClient = check new (\"\", \"\", \"\");"
+      },
+      "returning": false,
+      "properties": {
+        "scope": {
+          "metadata": {
+            "label": "Connection Scope",
+            "description": "Scope of the connection, Global or Local"
+          },
+          "valueType": "ENUM",
+          "value": "Global",
+          "optional": false,
+          "editable": true,
+          "advanced": true
+        },
+        "checkError": {
+          "metadata": {
+            "label": "Check Error",
+            "description": "Terminate on error"
+          },
+          "valueType": "FLAG",
+          "value": true,
+          "optional": false,
+          "editable": false,
+          "advanced": true
+        },
+        "account_identifier": {
+          "metadata": {
+            "label": "account_identifier",
+            "description": "The Snowflake account identifier"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "account_identifier"
+          }
+        },
+        "user": {
+          "metadata": {
+            "label": "user",
+            "description": "The username of the Snowflake account"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "user"
+          }
+        },
+        "password": {
+          "metadata": {
+            "label": "password",
+            "description": "The password of the Snowflake account"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "password"
+          }
+        },
+        "options": {
+          "metadata": {
+            "label": "options",
+            "description": "The Snowflake client properties"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "snowflake:Options|()",
+          "placeholder": "()",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "DEFAULTABLE",
+            "originalName": "options"
+          }
+        },
+        "connectionPool": {
+          "metadata": {
+            "label": "connectionPool",
+            "description": "The `sql:ConnectionPool` to be used for the connection. If there is no\n`connectionPool` provided, the global connection pool (shared by all clients) will be used"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "sql:ConnectionPool|()",
+          "placeholder": "()",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "DEFAULTABLE",
+            "originalName": "connectionPool",
+            "importStatements": "ballerina/sql"
+          }
+        },
+        "variable": {
+          "metadata": {
+            "label": "Connection Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "snowflakeClient",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Connection Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "snowflake:Client",
+          "placeholder": "var",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "flags": 1
+    },
+    "property": "connectionPool"
+  },
+  "diagnostics": []
+}

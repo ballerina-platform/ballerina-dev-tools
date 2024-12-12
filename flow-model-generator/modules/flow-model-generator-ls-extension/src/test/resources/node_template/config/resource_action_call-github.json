@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 2421
+      "id": 2963
     },
     "returning": false,
     "properties": {
@@ -41,6 +41,17 @@
         "value": "githubClient",
         "optional": false,
         "editable": false,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/app\\-manifests/[\"\"]/conversions",
+        "optional": false,
+        "editable": true,
         "advanced": false
       },
       "type": {
@@ -62,17 +73,6 @@
         },
         "valueType": "IDENTIFIER",
         "value": "githubManifestconversions",
-        "optional": false,
-        "editable": true,
-        "advanced": false
-      },
-      "resourcePath": {
-        "metadata": {
-          "label": "Resource Path",
-          "description": "Resource Path"
-        },
-        "valueType": "EXPRESSION",
-        "value": "/app\\-manifests/[\"\"]/conversions",
         "optional": false,
         "editable": true,
         "advanced": false

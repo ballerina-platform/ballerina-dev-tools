@@ -37,6 +37,6 @@ public record ModuleInfo(String org, String packageName, String moduleName, Stri
 
     public static ModuleInfo from(ModuleDescriptor moduleDescriptor) {
         return new ModuleInfo(moduleDescriptor.org().value(), moduleDescriptor.packageName().value(),
-                moduleDescriptor.name().moduleNamePart(), moduleDescriptor.version().value().toString());
+                moduleDescriptor.name().toString(), moduleDescriptor.version().value().toString());
     }
 }

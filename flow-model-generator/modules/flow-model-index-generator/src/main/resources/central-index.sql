@@ -46,6 +46,7 @@ CREATE TABLE Parameter (
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
     optional INTEGER CHECK(optional IN (0, 1)),
+    import_statements TEXT,
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );

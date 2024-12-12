@@ -1,3 +1,5 @@
+import ballerina/http;
+
 type Location record {|
     string city;
     string country;
@@ -28,3 +30,8 @@ type Admission record {
     string empId;
     string admissionDate;
 };
+
+type MyOk record {|
+    *http:Ok;
+    string message;
+|};

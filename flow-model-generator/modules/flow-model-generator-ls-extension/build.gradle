@@ -124,6 +124,8 @@ def pullBallerinaModule(String packageName) {
 test.dependsOn pullBallerinaModule('ballerinax/redis')
 test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 test.dependsOn pullBallerinaModule('ballerinax/github')
+test.dependsOn pullBallerinaModule('ballerinax/snowflake')
+test.dependsOn pullBallerinaModule('ballerinax/docusign.dsadmin')
 
 test {
     dependsOn {

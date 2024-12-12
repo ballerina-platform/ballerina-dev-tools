@@ -385,7 +385,8 @@ public class DatabaseManager {
                 "p.kind, " +
                 "p.optional, " +
                 "p.default_value, " +
-                "p.description " +
+                "p.description, " +
+                "p.import_statements " + // Added this line
                 "FROM Parameter p " +
                 "WHERE p.function_id = ?;";
         try (Connection conn = DriverManager.getConnection(dbPath);
@@ -401,7 +402,9 @@ public class DatabaseManager {
                         Parameter.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
-                        rs.getInt("optional"));
+                        rs.getInt("optional"),
+                        rs.getString("import_statements")
+                );
                 parameterResults.add(parameterResult);
             }
             return parameterResults;
@@ -419,7 +422,8 @@ public class DatabaseManager {
                 "p.kind, " +
                 "p.optional, " +
                 "p.default_value, " +
-                "p.description " +
+                "p.description, " +
+                "p.import_statements " + // Added this line
                 "FROM Parameter p " +
                 "WHERE p.function_id = ?;";
         try (Connection conn = DriverManager.getConnection(dbPath);
@@ -436,7 +440,9 @@ public class DatabaseManager {
                         Parameter.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
-                        rs.getInt("optional"));
+                        rs.getInt("optional"),
+                        rs.getString("import_statements")
+                );
                 parameterResults.put(paramName, parameterResult);
             }
             return parameterResults;
