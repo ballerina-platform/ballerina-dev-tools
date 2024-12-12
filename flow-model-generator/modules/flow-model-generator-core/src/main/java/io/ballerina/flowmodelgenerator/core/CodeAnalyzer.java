@@ -535,7 +535,8 @@ class CodeAnalyzer extends NodeVisitor {
                             .defaultable(paramResult.optional() == 1)
                             .codedata()
                                 .kind(paramResult.kind().name())
-                                .originalName(paramResult.name()).importStatements(paramResult.importStatements())
+                                .originalName(paramResult.name())
+                                .importStatements(paramResult.importStatements())
                                 .stepOut()
                             .stepOut()
                             .addProperty(unescapedParamName);

@@ -56,6 +56,7 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
@@ -631,9 +632,8 @@ public class CommonUtils {
                 String orgName = moduleId.orgName();
                 String packageName = moduleId.packageName();
                 String moduleName = moduleId.moduleName();
-                String modulePrefix = moduleId.modulePrefix();
 
-                if (isPredefinedLangLib(orgName, packageName, modulePrefix) ||
+                if (isPredefinedLangLib(orgName, packageName) ||
                         isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
                     return;
                 }
@@ -658,15 +658,21 @@ public class CommonUtils {
         return importStatement.toString();
     }
 
+    /**
+     * Checks if the given module is a predefined language library.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @return true if the module is a predefined language library, false otherwise
+     */
+    public static boolean isPredefinedLangLib(String orgName, String packageName) {
+        return orgName.equals(CommonUtil.BALLERINA_ORG_NAME) && CommonUtil.PRE_DECLARED_LANG_LIBS.contains(packageName);
+    }
+
     private static boolean isWithinCurrentModule(ModuleInfo defaultModuleInfo, String orgName, String packageName,
                                                  String moduleName) {
         return orgName.equals(defaultModuleInfo.org()) &&
                 packageName.equals(defaultModuleInfo.packageName()) &&
                 moduleName.equals(defaultModuleInfo.moduleName());
-    }
-
-    private static boolean isPredefinedLangLib(String orgName, String packageName, String modulePrefix) {
-        return orgName.equals("ballerina") && packageName.startsWith("lang.") &&
-                !NON_DEFAULT_LANG_LIBS.contains(modulePrefix);
     }
 }

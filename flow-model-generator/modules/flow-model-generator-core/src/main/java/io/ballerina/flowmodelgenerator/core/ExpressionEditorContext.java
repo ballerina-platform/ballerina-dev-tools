@@ -39,7 +39,6 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -122,8 +121,7 @@ public class ExpressionEditorContext {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
-        if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
-                CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
+        if (org == null || module == null || CommonUtils.isPredefinedLangLib(org, module)) {
             return Optional.empty();
         }
         return getImport(CommonUtils.getImportStatement(org, module, module));
@@ -148,14 +146,8 @@ public class ExpressionEditorContext {
 
         // Check if the import statement already exists
         boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
-            String importText = importDeclarationNode.toSourceCode();
-            int importIndex = importText.indexOf("import ");
-            int semicolonIndex = importText.indexOf(";");
-            if (importIndex >= 0 && semicolonIndex >= 0) {
-                String stmt = importText.substring(importIndex + 7, semicolonIndex);
-                return stmt.trim().equals(importStatement);
-            }
-            return false;
+            String importText = importDeclarationNode.toSourceCode().trim();
+            return importText.startsWith("import " + importStatement) && importText.endsWith(";");
         });
 
         // Generate the import statement if not exists
@@ -178,45 +170,49 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix;
+        String prefix = "_ = ";
         Optional<Property> optionalProperty = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
+
         if (optionalProperty.isPresent()) {
+            // Append the type if exists
             Property property = optionalProperty.get();
             if (property.valueTypeConstraint() != null) {
                 prefix = String.format("%s _ = ", property.valueTypeConstraint());
-            } else {
-                prefix = "_ = ";
             }
 
+            // Add the import statements of the dependent types
             if (property.codedata() != null) {
                 String importStatements = property.codedata().importStatements();
                 if (importStatements != null && !importStatements.isEmpty()) {
-                    List.of(importStatements.split(",")).forEach(importStmt -> {
+                    for (String importStmt : importStatements.split(",")) {
                         getImport(importStmt).ifPresent(textEdits::add);
-                    });
+                    }
                 }
             }
-        } else {
-            prefix = "_ = ";
         }
 
+        // Add the import statement for the node type
         if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
                 NodeKind.RESOURCE_ACTION_CALL))) {
             getImport().ifPresent(textEdits::add);
         }
 
-        String statement = String.format("%s%s;%n", prefix, info.expression());
-        this.expressionOffset = prefix.length();
-
+        // Get the text position of the start line
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
+        // Generate the statement
+        String statement = String.format("%s%s;%n", prefix, info.expression());
+        this.expressionOffset = prefix.length();
         textEdits.add(TextEdit.from(TextRange.from(textPosition, 0), statement));
+
+        // Apply the text edits to the document
         TextDocument newTextDocument = textDocument
                 .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
         applyContent(newTextDocument);
 
+        // Return the line range of the generated statement
         LinePosition startLine = info.startLine();
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
