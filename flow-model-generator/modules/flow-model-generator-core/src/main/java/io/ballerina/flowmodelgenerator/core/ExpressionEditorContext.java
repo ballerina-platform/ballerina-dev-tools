@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -47,9 +46,9 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Represents the context for the expression editor.
@@ -116,7 +115,7 @@ public class ExpressionEditorContext {
     }
 
     // TODO: Check how we can use SourceBuilder in place of this method
-    public Optional<TextEdit> getImport() {
+    private Optional<TextEdit> getImport() {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
@@ -124,37 +123,46 @@ public class ExpressionEditorContext {
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return Optional.empty();
         }
+        return getImport(CommonUtils.getImportStatement(org, module, module));
+    }
+
+    private Optional<TextEdit> getImport(String importStatement) {
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return Optional.empty();
         }
 
+        // Check if the import statement represents the current module
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
-            if (descriptor.org().value().equals(org) && descriptor.name().toString().equals(module)) {
+            if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
+                    descriptor.name().toString()).equals(importStatement)) {
                 return Optional.empty();
             }
         }
 
+        // Check if the import statement already exists
         boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
-            String moduleName = importDeclarationNode.moduleName().stream()
-                    .map(IdentifierToken::text)
-                    .collect(Collectors.joining("."));
-            return importDeclarationNode.orgName().isPresent() &&
-                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                    module.equals(moduleName);
+            String importText = importDeclarationNode.toSourceCode();
+            int importIndex = importText.indexOf("import ");
+            int semicolonIndex = importText.indexOf(";");
+            if (importIndex >= 0 && semicolonIndex >= 0) {
+                String stmt = importText.substring(importIndex + 7, semicolonIndex);
+                return stmt.trim().equals(importStatement);
+            }
+            return false;
         });
 
-        // Add the import statement
+        // Generate the import statement if not exists
         if (!importExists) {
-            String importStatement = new SourceBuilder.TokenBuilder(null)
+            String stmt = new SourceBuilder.TokenBuilder(null)
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
                     .name(flowNode.codedata().getImportSignature())
                     .endOfStatement()
                     .build(false);
-            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), importStatement);
+            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
             return Optional.of(textEdit);
         }
         return Optional.empty();
@@ -167,10 +175,31 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = getProperty()
-                .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
-                .map(obj -> obj + " _ = ")
-                .orElse("_ = ");
+        String prefix;
+        Optional<Property> optionalProperty = getProperty();
+        List<TextEdit> textEdits = new ArrayList<>();
+        if (optionalProperty.isPresent()) {
+            Property property = optionalProperty.get();
+            if (property.valueTypeConstraint() != null) {
+                prefix = String.format("%s _ = ", property.valueTypeConstraint());
+            } else {
+                prefix = "_ = ";
+            }
+
+            String importStatements = property.codedata().importStatements();
+            if (importStatements != null && !importStatements.isEmpty()) {
+                List.of(importStatements.split(",")).forEach(importStmt -> {
+                    getImport(importStmt).ifPresent(textEdits::add);
+                });
+            }
+        } else {
+            prefix = "_ = ";
+        }
+
+        if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
+                NodeKind.RESOURCE_ACTION_CALL))) {
+            getImport().ifPresent(textEdits::add);
+        }
 
         String statement = String.format("%s%s;%n", prefix, info.expression());
         this.expressionOffset = prefix.length();
@@ -178,9 +207,9 @@ public class ExpressionEditorContext {
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
-        TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+        textEdits.add(TextEdit.from(TextRange.from(textPosition, 0), statement));
         TextDocument newTextDocument = textDocument
-                .apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+                .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
         applyContent(newTextDocument);
 
         LinePosition startLine = info.startLine();

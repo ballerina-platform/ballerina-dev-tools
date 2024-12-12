@@ -65,7 +65,6 @@ import org.eclipse.lsp4j.Range;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -562,8 +561,7 @@ public class CommonUtils {
     }
 
     /**
-     * Generates a comma-separated list of import statements required for the given type symbol. The import signature is
-     * of the format `<org>/<package>[.<module>]`.
+     * Generates a comma-separated list of import statements required for the given type symbol.
      *
      * @param typeSymbol the type symbol to analyze
      * @param moduleInfo the module information of the current module
@@ -639,15 +637,25 @@ public class CommonUtils {
                         isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
                     return;
                 }
-
-                // Generate the import statement
-                StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
-                if (!packageName.equals(moduleName)) {
-                    importStatement.append(".").append(moduleName);
-                }
-                imports.add(importStatement.toString());
+                imports.add(getImportStatement(orgName, packageName, moduleName));
             }
         }
+    }
+
+    /**
+     * Generates the import statement  of the format `<org>/<package>[.<module>]`.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param moduleName  the module name
+     * @return the import statement
+     */
+    public static String getImportStatement(String orgName, String packageName, String moduleName) {
+        StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
+        if (!packageName.equals(moduleName)) {
+            importStatement.append(".").append(moduleName);
+        }
+        return importStatement.toString();
     }
 
     private static boolean isWithinCurrentModule(ModuleInfo defaultModuleInfo, String orgName, String packageName,
