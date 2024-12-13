@@ -1,0 +1,360 @@
+{
+  "description": "",
+  "filePath": "proj/types.bal",
+  "context": {
+    "expression": "{}",
+    "startLine": {
+      "line": 6,
+      "offset": 0
+    },
+    "offset": 1,
+    "node": {
+      "id": "31",
+      "metadata": {
+        "label": "New Connection",
+        "description": "An API for an organization administrator to manage organizations, accounts and users",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsadmin_2.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "docusign.dsadmin",
+        "object": "Client",
+        "symbol": "init",
+        "id": 1569
+      },
+      "returning": false,
+      "properties": {
+        "serviceUrl": {
+          "metadata": {
+            "label": "serviceUrl",
+            "description": "URL of the target service "
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "serviceUrl"
+          }
+        },
+        "auth": {
+          "metadata": {
+            "label": "auth",
+            "description": "Configurations related to client authentication"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:BearerTokenConfig|dsadmin:OAuth2RefreshTokenGrantConfig",
+          "placeholder": "{token: \"\"}",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "auth",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "httpVersion": {
+          "metadata": {
+            "label": "httpVersion",
+            "description": "The HTTP version understood by the client"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:HttpVersion",
+          "placeholder": "http:HTTP_2_0",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "httpVersion",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "http1Settings": {
+          "metadata": {
+            "label": "http1Settings",
+            "description": "Configurations related to HTTP/1.x protocol"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "docusign.dsadmin:ClientHttp1Settings",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "http1Settings"
+          }
+        },
+        "http2Settings": {
+          "metadata": {
+            "label": "http2Settings",
+            "description": "Configurations related to HTTP/2 protocol"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ClientHttp2Settings",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "http2Settings",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "timeout": {
+          "metadata": {
+            "label": "timeout",
+            "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "placeholder": "60",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "timeout"
+          }
+        },
+        "forwarded": {
+          "metadata": {
+            "label": "forwarded",
+            "description": "The choice of setting `forwarded`/`x-forwarded` header"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "placeholder": "\"disable\"",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "forwarded"
+          }
+        },
+        "poolConfig": {
+          "metadata": {
+            "label": "poolConfig",
+            "description": "Configurations associated with request pooling"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:PoolConfiguration",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "poolConfig",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "cache": {
+          "metadata": {
+            "label": "cache",
+            "description": "HTTP caching related configurations"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:CacheConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "cache",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "compression": {
+          "metadata": {
+            "label": "compression",
+            "description": "Specifies the way of handling compression (`accept-encoding`) header"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:Compression",
+          "placeholder": "http:COMPRESSION_AUTO",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "compression",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "circuitBreaker": {
+          "metadata": {
+            "label": "circuitBreaker",
+            "description": "Configurations associated with the behaviour of the Circuit Breaker"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:CircuitBreakerConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "circuitBreaker",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "retryConfig": {
+          "metadata": {
+            "label": "retryConfig",
+            "description": "Configurations associated with retrying"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:RetryConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "retryConfig",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "responseLimits": {
+          "metadata": {
+            "label": "responseLimits",
+            "description": "Configurations associated with inbound response size limits"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ResponseLimitConfigs",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "responseLimits",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "secureSocket": {
+          "metadata": {
+            "label": "secureSocket",
+            "description": "SSL/TLS-related options"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ClientSecureSocket",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "secureSocket",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "proxy": {
+          "metadata": {
+            "label": "proxy",
+            "description": "Proxy server related options"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ProxyConfig",
+          "placeholder": "{}",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "proxy",
+            "importStatements": "ballerina/http"
+          }
+        },
+        "validation": {
+          "metadata": {
+            "label": "validation",
+            "description": "Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "placeholder": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "INCLUDED_FIELD",
+            "originalName": "validation"
+          }
+        },
+        "type": {
+          "metadata": {
+            "label": "Variable Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "dsadmin:Client",
+          "placeholder": "var",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "variable": {
+          "metadata": {
+            "label": "Connection Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "dsadminClient",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "scope": {
+          "metadata": {
+            "label": "Connection Scope",
+            "description": "Scope of the connection, Global or Local"
+          },
+          "valueType": "ENUM",
+          "value": "Global",
+          "optional": false,
+          "editable": true,
+          "advanced": true
+        },
+        "checkError": {
+          "metadata": {
+            "label": "Check Error",
+            "description": "Terminate on error"
+          },
+          "valueType": "FLAG",
+          "value": true,
+          "optional": false,
+          "editable": false,
+          "advanced": true
+        }
+      },
+      "flags": 0
+    },
+    "property": "auth"
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "readonly",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "Q",
+      "filterText": "readonly",
+      "insertText": "readonly ",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

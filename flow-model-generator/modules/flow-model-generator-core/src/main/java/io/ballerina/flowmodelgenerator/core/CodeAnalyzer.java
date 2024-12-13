@@ -383,6 +383,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
@@ -465,6 +466,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
                         .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
@@ -534,6 +536,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .codedata()
                                 .kind(paramResult.kind().name())
                                 .originalName(paramResult.name())
+                                .importStatements(paramResult.importStatements())
                                 .stepOut()
                             .stepOut()
                             .addProperty(unescapedParamName);
@@ -562,6 +565,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(restParamResult.kind().name())
                             .originalName(restParamResult.name())
+                            .importStatements(restParamResult.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty(unescapedParamName);
@@ -618,6 +622,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
+                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
                                     .addProperty(unescapedParamName, paramValue);
@@ -647,6 +652,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .codedata()
                                             .kind(paramResult.kind().name())
                                             .originalName(paramResult.name())
+                                            .importStatements(paramResult.importStatements())
                                             .stepOut()
                                         .stepOut()
                                         .addProperty(unescapedParamName, paramValue);
@@ -676,6 +682,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
+                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
                                     .addProperty(unescapedParamName, paramValue);
@@ -707,6 +714,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(paramResult.kind().name())
                             .originalName(paramResult.name())
+                            .importStatements(paramResult.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty(unescapedParamName, paramValue);
@@ -736,6 +744,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(includedRecordRest.kind().name())
                             .originalName(includedRecordRest.name())
+                            .importStatements(includedRecordRest.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty("additionalValues");

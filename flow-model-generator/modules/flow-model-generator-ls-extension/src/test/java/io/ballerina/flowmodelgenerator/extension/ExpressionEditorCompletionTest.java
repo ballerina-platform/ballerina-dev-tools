@@ -65,6 +65,12 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         }
     }
 
+    @Override
+    protected String[] skipList() {
+        // TODO: Remove after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43706
+        return new String[]{"proj6.json"};
+    }
+
     @Test
     public void testMultipleRequests() throws IOException {
         Path configJsonPath = configDir.resolve("config.json");
