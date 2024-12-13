@@ -347,12 +347,12 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             try {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (semanticModel.isEmpty() || document.isEmpty()) {
+                Optional<Module> module = workspaceManager.module(filePath);
+                if (module.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                FunctionGenerator connectorGenerator = new FunctionGenerator(semanticModel.get());
+                FunctionGenerator connectorGenerator = new FunctionGenerator(module.get());
                 response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
             } catch (Throwable e) {
                 response.setError(e);

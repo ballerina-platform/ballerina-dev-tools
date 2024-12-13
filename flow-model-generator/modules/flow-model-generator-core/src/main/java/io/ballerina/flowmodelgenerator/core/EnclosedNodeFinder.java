@@ -18,9 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -47,7 +47,7 @@ public class EnclosedNodeFinder {
         int positionOffset = PositionUtil.getPositionOffset(PositionUtil.toPosition(position), document.syntaxTree());
         TextRange textRange = TextRange.from(positionOffset, 1);
         NonTerminalNode nonTerminalNode = modulePartNode.findNode(textRange);
-        while (nonTerminalNode != null && nonTerminalNode.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+        while (nonTerminalNode != null && !(nonTerminalNode instanceof FunctionDefinitionNode)) {
             nonTerminalNode = nonTerminalNode.parent();
         }
         if (nonTerminalNode == null) {
