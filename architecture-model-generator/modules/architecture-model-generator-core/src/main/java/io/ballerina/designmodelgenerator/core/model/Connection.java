@@ -28,7 +28,7 @@ import java.util.Objects;
 public class Connection extends DesignGraphNode {
 
     private final String symbol;
-    private final Location location;
+    private Location location;
     private final Scope scope;
 
     public Connection(String symbol, Location location, Scope scope) {
@@ -38,9 +38,20 @@ public class Connection extends DesignGraphNode {
         this.scope = scope;
     }
 
+    public Connection(String symbol, Location location, Scope scope, boolean enableFlow) {
+        super(enableFlow);
+        this.symbol = symbol;
+        this.location = location;
+        this.scope = scope;
+    }
+
     public enum Scope {
         LOCAL,
         GLOBAL
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getSymbol() {

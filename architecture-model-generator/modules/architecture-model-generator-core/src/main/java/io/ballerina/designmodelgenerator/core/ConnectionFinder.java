@@ -79,7 +79,7 @@ public class ConnectionFinder {
                 if (node instanceof ObjectFieldNode objectFieldNode) {
                     if (isNewConnection(objectFieldNode.expression().orElse(null))) {
                         Connection connection = new Connection(objectFieldNode.fieldName().text(),
-                                getLocation(location.lineRange()), Connection.Scope.LOCAL);
+                                getLocation(node.lineRange()), Connection.Scope.LOCAL);
                         for (String refLocation : referenceLocations) {
                             intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                         }
@@ -125,7 +125,7 @@ public class ConnectionFinder {
                     if (node instanceof VariableDeclarationNode variableDeclarationNode) {
                         if (isNewConnection(variableDeclarationNode.initializer().orElse(null))) {
                             Connection connection = new Connection(symbol.getName().get(),
-                                    getLocation(location.lineRange()), Connection.Scope.LOCAL);
+                                    getLocation(node.lineRange()), Connection.Scope.LOCAL, true);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }

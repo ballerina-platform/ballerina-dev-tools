@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -33,6 +34,7 @@ import java.util.UUID;
  */
 public class CommonUtils {
 
+    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
     private static final Random random = new Random();
 
     /**
@@ -58,6 +60,15 @@ public class CommonUtils {
             return rawType;
         }
         return typeDescriptor;
+    }
+
+    /**
+     * Generates the URL for the icon in the Ballerina central.
+     *
+     * @param moduleID the module ID
+     */
+    public static String generateIcon(ModuleID moduleID) {
+        return String.format(CENTRAL_ICON_URL, moduleID.orgName(), moduleID.moduleName(), moduleID.version());
     }
 
     public static String generateUUID() {

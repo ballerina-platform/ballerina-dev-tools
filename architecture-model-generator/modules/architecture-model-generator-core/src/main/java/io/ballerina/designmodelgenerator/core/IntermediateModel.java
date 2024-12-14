@@ -57,6 +57,7 @@ public class IntermediateModel {
         protected Listener anonListener;
         protected String absolutePath;
         protected String displayName;
+        protected String sortText;
 
         public ServiceModel(String displayName, Listener anonListener, String absolutePath) {
             this.displayName = displayName;

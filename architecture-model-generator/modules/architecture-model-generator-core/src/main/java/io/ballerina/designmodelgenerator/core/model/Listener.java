@@ -35,16 +35,33 @@ public final class Listener extends DesignGraphNode {
     private final Kind kind;
     private final String type;
     private final List<KeyValue> args;
+    private final String icon;
 
-
-    public Listener(String symbol, Location location, String type, Kind kind, List<KeyValue> args) {
+    public Listener(String symbol, Location location, String type, String icon, Kind kind, List<KeyValue> args) {
         super();
         this.symbol = symbol;
         this.location = location;
         this.kind = kind;
         this.attachedServices = new HashSet<>();
         this.type = type;
+        this.icon = icon;
         this.args = args;
+    }
+
+    public Listener(String symbol, Location location, String type, String icon, Kind kind, List<KeyValue> args,
+                    boolean enableFlow) {
+        super(enableFlow);
+        this.symbol = symbol;
+        this.location = location;
+        this.kind = kind;
+        this.attachedServices = new HashSet<>();
+        this.type = type;
+        this.icon = icon;
+        this.args = args;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     public String getSymbol() {

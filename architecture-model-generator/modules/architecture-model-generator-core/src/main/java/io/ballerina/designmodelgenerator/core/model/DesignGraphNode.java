@@ -28,6 +28,12 @@ import io.ballerina.designmodelgenerator.core.CommonUtils;
 public abstract class DesignGraphNode {
 
     private final String uuid;
+    private boolean enableFlowModel = false;
+
+    public DesignGraphNode(boolean enableFlowModel) {
+        this.uuid = CommonUtils.generateUUID();
+        this.enableFlowModel = enableFlowModel;
+    }
 
     public DesignGraphNode() {
         this.uuid = CommonUtils.generateUUID();
@@ -35,5 +41,9 @@ public abstract class DesignGraphNode {
 
     public String getUuid() {
         return uuid;
+    }
+
+    public boolean isFlowModelEnabled() {
+        return enableFlowModel;
     }
 }

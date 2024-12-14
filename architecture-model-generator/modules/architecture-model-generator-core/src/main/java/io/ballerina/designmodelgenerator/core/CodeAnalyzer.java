@@ -139,11 +139,14 @@ public class CodeAnalyzer extends NodeVisitor {
             if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
                 TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
                 if (rawType instanceof ClassSymbol classSymbol) {
-                    getInitMethodParamNames(classSymbol, explicitNewExpressionNode.parenthesizedArgList().arguments());
+                    arguments = getInitMethodParamNames(
+                            classSymbol, explicitNewExpressionNode.parenthesizedArgList().arguments());
                 }
             }
+            String icon = symbol.flatMap(Symbol::getModule)
+                    .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
             Listener listener = new Listener("ANON", getLocation(serviceDeclarationNode.lineRange()),
-                    explicitNewExpressionNode.typeDescriptor().toSourceCode(),
+                    explicitNewExpressionNode.typeDescriptor().toSourceCode(), icon,
                     Listener.Kind.ANON, arguments);
             serviceModel = new IntermediateModel.ServiceModel(displayName, listener, absoluteResourcePath);
             intermediateModel.listeners.put(listener.getUuid(), listener);
@@ -157,8 +160,10 @@ public class CodeAnalyzer extends NodeVisitor {
         }
         this.currentServiceModel = serviceModel;
         serviceDeclarationNode.members().forEach(member -> member.accept(this));
-        serviceModel.location = getLocation(serviceDeclarationNode.lineRange());
-        intermediateModel.serviceModelMap.put(String.valueOf(serviceDeclarationNode.lineRange().hashCode()),
+        LineRange lineRange = serviceDeclarationNode.lineRange();
+        serviceModel.location = getLocation(lineRange);
+        serviceModel.sortText = lineRange.fileName() + lineRange.startLine().line();
+        intermediateModel.serviceModelMap.put(String.valueOf(lineRange.hashCode()),
                 serviceModel);
         this.currentServiceModel = null;
     }
@@ -317,16 +322,27 @@ public class CodeAnalyzer extends NodeVisitor {
                 }
             }
         }
+        String icon = symbol.flatMap(Symbol::getModule)
+                .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
         this.intermediateModel.listeners.put(listenerDeclarationNode.variableName().text(),
                 new Listener(listenerDeclarationNode.variableName().text(),
                         getLocation(listenerDeclarationNode.lineRange()),
                         listenerDeclarationNode.typeDescriptor().get().toSourceCode().strip(),
-                        Listener.Kind.NAMED, arguments));
+                        icon, Listener.Kind.NAMED, arguments, true));
     }
 
     @Override
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
         moduleVariableDeclarationNode.initializer().ifPresent(expr -> expr.accept(this));
+        Optional<Symbol> symbol = this.semanticModel.symbol(moduleVariableDeclarationNode);
+        if (symbol.isPresent()) {
+            io.ballerina.tools.diagnostics.Location location = symbol.get().getLocation().get();
+            String hashCode = String.valueOf(location.hashCode());
+            if (this.intermediateModel.connectionMap.containsKey(hashCode)) {
+                Connection connection = this.intermediateModel.connectionMap.get(hashCode);
+                connection.setLocation(getLocation(moduleVariableDeclarationNode.lineRange()));
+            }
+        }
     }
 
     @Override

@@ -35,18 +35,37 @@ public class Service extends DesignGraphNode {
     private final List<Function> remoteFunctions;
     private final List<ResourceFunction> resourceFunctions;
     private final String absolutePath;
+    private final String sortText;
+    private final String type;
+    private final String icon;
 
-    public Service(String name, String absolutePath, Location location, String listener, List<String> connections,
+    public Service(String name, String absolutePath, Location location, String sortText, String type, String icon,
+                   String listener, List<String> connections,
                    List<Function> functions, List<Function> remoteFunctions, List<ResourceFunction> resourceFunctions) {
-        super();
+        super(true);
         this.displayName = name;
         this.absolutePath = absolutePath;
         this.location = location;
+        this.sortText = sortText;
+        this.type = type;
+        this.icon = icon;
         this.listener = listener;
         this.connections = connections;
         this.functions = functions;
         this.remoteFunctions = remoteFunctions;
         this.resourceFunctions = resourceFunctions;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getSortText() {
+        return sortText;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getDisplayName() {

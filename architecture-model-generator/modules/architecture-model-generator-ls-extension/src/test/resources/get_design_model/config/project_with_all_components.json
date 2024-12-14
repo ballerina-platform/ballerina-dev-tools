@@ -18,10 +18,11 @@
           }
         },
         "connections": [
-          "68b32191-3918-4d71-9fc3-44bdd02e6a75",
-          "9fd37d61-d7f2-4a8f-803a-89dfe0ea403b"
+          "b0bcc5d2-8562-5b46-7015-8b29073d2219",
+          "071fadad-f804-2db5-5135-38f9e2fb68ab"
         ],
-        "uuid": "5704ab67-750f-4d3c-825a-ad3a99124fac"
+        "uuid": "42d6aa56-54ef-1a80-32b5-e1878ed0b03e",
+        "enableFlowModel": true
       },
       "connections": [
         {
@@ -30,15 +31,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
             "startLine": {
               "line": 5,
-              "offset": 18
+              "offset": 0
             },
             "endLine": {
               "line": 5,
-              "offset": 29
+              "offset": 47
             }
           },
           "scope": "GLOBAL",
-          "uuid": "e65536a3-fe34-414d-8899-93b4a9cbcde6"
+          "uuid": "a1baceb7-0c59-b660-9546-917e29a4e0d7",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient",
@@ -46,15 +48,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
             "startLine": {
               "line": 8,
-              "offset": 24
+              "offset": 4
             },
             "endLine": {
               "line": 8,
-              "offset": 34
+              "offset": 52
             }
           },
           "scope": "LOCAL",
-          "uuid": "164e7ac9-2b54-4573-b7b1-23788b980825"
+          "uuid": "9c031529-8f2a-dee3-45c2-07b7242f001d",
+          "enableFlowModel": false
         },
         {
           "symbol": "httpClient",
@@ -62,15 +65,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
             "startLine": {
               "line": 2,
-              "offset": 18
+              "offset": 0
             },
             "endLine": {
               "line": 2,
-              "offset": 28
+              "offset": 46
             }
           },
           "scope": "GLOBAL",
-          "uuid": "b19d7d57-655d-4948-88e1-ed41410a5b45"
+          "uuid": "0447439f-3cb6-f85b-b008-c20e4d11467b",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient10",
@@ -78,15 +82,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
             "startLine": {
               "line": 35,
-              "offset": 20
+              "offset": 8
             },
             "endLine": {
               "line": 35,
-              "offset": 32
+              "offset": 49
             }
           },
           "scope": "LOCAL",
-          "uuid": "ad63f117-c4ac-4559-b723-716729962c45"
+          "uuid": "0ff7afba-f6b1-4bc2-ae66-b40721515c3d",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient2",
@@ -102,7 +107,8 @@
             }
           },
           "scope": "LOCAL",
-          "uuid": "6f80b850-9d75-4a45-b805-ff846bfbb5ee"
+          "uuid": "bf7c1787-c083-9f7a-d654-328130a3ff42",
+          "enableFlowModel": false
         },
         {
           "symbol": "httpClient3",
@@ -110,15 +116,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
             "startLine": {
               "line": 4,
-              "offset": 18
+              "offset": 0
             },
             "endLine": {
               "line": 4,
-              "offset": 29
+              "offset": 47
             }
           },
           "scope": "GLOBAL",
-          "uuid": "e3b120b8-0000-45c3-b896-234f48509d40"
+          "uuid": "cdddff7a-d24c-eb63-a737-2a10f87caf75",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient",
@@ -126,15 +133,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
             "startLine": {
               "line": 2,
-              "offset": 18
+              "offset": 0
             },
             "endLine": {
               "line": 2,
-              "offset": 28
+              "offset": 46
             }
           },
           "scope": "GLOBAL",
-          "uuid": "b19d7d57-655d-4948-88e1-ed41410a5b45"
+          "uuid": "0447439f-3cb6-f85b-b008-c20e4d11467b",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient",
@@ -142,15 +150,16 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/automation.bal",
             "startLine": {
               "line": 8,
-              "offset": 26
+              "offset": 8
             },
             "endLine": {
               "line": 8,
-              "offset": 36
+              "offset": 54
             }
           },
           "scope": "LOCAL",
-          "uuid": "68b32191-3918-4d71-9fc3-44bdd02e6a75"
+          "uuid": "071fadad-f804-2db5-5135-38f9e2fb68ab",
+          "enableFlowModel": true
         },
         {
           "symbol": "httpClient2",
@@ -158,59 +167,46 @@
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/connections.bal",
             "startLine": {
               "line": 3,
-              "offset": 18
+              "offset": 0
             },
             "endLine": {
               "line": 3,
-              "offset": 29
+              "offset": 47
             }
           },
           "scope": "GLOBAL",
-          "uuid": "9fd37d61-d7f2-4a8f-803a-89dfe0ea403b"
+          "uuid": "b0bcc5d2-8562-5b46-7015-8b29073d2219",
+          "enableFlowModel": true
         }
       ],
       "listeners": [
         {
           "symbol": "ANON",
           "location": {
-            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
-            "startLine": {
-              "line": 3,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 42,
-              "offset": 1
-            }
-          },
-          "attachedServices": [
-            "1e5465dc-8b8b-46af-94bd-6ee7fd52b623"
-          ],
-          "kind": "ANON",
-          "type": "http:Listener",
-          "args": [],
-          "uuid": "61c11771-b688-4044-b11d-01ad99c0c7c8"
-        },
-        {
-          "symbol": "ANON",
-          "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
             "startLine": {
-              "line": 3,
+              "line": 17,
               "offset": 0
             },
             "endLine": {
-              "line": 15,
+              "line": 29,
               "offset": 1
             }
           },
           "attachedServices": [
-            "54f3a123-2497-4093-a95b-8790f053989d"
+            "72ce829a-62df-b77f-d16e-2d6d29e8c4a8"
           ],
           "kind": "ANON",
           "type": "http:Listener",
-          "args": [],
-          "uuid": "4622e008-0dd1-486d-af7b-e1478dd445f4"
+          "args": [
+            {
+              "key": "port",
+              "value": "9092"
+            }
+          ],
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "14db0afa-73ee-f39a-25b7-8d3d82297b37",
+          "enableFlowModel": false
         },
         {
           "symbol": "ls",
@@ -226,8 +222,8 @@
             }
           },
           "attachedServices": [
-            "f71daf2e-fa5b-4608-b6b9-bbbbc54cc23d",
-            "277ef718-34bd-440c-8436-d7f089e1b2cf"
+            "294e024c-796a-8660-c959-c1983c14ed00",
+            "1fea6e13-e64c-9932-db09-e83ce8c2989a"
           ],
           "kind": "NAMED",
           "type": "http:Listener",
@@ -237,7 +233,37 @@
               "value": "9093"
             }
           ],
-          "uuid": "35d3d5b7-b6b2-4064-a148-47c41e04b7df"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "2f33116e-8fb2-f698-bceb-e304b3defec1",
+          "enableFlowModel": true
+        },
+        {
+          "symbol": "ANON",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/BITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 42,
+              "offset": 1
+            }
+          },
+          "attachedServices": [
+            "b55a07c8-90b7-14d4-4eb7-8721ece83b89"
+          ],
+          "kind": "ANON",
+          "type": "http:Listener",
+          "args": [
+            {
+              "key": "port",
+              "value": "9092"
+            }
+          ],
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "3e4f5b0b-962e-8168-89fc-8f1da6caba96",
+          "enableFlowModel": false
         },
         {
           "symbol": "orderListener",
@@ -253,7 +279,7 @@
             }
           },
           "attachedServices": [
-            "d0648f8c-17cf-40b1-a479-dd0cfc9e446d"
+            "f450dab1-56e4-8bff-1266-aa573b4a87dd"
           ],
           "kind": "NAMED",
           "type": "kafka:Listener",
@@ -267,7 +293,37 @@
               "value": "{\n    groupId: \"order-group-id\",\n    topics: orderTopics\n}"
             }
           ],
-          "uuid": "4907b7ea-4d96-4b4a-9d3b-22413d172e95"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+          "uuid": "e27ef0d0-f121-8e46-cd4f-940bd67264c7",
+          "enableFlowModel": true
+        },
+        {
+          "symbol": "ANON",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 1
+            }
+          },
+          "attachedServices": [
+            "31e9099e-db88-2868-a066-4e123c156603"
+          ],
+          "kind": "ANON",
+          "type": "http:Listener",
+          "args": [
+            {
+              "key": "port",
+              "value": "9091"
+            }
+          ],
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "e62e7b5a-0581-410f-e3ab-9fc8cc4b0e98",
+          "enableFlowModel": false
         },
         {
           "symbol": "ANON",
@@ -283,12 +339,23 @@
             }
           },
           "attachedServices": [
-            "90b5db7c-a08d-4ef6-8f45-8c0970109fb4"
+            "98f827b1-1d7c-f1ce-1b9f-9cf4ec5a7a29"
           ],
           "kind": "ANON",
           "type": "kafka:Listener",
-          "args": [],
-          "uuid": "12a27f6c-736a-4852-90eb-f3a6ba5a799b"
+          "args": [
+            {
+              "key": "bootstrapServers",
+              "value": "kafka:DEFAULT_URL"
+            },
+            {
+              "key": "config",
+              "value": "{\n    groupId: \"order-group-id\",\n    topics: \"order-topic\"\n}"
+            }
+          ],
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+          "uuid": "1175d802-15ab-fa72-3ca2-e5a7c1f76f74",
+          "enableFlowModel": false
         }
       ],
       "services": [
@@ -305,14 +372,14 @@
               "offset": 1
             }
           },
-          "listener": "61c11771-b688-4044-b11d-01ad99c0c7c8",
+          "listener": "3e4f5b0b-962e-8168-89fc-8f1da6caba96",
           "connections": [
-            "164e7ac9-2b54-4573-b7b1-23788b980825",
-            "23c869c3-e10d-49fb-aa08-6557ddb0dea1",
-            "6f80b850-9d75-4a45-b805-ff846bfbb5ee",
-            "ad63f117-c4ac-4559-b723-716729962c45",
-            "b8b44935-8b06-4e83-a65c-bfd02d40c750",
-            "b19d7d57-655d-4948-88e1-ed41410a5b45"
+            "0ff7afba-f6b1-4bc2-ae66-b40721515c3d",
+            "09ce631e-be64-fd94-abf5-59017cfe5eac",
+            "9c031529-8f2a-dee3-45c2-07b7242f001d",
+            "d81c22bf-8736-4fa1-4a95-0d36c672bd87",
+            "0447439f-3cb6-f85b-b008-c20e4d11467b",
+            "bf7c1787-c083-9f7a-d654-328130a3ff42"
           ],
           "functions": [
             {
@@ -391,7 +458,11 @@
             }
           ],
           "absolutePath": "/api/v1 ",
-          "uuid": "1e5465dc-8b8b-46af-94bd-6ee7fd52b623"
+          "sortText": "BITService.bal3",
+          "type": "http:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "b55a07c8-90b7-14d4-4eb7-8721ece83b89",
+          "enableFlowModel": true
         },
         {
           "location": {
@@ -405,7 +476,7 @@
               "offset": 1
             }
           },
-          "listener": "12a27f6c-736a-4852-90eb-f3a6ba5a799b",
+          "listener": "1175d802-15ab-fa72-3ca2-e5a7c1f76f74",
           "connections": [],
           "functions": [],
           "remoteFunctions": [
@@ -426,7 +497,11 @@
           ],
           "resourceFunctions": [],
           "absolutePath": "",
-          "uuid": "90b5db7c-a08d-4ef6-8f45-8c0970109fb4"
+          "sortText": "kafka.bal27",
+          "type": "kafka:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+          "uuid": "98f827b1-1d7c-f1ce-1b9f-9cf4ec5a7a29",
+          "enableFlowModel": true
         },
         {
           "location": {
@@ -440,9 +515,9 @@
               "offset": 1
             }
           },
-          "listener": "35d3d5b7-b6b2-4064-a148-47c41e04b7df",
+          "listener": "2f33116e-8fb2-f698-bceb-e304b3defec1",
           "connections": [
-            "9fd37d61-d7f2-4a8f-803a-89dfe0ea403b"
+            "b0bcc5d2-8562-5b46-7015-8b29073d2219"
           ],
           "functions": [
             {
@@ -479,7 +554,68 @@
             }
           ],
           "absolutePath": "/api1 ",
-          "uuid": "f71daf2e-fa5b-4608-b6b9-bbbbc54cc23d"
+          "sortText": "multi_service.bal4",
+          "type": "http:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "1fea6e13-e64c-9932-db09-e83ce8c2989a",
+          "enableFlowModel": true
+        },
+        {
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 29,
+              "offset": 1
+            }
+          },
+          "listener": "14db0afa-73ee-f39a-25b7-8d3d82297b37",
+          "connections": [
+            "b0bcc5d2-8562-5b46-7015-8b29073d2219"
+          ],
+          "functions": [
+            {
+              "name": "init",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 37
+                }
+              }
+            }
+          ],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "greeting",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_1/IITService.bal",
+                "startLine": {
+                  "line": 21,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "absolutePath": "/ ",
+          "sortText": "IITService.bal17",
+          "type": "http:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "72ce829a-62df-b77f-d16e-2d6d29e8c4a8",
+          "enableFlowModel": true
         },
         {
           "location": {
@@ -493,9 +629,9 @@
               "offset": 1
             }
           },
-          "listener": "35d3d5b7-b6b2-4064-a148-47c41e04b7df",
+          "listener": "2f33116e-8fb2-f698-bceb-e304b3defec1",
           "connections": [
-            "9fd37d61-d7f2-4a8f-803a-89dfe0ea403b"
+            "b0bcc5d2-8562-5b46-7015-8b29073d2219"
           ],
           "functions": [],
           "remoteFunctions": [],
@@ -517,7 +653,11 @@
             }
           ],
           "absolutePath": "/api2 ",
-          "uuid": "277ef718-34bd-440c-8436-d7f089e1b2cf"
+          "sortText": "multi_service.bal15",
+          "type": "http:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "294e024c-796a-8660-c959-c1983c14ed00",
+          "enableFlowModel": true
         },
         {
           "location": {
@@ -531,9 +671,9 @@
               "offset": 1
             }
           },
-          "listener": "4622e008-0dd1-486d-af7b-e1478dd445f4",
+          "listener": "e62e7b5a-0581-410f-e3ab-9fc8cc4b0e98",
           "connections": [
-            "9fd37d61-d7f2-4a8f-803a-89dfe0ea403b"
+            "b0bcc5d2-8562-5b46-7015-8b29073d2219"
           ],
           "functions": [
             {
@@ -570,7 +710,11 @@
             }
           ],
           "absolutePath": "/ ",
-          "uuid": "54f3a123-2497-4093-a95b-8790f053989d"
+          "sortText": "IITService.bal3",
+          "type": "http:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "31e9099e-db88-2868-a066-4e123c156603",
+          "enableFlowModel": true
         },
         {
           "location": {
@@ -584,7 +728,7 @@
               "offset": 1
             }
           },
-          "listener": "4907b7ea-4d96-4b4a-9d3b-22413d172e95",
+          "listener": "e27ef0d0-f121-8e46-cd4f-940bd67264c7",
           "connections": [],
           "functions": [],
           "remoteFunctions": [
@@ -605,7 +749,11 @@
           ],
           "resourceFunctions": [],
           "absolutePath": "",
-          "uuid": "d0648f8c-17cf-40b1-a479-dd0cfc9e446d"
+          "sortText": "kafka.bal15",
+          "type": "kafka:Listener",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+          "uuid": "f450dab1-56e4-8bff-1266-aa573b4a87dd",
+          "enableFlowModel": true
         }
       ]
     }
