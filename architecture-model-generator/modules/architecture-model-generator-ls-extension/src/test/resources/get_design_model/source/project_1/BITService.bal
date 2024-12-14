@@ -1,10 +1,28 @@
 import ballerina/http;
 import ballerina/log;
 
+listener http:Listener securedEP = new (9090,
+    secureSocket = {
+        key: {
+            certFile: "../resource/path/to/public.crt",
+            keyFile: "../resource/path/to/private.key"
+        }
+    }
+);
+
+listener http:Listener securedEP2 = new (9091,
+    secureSocket = {
+        key: {
+            certFile: "../resource/path/to/public.crt",
+            keyFile: "../resource/path/to/private.key"
+        }
+    }
+);
+
 @display {
     label: "BIT Service"
 }
-service /api/v1 on new http:Listener(9092) {
+service / on securedEP, securedEP2, new http:Listener(9092) {
 
     private http:Client httpClient = check new ("");
     private http:Client httpClient2;

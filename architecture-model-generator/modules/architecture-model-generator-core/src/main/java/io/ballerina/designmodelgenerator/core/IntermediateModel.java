@@ -52,28 +52,18 @@ public class IntermediateModel {
         protected List<FunctionModel> remoteFunctions;
         protected List<FunctionModel> resourceFunctions;
         protected List<FunctionModel> otherFunctions;
-        protected String listener;
         protected Location location;
-        protected Listener anonListener;
         protected String absolutePath;
         protected String displayName;
         protected String sortText;
+        protected final List<String> namedListeners = new ArrayList<>();
+        protected final List<Listener> anonListeners = new ArrayList<>();
 
-        public ServiceModel(String displayName, Listener anonListener, String absolutePath) {
+        public ServiceModel(String displayName, String absolutePath) {
             this.displayName = displayName;
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
             this.otherFunctions = new ArrayList<>();
-            this.anonListener = anonListener;
-            this.absolutePath = absolutePath;
-        }
-
-        public ServiceModel(String displayName, String listenerSymbol, String absolutePath) {
-            this.displayName = displayName;
-            this.remoteFunctions = new ArrayList<>();
-            this.resourceFunctions = new ArrayList<>();
-            this.otherFunctions = new ArrayList<>();
-            this.listener = listenerSymbol;
             this.absolutePath = absolutePath;
         }
     }

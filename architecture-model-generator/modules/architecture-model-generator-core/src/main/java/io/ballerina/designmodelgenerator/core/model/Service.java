@@ -18,7 +18,9 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a service definition node.
@@ -29,31 +31,40 @@ public class Service extends DesignGraphNode {
 
     private final String displayName;
     private final Location location;
-    private final String listener;
+    private final List<String> attachedListeners;
     private final List<String> connections;
     private final List<Function> functions;
     private final List<Function> remoteFunctions;
     private final List<ResourceFunction> resourceFunctions;
     private final String absolutePath;
     private final String sortText;
-    private final String type;
-    private final String icon;
+    private String type;
+    private String icon;
 
-    public Service(String name, String absolutePath, Location location, String sortText, String type, String icon,
-                   String listener, List<String> connections,
+    public Service(String name, String absolutePath, Location location, String sortText, List<String> connections,
                    List<Function> functions, List<Function> remoteFunctions, List<ResourceFunction> resourceFunctions) {
         super(true);
         this.displayName = name;
         this.absolutePath = absolutePath;
         this.location = location;
         this.sortText = sortText;
-        this.type = type;
-        this.icon = icon;
-        this.listener = listener;
         this.connections = connections;
         this.functions = functions;
         this.remoteFunctions = remoteFunctions;
         this.resourceFunctions = resourceFunctions;
+        this.attachedListeners = new ArrayList<>();
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void addAttachedListener(String listener) {
+        this.attachedListeners.add(listener);
     }
 
     public String getIcon() {
@@ -76,8 +87,8 @@ public class Service extends DesignGraphNode {
         return location;
     }
 
-    public String getListener() {
-        return listener;
+    public List<String> getAttachedListeners() {
+        return attachedListeners;
     }
 
     public List<String> getConnections() {
@@ -111,8 +122,9 @@ public class Service extends DesignGraphNode {
             return false;
         }
         return service.displayName.equals(this.displayName)
+                && Objects.equals(service.type, this.type)
                 && service.absolutePath.equals(this.absolutePath)
-                && service.listener.equals(this.listener)
+                && service.attachedListeners.size() == this.attachedListeners.size()
                 && service.connections.size() == this.connections.size()
                 && service.functions.size() == this.functions.size()
                 && service.remoteFunctions.size() == this.remoteFunctions.size()

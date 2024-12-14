@@ -116,12 +116,20 @@ public class DesignModelGenerator {
                         resourceFunction.location));
                 connections.addAll(resourceFunction.allDependentConnections);
             });
-            Listener listener = serviceModel.listener == null ?
-                    serviceModel.anonListener : intermediateModel.listeners.get(serviceModel.listener);
+            List<Listener> allAttachedListeners = serviceModel.anonListeners;
+            for (String listener : serviceModel.namedListeners) {
+                allAttachedListeners.add(intermediateModel.listeners.get(listener));
+            }
+
             Service service = new Service(serviceModel.displayName, serviceModel.absolutePath, serviceModel.location,
-                    serviceModel.sortText, listener.getType(), listener.getIcon(), listener.getUuid(),
+                    serviceModel.sortText,
                     connections.stream().toList(), functions, remoteFunctions, resourceFunctions);
-            listener.getAttachedServices().add(service.getUuid());
+            for (Listener listener : allAttachedListeners) {
+                listener.getAttachedServices().add(service.getUuid());
+                service.addAttachedListener(listener.getUuid());
+                service.setIcon(listener.getIcon());
+                service.setType(listener.getType());
+            }
             builder.addService(service);
         }
         return builder

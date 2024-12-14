@@ -124,38 +124,38 @@ public class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ServiceDeclarationNode serviceDeclarationNode) {
-        ExpressionNode expressionNode = serviceDeclarationNode.expressions().get(0);
-        IntermediateModel.ServiceModel serviceModel;
-        String absoluteResourcePath = String.join("", serviceDeclarationNode.absoluteResourcePath()
-                .stream().map(Node::toSourceCode).toList());
-        String displayName = null;
         Optional<Symbol> serviceSymbol = this.semanticModel.symbol(serviceDeclarationNode);
+        String displayName = null;
         if (serviceSymbol.isPresent()) {
             displayName = getDisplayName(((ServiceDeclarationSymbol) serviceSymbol.get()).annotAttachments());
         }
-        if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
-            List<Listener.KeyValue> arguments = new ArrayList<>();
-            Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
-            if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
-                TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
-                if (rawType instanceof ClassSymbol classSymbol) {
-                    arguments = getInitMethodParamNames(
-                            classSymbol, explicitNewExpressionNode.parenthesizedArgList().arguments());
+        String absoluteResourcePath = String.join("", serviceDeclarationNode.absoluteResourcePath()
+                .stream().map(Node::toSourceCode).toList());
+        IntermediateModel.ServiceModel serviceModel = new IntermediateModel.ServiceModel(
+                displayName, absoluteResourcePath);
+
+        for (ExpressionNode expressionNode : serviceDeclarationNode.expressions()) {
+            if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+                List<Listener.KeyValue> arguments = new ArrayList<>();
+                Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
+                if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
+                    TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+                    if (rawType instanceof ClassSymbol classSymbol) {
+                        arguments = getInitMethodParamNames(
+                                classSymbol, explicitNewExpressionNode.parenthesizedArgList().arguments());
+                    }
                 }
-            }
-            String icon = symbol.flatMap(Symbol::getModule)
-                    .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
-            Listener listener = new Listener("ANON", getLocation(serviceDeclarationNode.lineRange()),
-                    explicitNewExpressionNode.typeDescriptor().toSourceCode(), icon,
-                    Listener.Kind.ANON, arguments);
-            serviceModel = new IntermediateModel.ServiceModel(displayName, listener, absoluteResourcePath);
-            intermediateModel.listeners.put(listener.getUuid(), listener);
-        } else {
-            if (expressionNode instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
-                serviceModel = new IntermediateModel.ServiceModel(displayName, simpleNameReferenceNode.name().text(),
-                        absoluteResourcePath);
+                String icon = symbol.flatMap(Symbol::getModule)
+                        .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
+                Listener listener = new Listener("ANON", getLocation(serviceDeclarationNode.lineRange()),
+                        explicitNewExpressionNode.typeDescriptor().toSourceCode(), icon,
+                        Listener.Kind.ANON, arguments);
+                serviceModel.anonListeners.add(listener);
+                intermediateModel.listeners.put(listener.getUuid(), listener);
             } else {
-                serviceModel = new IntermediateModel.ServiceModel(displayName, "ANON", absoluteResourcePath);
+                if (expressionNode instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                    serviceModel.namedListeners.add(simpleNameReferenceNode.name().text());
+                }
             }
         }
         this.currentServiceModel = serviceModel;
