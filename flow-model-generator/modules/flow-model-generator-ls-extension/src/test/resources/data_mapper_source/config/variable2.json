@@ -99,5 +99,5 @@
       ]
     }
   ],
-  "output": "{id:1234,credentials:{password:userInfo.,username:userInfo.username},length:userInfo.username}"
+  "output": "{id:1234,credentials:{username:userInfo.username,password:userInfo.},length:userInfo.username}"
 }

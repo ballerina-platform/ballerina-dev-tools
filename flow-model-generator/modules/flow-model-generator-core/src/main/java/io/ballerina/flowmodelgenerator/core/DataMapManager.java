@@ -473,11 +473,11 @@ public class DataMapManager {
         FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
         List<Mapping> fieldMapping = gson.fromJson(mp, mt);
         Map<String, Object> mappings = new LinkedHashMap<>();
-        for (Mapping mapping : fieldMapping) {
-            genSourceForMapping(mapping, mappings);
+        genSourceForMappings(fieldMapping, mappings, 0);
+        String mappingSource = "";
+        for (Map.Entry<String, Object> mapping : mappings.entrySet()) {
+            mappingSource = genSource(mapping.getValue());
         }
-//        genSourceForMs(fieldMapping, mappings);
-        String mappingSource = genSource(mappings);
         if (flowNode.codedata().node() == NodeKind.VARIABLE) {
             Optional<Property> optProperty = flowNode.getProperty("expression");
             if (optProperty.isPresent()) {
@@ -558,71 +558,77 @@ public class DataMapManager {
         }
     }
 
-    private void genSourceForMs(List<Mapping> mappings, Map<String, Object> x) {
+    // returns either array or map
+    private Object genSourceForMappings(List<Mapping> mappings, Object parent, int pos) {
         for (Mapping mapping : mappings) {
-            Object o = genSourceForM(mapping);
-            x.put(genKey(mapping), o);
+            genSourceForMapping(mapping, parent, pos);
         }
+        return parent;
     }
 
-    private Object genSourceForM(Mapping mapping) {
-        List<MappingElements> elements = mapping.elements();
-        if (elements == null || elements.isEmpty()) {
-            // gen Source for single line
-        }
-        List<Map<String, Object>> xs = new ArrayList<>();
-        for (MappingElements element : elements) {
-            Map<String, Object> x = new HashMap<>();
-            genSourceForMs(element.mappings(), x);
-            xs.add(x);
-        }
-        return xs;
-    }
-
-    private String genKey(Mapping mapping) {
-        return "";
-    }
-
-    // TODO: Check the logic
-    private void genSourceForMapping(Mapping mapping, Map<String, Object> mappingSource) {
-        String output = mapping.output;
+    private void genSourceForMapping(Mapping mapping, Object parent, int pos) {
+        Object ox;
+        String output = mapping.output();
         String[] splits = output.split("\\.");
-        if (splits.length == 1) {
-            return;
+        if (mapping.elements() == null || mapping.elements().isEmpty()) {
+            ox = mapping.expression();
+        } else {
+            List<Object> xs = new ArrayList<>();
+            for (MappingElements mappingElements : mapping.elements()) {
+                Object p;
+                if (splits[splits.length - 1].matches("^-?\\d+$")) {
+                    p = new ArrayList<>();
+                } else {
+                    p = new LinkedHashMap<>();
+                }
+                String[] elements = mappingElements.mappings().getFirst().output().split("\\.");
+                if (elements[elements.length - 1].matches("^-?\\d+$")) {
+                    genSourceForMappings(mappingElements.mappings(), xs, splits.length + 1);
+                } else {
+                    xs.add(genSourceForMappings(mappingElements.mappings(), p, splits.length + 1));
+                }
+            }
+            ox = xs;
         }
 
-        Map<String, Object> currentMapping = mappingSource;
-        String key = splits[1];
-        for (int i = 1; i < splits.length - 1; i++) {
-            String split = splits[i];
-            Object o = currentMapping.get(key);
-            if (o == null) {
-                if (splits[i + 1].matches("^-?\\d+$")) {
-                    currentMapping.put(split, new ArrayList<>());
-                } else {
-                    Map<String, Object> newMapping = new HashMap<>();
-                    currentMapping.put(split, newMapping);
-                    currentMapping = newMapping;
-                    key = split;
+        if (splits[splits.length - 1].matches("^-?\\d+$")) {
+            int i1 = Integer.parseInt(splits[splits.length - 1]);
+            ((List) parent).add(i1, ox);
+        } else {
+            Map<String, Object> currentMapping = (LinkedHashMap<String, Object>) parent;
+            String k = "";
+            for (int i = pos; i < splits.length - 1; i++) {
+                if (!splits[i].matches("^-?\\d+$")) {
+                    k = splits[i];
                 }
-            } else if (o instanceof Map<?, ?>) {
-                currentMapping = (Map<String, Object>) o;
-                key = split;
-            } else if (o instanceof ArrayList<?>) {
-                List list = (List) o;
-                if (split.matches("^-?\\d+$")) {
-                    int i1 = Integer.parseInt(split);
-                    if (list.size() > i1 && list.get(i1) != null) {
-                        currentMapping = (Map<String, Object>) list.get(i1);
+                Object o = currentMapping.get(k);
+                if (o == null) {
+                    if (i + 1 < splits.length && splits[i + 1].matches("^-?\\d+$")) {
+                        currentMapping.put(k, new ArrayList<>());
                     } else {
-                        Map<String, Object> newMapping = new HashMap<>();
-                        list.add(i1, newMapping);
+                        Map<String, Object> newMapping = new LinkedHashMap<>();
+                        currentMapping.put(k, newMapping);
                         currentMapping = newMapping;
+                    }
+                } else if (o instanceof Map<?, ?>) {
+                    currentMapping = (Map<String, Object>) o;
+                } else if (o instanceof ArrayList<?>) {
+                    List list = (List) o;
+                    String split = splits[i];
+                    if (split.matches("^-?\\d+$")) {
+                        int i1 = Integer.parseInt(split);
+                        if (list.size() > i1 && list.get(i1) != null) {
+                            currentMapping = (Map<String, Object>) list.get(i1);
+                        } else {
+                            Map<String, Object> newMapping = new LinkedHashMap<>();
+                            list.add(i1, newMapping);
+                            currentMapping = newMapping;
+                        }
                     }
                 }
             }
+            currentMapping.put(splits[splits.length - 1], ox);
         }
-        currentMapping.put(splits[splits.length - 1], mapping.expression);
     }
 
     public String getQuery(JsonElement fNode, String targetField, Path filePath, LinePosition position,

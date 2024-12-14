@@ -92,5 +92,5 @@
       "diagnostics": []
     }
   ],
-  "output": "{id:1234,credentials:[{password:userInfo[1].password,username:userInfo[0].username}],length:0}"
+  "output": "{id:1234,credentials:[{username:userInfo[0].username,password:userInfo[1].password}],length:0}"
 }
