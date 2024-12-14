@@ -131,8 +131,12 @@ public class CodeAnalyzer extends NodeVisitor {
         }
         String absoluteResourcePath = String.join("", serviceDeclarationNode.absoluteResourcePath()
                 .stream().map(Node::toSourceCode).toList());
+        LineRange lineRange = serviceDeclarationNode.lineRange();
+        String sortText = lineRange.fileName() + lineRange.startLine().line();
         IntermediateModel.ServiceModel serviceModel = new IntermediateModel.ServiceModel(
-                displayName, absoluteResourcePath);
+                displayName, absoluteResourcePath, sortText, getLocation(lineRange));
+        this.currentServiceModel = serviceModel;
+        intermediateModel.serviceModelMap.put(String.valueOf(lineRange.hashCode()), serviceModel);
 
         for (ExpressionNode expressionNode : serviceDeclarationNode.expressions()) {
             if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
@@ -147,7 +151,8 @@ public class CodeAnalyzer extends NodeVisitor {
                 }
                 String icon = symbol.flatMap(Symbol::getModule)
                         .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
-                Listener listener = new Listener("ANON", getLocation(serviceDeclarationNode.lineRange()),
+                Listener listener = new Listener("ANON", sortText,
+                        getLocation(serviceDeclarationNode.lineRange()),
                         explicitNewExpressionNode.typeDescriptor().toSourceCode(), icon,
                         Listener.Kind.ANON, arguments);
                 serviceModel.anonListeners.add(listener);
@@ -158,13 +163,7 @@ public class CodeAnalyzer extends NodeVisitor {
                 }
             }
         }
-        this.currentServiceModel = serviceModel;
         serviceDeclarationNode.members().forEach(member -> member.accept(this));
-        LineRange lineRange = serviceDeclarationNode.lineRange();
-        serviceModel.location = getLocation(lineRange);
-        serviceModel.sortText = lineRange.fileName() + lineRange.startLine().line();
-        intermediateModel.serviceModelMap.put(String.valueOf(lineRange.hashCode()),
-                serviceModel);
         this.currentServiceModel = null;
     }
 
@@ -324,8 +323,10 @@ public class CodeAnalyzer extends NodeVisitor {
         }
         String icon = symbol.flatMap(Symbol::getModule)
                 .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
+        LineRange lineRange = listenerDeclarationNode.lineRange();
+        String sortText = lineRange.fileName() + lineRange.startLine().line();
         this.intermediateModel.listeners.put(listenerDeclarationNode.variableName().text(),
-                new Listener(listenerDeclarationNode.variableName().text(),
+                new Listener(listenerDeclarationNode.variableName().text(), sortText,
                         getLocation(listenerDeclarationNode.lineRange()),
                         listenerDeclarationNode.typeDescriptor().get().toSourceCode().strip(),
                         icon, Listener.Kind.NAMED, arguments, true));

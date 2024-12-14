@@ -31,15 +31,15 @@ public class Connection extends DesignGraphNode {
     private Location location;
     private final Scope scope;
 
-    public Connection(String symbol, Location location, Scope scope) {
-        super();
+    public Connection(String symbol, String sortText, Location location, Scope scope) {
+        super(sortText);
         this.symbol = symbol;
         this.location = location;
         this.scope = scope;
     }
 
-    public Connection(String symbol, Location location, Scope scope, boolean enableFlow) {
-        super(enableFlow);
+    public Connection(String symbol, String sortText, Location location, Scope scope, boolean enableFlow) {
+        super(enableFlow, sortText);
         this.symbol = symbol;
         this.location = location;
         this.scope = scope;

@@ -78,8 +78,10 @@ public class ConnectionFinder {
                 NonTerminalNode node = modulePartNode.findNode(location.textRange());
                 if (node instanceof ObjectFieldNode objectFieldNode) {
                     if (isNewConnection(objectFieldNode.expression().orElse(null))) {
+                        LineRange lineRange = node.lineRange();
+                        String sortText = lineRange.fileName() + lineRange.startLine().line();
                         Connection connection = new Connection(objectFieldNode.fieldName().text(),
-                                getLocation(node.lineRange()), Connection.Scope.LOCAL);
+                                sortText, getLocation(lineRange), Connection.Scope.LOCAL);
                         for (String refLocation : referenceLocations) {
                             intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                         }
@@ -97,8 +99,10 @@ public class ConnectionFinder {
                     NonTerminalNode node = modulePartNode.findNode(location.textRange()).parent();
                     if (node instanceof AssignmentStatementNode assignmentStatementNode) {
                         if (isNewConnection(assignmentStatementNode.expression())) {
-                            Connection connection = new Connection(symbol.getName().get(),
-                                    getLocation(location.lineRange()), Connection.Scope.LOCAL);
+                            LineRange lineRange = node.lineRange();
+                            String sortText = lineRange.fileName() + lineRange.startLine().line();
+                            Connection connection = new Connection(symbol.getName().get(), sortText,
+                                    getLocation(lineRange), Connection.Scope.LOCAL);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }
@@ -124,8 +128,10 @@ public class ConnectionFinder {
                     NonTerminalNode node = modulePartNode.findNode(location.textRange()).parent();
                     if (node instanceof VariableDeclarationNode variableDeclarationNode) {
                         if (isNewConnection(variableDeclarationNode.initializer().orElse(null))) {
-                            Connection connection = new Connection(symbol.getName().get(),
-                                    getLocation(node.lineRange()), Connection.Scope.LOCAL, true);
+                            LineRange lineRange = node.lineRange();
+                            String sortText = lineRange.fileName() + lineRange.startLine().line();
+                            Connection connection = new Connection(symbol.getName().get(), sortText,
+                                    getLocation(lineRange), Connection.Scope.LOCAL, true);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }
@@ -140,8 +146,10 @@ public class ConnectionFinder {
                         }
                     } else if (node instanceof AssignmentStatementNode assignmentStatementNode) {
                         if (isNewConnection(assignmentStatementNode.expression())) {
-                            Connection connection = new Connection(symbol.getName().get(),
-                                    getLocation(location.lineRange()), Connection.Scope.LOCAL);
+                            LineRange lineRange = node.lineRange();
+                            String sortText = lineRange.fileName() + lineRange.startLine().line();
+                            Connection connection = new Connection(symbol.getName().get(), sortText,
+                                    getLocation(lineRange), Connection.Scope.LOCAL);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }

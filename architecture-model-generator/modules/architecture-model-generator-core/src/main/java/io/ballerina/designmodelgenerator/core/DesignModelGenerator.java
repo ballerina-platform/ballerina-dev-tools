@@ -87,7 +87,7 @@ public class DesignModelGenerator {
         if (intermediateModel.functionModelMap.containsKey(MAIN_FUNCTION_NAME)) {
             IntermediateModel.FunctionModel main = intermediateModel.functionModelMap.get(MAIN_FUNCTION_NAME);
             buildConnectionGraph(intermediateModel, main);
-            builder.setAutomation(new Automation(AUTOMATION, main.displayName, main.location,
+            builder.setAutomation(new Automation(AUTOMATION, main.displayName, "Z", main.location,
                     main.allDependentConnections.stream().toList()));
         }
 
@@ -144,9 +144,10 @@ public class DesignModelGenerator {
                 TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
                 if (typeSymbol instanceof ObjectTypeSymbol objectTypeSymbol) {
                     if (objectTypeSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                        Location location = getLocation(variableSymbol.getLocation().get().lineRange());
-                        Connection connection = new Connection(variableSymbol.getName().get(), location,
-                                Connection.Scope.GLOBAL, true);
+                        LineRange lineRange = variableSymbol.getLocation().get().lineRange();
+                        String sortText = lineRange.fileName() + lineRange.startLine().line();
+                        Connection connection = new Connection(variableSymbol.getName().get(), sortText,
+                                getLocation(lineRange), Connection.Scope.GLOBAL, true);
                         intermediateModel.connectionMap.put(
                                 String.valueOf(variableSymbol.getLocation().get().hashCode()), connection);
                     }

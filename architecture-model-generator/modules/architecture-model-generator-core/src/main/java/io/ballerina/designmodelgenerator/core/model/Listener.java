@@ -37,8 +37,9 @@ public final class Listener extends DesignGraphNode {
     private final List<KeyValue> args;
     private final String icon;
 
-    public Listener(String symbol, Location location, String type, String icon, Kind kind, List<KeyValue> args) {
-        super();
+    public Listener(String symbol, String sortText, Location location, String type, String icon,
+                    Kind kind, List<KeyValue> args) {
+        super(sortText);
         this.symbol = symbol;
         this.location = location;
         this.kind = kind;
@@ -48,9 +49,9 @@ public final class Listener extends DesignGraphNode {
         this.args = args;
     }
 
-    public Listener(String symbol, Location location, String type, String icon, Kind kind, List<KeyValue> args,
-                    boolean enableFlow) {
-        super(enableFlow);
+    public Listener(String symbol, String sortText, Location location, String type, String icon, Kind kind,
+                    List<KeyValue> args, boolean enableFlow) {
+        super(enableFlow, sortText);
         this.symbol = symbol;
         this.location = location;
         this.kind = kind;

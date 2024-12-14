@@ -59,12 +59,14 @@ public class IntermediateModel {
         protected final List<String> namedListeners = new ArrayList<>();
         protected final List<Listener> anonListeners = new ArrayList<>();
 
-        public ServiceModel(String displayName, String absolutePath) {
+        public ServiceModel(String displayName, String absolutePath, String sortText, Location location) {
             this.displayName = displayName;
+            this.absolutePath = absolutePath;
+            this.sortText = sortText;
+            this.location = location;
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
             this.otherFunctions = new ArrayList<>();
-            this.absolutePath = absolutePath;
         }
     }
 

@@ -29,14 +29,17 @@ public abstract class DesignGraphNode {
 
     private final String uuid;
     private boolean enableFlowModel = false;
+    private final String sortText;
 
-    public DesignGraphNode(boolean enableFlowModel) {
+    public DesignGraphNode(boolean enableFlowModel, String sortText) {
         this.uuid = CommonUtils.generateUUID();
         this.enableFlowModel = enableFlowModel;
+        this.sortText = sortText;
     }
 
-    public DesignGraphNode() {
+    public DesignGraphNode(String sortText) {
         this.uuid = CommonUtils.generateUUID();
+        this.sortText = sortText;
     }
 
     public String getUuid() {
@@ -45,5 +48,9 @@ public abstract class DesignGraphNode {
 
     public boolean isFlowModelEnabled() {
         return enableFlowModel;
+    }
+
+    public String getSortText() {
+        return sortText;
     }
 }
