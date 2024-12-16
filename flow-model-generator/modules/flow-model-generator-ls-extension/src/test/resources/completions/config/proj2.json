@@ -419,6 +419,14 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "MyOk",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "Q",
+      "insertText": "MyOk",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "Person",
       "kind": "Struct",
       "detail": "Record",

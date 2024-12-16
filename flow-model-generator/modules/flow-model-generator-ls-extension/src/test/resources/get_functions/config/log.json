@@ -41,6 +41,45 @@
       "items": [
         {
           "metadata": {
+            "label": "lang.float",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "log",
+                "description": "Returns the natural logarithm of a float value.\n\nCorresponds to IEEE log operation.\n\n```ballerina\nfloat f = 234.56;\nf.log() ⇒ 5.4577114186982865\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "log10",
+                "description": "Returns the base 10 logarithm of a float value.\n\nCorresponds to IEEE log10 operation.\n\n```ballerina\nfloat f = 0.1;\nf.log10() ⇒ -1.0\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log10",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "log",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
@@ -118,45 +157,6 @@
                 "module": "log",
                 "symbol": "setOutputFile",
                 "version": "2.10.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "lang.float",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "log",
-                "description": "Returns the natural logarithm of a float value.\n\nCorresponds to IEEE log operation.\n\n```ballerina\nfloat f = 234.56;\nf.log() ⇒ 5.4577114186982865\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.float",
-                "symbol": "log",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "log10",
-                "description": "Returns the base 10 logarithm of a float value.\n\nCorresponds to IEEE log10 operation.\n\n```ballerina\nfloat f = 0.1;\nf.log10() ⇒ -1.0\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.float",
-                "symbol": "log10",
-                "version": "0.0.0"
               },
               "enabled": true
             }

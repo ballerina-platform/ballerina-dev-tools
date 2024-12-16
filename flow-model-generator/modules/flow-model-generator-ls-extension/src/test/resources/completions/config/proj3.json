@@ -374,6 +374,14 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "MyOk",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "BM",
+      "insertText": "MyOk",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "Person",
       "kind": "Struct",
       "detail": "Record",
@@ -602,21 +610,21 @@
       "insertTextFormat": "Snippet"
     },
     {
-      "label": "...prefixSum(int[] numbers)",
-      "kind": "Function",
-      "detail": "int[]",
-      "sortText": "AAD",
-      "filterText": "prefixSum",
-      "insertText": "...prefixSum(${1})",
-      "insertTextFormat": "Snippet"
-    },
-    {
       "label": "...result",
       "kind": "Variable",
       "detail": "int[]",
       "sortText": "AAC",
       "filterText": "result",
       "insertText": "...result",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "...prefixSum(int[] numbers)",
+      "kind": "Function",
+      "detail": "int[]",
+      "sortText": "AAD",
+      "filterText": "prefixSum",
+      "insertText": "...prefixSum(${1})",
       "insertTextFormat": "Snippet"
     }
   ]
