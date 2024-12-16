@@ -1,5 +1,5 @@
 {
-  "source": "variable4.bal",
+  "source": "variable8.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "{id: 1234, credentials: [], length: 0}",
+        "value": "{user2: {user3: {i3: user.name.length(), user4: {user5: {u: user.name}}}}, s1: user.name}",
         "optional": false,
         "editable": true
       },
@@ -40,7 +40,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "student",
+        "value": "user1",
         "optional": false,
         "editable": true
       },
@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "Student",
+        "value": "User1",
         "optional": false,
         "editable": true
       }
@@ -59,52 +59,37 @@
   },
   "propertyKey": "expression",
   "position": {
-    "line": 18,
-    "offset": 65
+    "line": 34,
+    "offset": 12
   },
   "mappings": [
     {
-      "output": "student.id",
-      "inputs": [],
-      "expression": "1234",
-      "diagnostics": []
-    },
-    {
-      "output": "student.credentials",
-      "inputs": [],
-      "expression": "[{username: userInfo[0].username, password: userInfo[1].password}]",
+      "output": "user1.user2.user3.i3",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name.length()",
       "diagnostics": [],
-      "elements": [
-        {
-          "mappings": [
-            {
-              "output": "student.credentials.0.username",
-              "inputs": [
-                "userInfo"
-              ],
-              "expression": "userInfo[0].username",
-              "diagnostics": [],
-              "elements": []
-            },
-            {
-              "output": "student.credentials.0.password",
-              "inputs": [
-                "userInfo"
-              ],
-              "expression": "userInfo[1].password",
-              "diagnostics": [],
-              "elements": []
-            }
-          ]
-        }
-      ]
+      "elements": []
     },
     {
-      "output": "student.length",
-      "inputs": [],
-      "expression": "0",
-      "diagnostics": []
+      "output": "user1.user2.user3.user4.user5.u",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name",
+      "diagnostics": [],
+      "elements": []
+    },
+    {
+      "output": "user1.s1",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name",
+      "diagnostics": [],
+      "elements": []
     }
   ],
-  "output": "{id:1234,credentials:[{username:userInfo[0].username,password:userInfo[1].password}],length:0}"
+  "output": "{user2:{user3:{i3:user.name.length(),user4:{user5:{u:user.name}}}},s1:user.name}"
 }

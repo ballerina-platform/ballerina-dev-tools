@@ -297,12 +297,13 @@ public class DataMapManager {
                             name + "." + f.fieldName().toSourceCode().trim(), semanticModel);
                 } else if (kind == SyntaxKind.LIST_CONSTRUCTOR) {
                     genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." +
-                                    f.fieldName().toSourceCode().trim(), semanticModel);
+                            f.fieldName().toSourceCode().trim(), semanticModel);
                 } else {
                     List<String> inputs = new ArrayList<>();
                     genInputs(fieldExpr, inputs);
                     Mapping mapping = new Mapping(name + "." + f.fieldName().toSourceCode().trim(), inputs,
-                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel), new ArrayList<>());
+                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel),
+                            new ArrayList<>());
                     mappings.add(mapping);
                 }
             }
@@ -325,12 +326,14 @@ public class DataMapManager {
                 List<String> inputs = new ArrayList<>();
                 genInputs(expr, inputs);
                 // TODO: Replace `null` with empty array list
-                Mapping mapping = new Mapping(name + "." + i, inputs, expr.toSourceCode(), getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
+                Mapping mapping = new Mapping(name + "." + i, inputs, expr.toSourceCode(),
+                        getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
                 elements.add(mapping);
             }
             mappingElements.add(new MappingElements(elements));
         }
-        Mapping mapping = new Mapping(name, new ArrayList<>(), listCtrExpr.toSourceCode(), getDiagnostics(listCtrExpr.lineRange(), semanticModel), mappingElements);
+        Mapping mapping = new Mapping(name, new ArrayList<>(), listCtrExpr.toSourceCode(),
+                getDiagnostics(listCtrExpr.lineRange(), semanticModel), mappingElements);
         mappings.add(mapping);
     }
 
@@ -469,39 +472,135 @@ public class DataMapManager {
     private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {
     }.getType();
 
-    public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
-        FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
-        List<Mapping> fieldMapping = gson.fromJson(mp, mt);
-        Map<String, Object> mappings = new LinkedHashMap<>();
-        genSourceForMappings(fieldMapping, mappings, 0);
-        String mappingSource = "";
-        for (Map.Entry<String, Object> mapping : mappings.entrySet()) {
-            mappingSource = genSource(mapping.getValue());
+    public Object genSourceForMappings(List<Mapping> mappings, String prevOutput) {
+        Map<String, Object> m = new LinkedHashMap<>();
+        if (mappings.size() == 1) {
+            Mapping firstMapping = mappings.getFirst();
+            if (firstMapping.output().equals(prevOutput)) {
+                List<MappingElements> elements = firstMapping.elements();
+                List<Object> rawMappings = new ArrayList<>();
+                for (MappingElements element : elements) {
+                    genSourceFromMappingThroughElements(element, firstMapping.output(), rawMappings);
+                }
+                return rawMappings;
+            }
         }
-        if (flowNode.codedata().node() == NodeKind.VARIABLE) {
-            Optional<Property> optProperty = flowNode.getProperty("expression");
-            if (optProperty.isPresent()) {
-                Property property = optProperty.get();
-                String source = property.toSourceCode();
-                if (targetField == null) {
-                    if (source.matches("^from.*in.*select.*$")) {
-                        String[] split = source.split("select");
-                        return split[0] + " select " + mappingSource + ";";
+        for (Mapping mapping : mappings) {
+            String output = mapping.output();
+            String substring = output.substring(prevOutput.length() + 1);
+            String[] splits = substring.split("\\.");
+            Map<String, Object> cm = m;
+            int length = splits.length;
+            for (int i = 0; i < length; i++) {
+                String split = splits[i];
+                Object o = cm.get(split);
+                if (o == null) {
+                    if (i == length - 1) {
+                        cm.put(split, genExprFromMapping(mapping));
+                    } else {
+                        Map<String, Object> temp = new LinkedHashMap<>();
+                        cm.put(split, temp);
+                        cm = temp;
                     }
-                } else {
-                    String fieldsPattern = getFieldsPattern(targetField);
-                    if (source.matches(".*" + fieldsPattern + "\\s*:\\s*from.*in.*select.*$")) {
-                        String[] split = source.split(fieldsPattern + "\\s*:\\s*from");
-                        String newSource = split[0] + fieldsPattern + ": from";
-                        String[] splitBySelect = split[1].split("select");
-                        return newSource + splitBySelect[0] + "select" + splitBySelect[1].replaceFirst("\\{.*?}",
-                                mappingSource);
-                    }
+                } else if (o instanceof Map<?, ?>) {
+                    cm = ((Map<String, Object>) o);
                 }
             }
         }
+        return m;
+    }
 
+    private Object genExprFromMapping(Mapping mapping) {
+        List<MappingElements> elements = mapping.elements();
+        if (elements == null || elements.isEmpty()) {
+            return mapping.expression();
+        } else {
+            List<Object> rawMappings = new ArrayList<>();
+            for (MappingElements element : elements) {
+                genSourceFromMappingThroughElements(element, mapping.output(), rawMappings);
+            }
+            return rawMappings;
+        }
+    }
+
+    private void genSourceFromMappingThroughElements(MappingElements mappingElements, String prevOutput,
+                                                     List<Object> elements) {
+        List<Mapping> mappings = mappingElements.mappings();
+        Map<String, Object> m = new LinkedHashMap<>();
+        for (Mapping mapping : mappings) {
+            String output = mapping.output();
+            String substring = output.substring(prevOutput.length() + 1);
+            if (substring.isEmpty()) {
+                continue;
+            }
+            String[] splits = substring.split("\\.");
+            int length = splits.length;
+            String lastSplit = splits[length - 1];
+            if (length == 1 && lastSplit.matches("^-?\\d+$")) {
+                elements.add(mapping.expression());
+                return;
+            }
+            Map<String, Object> currentMapping = m;
+            String key = splits[0];
+            for (int i = 0; i < length; i++) {
+                String split = splits[i];
+                Object o = currentMapping.get(key);
+                if (o == null) {
+                    if (!split.matches("^-?\\d+$")) {
+                        if (i == length - 1) {
+                            Object o1 = genExprFromMapping(mapping);
+                            currentMapping.put(split, o1);
+                        } else {
+                            Map<String, Object> t = new LinkedHashMap<>();
+                            currentMapping.put(split, t);
+                            currentMapping = t;
+                            key = split;
+                        }
+                    }
+                } else if (o instanceof Map<?, ?>) {
+                    currentMapping = (Map<String, Object>) o;
+                }
+            }
+        }
+        elements.add(m);
+    }
+
+    public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
+        FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
+        List<Mapping> fieldMapping = gson.fromJson(mp, mt);
+        if (flowNode.codedata().node() != NodeKind.VARIABLE) {
+            return "";
+        }
+        String mappingSource = genSource(genSourceForMappings(fieldMapping, getVariableName(flowNode)));
+        Optional<Property> optProperty = flowNode.getProperty("expression");
+        if (optProperty.isPresent()) {
+            Property property = optProperty.get();
+            String source = property.toSourceCode();
+            if (targetField == null) {
+                if (source.matches("^from.*in.*select.*$")) {
+                    String[] split = source.split("select");
+                    return split[0] + " select " + mappingSource + ";";
+                }
+            } else {
+                String fieldsPattern = getFieldsPattern(targetField);
+                if (source.matches(".*" + fieldsPattern + "\\s*:\\s*from.*in.*select.*$")) {
+                    String[] split = source.split(fieldsPattern + "\\s*:\\s*from");
+                    String newSource = split[0] + fieldsPattern + ": from";
+                    String[] splitBySelect = split[1].split("select");
+                    return newSource + splitBySelect[0] + "select" + splitBySelect[1].replaceFirst("\\{.*?}",
+                            mappingSource);
+                }
+            }
+        }
         return mappingSource;
+    }
+
+    private String getVariableName(FlowNode flowNode) {
+        Optional<Property> optProperty = flowNode.getProperty("variable");
+        if (optProperty.isEmpty()) {
+            return "";
+        }
+        return optProperty.get().toSourceCode();
     }
 
     private String getFieldsPattern(String targetField) {
@@ -555,79 +654,6 @@ public class DataMapManager {
             return sb.toString();
         } else {
             return sourceObj.toString();
-        }
-    }
-
-    // returns either array or map
-    private Object genSourceForMappings(List<Mapping> mappings, Object parent, int pos) {
-        for (Mapping mapping : mappings) {
-            genSourceForMapping(mapping, parent, pos);
-        }
-        return parent;
-    }
-
-    private void genSourceForMapping(Mapping mapping, Object parent, int pos) {
-        Object ox;
-        String output = mapping.output();
-        String[] splits = output.split("\\.");
-        if (mapping.elements() == null || mapping.elements().isEmpty()) {
-            ox = mapping.expression();
-        } else {
-            List<Object> xs = new ArrayList<>();
-            for (MappingElements mappingElements : mapping.elements()) {
-                Object p;
-                if (splits[splits.length - 1].matches("^-?\\d+$")) {
-                    p = new ArrayList<>();
-                } else {
-                    p = new LinkedHashMap<>();
-                }
-                String[] elements = mappingElements.mappings().getFirst().output().split("\\.");
-                if (elements[elements.length - 1].matches("^-?\\d+$")) {
-                    genSourceForMappings(mappingElements.mappings(), xs, splits.length + 1);
-                } else {
-                    xs.add(genSourceForMappings(mappingElements.mappings(), p, splits.length + 1));
-                }
-            }
-            ox = xs;
-        }
-
-        if (splits[splits.length - 1].matches("^-?\\d+$")) {
-            int i1 = Integer.parseInt(splits[splits.length - 1]);
-            ((List) parent).add(i1, ox);
-        } else {
-            Map<String, Object> currentMapping = (LinkedHashMap<String, Object>) parent;
-            String k = "";
-            for (int i = pos; i < splits.length - 1; i++) {
-                if (!splits[i].matches("^-?\\d+$")) {
-                    k = splits[i];
-                }
-                Object o = currentMapping.get(k);
-                if (o == null) {
-                    if (i + 1 < splits.length && splits[i + 1].matches("^-?\\d+$")) {
-                        currentMapping.put(k, new ArrayList<>());
-                    } else {
-                        Map<String, Object> newMapping = new LinkedHashMap<>();
-                        currentMapping.put(k, newMapping);
-                        currentMapping = newMapping;
-                    }
-                } else if (o instanceof Map<?, ?>) {
-                    currentMapping = (Map<String, Object>) o;
-                } else if (o instanceof ArrayList<?>) {
-                    List list = (List) o;
-                    String split = splits[i];
-                    if (split.matches("^-?\\d+$")) {
-                        int i1 = Integer.parseInt(split);
-                        if (list.size() > i1 && list.get(i1) != null) {
-                            currentMapping = (Map<String, Object>) list.get(i1);
-                        } else {
-                            Map<String, Object> newMapping = new LinkedHashMap<>();
-                            list.add(i1, newMapping);
-                            currentMapping = newMapping;
-                        }
-                    }
-                }
-            }
-            currentMapping.put(splits[splits.length - 1], ox);
         }
     }
 
@@ -759,7 +785,8 @@ public class DataMapManager {
         return variableSymbols;
     }
 
-    public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project, LinePosition position) {
+    public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project
+            , LinePosition position) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         if (flowNode.codedata().node() != NodeKind.VARIABLE) {
             return "";
@@ -854,7 +881,8 @@ public class DataMapManager {
 
     }
 
-    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics, List<MappingElements> elements) {
+    private record Mapping(String output, List<String> inputs, String expression, List<String> diagnostics,
+                           List<MappingElements> elements) {
 
     }
 

@@ -54,6 +54,11 @@ public class DataMappingModelTest extends AbstractLSTest {
                 {Path.of("variable31.json")},
                 {Path.of("variable32.json")},
                 {Path.of("variable33.json")},
+                {Path.of("variable34.json")},
+                {Path.of("variable35.json")},
+                {Path.of("variable36.json")},
+                {Path.of("variable37.json")},
+                {Path.of("variable38.json")},
         };
     }
 

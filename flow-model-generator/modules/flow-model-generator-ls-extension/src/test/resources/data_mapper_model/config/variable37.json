@@ -1,0 +1,218 @@
+{
+  "source": "variable22.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable22.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[{users6: [{balance: 2.0, account: user.name}], user5: {u: [user.name, user.name]}}]",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "users4",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "User4[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 40,
+    "offset": 12
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "id": "user.name",
+            "variableName": "name",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "user",
+        "variableName": "user",
+        "typeName": "User",
+        "kind": "record",
+        "category": "parameter"
+      }
+    ],
+    "output": {
+      "member": {
+        "fields": [
+          {
+            "fields": [
+              {
+                "member": {
+                  "id": "users4.user5.u",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                "id": "users4.user5.u",
+                "variableName": "u",
+                "typeName": "string[]",
+                "kind": "array"
+              }
+            ],
+            "id": "users4.user5",
+            "variableName": "user5",
+            "typeName": "User5",
+            "kind": "record"
+          },
+          {
+            "member": {
+              "fields": [
+                {
+                  "id": "users4.users6.account",
+                  "variableName": "account",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "users4.users6.balance",
+                  "variableName": "balance",
+                  "typeName": "decimal",
+                  "kind": "decimal"
+                }
+              ],
+              "id": "users4.users6",
+              "typeName": "User6",
+              "kind": "record"
+            },
+            "id": "users4.users6",
+            "variableName": "users6",
+            "typeName": "User6[]",
+            "kind": "array"
+          }
+        ],
+        "id": "users4",
+        "typeName": "User4",
+        "kind": "record"
+      },
+      "id": "users4",
+      "variableName": "users4",
+      "typeName": "User4[]",
+      "kind": "array"
+    },
+    "mappings": [
+      {
+        "output": "users4",
+        "inputs": [],
+        "expression": "[{users6: [{balance: 2.0, account: user.name}], user5: {u: [user.name, user.name]}}]",
+        "diagnostics": [],
+        "elements": [
+          {
+            "mappings": [
+              {
+                "output": "users4.0.users6",
+                "inputs": [],
+                "expression": "[{balance: 2.0, account: user.name}]",
+                "diagnostics": [],
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "users4.0.users6.0.balance",
+                        "inputs": [],
+                        "expression": "2.0",
+                        "diagnostics": [],
+                        "elements": []
+                      },
+                      {
+                        "output": "users4.0.users6.0.account",
+                        "inputs": [
+                          "user.name"
+                        ],
+                        "expression": "user.name",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "output": "users4.0.user5.u",
+                "inputs": [],
+                "expression": "[user.name, user.name]",
+                "diagnostics": [],
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "users4.0.user5.u.0",
+                        "inputs": [
+                          "user.name"
+                        ],
+                        "expression": "user.name",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  },
+                  {
+                    "mappings": [
+                      {
+                        "output": "users4.0.user5.u.1",
+                        "inputs": [
+                          "user.name"
+                        ],
+                        "expression": "user.name",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "source": "User4[] users4 = [{users6: [{balance: 2.0, account: user.name}], user5: {u: [user.name, user.name]}}];"
+  }
+}

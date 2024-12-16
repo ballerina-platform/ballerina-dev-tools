@@ -1,0 +1,168 @@
+{
+  "source": "variable9.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable9.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{user2: {user3: {i3: user.name.length(), user4: {user5: {u: [user.name, user.name]}}}}, s1: user.name}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "user1",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "User1",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 39,
+    "offset": 12
+  },
+  "mappings": [
+    {
+      "output": "user1.user2.user3.i3",
+      "inputs": [
+        "user"
+      ],
+      "expression": "user.length()",
+      "diagnostics": [],
+      "elements": []
+    },
+    {
+      "output": "user1.user2.user3.user4.user5.u",
+      "inputs": [],
+      "expression": "[user.name, user.name]",
+      "diagnostics": [],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "user1.user2.user3.user4.user5.u.0",
+              "inputs": [
+                "user.name"
+              ],
+              "expression": "user.name",
+              "diagnostics": [],
+              "elements": []
+            }
+          ]
+        },
+        {
+          "mappings": [
+            {
+              "output": "user1.user2.user3.user4.user5.u.1",
+              "inputs": [
+                "user.name"
+              ],
+              "expression": "user.name",
+              "diagnostics": [],
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "output": "user1.user2.user3.user4.users6",
+      "inputs": [],
+      "expression": "[{balance: 0.0, account: user.name}, {balance: 1.0, account: user.name}]",
+      "diagnostics": [],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "user1.user2.user3.user4.users6.0.balance",
+              "inputs": [],
+              "expression": "0.0",
+              "diagnostics": [],
+              "elements": []
+            },
+            {
+              "output": "user1.user2.user3.user4.users6.0.account",
+              "inputs": [
+                "user.name"
+              ],
+              "expression": "user.name",
+              "diagnostics": [],
+              "elements": []
+            }
+          ]
+        },
+        {
+          "mappings": [
+            {
+              "output": "user1.user2.user3.user4.users6.1.balance",
+              "inputs": [],
+              "expression": "1.0",
+              "diagnostics": [],
+              "elements": []
+            },
+            {
+              "output": "user1.user2.user3.user4.users6.1.account",
+              "inputs": [
+                "user.name"
+              ],
+              "expression": "user.name",
+              "diagnostics": [],
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "output": "user1.s1",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name",
+      "diagnostics": [],
+      "elements": []
+    }
+  ],
+  "output": "{user2:{user3:{i3:user.length(),user4:{user5:{u:[user.name,user.name]},users6:[{balance:0.0,account:user.name},{balance:1.0,account:user.name}]}}},s1:user.name}"
+}
