@@ -18,8 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-import io.ballerina.tools.text.LineRange;
 import io.ballerina.servicemodelgenerator.extension.Utils;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.HashMap;

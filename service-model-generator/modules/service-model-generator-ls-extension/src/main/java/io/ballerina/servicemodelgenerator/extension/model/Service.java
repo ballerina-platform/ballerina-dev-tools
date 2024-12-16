@@ -44,15 +44,17 @@ public class Service {
     private List<Function> functions;
 
     public Service() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
-    public Service(String id, String name, String type, String description, DisplayAnnotation displayAnnotation,
-                   String moduleName, String orgName, String version, String packageName, String listenerProtocol,
-                   String icon, Map<String, Value> properties, Codedata codedata, List<Function> functions) {
+    public Service(String id, String name, String type, String displayName, String description,
+                   DisplayAnnotation displayAnnotation, String moduleName, String orgName, String version,
+                   String packageName, String listenerProtocol, String icon, Map<String, Value> properties,
+                   Codedata codedata, List<Function> functions) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.displayName = displayName;
         this.description = description;
         this.displayAnnotation = displayAnnotation;
         this.moduleName = moduleName;
@@ -67,7 +69,7 @@ public class Service {
     }
 
     public static Service getNewService() {
-        return new Service(null, null, null, null, null, null, null, null, null, null, null, new HashMap<>(),
+        return new Service(null, null, null, null, null, null, null, null, null, null, null, null, new HashMap<>(),
                 null, new ArrayList<>());
     }
 

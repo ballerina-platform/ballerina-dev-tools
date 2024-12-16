@@ -47,31 +47,31 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
-import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerFunctionRequest;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerServiceModifierRequest;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
-import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
-import io.ballerina.tools.text.LineRange;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.TriggerFunctionRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
+import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
+import io.ballerina.servicemodelgenerator.extension.request.TriggerServiceModifierRequest;
+import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
+import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -124,7 +124,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 .getResourceAsStream("trigger_properties.json");
         Map<String, TriggerProperty> newTriggerProperties = Map.of();
         if (newPropertiesStream != null) {
-            try (JsonReader reader = new JsonReader(new InputStreamReader(newPropertiesStream, StandardCharsets.UTF_8))) {
+            try (JsonReader reader = new JsonReader(new InputStreamReader(newPropertiesStream,
+                    StandardCharsets.UTF_8))) {
                 newTriggerProperties = new Gson().fromJson(reader, propertyMapType);
             } catch (IOException e) {
                 // Ignore

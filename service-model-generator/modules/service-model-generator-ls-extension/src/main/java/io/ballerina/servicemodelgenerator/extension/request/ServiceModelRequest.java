@@ -18,7 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.request;
 
-public record ServiceModelRequest(String filePath, String orgName, String pkgName, String moduleName, String listenerName) {
+public record ServiceModelRequest(String filePath, String orgName, String pkgName, String moduleName,
+                                  String listenerName) {
 
     public ServiceModelRequest(String filePath, String orgName, String moduleName, String listenerName) {
         this(filePath, orgName, moduleName, moduleName, listenerName);
