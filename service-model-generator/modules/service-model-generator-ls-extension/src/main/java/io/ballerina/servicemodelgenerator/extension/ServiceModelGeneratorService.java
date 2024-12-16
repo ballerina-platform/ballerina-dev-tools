@@ -52,16 +52,17 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerFunctionRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
@@ -480,7 +481,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> addTriggerFunction(TriggerFunctionRequest request) {
+    public CompletableFuture<CommonSourceResponse> addFunction(FunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -518,7 +519,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> updateTriggerFunction(TriggerFunctionRequest request) {
+    public CompletableFuture<CommonSourceResponse> updateFunction(FunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -550,7 +551,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> updateTrigger(TriggerServiceModifierRequest request) {
+    public CompletableFuture<CommonSourceResponse> updateService(ServiceModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -582,6 +583,38 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         edits.add(basePathEdit);
                     }
                 }
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateListener(ListenerModifierRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Listener listener = request.listener();
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (node.kind() != SyntaxKind.LISTENER_DECLARATION) {
+                    return new CommonSourceResponse();
+                }
+                String listenerDeclaration = listener.getDeclaration();
+                TextEdit basePathEdit = new TextEdit(Utils.toRange(lineRange), listenerDeclaration);
+                edits.add(basePathEdit);
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);

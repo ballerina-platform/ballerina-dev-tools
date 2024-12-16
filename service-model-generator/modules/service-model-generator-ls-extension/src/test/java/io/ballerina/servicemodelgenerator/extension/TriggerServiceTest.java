@@ -25,7 +25,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Trigger;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
-import io.ballerina.servicemodelgenerator.extension.request.TriggerFunctionRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerSourceRequest;
@@ -157,7 +157,7 @@ public class TriggerServiceTest {
         String filePath = resDir.resolve("sample2/triggers.bal").toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0),
                 LinePosition.from(9, 1)));
-        TriggerFunctionRequest request = new TriggerFunctionRequest(filePath, function, codedata);
+        FunctionRequest request = new FunctionRequest(filePath, function, codedata);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/addTriggerFunction", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }
@@ -176,7 +176,7 @@ public class TriggerServiceTest {
         Function function = service.getFunctions().get(0);
         function.getParameters().forEach(param -> param.setEnabled(true));
         filePath = resDir.resolve("sample3/triggers.bal").toAbsolutePath().toString();
-        TriggerFunctionRequest request = new TriggerFunctionRequest(filePath, function, codedata);
+        FunctionRequest request = new FunctionRequest(filePath, function, codedata);
         result = serviceEndpoint.request("triggerDesignService/updateTriggerFunction", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }
@@ -197,7 +197,7 @@ public class TriggerServiceTest {
 //        trigger.getProperty("offsetReset").setValue("\"earliest\"");
 //        trigger.getProperty("offsetReset").setEnabled(true);
 //        filePath = resDir.resolve("sample3/triggers.bal").toAbsolutePath().toString();
-//        TriggerServiceModifierRequest request = new TriggerServiceModifierRequest(filePath, trigger, codedata);
+//        ServiceModifierRequest request = new ServiceModifierRequest(filePath, trigger, codedata);
 //        result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);
 //        TriggerCommonResponse response = (TriggerCommonResponse) result.get();
 //    }
@@ -218,7 +218,7 @@ public class TriggerServiceTest {
 //        Optional<Value> basePathProperty = trigger.getBasePathProperty();
 //        basePathProperty.ifPresent(value -> value.setValue("\"/New-Queue\""));
 //        filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-//        TriggerServiceModifierRequest request = new TriggerServiceModifierRequest(filePath, trigger, codedata);
+//        ServiceModifierRequest request = new ServiceModifierRequest(filePath, trigger, codedata);
 //        result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);
 //        TriggerCommonResponse response = (TriggerCommonResponse) result.get();
 //    }
@@ -236,7 +236,7 @@ public class TriggerServiceTest {
 //        Trigger trigger = modelResponse.trigger();
 //        trigger.getProperty("name").setValue("service-rabbitmq");
 //        filePath = resDir.resolve("sample4/triggers.bal").toAbsolutePath().toString();
-//        TriggerServiceModifierRequest request = new TriggerServiceModifierRequest(filePath, trigger, codedata);
+//        ServiceModifierRequest request = new ServiceModifierRequest(filePath, trigger, codedata);
 //        result = serviceEndpoint.request("triggerDesignService/updateTrigger", request);
 //        TriggerCommonResponse response = (TriggerCommonResponse) result.get();
 //    }

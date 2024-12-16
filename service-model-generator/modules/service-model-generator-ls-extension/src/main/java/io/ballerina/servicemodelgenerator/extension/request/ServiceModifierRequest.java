@@ -19,7 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension.request;
 
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
-import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.model.Service;
 
-public record TriggerFunctionRequest(String filePath, Function function, Codedata codedata) {
+public record ServiceModifierRequest(String filePath, Service service, Codedata codedata) {
 }
