@@ -2,7 +2,7 @@
   "source": "endpoint_call2.bal",
   "description": "Tests a simple diagram flow",
   "start": {
-    "line": 12,
+    "line": 14,
     "offset": 0
   },
   "end": {
@@ -13,7 +13,7 @@
     "location": {
       "fileName": "endpoint_call2.bal",
       "startLine": {
-        "line": 12,
+        "line": 14,
         "offset": 0
       },
       "endLine": {
@@ -40,7 +40,7 @@
         }
       },
       {
-        "id": "45172",
+        "id": "46164",
         "name": "get",
         "kind": "FUNCTION",
         "moduleName": ".",
@@ -68,11 +68,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 14,
+                "line": 15,
                 "offset": 26
               },
               "endLine": {
-                "line": 14,
+                "line": 15,
                 "offset": 59
               }
             }
@@ -107,11 +107,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 15,
+                "line": 16,
                 "offset": 26
               },
               "endLine": {
-                "line": 15,
+                "line": 16,
                 "offset": 87
               }
             }
@@ -139,11 +139,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 16,
+                "line": 17,
                 "offset": 26
               },
               "endLine": {
-                "line": 16,
+                "line": 17,
                 "offset": 45
               }
             }
@@ -175,11 +175,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 17,
+                "line": 18,
                 "offset": 25
               },
               "endLine": {
-                "line": 17,
+                "line": 18,
                 "offset": 67
               }
             }
@@ -207,11 +207,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 18,
+                "line": 19,
                 "offset": 26
               },
               "endLine": {
-                "line": 18,
+                "line": 19,
                 "offset": 51
               }
             }
@@ -243,11 +243,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 19,
+                "line": 20,
                 "offset": 26
               },
               "endLine": {
-                "line": 22,
+                "line": 23,
                 "offset": 10
               }
             }
@@ -275,11 +275,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 23,
+                "line": 24,
                 "offset": 26
               },
               "endLine": {
-                "line": 23,
+                "line": 24,
                 "offset": 51
               }
             }
@@ -307,11 +307,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 24,
+                "line": 25,
                 "offset": 26
               },
               "endLine": {
-                "line": 24,
+                "line": 25,
                 "offset": 69
               }
             }
@@ -334,11 +334,11 @@
             "location": {
               "fileName": "endpoint_call2.bal",
               "startLine": {
-                "line": 25,
+                "line": 26,
                 "offset": 26
               },
               "endLine": {
-                "line": 25,
+                "line": 26,
                 "offset": 45
               }
             }
@@ -347,14 +347,28 @@
         "location": {
           "fileName": "endpoint_call2.bal",
           "startLine": {
-            "line": 13,
+            "line": 14,
             "offset": 4
           },
           "endLine": {
-            "line": 26,
+            "line": 27,
             "offset": 5
           }
         }
+      }
+    ],
+    "others": [
+      {
+        "id": "0",
+        "name": "foo",
+        "kind": "FUNCTION",
+        "moduleName": "."
+      },
+      {
+        "id": "0",
+        "name": "drinkClient",
+        "kind": "ENDPOINT",
+        "moduleName": "."
       }
     ]
   }

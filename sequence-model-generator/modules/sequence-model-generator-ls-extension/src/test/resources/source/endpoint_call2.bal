@@ -1,6 +1,7 @@
 import ballerina/http;
 
 http:Client foodClient = check new ("/food");
+http:Client drinkClient = check new ("/drink");
 
 type Food record {|
     string name;
@@ -25,4 +26,12 @@ service /market on new http:Listener(9090) {
         json res8 = check foodClient->/apples/[varRef]/[12 + 3].get();
         Food res9 = check foodClient->/apples;
     }
+
+    resource function post apples() {
+
+    }
+}
+
+function foo(string a) {
+
 }
