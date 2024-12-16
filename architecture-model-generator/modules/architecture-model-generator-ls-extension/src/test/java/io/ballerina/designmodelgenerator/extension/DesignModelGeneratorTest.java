@@ -89,6 +89,12 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
     }
 
     private boolean assertAutomation(Automation actual, Automation expected) {
+        if (actual == null && expected == null) {
+            return true;
+        }
+        if (actual == null || expected == null) {
+            return false;
+        }
         return actual.getName().equals(expected.getName()) &&
                 actual.getDisplayName().equals(expected.getDisplayName())
                 && actual.getLocation().equals(expected.getLocation())

@@ -31,6 +31,7 @@ import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.api.values.ConstantValue;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -157,10 +158,27 @@ public class CodeAnalyzer extends NodeVisitor {
                         Listener.Kind.ANON, arguments);
                 serviceModel.anonListeners.add(listener);
                 intermediateModel.listeners.put(listener.getUuid(), listener);
-            } else {
-                if (expressionNode instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
-                    serviceModel.namedListeners.add(simpleNameReferenceNode.name().text());
+            } else if (expressionNode instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                serviceModel.namedListeners.add(simpleNameReferenceNode.name().text());
+            } else if (expressionNode instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                String fullQualifiedName = qualifiedNameReferenceNode.modulePrefix().text() + ":"
+                        + qualifiedNameReferenceNode.identifier().text();
+                if (!intermediateModel.listeners.containsKey(fullQualifiedName)) {
+                    Optional<Symbol> symbol = semanticModel.symbol(qualifiedNameReferenceNode);
+                    if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
+                        TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
+                        String typeSignature = CommonUtils.getTypeSignature(typeSymbol,
+                                CommonUtils.ModuleInfo.from(typeSymbol.getModule().get().id()));
+                        String icon = symbol.flatMap(Symbol::getModule)
+                                .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
+                        Listener listener = new Listener("ANON", sortText,
+                                getLocation(serviceDeclarationNode.lineRange()),
+                                typeSignature, icon,
+                                Listener.Kind.IMPORTED, new ArrayList<>());
+                        intermediateModel.listeners.put(fullQualifiedName, listener);
+                    }
                 }
+                serviceModel.namedListeners.add(fullQualifiedName);
             }
         }
         serviceDeclarationNode.members().forEach(member -> member.accept(this));
@@ -312,15 +330,16 @@ public class CodeAnalyzer extends NodeVisitor {
     public void visit(ListenerDeclarationNode listenerDeclarationNode) {
         List<Listener.KeyValue> arguments = new ArrayList<>();
         Optional<Symbol> symbol = semanticModel.symbol(listenerDeclarationNode.typeDescriptor().get());
-        if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
-            TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
-            if (rawType instanceof ClassSymbol classSymbol) {
-                Node initializer = listenerDeclarationNode.initializer();
-                if (initializer instanceof NewExpressionNode newExpressionNode) {
-                    arguments = getInitMethodParamNames(classSymbol, getArgList(newExpressionNode));
+        Node initializer = listenerDeclarationNode.initializer();
+        if (initializer instanceof NewExpressionNode newExpressionNode) {
+            if (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) {
+                TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+                if (rawType instanceof ClassSymbol classSymbol) {
+                        arguments = getInitMethodParamNames(classSymbol, getArgList(newExpressionNode));
                 }
             }
         }
+
         String icon = symbol.flatMap(Symbol::getModule)
                 .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
         LineRange lineRange = listenerDeclarationNode.lineRange();

@@ -90,7 +90,7 @@ public final class Listener extends DesignGraphNode {
     }
 
     public enum Kind {
-        ANON, NAMED
+        ANON, NAMED, IMPORTED
     }
 
     public record KeyValue(String key, String value) {

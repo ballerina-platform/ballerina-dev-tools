@@ -26,6 +26,8 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Common utility functions.
@@ -35,6 +37,8 @@ import java.util.UUID;
 public class CommonUtils {
 
     private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
+    private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
+            Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
     private static final Random random = new Random();
 
     /**
@@ -73,5 +77,53 @@ public class CommonUtils {
 
     public static String generateUUID() {
         return new UUID(random.nextLong(), random.nextLong()).toString();
+    }
+
+    /**
+     * Returns the processed type signature of the type symbol. It removes the organization and the package, and checks
+     * if it is the default module which will remove the prefix.
+     *
+     * @param typeSymbol the type symbol
+     * @param moduleInfo the default module name descriptor
+     * @return the processed type signature
+     */
+    public static String getTypeSignature(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
+        String text = typeSymbol.signature();
+        StringBuilder newText = new StringBuilder();
+        Matcher matcher = FULLY_QUALIFIED_MODULE_ID_PATTERN.matcher(text);
+        int nextStart = 0;
+        while (matcher.find()) {
+            // Append up-to start of the match
+            newText.append(text, nextStart, matcher.start(1));
+
+            String modPart = matcher.group(2);
+            int last = modPart.lastIndexOf(".");
+            if (last != -1) {
+                modPart = modPart.substring(last + 1);
+            }
+
+            String typeName = matcher.group(4);
+
+            if (!modPart.equals(moduleInfo.packageName())) {
+                newText.append(modPart);
+                newText.append(":");
+            }
+            newText.append(typeName);
+            // Update next-start position
+            nextStart = matcher.end(4);
+        }
+        // Append the remaining
+        if (nextStart != 0 && nextStart < text.length()) {
+            newText.append(text.substring(nextStart));
+        }
+        return !newText.isEmpty() ? newText.toString() : text;
+    }
+
+    public record ModuleInfo(String org, String packageName, String moduleName, String version) {
+
+        public static ModuleInfo from(ModuleID moduleId) {
+            return new ModuleInfo(moduleId.orgName(), moduleId.packageName(), moduleId.moduleName(),
+                    moduleId.version());
+        }
     }
 }
