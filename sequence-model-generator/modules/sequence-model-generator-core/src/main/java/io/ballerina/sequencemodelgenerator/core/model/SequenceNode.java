@@ -137,6 +137,11 @@ public class SequenceNode {
             return this;
         }
 
+        public Builder property(String key, String value) {
+            this.properties.put(key, value);
+            return this;
+        }
+
         public Builder location(Node node) {
             this.location = node.lineRange();
             return this;

@@ -1,0 +1,361 @@
+{
+  "source": "endpoint_call2.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 12,
+    "offset": 0
+  },
+  "end": {
+    "line": 27,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "endpoint_call2.bal",
+      "startLine": {
+        "line": 12,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 27,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "33773",
+        "name": "foodClient",
+        "kind": "ENDPOINT",
+        "moduleName": ".",
+        "location": {
+          "fileName": "endpoint_call2.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 45
+          }
+        }
+      },
+      {
+        "id": "45172",
+        "name": "get",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "western/apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res1"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 14,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 59
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [
+                {
+                  "value": "param1 = \"param1\""
+                },
+                {
+                  "value": "param2 = \"param2\""
+                }
+              ],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res2"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 15,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 87
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res3"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 16,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 16,
+                "offset": 45
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [
+                {
+                  "value": "targetType = json"
+                }
+              ],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res4"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 25
+              },
+              "endLine": {
+                "line": 17,
+                "offset": 67
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res5"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 18,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 18,
+                "offset": 51
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [
+                {
+                  "value": "headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+                }
+              ],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res6"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 19,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 22,
+                "offset": 10
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [],
+              "value": {
+                "type": ".:Food|http:ClientError",
+                "value": "res7"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 23,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 23,
+                "offset": 51
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples/[varRef]/[12 + 3]",
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "res8"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 24,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 24,
+                "offset": 69
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33773",
+            "kind": "INTERACTION",
+            "properties": {
+              "resourcePath": "apples",
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "value": {
+                "type": ".:Food|http:ClientError",
+                "value": "res9"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call2.bal",
+              "startLine": {
+                "line": 25,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 25,
+                "offset": 45
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "endpoint_call2.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 5
+          }
+        }
+      }
+    ]
+  }
+}
