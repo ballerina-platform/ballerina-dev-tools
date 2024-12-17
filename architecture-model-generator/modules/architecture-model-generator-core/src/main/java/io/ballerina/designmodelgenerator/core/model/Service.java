@@ -115,7 +115,7 @@ public class Service extends DesignGraphNode {
         if (!(obj instanceof Service service)) {
             return false;
         }
-        return service.displayName.equals(this.displayName)
+        return service.displayName != null && service.displayName.equals(this.displayName)
                 && Objects.equals(service.type, this.type)
                 && service.absolutePath.equals(this.absolutePath)
                 && service.attachedListeners.size() == this.attachedListeners.size()

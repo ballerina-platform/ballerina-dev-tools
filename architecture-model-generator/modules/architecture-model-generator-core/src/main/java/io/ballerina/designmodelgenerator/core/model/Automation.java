@@ -31,6 +31,7 @@ public final class Automation extends DesignGraphNode {
     private final String displayName;
     private final Location location;
     private final List<String> connections;
+    private final String type = "automation";
 
     public Automation(String name, String displayName, String sortText, Location location, List<String> connections) {
         super(true, sortText);
@@ -38,6 +39,10 @@ public final class Automation extends DesignGraphNode {
         this.displayName = displayName;
         this.location = location;
         this.connections = connections;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getName() {

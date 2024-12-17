@@ -95,7 +95,8 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
         if (actual == null || expected == null) {
             return false;
         }
-        return actual.getName().equals(expected.getName()) &&
+        return actual.getType().equals(expected.getType()) &&
+                actual.getName().equals(expected.getName()) &&
                 actual.getDisplayName().equals(expected.getDisplayName())
                 && actual.getLocation().equals(expected.getLocation())
                 && actual.getConnections().size() == expected.getConnections().size();

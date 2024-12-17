@@ -169,7 +169,7 @@ public class CodeAnalyzer extends NodeVisitor {
                         TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
                         String typeSignature = CommonUtils.getTypeSignature(typeSymbol,
                                 CommonUtils.ModuleInfo.from(typeSymbol.getModule().get().id()));
-                        String icon = symbol.flatMap(Symbol::getModule)
+                        String icon = typeSymbol.getModule()
                                 .map(module -> CommonUtils.generateIcon(module.id())).orElse("");
                         Listener listener = new Listener(fullQualifiedName, sortText,
                                 getLocation(serviceDeclarationNode.lineRange()),

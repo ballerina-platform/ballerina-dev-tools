@@ -2,6 +2,7 @@ import imported_listener.mod1;
 
 import ballerina/http;
 import ballerina/log;
+import ballerina/soap;
 
 listener http:Listener refListener = mod1:securedEP;
 
@@ -14,7 +15,7 @@ listener http:Listener securedEP = new (9090,
     }
 );
 
-final http:Client httpClient = check new("");
+final http:Client httpClient = check new ("");
 
 @display {
     label: "BIT Service"

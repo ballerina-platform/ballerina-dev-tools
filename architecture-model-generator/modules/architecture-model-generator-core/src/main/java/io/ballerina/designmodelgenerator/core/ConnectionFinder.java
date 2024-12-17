@@ -80,8 +80,10 @@ public class ConnectionFinder {
                     if (isNewConnection(objectFieldNode.expression().orElse(null))) {
                         LineRange lineRange = node.lineRange();
                         String sortText = lineRange.fileName() + lineRange.startLine().line();
+                        String icon =  CommonUtils.generateIcon(
+                                classFieldSymbol.typeDescriptor().getModule().get().id());
                         Connection connection = new Connection(objectFieldNode.fieldName().text(),
-                                sortText, getLocation(lineRange), Connection.Scope.LOCAL);
+                                sortText, getLocation(lineRange), Connection.Scope.LOCAL, icon);
                         for (String refLocation : referenceLocations) {
                             intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                         }
@@ -101,8 +103,10 @@ public class ConnectionFinder {
                         if (isNewConnection(assignmentStatementNode.expression())) {
                             LineRange lineRange = node.lineRange();
                             String sortText = lineRange.fileName() + lineRange.startLine().line();
+                            String icon =  CommonUtils.generateIcon(
+                                    classFieldSymbol.typeDescriptor().getModule().get().id());
                             Connection connection = new Connection(symbol.getName().get(), sortText,
-                                    getLocation(lineRange), Connection.Scope.LOCAL);
+                                    getLocation(lineRange), Connection.Scope.LOCAL, icon);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }
@@ -130,8 +134,10 @@ public class ConnectionFinder {
                         if (isNewConnection(variableDeclarationNode.initializer().orElse(null))) {
                             LineRange lineRange = node.lineRange();
                             String sortText = lineRange.fileName() + lineRange.startLine().line();
+                            String icon =  CommonUtils.generateIcon(
+                                    variableSymbol.typeDescriptor().getModule().get().id());
                             Connection connection = new Connection(symbol.getName().get(), sortText,
-                                    getLocation(lineRange), Connection.Scope.LOCAL, true);
+                                    getLocation(lineRange), Connection.Scope.LOCAL, icon, true);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }
@@ -149,7 +155,7 @@ public class ConnectionFinder {
                             LineRange lineRange = node.lineRange();
                             String sortText = lineRange.fileName() + lineRange.startLine().line();
                             Connection connection = new Connection(symbol.getName().get(), sortText,
-                                    getLocation(lineRange), Connection.Scope.LOCAL);
+                                    getLocation(lineRange), Connection.Scope.LOCAL, "");
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
                             }

@@ -25,6 +25,7 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.designmodelgenerator.core.model.Automation;
 import io.ballerina.designmodelgenerator.core.model.Connection;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
@@ -58,6 +59,7 @@ public class DesignModelGenerator {
     private final Path rootPath;
     public static final String MAIN_FUNCTION_NAME = "main";
     private static final String AUTOMATION = "automation";
+    private static final String SERVICE = "Service";
     private final Map<String, ModulePartNode> documentMap;
 
     public DesignModelGenerator(Package ballerinaPackage) {
@@ -124,11 +126,16 @@ public class DesignModelGenerator {
             Service service = new Service(serviceModel.displayName, serviceModel.absolutePath, serviceModel.location,
                     serviceModel.sortText,
                     connections.stream().toList(), functions, remoteFunctions, resourceFunctions);
-            for (Listener listener : allAttachedListeners) {
-                listener.getAttachedServices().add(service.getUuid());
-                service.addAttachedListener(listener.getUuid());
+            int size = allAttachedListeners.size();
+            if (size > 0) {
+                Listener listener = allAttachedListeners.get(0);
                 service.setIcon(listener.getIcon());
-                service.setType(listener.getType());
+                service.setType(getServiceType(listener.getType()));
+                for (int i = 0; i < size; i++) {
+                    listener = allAttachedListeners.get(i);
+                    listener.getAttachedServices().add(service.getUuid());
+                    service.addAttachedListener(listener.getUuid());
+                }
             }
             builder.addService(service);
         }
@@ -146,8 +153,10 @@ public class DesignModelGenerator {
                     if (objectTypeSymbol.qualifiers().contains(Qualifier.CLIENT)) {
                         LineRange lineRange = variableSymbol.getLocation().get().lineRange();
                         String sortText = lineRange.fileName() + lineRange.startLine().line();
+                        String icon =  CommonUtils.generateIcon(
+                                variableSymbol.typeDescriptor().getModule().get().id());
                         Connection connection = new Connection(variableSymbol.getName().get(), sortText,
-                                getLocation(lineRange), Connection.Scope.GLOBAL, true);
+                                getLocation(lineRange), Connection.Scope.GLOBAL, icon, true);
                         intermediateModel.connectionMap.put(
                                 String.valueOf(variableSymbol.getLocation().get().hashCode()), connection);
                     }
@@ -180,5 +189,10 @@ public class DesignModelGenerator {
         Path filePath = rootPath.resolve(lineRange.fileName());
         return new Location(filePath.toAbsolutePath().toString(), lineRange.startLine(),
                 lineRange.endLine());
+    }
+
+    public String getServiceType(String listenerType) {
+        return listenerType.split(SyntaxKind.COLON_TOKEN.stringValue())[0]
+                + SyntaxKind.COLON_TOKEN.stringValue() + SERVICE;
     }
 }

@@ -30,24 +30,32 @@ public class Connection extends DesignGraphNode {
     private final String symbol;
     private Location location;
     private final Scope scope;
+    private final String icon;
 
-    public Connection(String symbol, String sortText, Location location, Scope scope) {
+    public Connection(String symbol, String sortText, Location location, Scope scope, String icon) {
         super(sortText);
         this.symbol = symbol;
         this.location = location;
         this.scope = scope;
+        this.icon = icon;
     }
 
-    public Connection(String symbol, String sortText, Location location, Scope scope, boolean enableFlow) {
+    public Connection(String symbol, String sortText, Location location, Scope scope, String icon,
+                      boolean enableFlow) {
         super(enableFlow, sortText);
         this.symbol = symbol;
         this.location = location;
         this.scope = scope;
+        this.icon = icon;
     }
 
     public enum Scope {
         LOCAL,
         GLOBAL
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     public void setLocation(Location location) {

@@ -9,18 +9,19 @@
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 16,
+              "line": 17,
               "offset": 0
             },
             "endLine": {
-              "line": 16,
-              "offset": 45
+              "line": 17,
+              "offset": 46
             }
           },
           "scope": "GLOBAL",
-          "uuid": "f2ebcd3a-bf28-4f02-dc26-641ff07e115c",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "43928caf-186f-ce9b-eae6-a9cb06ebbd13",
           "enableFlowModel": true,
-          "sortText": "BITService.bal16"
+          "sortText": "BITService.bal17"
         }
       ],
       "listeners": [
@@ -29,16 +30,16 @@
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 7,
+              "line": 8,
               "offset": 0
             },
             "endLine": {
-              "line": 14,
+              "line": 15,
               "offset": 2
             }
           },
           "attachedServices": [
-            "94052bbf-bc32-a83e-ff1d-c9f4ab81c659"
+            "6056b1ba-3386-6ecb-535d-571d02194234"
           ],
           "kind": "NAMED",
           "type": "http:Listener",
@@ -53,73 +54,73 @@
             }
           ],
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "43a1c03c-4db8-abd8-f808-bfc9ea12eae0",
+          "uuid": "41a62ede-d091-5f61-14d3-360c46c77eef",
           "enableFlowModel": true,
-          "sortText": "BITService.bal7"
+          "sortText": "BITService.bal8"
         },
         {
           "symbol": "mod1:securedEP",
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 18,
+              "line": 19,
               "offset": 0
             },
             "endLine": {
-              "line": 35,
+              "line": 36,
               "offset": 1
             }
           },
           "attachedServices": [
-            "94052bbf-bc32-a83e-ff1d-c9f4ab81c659"
+            "6056b1ba-3386-6ecb-535d-571d02194234"
           ],
           "kind": "IMPORTED",
           "type": "Listener",
           "args": [],
-          "icon": "https://bcentral-packageicons.azureedge.net/images/wso2_imported_listener.mod1_0.1.0.png",
-          "uuid": "4d1555b9-be25-4db6-f180-89fa765ca3cb",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "785b98d4-88dc-0a48-cb36-5034415fcdec",
           "enableFlowModel": false,
-          "sortText": "BITService.bal18"
+          "sortText": "BITService.bal19"
         },
         {
           "symbol": "refListener",
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 5,
+              "line": 6,
               "offset": 0
             },
             "endLine": {
-              "line": 5,
+              "line": 6,
               "offset": 52
             }
           },
           "attachedServices": [
-            "59ed66da-6ea1-d76a-7af9-a5245413edf2"
+            "b9710a27-dc36-08e6-645f-7abfea8812dd"
           ],
           "kind": "NAMED",
           "type": "http:Listener",
           "args": [],
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "040d3c8f-f57a-b298-ccb7-c836797600c3",
+          "uuid": "8e1481b3-9e52-5aa5-2b91-f3ce8e1c161d",
           "enableFlowModel": true,
-          "sortText": "BITService.bal5"
+          "sortText": "BITService.bal6"
         },
         {
           "symbol": "ANON",
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 18,
+              "line": 19,
               "offset": 0
             },
             "endLine": {
-              "line": 35,
+              "line": 36,
               "offset": 1
             }
           },
           "attachedServices": [
-            "94052bbf-bc32-a83e-ff1d-c9f4ab81c659"
+            "6056b1ba-3386-6ecb-535d-571d02194234"
           ],
           "kind": "ANON",
           "type": "http:Listener",
@@ -130,32 +131,74 @@
             }
           ],
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "c7296d45-5413-0d5c-e6e6-0e0aa6785bf5",
+          "uuid": "fb83f080-8430-99ce-ed3e-fedd9c06ab6a",
           "enableFlowModel": false,
-          "sortText": "BITService.bal18"
+          "sortText": "BITService.bal19"
         }
       ],
       "services": [
+        {
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 48,
+              "offset": 1
+            }
+          },
+          "attachedListeners": [
+            "8e1481b3-9e52-5aa5-2b91-f3ce8e1c161d"
+          ],
+          "connections": [],
+          "functions": [],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "path",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
+                "startLine": {
+                  "line": 40,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 47,
+                  "offset": 5
+                }
+              }
+            }
+          ],
+          "absolutePath": "/api/v1 ",
+          "type": "http:Service",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
+          "uuid": "b9710a27-dc36-08e6-645f-7abfea8812dd",
+          "enableFlowModel": true,
+          "sortText": "BITService.bal38"
+        },
         {
           "displayName": "BIT Service",
           "location": {
             "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
             "startLine": {
-              "line": 18,
+              "line": 19,
               "offset": 0
             },
             "endLine": {
-              "line": 35,
+              "line": 36,
               "offset": 1
             }
           },
           "attachedListeners": [
-            "c7296d45-5413-0d5c-e6e6-0e0aa6785bf5",
-            "43a1c03c-4db8-abd8-f808-bfc9ea12eae0",
-            "4d1555b9-be25-4db6-f180-89fa765ca3cb"
+            "fb83f080-8430-99ce-ed3e-fedd9c06ab6a",
+            "41a62ede-d091-5f61-14d3-360c46c77eef",
+            "785b98d4-88dc-0a48-cb36-5034415fcdec"
           ],
           "connections": [
-            "f2ebcd3a-bf28-4f02-dc26-641ff07e115c"
+            "43928caf-186f-ce9b-eae6-a9cb06ebbd13"
           ],
           "functions": [
             {
@@ -163,11 +206,11 @@
               "location": {
                 "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
                 "startLine": {
-                  "line": 23,
+                  "line": 24,
                   "offset": 4
                 },
                 "endLine": {
-                  "line": 24,
+                  "line": 25,
                   "offset": 5
                 }
               }
@@ -181,64 +224,22 @@
               "location": {
                 "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
                 "startLine": {
-                  "line": 26,
+                  "line": 27,
                   "offset": 4
                 },
                 "endLine": {
-                  "line": 34,
+                  "line": 35,
                   "offset": 5
                 }
               }
             }
           ],
           "absolutePath": "/ ",
-          "type": "Listener",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/wso2_imported_listener.mod1_0.1.0.png",
-          "uuid": "94052bbf-bc32-a83e-ff1d-c9f4ab81c659",
-          "enableFlowModel": true,
-          "sortText": "BITService.bal18"
-        },
-        {
-          "location": {
-            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
-            "startLine": {
-              "line": 37,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 47,
-              "offset": 1
-            }
-          },
-          "attachedListeners": [
-            "040d3c8f-f57a-b298-ccb7-c836797600c3"
-          ],
-          "connections": [],
-          "functions": [],
-          "remoteFunctions": [],
-          "resourceFunctions": [
-            {
-              "accessor": "get",
-              "path": "path",
-              "location": {
-                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_2/BITService.bal",
-                "startLine": {
-                  "line": 39,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 46,
-                  "offset": 5
-                }
-              }
-            }
-          ],
-          "absolutePath": "/api/v1 ",
-          "type": "http:Listener",
+          "type": "http:Service",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "59ed66da-6ea1-d76a-7af9-a5245413edf2",
+          "uuid": "6056b1ba-3386-6ecb-535d-571d02194234",
           "enableFlowModel": true,
-          "sortText": "BITService.bal37"
+          "sortText": "BITService.bal19"
         }
       ]
     }
