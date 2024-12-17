@@ -103,6 +103,7 @@ import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSign
 import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.Utils.populateDesignApproach;
 import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceModel;
@@ -251,7 +252,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 List<String> listenersList = getCompatibleListeners(request.moduleName(), modulePartNode,
                         semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
-                    listener.setValue(request.listenerName());
+                    listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
                 }
                 if (!listenersList.isEmpty()) {
@@ -416,6 +417,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (service.isEmpty()) {
                     return new ServiceFromSourceResponse();
                 }
+                // TODO: Support generation from OpenAPI
+                populateDesignApproach(service.get());
                 updateServiceModel(service.get(), serviceNode);
                 return new ServiceFromSourceResponse(service.get());
             } catch (Exception e) {
@@ -574,7 +577,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 Value basePathValue = service.getBasePath();
-                if (Objects.nonNull(basePathValue) && basePathValue.isEnabled()) {
+                if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
                     String basePath = basePathValue.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
                     if (!nodes.isEmpty() && nodes.size() == 1) {
@@ -672,7 +675,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Listener> getListenerByName(String name) {
-        if (!name.equals("http") &&
+        if (!name.equals("http") && !name.equals("graphql") &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
@@ -690,7 +693,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Service> getServiceByName(String name) {
-        if (!name.equals("http") &&
+        if (!name.equals("http") && !name.equals("graphql") &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }

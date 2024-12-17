@@ -110,7 +110,7 @@ public class Service {
         if (Objects.isNull(targetServiceType) || Objects.isNull(sourceServiceType)) {
             return;
         }
-        targetServiceType.setEnabled(sourceServiceType.isEnabled());
+        targetServiceType.setEnabled(sourceServiceType.isEnabledWithValue());
         String serviceTypeName = sourceServiceType.getValue();
         String[] serviceTypeNames = serviceTypeName.split(":", 2);
         if (serviceTypeNames.length > 1) {
@@ -138,6 +138,10 @@ public class Service {
 
     public Value setBasePath(Value basePath) {
         return properties.put("basePath", basePath);
+    }
+
+    public Value getDesignApproach() {
+        return properties.get("designApproach");
     }
 
     public String getOrgName() {
@@ -190,5 +194,16 @@ public class Service {
 
     public Map<String, Value> getProperties() {
         return properties;
+    }
+
+    public void addProperties(Map<String, Value> properties) {
+        if (Objects.isNull(properties)) {
+            return;
+        }
+        if (Objects.nonNull(this.properties)) {
+            this.properties.putAll(properties);
+        } else {
+            this.properties = properties;
+        }
     }
 }

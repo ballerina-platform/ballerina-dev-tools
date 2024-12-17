@@ -195,7 +195,7 @@ public class Trigger {
     public String getListenerDeclaration() {
         List<String> params = new ArrayList<>();
         properties.forEach((key, value) -> {
-            if (isListenerInitProperty(value) && value.isEnabled()) {
+            if (isListenerInitProperty(value) && value.isEnabledWithValue()) {
                 params.add(String.format("%s = %s", key, getValueString(value)));
             }
         });
@@ -228,7 +228,7 @@ public class Trigger {
 
     public Optional<Value> getBasePathProperty() {
         for (Map.Entry<String, Value> entry : properties.entrySet()) {
-            if (isBasePathProperty(entry.getValue()) && entry.getValue().isEnabled()) {
+            if (isBasePathProperty(entry.getValue()) && entry.getValue().isEnabledWithValue()) {
                 return Optional.of(entry.getValue());
             }
         }
@@ -245,7 +245,7 @@ public class Trigger {
 
     public Optional<Value> getSvcDisplayAnnotationProperty() {
         for (Map.Entry<String, Value> entry : properties.entrySet()) {
-            if (isDisplayAnnotationProperty(entry.getValue()) && entry.getValue().isEnabled()) {
+            if (isDisplayAnnotationProperty(entry.getValue()) && entry.getValue().isEnabledWithValue()) {
                 return Optional.of(entry.getValue());
             }
         }

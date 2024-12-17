@@ -80,7 +80,7 @@ public class Listener {
         listenerDeclaration.append(" = new ");
         listenerDeclaration.append("(");
         properties.forEach((key, value) -> {
-            if (value.isEnabled() && isListenerInitProperty(value)) {
+            if (value.isEnabledWithValue() && isListenerInitProperty(value)) {
                 if (isRequiredArgument(value)) {
                     params.add(getValueString(value));
                 } else {

@@ -17,8 +17,8 @@
   "properties": {
     "listener": {
       "metadata": {
-        "label": "Listeners",
-        "description": "The Listeners to be bound with the service"
+        "label": "Listener",
+        "description": "The Listener to be used"
       },
       "codedata": {
         "type": "LISTENER"
@@ -26,115 +26,48 @@
       "enabled": true,
       "editable": false,
       "value": "",
-      "values": [],
-      "valueType": "MULTI_SELECT",
+      "valueType": "EXPRESSION",
       "valueTypeConstraint": "http:Listener",
       "isType": false,
       "placeholder": "",
       "optional": false,
       "advanced": false
     },
-    "designApproach": {
+    "basePath": {
       "metadata": {
-        "label": "Design Approach",
-        "description": "The approach to be used to design the service"
+        "label": "Service Base Path",
+        "description": "The base path for the service"
       },
       "enabled": true,
       "editable": true,
       "value": "",
-      "valueType": "CHOICE",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
       "isType": false,
       "placeholder": "",
       "optional": false,
       "advanced": false,
-      "choices": [
-        {
-          "metadata": {
-            "label": "Design from Scratch",
-            "description": "Design the service from scratch"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "true",
-          "valueType": "FORM",
-          "isType": false,
-          "placeholder": "true",
-          "optional": false,
-          "advanced": false,
-          "properties": {
-            "basePath": {
-              "metadata": {
-                "label": "Service Base Path",
-                "description": "The base path for the service"
-              },
-              "enabled": true,
-              "editable": true,
-              "value": "",
-              "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": false,
-              "placeholder": "",
-              "optional": false,
-              "advanced": false,
-              "codedata": {
-                "type": "SERVICE_BASEPATH"
-              }
-            }
-          }
-        },
-        {
-          "metadata": {
-            "label": "Import from OpenAPI Specification",
-            "description": "Design the service by importing from an OpenAPI specification"
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "true",
-          "valueType": "FORM",
-          "isType": false,
-          "placeholder": "true",
-          "optional": false,
-          "advanced": false,
-          "properties": {
-            "serviceTypeName": {
-              "metadata": {
-                "label": "Service Type Name",
-                "description": "The name of the service contract type generated from the OpenAPI specification"
-              },
-              "enabled": true,
-              "editable": true,
-              "value": "",
-              "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": false,
-              "placeholder": "",
-              "optional": false,
-              "advanced": false,
-              "codedata": {
-                "type": "SERVICE_BASEPATH"
-              }
-            },
-            "spec": {
-              "metadata": {
-                "label": "OpenAPI Specification",
-                "description": "Provide an OpenAPI specification to generate the resources"
-              },
-              "enabled": false,
-              "editable": true,
-              "value": "",
-              "valueType": "FILE_SELECT",
-              "valueTypeConstraint": "string",
-              "isType": false,
-              "placeholder": "",
-              "optional": true,
-              "advanced": false,
-              "codedata": {
-                "type": "OPENAPI"
-              }
-            }
-          }
-        }
-      ]
+      "codedata": {
+        "type": "SERVICE_BASEPATH"
+      }
+    },
+    "spec": {
+      "metadata": {
+        "label": "OpenAPI Specification",
+        "description": "Provide an OpenAPI specification to generate the resources"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "FILE_SELECT",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "OPENAPI"
+      }
     }
   },
   "functions": [

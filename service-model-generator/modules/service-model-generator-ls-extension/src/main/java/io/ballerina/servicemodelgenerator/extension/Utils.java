@@ -108,20 +108,39 @@ public final class Utils {
     }
 
     public static void populateProperties(Service service) {
+        populateRequiredFunctions(service);
+        populateServiceType(service);
+        populateDesignApproach(service);
+    }
+
+    private static void populateRequiredFunctions(Service service) {
         Value value = service.getProperty("requiredFunctions");
-        if (Objects.nonNull(value) && value.isEnabled()) {
+        if (Objects.nonNull(value) && value.isEnabledWithValue()) {
             String requiredFunction = value.getValue();
             service.getFunctions()
                     .forEach(function -> function.setEnabled(
                             function.getName().getValue().equals(requiredFunction)));
         }
+    }
+
+    private static void populateServiceType(Service service) {
         Value serviceValue = service.getServiceType();
-        if (Objects.nonNull(serviceValue) && serviceValue.isEnabled()) {
+        if (Objects.nonNull(serviceValue) && serviceValue.isEnabledWithValue()) {
             String serviceType = service.getServiceTypeName();
             if (Objects.nonNull(serviceType)) {
                 getServiceByServiceType(serviceType.toLowerCase(Locale.ROOT))
                         .ifPresent(serviceTypeModel -> service.setFunctions(serviceTypeModel.getFunctions()));
             }
+        }
+    }
+
+    public static void populateDesignApproach(Service service) {
+        Value designApproach = service.getDesignApproach();
+        if (Objects.nonNull(designApproach) && designApproach.isEnabled()
+                && Objects.nonNull(designApproach.getChoices()) && !designApproach.getChoices().isEmpty()) {
+            designApproach.getChoices().stream()
+                    .filter(Value::isEnabled).findFirst()
+                    .ifPresent(selectedApproach -> service.addProperties(selectedApproach.getProperties()));
         }
     }
 
@@ -292,7 +311,7 @@ public final class Utils {
         if (Objects.isNull(target) || Objects.isNull(source)) {
             return;
         }
-        target.setEnabled(source.isEnabled());
+        target.setEnabled(source.isEnabledWithValue());
         target.setValue(source.getValue());
         target.setValueType(source.getValueType());
     }
@@ -327,16 +346,16 @@ public final class Utils {
     public static String getServiceDeclarationNode(Service service) {
         StringBuilder builder = new StringBuilder();
         builder.append("service ");
-        if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabled()) {
+        if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
             builder.append(" ");
         }
-        if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabled()) {
+        if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
             builder.append(getValueString(service.getBasePath()));
             builder.append(" ");
         }
         builder.append("on ");
-        if (Objects.nonNull(service.getListener()) && service.getListener().isEnabled()) {
+        if (Objects.nonNull(service.getListener()) && service.getListener().isEnabledWithValue()) {
             builder.append(service.getListener().getValue());
         }
         builder.append(" {");
@@ -359,7 +378,7 @@ public final class Utils {
         if (Objects.isNull(value)) {
             return "";
         }
-        if (!value.isEnabled()) {
+        if (!value.isEnabledWithValue()) {
             return "";
         }
         if (!value.getValue().trim().isEmpty()) {
@@ -375,7 +394,7 @@ public final class Utils {
         }
         List<String> params = new ArrayList<>();
         properties.forEach((key, val) -> {
-            if (val.isEnabled()) {
+            if (val.isEnabledWithValue()) {
                 params.add(String.format("%s: %s", key, getValueString(val)));
             }
         });
@@ -386,7 +405,7 @@ public final class Utils {
         Map<String, Value> properties = listener.getProperties();
         List<String> params = new ArrayList<>();
         properties.forEach((key, value) -> {
-            if (value.isEnabled()) {
+            if (value.isEnabledWithValue()) {
                 params.add(String.format("%s = %s", key, getValueString(value)));
             }
         });
@@ -402,7 +421,7 @@ public final class Utils {
         }
         builder.append("function ");
         if (function.getKind().equals("RESOURCE") && Objects.nonNull(function.getAccessor())
-                && function.getAccessor().isEnabled()) {
+                && function.getAccessor().isEnabledWithValue()) {
             builder.append(getValueString(function.getAccessor()).toLowerCase(Locale.ROOT));
             builder.append(" ");
         }
@@ -434,7 +453,7 @@ public final class Utils {
         builder.append(String.join(", ", params));
         builder.append(")");
         Value returnType = function.getReturnType();
-        if (Objects.nonNull(returnType) && returnType.isEnabled()) {
+        if (Objects.nonNull(returnType) && returnType.isEnabledWithValue()) {
             builder.append(" returns ");
             builder.append(getValueString(returnType));
         }

@@ -20,12 +20,14 @@ package io.ballerina.servicemodelgenerator.extension.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Value {
     private MetaData metadata;
     private boolean enabled;
     private boolean editable;
     private String value;
+    private List<String> values;
     private String valueType;
     private String valueTypeConstraint;
     private boolean isType;
@@ -35,6 +37,7 @@ public class Value {
     private Map<String, Value> properties;
     private List<String> items;
     private Codedata codedata;
+    private List<Value> choices;
 
     public Value() {
         this(null, false, true, null, null, null, false, null, false, false, null, null, null);
@@ -67,7 +70,12 @@ public class Value {
     }
 
     public boolean isEnabled() {
-        return enabled && ((value != null && !value.isEmpty()) || (placeholder != null && !placeholder.isEmpty()));
+        return enabled;
+    }
+
+    public boolean isEnabledWithValue() {
+        return enabled && ((value != null && !value.isEmpty()) || (placeholder != null && !placeholder.isEmpty())
+                || (values != null && !values.isEmpty()));
     }
 
     public void setEnabled(boolean enabled) {
@@ -83,11 +91,31 @@ public class Value {
     }
 
     public String getValue() {
+        List<String> values = this.values;
+        if (Objects.nonNull(values) && !values.isEmpty()) {
+            return String.join(", ", values);
+        }
         return value;
+    }
+
+    public List<String> getValues() {
+        return values;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void setValues(List<String> values) {
+        this.values = values;
+    }
+
+    public void addValue(String value) {
+        if (Objects.isNull(this.values)) {
+            this.values = List.of(value);
+        } else {
+            this.values.add(value);
+        }
     }
 
     public String getValueType() {
@@ -160,5 +188,13 @@ public class Value {
 
     public void setCodedata(Codedata codedata) {
         this.codedata = codedata;
+    }
+
+    public List<Value> getChoices() {
+        return choices;
+    }
+
+    public Value getProperty(String key) {
+        return properties.get(key);
     }
 }

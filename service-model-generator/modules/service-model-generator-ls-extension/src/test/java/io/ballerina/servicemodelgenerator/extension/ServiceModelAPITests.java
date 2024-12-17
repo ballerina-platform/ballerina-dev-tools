@@ -188,9 +188,13 @@ public class ServiceModelAPITests {
         ServiceModelResponse modelResponse = (ServiceModelResponse) modelResult.get();
         Service service = modelResponse.service();
         Assert.assertTrue(Objects.nonNull(service));
-        service.getListener().setValue("httpTestListener");
-        service.getBasePath().setValue("/api/test");
-        service.getBasePath().setEnabled(true);
+        service.getListener().setValues(List.of("httpTestListener", "httpsTestListener"));
+        Value designApproach = service.getDesignApproach();
+        Value selectedApproach = designApproach.getChoices().get(0);
+        Value basePath = selectedApproach.getProperty("basePath");
+        basePath.setValue("/api/test");
+        basePath.setEnabled(true);
+        selectedApproach.setEnabled(true);
 
         ServiceSourceRequest sourceRequest = new ServiceSourceRequest(filePath.toAbsolutePath().toString(), service);
         CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/addService", sourceRequest);
