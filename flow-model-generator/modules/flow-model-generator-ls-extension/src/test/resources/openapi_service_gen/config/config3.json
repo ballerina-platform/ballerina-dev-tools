@@ -1,5 +1,7 @@
 {
   "contractFile": "response.yaml",
+  "name": "Foo",
+  "listeners": ["l1"],
   "lineRange": {
     "fileName": "service_implementation.bal",
     "startLine": {
