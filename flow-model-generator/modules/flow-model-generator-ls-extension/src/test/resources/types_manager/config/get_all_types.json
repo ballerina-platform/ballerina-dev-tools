@@ -72,37 +72,138 @@
       "members": {
         "country": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
         "city": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
         "houseNo": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "houseNo",
           "docs": ""
         },
         "line2": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "line2",
           "docs": ""
         },
         "line1": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "line1",
+          "docs": ""
+        }
+      },
+      "includes": []
+    },
+    {
+      "name": "MixRecord",
+      "editable": true,
+      "metadata": {
+        "label": "MixRecord",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 14
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "MixRecord",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "mixField2": {
+          "kind": "FIELD",
+          "refs": [
+            "Address",
+            "Person"
+          ],
+          "type": "Address|Person|int",
+          "name": "mixField2",
+          "docs": ""
+        },
+        "mixField3": {
+          "kind": "FIELD",
+          "refs": [
+            "Address"
+          ],
+          "type": "map<Address>",
+          "name": "mixField3",
+          "docs": ""
+        },
+        "mixField1": {
+          "kind": "FIELD",
+          "refs": [
+            "ballerina/time:Utc",
+            "Person",
+            "Address"
+          ],
+          "type": "time:Utc|Person|Address",
+          "name": "mixField1",
           "docs": ""
         }
       },
@@ -176,30 +277,34 @@
         }
       },
       "members": {
-        "address": {
+        "addresses": {
           "kind": "FIELD",
-          "ref": "Address",
-          "type": "Address",
-          "name": "address",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address[]",
+          "name": "addresses",
           "docs": ""
         },
         "dob": {
           "kind": "FIELD",
-          "ref": "ballerina/time:Utc",
-          "type": "ballerina/time:Utc",
+          "refs": [
+            "ballerina/time:Utc"
+          ],
+          "type": "time:Utc",
           "name": "dob",
           "docs": ""
         },
         "name": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "string",
           "name": "name",
           "docs": ""
         },
         "id": {
           "kind": "FIELD",
-          "ref": "",
+          "refs": [],
           "type": "int",
           "name": "id",
           "docs": ""

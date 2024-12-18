@@ -25,7 +25,7 @@ import java.util.List;
  * Represents a member of a type construct.
  *
  * @param kind          Kind of the member.
- * @param ref           Reference to the type descriptor.
+ * @param refs          References to the type descriptor.
  * @param type          Display name for the type.
  * @param name          Name of the member.
  * @param defaultValue  Default value of the member.
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public record Member(
         MemberKind kind,
-        String ref,
+        List<String> refs,
         String type,
         String name,
         String defaultValue,
@@ -44,7 +44,7 @@ public record Member(
 ) {
     public static class MemberBuilder {
         private Member.MemberKind kind;
-        private String ref;
+        private List<String> refs;
         private String type;
         private String name;
         private String defaultValue;
@@ -59,8 +59,8 @@ public record Member(
             return this;
         }
 
-        public MemberBuilder ref(String ref) {
-            this.ref = ref;
+        public MemberBuilder refs(List<String> refs) {
+            this.refs = refs;
             return this;
         }
 
@@ -90,9 +90,10 @@ public record Member(
         }
 
         public Member build() {
-            Member member = new Member(kind, ref, type, name, defaultValue, docs, annotations);
+            Member member = new Member(kind, List.copyOf(refs), type, name, defaultValue,
+                    docs, annotations != null ? List.copyOf(annotations) : null);
             this.kind = null;
-            this.ref = null;
+            this.refs = null;
             this.type = null;
             this.name = null;
             this.defaultValue = null;

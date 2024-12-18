@@ -73,30 +73,34 @@
       }
     },
     "members": {
-      "address": {
+      "addresses": {
         "kind": "FIELD",
-        "ref": "Address",
-        "type": "Address",
-        "name": "address",
+        "refs": [
+          "Address"
+        ],
+        "type": "Address[]",
+        "name": "addresses",
         "docs": ""
       },
       "dob": {
         "kind": "FIELD",
-        "ref": "ballerina/time:Utc",
-        "type": "ballerina/time:Utc",
+        "refs": [
+          "ballerina/time:Utc"
+        ],
+        "type": "time:Utc",
         "name": "dob",
         "docs": ""
       },
       "name": {
         "kind": "FIELD",
-        "ref": "",
+        "refs": [],
         "type": "string",
         "name": "name",
         "docs": ""
       },
       "id": {
         "kind": "FIELD",
-        "ref": "",
+        "refs": [],
         "type": "int",
         "name": "id",
         "docs": ""

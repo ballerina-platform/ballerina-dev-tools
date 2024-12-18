@@ -13,8 +13,14 @@ type Address record {|
 type Person record {|
     int id;
     string name;
-    Address address;
+    Address[] addresses;
     time:Utc dob;
+|};
+
+type MixRecord record {|
+    time:Utc|Person|Address mixField1;
+    Address|Person|int mixField2;
+    map<Address> mixField3;
 |};
 
 enum Color {

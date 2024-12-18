@@ -32,11 +32,14 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Member;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
-import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,11 +192,11 @@ public class TypesManager {
 
         String name = type.getName().get();
 
-        if (!isForeignType(type)) {
+        if (CommonUtils.isWithinPackage(type, ModuleInfo.from(this.module.descriptor()))) {
             return;
         }
 
-        String typeName = getTypeName(type);
+        String typeName = TypeUtils.generateReferencedTypeId(type, ModuleInfo.from(this.module.descriptor()));
         if (!foreignSymbols.containsKey(name)) {
             foreignSymbols.put(typeName, type);
         }
@@ -201,7 +204,18 @@ public class TypesManager {
 
     private TypeData getRecordType(TypeDefinitionSymbol recTypeDefSymbol) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
-        String typeName = getTypeName(recTypeDefSymbol);
+        ModuleInfo currentModuleInfo = ModuleInfo.from(this.module.descriptor());
+
+        String typeName;
+        if (CommonUtils.isWithinPackage(recTypeDefSymbol, currentModuleInfo)) {
+            typeName = recTypeDefSymbol.getName().get();
+        } else {
+            ModuleID recTypeModuleId = recTypeDefSymbol.getModule().get().id();
+            typeName = String.format("%s/%s:%s",
+                    recTypeModuleId.orgName(), recTypeModuleId.packageName(), recTypeDefSymbol.getName().get());
+        }
+
+        // metadata and codedata
         typeDataBuilder
                 .name(typeName)
                 .editable()
@@ -230,7 +244,7 @@ public class TypesManager {
         List<String> inclusions = new ArrayList<>();
         typeDesc.typeInclusions().forEach(inc -> {
             if (inc.typeKind() == TypeDescKind.TYPE_REFERENCE) {
-                inclusions.add(getTypeName(inc));
+                inclusions.add(TypeUtils.generateReferencedTypeId(inc, currentModuleInfo));
             }
         });
         typeDataBuilder.includes(inclusions);
@@ -243,8 +257,8 @@ public class TypesManager {
             TypeSymbol restTypeSymbol = restTypeDesc.get();
             typeDataBuilder.restMember(memberBuilder
                     .kind(Member.MemberKind.FIELD)
-                    .type(restTypeSymbol.signature())
-                    .ref(isForeignType(restTypeSymbol) ? getTypeName(restTypeSymbol) : restTypeSymbol.signature())
+                    .type(CommonUtils.getTypeSignature(restTypeSymbol, currentModuleInfo))
+                    .refs(TypeUtils.getTypeRefIds(restTypeSymbol, currentModuleInfo))
                     .build());
         }
 
@@ -255,10 +269,8 @@ public class TypesManager {
             fieldMembers.put(name,
                     memberBuilder
                             .kind(Member.MemberKind.FIELD)
-                            .type(fieldTypeDesc.typeKind() == TypeDescKind.TYPE_REFERENCE ?
-                                    getTypeName(fieldTypeDesc) : fieldTypeDesc.typeKind().getName())
-                            .ref(isForeignType(fieldTypeDesc) ?
-                                    getTypeName(fieldTypeDesc) : fieldTypeDesc.getName().orElse(""))
+                            .type(CommonUtils.getTypeSignature(fieldTypeDesc, currentModuleInfo))
+                            .refs(TypeUtils.getTypeRefIds(fieldTypeDesc, currentModuleInfo))
                             .name(name)
                             .docs(field.documentation().isEmpty() ? ""
                                     : field.documentation().get().description().orElse(""))
@@ -270,23 +282,5 @@ public class TypesManager {
         // TODO: Add support for annotations
 
         return typeDataBuilder.build();
-    }
-
-    private boolean isForeignType(Symbol symbol) {
-        if (symbol.getModule().isEmpty()) {
-            return false;
-        }
-        ModuleID moduleId = symbol.getModule().get().id();
-        return !(this.module.packageInstance().packageName().value().equals(moduleId.packageName())
-                && this.module.packageInstance().packageOrg().value().equals(moduleId.orgName()));
-    }
-
-    private String getTypeName(Symbol symbol) {
-        if (!isForeignType(symbol)) {
-            return symbol.getName().get();
-        }
-        String name = symbol.getName().get();
-        ModuleID moduleId = symbol.getModule().get().id();
-        return String.format("%s/%s:%s", moduleId.orgName(), moduleId.packageName(), name);
     }
 }
