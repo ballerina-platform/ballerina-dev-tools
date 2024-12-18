@@ -29,6 +29,7 @@ configurations {
 }
 
 dependencies {
+    implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
