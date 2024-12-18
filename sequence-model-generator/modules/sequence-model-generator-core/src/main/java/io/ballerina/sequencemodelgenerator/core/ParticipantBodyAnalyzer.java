@@ -21,6 +21,7 @@ package io.ballerina.sequencemodelgenerator.core;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Analyzes the body of a participant.
@@ -82,6 +84,36 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
                 .property(Interaction.EXPRESSION_LABEL, remoteMethodCallActionNode.expression())
                 .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
                         remoteMethodCallActionNode, variableNode));
+
+        appendNode();
+    }
+
+    @Override
+    public void visit(ClientResourceAccessActionNode resourceAccessActionNode) {
+        String targetId = ParticipantManager.getInstance().getParticipantId(resourceAccessActionNode.expression());
+
+        nodeBuilder = new Interaction.Builder(semanticModel)
+                .interactionType(Interaction.InteractionType.ENDPOINT_CALL)
+                .targetId(targetId)
+                .location(resourceAccessActionNode);
+
+        resourceAccessActionNode.arguments().ifPresent(arguments -> {
+            nodeBuilder.property(Interaction.PARAMS_LABEL, getParamList(arguments.arguments()));
+        });
+        resourceAccessActionNode.methodName().ifPresent(name -> {
+            nodeBuilder.property(Interaction.NAME_LABEL, Expression.Factory.createStringType(name));
+        });
+
+        SeparatedNodeList<Node> nodes = resourceAccessActionNode.resourceAccessPath();
+        String resourcePath = nodes.stream()
+                .map(Node::toSourceCode)
+                .collect(Collectors.joining("/"));
+        nodeBuilder.property(Interaction.RESOURCE_PATH, resourcePath);
+
+        nodeBuilder
+                .property(Interaction.EXPRESSION_LABEL, resourceAccessActionNode.expression())
+                .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
+                        resourceAccessActionNode, variableNode));
 
         appendNode();
     }

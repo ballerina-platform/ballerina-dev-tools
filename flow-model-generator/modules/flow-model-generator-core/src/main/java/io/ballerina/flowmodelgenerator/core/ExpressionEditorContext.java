@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -40,16 +39,15 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Represents the context for the expression editor.
@@ -94,6 +92,9 @@ public class ExpressionEditorContext {
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
+        if (flowNode == null || flowNode.codedata() == null) {
+            return false;
+        }
         return nodeKinds.contains(flowNode.codedata().node());
     }
 
@@ -116,45 +117,47 @@ public class ExpressionEditorContext {
     }
 
     // TODO: Check how we can use SourceBuilder in place of this method
-    public Optional<TextEdit> getImport() {
+    private Optional<TextEdit> getImport() {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
-        if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
-                CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
+        if (org == null || module == null || CommonUtils.isPredefinedLangLib(org, module)) {
             return Optional.empty();
         }
+        return getImport(CommonUtils.getImportStatement(org, module, module));
+    }
+
+    private Optional<TextEdit> getImport(String importStatement) {
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return Optional.empty();
         }
 
+        // Check if the import statement represents the current module
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
-            if (descriptor.org().value().equals(org) && descriptor.name().toString().equals(module)) {
+            if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
+                    descriptor.name().toString()).equals(importStatement)) {
                 return Optional.empty();
             }
         }
 
+        // Check if the import statement already exists
         boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
-            String moduleName = importDeclarationNode.moduleName().stream()
-                    .map(IdentifierToken::text)
-                    .collect(Collectors.joining("."));
-            return importDeclarationNode.orgName().isPresent() &&
-                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                    module.equals(moduleName);
+            String importText = importDeclarationNode.toSourceCode().trim();
+            return importText.startsWith("import " + importStatement) && importText.endsWith(";");
         });
 
-        // Add the import statement
+        // Generate the import statement if not exists
         if (!importExists) {
-            String importStatement = new SourceBuilder.TokenBuilder(null)
+            String stmt = new SourceBuilder.TokenBuilder(null)
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(flowNode.codedata().getImportSignature())
+                    .name(importStatement)
                     .endOfStatement()
                     .build(false);
-            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), importStatement);
+            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
             return Optional.of(textEdit);
         }
         return Optional.empty();
@@ -167,22 +170,49 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = getProperty()
-                .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
-                .map(obj -> obj + " _ = ")
-                .orElse("_ = ");
+        String prefix = "var _ = ";
+        Optional<Property> optionalProperty = getProperty();
+        List<TextEdit> textEdits = new ArrayList<>();
 
-        String statement = String.format("%s%s;%n", prefix, info.expression());
-        this.expressionOffset = prefix.length();
+        if (optionalProperty.isPresent()) {
+            // Append the type if exists
+            Property property = optionalProperty.get();
+            if (property.valueTypeConstraint() != null) {
+                prefix = String.format("%s _ = ", property.valueTypeConstraint());
+            }
 
+            // Add the import statements of the dependent types
+            if (property.codedata() != null) {
+                String importStatements = property.codedata().importStatements();
+                if (importStatements != null && !importStatements.isEmpty()) {
+                    for (String importStmt : importStatements.split(",")) {
+                        getImport(importStmt).ifPresent(textEdits::add);
+                    }
+                }
+            }
+        }
+
+        // Add the import statement for the node type
+        if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
+                NodeKind.RESOURCE_ACTION_CALL))) {
+            getImport().ifPresent(textEdits::add);
+        }
+
+        // Get the text position of the start line
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
-        TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+        // Generate the statement
+        String statement = String.format("%s%s;%n", prefix, info.expression());
+        this.expressionOffset = prefix.length();
+        textEdits.add(TextEdit.from(TextRange.from(textPosition, 0), statement));
+
+        // Apply the text edits to the document
         TextDocument newTextDocument = textDocument
-                .apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+                .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
         applyContent(newTextDocument);
 
+        // Return the line range of the generated statement
         LinePosition startLine = info.startLine();
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());

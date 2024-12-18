@@ -18,15 +18,18 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import java.util.List;
+
 /**
  * Represents a request to generate the service from OpenAPI contract.
  *
  * @param openApiContractPath Location for OpenAPI contract
  * @param projectPath         Location for the generated services
- * @param port                port
- *
+ * @param name                Service type name
+ * @param listeners           Listener names
  * @since 1.4.0
  */
-public record OpenAPIServiceGenerationRequest(String openApiContractPath, String projectPath, int port) {
+public record OpenAPIServiceGenerationRequest(String openApiContractPath, String projectPath, String name,
+                                              List<String> listeners) {
 
 }

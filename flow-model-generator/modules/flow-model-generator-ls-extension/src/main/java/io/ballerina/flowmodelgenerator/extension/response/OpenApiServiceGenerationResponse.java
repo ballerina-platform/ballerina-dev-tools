@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import io.ballerina.tools.text.LineRange;
+import com.google.gson.JsonElement;
 
 /**
  * Represents the response for OpenAPI service generation API.
@@ -27,13 +27,13 @@ import io.ballerina.tools.text.LineRange;
  */
 public class OpenApiServiceGenerationResponse extends AbstractFlowModelResponse {
 
-    private LineRange service;
+    private JsonElement textEdits;
 
-    public LineRange getService() {
-        return service;
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
     }
 
-    public void setService(LineRange service) {
-        this.service = service;
+    public JsonElement textEdits() {
+        return textEdits;
     }
 }

@@ -135,40 +135,6 @@
       "range": {
         "start": {
           "line": 2,
-          "character": 0
-        },
-        "end": {
-          "line": 2,
-          "character": 19
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2000"
-      },
-      "message": "undefined module 'http'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 2,
-          "character": 0
-        },
-        "end": {
-          "line": 2,
-          "character": 19
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2069"
-      },
-      "message": "unknown type 'RequestMessage'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 2,
           "character": 24
         },
         "end": {
