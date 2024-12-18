@@ -170,7 +170,7 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = "_ = ";
+        String prefix = "var _ = ";
         Optional<Property> optionalProperty = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 

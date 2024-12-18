@@ -247,6 +247,11 @@ task buildService {
     dependsOn(":service-model-generator:service-model-generator-ls-extension:build")
 }
 
+task buildDesign {
+    dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
+    dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
+}
+
 task buildSequence {
     dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")

@@ -34,6 +34,7 @@ public class Interaction extends SequenceNode {
     public static final String NAME_LABEL = "name";
     public static final String VALUE_LABEL = "value";
     public static final String EXPRESSION_LABEL = "expr";
+    public static final String RESOURCE_PATH = "resourcePath";
 
     private final InteractionType interactionType;
     private final String targetId;
