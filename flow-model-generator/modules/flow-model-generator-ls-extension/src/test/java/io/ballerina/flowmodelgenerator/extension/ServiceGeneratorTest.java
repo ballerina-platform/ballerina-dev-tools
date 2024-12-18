@@ -19,16 +19,22 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
+import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Test cases for the OpenAPI service generation.
@@ -36,6 +42,9 @@ import java.util.List;
  * @since 1.4.0
  */
 public class ServiceGeneratorTest extends AbstractLSTest {
+
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
+    }.getType();
 
     @DataProvider(name = "data-provider")
     @Override
@@ -57,16 +66,42 @@ public class ServiceGeneratorTest extends AbstractLSTest {
 
         Path project = configDir.resolve(config.getFileName().toString().split(".json")[0]);
         Files.createDirectories(project);
+        Files.createFile(project.resolve("main.bal"));
         String projectPath = project.toAbsolutePath().toString();
         OpenAPIServiceGenerationRequest request =
                 new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath,
                         testConfig.name(), testConfig.listeners());
-        JsonObject resp = getResponse(request);
+        JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
         deleteFolder(project.toFile());
-        if (!resp.getAsJsonObject("service").equals(testConfig.lineRange())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(),
-                    resp.get("service").getAsJsonObject(), testConfig.name(), testConfig.listeners());
-//            updateConfig(configJsonPath, updatedConfig);
+
+        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
+
+        boolean assertFailure = false;
+
+        if (actualTextEdits.size() != testConfig.textEdits().size()) {
+            log.info("The number of text edits does not match the expected output.");
+            assertFailure = true;
+        }
+
+        Map<String, List<TextEdit>> newMap = new HashMap<>();
+        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
+            Path fullPath = Paths.get(entry.getKey());
+            String relativePath = configDir.relativize(fullPath).toString();
+
+            List<TextEdit> textEdits = testConfig.textEdits().get(relativePath.replace("\\", "/"));
+            if (textEdits == null) {
+                log.info("No text edits found for the file: " + relativePath);
+                assertFailure = true;
+            } else if (!assertArray("text edits", entry.getValue(), textEdits)) {
+                assertFailure = true;
+            }
+
+            newMap.put(relativePath, entry.getValue());
+        }
+        if (assertFailure) {
+            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), newMap, testConfig.name(),
+                    testConfig.listeners());
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
     }
@@ -103,12 +138,13 @@ public class ServiceGeneratorTest extends AbstractLSTest {
      * Represents the test configuration for the service generation.
      *
      * @param contractFile OpenAPI contract file
-     * @param lineRange    line range of service declaration
+     * @param textEdits    line range of service declaration
      * @param name         Service type name
      * @param listeners    Listener names
      * @since 1.4.0
      */
-    private record TestConfig(String contractFile, JsonObject lineRange, String name, List<String> listeners) {
+    private record TestConfig(String contractFile, Map<String, List<TextEdit>> textEdits, String name,
+                              List<String> listeners) {
 
     }
 }
