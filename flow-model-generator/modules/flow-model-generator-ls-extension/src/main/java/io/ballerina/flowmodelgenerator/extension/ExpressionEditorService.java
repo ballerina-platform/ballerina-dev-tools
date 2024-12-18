@@ -23,18 +23,22 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
+import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -201,6 +205,49 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             } catch (Throwable e) {
                 return Either.forLeft(List.of());
             }
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FunctionCallTemplateResponse> functionCallTemplate(FunctionCallTemplateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FunctionCallTemplateResponse response = new FunctionCallTemplateResponse();
+            try {
+                Codedata codedata = request.codedata();
+                String template;
+                switch (request.kind()) {
+                    case CURRENT:
+                        template = codedata.symbol();
+                        break;
+                    case IMPORTED:
+                        template = codedata.module() + ":" + codedata.symbol();
+                        break;
+                    case AVAILABLE:
+                        String fileUri = CommonUtils.getExprUri(request.filePath());
+                        Optional<Document> document =
+                                workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+
+                        if (document.isPresent()) {
+                            String importStatement = codedata.getImportSignature();
+                            Document doc = document.get();
+                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                                    workspaceManagerProxy.get(fileUri), Path.of(request.filePath()), doc);
+                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                            importTextEdit.ifPresent(
+                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                        }
+                        template = codedata.module() + ":" + codedata.symbol();
+                        break;
+                    default:
+                        response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
+                                ". Expected kinds are: CURRENT, IMPORTED, AVAILABLE."));
+                        return response;
+                }
+                response.setTemplate(template + "(${1})");
+            } catch (Exception e) {
+                response.setError(e);
+            }
+            return response;
         });
     }
 
