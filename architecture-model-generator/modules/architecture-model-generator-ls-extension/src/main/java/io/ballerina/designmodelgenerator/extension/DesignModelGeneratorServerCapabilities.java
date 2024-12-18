@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension;
+package io.ballerina.designmodelgenerator.extension;
 
 import org.ballerinalang.langserver.commons.registration.BallerinaServerCapability;
 

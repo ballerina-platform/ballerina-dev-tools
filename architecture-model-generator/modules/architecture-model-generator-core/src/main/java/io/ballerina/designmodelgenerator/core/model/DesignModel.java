@@ -28,6 +28,8 @@ import java.util.List;
  * @param connections
  * @param listeners
  * @param services
+ *
+ * @since 2.0.0
  */
 public record DesignModel(Automation automation, List<Connection> connections,
                           List<Listener> listeners, List<Service> services) {

@@ -16,18 +16,27 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension;
+package io.ballerina.designmodelgenerator.extension;
 
-import org.ballerinalang.langserver.commons.registration.BallerinaClientCapability;
+import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter;
 
 /**
  * Represents client capabilities for the design model generator service.
  *
  * @since 2.0.0
  */
-public class DesignModelGeneratorClientCapabilities extends BallerinaClientCapability {
+@JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter")
+public class DesignModelGeneratorClientCapabilitiesSetter
+        extends BallerinaClientCapabilitySetter<DesignModelGeneratorClientCapabilities> {
 
-    public DesignModelGeneratorClientCapabilities() {
-        super(DesignModelGeneratorConstants.CAPABILITY_NAME);
+    @Override
+    public String getCapabilityName() {
+        return DesignModelGeneratorConstants.CAPABILITY_NAME;
+    }
+
+    @Override
+    public Class<DesignModelGeneratorClientCapabilities> getCapability() {
+        return DesignModelGeneratorClientCapabilities.class;
     }
 }

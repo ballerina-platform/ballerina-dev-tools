@@ -16,23 +16,13 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension.response;
-
-import io.ballerina.designmodelgenerator.core.model.DesignModel;
+package io.ballerina.designmodelgenerator.extension;
 
 /**
- * Represents the response for the design model getDesignModel API.
+ * Constants for the design model generator.
  *
  * @since 2.0.0
  */
-public class GetDesignModelResponse extends AbstractResponse {
-    private DesignModel designModel;
-
-    public DesignModel getDesignModel() {
-        return designModel;
-    }
-
-    public void setDesignModel(DesignModel designModel) {
-        this.designModel = designModel;
-    }
+public class DesignModelGeneratorConstants {
+    public static final String CAPABILITY_NAME = "designModel";
 }

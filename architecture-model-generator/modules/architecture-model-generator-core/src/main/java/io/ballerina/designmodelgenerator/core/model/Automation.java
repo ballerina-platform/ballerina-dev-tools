@@ -61,4 +61,19 @@ public final class Automation extends DesignGraphNode {
     public List<String> getConnections() {
         return connections;
     }
+
+    @Override
+    public int hashCode() {
+        return type.hashCode() + name.hashCode() + displayName.hashCode() + connections.size();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Automation automation)) {
+            return false;
+        }
+        return automation.getType().equals(type) && automation.getName().equals(name) &&
+                automation.getDisplayName().equals(displayName) && automation.getLocation().equals(location) &&
+                automation.getConnections().size() == connections.size();
+    }
 }

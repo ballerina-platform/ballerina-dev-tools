@@ -16,10 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension.response;
+package io.ballerina.designmodelgenerator.extension.response;
 
 import java.util.Arrays;
 
+/**
+ * Represents the response for the design model getDesignModel API.
+ *
+ * @since 2.0.0
+ */
 public class AbstractResponse {
 
     private String errorMsg;

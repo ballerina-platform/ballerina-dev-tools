@@ -16,12 +16,12 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension;
+package io.ballerina.designmodelgenerator.extension;
 
-import io.ballerina.desginmodelgenerator.extension.request.GetDesignModelRequest;
-import io.ballerina.desginmodelgenerator.extension.response.GetDesignModelResponse;
 import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
+import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
+import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;

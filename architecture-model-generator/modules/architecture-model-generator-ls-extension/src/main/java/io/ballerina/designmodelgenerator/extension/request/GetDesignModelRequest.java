@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.desginmodelgenerator.extension.request;
+package io.ballerina.designmodelgenerator.extension.request;
 
 /**
  * Represents the request for the design model getDesignModel API.

@@ -172,15 +172,12 @@ public class ConnectionFinder {
     }
 
     private boolean isNewConnection(ExpressionNode expressionNode) {
-        if (expressionNode == null) {
-            return false;
-        } else if (expressionNode instanceof ExplicitNewExpressionNode
-                || expressionNode instanceof ImplicitNewExpressionNode) {
-            return true;
-        } else if (expressionNode instanceof CheckExpressionNode checkExpressionNode) {
-            return isNewConnection(checkExpressionNode.expression());
-        }
-        return false;
+        return switch (expressionNode) {
+            case ImplicitNewExpressionNode ignored -> true;
+            case ExplicitNewExpressionNode ignored -> true;
+            case CheckExpressionNode checkExpressionNode -> isNewConnection(checkExpressionNode.expression());
+            default -> false;
+        };
     }
 
     public io.ballerina.designmodelgenerator.core.model.Location getLocation(LineRange lineRange) {

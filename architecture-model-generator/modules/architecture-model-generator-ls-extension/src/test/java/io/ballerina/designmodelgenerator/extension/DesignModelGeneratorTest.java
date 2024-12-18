@@ -19,13 +19,13 @@
 package io.ballerina.designmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import io.ballerina.desginmodelgenerator.extension.request.GetDesignModelRequest;
-import io.ballerina.desginmodelgenerator.extension.response.GetDesignModelResponse;
 import io.ballerina.designmodelgenerator.core.model.Automation;
 import io.ballerina.designmodelgenerator.core.model.Connection;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
 import io.ballerina.designmodelgenerator.core.model.Listener;
 import io.ballerina.designmodelgenerator.core.model.Service;
+import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
+import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

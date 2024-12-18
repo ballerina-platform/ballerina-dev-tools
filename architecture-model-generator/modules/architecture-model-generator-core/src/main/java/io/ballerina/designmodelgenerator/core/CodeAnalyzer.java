@@ -188,7 +188,7 @@ public class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         String functionName = functionDefinitionNode.functionName().text();
-        this.currentFunctionModel = new IntermediateModel.FunctionModel(functionDefinitionNode.functionName().text());
+        this.currentFunctionModel = new IntermediateModel.FunctionModel(functionName);
         if (this.currentServiceModel != null) {
             Optional<Symbol> symbol = this.semanticModel.symbol(functionDefinitionNode);
             if (symbol.isPresent()) {
@@ -209,9 +209,9 @@ public class CodeAnalyzer extends NodeVisitor {
         this.currentFunctionModel.location = getLocation(functionDefinitionNode.lineRange());
         if (functionName.equals(DesignModelGenerator.MAIN_FUNCTION_NAME)) {
             Optional<Symbol> symbol = this.semanticModel.symbol(functionDefinitionNode);
-            if (symbol.isPresent()) {
+            if (symbol.isPresent() && symbol.get() instanceof FunctionSymbol functionSymbol) {
                 this.currentFunctionModel.displayName =
-                        getDisplayName(((FunctionSymbol) symbol.get()).annotAttachments());
+                        getDisplayName(functionSymbol.annotAttachments());
             }
         }
         functionDefinitionNode.functionBody().accept(this);
