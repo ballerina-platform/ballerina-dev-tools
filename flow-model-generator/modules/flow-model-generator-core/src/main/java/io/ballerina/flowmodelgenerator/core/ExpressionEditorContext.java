@@ -74,9 +74,21 @@ public class ExpressionEditorContext {
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
         this.document = document;
+        imports = getImportDeclarationNodes(document);
+    }
 
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Path filePath, Document document) {
+        this.workspaceManager = workspaceManager;
+        this.filePath = filePath;
+        this.document = document;
+        this.info = null;
+        this.flowNode = null;
+        imports = getImportDeclarationNodes(document);
+    }
+
+    private static List<ImportDeclarationNode> getImportDeclarationNodes(Document document) {
         SyntaxTree syntaxTree = document.syntaxTree();
-        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
+        return syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
                 ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
                 : List.of();
     }
@@ -127,7 +139,7 @@ public class ExpressionEditorContext {
         return getImport(CommonUtils.getImportStatement(org, module, module));
     }
 
-    private Optional<TextEdit> getImport(String importStatement) {
+    public Optional<TextEdit> getImport(String importStatement) {
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
@@ -202,15 +214,11 @@ public class ExpressionEditorContext {
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
-        // Generate the statement
+        // Generate the statement and apply the text edits
         String statement = String.format("%s%s;%n", prefix, info.expression());
         this.expressionOffset = prefix.length();
         textEdits.add(TextEdit.from(TextRange.from(textPosition, 0), statement));
-
-        // Apply the text edits to the document
-        TextDocument newTextDocument = textDocument
-                .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
-        applyContent(newTextDocument);
+        applyTextEdits(textEdits);
 
         // Return the line range of the generated statement
         LinePosition startLine = info.startLine();
@@ -228,6 +236,17 @@ public class ExpressionEditorContext {
     public Position getCursorPosition() {
         return new Position(statementLineRange.startLine().line(),
                 statementLineRange.startLine().offset() + info.offset() + expressionOffset);
+    }
+
+    /**
+     * Applies a list of text edits to the current document and updates the content.
+     *
+     * @param textEdits the list of text edits to be applied
+     */
+    public void applyTextEdits(List<TextEdit> textEdits) {
+        TextDocument newTextDocument = document.textDocument()
+                .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
+        applyContent(newTextDocument);
     }
 
     /**

@@ -45,6 +45,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.DataMapManagerTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ErrorHandlerGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.GetEnclosedFunctionDefTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.FunctionCallTemplateTest"/>
         </classes>
     </test>
 </suite>
