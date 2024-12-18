@@ -145,13 +145,10 @@ public class OpenApiServiceGenerator {
                     mainFile);
             ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
             LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-            List<TextEdit> textEdits = new ArrayList<>();
-            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), serviceImplContent));
-            textEditsMap.put(mainFile, textEdits);
+            textEditsMap.put(mainFile, List.of(new TextEdit(CommonUtils.toRange(startPos), serviceImplContent)));
         }
-        List<TextEdit> textEdits = new ArrayList<>();
-        textEdits.add(new TextEdit(CommonUtils.toRange(LinePosition.from(0, 0)), serviceTypeFile.getContent()));
-        textEditsMap.put(projectPath.resolve(serviceTypeFile.getFileName()), textEdits);
+        textEditsMap.put(projectPath.resolve(serviceTypeFile.getFileName()),
+                List.of(new TextEdit(CommonUtils.toRange(LinePosition.from(0, 0)), serviceTypeFile.getContent())));
         return gson.toJsonTree(textEditsMap);
     }
 
