@@ -194,6 +194,10 @@ public class Value {
         return choices;
     }
 
+    public void setChoices(List<Value> choices) {
+        this.choices = choices;
+    }
+
     public Value getProperty(String key) {
         return properties.get(key);
     }

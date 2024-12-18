@@ -36,8 +36,8 @@
     },
     "designApproach": {
       "metadata": {
-        "label": "Design Approach",
-        "description": "The approach to be used to design the service"
+        "label": "Contract",
+        "description": "The contract of the service"
       },
       "enabled": true,
       "editable": true,
@@ -85,7 +85,7 @@
         {
           "metadata": {
             "label": "Import from OpenAPI Specification",
-            "description": "Design the service by importing from an OpenAPI specification"
+            "description": "Implement the service from an OpenAPI specification"
           },
           "enabled": false,
           "editable": true,
@@ -328,6 +328,39 @@
         }
       ],
       "schema": {
+        "payload": {
+          "metadata": {
+            "label": "Payload",
+            "description": "The Payload Parameter"
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "anydata",
+            "isType": true,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": false,
+          "editable": true,
+          "optional": false,
+          "httpParamType": "PAYLOAD"
+        },
         "query": {
           "metadata": {
             "label": "Query",

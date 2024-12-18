@@ -140,6 +140,26 @@ public class Service {
         return properties.put("basePath", basePath);
     }
 
+    public Value getOpenAPISpec() {
+        return properties.get("spec");
+    }
+
+    public Value getServiceContractTypeNameValue() {
+        return properties.get("serviceTypeName");
+    }
+
+    public String getServiceContractTypeName() {
+        Value serviceContractType = properties.get("serviceTypeName");
+        if (Objects.isNull(serviceContractType)) {
+            return "Service";
+        }
+        return getValueString(serviceContractType);
+    }
+
+    public void setServiceContractTypeName(Value serviceContractType) {
+        properties.put("serviceTypeName", serviceContractType);
+    }
+
     public Value getDesignApproach() {
         return properties.get("designApproach");
     }

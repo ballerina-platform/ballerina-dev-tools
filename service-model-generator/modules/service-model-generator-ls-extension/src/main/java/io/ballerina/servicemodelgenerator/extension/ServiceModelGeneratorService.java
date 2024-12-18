@@ -103,7 +103,6 @@ import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSign
 import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
-import static io.ballerina.servicemodelgenerator.extension.Utils.populateDesignApproach;
 import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceModel;
@@ -256,7 +255,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
                 }
                 if (!listenersList.isEmpty()) {
-                    listener.setValueType("SINGLE_SELECT");
+                    listener.setValueType("MULTI_SELECT");
                     listener.setItems(listenersList);
                 }
                 return new ServiceModelResponse(serviceModel);
@@ -309,6 +308,16 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 LineRange lineRange = node.lineRange();
                 Service service = request.service();
                 populateProperties(service);
+
+                if (Objects.nonNull(service.getOpenAPISpec())) {
+                    Path contractPath = Path.of(service.getOpenAPISpec().getValue());
+                    String serviceContractTypeName = service.getServiceContractTypeName();
+                    OpenApiServiceGenerator oasSvcGenerator = new OpenApiServiceGenerator(contractPath,
+                            project.sourceRoot(), workspaceManager);
+                    return new CommonSourceResponse(oasSvcGenerator.generateService(serviceContractTypeName,
+                            service.getListener().getValue()));
+                }
+
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 TextEdit serviceEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
                         System.lineSeparator() + serviceDeclaration);
@@ -417,9 +426,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (service.isEmpty()) {
                     return new ServiceFromSourceResponse();
                 }
-                // TODO: Support generation from OpenAPI
-                populateDesignApproach(service.get());
-                updateServiceModel(service.get(), serviceNode);
+                updateServiceModel(service.get(), serviceNode, semanticModel);
                 return new ServiceFromSourceResponse(service.get());
             } catch (Exception e) {
                 return new ServiceFromSourceResponse(e);

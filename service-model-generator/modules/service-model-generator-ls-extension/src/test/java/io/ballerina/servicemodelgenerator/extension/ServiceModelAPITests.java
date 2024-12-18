@@ -202,6 +202,34 @@ public class ServiceModelAPITests {
         Assert.assertTrue(Objects.nonNull(sourceResponse.textEdits()));
         Assert.assertFalse(sourceResponse.textEdits().isEmpty());
     }
+
+    @Test
+    public void testAddHttpServiceWithContract() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample5/main.bal");
+        ServiceModelRequest modelRequest = new ServiceModelRequest(filePath.toAbsolutePath().toString(), "ballerina",
+                "http", null);
+        CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getServiceModel", modelRequest);
+        ServiceModelResponse modelResponse = (ServiceModelResponse) modelResult.get();
+        Service service = modelResponse.service();
+        Assert.assertTrue(Objects.nonNull(service));
+        service.getListener().setValues(List.of("httpListener", "httpsListener"));
+        Value designApproach = service.getDesignApproach();
+        designApproach.getChoices().getFirst().setEnabled(false);
+        Value selectedApproach = designApproach.getChoices().get(1);
+        Value serviceTypeName = selectedApproach.getProperty("serviceTypeName");
+        serviceTypeName.setValue("AlbumsService");
+        serviceTypeName.setEnabled(true);
+        Value contractPath = selectedApproach.getProperty("spec");
+        contractPath.setValue(resDir.resolve("sample5/openapi.yaml").toAbsolutePath().toString());
+        contractPath.setEnabled(true);
+        selectedApproach.setEnabled(true);
+
+        ServiceSourceRequest sourceRequest = new ServiceSourceRequest(filePath.toAbsolutePath().toString(), service);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/addService", sourceRequest);
+        CommonSourceResponse sourceResponse = (CommonSourceResponse) sourceResult.get();
+        Assert.assertTrue(Objects.nonNull(sourceResponse.textEdits()));
+        Assert.assertFalse(sourceResponse.textEdits().isEmpty());
+    }
     
     @Test
     public void testAddHttpResource() throws ExecutionException, InterruptedException {
@@ -211,10 +239,24 @@ public class ServiceModelAPITests {
         Function resource = modelResponse.resource();
         resource.getAccessor().setValue("POST");
         resource.getName().setValue("test/[string name]/api");
-        Parameter path = resource.getSchema().get("query");
-        path.setEnabled(true);
-        path.getName().setValue("msg");
-        path.getType().setValue("string");
+
+        Parameter query = resource.getSchema().get("query");
+        query.setEnabled(true);
+        query.getName().setValue("id");
+        query.getType().setValue("int");
+        resource.addParameter(query);
+
+        Parameter payload = resource.getSchema().get("payload");
+        payload.setEnabled(true);
+        payload.getName().setValue("body");
+        payload.getType().setValue("map<json>");
+        resource.addParameter(payload);
+
+        Parameter header = resource.getSchema().get("header");
+        header.setEnabled(true);
+        header.getName().setValue("header");
+        header.getType().setValue("string");
+        resource.addParameter(header);
 
         Path filePath = resDir.resolve("sample3/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
@@ -230,6 +272,26 @@ public class ServiceModelAPITests {
     @Test
     public void testGetHttpServiceFromSource() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample3/main.bal");
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
+                LinePosition.from(21, 1)));
+        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
+                filePath.toAbsolutePath().toString(), codedata);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getServiceFromSource",
+                sourceRequest);
+        ServiceFromSourceResponse sourceResponse = (ServiceFromSourceResponse) sourceResult.get();
+        Service service = sourceResponse.service();
+        Assert.assertTrue(Objects.nonNull(service));
+
+        ServiceSourceRequest genRequest = new ServiceSourceRequest(filePath.toAbsolutePath().toString(), service);
+        CompletableFuture<?> genResult = serviceEndpoint.request("serviceDesign/addService", genRequest);
+        CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
+        Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
+        Assert.assertFalse(genResponse.textEdits().isEmpty());
+    }
+
+    @Test
+    public void testGetHttpContractServiceFromSource() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample6/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
                 LinePosition.from(21, 1)));
         CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(

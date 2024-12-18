@@ -20,12 +20,19 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.syntax.tree.AnnotationNode;
+import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -141,6 +148,22 @@ public final class Utils {
             designApproach.getChoices().stream()
                     .filter(Value::isEnabled).findFirst()
                     .ifPresent(selectedApproach -> service.addProperties(selectedApproach.getProperties()));
+            service.getProperties().remove("designApproach");
+        }
+    }
+
+    public static void enableContractFirstApproach(Service service) {
+        Value designApproach = service.getDesignApproach();
+        if (Objects.nonNull(designApproach) && Objects.nonNull(designApproach.getChoices())
+                && !designApproach.getChoices().isEmpty()) {
+            designApproach.getChoices().forEach(choice -> choice.setEnabled(false));
+            designApproach.getChoices().stream()
+                    .filter(choice -> choice.getMetadata().label().equals("Import from OpenAPI Specification"))
+                    .findFirst()
+                    .ifPresent(approach -> {
+                approach.setEnabled(true);
+                approach.getProperties().remove("spec");
+            });
         }
     }
 
@@ -167,7 +190,7 @@ public final class Utils {
         return Optional.of(expressionNode);
     }
 
-    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode) {
+    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel) {
         Service serviceModel = Service.getNewService();
         String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
         if (!basePath.isEmpty()) {
@@ -183,7 +206,11 @@ public final class Utils {
             serviceType.setValue(serviceTypeDesc.get().toString().trim());
             serviceType.setValueType("TYPE");
             serviceType.setEnabled(true);
-            serviceModel.setServiceType(serviceType);
+            if (isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
+                serviceModel.setServiceContractTypeName(serviceType);
+            } else {
+                serviceModel.setServiceType(serviceType);
+            }
         }
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
@@ -196,8 +223,21 @@ public final class Utils {
         return serviceModel;
     }
 
+    public static boolean isHttpServiceContractType(SemanticModel semanticModel, TypeDescriptorNode serviceTypeDesc) {
+        Optional<Symbol> svcTypeSymbol = semanticModel.symbol(serviceTypeDesc);
+        if (svcTypeSymbol.isEmpty() || !(svcTypeSymbol.get() instanceof TypeReferenceTypeSymbol svcTypeRef)) {
+            return false;
+        }
+        Optional<Symbol> contractSymbol = semanticModel.types().getTypeByName("ballerina", "http", "",
+                "ServiceContract");
+        if (contractSymbol.isEmpty() || !(contractSymbol.get() instanceof TypeDefinitionSymbol contractTypeDef)) {
+            return false;
+        }
+        return svcTypeRef.subtypeOf(contractTypeDef.typeDescriptor());
+    }
+
     public static String getPath(NodeList<Node> paths) {
-        return paths.stream().map(Node::toString).collect(Collectors.joining(""));
+        return paths.stream().map(Node::toString).map(String::trim).collect(Collectors.joining(""));
     }
 
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode) {
@@ -242,10 +282,28 @@ public final class Utils {
         return functionModel;
     }
 
+    public static Optional<String> getHttpParameterType(NodeList<AnnotationNode> annotations) {
+        for (AnnotationNode annotation : annotations) {
+            Node annotReference = annotation.annotReference();
+            String annotName = annotReference.toString();
+            if (annotReference.kind() != SyntaxKind.QUALIFIED_NAME_REFERENCE) {
+                continue;
+            }
+            String[] annotStrings = annotName.split(":");
+            if (!annotStrings[0].trim().equals("http")) {
+                continue;
+            }
+            return Optional.of(annotStrings[annotStrings.length - 1].trim().toUpperCase(Locale.ROOT));
+        }
+        return Optional.empty();
+    }
+
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             Parameter parameterModel = Parameter.getNewParameter();
             parameterModel.setKind("REQUIRED");
+            getHttpParameterType(parameter.annotations())
+                    .ifPresent(parameterModel::setHttpParamType);
             Value type = parameterModel.getType();
             type.setValue(parameter.typeName().toString().trim());
             type.setValueType("TYPE");
@@ -253,7 +311,23 @@ public final class Utils {
             type.setEnabled(true);
             Value name = parameterModel.getName();
             name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType("STRING");
+            name.setValueType("IDENTIFIER");
+            name.setEnabled(true);
+            parameterModel.setEnabled(true);
+            return Optional.of(parameterModel);
+        } else if (parameterNode instanceof DefaultableParameterNode parameter) {
+            Parameter parameterModel = Parameter.getNewParameter();
+            parameterModel.setKind("DEFAULTABLE");
+            getHttpParameterType(parameter.annotations()).ifPresent(parameterModel::setHttpParamType);
+            // TODO: Set default value
+            Value type = parameterModel.getType();
+            type.setValue(parameter.typeName().toString().trim());
+            type.setValueType("TYPE");
+            type.setType(true);
+            type.setEnabled(true);
+            Value name = parameterModel.getName();
+            name.setValue(parameter.paramName().get().toString().trim());
+            name.setValueType("IDENTIFIER");
             name.setEnabled(true);
             parameterModel.setEnabled(true);
             return Optional.of(parameterModel);
@@ -270,31 +344,38 @@ public final class Utils {
         });
     }
 
-    public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode) {
+    public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
+                                          SemanticModel semanticModel) {
         if (serviceModel.getModuleName().equals("http")) {
             serviceModel.setFunctions(new ArrayList<>());
         }
-        Service commonSvcModel = getServiceModel(serviceNode);
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel);
+        Value serviceContractTypeNameValue = commonSvcModel.getServiceContractTypeNameValue();
+        if (Objects.nonNull(serviceContractTypeNameValue)) {
+            enableContractFirstApproach(serviceModel);
+        }
+        populateDesignApproach(serviceModel);
         if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
             serviceModel.updateServiceType(commonSvcModel.getServiceType());
         }
         populateProperties(serviceModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
+        updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
         serviceModel.getFunctions().forEach(functionModel -> {
             Optional<Function> function = commonSvcModel.getFunctions().stream()
-                    .filter(func -> func.getName().getValue().equals(functionModel.getName().getValue())
-                            && func.getKind().equals(functionModel.getKind()))
+                    .filter(newFunction -> isPresent(functionModel, newFunction)
+                            && newFunction.getKind().equals(functionModel.getKind()))
                     .findFirst();
             function.ifPresentOrElse(
                     func -> updateFunction(functionModel, func, serviceModel),
                     () -> functionModel.setEnabled(false)
             );
         });
-        commonSvcModel.getFunctions().forEach(funtionModel -> {
+        commonSvcModel.getFunctions().forEach(functionModel -> {
             if (serviceModel.getFunctions().stream()
-                    .noneMatch(func -> func.getName().getValue().equals(funtionModel.getName().getValue()))) {
-                serviceModel.addFunction(funtionModel);
+                    .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
+                serviceModel.addFunction(functionModel);
             }
         });
         Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
@@ -305,6 +386,12 @@ public final class Utils {
         if (!paths.isEmpty()) {
             serviceModel.getBasePath().setValue(getPath(paths));
         }
+    }
+
+    private static boolean isPresent(Function functionModel, Function newFunction) {
+        return newFunction.getName().getValue().equals(functionModel.getName().getValue()) &&
+                (Objects.isNull(newFunction.getAccessor()) || Objects.isNull(functionModel.getAccessor()) ||
+                        newFunction.getAccessor().getValue().equals(functionModel.getAccessor().getValue()));
     }
 
     public static void updateValue(Value target, Value source) {
@@ -348,6 +435,10 @@ public final class Utils {
         builder.append("service ");
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
+            builder.append(" ");
+        } else if (Objects.nonNull(service.getServiceContractTypeNameValue()) &&
+                service.getServiceContractTypeNameValue().isEnabledWithValue()) {
+            builder.append(service.getServiceContractTypeName());
             builder.append(" ");
         }
         if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
@@ -447,7 +538,12 @@ public final class Utils {
         List<String> params = new ArrayList<>();
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
-                params.add(String.format("%s %s", getValueString(param.getType()), getValueString(param.getName())));
+                String paramDef = String.format("%s %s", getValueString(param.getType()),
+                        getValueString(param.getName()));
+                if (Objects.nonNull(param.getHttpParamType()) && !param.getHttpParamType().equals("Query")) {
+                    paramDef = String.format("@http:%s %s", param.getHttpParamType(), paramDef);
+                }
+                params.add(paramDef);
             }
         });
         builder.append(String.join(", ", params));

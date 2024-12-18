@@ -213,6 +213,39 @@
       "editable": true,
       "optional": false,
       "httpParamType": "Header"
+    },
+    "payload": {
+      "metadata": {
+        "label": "Payload",
+        "description": "The Payload Parameter"
+      },
+      "kind": "REQUIRED",
+      "type": {
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "anydata",
+        "isType": true,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false
+      },
+      "name": {
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": false,
+      "editable": true,
+      "optional": false,
+      "httpParamType": "PAYLOAD"
     }
   },
   "returnType": {
