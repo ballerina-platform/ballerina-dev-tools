@@ -18,14 +18,21 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
+import io.ballerina.tools.text.LinePosition;
+import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Tests for the function call template service.
@@ -33,6 +40,8 @@ import java.nio.file.Path;
  * @since 1.4.0
  */
 public class FunctionCallTemplateTest extends AbstractLSTest {
+
+    private static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -48,11 +57,46 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         notifyDidClose(sourcePath);
 
         if (!template.equals(testConfig.functionCall())) {
-            TestConfig updatedConfig =
-                    new TestConfig(testConfig.description(), testConfig.filePath(), testConfig.codedata(),
-                            testConfig.kind(), template);
+            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
+                    testConfig.codedata(),
+                    testConfig.kind(), template);
             // updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
+    }
+
+    @Test(dataProvider = "data-provider")
+    public void testDiagnostics(Path config) throws IOException {
+        Path configJsonPath = configDir.resolve(config);
+        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        String sourcePath = getSourcePath(testConfig.filePath());
+
+        // Call the function call template API
+        notifyDidOpen(sourcePath);
+        FunctionCallTemplateRequest request = new FunctionCallTemplateRequest(sourcePath, testConfig.codedata(),
+                testConfig.kind());
+        String template = getResponse(request).getAsJsonPrimitive("template").getAsString();
+
+        // Call the diagnostics API 
+        LinePosition startPosition = LinePosition.from(1, 0);
+        int offset = template.indexOf("${1}");
+        if (offset > -1) {
+            template = template.replace("${1}", " ");
+        }
+        ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
+                new JsonObject(), null, null);
+        ExpressionEditorDiagnosticsRequest diagnosticsRequest =
+                new ExpressionEditorDiagnosticsRequest(sourcePath, info);
+        JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");
+        List<Diagnostic> diagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
+                new TypeToken<List<Diagnostic>>() { }.getType());
+        notifyDidClose(sourcePath);
+
+        // Check for undefined import/function diagnostic codes
+        for (Diagnostic diagnostic : diagnostics) {
+            String code = diagnostic.getCode().getLeft();
+            Assert.assertFalse(UNDEFINED_DIAGNOSTICS_CODES.contains(code),
+                    "Undefined diagnostic code found: " + code);
         }
     }
 
