@@ -90,7 +90,6 @@ public class OpenApiServiceGenerator {
     private final WorkspaceManager workspaceManager;
     private final Path oAContractPath;
     private final Path projectPath;
-    private final int port;
     public static final List<String> SUPPORTED_OPENAPI_VERSIONS = List.of("2.0", "3.0.0", "3.0.1", "3.0.2", "3.0.3",
             "3.1.0");
     public static final String LS = System.lineSeparator();
@@ -104,23 +103,23 @@ public class OpenApiServiceGenerator {
     public static final String DEFAULT_HTTP_RESPONSE = "DefaultStatusCodeResponse";
     public static final String DEFAULT_HTTP_RESPONSE_VALUE = "status: new (0)";
     public static final String IMPORT = "import " + BALLERINA_HTTP + ";";
-    public static final String SERVICE_DECLARATION = "service OASServiceType on new http:Listener(%s) {";
+    public static final String SERVICE_DECLARATION = "service %s on %s {";
     public static final String SERVICE_OBJ_FILE = "service_contract.bal";
     public static final String SERVICE_IMPL_FILE = "service_implementation.bal";
 
-    public OpenApiServiceGenerator(Path oAContractPath, Path projectPath, int port, WorkspaceManager workspaceManager) {
+    public OpenApiServiceGenerator(Path oAContractPath, Path projectPath, WorkspaceManager workspaceManager) {
         this.oAContractPath = oAContractPath;
         this.projectPath = projectPath;
         this.workspaceManager = workspaceManager;
-        this.port = port;
     }
 
-    public LineRange generateService() throws IOException, BallerinaOpenApiException, FormatterException,
+    public LineRange generateService(String typeName, List<String> listeners) throws IOException,
+            BallerinaOpenApiException, FormatterException,
             WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
 
         List<Diagnostic> diagnostics = new ArrayList<>();
-        List<GenSrcFile> genFiles = generateBallerinaService(oAContractPath, filter, diagnostics);
+        List<GenSrcFile> genFiles = generateBallerinaService(oAContractPath, typeName, filter, diagnostics);
         if (genFiles.isEmpty()) {
             throw new BallerinaOpenApiException("Cannot generate service from the given OpenAPI contract.");
         }
@@ -145,7 +144,8 @@ public class OpenApiServiceGenerator {
 
         Path serviceImplPath = projectPath.resolve(SERVICE_IMPL_FILE);
         GeneratedFiles generatedFileDetails = getGeneratedFileDetails(genFiles);
-        String serviceImplContent = genServiceImplementation(generatedFileDetails, serviceImplPath);
+        String serviceImplContent = genServiceImplementation(generatedFileDetails, serviceImplPath, typeName,
+                listeners);
 
         Project project = this.workspaceManager.loadProject(serviceImplPath);
         Package currentPackage = project.currentPackage();
@@ -159,7 +159,8 @@ public class OpenApiServiceGenerator {
                 serviceImplDoc.syntaxTree().rootNode().lineRange().endLine());
     }
 
-    public List<GenSrcFile> generateBallerinaService(Path openAPI, Filter filter, List<Diagnostic> diagnostics)
+    public List<GenSrcFile> generateBallerinaService(Path openAPI, String typeName, Filter filter,
+                                                     List<Diagnostic> diagnostics)
             throws IOException, FormatterException, BallerinaOpenApiException {
         OpenAPI openAPIDef = GeneratorUtils.normalizeOpenAPI(openAPI, false, false);
         if (openAPIDef.getInfo() == null) {
@@ -188,6 +189,7 @@ public class OpenApiServiceGenerator {
                 .withGenerateServiceType(false)
                 .withGenerateServiceContract(true)
                 .withGenerateWithoutDataBinding(false)
+                .withServiceObjectTypeName(typeName)
                 .build();
         TypeHandler.createInstance(openAPIDef, true);
         ServiceGenerationHandler serviceGenerationHandler = new ServiceGenerationHandler();
@@ -258,7 +260,8 @@ public class OpenApiServiceGenerator {
                 gFile.getFileName().split("\\.")[1]);
     }
 
-    private String genServiceImplementation(GeneratedFiles generatedFileDetails, Path serviceImplPath)
+    private String genServiceImplementation(GeneratedFiles generatedFileDetails, Path serviceImplPath,
+                                            String typeName, List<String> listeners)
             throws IOException, WorkspaceDocumentException, EventSyncException, BallerinaOpenApiException {
         Path serviceObjPath = projectPath.resolve(SERVICE_OBJ_FILE);
         Project project = this.workspaceManager.loadProject(serviceObjPath);
@@ -276,7 +279,7 @@ public class OpenApiServiceGenerator {
         module.modify().addDocument(typeDocConfig).apply();
 
         SemanticModel semanticModel = project.currentPackage().getCompilation().getSemanticModel(moduleId);
-        TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), "OASServiceType");
+        TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), typeName);
         if (symbol == null) {
             throw new BallerinaOpenApiException("Cannot find service type definition");
         }
@@ -289,7 +292,7 @@ public class OpenApiServiceGenerator {
         Map<String, MethodSymbol> methodSymbolMap = ((ObjectTypeSymbol) typeSymbol).methods();
         StringBuilder serviceImpl = new StringBuilder(IMPORT);
         serviceImpl.append(LS);
-        serviceImpl.append(String.format(SERVICE_DECLARATION, port));
+        serviceImpl.append(String.format(SERVICE_DECLARATION, typeName, String.join(", ", listeners)));
         serviceImpl.append(LS);
         for (Map.Entry<String, MethodSymbol> entry : methodSymbolMap.entrySet()) {
             MethodSymbol methodSymbol = entry.getValue();

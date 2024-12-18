@@ -1,5 +1,7 @@
 {
   "contractFile": "petstore_original.yaml",
+  "name": "Foo",
+  "listeners": ["l1", "l2"],
   "lineRange": {
     "fileName": "service_implementation.bal",
     "startLine": {

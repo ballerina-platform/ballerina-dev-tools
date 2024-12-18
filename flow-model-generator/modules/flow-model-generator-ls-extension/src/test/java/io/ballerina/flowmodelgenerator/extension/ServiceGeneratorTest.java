@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Test cases for the OpenAPI service generation.
@@ -58,11 +59,13 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         Files.createDirectories(project);
         String projectPath = project.toAbsolutePath().toString();
         OpenAPIServiceGenerationRequest request =
-                new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, 9090);
+                new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath,
+                        testConfig.name(), testConfig.listeners());
         JsonObject resp = getResponse(request);
         deleteFolder(project.toFile());
         if (!resp.getAsJsonObject("service").equals(testConfig.lineRange())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), resp.get("service").getAsJsonObject());
+            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(),
+                    resp.get("service").getAsJsonObject(), testConfig.name(), testConfig.listeners());
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
@@ -101,9 +104,11 @@ public class ServiceGeneratorTest extends AbstractLSTest {
      *
      * @param contractFile OpenAPI contract file
      * @param lineRange    line range of service declaration
+     * @param name         Service type name
+     * @param listeners    Listener names
      * @since 1.4.0
      */
-    private record TestConfig(String contractFile, JsonObject lineRange) {
+    private record TestConfig(String contractFile, JsonObject lineRange, String name, List<String> listeners) {
 
     }
 }
