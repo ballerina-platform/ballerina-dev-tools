@@ -52,7 +52,7 @@ dependencies {
         transitive = false
     }
 
-    implementation "io.ballerina.openapi:core:2.2.0-20241205-142900-95f0235"
+    implementation "io.ballerina.openapi:core:${openAPICoreVersion}"
     implementation("io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}") {
         exclude group: "io.swagger", module: "swagger-compat-spec-parser"
         exclude group: "org.slf4j", module: "slf4j-ext"

@@ -51,7 +51,7 @@ dependencies {
     balTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false
     }
-    implementation "io.ballerina.openapi:core:2.2.0-20241205-142900-95f0235"
+    implementation "io.ballerina.openapi:core:${openAPICoreVersion}"
 }
 
 def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")
