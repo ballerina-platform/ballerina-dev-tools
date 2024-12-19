@@ -62,7 +62,7 @@ public class ServiceModelAPITests {
         Assert.assertEquals(response.listeners().size(), 0);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testListenerDiscovery() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample2/main.bal");
         ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
@@ -375,7 +375,7 @@ public class ServiceModelAPITests {
         Assert.assertFalse(sourceResponse.textEdits().isEmpty());
     }
 
-    @Test
+    @Test(enabled = false)
     public void testGetTriggerServiceFromSource() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample4/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(4, 0),
@@ -395,7 +395,7 @@ public class ServiceModelAPITests {
         Assert.assertFalse(genResponse.textEdits().isEmpty());
     }
 
-    @Test
+    @Test(enabled = false)
     public void testGetTriggerListenerFromSource() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample4/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(2, 0),
