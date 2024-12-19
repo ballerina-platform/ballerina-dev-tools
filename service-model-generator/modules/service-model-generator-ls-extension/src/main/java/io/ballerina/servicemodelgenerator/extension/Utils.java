@@ -21,6 +21,7 @@ package io.ballerina.servicemodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -460,22 +461,29 @@ public final class Utils {
         populateHttpResponses(returnType, semanticModel, resource);
     }
 
-    private static void populateHttpResponses(FunctionReturnType returnType, SemanticModel semanticModel, ResourceMethodSymbol resource) {
+    private static void populateHttpResponses(FunctionReturnType returnType, SemanticModel semanticModel,
+                                              ResourceMethodSymbol resource) {
         Optional<TypeSymbol> returnTypeSymbol = resource.typeDescriptor().returnTypeDescriptor();
         if (returnTypeSymbol.isEmpty()) {
             return;
+        }
+        Optional<ModuleSymbol> module = resource.getModule();
+        String currentModuleName = "";
+        if (module.isPresent()) {
+            currentModuleName = module.get().getName().orElse("");
         }
         Optional<String> method = resource.getName();
         if (method.isEmpty()) {
             return;
         }
         int defaultStatusCode = method.get().trim().equalsIgnoreCase("post") ? 201 : 200;
-        List<HttpResponse> httpResponses = getHttpResponses(returnTypeSymbol.get(), defaultStatusCode, semanticModel);
+        List<HttpResponse> httpResponses = getHttpResponses(returnTypeSymbol.get(), defaultStatusCode, semanticModel,
+                currentModuleName);
         returnType.setResponses(httpResponses);
     }
 
     private static List<HttpResponse> getHttpResponses(TypeSymbol returnTypeSymbol, int defaultStatusCode,
-                                                       SemanticModel semanticModel) {
+                                                       SemanticModel semanticModel, String currentModuleName) {
         List<TypeSymbol> statusCodeResponses = new ArrayList<>();
         List<TypeSymbol> anydataResponses = new ArrayList<>();
         Optional<UnionTypeSymbol> unionType = getUnionType(returnTypeSymbol);
@@ -490,10 +498,10 @@ public final class Utils {
                 () -> anydataResponses.add(returnTypeSymbol));
         List<HttpResponse> responses = new ArrayList<>(statusCodeResponses.stream()
                 .map(statusCodeResponse -> getHttpResponse(statusCodeResponse, String.valueOf(defaultStatusCode),
-                        semanticModel))
+                        semanticModel, currentModuleName))
                 .toList());
         String normalResponseBody = anydataResponses.stream()
-                .map(Utils::getTypeName)
+                .map(type -> getTypeName(type, currentModuleName))
                 .collect(Collectors.joining("|"));
         HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody, "");
         responses.add(normalResponse);
@@ -529,19 +537,25 @@ public final class Utils {
     }
 
     public static HttpResponse getHttpResponse(TypeSymbol statusCodeResponseType, String defaultStatusCode,
-                                               SemanticModel semanticModel) {
+                                               SemanticModel semanticModel, String currentModuleName) {
         Optional<RecordTypeSymbol> statusCodeRecordType = getRecordTypeSymbol(statusCodeResponseType);
         String statusCode = getResponseCode(statusCodeResponseType, defaultStatusCode, semanticModel);
         if (statusCodeRecordType.isEmpty()) {
-            return new HttpResponse(statusCode, getTypeName(semanticModel.types().ANYDATA),
-                    getTypeName(statusCodeResponseType));
+            return new HttpResponse(statusCode, getTypeName(semanticModel.types().ANYDATA, currentModuleName),
+                    getTypeName(statusCodeResponseType, currentModuleName));
         }
         TypeSymbol bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
-        return new HttpResponse(statusCode, getTypeName(bodyType), getTypeName(statusCodeResponseType));
+        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName),
+                getTypeName(statusCodeResponseType, currentModuleName));
     }
 
-    static String getTypeName(TypeSymbol typeSymbol) {
-        return typeSymbol.getName().orElse(typeSymbol.signature().trim());
+    static String getTypeName(TypeSymbol typeSymbol, String currentModuleName) {
+        String signature = typeSymbol.signature().trim();
+        String[] parts = signature.split("[:/]");
+        if (parts.length == 4) {
+            return parts[1].equals(currentModuleName) ? parts[3] : parts[1] + ":" + parts[3];
+        }
+        return signature;
     }
 
     static TypeSymbol getBodyType(RecordTypeSymbol responseRecordType, SemanticModel semanticModel) {
@@ -680,7 +694,8 @@ public final class Utils {
         }
         Optional<ExpressionNode> valueExpr = basePathField.get().valueExpr();
         if (valueExpr.isPresent() && valueExpr.get().kind().equals(SyntaxKind.STRING_LITERAL)) {
-            return Optional.of(((BasicLiteralNode) valueExpr.get()).literalToken().text().trim());
+            String value = ((BasicLiteralNode) valueExpr.get()).literalToken().text();
+            return Optional.of(value.substring(1, value.length() - 1));
         }
         return Optional.empty();
     }
@@ -690,7 +705,8 @@ public final class Utils {
         if (serviceModel.getModuleName().equals("http")) {
             serviceModel.setFunctions(new ArrayList<>());
         }
-        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, serviceModel.getModuleName().equals("http"));
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel,
+                serviceModel.getModuleName().equals("http"));
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
