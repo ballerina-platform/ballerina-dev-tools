@@ -19,10 +19,13 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.tools.text.LinePosition;
+
 /**
  * A request to retrieve components of a module such as connections, types..
  *
  * @param filePath a file path of the project
+ * @param linePosition line position of a type
  */
-public record FilePathRequest(String filePath) {
+public record GetTypeRequest(String filePath, LinePosition linePosition) {
 }

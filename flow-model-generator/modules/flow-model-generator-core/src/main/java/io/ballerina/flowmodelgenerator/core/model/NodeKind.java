@@ -45,5 +45,12 @@ public enum NodeKind {
     CONDITIONAL,
     ELSE,
     ON_FAILURE,
-    BODY
+    BODY,
+
+    // Types
+    RECORD,
+    ENUM,
+    ARRAY,
+    UNION,
+    ERROR
 }
