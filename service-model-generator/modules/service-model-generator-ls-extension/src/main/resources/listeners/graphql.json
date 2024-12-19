@@ -1,0 +1,297 @@
+{
+  "id": 10,
+  "name": "graphql Listener",
+  "type": "graphql",
+  "diaplayName": "graphql Listener",
+  "documentation": "graphql Listener",
+  "displayAnnotation": {
+    "label": "graphql Listener",
+    "iconPath": "http://localhost:8080/icons/graphql.png"
+  },
+  "moduleName": "graphql",
+  "orgName": "ballerina",
+  "version": "1.15.0",
+  "packageName": "graphql",
+  "listenerProtocol": "graphql",
+  "icon": "http://localhost:8080/icons/graphql.png",
+  "properties": {
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "The name of the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_VAR_NAME"
+      }
+    },
+    "listenTo": {
+      "metadata": {
+        "label": "Port",
+        "description": "The port to which the service should be bound to"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "host": {
+      "metadata": {
+        "label": "Host name",
+        "description": "The host name/IP of the endpoint"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "\"0.0.0.0\"",
+      "defaultValue": "\"0.0.0.0\"",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "http1Settings": {
+      "metadata": {
+        "label": "HTTP/1.x Settings",
+        "description": "Configurations related to HTTP/1.x protocol"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:ListenerHttp1Settings",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "secureSocket": {
+      "metadata": {
+        "label": "Secure Socket Configurations",
+        "description": "Configurations related to secure socket"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:ListenerSecureSocket",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "httpVersion": {
+      "metadata": {
+        "label": "HTTP Version",
+        "description": "The HTTP version to be used"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "http:HttpVersion",
+      "isType": false,
+      "placeholder": "\"2.0\"",
+      "defaultValue": "\"2.0\"",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"1.0\"",
+        "\"1.1\"",
+        "\"2.0\""
+      ],
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "timeout": {
+      "metadata": {
+        "label": "Timeout",
+        "description": "Period of time in seconds that a connection waits for a read/write operation. Use value 0 to disable timeout"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "isType": false,
+      "placeholder": "60",
+      "defaultValue": "60",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "server": {
+      "metadata": {
+        "label": "Server name",
+        "description": "The server name to be sent in the response"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string?",
+      "isType": false,
+      "placeholder": "()",
+      "defaultValue": "()",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "requestLimits": {
+      "metadata": {
+        "label": "Request Limits",
+        "description": "Configurations associated with inbound request size limits"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:RequestLimitConfigs",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "gracefulStopTimeout": {
+      "metadata": {
+        "label": "Graceful Stop Timeout",
+        "description": "The time to wait until the server gracefully stops"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "isType": false,
+      "placeholder": "0",
+      "defaultValue": "0",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "socketConfig": {
+      "metadata": {
+        "label": "Socket Configurations",
+        "description": "Configurations related to the server socket"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:ServerSocketConfig",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "http2InitialWindowSize": {
+      "metadata": {
+        "label": "HTTP/2 Initial Window Size",
+        "description": "The initial window size for HTTP/2"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "isType": false,
+      "placeholder": "65535",
+      "defaultValue": "65535",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "minIdleTimeInStaleState": {
+      "metadata": {
+        "label": "Minimum Idle Time in Stale State",
+        "description": "Minimum time in seconds for a connection to be kept open which has received a GOAWAY. This only applies for HTTP/2. If the value is set to -1, the connection will be closed after all in-flight streams are completed"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "isType": false,
+      "placeholder": "300",
+      "defaultValue": "300",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "timeBetweenStaleEviction": {
+      "metadata": {
+        "label": "Time Between Stale Eviction",
+        "description": "Time between the connection stale eviction runs in seconds. This only applies for HTTP/2"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "isType": false,
+      "placeholder": "30",
+      "defaultValue": "30",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    }
+  }
+}
