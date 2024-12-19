@@ -3,7 +3,7 @@
 
 import ballerina/http;
 
-@http:ServiceConfig {basePath: "/"}
+@http:ServiceConfig {basePath: "/api/v1"}
 type AlbumsService service object {
     *http:ServiceContract;
     resource function get albums() returns Album[];

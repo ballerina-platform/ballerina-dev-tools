@@ -25,6 +25,7 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
+import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -33,10 +34,13 @@ import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
+import io.ballerina.compiler.syntax.tree.MethodDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.ObjectTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
@@ -44,8 +48,10 @@ import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
@@ -190,6 +196,33 @@ public final class Utils {
         return Optional.of(expressionNode);
     }
 
+    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode, SemanticModel semanticModel) {
+        Service serviceModel = Service.getNewService();
+        ObjectTypeDescriptorNode serviceNode = (ObjectTypeDescriptorNode) serviceTypeNode.typeDescriptor();
+        Optional<String> basePath = getPath(serviceTypeNode);
+        if (basePath.isPresent() && !basePath.get().isEmpty()) {
+            Value basePathValue = new Value();
+            basePathValue.setValue(basePath.get());
+            basePathValue.setValueType("IDENTIFIER");
+            basePathValue.setEnabled(true);
+            serviceModel.setBasePath(basePathValue);
+        }
+        Value serviceType = new Value();
+        serviceType.setValue(serviceTypeNode.typeName().text().trim());
+        serviceType.setValueType("TYPE");
+        serviceType.setEnabled(true);
+        serviceModel.setServiceContractTypeName(serviceType);
+        List<Function> functionModels = new ArrayList<>();
+        serviceNode.members().forEach(member -> {
+            if (member instanceof MethodDeclarationNode functionDefinitionNode) {
+                Function functionModel = getFunctionModel(functionDefinitionNode);
+                functionModels.add(functionModel);
+            }
+        });
+        serviceModel.setFunctions(functionModels);
+        return serviceModel;
+    }
+
     public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel) {
         Service serviceModel = Service.getNewService();
         String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
@@ -238,6 +271,48 @@ public final class Utils {
 
     public static String getPath(NodeList<Node> paths) {
         return paths.stream().map(Node::toString).map(String::trim).collect(Collectors.joining(""));
+    }
+
+    public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode) {
+        Function functionModel = Function.getNewFunction();
+        functionModel.setEnabled(true);
+        Value accessor = functionModel.getAccessor();
+        Value functionName = functionModel.getName();
+        functionName.setValue(functionDefinitionNode.methodName().text().trim());
+        functionName.setValueType("IDENTIFIER");
+        functionName.setEnabled(true);
+        for (Token qualifier : functionDefinitionNode.qualifierList()) {
+            if (qualifier.text().trim().matches("remote")) {
+                functionModel.setKind("REMOTE");
+            } else if (qualifier.text().trim().matches("resource")) {
+                functionModel.setKind("RESOURCE");
+                accessor.setValue(functionDefinitionNode.methodName().text().trim());
+                accessor.setValueType("IDENTIFIER");
+                accessor.setEnabled(true);
+                functionName.setValue(getPath(functionDefinitionNode.relativeResourcePath()));
+            } else {
+                functionModel.addQualifier(qualifier.text().trim());
+            }
+        }
+        FunctionSignatureNode functionSignatureNode = functionDefinitionNode.methodSignature();
+        Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
+        if (returnTypeDesc.isPresent()) {
+            Value returnType = functionModel.getReturnType();
+            if (Objects.nonNull(returnType)) {
+                returnType.setValue(returnTypeDesc.get().type().toString().trim());
+                returnType.setValueType("TYPE");
+                returnType.setEnabled(true);
+            }
+        }
+        SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
+        List<Parameter> parameterModels = new ArrayList<>();
+        parameters.forEach(parameterNode -> {
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
+            parameterModel.ifPresent(parameterModels::add);
+        });
+        functionModel.setParameters(parameterModels);
+        functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
+        return functionModel;
     }
 
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode) {
@@ -344,12 +419,58 @@ public final class Utils {
         });
     }
 
+    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
+                                                  ServiceDeclarationNode serviceDeclaration,
+                                                  SemanticModel semanticModel) {
+        serviceModel.setFunctions(new ArrayList<>());
+        Service commonSvcModel = getServiceModel(serviceTypeNode, semanticModel);
+        updateServiceInfo(serviceModel, commonSvcModel);
+        serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
+        populateListenerInfo(serviceModel, serviceDeclaration);
+    }
+
+    public static Optional<String> getPath(TypeDefinitionNode serviceTypeNode) {
+        Optional<MetadataNode> metadata = serviceTypeNode.metadata();
+        if (metadata.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<AnnotationNode> httpServiceConfig = metadata.get().annotations().stream()
+                .filter(annotation -> annotation.annotReference().toString().trim().equals("http:ServiceConfig"))
+                .findFirst();
+        if (httpServiceConfig.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<MappingConstructorExpressionNode> mapExpr = httpServiceConfig.get().annotValue();
+        if (mapExpr.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<SpecificFieldNode> basePathField = mapExpr.get().fields().stream()
+                .filter(fieldNode -> fieldNode.kind().equals(SyntaxKind.SPECIFIC_FIELD))
+                .map(fieldNode -> (SpecificFieldNode) fieldNode)
+                .filter(fieldNode -> fieldNode.fieldName().toString().trim().equals("basePath"))
+                .findFirst();
+        if (basePathField.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<ExpressionNode> valueExpr = basePathField.get().valueExpr();
+        if (valueExpr.isPresent() && valueExpr.get().kind().equals(SyntaxKind.STRING_LITERAL)) {
+            return Optional.of(((BasicLiteralNode) valueExpr.get()).literalToken().text().trim());
+        }
+        return Optional.empty();
+    }
+
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
         if (serviceModel.getModuleName().equals("http")) {
             serviceModel.setFunctions(new ArrayList<>());
         }
         Service commonSvcModel = getServiceModel(serviceNode, semanticModel);
+        updateServiceInfo(serviceModel, commonSvcModel);
+        serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
+        populateListenerInfo(serviceModel, serviceNode);
+    }
+
+    private static void updateServiceInfo(Service serviceModel, Service commonSvcModel) {
         Value serviceContractTypeNameValue = commonSvcModel.getServiceContractTypeNameValue();
         if (Objects.nonNull(serviceContractTypeNameValue)) {
             enableContractFirstApproach(serviceModel);
@@ -359,8 +480,9 @@ public final class Utils {
             serviceModel.updateServiceType(commonSvcModel.getServiceType());
         }
         populateProperties(serviceModel);
-        serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
-        updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
+        if (Objects.nonNull(commonSvcModel.getBasePath())) {
+            serviceModel.setBasePath(commonSvcModel.getBasePath());
+        }
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
         serviceModel.getFunctions().forEach(functionModel -> {
             Optional<Function> function = commonSvcModel.getFunctions().stream()
@@ -378,6 +500,9 @@ public final class Utils {
                 serviceModel.addFunction(functionModel);
             }
         });
+    }
+
+    private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
         Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
         if (listenerExpression.isPresent() && listenerExpression.get() instanceof SimpleNameReferenceNode listener) {
             serviceModel.getListener().setValue(listener.name().text().trim());
@@ -436,13 +561,13 @@ public final class Utils {
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
             builder.append(" ");
+            if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
+                builder.append(getValueString(service.getBasePath()));
+                builder.append(" ");
+            }
         } else if (Objects.nonNull(service.getServiceContractTypeNameValue()) &&
                 service.getServiceContractTypeNameValue().isEnabledWithValue()) {
             builder.append(service.getServiceContractTypeName());
-            builder.append(" ");
-        }
-        if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
-            builder.append(getValueString(service.getBasePath()));
             builder.append(" ");
         }
         builder.append("on ");

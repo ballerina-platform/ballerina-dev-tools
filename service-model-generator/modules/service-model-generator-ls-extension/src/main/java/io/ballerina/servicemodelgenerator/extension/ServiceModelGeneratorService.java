@@ -33,11 +33,13 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ObjectTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -45,6 +47,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
@@ -103,8 +106,10 @@ import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSign
 import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpServiceContractType;
 import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
+import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceModel;
 
 /**
@@ -426,7 +431,32 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (service.isEmpty()) {
                     return new ServiceFromSourceResponse();
                 }
-                updateServiceModel(service.get(), serviceNode, semanticModel);
+                Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
+                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
+                    String serviceContractName = serviceTypeDesc.get().toString().trim();
+                    Path contractPath = project.sourceRoot().toAbsolutePath()
+                            .resolve(String.format("service_contract_%s.bal", serviceContractName));
+                    Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
+                    if (contractDoc.isEmpty()) {
+                        updateServiceModel(service.get(), serviceNode, semanticModel);
+                    } else {
+                        SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
+                        ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
+                        Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
+                                .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
+                                .map(member -> ((TypeDefinitionNode) member))
+                                .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
+                                .findFirst();
+                        if (serviceContractType.isEmpty()) {
+                            updateServiceModel(service.get(), serviceNode, semanticModel);
+                        } else {
+                            updateServiceContractModel(service.get(), serviceContractType.get(), serviceNode,
+                                    semanticModel);
+                        }
+                    }
+                } else {
+                    updateServiceModel(service.get(), serviceNode, semanticModel);
+                }
                 return new ServiceFromSourceResponse(service.get());
             } catch (Exception e) {
                 return new ServiceFromSourceResponse(e);
@@ -591,6 +621,16 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         LineRange basePathLineRange = nodes.get(0).lineRange();
                         TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), basePath);
                         edits.add(basePathEdit);
+                    }
+                }
+                Value listener = service.getListener();
+                if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
+                    String listenerName = listener.getValue();
+                    Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
+                    if (listenerExpression.isPresent()) {
+                        LineRange listenerLineRange = listenerExpression.get().lineRange();
+                        TextEdit listenerEdit = new TextEdit(Utils.toRange(listenerLineRange), listenerName);
+                        edits.add(listenerEdit);
                     }
                 }
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
