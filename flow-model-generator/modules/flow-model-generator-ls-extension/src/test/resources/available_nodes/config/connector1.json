@@ -30,7 +30,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 591
+                "id": 570
               },
               "enabled": true
             },
@@ -47,7 +47,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 593
+                "id": 572
               },
               "enabled": true
             },
@@ -64,7 +64,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 595
+                "id": 574
               },
               "enabled": true
             },
@@ -81,7 +81,7 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "id": 597
+                "id": 576
               },
               "enabled": true
             },
@@ -98,7 +98,7 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "id": 599
+                "id": 578
               },
               "enabled": true
             },
@@ -115,7 +115,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
-                "id": 601
+                "id": 580
               },
               "enabled": true
             },
@@ -132,7 +132,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "id": 603
+                "id": 582
               },
               "enabled": true
             },
@@ -149,7 +149,7 @@
                 "object": "Client",
                 "symbol": "execute",
                 "parentSymbol": "moduleClient",
-                "id": 604
+                "id": 583
               },
               "enabled": true
             },
@@ -166,7 +166,7 @@
                 "object": "Client",
                 "symbol": "forward",
                 "parentSymbol": "moduleClient",
-                "id": 605
+                "id": 584
               },
               "enabled": true
             },
@@ -183,7 +183,7 @@
                 "object": "Client",
                 "symbol": "submit",
                 "parentSymbol": "moduleClient",
-                "id": 606
+                "id": 585
               },
               "enabled": true
             },
@@ -200,7 +200,7 @@
                 "object": "Client",
                 "symbol": "getResponse",
                 "parentSymbol": "moduleClient",
-                "id": 607
+                "id": 586
               },
               "enabled": true
             },
@@ -217,7 +217,7 @@
                 "object": "Client",
                 "symbol": "hasPromise",
                 "parentSymbol": "moduleClient",
-                "id": 608
+                "id": 587
               },
               "enabled": true
             },
@@ -234,7 +234,7 @@
                 "object": "Client",
                 "symbol": "getNextPromise",
                 "parentSymbol": "moduleClient",
-                "id": 609
+                "id": 588
               },
               "enabled": true
             },
@@ -251,7 +251,7 @@
                 "object": "Client",
                 "symbol": "getPromisedResponse",
                 "parentSymbol": "moduleClient",
-                "id": 610
+                "id": 589
               },
               "enabled": true
             },
@@ -268,7 +268,7 @@
                 "object": "Client",
                 "symbol": "rejectPromise",
                 "parentSymbol": "moduleClient",
-                "id": 611
+                "id": 590
               },
               "enabled": true
             },
@@ -287,7 +287,7 @@
                 "symbol": "getCookieStore",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
-                "id": 612
+                "id": 591
               },
               "enabled": true
             },
@@ -306,7 +306,7 @@
                 "symbol": "circuitBreakerForceClose",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
-                "id": 613
+                "id": 592
               },
               "enabled": true
             },
@@ -325,7 +325,7 @@
                 "symbol": "circuitBreakerForceOpen",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
-                "id": 614
+                "id": 593
               },
               "enabled": true
             },
@@ -344,7 +344,7 @@
                 "symbol": "getCircuitBreakerCurrentState",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
-                "id": 615
+                "id": 594
               },
               "enabled": true
             }

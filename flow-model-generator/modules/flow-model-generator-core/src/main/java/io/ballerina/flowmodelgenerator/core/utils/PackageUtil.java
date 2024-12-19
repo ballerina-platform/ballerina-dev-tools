@@ -53,6 +53,7 @@ public class PackageUtil {
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
+        System.setProperty(BALLERINA_HOME_PROPERTY, "/Library/Ballerina/distributions/ballerina-2201.11.0");
         String ballerinaHome = System.getProperty(BALLERINA_HOME_PROPERTY);
         if (ballerinaHome == null || ballerinaHome.isEmpty()) {
             Path currentPath = getPath(Paths.get(

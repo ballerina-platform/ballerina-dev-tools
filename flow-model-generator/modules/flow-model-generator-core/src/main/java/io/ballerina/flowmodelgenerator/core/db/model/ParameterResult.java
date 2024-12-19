@@ -21,13 +21,14 @@ package io.ballerina.flowmodelgenerator.core.db.model;
 /**
  * Represents the result of a parameter.
  *
- * @param parameterId  the ID of the parameter
- * @param name         the name of the parameter
- * @param type         the type of the parameter
- * @param kind         the kind of the parameter
- * @param defaultValue the default value of the parameter
- * @param description  the description of the parameter
- * @param optional     whether the parameter is optional
+ * @param parameterId      the ID of the parameter
+ * @param name             the name of the parameter
+ * @param type             the type of the parameter
+ * @param kind             the kind of the parameter
+ * @param defaultValue     the default value of the parameter
+ * @param description      the description of the parameter
+ * @param optional         whether the parameter is optional
+ * @param importStatements import statements of the dependent types
  * @since 2.0.0
  */
 public record ParameterResult(
@@ -37,5 +38,6 @@ public record ParameterResult(
         Parameter.Kind kind,
         String defaultValue,
         String description,
-        Integer optional) {
+        Integer optional,
+        String importStatements) {
 }
