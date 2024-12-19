@@ -18,12 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
+import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
+import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -62,7 +66,7 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 if (document.isEmpty()) {
                     return response;
                 }
-                TypesManager typesManager = new TypesManager(document.get().module());
+                TypesManager typesManager = new TypesManager(document.get());
                 JsonElement allTypes = typesManager.getAllTypes();
                 response.setTypes(allTypes);
             } catch (Throwable e) {
@@ -83,9 +87,31 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 if (document.isEmpty()) {
                     return response;
                 }
-                TypesManager typesManager = new TypesManager(document.get().module());
+                TypesManager typesManager = new TypesManager(document.get());
                 JsonElement type = typesManager.getType(document.get(), request.linePosition());
                 response.setType(type);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<TypeUpdateResponse> updateType(TypeUpdateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            TypeUpdateResponse response = new TypeUpdateResponse();
+            try {
+                Path filePath = Path.of(request.typesFilePath());
+                this.workspaceManager.loadProject(filePath);
+                TypeData typeData = (new Gson()).fromJson(request.type(), TypeData.class);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TypesManager typesManager = new TypesManager(document.get());
+                response.setName(typeData.name());
+                response.setTextEdits(typesManager.updateType(filePath, typeData));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

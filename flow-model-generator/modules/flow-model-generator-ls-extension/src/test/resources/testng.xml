@@ -49,6 +49,7 @@ under the License.
             <!--types manager-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateAndUpdateTypeTest"/>
         </classes>
     </test>
 </suite>

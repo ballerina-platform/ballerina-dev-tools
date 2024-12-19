@@ -31,6 +31,8 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -40,7 +42,10 @@ import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +62,7 @@ import java.util.stream.Collectors;
 public class TypesManager {
     private static final Gson gson = new Gson();
     private final Module module;
+    private final Document document;
 
     private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
         if (symbol.getName().isEmpty()) {
@@ -77,8 +83,9 @@ public class TypesManager {
         };
     };
 
-    public TypesManager(Module module) {
-        this.module = module;
+    public TypesManager(Document document) {
+        this.document = document;
+        this.module = document.module();
     }
 
     public JsonElement getAllTypes() {
@@ -125,6 +132,29 @@ public class TypesManager {
         }
 
         return null;
+    }
+
+    public JsonElement updateType(Path filePath, TypeData typeData) {
+        List<TextEdit> textEdits = new ArrayList<>();
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(filePath, textEdits);
+
+        // Get typeKind from typeData
+        NodeKind node = typeData.codedata().node();
+
+        if (NodeKind.RECORD.equals(node)) {
+            String recordTypeDef = createRecordTypeDefCodeSnippet(typeData);
+            LineRange lineRange = typeData.codedata().lineRange();
+            if (lineRange == null) {
+                SyntaxTree syntaxTree = this.document.syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+                textEdits.add(new TextEdit(CommonUtils.toRange(startPos), recordTypeDef));
+            } else {
+                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), recordTypeDef));
+            }
+        }
+        return gson.toJsonTree(textEditsMap);
     }
 
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
@@ -220,13 +250,13 @@ public class TypesManager {
                 .name(typeName)
                 .editable()
                 .metadata()
-                    .label(typeName)
-                    .description(recTypeDefSymbol.documentation().isEmpty() ? "" :
-                            recTypeDefSymbol.documentation().get().description().orElse(""))
-                    .stepOut()
+                .label(typeName)
+                .description(recTypeDefSymbol.documentation().isEmpty() ? "" :
+                        recTypeDefSymbol.documentation().get().description().orElse(""))
+                .stepOut()
                 .codedata()
-                    .lineRange(recTypeDefSymbol.getLocation().get().lineRange())
-                    .node(NodeKind.RECORD);
+                .lineRange(recTypeDefSymbol.getLocation().get().lineRange())
+                .node(NodeKind.RECORD);
 
         // properties
         typeDataBuilder.properties()
@@ -282,5 +312,44 @@ public class TypesManager {
         // TODO: Add support for annotations
 
         return typeDataBuilder.build();
+    }
+
+    private String createRecordTypeDefCodeSnippet(TypeData typeData) {
+        StringBuilder recordBuilder = new StringBuilder();
+
+        // Add type name
+        recordBuilder.append("type ")
+                .append(typeData.name())
+                .append(" record {|\n");
+
+        // Add members
+        for (Map.Entry<String, Member> entry : typeData.members().entrySet()) {
+            String memberName = entry.getKey();
+            Member member = entry.getValue();
+
+            recordBuilder
+                    .append(member.type())
+                    .append(" ")
+                    .append(memberName)
+                    .append(";");
+
+            if (member.docs() != null && !member.docs().isEmpty()) {
+                recordBuilder.append(" // ").append(member.docs());
+            }
+
+            recordBuilder.append("\n");
+        }
+
+        // Add rest member if present
+        Optional.ofNullable(typeData.restMember()).ifPresent(restMember -> {
+            recordBuilder
+                    .append(restMember.type())
+                    .append("...;\n");
+        });
+
+        // Close the record
+        recordBuilder.append("|};\n");
+
+        return recordBuilder.toString();
     }
 }
