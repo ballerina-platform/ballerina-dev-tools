@@ -18,7 +18,7 @@
 
 package io.ballerina.servicemodelgenerator.extension.request;
 
-import io.ballerina.servicemodelgenerator.extension.model.Service;
+import io.ballerina.servicemodelgenerator.extension.model.Function;
 
-public record ServiceModifierRequest(String filePath, Service service) {
+public record FunctionModifierRequest(String filePath, Function function) {
 }

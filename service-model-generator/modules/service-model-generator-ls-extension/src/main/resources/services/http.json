@@ -27,7 +27,7 @@
       "editable": false,
       "value": "",
       "values": [],
-      "valueType": "MULTI_SELECT",
+      "valueType": "MULTIPLE_SELECT",
       "valueTypeConstraint": "http:Listener",
       "isType": false,
       "placeholder": "",

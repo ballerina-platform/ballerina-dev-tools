@@ -64,6 +64,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
+import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
@@ -278,10 +279,12 @@ public final class Utils {
         ObjectTypeDescriptorNode serviceNode = (ObjectTypeDescriptorNode) serviceTypeNode.typeDescriptor();
         Optional<String> basePath = getPath(serviceTypeNode);
         if (basePath.isPresent() && !basePath.get().isEmpty()) {
+            MetaData metaData = new MetaData("Service Base Path", "The base path for the service");
             Value basePathValue = new Value();
             basePathValue.setValue(basePath.get());
             basePathValue.setValueType("IDENTIFIER");
             basePathValue.setEnabled(true);
+            basePathValue.setMetadata(metaData);
             serviceModel.setBasePath(basePathValue);
         }
         Value serviceType = new Value();
@@ -723,7 +726,11 @@ public final class Utils {
         }
         populateProperties(serviceModel);
         if (Objects.nonNull(commonSvcModel.getBasePath())) {
-            serviceModel.setBasePath(commonSvcModel.getBasePath());
+            if (Objects.nonNull(commonSvcModel.getBasePath())) {
+                updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
+            } else {
+                serviceModel.setBasePath(commonSvcModel.getBasePath());
+            }
         }
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
         serviceModel.getFunctions().forEach(functionModel -> {
@@ -980,7 +987,8 @@ public final class Utils {
         nameValue.setValueType("EXPRESSION");
         nameValue.setValue(listenerDeclarationNode.variableName().text().trim());
         properties.put("name", nameValue);
+        Codedata codedata = new Codedata(listenerDeclarationNode.lineRange());
         return Optional.of(new Listener(null, null, null, null, null, null, null, null, null, null, listenerProtocol,
-                null, properties));
+                null, properties, codedata));
     }
 }

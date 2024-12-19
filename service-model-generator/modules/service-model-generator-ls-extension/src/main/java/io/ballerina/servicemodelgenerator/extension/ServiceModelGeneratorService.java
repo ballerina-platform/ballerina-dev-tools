@@ -53,6 +53,7 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
@@ -258,7 +259,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
                 }
                 if (!listenersList.isEmpty()) {
-                    listener.setValueType("MULTI_SELECT");
+                    if (request.moduleName().equals("kafka")) {
+                        listener.setValueType("SINGLE_SELECT");
+                    } else {
+                        listener.setValueType("MULTIPLE_SELECT");
+                    }
                     listener.setItems(listenersList);
                 }
                 return new ServiceModelResponse(serviceModel);
@@ -557,7 +562,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> updateFunction(FunctionRequest request) {
+    public CompletableFuture<CommonSourceResponse> updateFunction(FunctionModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -603,7 +608,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.codedata().getLineRange();
+                LineRange lineRange = service.getCodedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
@@ -653,7 +658,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.codedata().getLineRange();
+                LineRange lineRange = listener.getCodedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);

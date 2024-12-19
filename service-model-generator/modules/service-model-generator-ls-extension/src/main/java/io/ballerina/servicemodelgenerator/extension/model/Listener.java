@@ -39,10 +39,12 @@ public class Listener {
     private String listenerProtocol;
     private String icon;
     private Map<String, Value> properties;
+    private Codedata codedata;
 
     public Listener(String id, String name, String type, String displayName, String description,
                     DisplayAnnotation displayAnnotation, String moduleName, String orgName, String version,
-                    String packageName, String listenerProtocol, String icon, Map<String, Value> properties) {
+                    String packageName, String listenerProtocol, String icon, Map<String, Value> properties,
+                    Codedata codedata) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -56,6 +58,7 @@ public class Listener {
         this.listenerProtocol = listenerProtocol;
         this.icon = icon;
         this.properties = properties;
+        this.codedata = codedata;
     }
 
     public boolean isListenerInitProperty(Value value) {
@@ -147,5 +150,13 @@ public class Listener {
 
     public String getPackageName() {
         return packageName;
+    }
+
+    public Codedata getCodedata() {
+        return codedata;
+    }
+
+    public void setCodedata(Codedata codedata) {
+        this.codedata = codedata;
     }
 }

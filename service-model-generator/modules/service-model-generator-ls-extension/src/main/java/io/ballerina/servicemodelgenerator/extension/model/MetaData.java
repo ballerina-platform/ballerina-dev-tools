@@ -18,5 +18,5 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-public record MetaData(String label, String description, String groupName, int groupNo) {
+public record MetaData(String label, String description) {
 }
