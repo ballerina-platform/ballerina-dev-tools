@@ -43,6 +43,10 @@ public class Value {
         this(null, false, true, null, null, null, false, null, false, false, null, null, null);
     }
 
+    public Value(String value, String valueType, boolean isEnabled) {
+        this(null, isEnabled, true, value, valueType, null, false, null, false, false, null, null, null);
+    }
+
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata) {

@@ -21,9 +21,14 @@ package io.ballerina.servicemodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
@@ -55,6 +60,8 @@ import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
+import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
@@ -72,6 +79,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -86,6 +94,73 @@ import java.util.stream.Collectors;
  * @since 2.0.0
  */
 public final class Utils {
+
+    public static final Map<String, String> HTTP_CODES;
+    static {
+        Map<String, String> httpCodeMap = new HashMap<>();
+        httpCodeMap.put("Continue", "100");
+        httpCodeMap.put("SwitchingProtocols", "101");
+        httpCodeMap.put("Processing", "102");
+        httpCodeMap.put("EarlyHints", "103");
+        httpCodeMap.put("Ok", "200");
+        httpCodeMap.put("Created", "201");
+        httpCodeMap.put("Accepted", "202");
+        httpCodeMap.put("NonAuthoritativeInformation", "203");
+        httpCodeMap.put("NoContent", "204");
+        httpCodeMap.put("ResetContent", "205");
+        httpCodeMap.put("PartialContent", "206");
+        httpCodeMap.put("MultiStatus", "207");
+        httpCodeMap.put("AlreadyReported", "208");
+        httpCodeMap.put("IMUsed", "226");
+        httpCodeMap.put("MultipleChoices", "300");
+        httpCodeMap.put("MovedPermanently", "301");
+        httpCodeMap.put("Found", "302");
+        httpCodeMap.put("SeeOther", "303");
+        httpCodeMap.put("NotModified", "304");
+        httpCodeMap.put("UseProxy", "305");
+        httpCodeMap.put("TemporaryRedirect", "307");
+        httpCodeMap.put("PermanentRedirect", "308");
+        httpCodeMap.put("BadRequest", "400");
+        httpCodeMap.put("Unauthorized", "401");
+        httpCodeMap.put("PaymentRequired", "402");
+        httpCodeMap.put("Forbidden", "403");
+        httpCodeMap.put("NotFound", "404");
+        httpCodeMap.put("MethodNotAllowed", "405");
+        httpCodeMap.put("NotAcceptable", "406");
+        httpCodeMap.put("ProxyAuthenticationRequired", "407");
+        httpCodeMap.put("RequestTimeout", "408");
+        httpCodeMap.put("Conflict", "409");
+        httpCodeMap.put("Gone", "410");
+        httpCodeMap.put("LengthRequired", "411");
+        httpCodeMap.put("PreconditionFailed", "412");
+        httpCodeMap.put("PayloadTooLarge", "413");
+        httpCodeMap.put("UriTooLong", "414");
+        httpCodeMap.put("UnsupportedMediaType", "415");
+        httpCodeMap.put("RangeNotSatisfiable", "416");
+        httpCodeMap.put("ExpectationFailed", "417");
+        httpCodeMap.put("MisdirectedRequest", "421");
+        httpCodeMap.put("UnprocessableEntity", "422");
+        httpCodeMap.put("Locked", "423");
+        httpCodeMap.put("FailedDependency", "424");
+        httpCodeMap.put("TooEarly", "425");
+        httpCodeMap.put("UpgradeRequired", "426");
+        httpCodeMap.put("PreconditionRequired", "428");
+        httpCodeMap.put("TooManyRequests", "429");
+        httpCodeMap.put("RequestHeaderFieldsTooLarge", "431");
+        httpCodeMap.put("UnavailableDueToLegalReasons", "451");
+        httpCodeMap.put("InternalServerError", "500");
+        httpCodeMap.put("NotImplemented", "501");
+        httpCodeMap.put("BadGateway", "502");
+        httpCodeMap.put("ServiceUnavailable", "503");
+        httpCodeMap.put("GatewayTimeout", "504");
+        httpCodeMap.put("HttpVersionNotSupported", "505");
+        httpCodeMap.put("VariantAlsoNegotiates", "506");
+        httpCodeMap.put("InsufficientStorage", "507");
+        httpCodeMap.put("LoopDetected", "508");
+        httpCodeMap.put("NotExtended", "510");
+        httpCodeMap.put("NetworkAuthenticationRequired", "511");
+        HTTP_CODES = Collections.unmodifiableMap(httpCodeMap);
+    }
 
     private Utils() {
     }
@@ -196,7 +271,8 @@ public final class Utils {
         return Optional.of(expressionNode);
     }
 
-    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode, SemanticModel semanticModel) {
+    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode, SemanticModel semanticModel,
+                                          boolean isHttp) {
         Service serviceModel = Service.getNewService();
         ObjectTypeDescriptorNode serviceNode = (ObjectTypeDescriptorNode) serviceTypeNode.typeDescriptor();
         Optional<String> basePath = getPath(serviceTypeNode);
@@ -215,7 +291,7 @@ public final class Utils {
         List<Function> functionModels = new ArrayList<>();
         serviceNode.members().forEach(member -> {
             if (member instanceof MethodDeclarationNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode);
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp);
                 functionModels.add(functionModel);
             }
         });
@@ -223,7 +299,8 @@ public final class Utils {
         return serviceModel;
     }
 
-    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel) {
+    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel,
+                                          boolean isHttp) {
         Service serviceModel = Service.getNewService();
         String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
         if (!basePath.isEmpty()) {
@@ -248,7 +325,7 @@ public final class Utils {
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode);
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp);
                 functionModels.add(functionModel);
             }
         });
@@ -273,7 +350,8 @@ public final class Utils {
         return paths.stream().map(Node::toString).map(String::trim).collect(Collectors.joining(""));
     }
 
-    public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode) {
+    public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode, SemanticModel semanticModel,
+                                            boolean isHttp) {
         Function functionModel = Function.getNewFunction();
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
@@ -297,11 +375,14 @@ public final class Utils {
         FunctionSignatureNode functionSignatureNode = functionDefinitionNode.methodSignature();
         Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
         if (returnTypeDesc.isPresent()) {
-            Value returnType = functionModel.getReturnType();
+            FunctionReturnType returnType = functionModel.getReturnType();
             if (Objects.nonNull(returnType)) {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType("TYPE");
                 returnType.setEnabled(true);
+            }
+            if (isHttp) {
+                populateHttpResponses(functionDefinitionNode, returnType, semanticModel);
             }
         }
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
@@ -315,7 +396,8 @@ public final class Utils {
         return functionModel;
     }
 
-    public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode) {
+    public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode,
+                                            SemanticModel semanticModel, boolean isHttp) {
         Function functionModel = Function.getNewFunction();
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
@@ -339,11 +421,14 @@ public final class Utils {
         FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
         Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
         if (returnTypeDesc.isPresent()) {
-            Value returnType = functionModel.getReturnType();
+            FunctionReturnType returnType = functionModel.getReturnType();
             if (Objects.nonNull(returnType)) {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType("TYPE");
                 returnType.setEnabled(true);
+            }
+            if (isHttp) {
+                populateHttpResponses(functionDefinitionNode, returnType, semanticModel);
             }
         }
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
@@ -355,6 +440,149 @@ public final class Utils {
         functionModel.setParameters(parameterModels);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
         return functionModel;
+    }
+
+    private static void populateHttpResponses(MethodDeclarationNode functionDefinitionNode,
+                                              FunctionReturnType returnType, SemanticModel semanticModel) {
+        Optional<Symbol> functionDefSymbol = semanticModel.symbol(functionDefinitionNode);
+        if (functionDefSymbol.isEmpty() || !(functionDefSymbol.get() instanceof ResourceMethodSymbol resource)) {
+            return;
+        }
+        populateHttpResponses(returnType, semanticModel, resource);
+    }
+
+    private static void populateHttpResponses(FunctionDefinitionNode functionDefinitionNode,
+                                              FunctionReturnType returnType, SemanticModel semanticModel) {
+        Optional<Symbol> functionDefSymbol = semanticModel.symbol(functionDefinitionNode);
+        if (functionDefSymbol.isEmpty() || !(functionDefSymbol.get() instanceof ResourceMethodSymbol resource)) {
+            return;
+        }
+        populateHttpResponses(returnType, semanticModel, resource);
+    }
+
+    private static void populateHttpResponses(FunctionReturnType returnType, SemanticModel semanticModel, ResourceMethodSymbol resource) {
+        Optional<TypeSymbol> returnTypeSymbol = resource.typeDescriptor().returnTypeDescriptor();
+        if (returnTypeSymbol.isEmpty()) {
+            return;
+        }
+        Optional<String> method = resource.getName();
+        if (method.isEmpty()) {
+            return;
+        }
+        int defaultStatusCode = method.get().trim().equalsIgnoreCase("post") ? 201 : 200;
+        List<HttpResponse> httpResponses = getHttpResponses(returnTypeSymbol.get(), defaultStatusCode, semanticModel);
+        returnType.setResponses(httpResponses);
+    }
+
+    private static List<HttpResponse> getHttpResponses(TypeSymbol returnTypeSymbol, int defaultStatusCode,
+                                                       SemanticModel semanticModel) {
+        List<TypeSymbol> statusCodeResponses = new ArrayList<>();
+        List<TypeSymbol> anydataResponses = new ArrayList<>();
+        Optional<UnionTypeSymbol> unionType = getUnionType(returnTypeSymbol);
+        unionType.ifPresentOrElse(
+                unionTypeSymbol -> unionTypeSymbol.memberTypeDescriptors().forEach(member -> {
+                    if (isSubTypeOfHttpStatusCodeResponse(member, semanticModel)) {
+                        statusCodeResponses.add(member);
+                    } else {
+                        anydataResponses.add(member);
+                    }
+                }),
+                () -> anydataResponses.add(returnTypeSymbol));
+        List<HttpResponse> responses = new ArrayList<>(statusCodeResponses.stream()
+                .map(statusCodeResponse -> getHttpResponse(statusCodeResponse, String.valueOf(defaultStatusCode),
+                        semanticModel))
+                .toList());
+        String normalResponseBody = anydataResponses.stream()
+                .map(Utils::getTypeName)
+                .collect(Collectors.joining("|"));
+        HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody, "");
+        responses.add(normalResponse);
+        return responses;
+    }
+
+    public static boolean isSubTypeOfHttpStatusCodeResponse(TypeSymbol typeSymbol, SemanticModel semanticModel) {
+        return isSubTypeOfBallerinaModuleType("StatusCodeResponse", "http", typeSymbol, semanticModel);
+    }
+
+    static boolean isSubTypeOfBallerinaModuleType(String type, String moduleName, TypeSymbol typeSymbol,
+                                                  SemanticModel semanticModel) {
+        Optional<Symbol> optionalRecordSymbol = semanticModel.types().getTypeByName("ballerina", moduleName,
+                "", type);
+        if (optionalRecordSymbol.isPresent() &&
+                optionalRecordSymbol.get() instanceof TypeDefinitionSymbol recordSymbol) {
+            return typeSymbol.subtypeOf(recordSymbol.typeDescriptor());
+        }
+        return false;
+    }
+
+    private static String getResponseCode(TypeSymbol typeSymbol, String defaultCode, SemanticModel semanticModel) {
+        for (Map.Entry<String, String> entry : HTTP_CODES.entrySet()) {
+            if (isSubTypeOfBallerinaModuleType(entry.getKey(), "http", typeSymbol, semanticModel)) {
+                return entry.getValue();
+            }
+        }
+        if (isSubTypeOfBallerinaModuleType("DefaultStatusCodeResponse", "http", typeSymbol,
+                semanticModel)) {
+            return "default";
+        }
+        return defaultCode;
+    }
+
+    public static HttpResponse getHttpResponse(TypeSymbol statusCodeResponseType, String defaultStatusCode,
+                                               SemanticModel semanticModel) {
+        Optional<RecordTypeSymbol> statusCodeRecordType = getRecordTypeSymbol(statusCodeResponseType);
+        String statusCode = getResponseCode(statusCodeResponseType, defaultStatusCode, semanticModel);
+        if (statusCodeRecordType.isEmpty()) {
+            return new HttpResponse(statusCode, getTypeName(semanticModel.types().ANYDATA),
+                    getTypeName(statusCodeResponseType));
+        }
+        TypeSymbol bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
+        return new HttpResponse(statusCode, getTypeName(bodyType), getTypeName(statusCodeResponseType));
+    }
+
+    static String getTypeName(TypeSymbol typeSymbol) {
+        return typeSymbol.getName().orElse(typeSymbol.signature().trim());
+    }
+
+    static TypeSymbol getBodyType(RecordTypeSymbol responseRecordType, SemanticModel semanticModel) {
+        if (Objects.nonNull(responseRecordType) && responseRecordType.fieldDescriptors().containsKey("body")) {
+            return responseRecordType.fieldDescriptors().get("body").typeDescriptor();
+        }
+        return semanticModel.types().ANYDATA;
+    }
+
+    static Optional<RecordTypeSymbol> getRecordTypeSymbol(TypeSymbol typeSymbol) {
+        TypeSymbol statusCodeResType = getReferredType(typeSymbol);
+        if (statusCodeResType instanceof TypeReferenceTypeSymbol statusCodeResRefType &&
+                statusCodeResRefType.typeDescriptor() instanceof RecordTypeSymbol recordTypeSymbol) {
+            return Optional.of(recordTypeSymbol);
+        } else if (statusCodeResType instanceof RecordTypeSymbol recordTypeSymbol) {
+            return Optional.of(recordTypeSymbol);
+        }
+        return Optional.empty();
+    }
+
+    public static TypeSymbol getReferredType(TypeSymbol typeSymbol) {
+        if (typeSymbol.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
+            TypeSymbol referencedType = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
+            if (referencedType.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
+                return getReferredType(referencedType);
+            } else {
+                return typeSymbol;
+            }
+        }
+        return typeSymbol;
+    }
+
+    private static Optional<UnionTypeSymbol> getUnionType(TypeSymbol typeSymbol) {
+        if (Objects.isNull(typeSymbol)) {
+            return Optional.empty();
+        }
+        return switch (typeSymbol.typeKind()) {
+            case UNION -> Optional.of((UnionTypeSymbol) typeSymbol);
+            case TYPE_REFERENCE -> getUnionType(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor());
+            default -> Optional.empty();
+        };
     }
 
     public static Optional<String> getHttpParameterType(NodeList<AnnotationNode> annotations) {
@@ -412,18 +640,16 @@ public final class Utils {
 
     public static void updateListenerModel(Listener listener, ListenerDeclarationNode listenerNode) {
         Optional<Listener> commonListener = getListenerModel(listenerNode);
-        commonListener.ifPresent(listenerModel -> {
-            listenerModel.getProperties().forEach((key, value) -> {
-                updateValue(listener.getProperty(key), value);
-            });
-        });
+        commonListener.ifPresent(listenerModel ->
+                listenerModel.getProperties().forEach((key, value) ->
+                        updateValue(listener.getProperty(key), value)));
     }
 
     public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
                                                   ServiceDeclarationNode serviceDeclaration,
                                                   SemanticModel semanticModel) {
         serviceModel.setFunctions(new ArrayList<>());
-        Service commonSvcModel = getServiceModel(serviceTypeNode, semanticModel);
+        Service commonSvcModel = getServiceModel(serviceTypeNode, semanticModel, true);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);
@@ -464,7 +690,7 @@ public final class Utils {
         if (serviceModel.getModuleName().equals("http")) {
             serviceModel.setFunctions(new ArrayList<>());
         }
-        Service commonSvcModel = getServiceModel(serviceNode, semanticModel);
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, serviceModel.getModuleName().equals("http"));
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
@@ -617,17 +843,6 @@ public final class Utils {
         return String.format("{%s}", String.join(", ", params));
     }
 
-    public static String getListenerParams(Value listener) {
-        Map<String, Value> properties = listener.getProperties();
-        List<String> params = new ArrayList<>();
-        properties.forEach((key, value) -> {
-            if (value.isEnabledWithValue()) {
-                params.add(String.format("%s = %s", key, getValueString(value)));
-            }
-        });
-        return String.join(", ", params);
-    }
-
     public static String getFunction(Function function) {
         StringBuilder builder = new StringBuilder();
         String functionQualifiers = getFunctionQualifiers(function);
@@ -733,17 +948,17 @@ public final class Utils {
         }
         ImplicitNewExpressionNode newExpressionNode = (ImplicitNewExpressionNode) initializer;
         Map<String, Value> properties = new HashMap<>();
-        newExpressionNode.parenthesizedArgList().ifPresent(argList -> {
-            argList.arguments().forEach(arg -> {
-                if (arg instanceof NamedArgumentNode namedArgumentNode) {
-                    Value value = new Value();
-                    value.setValue(namedArgumentNode.expression().toString().trim());
-                    value.setEnabled(true);
-                    value.setValueType("EXPRESSION");
-                    properties.put(namedArgumentNode.argumentName().name().text().trim(), value);
-                }
-            });
-        });
+        newExpressionNode.parenthesizedArgList().ifPresent(argList ->
+                argList.arguments().forEach(arg -> {
+                    if (arg instanceof NamedArgumentNode namedArgumentNode) {
+                        Value value = new Value();
+                        value.setValue(namedArgumentNode.expression().toString().trim());
+                        value.setEnabled(true);
+                        value.setValueType("EXPRESSION");
+                        properties.put(namedArgumentNode.argumentName().name().text().trim(), value);
+                    }
+                })
+        );
         Value nameValue = new Value();
         nameValue.setEnabled(true);
         nameValue.setValueType("EXPRESSION");
