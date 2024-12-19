@@ -12,13 +12,21 @@ type Address record {|
 # Used to represent person object
 type Person record {|
     # id of the person
-    int id;
+    int id = 12;
     # name of the person
-    string name;
+    string name = "John";
     # addresses of the person
-    Address[] addresses;
+    Address[] addresses = [
+        {
+            houseNo: "10",
+            line1: "5th Ave",
+            line2: "4th St",
+            city: "New York City",
+            country: "USA"
+        }
+    ];
     # date of birth
-    time:Utc dob;
+    time:Utc dob = getDefaultDob();
 |};
 
 type MixRecord record {|

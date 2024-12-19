@@ -120,11 +120,11 @@
         "lineRange": {
           "fileName": "types.bal",
           "startLine": {
-            "line": 23,
+            "line": 31,
             "offset": 5
           },
           "endLine": {
-            "line": 23,
+            "line": 31,
             "offset": 14
           }
         }
@@ -284,6 +284,7 @@
           ],
           "type": "Address[]",
           "name": "addresses",
+          "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
           "docs": "addresses of the person"
         },
         "dob": {
@@ -293,6 +294,7 @@
           ],
           "type": "time:Utc",
           "name": "dob",
+          "defaultValue": "getDefaultDob()",
           "docs": "date of birth"
         },
         "name": {
@@ -300,6 +302,7 @@
           "refs": [],
           "type": "string",
           "name": "name",
+          "defaultValue": "\"John\"",
           "docs": "name of the person"
         },
         "id": {
@@ -307,6 +310,7 @@
           "refs": [],
           "type": "int",
           "name": "id",
+          "defaultValue": "12",
           "docs": "id of the person"
         }
       },

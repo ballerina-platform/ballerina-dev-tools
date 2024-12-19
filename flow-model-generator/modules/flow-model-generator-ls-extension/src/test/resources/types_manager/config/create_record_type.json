@@ -65,7 +65,8 @@
         ],
         "type": "Address[]",
         "name": "addresses",
-        "docs": "addresses of the person"
+        "docs": "addresses of the person",
+        "defaultValue": "[]"
       },
       "dob": {
         "kind": "FIELD",
@@ -74,21 +75,24 @@
         ],
         "type": "time:Utc",
         "name": "dob",
-        "docs": "date of birth"
+        "docs": "date of birth",
+        "defaultValue": "getDefaultDob()"
       },
       "name": {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "name",
-        "docs": "name of the person"
+        "docs": "name of the person",
+        "defaultValue": "\"John Doe\""
       },
       "id": {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
         "name": "id",
-        "docs": "id of the person"
+        "docs": "id of the person",
+        "defaultValue": "12"
       }
     },
     "includes": []
@@ -106,7 +110,7 @@
             "character": 0
           }
         },
-        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n# addresses of the person\nAddress[] address;\n# date of birth\ntime:Utc dob;\n# name of the person\nstring name;\n# id of the person\nint id;\n|};\n"
+        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n# addresses of the person\nAddress[] address = [];\n# date of birth\ntime:Utc dob = getDefaultDob();\n# name of the person\nstring name = \"John Doe\";\n# id of the person\nint id = 12;\n|};\n"
       }
     ]
   }

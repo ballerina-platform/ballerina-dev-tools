@@ -32,12 +32,16 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
+import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.TypeDefinitionNodeVisitor;
 import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -62,7 +66,8 @@ import java.util.stream.Collectors;
 public class TypesManager {
     private static final Gson gson = new Gson();
     private final Module module;
-    private final Document document;
+    private final Document typeDocument;
+    private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
 
     private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
         if (symbol.getName().isEmpty()) {
@@ -83,9 +88,9 @@ public class TypesManager {
         };
     };
 
-    public TypesManager(Document document) {
-        this.document = document;
-        this.module = document.module();
+    public TypesManager(Document typeDocument) {
+        this.typeDocument = typeDocument;
+        this.module = typeDocument.module();
     }
 
     public JsonElement getAllTypes() {
@@ -139,14 +144,11 @@ public class TypesManager {
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(filePath, textEdits);
 
-        // Get typeKind from typeData
-        NodeKind node = typeData.codedata().node();
-
-        if (NodeKind.RECORD.equals(node)) {
+        if (NodeKind.RECORD.equals(typeData.codedata().node())) {
             String recordTypeDef = createRecordTypeDefCodeSnippet(typeData);
             LineRange lineRange = typeData.codedata().lineRange();
             if (lineRange == null) {
-                SyntaxTree syntaxTree = this.document.syntaxTree();
+                SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
                 textEdits.add(new TextEdit(CommonUtils.toRange(startPos), recordTypeDef));
@@ -154,6 +156,7 @@ public class TypesManager {
                 textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), recordTypeDef));
             }
         }
+
         return gson.toJsonTree(textEditsMap);
     }
 
@@ -304,7 +307,7 @@ public class TypesManager {
                             .name(name)
                             .docs(field.documentation().isEmpty() ? ""
                                     : field.documentation().get().description().orElse(""))
-                            // TODO: Add default value
+                            .defaultValue(getDefaultValueOfField(typeName, name).orElse(null))
                             .build());
         });
         typeDataBuilder.members(fieldMembers);
@@ -340,6 +343,8 @@ public class TypesManager {
                     .append(member.type())
                     .append(" ")
                     .append(memberName)
+                    .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
+                            " = " + member.defaultValue() : "")
                     .append(";\n");
         }
 
@@ -354,5 +359,32 @@ public class TypesManager {
         recordBuilder.append("|};\n");
 
         return recordBuilder.toString();
+    }
+
+    private Map<String, RecordTypeDescriptorNode> getRecordTypeDescNodes() {
+        if (this.recordTypeDescNodes != null) {
+            return this.recordTypeDescNodes;
+        }
+        TypeDefinitionNodeVisitor typeDefNodeVisitor = new TypeDefinitionNodeVisitor();
+        this.module.documentIds().forEach(documentId -> {
+            Document document = this.module.document(documentId);
+            SyntaxTree syntaxTree = document.syntaxTree();
+            syntaxTree.rootNode().accept(typeDefNodeVisitor);
+        });
+        this.recordTypeDescNodes = typeDefNodeVisitor.getRecordTypeDescNodes();
+        return this.recordTypeDescNodes;
+    }
+
+    private Optional<String> getDefaultValueOfField(String typeName, String fieldName) {
+        RecordTypeDescriptorNode recordTypeDescriptorNode = getRecordTypeDescNodes().get(typeName);
+        if (recordTypeDescriptorNode == null) {
+            return Optional.empty();
+        }
+        return recordTypeDescriptorNode.fields().stream()
+                .filter(field ->
+                        field.kind() == SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE &&
+                                ((RecordFieldWithDefaultValueNode) field).fieldName().text().equals(fieldName))
+                .findFirst()
+                .map(node -> ((RecordFieldWithDefaultValueNode) node).expression().toString());
     }
 }
