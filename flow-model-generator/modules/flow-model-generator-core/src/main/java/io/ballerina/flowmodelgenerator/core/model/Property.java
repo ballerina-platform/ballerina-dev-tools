@@ -63,10 +63,24 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String IMPLICIT_VARIABLE_LABEL = "Name";
     public static final String VARIABLE_DOC = "Name of the variable";
 
+    public static final String NAME_KEY = "name";
+    public static final String DESCRIPTION_KEY = "description";
+    public static final String IS_ARRAY_KEY = "isArray";
+    public static final String ARRAY_SIZE = "arraySize";
+
     public static final String TYPE_KEY = "type";
     public static final String TYPE_LABEL = "Variable Type";
     public static final String IMPLICIT_TYPE_LABEL = "Type";
     public static final String TYPE_DOC = "Type of the variable";
+
+    public static final String TYPE_NAME_LABEL = "Type name";
+    public static final String TYPE_NAME_DOC = "Unique name to identify the type";
+    public static final String TYPE_DESC_LABEL = "Type description";
+    public static final String TYPE_DESC_DOC = "Detailed description about the type";
+    public static final String TYPE_IS_ARRAY_LABEL = "Is array type";
+    public static final String TYPE_IS_ARRAY_DOC = "Is this type an array or list value";
+    public static final String TYPE_ARRAY_SIZE_LABEL = "Size of the array";
+    public static final String TYPE_ARRAY_SIZE_DOC = "Array dimensions";
 
     public static final String EXPRESSION_KEY = "expression";
     public static final String EXPRESSION_LABEL = "Expression";
