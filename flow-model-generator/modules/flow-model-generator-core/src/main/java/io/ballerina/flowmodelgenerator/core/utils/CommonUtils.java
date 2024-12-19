@@ -691,4 +691,27 @@ public class CommonUtils {
         return moduleID.orgName().equals(moduleInfo.org()) &&
                 moduleID.packageName().equals(moduleInfo.packageName());
     }
+
+    /**
+     * Converts a multi-line string into a formatted Ballerina documentation.
+     * Each line starts with a "#".
+     *
+     * @param text The input string.
+     * @return The formatted Ballerina documentation string.
+     */
+    public static String convertToBalDocs(String text) {
+        // Split the input text into lines
+        String[] lines = text.split("\n");
+
+        // Use StringBuilder for efficient string manipulation
+        StringBuilder formattedComment = new StringBuilder();
+
+        // Add "#" before each line and append to the result
+        for (String line : lines) {
+            formattedComment.append("# ").append(line).append("\n");
+        }
+
+        // Convert StringBuilder to String and return
+        return formattedComment.toString();
+    }
 }

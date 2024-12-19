@@ -317,6 +317,11 @@ public class TypesManager {
     private String createRecordTypeDefCodeSnippet(TypeData typeData) {
         StringBuilder recordBuilder = new StringBuilder();
 
+        // Add documentation if present
+        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
+            recordBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
+        }
+
         // Add type name
         recordBuilder.append("type ")
                 .append(typeData.name())
@@ -327,17 +332,15 @@ public class TypesManager {
             String memberName = entry.getKey();
             Member member = entry.getValue();
 
+            if (member.docs() != null && !member.docs().isEmpty()) {
+                recordBuilder.append(CommonUtils.convertToBalDocs(member.docs()));
+            }
+
             recordBuilder
                     .append(member.type())
                     .append(" ")
                     .append(memberName)
-                    .append(";");
-
-            if (member.docs() != null && !member.docs().isEmpty()) {
-                recordBuilder.append(" // ").append(member.docs());
-            }
-
-            recordBuilder.append("\n");
+                    .append(";\n");
         }
 
         // Add rest member if present

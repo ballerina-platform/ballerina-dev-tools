@@ -120,11 +120,11 @@
         "lineRange": {
           "fileName": "types.bal",
           "startLine": {
-            "line": 19,
+            "line": 23,
             "offset": 5
           },
           "endLine": {
-            "line": 19,
+            "line": 23,
             "offset": 14
           }
         }
@@ -284,7 +284,7 @@
           ],
           "type": "Address[]",
           "name": "addresses",
-          "docs": ""
+          "docs": "addresses of the person"
         },
         "dob": {
           "kind": "FIELD",
@@ -293,21 +293,21 @@
           ],
           "type": "time:Utc",
           "name": "dob",
-          "docs": ""
+          "docs": "date of birth"
         },
         "name": {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
-          "docs": ""
+          "docs": "name of the person"
         },
         "id": {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "id",
-          "docs": ""
+          "docs": "id of the person"
         }
       },
       "includes": []

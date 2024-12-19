@@ -11,9 +11,13 @@ type Address record {|
 # Person record
 # Used to represent person object
 type Person record {|
+    # id of the person
     int id;
+    # name of the person
     string name;
+    # addresses of the person
     Address[] addresses;
+    # date of birth
     time:Utc dob;
 |};
 

@@ -63,9 +63,9 @@
         "refs": [
           "Address"
         ],
-        "type": "Address",
-        "name": "address",
-        "docs": ""
+        "type": "Address[]",
+        "name": "addresses",
+        "docs": "addresses of the person"
       },
       "dob": {
         "kind": "FIELD",
@@ -74,21 +74,21 @@
         ],
         "type": "time:Utc",
         "name": "dob",
-        "docs": ""
+        "docs": "date of birth"
       },
       "name": {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "name",
-        "docs": ""
+        "docs": "name of the person"
       },
       "id": {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
         "name": "id",
-        "docs": ""
+        "docs": "id of the person"
       }
     },
     "includes": []
@@ -106,7 +106,7 @@
             "character": 0
           }
         },
-        "newText": "type Person record {|\nAddress address;\ntime:Utc dob;\nstring name;\nint id;\n|};\n"
+        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n# addresses of the person\nAddress[] address;\n# date of birth\ntime:Utc dob;\n# name of the person\nstring name;\n# id of the person\nint id;\n|};\n"
       }
     ]
   }
