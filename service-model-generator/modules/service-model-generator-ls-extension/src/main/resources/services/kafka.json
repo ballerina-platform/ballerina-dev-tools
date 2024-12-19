@@ -27,7 +27,7 @@
       "editable": false,
       "value": "",
       "valueType": "EXPRESSION",
-      "valueTypeConstraint": "http:Listener",
+      "valueTypeConstraint": "kafka:Listener",
       "isType": false,
       "placeholder": "",
       "optional": false,

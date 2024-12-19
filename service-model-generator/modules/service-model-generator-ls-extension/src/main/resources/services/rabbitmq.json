@@ -15,16 +15,20 @@
         "iconPath": "docs/icon.png"
     },
     "properties": {
-        "listener": {
+      "listener": {
             "metadata": {
-                "label": "Listener",
-                "description": "The Listener to be used"
+                "label": "Listeners",
+                "description": "The Listeners to be bound with the service"
+            },
+            "codedata": {
+                "type": "LISTENER"
             },
             "enabled": true,
             "editable": false,
             "value": "",
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:Listener",
+            "values": [],
+            "valueType": "MULTI_SELECT",
+            "valueTypeConstraint": "rabbitmq:Listener",
             "isType": false,
             "placeholder": "",
             "optional": false,

@@ -17,8 +17,8 @@
   "properties": {
     "listener": {
       "metadata": {
-        "label": "Listener",
-        "description": "The Listener to be used"
+        "label": "Listeners",
+        "description": "The Listeners to be bound with the service"
       },
       "codedata": {
         "type": "LISTENER"
@@ -26,7 +26,8 @@
       "enabled": true,
       "editable": false,
       "value": "",
-      "valueType": "EXPRESSION",
+      "values": [],
+      "valueType": "MULTI_SELECT",
       "valueTypeConstraint": "github:Listener",
       "isType": false,
       "placeholder": "",
