@@ -1,0 +1,3 @@
+[[tool.openapi]]
+id = "cl1"
+targetModule = "mod5"

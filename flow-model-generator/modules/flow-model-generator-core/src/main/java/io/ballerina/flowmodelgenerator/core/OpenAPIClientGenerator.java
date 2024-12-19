@@ -23,6 +23,8 @@ import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.toml.syntax.tree.*;
 import io.ballerina.toml.validator.SampleNodeGenerator;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocuments;
 import org.eclipse.lsp4j.TextEdit;
@@ -59,11 +61,9 @@ public class OpenAPIClientGenerator {
         TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
         SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
         DocumentNode rootNode = syntaxTree.rootNode();
-        NodeList<DocumentMemberDeclarationNode> nodeList = rootNode.members();
-        NodeList<TableArrayNode> moduleMembers = AbstractNodeFactory.createEmptyNodeList();
-        OpenAPINode existingOpenAPINode = null;
-        TableArrayNode existingOpenAPINodeX = null;
-        for (DocumentMemberDeclarationNode node: nodeList) {
+
+        LineRange lineRange = null;
+        for (DocumentMemberDeclarationNode node : rootNode.members()) {
             if (node.kind() != SyntaxKind.TABLE_ARRAY) {
                 continue;
             }
@@ -71,30 +71,38 @@ public class OpenAPIClientGenerator {
             if (!tableArrayNode.identifier().toSourceCode().equals("tool.openapi")) {
                 continue;
             }
-            // TODO: We may not need `OpenAPINode` record
-            OpenAPINode openAPINode = convertToOpenAPINode(tableArrayNode);
-            if (openAPINode.targetModule().equals(module)) {
-                existingOpenAPINode = openAPINode;
-                existingOpenAPINodeX = tableArrayNode;
-                break;
+
+            for (KeyValueNode field : tableArrayNode.fields()) {
+                String identifier = field.identifier().toSourceCode();
+                if (identifier.trim().equals("targetModule")) {
+                    if (field.value().toSourceCode().trim().equals(module)) {
+                        lineRange = tableArrayNode.lineRange();
+                        break;
+                    }
+                }
             }
         }
-        String id = genId(module);
-        this.isModuleExists = existingOpenAPINode != null;
-        if (this.isModuleExists) {
 
-        } else {
-            TableArrayNode tableArray = SampleNodeGenerator.createTableArray("[[tool.openapi]]", "");
-            tableArray.fields().add(0, SampleNodeGenerator.createStringKV("id", genId(module), ""));
-            tableArray.fields().add(0, SampleNodeGenerator.createStringKV("targetModule", module, ""));
-            tableArray.fields().add(0, SampleNodeGenerator.createStringKV("filePath", oAContractPath.toAbsolutePath().toString(), ""));
-            existingOpenAPINodeX = tableArray;
-        }
+        TableArrayNode tableArray = SampleNodeGenerator.createTableArray("[[tool.openapi]]", "");
+        NodeList<KeyValueNode> fields = tableArray.fields();
+        List<KeyValueNode> kvs = new ArrayList<>();
+        kvs.add(SampleNodeGenerator.createStringKV("id", module, ""));
+        kvs.add(SampleNodeGenerator.createStringKV("targetModule", module, ""));
+        kvs.add(SampleNodeGenerator.createStringKV("filePath", oAContractPath.toAbsolutePath().toString(), ""));
+        fields.addAll(kvs);
 
+        this.isModuleExists = lineRange != null;
         List<TextEdit> textEdits = new ArrayList<>();
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(tomlPath, textEdits);
-        textEdits.add(new TextEdit(CommonUtils.toRange(rootNode.lineRange()), existingOpenAPINodeX.toSourceCode()));
+
+        if (this.isModuleExists) {
+            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), tableArray.toSourceCode()));
+        } else {
+            LinePosition startPos = LinePosition.from(rootNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), tableArray.toSourceCode()));
+        }
+
         return gson.toJsonTree(textEditsMap);
     }
 
@@ -121,5 +129,6 @@ public class OpenAPIClientGenerator {
         return String.format(DEFAULT_CLIENT_ID, fileName, module);
     }
 
-    private record OpenAPINode(String id, String targetModule, String source) {}
+    private record OpenAPINode(String id, String targetModule, String source) {
+    }
 }
