@@ -1,0 +1,111 @@
+{
+  "filePath": "test_pack2/types.bal",
+  "description": "Create a new record type",
+  "type": {
+    "name": "Employee",
+    "editable": true,
+    "metadata": {
+      "label": "Employee",
+      "description": ""
+    },
+    "codedata": {
+      "node": "RECORD",
+      "lineRange": {
+        "fileName": "types.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 13
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Employee",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "members": {
+      "user": {
+        "kind": "FIELD",
+        "refs": [
+          "Person"
+        ],
+        "type": "Person",
+        "name": "user",
+        "docs": ""
+      },
+      "id": {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "id",
+        "docs": ""
+      }
+    },
+    "includes": [
+      "Person",
+      "User"
+    ]
+  },
+  "output": {
+    "test_pack2/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 5
+          },
+          "end": {
+            "line": 0,
+            "character": 13
+          }
+        },
+        "newText": "type Employee record {|\n*Person;\n*User;\nPerson user;\nint id;\n|};\n"
+      }
+    ]
+  }
+}

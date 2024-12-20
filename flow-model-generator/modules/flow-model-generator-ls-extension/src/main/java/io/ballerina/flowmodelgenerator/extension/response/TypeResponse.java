@@ -16,13 +16,26 @@
  *  under the License.
  */
 
+package io.ballerina.flowmodelgenerator.extension.response;
 
-package io.ballerina.flowmodelgenerator.extension.request;
+import com.google.gson.JsonElement;
 
 /**
- * A request to retrieve components of a module such as connections, types..
+ * Represents the response for a type.
  *
- * @param filePath a file path of the project
+ * @since 2.0.0
  */
-public record FilePathRequest(String filePath) {
+public class TypeResponse extends AbstractFlowModelResponse {
+    private JsonElement type;
+
+    public TypeResponse() {
+    }
+
+    public JsonElement getType() {
+        return type;
+    }
+
+    public void setType(JsonElement type) {
+        this.type = type;
+    }
 }
