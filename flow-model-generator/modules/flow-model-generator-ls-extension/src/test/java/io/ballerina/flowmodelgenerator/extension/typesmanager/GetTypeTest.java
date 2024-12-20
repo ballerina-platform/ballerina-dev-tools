@@ -41,7 +41,9 @@ public class GetTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("get_record_type.json")},
+                {Path.of("get_record_type1.json")},
+                {Path.of("get_record_type2.json")},
+                {Path.of("get_record_type3.json")},
         };
     }
 

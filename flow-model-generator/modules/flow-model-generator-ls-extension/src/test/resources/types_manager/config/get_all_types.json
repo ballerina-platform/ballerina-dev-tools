@@ -210,6 +210,119 @@
       "includes": []
     },
     {
+      "name": "Student",
+      "editable": true,
+      "metadata": {
+        "label": "Student",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 37,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 37,
+            "offset": 12
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Student",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "studentId": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "studentId",
+          "defaultValue": "22",
+          "docs": ""
+        },
+        "addresses": {
+          "kind": "FIELD",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address[]",
+          "name": "addresses",
+          "docs": ""
+        },
+        "dob": {
+          "kind": "FIELD",
+          "refs": [
+            "ballerina/time:Utc"
+          ],
+          "type": "time:Utc",
+          "name": "dob",
+          "docs": ""
+        },
+        "name": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        "id": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "id",
+          "docs": ""
+        }
+      },
+      "includes": [
+        "Person"
+      ]
+    },
+    {
       "name": "Person",
       "editable": true,
       "metadata": {

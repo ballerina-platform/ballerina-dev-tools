@@ -35,6 +35,11 @@ type MixRecord record {|
     map<Address> mixField3;
 |};
 
+type Student record {|
+    *Person;
+    int studentId = 22;
+|};
+
 enum Color {
     RED,
     YELLOW,
