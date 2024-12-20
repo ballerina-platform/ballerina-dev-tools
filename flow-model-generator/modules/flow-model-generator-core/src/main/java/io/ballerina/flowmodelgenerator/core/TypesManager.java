@@ -330,6 +330,11 @@ public class TypesManager {
                 .append(typeData.name())
                 .append(" record {|\n");
 
+        // Add includes
+        for (String include : typeData.includes()) {
+            recordBuilder.append("*").append(include).append(";\n");
+        }
+
         // Add members
         for (Map.Entry<String, Member> entry : typeData.members().entrySet()) {
             String memberName = entry.getKey();

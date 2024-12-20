@@ -66,8 +66,11 @@ public class CreateAndUpdateTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("create_record_type.json")},
-                {Path.of("update_record_type_field.json")},
+                {Path.of("create_record_type1.json")},
+                {Path.of("create_record_type2.json")},
+                {Path.of("update_record_type1.json")},
+                {Path.of("update_record_type2.json")},
+                {Path.of("update_record_type2.json")},
         };
     }
 
