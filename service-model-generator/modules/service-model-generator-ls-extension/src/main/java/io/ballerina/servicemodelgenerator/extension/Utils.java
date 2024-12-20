@@ -810,13 +810,13 @@ public final class Utils {
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
             builder.append(" ");
-            if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
-                builder.append(getValueString(service.getBasePath()));
-                builder.append(" ");
-            }
-        } else if (Objects.nonNull(service.getServiceContractTypeNameValue()) &&
+        }
+        if (Objects.nonNull(service.getServiceContractTypeNameValue()) &&
                 service.getServiceContractTypeNameValue().isEnabledWithValue()) {
             builder.append(service.getServiceContractTypeName());
+            builder.append(" ");
+        } else if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
+            builder.append(getValueString(service.getBasePath()));
             builder.append(" ");
         }
         builder.append("on ");

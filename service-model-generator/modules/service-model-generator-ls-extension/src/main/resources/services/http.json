@@ -96,6 +96,24 @@
           "optional": false,
           "advanced": false,
           "properties": {
+            "spec": {
+              "metadata": {
+                "label": "OpenAPI Specification",
+                "description": "Provide an OpenAPI specification to generate the resources"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "FILE_SELECT",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "codedata": {
+                "type": "OPENAPI"
+              }
+            },
             "serviceTypeName": {
               "metadata": {
                 "label": "Service Type Name",
@@ -112,24 +130,6 @@
               "advanced": false,
               "codedata": {
                 "type": "SERVICE_BASEPATH"
-              }
-            },
-            "spec": {
-              "metadata": {
-                "label": "OpenAPI Specification",
-                "description": "Provide an OpenAPI specification to generate the resources"
-              },
-              "enabled": false,
-              "editable": true,
-              "value": "",
-              "valueType": "FILE_SELECT",
-              "valueTypeConstraint": "string",
-              "isType": false,
-              "placeholder": "",
-              "optional": true,
-              "advanced": false,
-              "codedata": {
-                "type": "OPENAPI"
               }
             }
           }
