@@ -1,0 +1,824 @@
+{
+  "id": 1,
+  "name": "Kafka Listener",
+  "type": "event",
+  "displayName": "Kafka",
+  "documentation": "The Kafka listener can be attached to a Kafka service which listens to Kafka topic(s) and triggers the service when a message is received for Kafka topic(s). The service should implement the `onConsumerRecord` remote method to process the received message(s). Additionally, the service can implement the `onError` remote method to handle errors that occur during the message processing.",
+  "moduleName": "kafka",
+  "orgName": "ballerinax",
+  "packageName": "kafka",
+  "version": "4.2.0",
+  "listenerProtocol": "kafka",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+  "displayAnnotation": {
+    "label": "Kafka",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "The name of the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_VAR_NAME"
+      }
+    },
+    "bootstrapServers": {
+      "metadata": {
+        "label": "Bootstrap Servers",
+        "description": "The Kafka bootstrap server URL. For a clustered use case, provide a comma-separated list of URLs"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION_SET",
+      "valueTypeConstraint": "string|string[]",
+      "isType": false,
+      "placeholder": "\"localhost:9092\"",
+      "optional": false,
+      "advanced": false
+    },
+    "groupId": {
+      "metadata": {
+        "label": "Group ID",
+        "description": "Unique string that identifies the consumer"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
+    "topics": {
+      "metadata": {
+        "label": "Topics",
+        "description": "Topics to be subscribed by the consumer"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION_SET",
+      "valueTypeConstraint": "string|string[]",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false
+    },
+    "offsetReset": {
+      "metadata": {
+        "label": "Offset Reset Strategy",
+        "description": "Offset reset strategy if no initial offset"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"earliest\"",
+        "\"latest\"",
+        "\"none\""
+      ]
+    },
+    "partitionAssignmentStrategy": {
+      "metadata": {
+        "label": "Partition Assignment Strategy",
+        "description": "Strategy class for handling the partition assignment among consumers"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metricsRecordingLevel": {
+      "metadata": {
+        "label": "Metrics Recording Level",
+        "description": "Metrics recording level"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metricsReporterClasses": {
+      "metadata": {
+        "label": "Metrics Reporter Classes",
+        "description": "Metrics reporter classes"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "clientId": {
+      "metadata": {
+        "label": "Client ID",
+        "description": "Identifier to be used for server side logging"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "interceptorClasses": {
+      "metadata": {
+        "label": "Interceptor Classes",
+        "description": "Interceptor classes to be used before sending the records"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "isolationLevel": {
+      "metadata": {
+        "label": "Isolation Level",
+        "description": "Transactional message reading method"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true,
+      "items": [
+        "\"read_committed\"",
+        "\"read_uncommitted\""
+      ]
+    },
+    "schemaRegistryUrl": {
+      "metadata": {
+        "label": "Schema Registry URL",
+        "description": "Avro schema registry URL. Use this field to specify the schema registry URL, if the Avro serializer is used"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "additionalProperties": {
+      "metadata": {
+        "label": "Additional Properties",
+        "description": "Additional properties for the property fields not provided by the Ballerina `kafka` module. Use this with caution since this can override any of the fields. It is not recommended to use this field except in an extreme situation"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "map<string>",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "sessionTimeout": {
+      "metadata": {
+        "label": "Session Timeout",
+        "description": "Timeout (in seconds) used to detect consumer failures when the heartbeat threshold is reached"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "heartBeatInterval": {
+      "metadata": {
+        "label": "Heartbeat Interval",
+        "description": "Expected time (in seconds) between the heartbeats"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "metadataMaxAge": {
+      "metadata": {
+        "label": "Metadata Maximum Age",
+        "description": "Maximum time (in seconds) to force a refresh of metadata"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "autoCommitInterval": {
+      "metadata": {
+        "label": "Auto Commit Interval",
+        "description": "Auto committing interval (in seconds) for commit offset when auto-committing is enabled"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "maxPartitionFetchBytes": {
+      "metadata": {
+        "label": "Maximum Partition Fetch Bytes",
+        "description": "The maximum amount of data the server returns per partition"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "sendBuffer": {
+      "metadata": {
+        "label": "Send Buffer Size",
+        "description": "Size of the TCP send buffer (SO_SNDBUF)"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "receiveBuffer": {
+      "metadata": {
+        "label": "Receive Buffer Size",
+        "description": "Size of the TCP receive buffer (SO_RCVBUF)"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "placeholder": "",
+      "optional": true,
+      "advanced": true
+    },
+    "fetchMinBytes": {
+      "metadata": {
+        "label": "Fetch Minimum Bytes",
+        "description": "Minimum amount of data the server should return for a fetch request"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "fetchMaxBytes": {
+      "metadata": {
+        "label": "Fetch Max Bytes",
+        "description": "Maximum amount of data the server should return for a fetch request"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "fetchMaxWaitTime": {
+      "metadata": {
+        "label": "Fetch Max Wait Time",
+        "description": "Maximum amount of time (in seconds) the server will block before answering the fetch request"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "reconnectBackoffTimeMax": {
+      "metadata": {
+        "label": "Maximum Reconnect Backoff Time",
+        "description": "Maximum amount of time in seconds to wait when reconnecting"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "retryBackoff": {
+      "metadata": {
+        "label": "Retry Backoff Time",
+        "description": "Time (in seconds) to wait before attempting to retry a failed request"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "metricsSampleWindow": {
+      "metadata": {
+        "label": "Metrics Sample Window Time",
+        "description": "Window of time (in seconds) a metrics sample is computed over"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "metricsNumSamples": {
+      "metadata": {
+        "label": "Metrics Number of Samples",
+        "description": "Number of samples maintained to compute metrics"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "requestTimeout": {
+      "metadata": {
+        "label": "Request Timeout",
+        "description": "Wait time (in seconds) for response of a request"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "connectionMaxIdleTime": {
+      "metadata": {
+        "label": "Maximum Connection Idle Time",
+        "description": "Close idle connections after the number of seconds"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "maxPollRecords": {
+      "metadata": {
+        "label": "Maximum Number of Records to Poll",
+        "description": "Maximum number of records returned in a single call to poll"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "maxPollInterval": {
+      "metadata": {
+        "label": "Maximum Poll Interval",
+        "description": "Maximum delay between invocations of poll"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "reconnectBackoffTime": {
+      "metadata": {
+        "label": "Reconnect Backoff Time",
+        "description": "Time (in seconds) to wait before attempting to reconnect"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "pollingTimeout": {
+      "metadata": {
+        "label": "Polling Timeout",
+        "description": "Timeout interval for polling in seconds"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "pollingInterval": {
+      "metadata": {
+        "label": "Polling Interval",
+        "description": "Polling interval for the consumer in seconds"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "concurrentConsumers": {
+      "metadata": {
+        "label": "Number of Concurrent Consumers",
+        "description": "Number of concurrent consumers"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "defaultApiTimeout": {
+      "metadata": {
+        "label": "Default API Timeout",
+        "description": "Default API timeout value (in seconds) for APIs with duration"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "decimal",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "autoCommit": {
+      "metadata": {
+        "label": "Auto Commit",
+        "description": "Enables auto committing offsets"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "checkCRCS": {
+      "metadata": {
+        "label": "Check CRC32",
+        "description": "Checks the CRC32 of the records consumed. This ensures that no on-the-wire or on-disk corruption occurred to the messages. This may add some overhead and might need to be set to `false` if extreme performance is required"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "excludeInternalTopics": {
+      "metadata": {
+        "label": "Exclude Internal Topics",
+        "description": "Whether records from internal topics should be exposed to the consumer"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "decoupleProcessing": {
+      "metadata": {
+        "label": "Decouple Processing",
+        "description": "Decouples processing"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "validation": {
+      "metadata": {
+        "label": "Constraint Validation",
+        "description": "Configuration related to constraint validation check"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "autoSeekOnValidationFailure": {
+      "metadata": {
+        "label": "Auto Seek on Validation Failure",
+        "description": "Automatically seeks past the errornous records in the event of an data-binding or validating constraints failure"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "value": "",
+      "placeholder": "true",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "secureSocket": {
+      "metadata": {
+        "label": "Secure Socket Configuration",
+        "description": "Configurations related to SSL/TLS encryption"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "kafka:SecureSocket",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "auth": {
+      "metadata": {
+        "label": "Authentication Configuration",
+        "description": "Authentication-related configurations for the `kafka:Consumer`"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "kafka:AuthenticationConfiguration",
+      "value": "",
+      "placeholder": "",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "securityProtocol": {
+      "metadata": {
+        "label": "Security Protocol",
+        "description": "Type of the security protocol to use in the broker connection"
+      },
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "kafka:SecurityProtocol",
+      "value": "",
+      "placeholder": "PLAINTEXT",
+      "optional": true,
+      "editable": true,
+      "enabled": false,
+      "advanced": true,
+      "items": [
+        "\"PLAINTEXT\"",
+        "\"SASL_PLAINTEXT\"",
+        "\"SASL_SSL\"",
+        "\"SSL\""
+      ]
+    }
+  }
+}
