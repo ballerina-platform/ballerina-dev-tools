@@ -1,0 +1,33 @@
+{
+  "1": {
+    "name": "kafka",
+    "orgName": "ballerinax",
+    "packageName": "kafka",
+    "keywords": [
+      "kafka",
+      "network",
+      "messaging",
+      "event"
+    ]
+  },
+  "2": {
+    "name": "rabbitmq",
+    "orgName": "ballerinax",
+    "packageName": "rabbitmq",
+    "keywords": [
+      "messaging",
+      "network",
+      "event"
+    ]
+  },
+  "3": {
+    "name": "trigger.github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "event",
+      "github",
+      "trigger"
+    ]
+  }
+}
