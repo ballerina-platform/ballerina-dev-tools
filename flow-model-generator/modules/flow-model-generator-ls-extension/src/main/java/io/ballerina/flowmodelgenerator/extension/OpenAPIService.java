@@ -17,11 +17,8 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("openAPIService")
 public class OpenAPIService implements ExtendedLanguageServerService {
 
-    private WorkspaceManager workspaceManager;
-
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
-        this.workspaceManager = workspaceManager;
     }
 
     @Override
@@ -35,9 +32,8 @@ public class OpenAPIService implements ExtendedLanguageServerService {
             OpenAPIClientGenerationResponse response = new OpenAPIClientGenerationResponse();
             try {
                 OpenAPIClientGenerator openAPIClientGenerator =
-                        new OpenAPIClientGenerator(Path.of(req.openAPIContractPath()), Path.of(req.projectPath()));
-                response.setTextEdits(openAPIClientGenerator.genClient(req.module()));
-                response.setExists(openAPIClientGenerator.isModuleExists());
+                        new OpenAPIClientGenerator(Path.of(req.openApiContractPath()), Path.of(req.projectPath()));
+                response.setSource(openAPIClientGenerator.genClient(req.module()));
             } catch (Throwable e) {
                 response.setError(e);
             }

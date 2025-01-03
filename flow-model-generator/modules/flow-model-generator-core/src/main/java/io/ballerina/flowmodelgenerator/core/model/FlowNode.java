@@ -64,4 +64,5 @@ public record FlowNode(
     public static final int NODE_FLAG_FINAL = 1 << 2;
     public static final int NODE_FLAG_REMOTE = 1 << 10;
     public static final int NODE_FLAG_RESOURCE = 1 << 11;
+    public static final int NODE_FLAG_GENERATED = 1 << 12;
 }

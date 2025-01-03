@@ -1,16 +1,31 @@
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientGenerationRequest;
+import io.ballerina.tools.text.LinePosition;
+import org.eclipse.lsp4j.TextEdit;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClientGeneratorTest extends AbstractLSTest {
+
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
+    }.getType();
 
     @DataProvider(name = "data-provider")
     @Override
@@ -33,9 +48,73 @@ public class ClientGeneratorTest extends AbstractLSTest {
         Files.createFile(balToml);
         Files.writeString(balToml, testConfig.balToml());
         String projectPath = project.toAbsolutePath().toString();
-        OpenAPIClientGenerationRequest req = new OpenAPIClientGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, testConfig.module());
-        JsonObject resp = getResponse(req);
+        String module = testConfig.module();
+        OpenAPIClientGenerationRequest openAPIClientReq =
+                new OpenAPIClientGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, module);
+        JsonElement openAPIClientSource =
+                getResponse(openAPIClientReq).getAsJsonObject("source").get("textEditsMap");
+
+        Path modulePath = project.resolve("generated").resolve(module);
+        Files.createDirectories(modulePath);
+        Files.createFile(project.resolve(testConfig.source()));
+        Files.createFile(project.resolve("connections.bal"));
+        Map<String, List<TextEdit>> textEdits = gson.fromJson(openAPIClientSource, textEditListType);
+        for (Map.Entry<String, List<TextEdit>> entry : textEdits.entrySet()) {
+            Path filePath = project.resolve(entry.getKey());
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+            StringBuilder content = new StringBuilder(Files.readString(filePath));
+            List<TextEdit> edits = entry.getValue();
+            for (TextEdit edit : edits) {
+                content.append(edit.getNewText());
+            }
+            Files.writeString(filePath, content);
+        }
+
+        String filePath = project.resolve(testConfig.source()).toAbsolutePath().toString();
+
+        FlowModelNodeTemplateRequest nodeTemplateRequest =
+                new FlowModelNodeTemplateRequest(filePath, testConfig.position(), testConfig.codedata());
+        JsonElement nodeTemplate = getResponse(nodeTemplateRequest, "flowDesignService/getNodeTemplate").get(
+                "flowNode");
+
+        FlowModelSourceGeneratorRequest sourceRequest = new FlowModelSourceGeneratorRequest(filePath, nodeTemplate);
+        JsonObject connectionSource =
+                getResponse(sourceRequest, "flowDesignService/getSourceCode").getAsJsonObject("textEdits");
+
+        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(connectionSource, textEditListType);
+        boolean assertFailure = false;
+        if (actualTextEdits.size() != testConfig.textEdits().size()) {
+            log.info("The number of text edits does not match the expected output.");
+            assertFailure = true;
+        }
+
+        Map<String, List<TextEdit>> newMap = new HashMap<>();
+        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
+            Path fullPath = Paths.get(entry.getKey());
+            String relativePath = project.relativize(fullPath).toString();
+
+            List<TextEdit> newTextEdits = testConfig.textEdits().get(relativePath.replace("\\", "/"));
+            if (newTextEdits == null) {
+                log.info("No text edits found for the file: " + relativePath);
+                assertFailure = true;
+            } else if (!assertArray("text edits", entry.getValue(), newTextEdits)) {
+                assertFailure = true;
+            }
+
+            newMap.put(relativePath, entry.getValue());
+        }
+
         deleteFolder(project.toFile());
+        if (!nodeTemplate.equals(testConfig.output()) || assertFailure) {
+            TestConfig updatedConfig =
+                    new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),
+                            testConfig.source(), testConfig.position(), testConfig.description(),
+                            testConfig.codedata(), nodeTemplate, newMap);
+            updateConfig(configJsonPath, updatedConfig);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
     }
 
     private void deleteFolder(File folder) {
@@ -75,10 +154,19 @@ public class ClientGeneratorTest extends AbstractLSTest {
      * Represents the test configuration for the service generation.
      *
      * @param contractFile OpenAPI contract file
-     * @param lineRange    line range of service declaration
+     * @param balToml      Ballerina.toml content
+     * @param module       Module name
+     * @param source       Source file name
+     * @param position     Line position
+     * @param description  Test description
+     * @param codedata     Codedata of the node
+     * @param output       Expected output
+     * @param textEdits    Text edits
      * @since 1.4.0
      */
-    private record TestConfig(String contractFile, String balToml, JsonObject lineRange, String module) {
+    private record TestConfig(String contractFile, String balToml, String module, String source,
+                              LinePosition position, String description, JsonObject codedata, JsonElement output,
+                              Map<String, List<TextEdit>> textEdits) {
 
     }
 }

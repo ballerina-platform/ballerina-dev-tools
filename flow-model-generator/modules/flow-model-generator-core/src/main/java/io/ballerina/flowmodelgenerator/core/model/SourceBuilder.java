@@ -138,8 +138,9 @@ public class SourceBuilder {
     }
 
     public SourceBuilder acceptImport(Path resolvedPath) {
-        String org = flowNode.codedata().org();
-        String module = flowNode.codedata().module();
+        Codedata codedata = flowNode.codedata();
+        String org = codedata.org();
+        String module = codedata.module();
 
         if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
@@ -156,9 +157,11 @@ public class SourceBuilder {
         LineRange lineRange = syntaxTree.rootNode().lineRange();
 
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
+        String currentModuleName = "";
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
-            if (descriptor.org().value().equals(org) && descriptor.name().toString().equals(module)) {
+            currentModuleName = descriptor.name().toString();
+            if (descriptor.org().value().equals(org) && currentModuleName.equals(module)) {
                 return this;
             }
         }
@@ -175,9 +178,16 @@ public class SourceBuilder {
 
         // Add the import statement
         if (!importExists) {
+            String importSignature;
+            Boolean generated = codedata.isGenerated();
+            if (!currentModuleName.isEmpty() && generated != null && generated) {
+                importSignature = currentModuleName + "." + module;
+            } else {
+                importSignature = codedata.getImportSignature();
+            }
             tokenBuilder
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(flowNode.codedata().getImportSignature())
+                    .name(importSignature)
                     .endOfStatement();
             textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
         }
