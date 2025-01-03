@@ -10,19 +10,27 @@
  *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+ *  of any KIND, either express or implied.  See the License for the
  *  specific language governing permissions and limitations
  *  under the License.
  */
 
-
-package io.ballerina.flowmodelgenerator.extension.request;
+package io.ballerina.flowmodelgenerator.extension.response;
 
 /**
- * A request to retrieve components of a module such as connections, types..
+ * Response class for function call template.
  *
- * @param filePath a file path of the project
+ * @since 2.0.0
  */
-public record FilePathRequest(String filePath) {
+public class FunctionCallTemplateResponse extends AbstractFlowModelResponse {
+    private String template;
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public String template() {
+        return template;
+    }
 }

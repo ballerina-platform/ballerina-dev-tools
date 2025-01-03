@@ -16,13 +16,28 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
+
 /**
- * A request to retrieve components of a module such as connections, types..
+ * Represents a request for function call template.
  *
- * @param filePath a file path of the project
+ * @param filePath  The file path which contains the expression
+ * @param codedata  The code data containing function information
+ * @param kind      The kind of template to generate (CURRENT/IMPORT/AVAILABLE)
+ * @since 2.0.0
  */
-public record FilePathRequest(String filePath) {
+public record FunctionCallTemplateRequest(String filePath, Codedata codedata, FunctionCallTemplateKind kind) {
+    
+    /**
+     * Represents the kind of function call template.
+     * 
+     * @since 2.0.0
+     */
+    public enum FunctionCallTemplateKind {
+        CURRENT,
+        IMPORTED,
+        AVAILABLE
+    }
 }

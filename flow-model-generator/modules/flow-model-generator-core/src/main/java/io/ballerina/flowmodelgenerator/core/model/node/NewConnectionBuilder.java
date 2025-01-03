@@ -54,6 +54,8 @@ import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncExcept
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -77,6 +79,7 @@ public class NewConnectionBuilder extends NodeBuilder {
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String CONNECTION_NAME_LABEL = "Connection Name";
     public static final String CONNECTION_TYPE_LABEL = "Connection Type";
+    protected static Logger log = LoggerFactory.getLogger(NewConnectionBuilder.class);
 
     @Override
     public void setConcreteConstData() {
@@ -121,24 +124,28 @@ public class NewConnectionBuilder extends NodeBuilder {
             }
             Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
             try {
+                if (clientPath.toFile().exists()) {
+                    log.info("Loading client file from: " + clientPath);
+                } else {
+                    log.info("Client file does not exist: " + clientPath);
+                }
                 WorkspaceManager workspaceManager = context.workspaceManager();
                 workspaceManager.loadProject(clientPath);
                 Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
                 if (optSemanticModel.isEmpty()) {
                     return;
                 }
-                SemanticModel sm = optSemanticModel.get();
-                for (Symbol symbol : sm.moduleSymbols()) {
+                for (Symbol symbol : optSemanticModel.get().moduleSymbols()) {
                     if (symbol.kind() != SymbolKind.CLASS) {
                         continue;
                     }
                     ClassSymbol classSymbol = (ClassSymbol) symbol;
                     if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                        return;
+                        continue;
                     }
                     Optional<MethodSymbol> optInitMethodSymbol = classSymbol.initMethod();
                     if (optInitMethodSymbol.isEmpty()) {
-                        return;
+                        continue;
                     }
                     MethodSymbol methodSymbol = optInitMethodSymbol.get();
                     function = convertMethodSymbolToFunctionResult(methodSymbol, codedata.module(),

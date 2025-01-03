@@ -32,6 +32,8 @@ public class ClientGeneratorTest extends AbstractLSTest {
     protected Object[] getConfigsList() {
         return new Object[][]{
                 {Path.of("config1.json")},
+//                {Path.of("config2.json")},
+//                {Path.of("config3.json")},
         };
     }
 
@@ -63,6 +65,9 @@ public class ClientGeneratorTest extends AbstractLSTest {
             Path filePath = project.resolve(entry.getKey());
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
+            }
+            if (Files.exists(filePath)) {
+                log.info("File created successfully : " + filePath);
             }
             StringBuilder content = new StringBuilder(Files.readString(filePath));
             List<TextEdit> edits = entry.getValue();

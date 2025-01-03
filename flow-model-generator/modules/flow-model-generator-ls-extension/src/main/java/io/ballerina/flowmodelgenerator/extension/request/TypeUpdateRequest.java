@@ -16,13 +16,16 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import com.google.gson.JsonElement;
+
 /**
- * A request to retrieve components of a module such as connections, types..
+ * Represents the request to get types.
  *
- * @param filePath a file path of the project
+ * @param typesFilePath path of the type file
+ * @param type new type data
+ * @since 2.0.0
  */
-public record FilePathRequest(String filePath) {
+public record TypeUpdateRequest(String typesFilePath, JsonElement type) {
 }

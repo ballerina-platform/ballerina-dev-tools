@@ -1,14 +1,149 @@
 {
   "contractFile": "response.yaml",
-  "lineRange": {
-    "fileName": "service_implementation.bal",
-    "startLine": {
-      "line": 1,
-      "offset": 0
+  "balToml": "[package]\norg = \"oas\"\nname = \"client2\"\nversion = \"0.1.0\"\n[[tool.openapi]]\nid = \"cl1\"\ntargetModule = \"mod5\"",
+  "module": "mod2",
+  "source": "main.bal",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "org": "",
+    "module": "mod2",
+    "object": "",
+    "symbol": "init",
+    "isGenerated": true
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Gets invoked to initialize the `connector`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_.png"
     },
-    "endLine": {
-      "line": 9,
-      "offset": 1
-    }
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "",
+      "module": "mod2",
+      "object": "Client",
+      "symbol": "init",
+      "id": -1,
+      "isGenerated": true
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "oas/client2.mod2:0.1.0:ConnectionConfig",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config",
+          "importStatements": ""
+        }
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"http://localhost:9090/v1\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl",
+          "importStatements": ""
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "mod2:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "mod2Client",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "textEdits": {
+    "connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import client2.mod2;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final mod2:Client mod2Client = check new ();"
+      }
+    ]
   }
 }

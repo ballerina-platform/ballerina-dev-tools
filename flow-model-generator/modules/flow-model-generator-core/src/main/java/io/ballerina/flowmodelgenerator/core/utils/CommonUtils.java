@@ -675,4 +675,43 @@ public class CommonUtils {
                 packageName.equals(defaultModuleInfo.packageName()) &&
                 moduleName.equals(defaultModuleInfo.moduleName());
     }
+
+    /**
+     * Checks if the given symbol is within the given package.
+     *
+     * @param symbol     the symbol to check
+     * @param moduleInfo the module descriptor of the current module
+     * @return true if the symbol is within the given package, false otherwise
+     */
+    public static boolean isWithinPackage(Symbol symbol, ModuleInfo moduleInfo) {
+        if (symbol.getModule().isEmpty()) {
+            return false;
+        }
+        ModuleID moduleID = symbol.getModule().get().id();
+        return moduleID.orgName().equals(moduleInfo.org()) &&
+                moduleID.packageName().equals(moduleInfo.packageName());
+    }
+
+    /**
+     * Converts a multi-line string into a formatted Ballerina documentation.
+     * Each line starts with a "#".
+     *
+     * @param text The input string.
+     * @return The formatted Ballerina documentation string.
+     */
+    public static String convertToBalDocs(String text) {
+        // Split the input text into lines
+        String[] lines = text.split("\n");
+
+        // Use StringBuilder for efficient string manipulation
+        StringBuilder formattedComment = new StringBuilder();
+
+        // Add "#" before each line and append to the result
+        for (String line : lines) {
+            formattedComment.append("# ").append(line).append("\n");
+        }
+
+        // Convert StringBuilder to String and return
+        return formattedComment.toString();
+    }
 }

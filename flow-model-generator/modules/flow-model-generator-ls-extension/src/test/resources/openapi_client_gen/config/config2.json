@@ -1,14 +1,150 @@
 {
   "contractFile": "petstore_original.yaml",
-  "lineRange": {
-    "fileName": "service_implementation.bal",
-    "startLine": {
-      "line": 1,
-      "offset": 0
+  "balToml": "[package]\norg = \"oas\"\nname = \"client1\"\nversion = \"0.1.0\"\n[[tool.openapi]]\nid = \"cl1\"\ntargetModule = \"mod5\"",
+  "module": "mod1",
+  "source": "main.bal",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "org": "",
+    "module": "mod1",
+    "object": "",
+    "symbol": "init",
+    "isGenerated": true
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Gets invoked to initialize the `connector`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod1_.png"
     },
-    "endLine": {
-      "line": 135,
-      "offset": 1
-    }
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "",
+      "module": "mod1",
+      "object": "Client",
+      "symbol": "init",
+      "id": -1,
+      "isGenerated": true
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "oas/client1.mod1:0.1.0:ConnectionConfig",
+        "value": "",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "config",
+          "importStatements": ""
+        }
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"https://petstore3.swagger.io/api/v3\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl",
+          "importStatements": ""
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "mod1:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "mod1Client",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "textEdits": {
+    "connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import client1.mod1;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final mod1:Client mod1Client = check new ();"
+      }
+    ]
   }
 }
