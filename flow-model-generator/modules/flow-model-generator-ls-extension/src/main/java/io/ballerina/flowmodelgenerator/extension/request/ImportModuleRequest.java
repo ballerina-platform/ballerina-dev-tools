@@ -24,5 +24,5 @@ package io.ballerina.flowmodelgenerator.extension.request;
  * @param filePath       The file path which contains the expression
  * @param importStatement The import statement to be applied
  */
-public record ModuleSnippetRequest(String filePath, String importStatement) {
+public record ImportModuleRequest(String filePath, String importStatement) {
 }

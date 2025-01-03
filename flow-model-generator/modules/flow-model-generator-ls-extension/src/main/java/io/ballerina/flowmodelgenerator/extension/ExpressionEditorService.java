@@ -29,7 +29,7 @@ import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorComplet
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ModuleSnippetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
@@ -254,7 +254,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<SuccessResponse> moduleSnippet(ModuleSnippetRequest request) {
+    public CompletableFuture<SuccessResponse> importModule(ImportModuleRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             SuccessResponse response = new SuccessResponse();
             try {

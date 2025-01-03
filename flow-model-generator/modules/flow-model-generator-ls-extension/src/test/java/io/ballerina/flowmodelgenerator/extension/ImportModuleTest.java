@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ModuleSnippetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
@@ -38,7 +38,7 @@ import java.util.List;
  *
  * @since 2.0.0
  */
-public class ModuleSnippetTest extends AbstractLSTest {
+public class ImportModuleTest extends AbstractLSTest {
 
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
@@ -48,7 +48,7 @@ public class ModuleSnippetTest extends AbstractLSTest {
         notifyDidOpen(sourcePath);
 
         // Send module snippet request
-        ModuleSnippetRequest moduleSnippetRequest = new ModuleSnippetRequest(sourcePath, testConfig.importStatement());
+        ImportModuleRequest moduleSnippetRequest = new ImportModuleRequest(sourcePath, testConfig.importStatement());
         JsonObject successResponse = getResponse(moduleSnippetRequest);
         successResponse.get("success").getAsBoolean();
         Assert.assertTrue(successResponse.get("success").getAsBoolean(), "Module snippet request failed");
@@ -74,12 +74,12 @@ public class ModuleSnippetTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "module_snippet";
+        return "import_module";
     }
 
     @Override
     protected String getApiName() {
-        return "moduleSnippet";
+        return "importModule";
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ModuleSnippetTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return ModuleSnippetTest.class;
+        return ImportModuleTest.class;
     }
 
     private record TestConfig(String description, String filePath, String importStatement, String expression) {
