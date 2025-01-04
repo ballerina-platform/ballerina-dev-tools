@@ -472,7 +472,7 @@ public class DataMapManager {
     private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {
     }.getType();
 
-    public Object genSourceForMappings(List<Mapping> mappings, String prevOutput) {
+    private Object genSourceForMappings(List<Mapping> mappings, String prevOutput) {
         Map<String, Object> m = new LinkedHashMap<>();
         if (mappings.size() == 1) {
             Mapping firstMapping = mappings.getFirst();
@@ -573,23 +573,24 @@ public class DataMapManager {
         }
         String mappingSource = genSource(genSourceForMappings(fieldMapping, getVariableName(flowNode)));
         Optional<Property> optProperty = flowNode.getProperty("expression");
-        if (optProperty.isPresent()) {
-            Property property = optProperty.get();
-            String source = property.toSourceCode();
-            if (targetField == null) {
-                if (source.matches("^from.*in.*select.*$")) {
-                    String[] split = source.split("select");
-                    return split[0] + " select " + mappingSource + ";";
-                }
-            } else {
-                String fieldsPattern = getFieldsPattern(targetField);
-                if (source.matches(".*" + fieldsPattern + "\\s*:\\s*from.*in.*select.*$")) {
-                    String[] split = source.split(fieldsPattern + "\\s*:\\s*from");
-                    String newSource = split[0] + fieldsPattern + ": from";
-                    String[] splitBySelect = split[1].split("select");
-                    return newSource + splitBySelect[0] + "select" + splitBySelect[1].replaceFirst("\\{.*?}",
-                            mappingSource);
-                }
+        if (optProperty.isEmpty()) {
+            return mappingSource;
+        }
+        Property property = optProperty.get();
+        String source = property.toSourceCode();
+        if (targetField == null) {
+            if (source.matches("^from.*in.*select.*$")) {
+                String[] split = source.split("select");
+                return split[0] + " select " + mappingSource + ";";
+            }
+        } else {
+            String fieldsPattern = getFieldsPattern(targetField);
+            if (source.matches(".*" + fieldsPattern + "\\s*:\\s*from.*in.*select.*$")) {
+                String[] split = source.split(fieldsPattern + "\\s*:\\s*from");
+                String newSource = split[0] + fieldsPattern + ": from";
+                String[] splitBySelect = split[1].split("select");
+                return newSource + splitBySelect[0] + "select" + splitBySelect[1].replaceFirst("\\{.*?}",
+                        mappingSource);
             }
         }
         return mappingSource;
@@ -745,44 +746,37 @@ public class DataMapManager {
         return sb.toString();
     }
 
-    public JsonElement getVisualizableProperties(JsonElement node, LinePosition position) {
+    public JsonElement getVisualizableProperties(JsonElement node, Project project, Path filePath,
+                                                 LinePosition position) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
-
         List<String> visualizableProperties = new ArrayList<>();
         if (flowNode.codedata().node() != NodeKind.VARIABLE) {
             return gson.toJsonTree(visualizableProperties);
         }
 
-        Map<String, Property> properties = flowNode.properties();
-        Property property = properties.get("type");
-        Object value = property.value();
-        if (!(value instanceof String typeName)) {
-            return gson.toJsonTree(visualizableProperties);
+        SourceModification sourceModification = applyNode(flowNode, project, filePath, position);
+        Node stNode = sourceModification.stNode();
+        if (stNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+            throw new IllegalStateException("Node is not a variable declaration");
         }
-        if (typeName.matches(".*\\d*]")) {
-            typeName = typeName.split("\\[")[0];
+        Optional<Symbol> optVarSymbol = sourceModification.semanticModel().symbol(stNode);
+        if (optVarSymbol.isEmpty()) {
+            throw new IllegalStateException("Symbol cannot be found for the variable declaration");
         }
-        Map<String, Symbol> visibleVariables = visibleTypeSymbols(this.semanticModel.visibleSymbols(this.document,
-                position));
-        Symbol symbol = visibleVariables.get(typeName);
-        if (symbol != null) {
+        VariableSymbol variableSymbol = (VariableSymbol) optVarSymbol.get();
+        if (isEffectiveRecordType(variableSymbol.typeDescriptor())) {
             visualizableProperties.add("expression");
         }
         return gson.toJsonTree(visualizableProperties);
     }
 
-    private Map<String, Symbol> visibleTypeSymbols(List<Symbol> symbols) {
-        Map<String, Symbol> variableSymbols = new HashMap<>();
-        for (Symbol symbol : symbols) {
-            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                TypeSymbol rawType = CommonUtils.getRawType(((TypeDefinitionSymbol) symbol).typeDescriptor());
-                TypeDescKind typeKind = rawType.typeKind();
-                if (typeKind == TypeDescKind.RECORD || typeKind == TypeDescKind.ARRAY) {
-                    variableSymbols.put(symbol.getName().get(), rawType);
-                }
-            }
+    private boolean isEffectiveRecordType(TypeSymbol typeSymbol) {
+        TypeSymbol rawTypeSymbol = CommonUtils.getRawType(typeSymbol);
+        TypeDescKind kind = rawTypeSymbol.typeKind();
+        if (kind == TypeDescKind.ARRAY) {
+            return isEffectiveRecordType(((ArrayTypeSymbol) rawTypeSymbol).memberTypeDescriptor());
         }
-        return variableSymbols;
+        return kind == TypeDescKind.RECORD;
     }
 
     public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project
@@ -806,7 +800,7 @@ public class DataMapManager {
         Optional<Symbol> symbol = sourceModification.semanticModel().symbol(stNode);
         if (symbol.isEmpty()) {
             return "";
-        }
+        } // 18:36
         TypeSymbol targetType = getTargetType(((VariableSymbol) symbol.get()).typeDescriptor(), targetField);
         if (targetType == null) {
             return "";
