@@ -67,6 +67,7 @@ public abstract class AbstractLSTest {
 
     protected Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
+    protected static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @BeforeClass
     public final void init() {
