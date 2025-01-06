@@ -25,6 +25,7 @@ import java.util.Set;
  *
  * @param name name of the function
  * @param location location of the function
+ * @param connections dependent connections of the function
  *
  * @since 2.0.0
  */

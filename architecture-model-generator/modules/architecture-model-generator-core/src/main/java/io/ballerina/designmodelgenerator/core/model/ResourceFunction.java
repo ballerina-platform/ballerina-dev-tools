@@ -26,6 +26,7 @@ import java.util.Set;
  * @param accessor function accessor name
  * @param path path of the resource function
  * @param location location of the resource function
+ * @param connections dependent connections of the resource function
  *
  * @since 2.0.0
  */
