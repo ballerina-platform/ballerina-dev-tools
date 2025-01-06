@@ -194,7 +194,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "User1 user1 = {user2: {user3: {i3: 0, user4: {user5: {u: [user.name, user.name]}}}}, s1: user.name};"
+    ]
   }
 }

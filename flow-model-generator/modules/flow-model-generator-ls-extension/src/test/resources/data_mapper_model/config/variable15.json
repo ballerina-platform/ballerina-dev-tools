@@ -130,7 +130,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Credentials[] credentials = [];"
+    ]
   }
 }

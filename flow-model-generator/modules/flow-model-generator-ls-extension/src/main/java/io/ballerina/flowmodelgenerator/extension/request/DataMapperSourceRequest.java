@@ -28,7 +28,8 @@ import com.google.gson.JsonElement;
  * @param mappings    data mappings
  * @param propertyKey The property that needs to consider to get the type
  * @param targetField The target field that needs to consider to get the type
- * @since 1.4.0
+ *
+ * @since 2.0.0
  */
 public record DataMapperSourceRequest(String filePath, JsonElement flowNode, JsonElement mappings, String propertyKey,
                                       String targetField) {

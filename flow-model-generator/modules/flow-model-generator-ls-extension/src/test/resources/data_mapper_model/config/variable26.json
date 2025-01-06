@@ -349,7 +349,6 @@
       "typeName": "User",
       "kind": "record"
     },
-    "mappings": [],
-    "source": "User u;"
+    "mappings": []
   }
 }

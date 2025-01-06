@@ -173,7 +173,6 @@
           }
         ]
       }
-    ],
-    "source": "Person u = {contacts: [user.phoneNumber[0] + user.phoneNumber[4], user.phoneNumber[1], user.phoneNumber[2]]};"
+    ]
   }
 }

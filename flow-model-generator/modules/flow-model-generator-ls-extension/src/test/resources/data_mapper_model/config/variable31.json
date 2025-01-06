@@ -159,7 +159,6 @@
           }
         ]
       }
-    ],
-    "source": "Person var3 = {\n    contacts: [user.phoneNumber[0], user.phoneNumber[0]]\n};"
+    ]
   }
 }

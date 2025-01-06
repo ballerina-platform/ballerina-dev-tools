@@ -153,7 +153,6 @@
           }
         ]
       }
-    ],
-    "source": "Credentials[] credentials = [{username: userInfo[0].username, password: userInfo[0].password}];"
+    ]
   }
 }

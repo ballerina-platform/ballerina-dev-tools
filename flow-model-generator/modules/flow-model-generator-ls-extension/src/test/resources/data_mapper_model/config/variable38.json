@@ -277,7 +277,6 @@
           }
         ]
       }
-    ],
-    "source": "User4[] users4 = [{users6: [{balance: 0, banks: [{bankInfo: [{bankName: user.name}]}], account: user.name}], user5: {u: [user.name, user.name]}}];"
+    ]
   }
 }

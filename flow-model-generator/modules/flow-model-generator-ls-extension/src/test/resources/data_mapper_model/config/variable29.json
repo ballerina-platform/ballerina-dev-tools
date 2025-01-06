@@ -206,7 +206,6 @@
           }
         ]
       }
-    ],
-    "source": "TwoDim td = {values: [[user.phoneNumber[0]], [user.phoneNumber[1]], [user.phoneNumber[2], user.phoneNumber[3]]]};"
+    ]
   }
 }

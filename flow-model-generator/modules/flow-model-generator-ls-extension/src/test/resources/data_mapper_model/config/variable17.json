@@ -213,7 +213,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Student student = {id: 1234, credentials: [{username: userInfo[0].username, password: userInfo[1].password}], length: 0};"
+    ]
   }
 }

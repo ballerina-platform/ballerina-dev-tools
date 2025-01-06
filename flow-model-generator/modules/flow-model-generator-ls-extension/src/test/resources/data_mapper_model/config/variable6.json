@@ -132,7 +132,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username};"
+    ]
   }
 }

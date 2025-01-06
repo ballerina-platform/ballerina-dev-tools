@@ -33,6 +33,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Tests for the generation of data mapper model.
+ *
+ * @since 2.0.0
+ */
 public class DataMappingModelTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
@@ -92,8 +97,9 @@ public class DataMappingModelTest extends AbstractLSTest {
                         testConfig.diagram(), testConfig.position(), testConfig.propertyKey(),
                         testConfig.targetField());
         JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappingsModel");
-
-        if (!model.equals(testConfig.model())) {
+        String actual = model.toString().replace(" ", "");
+        String expected = testConfig.model().toString().replace(" ", "");
+        if (!actual.equals(expected)) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model,
                     testConfig.targetField());

@@ -140,7 +140,6 @@
         ],
         "elements": []
       }
-    ],
-    "source": "Credentials[] credentials = userInfo;"
+    ]
   }
 }

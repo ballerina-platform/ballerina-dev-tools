@@ -171,7 +171,6 @@
           }
         ]
       }
-    ],
-    "source": "Person var3 = {contacts: [{primaryPhone: user.phoneNumber[0], secondaryPhone: user.phoneNumber[1]}, {primaryPhone: user.phoneNumber[2], secondaryPhone: user.phoneNumber[3]}]};"
+    ]
   }
 }

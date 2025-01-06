@@ -195,7 +195,6 @@
           }
         ]
       }
-    ],
-    "source": "Person5 var3 = {\n    contacts: [\n        {\n            primaryPhone: \"\",\n            secondaryPhones: [\n                \"1\",\n                user.phoneNumber[0]\n            ]\n        }\n    ]\n};"
+    ]
   }
 }

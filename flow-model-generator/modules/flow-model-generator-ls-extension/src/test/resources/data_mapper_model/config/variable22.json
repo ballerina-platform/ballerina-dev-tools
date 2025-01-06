@@ -152,7 +152,6 @@
       "typeName": "Person",
       "kind": "record"
     },
-    "mappings": [],
-    "source": "Person var1909;"
+    "mappings": []
   }
 }

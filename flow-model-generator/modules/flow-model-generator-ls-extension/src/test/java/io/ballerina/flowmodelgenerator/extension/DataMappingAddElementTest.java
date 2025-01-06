@@ -30,6 +30,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Tests for the adding elements to array in data mapper.
+ *
+ * @since 2.0.0
+ */
 public class DataMappingAddElementTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")

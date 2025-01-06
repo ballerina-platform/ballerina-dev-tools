@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.extension.response;
 /**
  * Represents the response containing data mapper model data mapping.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DataMapperAddElementResponse extends AbstractFlowModelResponse {
 

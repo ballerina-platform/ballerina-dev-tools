@@ -147,7 +147,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Credentials[] credentials = from var item in userInfo\n    select {username: item.username, password: item.password};"
+    ]
   }
 }

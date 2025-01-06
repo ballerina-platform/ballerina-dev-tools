@@ -244,7 +244,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "User1 user1 = {user2: {user3: {i3: user.length(), user4: {user5: {u: [user.name, user.name]}, users6: [{balance: 0.0, account: user.name}, {balance: 1.0, account: user.name}]}}}, s1: user.name};"
+    ]
   }
 }

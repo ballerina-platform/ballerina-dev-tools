@@ -91,7 +91,6 @@
       "typeName": "Student",
       "kind": "record"
     },
-    "mappings": [],
-    "source": "Student student = {};"
+    "mappings": []
   }
 }

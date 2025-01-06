@@ -148,7 +148,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Student student = {username: userInfo.username, password: userInfo.password + userInfo.username, length: userInfo.password.length() + userInfo.username.length()};"
+    ]
   }
 }

@@ -172,7 +172,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Person var1909 = {name: std.firstName + std.lastName, age: std.stdAge};"
+    ]
   }
 }

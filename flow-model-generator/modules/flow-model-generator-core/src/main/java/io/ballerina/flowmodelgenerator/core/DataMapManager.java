@@ -170,7 +170,7 @@ public class DataMapManager {
                 generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
             }
         }
-        return gson.toJsonTree(new Model(inputPorts, outputPort, mappings, modification.source()));
+        return gson.toJsonTree(new Model(inputPorts, outputPort, mappings));
     }
 
     private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
@@ -865,7 +865,7 @@ public class DataMapManager {
         return targetType;
     }
 
-    private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings, String source) {
+    private record Model(List<MappingPort> inputs, MappingPort output, List<Mapping> mappings) {
 
     }
 

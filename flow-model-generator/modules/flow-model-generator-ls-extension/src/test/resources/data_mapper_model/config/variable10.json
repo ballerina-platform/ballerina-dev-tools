@@ -165,7 +165,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Student student = {id: 1234, credentials: {username: userInfo.username, password: userInfo.password}, length: 0};"
+    ]
   }
 }

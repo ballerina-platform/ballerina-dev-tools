@@ -162,7 +162,6 @@
         "diagnostics": [],
         "elements": []
       }
-    ],
-    "source": "Person var1909 = {\n    city: std.lastName\n};"
+    ]
   }
 }

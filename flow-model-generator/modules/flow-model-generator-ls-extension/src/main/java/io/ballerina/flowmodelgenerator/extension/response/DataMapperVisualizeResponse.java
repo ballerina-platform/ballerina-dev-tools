@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 /**
  * Represents the response containing data mapper model data mapping.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class DataMapperVisualizeResponse extends AbstractFlowModelResponse {
 

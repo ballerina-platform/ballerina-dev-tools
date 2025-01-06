@@ -155,7 +155,6 @@
           }
         ]
       }
-    ],
-    "source": "Person var3 = {\n    contacts: [\"123\", \"456\"]\n};"
+    ]
   }
 }
