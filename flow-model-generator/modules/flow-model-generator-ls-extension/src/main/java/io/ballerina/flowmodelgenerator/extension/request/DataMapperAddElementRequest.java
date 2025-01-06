@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -26,11 +26,11 @@ import io.ballerina.tools.text.LinePosition;
  *
  * @param filePath    file path of the source file
  * @param flowNode    flow node of form
+ * @param position    position to add the element
  * @param propertyKey The property that needs to consider to get the type
+ * @param targetField The target field that needs to consider to get the type
  * @since 1.4.0
  */
-public record DataMapperAddElementRequest(String filePath, JsonElement flowNode, LinePosition position, String propertyKey,
-                                          String targetField) {
-    // TODO: Revisit the request parameters
-
+public record DataMapperAddElementRequest(String filePath, JsonElement flowNode, LinePosition position,
+                                          String propertyKey, String targetField) {
 }

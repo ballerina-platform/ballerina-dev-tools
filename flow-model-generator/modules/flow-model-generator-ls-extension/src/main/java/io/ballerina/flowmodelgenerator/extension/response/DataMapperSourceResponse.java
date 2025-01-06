@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonElement;
-
 /**
  * Represents the response containing data mapper model data mapping.
  *

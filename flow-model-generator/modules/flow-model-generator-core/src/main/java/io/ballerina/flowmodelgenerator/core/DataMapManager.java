@@ -31,12 +31,11 @@ import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
@@ -79,7 +78,13 @@ import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Generates types of the data mapper model.
@@ -462,7 +467,7 @@ public class DataMapManager {
             MappingPort memberPort = getMappingPort(id, null, arrayType.memberType);
             MappingArrayPort arrayPort = new MappingArrayPort(id, name, memberPort == null ? "record" :
                     memberPort.typeName + "[]", type.getTypeName());
-            arrayPort.member = memberPort;
+            arrayPort.setMember(memberPort);
             return arrayPort;
         } else {
             return null;
@@ -800,7 +805,7 @@ public class DataMapManager {
         Optional<Symbol> symbol = sourceModification.semanticModel().symbol(stNode);
         if (symbol.isEmpty()) {
             return "";
-        } // 18:36
+        }
         TypeSymbol targetType = getTargetType(((VariableSymbol) symbol.get()).typeDescriptor(), targetField);
         if (targetType == null) {
             return "";
@@ -884,7 +889,6 @@ public class DataMapManager {
 
     }
 
-    // TODO: Recheck the constructor generation
     private static class MappingPort {
         String id;
         String variableName;
@@ -902,6 +906,22 @@ public class DataMapManager {
         String getCategory() {
             return this.category;
         }
+
+        String getKind() {
+            return this.kind;
+        }
+
+        void setKind(String kind) {
+            this.kind = kind;
+        }
+
+        String getVariableName() {
+            return this.variableName;
+        }
+
+        void setVariableName(String variableName) {
+            this.variableName = variableName;
+        }
     }
 
     private static class MappingRecordPort extends MappingPort {
@@ -917,6 +937,14 @@ public class DataMapManager {
 
         MappingArrayPort(String id, String variableName, String typeName, String kind) {
             super(id, variableName, typeName, kind);
+        }
+
+        MappingPort getMember() {
+            return this.member;
+        }
+
+        void setMember(MappingPort member) {
+            this.member = member;
         }
     }
 }

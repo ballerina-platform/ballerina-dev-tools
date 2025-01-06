@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
@@ -71,12 +89,14 @@ public class DataMappingModelTest extends AbstractLSTest {
 
         DataMapperModelRequest request =
                 new DataMapperModelRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram(), testConfig.position(), testConfig.propertyKey(), testConfig.targetField());
+                        testConfig.diagram(), testConfig.position(), testConfig.propertyKey(),
+                        testConfig.targetField());
         JsonObject model = getResponse(endpoint, request).getAsJsonObject("mappingsModel");
 
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
-                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model, testConfig.targetField());
+                    testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model,
+                    testConfig.targetField());
             updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
@@ -112,6 +132,7 @@ public class DataMappingModelTest extends AbstractLSTest {
      * @param propertyKey The property that needs to consider to get the type
      * @param position    position of the end of previous statement
      * @param model       The expected data mapping model
+     * @param targetField The target field to add the element
      */
     private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
                               LinePosition position, JsonElement model, String targetField) {

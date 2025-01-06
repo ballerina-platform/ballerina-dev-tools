@@ -28,11 +28,10 @@ import io.ballerina.tools.text.LinePosition;
  * @param flowNode    diagram node
  * @param position    position of the end of previous statement
  * @param propertyKey The property that needs to consider to get the type
+ * @param targetField The target field that needs to consider to get the type
  *
  * @since 1.4.0
  */
-public record DataMapperModelRequest(String filePath, JsonElement flowNode, LinePosition position,
-                                     String propertyKey, String targetField) {
-    // TODO: move `targetField` into a separate call
-
+public record DataMapperModelRequest(String filePath, JsonElement flowNode, LinePosition position, String propertyKey,
+                                     String targetField) {
 }

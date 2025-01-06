@@ -1,11 +1,26 @@
+/*
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperSourceRequest;
-import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -82,8 +97,11 @@ public class DataMappingSourceTest extends AbstractLSTest {
      * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
+     * @param propertyKey The property key to generate the source code
+     * @param position    The position to generate the source code
      * @param mappings    The expected data mapping model
      * @param output      generated source expression
+     * @param targetField The target field to generate the source code
      */
     private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
                               JsonElement position, JsonArray mappings,

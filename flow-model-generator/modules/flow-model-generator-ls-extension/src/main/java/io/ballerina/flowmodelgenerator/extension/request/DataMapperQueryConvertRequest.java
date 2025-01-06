@@ -26,10 +26,11 @@ import io.ballerina.tools.text.LinePosition;
  *
  * @param filePath    file path of the source file
  * @param flowNode    flow node of form
+ * @param position    position of the cursor
  * @param propertyKey The property that needs to consider to get the type
+ * @param targetField The target field that needs to consider to get the type
  * @since 1.4.0
  */
-public record DataMapperQueryConvertRequest(String filePath, JsonElement flowNode, LinePosition position, String propertyKey,
-                                            String targetField) {
-    // TODO: Revisit the request parameters
+public record DataMapperQueryConvertRequest(String filePath, JsonElement flowNode, LinePosition position,
+                                            String propertyKey, String targetField) {
 }
