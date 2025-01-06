@@ -31,7 +31,7 @@ public class SuccessResponse extends AbstractFlowModelResponse {
         return this.success;
     }
 
-    public void setSuccess() {
-        this.success = true;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

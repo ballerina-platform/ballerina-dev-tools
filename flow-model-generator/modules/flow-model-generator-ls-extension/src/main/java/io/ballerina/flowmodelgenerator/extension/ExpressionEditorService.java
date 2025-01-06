@@ -270,10 +270,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                     Optional<TextEdit> importTextEdit = expressionEditorContext
                             .getImport(importStatement);
                     importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                    response.setSuccess();
+                    response.setSuccess(true);
                 }
             } catch (Exception e) {
                 response.setError(e);
+                response.setSuccess(false);
             }
             return response;
         });
