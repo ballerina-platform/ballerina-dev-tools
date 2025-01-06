@@ -43,28 +43,22 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        String sourcePath = getSourcePath(testConfig.filePath());
 
+        notifyDidOpen(sourcePath);
         ExpressionEditorDiagnosticsRequest request =
-                new ExpressionEditorDiagnosticsRequest(getSourcePath(testConfig.filePath()), testConfig.context());
+                new ExpressionEditorDiagnosticsRequest(sourcePath, testConfig.context());
         JsonObject response = getResponse(request);
-
         List<Diagnostic> actualDiagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
                 new TypeToken<List<Diagnostic>>() { }.getType());
+        notifyDidClose(sourcePath);
+
         if (!assertArray("diagnostics", actualDiagnostics, testConfig.diagnostics())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.context(), actualDiagnostics);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @Override
-    protected String[] skipList() {
-        // TODO: Enable this test after fixing the module compilation error in Windows #446
-        return new String[]{
-                "new_connection1.json",
-                "function_call2.json"
-        };
     }
 
     @Override

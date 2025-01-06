@@ -75,7 +75,6 @@ import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
-import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -147,7 +146,6 @@ public class DataMapManager {
 
     public JsonElement getMappings(JsonElement node, LinePosition position, String propertyKey, Path filePath,
                                    String targetField, Project project) {
-        // TODO: add tests for enum
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         SourceModification modification = applyNode(flowNode, project, filePath, position);
         SemanticModel newSemanticModel = modification.semanticModel();
@@ -179,7 +177,6 @@ public class DataMapManager {
         if (parentNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
             return null;
         }
-
         VariableDeclarationNode varDeclNode = (VariableDeclarationNode) parentNode;
 
         Optional<Symbol> optSymbol = semanticModel.symbol(parentNode);
@@ -191,6 +188,7 @@ public class DataMapManager {
             return null;
         }
         VariableSymbol variableSymbol = (VariableSymbol) symbol;
+
         TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
         Optional<ExpressionNode> optInitializer = varDeclNode.initializer();
         if (optInitializer.isEmpty()) {
@@ -247,11 +245,12 @@ public class DataMapManager {
 
     private Map<String, MappingFieldNode> convertMappingFieldsToMap(SeparatedNodeList<MappingFieldNode> mappingFields) {
         Map<String, MappingFieldNode> mappingFieldNodeMap = new HashMap<>();
-        int size = mappingFields.size();
-        for (int i = 0; i < size; i++) {
-            SpecificFieldNode mappingFieldNode = (SpecificFieldNode) mappingFields.get(i);
-            mappingFieldNodeMap.put(mappingFieldNode.fieldName().toSourceCode(), mappingFieldNode);
-        }
+        mappingFields.forEach(mappingFieldNode -> {
+            if (mappingFieldNode.kind() == SyntaxKind.SPECIFIC_FIELD) {
+                SpecificFieldNode specificFieldNode = (SpecificFieldNode) mappingFieldNode;
+                mappingFieldNodeMap.put(specificFieldNode.fieldName().toSourceCode(), specificFieldNode);
+            }
+        });
         return mappingFieldNodeMap;
     }
 
@@ -277,12 +276,7 @@ public class DataMapManager {
         } else if (exprKind == SyntaxKind.QUERY_EXPRESSION) {
             genMapping((QueryExpressionNode) expressionNode, mappings, name, semanticModel);
         } else {
-            // TODO: Move this to a new method
-            List<String> inputs = new ArrayList<>();
-            genInputs(expressionNode, inputs);
-            Mapping mapping = new Mapping(name, inputs, expressionNode.toSourceCode(),
-                    getDiagnostics(expressionNode.lineRange(), semanticModel), new ArrayList<>());
-            mappings.add(mapping);
+            genMapping(expressionNode, name, mappings, semanticModel);
         }
     }
 
@@ -304,12 +298,7 @@ public class DataMapManager {
                     genMapping((ListConstructorExpressionNode) fieldExpr, mappings, name + "." +
                             f.fieldName().toSourceCode().trim(), semanticModel);
                 } else {
-                    List<String> inputs = new ArrayList<>();
-                    genInputs(fieldExpr, inputs);
-                    Mapping mapping = new Mapping(name + "." + f.fieldName().toSourceCode().trim(), inputs,
-                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel),
-                            new ArrayList<>());
-                    mappings.add(mapping);
+                    genMapping(fieldExpr, name + "." + f.fieldName().toSourceCode().trim(), mappings, semanticModel);
                 }
             }
         }
@@ -328,12 +317,7 @@ public class DataMapManager {
             } else if (expr.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
                 genMapping((ListConstructorExpressionNode) expr, elements, name + "." + i, semanticModel);
             } else {
-                List<String> inputs = new ArrayList<>();
-                genInputs(expr, inputs);
-                // TODO: Replace `null` with empty array list
-                Mapping mapping = new Mapping(name + "." + i, inputs, expr.toSourceCode(),
-                        getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
-                elements.add(mapping);
+                genMapping(expr, name + "." + i, elements, semanticModel);
             }
             mappingElements.add(new MappingElements(elements));
         }
@@ -342,9 +326,16 @@ public class DataMapManager {
         mappings.add(mapping);
     }
 
+    private void genMapping(Node expr, String name, List<Mapping> elements, SemanticModel semanticModel) {
+        List<String> inputs = new ArrayList<>();
+        genInputs(expr, inputs);
+        Mapping mapping = new Mapping(name, inputs, expr.toSourceCode(),
+                getDiagnostics(expr.lineRange(), semanticModel), new ArrayList<>());
+        elements.add(mapping);
+    }
+
     private void genMapping(QueryExpressionNode queryExpr, List<Mapping> mappings, String name,
                             SemanticModel semanticModel) {
-        // ((SelectClauseNode) expressionNode.resultClause()).expression()
         ClauseNode clauseNode = queryExpr.resultClause();
         if (clauseNode.kind() != SyntaxKind.SELECT_CLAUSE) {
             return;
@@ -393,9 +384,8 @@ public class DataMapManager {
     }
 
     private List<String> getDiagnostics(LineRange lineRange, SemanticModel semanticModel) {
-        List<Diagnostic> diagnostics = semanticModel.diagnostics(lineRange);
         List<String> diagnosticMsgs = new ArrayList<>();
-        for (Diagnostic diagnostic : diagnostics) {
+        for (Diagnostic diagnostic : semanticModel.diagnostics(lineRange)) {
             diagnosticMsgs.add(diagnostic.message());
         }
         return diagnosticMsgs;
@@ -438,7 +428,6 @@ public class DataMapManager {
                 mappingPorts.add(mappingPort);
             } else if (kind == SymbolKind.CONSTANT) {
                 Type type = Type.fromSemanticSymbol(symbol);
-                // TODO: Name of constant is set to type name, check that
                 MappingPort mappingPort = getMappingPort(type.getTypeName(), type.getTypeName(), type);
                 if (mappingPort == null) {
                     continue;
@@ -700,15 +689,15 @@ public class DataMapManager {
 
     private SourceModification applyNode(FlowNode flowNode, Project project, Path filePath, LinePosition position) {
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
-        Map<Path, List<TextEdit>> textEdits =
-                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
-        String source = textEdits.entrySet().stream().iterator().next().getValue().get(0).getNewText();
+        String source = NodeBuilder.getNodeFromKind(flowNode.codedata().node())
+                .toSource(sourceBuilder).entrySet().stream().iterator().next().getValue().get(0).getNewText();
         TextDocument textDocument = document.textDocument();
         int startTextPosition = textDocument.textPositionFrom(position);
-        io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
+        io.ballerina.tools.text.TextEdit textEdit =
+                io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
                 0), source);
-        io.ballerina.tools.text.TextEdit[] tes = {te};
-        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
+        io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(textEdits));
         Document modifiedDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
@@ -784,8 +773,8 @@ public class DataMapManager {
         return kind == TypeDescKind.RECORD;
     }
 
-    public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project
-            , LinePosition position) {
+    public String addElement(JsonElement node, String propertyKey, Path filePath, String targetField, Project project,
+                             LinePosition position) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         if (flowNode.codedata().node() != NodeKind.VARIABLE) {
             return "";

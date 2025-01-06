@@ -23,35 +23,33 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
+import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
+import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
-import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
-import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
+import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
 import org.eclipse.lsp4j.Diagnostic;
-import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
-import org.eclipse.lsp4j.FileChangeType;
-import org.eclipse.lsp4j.FileEvent;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
 import org.eclipse.lsp4j.SignatureHelpParams;
@@ -62,21 +60,23 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("expressionEditor")
 public class ExpressionEditorService implements ExtendedLanguageServerService {
 
-    private WorkspaceManager workspaceManager;
+    private WorkspaceManagerProxy workspaceManagerProxy;
     private LanguageServer langServer;
 
     @Override
-    public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
-        this.workspaceManager = workspaceManager;
+    public void init(LanguageServer langServer, WorkspaceManagerProxy workspaceManagerProxy,
+                     LanguageServerContext serverContext) {
+        this.workspaceManagerProxy = workspaceManagerProxy;
         this.langServer = langServer;
     }
 
@@ -91,9 +91,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             VisibleVariableTypesResponse response = new VisibleVariableTypesResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
+                this.workspaceManagerProxy.get().loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath);
+                Optional<Document> document = this.workspaceManagerProxy.get().document(filePath);
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
@@ -115,8 +115,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElseGet(
+                Project project = this.workspaceManagerProxy.get().loadProject(filePath);
+                SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
                         () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
 
                 TypesGenerator typesGenerator = new TypesGenerator(semanticModel);
@@ -131,61 +131,40 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     @JsonRequest
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return new SignatureHelp();
                 }
-                TextDocument textDocument = document.get().textDocument();
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(request.startLine());
-                String statement = String.format("%s;%n", request.expression());
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
+                // Generate signature help using context
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                context.generateStatement();
 
                 // Generate the signature help params
-                Position position =
-                        new Position(request.startLine().line(), request.startLine().offset() + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
-                SignatureHelpParams params = new SignatureHelpParams(identifier, position, request.context());
+                Position position = context.getCursorPosition();
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+                SignatureHelpParams params =
+                        new SignatureHelpParams(identifier, position, request.signatureHelpContext());
 
-                // Get the signature help
+                // Get signature help from language server
                 CompletableFuture<SignatureHelp> completableFuture =
                         langServer.getTextDocumentService().signatureHelp(params);
                 SignatureHelp signatureHelp = completableFuture.join();
-                projectCacheManager.deleteContent();
+
+                // Restore original content
+                context.applyContent(oldTextDocument);
+
                 return signatureHelp;
             } catch (Throwable e) {
                 return new SignatureHelp();
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
         });
     }
@@ -194,62 +173,110 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(
             ExpressionEditorCompletionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return Either.forLeft(List.of());
                 }
-                TextDocument textDocument = document.get().textDocument();
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                // Determine the cursor position
-                int textPosition = textDocument.textPositionFrom(request.startLine());
-                String statement = String.format("_ = %s;%n", request.expression());
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
+                // Generate completions using context
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                context.generateStatement();
 
                 // Generate the completion params
-                Position position =
-                        new Position(request.startLine().line(), request.startLine().offset() + 4 + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
-                CompletionParams params = new CompletionParams(identifier, position, request.context());
+                Position position = context.getCursorPosition();
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+                CompletionParams params = new CompletionParams(identifier, position, request.completionContext());
 
-                // Get the completions
+                // Get completions from language server
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                         langServer.getTextDocumentService().completion(params);
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
-                projectCacheManager.deleteContent();
+
+                // Restore original content
+                context.applyContent(oldTextDocument);
+
                 return completions;
             } catch (Throwable e) {
                 return Either.forLeft(List.of());
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FunctionCallTemplateResponse> functionCallTemplate(FunctionCallTemplateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FunctionCallTemplateResponse response = new FunctionCallTemplateResponse();
+            try {
+                Codedata codedata = request.codedata();
+                String template;
+                switch (request.kind()) {
+                    case CURRENT:
+                        template = codedata.symbol();
+                        break;
+                    case IMPORTED:
+                        template = codedata.module() + ":" + codedata.symbol();
+                        break;
+                    case AVAILABLE:
+                        String fileUri = CommonUtils.getExprUri(request.filePath());
+                        Optional<Document> document =
+                                workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+
+                        if (document.isPresent()) {
+                            String importStatement = codedata.getImportSignature();
+                            Document doc = document.get();
+                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                                    workspaceManagerProxy.get(fileUri), Path.of(request.filePath()), doc);
+                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                            importTextEdit.ifPresent(
+                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                        }
+                        template = codedata.module() + ":" + codedata.symbol();
+                        break;
+                    default:
+                        response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
+                                ". Expected kinds are: CURRENT, IMPORTED, AVAILABLE."));
+                        return response;
+                }
+                response.setTemplate(template + "(${1})");
+            } catch (Exception e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<SuccessResponse> importModule(ImportModuleRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            SuccessResponse response = new SuccessResponse();
+            try {
+                String fileUri = CommonUtils.getExprUri(request.filePath());
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+                if (document.isPresent()) {
+                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                            workspaceManagerProxy.get(fileUri),
+                            Path.of(request.filePath()), document.get());
+                    String importStatement = request.importStatement()
+                            .replaceFirst("^import\\s+", "")
+                            .replaceAll(";\\n$", "");
+                    Optional<TextEdit> importTextEdit = expressionEditorContext
+                            .getImport(importStatement);
+                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    response.setSuccess(true);
+                }
+            } catch (Exception e) {
+                response.setError(e);
+                response.setSuccess(false);
+            }
+            return response;
         });
     }
 
@@ -258,86 +285,39 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorDiagnosticsRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             ExpressionEditorDiagnosticsResponse response = new ExpressionEditorDiagnosticsResponse();
-            Path projectPath = null;
             try {
                 // Load the original project
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                projectPath = this.workspaceManager.projectRoot(filePath);
-
-                // Load the shadowed project
-                ProjectCacheManager projectCacheManager =
-                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
-                projectCacheManager.copyContent();
-                Path destination = projectCacheManager.getDestination(filePath);
-
-                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
-                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
-                        new DidChangeWatchedFilesParams(List.of(fileEvent));
-                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
-                this.workspaceManager.loadProject(destination);
+                String fileUri = CommonUtils.getExprUri(request.filePath());
 
                 // Get the document
-                Optional<Document> document = this.workspaceManager.document(destination);
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
                 if (document.isEmpty()) {
                     return response;
                 }
-                TextDocument textDocument = document.get().textDocument();
+                TextDocument oldTextDocument = document.get().textDocument();
 
-                ExpressionEditorContext context =
-                        new ExpressionEditorContext(workspaceManager, request.context(), filePath);
-                // Determine the cursor position
-                LinePosition startLine = context.getStartLine();
-                int textPosition = textDocument.textPositionFrom(startLine);
+                // Generate the diagnostics
+                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
+                        request.context(), filePath, document.get());
+                LineRange lineRange = context.generateStatement();
 
-                String type = context.getProperty()
-                        .flatMap(property -> Optional.ofNullable(property.valueTypeConstraint()))
-                        .map(Object::toString)
-                        .orElse("");
-
-                List<TextEdit> textEdits = new ArrayList<>();
-                if (context.isNodeKind(
-                        List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
-                                NodeKind.RESOURCE_ACTION_CALL))) {
-                    context.getImport().ifPresent(textEdits::add);
-                }
-
-                String statement;
-                if (type.isEmpty()) {
-                    statement = String.format("_ = %s;%n", context.info().expression());
-                } else {
-                    statement = String.format("%s _ = %s;%n", type, context.info().expression());
-                }
-                LinePosition endLineRange = LinePosition.from(startLine.line(),
-                        startLine.offset() + statement.length());
-                LineRange lineRange = LineRange.from(request.filePath(), startLine, endLineRange);
-
-                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
-                textEdits.add(textEdit);
-                TextDocument newTextDocument =
-                        textDocument.apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument, filePath);
-                document.get().modify()
-                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
-                        .apply();
-
-                Optional<Module> module = workspaceManager.module(destination);
-                if (module.isEmpty()) {
+                // TODO: Use the module once the issue is resolved: #446
+                Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
-                List<Diagnostic> diagnostics = module.get().getCompilation().diagnostics().diagnostics().stream()
+                List<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
+                                StreamSupport.stream(context.syntaxDiagnostics().spliterator(), false))
                         .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
                         .toList();
-                projectCacheManager.deleteContent();
+
+                context.applyContent(oldTextDocument);
                 response.setDiagnostics(diagnostics);
             } catch (Throwable e) {
                 response.setError(e);
-            } finally {
-                if (projectPath != null) {
-                    ProjectCacheManager.InstanceHandler.release(projectPath);
-                }
             }
             return response;
         });

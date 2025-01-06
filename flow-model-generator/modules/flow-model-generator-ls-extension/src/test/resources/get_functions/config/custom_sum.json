@@ -12,7 +12,8 @@
     }
   },
   "queryMap": {
-    "q": "sum"
+    "q": "sum",
+    "includeAvailableFunctions": "true"
   },
   "categories": [
     {
@@ -51,16 +52,51 @@
     },
     {
       "metadata": {
-        "label": "Library",
-        "description": "Reusable functions from external libraries",
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
         "keywords": [
-          "Utility",
-          "Library",
+          "Imported",
           "Function",
-          "External"
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
         ]
       },
       "items": [
+        {
+          "metadata": {
+            "label": "lang.decimal",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "sum",
+                "description": "Returns the sum of zero or more decimal values.\n\n```ballerina\ndecimal:sum(1.2, 2.3, 3.4) ⇒ 6.9\ndecimal[] scores = [11.1, 22.2, 33.3];\ndecimal:sum(...scores) ⇒ 66.6\n[decimal, decimal, decimal] marks = [7.21, 10.32, 9.2];\ndecimal:sum(...marks) ⇒ 26.73\ndecimal d = 21.2;\nd.sum(10.5, 21, 32.4) ⇒ 85.1\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.decimal",
+                "symbol": "sum",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
         {
           "metadata": {
             "label": "lang.int",
@@ -102,30 +138,6 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.float",
-                "symbol": "sum",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "lang.decimal",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "sum",
-                "description": "Returns the sum of zero or more decimal values.\n\n```ballerina\ndecimal:sum(1.2, 2.3, 3.4) ⇒ 6.9\ndecimal[] scores = [11.1, 22.2, 33.3];\ndecimal:sum(...scores) ⇒ 66.6\n[decimal, decimal, decimal] marks = [7.21, 10.32, 9.2];\ndecimal:sum(...marks) ⇒ 26.73\ndecimal d = 21.2;\nd.sum(10.5, 21, 32.4) ⇒ 85.1\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.decimal",
                 "symbol": "sum",
                 "version": "0.0.0"
               },

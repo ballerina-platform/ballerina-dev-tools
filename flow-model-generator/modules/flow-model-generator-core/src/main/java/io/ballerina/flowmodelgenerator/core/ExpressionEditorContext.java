@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -33,18 +32,22 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Represents the context for the expression editor.
@@ -60,26 +63,40 @@ public class ExpressionEditorContext {
     private final Path filePath;
     private final List<ImportDeclarationNode> imports;
 
-    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath) {
+    // State variables
+    private final Document document;
+    private int expressionOffset;
+    private LineRange statementLineRange;
+
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
         this.info = info;
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+        this.document = document;
+        imports = getImportDeclarationNodes(document);
+    }
 
-        Document document;
-        try {
-            this.workspaceManager.loadProject(filePath);
-            document = workspaceManager.document(filePath).orElseThrow();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error while loading the project");
-        }
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Path filePath, Document document) {
+        this.workspaceManager = workspaceManager;
+        this.filePath = filePath;
+        this.document = document;
+        this.info = null;
+        this.flowNode = null;
+        imports = getImportDeclarationNodes(document);
+    }
+
+    private static List<ImportDeclarationNode> getImportDeclarationNodes(Document document) {
         SyntaxTree syntaxTree = document.syntaxTree();
-        imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART ?
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList() :
-                List.of();
+        return syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
+                ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
+                : List.of();
     }
 
     public Optional<Property> getProperty() {
+        if (info.property() == null || info.property().isEmpty()) {
+            return Optional.empty();
+        }
         if (info.branch() == null || info.branch().isEmpty()) {
             return flowNode.getProperty(info.property());
         }
@@ -87,6 +104,9 @@ public class ExpressionEditorContext {
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
+        if (flowNode == null || flowNode.codedata() == null) {
+            return false;
+        }
         return nodeKinds.contains(flowNode.codedata().node());
     }
 
@@ -109,48 +129,139 @@ public class ExpressionEditorContext {
     }
 
     // TODO: Check how we can use SourceBuilder in place of this method
-    public Optional<TextEdit> getImport() {
+    private Optional<TextEdit> getImport() {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
-        if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
-                CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
+        if (org == null || module == null || CommonUtils.isPredefinedLangLib(org, module)) {
             return Optional.empty();
         }
+        return getImport(CommonUtils.getImportStatement(org, module, module));
+    }
+
+    public Optional<TextEdit> getImport(String importStatement) {
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return Optional.empty();
         }
 
+        // Check if the import statement represents the current module
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
-            if (descriptor.org().value().equals(org) && descriptor.name().toString().equals(module)) {
+            if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
+                    descriptor.name().toString()).equals(importStatement)) {
                 return Optional.empty();
             }
         }
 
+        // Check if the import statement already exists
         boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
-            String moduleName = importDeclarationNode.moduleName().stream()
-                    .map(IdentifierToken::text)
-                    .collect(Collectors.joining("."));
-            return importDeclarationNode.orgName().isPresent() &&
-                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                    module.equals(moduleName);
+            String importText = importDeclarationNode.toSourceCode().trim();
+            return importText.startsWith("import " + importStatement) && importText.endsWith(";");
         });
 
-        // Add the import statement
+        // Generate the import statement if not exists
         if (!importExists) {
-            String importStatement = new SourceBuilder.TokenBuilder(null)
+            String stmt = new SourceBuilder.TokenBuilder(null)
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(flowNode.codedata().getImportSignature())
+                    .name(importStatement)
                     .endOfStatement()
                     .build(false);
-            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), importStatement);
+            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
             return Optional.of(textEdit);
         }
         return Optional.empty();
+    }
+
+    /**
+     * Generates a Ballerina statement based on the availability of the type, and applies it to the document. Based on
+     * the availability of the type, the statement will be in the format: `<type>? _ = <expr>;`.
+     *
+     * @return the line range of the generated statement.
+     */
+    public LineRange generateStatement() {
+        String prefix = "var _ = ";
+        Optional<Property> optionalProperty = getProperty();
+        List<TextEdit> textEdits = new ArrayList<>();
+
+        if (optionalProperty.isPresent()) {
+            // Append the type if exists
+            Property property = optionalProperty.get();
+            if (property.valueTypeConstraint() != null) {
+                prefix = String.format("%s _ = ", property.valueTypeConstraint());
+            }
+
+            // Add the import statements of the dependent types
+            if (property.codedata() != null) {
+                String importStatements = property.codedata().importStatements();
+                if (importStatements != null && !importStatements.isEmpty()) {
+                    for (String importStmt : importStatements.split(",")) {
+                        getImport(importStmt).ifPresent(textEdits::add);
+                    }
+                }
+            }
+        }
+
+        // Add the import statement for the node type
+        if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
+                NodeKind.RESOURCE_ACTION_CALL))) {
+            getImport().ifPresent(textEdits::add);
+        }
+
+        // Get the text position of the start line
+        TextDocument textDocument = document.textDocument();
+        int textPosition = textDocument.textPositionFrom(info.startLine());
+
+        // Generate the statement and apply the text edits
+        String statement = String.format("%s%s;%n", prefix, info.expression());
+        this.expressionOffset = prefix.length();
+        textEdits.add(TextEdit.from(TextRange.from(textPosition, 0), statement));
+        applyTextEdits(textEdits);
+
+        // Return the line range of the generated statement
+        LinePosition startLine = info.startLine();
+        LinePosition endLineRange = LinePosition.from(startLine.line(),
+                startLine.offset() + statement.length());
+        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        return statementLineRange;
+    }
+
+    /**
+     * Gets the cursor position within the generated statement.
+     *
+     * @return the cursor position as a Position object
+     */
+    public Position getCursorPosition() {
+        return new Position(statementLineRange.startLine().line(),
+                statementLineRange.startLine().offset() + info.offset() + expressionOffset);
+    }
+
+    /**
+     * Applies a list of text edits to the current document and updates the content.
+     *
+     * @param textEdits the list of text edits to be applied
+     */
+    public void applyTextEdits(List<TextEdit> textEdits) {
+        TextDocument newTextDocument = document.textDocument()
+                .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
+        applyContent(newTextDocument);
+    }
+
+    /**
+     * Applies the content of the given TextDocument to the current document.
+     *
+     * @param textDocument The TextDocument containing the new content
+     */
+    public void applyContent(TextDocument textDocument) {
+        document.modify()
+                .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
+                .apply();
+    }
+
+    public Iterable<Diagnostic> syntaxDiagnostics() {
+        return document.syntaxTree().diagnostics();
     }
 
     /**

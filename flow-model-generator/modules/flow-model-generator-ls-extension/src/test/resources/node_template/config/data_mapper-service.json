@@ -54,7 +54,8 @@
           "Input moduleInput",
           "Input paramInput",
           "http:Client httpClient",
-          "http:Client httpClientResult"
+          "http:Client httpClientResult",
+          "snowflake:Client snowflakeCl"
         ],
         "value": "",
         "optional": false,

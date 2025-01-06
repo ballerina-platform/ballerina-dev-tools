@@ -84,7 +84,8 @@ public class ModelGeneratorTest {
         LineRange testConfigLocation = testConfig.diagram().location();
         boolean fileNameEquality = testConfigLocation != null && balFileName.equals(testConfigLocation.fileName());
         Diagram modifiedDiagram = new Diagram(
-                LineRange.from(balFileName, location.startLine(), location.endLine()), jsonModel.participants());
+                LineRange.from(balFileName, location.startLine(), location.endLine()), jsonModel.participants(),
+                jsonModel.others());
 
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
@@ -129,7 +130,7 @@ public class ModelGeneratorTest {
     }
 
     public String[] skipList() {
-        return new String[]{};
+        return new String[]{ };
     }
 
     private void updateConfig(Path configJsonPath, Object updatedConfig) throws IOException {
@@ -142,7 +143,7 @@ public class ModelGeneratorTest {
 
     }
 
-    private record Diagram(LineRange location, JsonArray participants) {
+    private record Diagram(LineRange location, JsonArray participants, JsonArray others) {
 
     }
 }

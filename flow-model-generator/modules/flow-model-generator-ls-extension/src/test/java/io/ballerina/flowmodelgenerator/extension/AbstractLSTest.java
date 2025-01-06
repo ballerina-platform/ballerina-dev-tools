@@ -25,10 +25,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
+import org.eclipse.lsp4j.DidOpenTextDocumentParams;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
+import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,7 +59,7 @@ import java.util.stream.Stream;
  *
  * @since 1.4.0
  */
-abstract class AbstractLSTest {
+public abstract class AbstractLSTest {
 
     protected static Logger log;
     protected static Path resDir, sourceDir, configDir;
@@ -63,6 +67,7 @@ abstract class AbstractLSTest {
 
     protected Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
+    protected static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @BeforeClass
     public final void init() {
@@ -138,7 +143,7 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request) throws IOException {
-        return getResponse(request, getApiName());
+        return getResponse(request, getServiceName() + "/" + getApiName());
     }
 
     protected JsonObject getResponseAndCloseFile(Object request, String source) throws IOException {
@@ -150,7 +155,7 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request, String api) {
-        CompletableFuture<?> result = serviceEndpoint.request(getServiceName() + "/" + api, request);
+        CompletableFuture<?> result = serviceEndpoint.request(api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
@@ -159,6 +164,29 @@ abstract class AbstractLSTest {
             Assert.fail("Error occurred: " + errorMsg.getAsString());
         }
         return jsonObject;
+    }
+
+    protected void sendNotification(String api, Object request) {
+        serviceEndpoint.notify(api, request);
+    }
+
+    protected void notifyDidOpen(String sourcePath) throws IOException {
+        TextDocumentItem textDocumentItem = new TextDocumentItem();
+        String text;
+        try (FileInputStream fis = new FileInputStream(sourcePath)) {
+            text = new String(fis.readAllBytes());
+        }
+        textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
+        textDocumentItem.setText(text);
+        textDocumentItem.setLanguageId("ballerina");
+        textDocumentItem.setVersion(1);
+        sendNotification("textDocument/didOpen", new DidOpenTextDocumentParams(textDocumentItem));
+    }
+
+    protected void notifyDidClose(String sourcePath) {
+        TextDocumentIdentifier textDocumentIdentifier = new TextDocumentIdentifier();
+        textDocumentIdentifier.setUri(CommonUtils.getExprUri(sourcePath));
+        sendNotification("textDocument/didClose", new DidCloseTextDocumentParams(textDocumentIdentifier));
     }
 
     /**

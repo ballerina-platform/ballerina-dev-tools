@@ -1,0 +1,489 @@
+{
+  "id": 8,
+  "name": "Salesforce Service",
+  "type": "event",
+  "displayName": "Salesforce",
+  "documentation": "This Salesforce service can be attached to a Salesforce listener which listens to Salesforce events and triggers the service when an event occurs",
+  "moduleName": "salesforce",
+  "orgName": "ballerinax",
+  "packageName": "salesforce",
+  "version": "8.1.0",
+  "listenerProtocol": "salesforce",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png",
+  "displayAnnotation": {
+    "label": "Salesforce",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "auth": {
+      "metadata": {
+        "label": "Authentication Configuration",
+        "description": "Configurations related to username/password authentication",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "salesforce:CredentialsConfig",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "properties": {
+        "username": {
+          "metadata": {
+            "label": "Username",
+            "description": "Salesforce login username."
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"username\"",
+          "optional": false,
+          "advanced": false
+        },
+        "password": {
+          "metadata": {
+            "label": "Password",
+            "description": "Salesforce login password appended with the security token (<password><security token>)."
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "valueTypeConstraint": "string",
+          "placeholder": "\"password\" + \"security token\"",
+          "optional": false,
+          "advanced": false
+        }
+      }
+    },
+    "replayFrom": {
+      "metadata": {
+        "label": "Replay From",
+        "description": "The replay ID to change the point in time when events are read",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "\"REPLAY_FROM_TIP\"",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int|salesforce:REPLAY_FROM_TIP",
+      "isType": false,
+      "placeholder": "\"REPLAY_FROM_TIP\"",
+      "optional": true,
+      "advanced": true
+    },
+    "isSandBox": {
+      "metadata": {
+        "label": "Is Sandbox",
+        "description": "The type of salesforce environment, if sandbox environment or not",
+        "groupNo": 1,
+        "groupName": "Listener Configurations"
+      },
+      "codedata": {
+        "inListenerInit": true,
+        "argKind": "NAMED"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "false",
+      "valueType": "BOOLEAN",
+      "valueTypeConstraint": "boolean",
+      "isType": false,
+      "placeholder": "false",
+      "optional": true,
+      "advanced": true
+    },
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the Service",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "inDisplayAnnotation": true
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "STRING",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": true,
+      "advanced": false
+    },
+    "channelName": {
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "metadata": {
+        "label": "Channel Name",
+        "description": "The Salesforce channel name",
+        "groupNo": 2,
+        "groupName": "Service Configurations"
+      },
+      "codedata": {
+        "isBasePath": true
+      },
+      "placeholder": "\"/data/ChangeEvents\""
+    }
+  },
+  "service": {
+    "name": "Salesforce",
+    "description": "Salesforce Service",
+    "enabled": true,
+    "functions": [
+      {
+        "metadata": {
+          "label": "onCreate",
+          "description": "The `onCreate` method is triggered when a new record create event is received from Salesforce"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The information about the triggered event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onCreate",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onCreate",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": "The information about the triggered event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "Salesforce event",
+                "description": "The Salesforce event data"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "salesforce:EventData",
+              "isType": true,
+              "placeholder": "salesforce:EventData",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onUpdate",
+          "description": "The `onUpdate` method is triggered when a new record update event is received from Salesforce"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The information about the triggered event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onUpdate",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onUpdate",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": "The information about the triggered event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "Salesforce event",
+                "description": "The Salesforce event data"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "salesforce:EventData",
+              "isType": true,
+              "placeholder": "salesforce:EventData",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onDelete",
+          "description": "The `onDelete` method is triggered when a new record delete event is received from Salesforce"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The information about the triggered event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onDelete",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onDelete",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": "The information about the triggered event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "Salesforce event",
+                "description": "The Salesforce event data"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "salesforce:EventData",
+              "isType": true,
+              "placeholder": "salesforce:EventData",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onRestore",
+          "description": "The `onRestore` method is triggered when a new record restore event is received from Salesforce"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "name",
+            "description": "The information about the triggered event"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onRestore",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onRestore",
+          "optional": false,
+          "advanced": false
+        },
+        "optional": false,
+        "enabled": true,
+        "editable": true,
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": "The information about the triggered event"
+            },
+            "kind": "REQUIRED",
+            "name": {
+              "metadata": {
+                "label": "Salesforce event",
+                "description": "The Salesforce event data"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false
+            },
+            "type": {
+              "metadata": {
+                "label": "type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "salesforce:EventData",
+              "isType": true,
+              "placeholder": "salesforce:EventData",
+              "optional": false,
+              "advanced": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "returnType",
+            "description": "The return type of the remote method"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "symbol": "fn"
+  },
+  "kind": "CURRENT",
+  "functionCall": "fn(${1})"
+}

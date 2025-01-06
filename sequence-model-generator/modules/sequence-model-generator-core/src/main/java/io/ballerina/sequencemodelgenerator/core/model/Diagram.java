@@ -26,9 +26,10 @@ import java.util.List;
  * Represents the sequence diagram for a root participant.
  *
  * @param participants participants in the diagram
+ * @param others       other participants in the diagram who does not have any interactions
  * @param location     location of the root participant
  * @since 2.0.0
  */
-public record Diagram(List<Participant> participants, LineRange location) {
+public record Diagram(List<Participant> participants, List<Participant> others, LineRange location) {
 
 }

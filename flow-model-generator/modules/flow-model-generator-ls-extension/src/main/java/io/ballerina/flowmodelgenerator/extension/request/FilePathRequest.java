@@ -20,9 +20,9 @@
 package io.ballerina.flowmodelgenerator.extension.request;
 
 /**
- * A request to retrieve module nodes such as connections.
+ * A request to retrieve components of a module such as connections, types..
  *
- * @param filePath the path of the project
+ * @param filePath a file path of the project
  */
 public record FilePathRequest(String filePath) {
 }

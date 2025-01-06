@@ -20,11 +20,18 @@ package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
+import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -49,15 +56,21 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.net.URI;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,6 +84,7 @@ public class CommonUtils {
     private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
     private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
             Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
+    private static final List<String> NON_DEFAULT_LANG_LIBS = List.of("array", "regexp", "value");
 
     /**
      * Removes the quotes from the given string.
@@ -534,5 +548,170 @@ public class CommonUtils {
      */
     public static boolean hasReturn(String typeName) {
         return !typeName.equals("()");
+    }
+
+    /**
+     * Generates the URI for the given source path.
+     *
+     * @param sourcePath the source path
+     * @return the generated URI as a string
+     */
+    public static String getExprUri(String sourcePath) {
+        String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
+        return URI.create(exprUriString).toString();
+    }
+
+    /**
+     * Generates a comma-separated list of import statements required for the given type symbol.
+     *
+     * @param typeSymbol the type symbol to analyze
+     * @param moduleInfo the module information of the current module
+     * @return an Optional containing comma-separated list of import statements, or empty if no imports needed
+     */
+    public static Optional<String> getImportStatements(TypeSymbol typeSymbol, ModuleInfo moduleInfo) {
+        Set<String> imports = new HashSet<>();
+        analyzeTypeSymbolForImports(imports, typeSymbol, moduleInfo);
+        if (imports.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(String.join(",", imports));
+    }
+
+    private static void analyzeTypeSymbolForImports(Set<String> imports, TypeSymbol typeSymbol,
+                                                    ModuleInfo moduleInfo) {
+        switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                unionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, moduleInfo));
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                intersectionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, moduleInfo));
+            }
+            case TABLE -> {
+                TableTypeSymbol tableTypeSymbol = (TableTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, tableTypeSymbol.rowTypeParameter(), moduleInfo);
+                tableTypeSymbol.keyConstraintTypeParameter()
+                        .ifPresent(keyType -> analyzeTypeSymbolForImports(imports, keyType, moduleInfo));
+            }
+            case TUPLE -> {
+                TupleTypeSymbol tupleTypeSymbol = (TupleTypeSymbol) typeSymbol;
+                tupleTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> analyzeTypeSymbolForImports(imports, memberType, moduleInfo));
+            }
+            case STREAM -> {
+                StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, streamTypeSymbol.typeParameter(), moduleInfo);
+            }
+            case FUTURE -> {
+                FutureTypeSymbol futureTypeSymbol = (FutureTypeSymbol) typeSymbol;
+                futureTypeSymbol.typeParameter()
+                        .ifPresent(typeParam -> analyzeTypeSymbolForImports(imports, typeParam, moduleInfo));
+            }
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                typeDescTypeSymbol.typeParameter()
+                        .ifPresent(typeParam -> analyzeTypeSymbolForImports(imports, typeParam, moduleInfo));
+            }
+            case ARRAY -> {
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, arrayTypeSymbol.memberTypeDescriptor(), moduleInfo);
+            }
+            case MAP -> {
+                MapTypeSymbol memberTypeSymbol = (MapTypeSymbol) typeSymbol;
+                analyzeTypeSymbolForImports(imports, memberTypeSymbol.typeParam(), moduleInfo);
+            }
+            default -> {
+                Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
+                if (moduleSymbol.isEmpty()) {
+                    return;
+                }
+                ModuleID moduleId = moduleSymbol.get().id();
+                String orgName = moduleId.orgName();
+                String packageName = moduleId.packageName();
+                String moduleName = moduleId.moduleName();
+
+                if (isPredefinedLangLib(orgName, packageName) ||
+                        isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
+                    return;
+                }
+                imports.add(getImportStatement(orgName, packageName, moduleName));
+            }
+        }
+    }
+
+    /**
+     * Generates the import statement  of the format `<org>/<package>[.<module>]`.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param moduleName  the module name
+     * @return the import statement
+     */
+    public static String getImportStatement(String orgName, String packageName, String moduleName) {
+        StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
+        if (!packageName.equals(moduleName)) {
+            importStatement.append(".").append(moduleName);
+        }
+        return importStatement.toString();
+    }
+
+    /**
+     * Checks if the given module is a predefined language library.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @return true if the module is a predefined language library, false otherwise
+     */
+    public static boolean isPredefinedLangLib(String orgName, String packageName) {
+        return orgName.equals(CommonUtil.BALLERINA_ORG_NAME) && CommonUtil.PRE_DECLARED_LANG_LIBS.contains(packageName);
+    }
+
+    private static boolean isWithinCurrentModule(ModuleInfo defaultModuleInfo, String orgName, String packageName,
+                                                 String moduleName) {
+        return orgName.equals(defaultModuleInfo.org()) &&
+                packageName.equals(defaultModuleInfo.packageName()) &&
+                moduleName.equals(defaultModuleInfo.moduleName());
+    }
+
+    /**
+     * Checks if the given symbol is within the given package.
+     *
+     * @param symbol     the symbol to check
+     * @param moduleInfo the module descriptor of the current module
+     * @return true if the symbol is within the given package, false otherwise
+     */
+    public static boolean isWithinPackage(Symbol symbol, ModuleInfo moduleInfo) {
+        if (symbol.getModule().isEmpty()) {
+            return false;
+        }
+        ModuleID moduleID = symbol.getModule().get().id();
+        return moduleID.orgName().equals(moduleInfo.org()) &&
+                moduleID.packageName().equals(moduleInfo.packageName());
+    }
+
+    /**
+     * Converts a multi-line string into a formatted Ballerina documentation.
+     * Each line starts with a "#".
+     *
+     * @param text The input string.
+     * @return The formatted Ballerina documentation string.
+     */
+    public static String convertToBalDocs(String text) {
+        // Split the input text into lines
+        String[] lines = text.split("\n");
+
+        // Use StringBuilder for efficient string manipulation
+        StringBuilder formattedComment = new StringBuilder();
+
+        // Add "#" before each line and append to the result
+        for (String line : lines) {
+            formattedComment.append("# ").append(line).append("\n");
+        }
+
+        // Convert StringBuilder to String and return
+        return formattedComment.toString();
     }
 }

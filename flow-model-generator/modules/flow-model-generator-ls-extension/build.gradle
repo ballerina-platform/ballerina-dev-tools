@@ -37,6 +37,7 @@ dependencies {
     implementation project(':flow-model-generator:flow-model-generator-core')
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:formatter-core:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
     implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
@@ -50,7 +51,7 @@ dependencies {
     balTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false
     }
-    implementation "io.ballerina.openapi:core:2.1.1-20240926-171100-1f88ade"
+    implementation "io.ballerina.openapi:core:${openAPICoreVersion}"
 }
 
 def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")
@@ -123,6 +124,8 @@ def pullBallerinaModule(String packageName) {
 test.dependsOn pullBallerinaModule('ballerinax/redis')
 test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 test.dependsOn pullBallerinaModule('ballerinax/github')
+test.dependsOn pullBallerinaModule('ballerinax/snowflake')
+test.dependsOn pullBallerinaModule('ballerinax/docusign.dsadmin')
 
 test {
     dependsOn {
@@ -152,3 +155,5 @@ compileJava {
         classpath = files()
     }
 }
+
+defineSyncTask("lib/tools/lang-server/lib")

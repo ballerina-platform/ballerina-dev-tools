@@ -1,0 +1,117 @@
+{
+  "filePath": "test_pack2/types.bal",
+  "description": "Create a new record type",
+  "type": {
+    "name": "Person",
+    "editable": true,
+    "metadata": {
+      "label": "Person",
+      "description": "Person record\nUsed to represent person object"
+    },
+    "codedata": {
+      "node": "RECORD"
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Person",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "Person record\nUsed to represent person object",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "members": {
+      "address": {
+        "kind": "FIELD",
+        "refs": [
+          "Address"
+        ],
+        "type": "Address[]",
+        "name": "addresses",
+        "docs": "addresses of the person",
+        "defaultValue": "[]"
+      },
+      "dob": {
+        "kind": "FIELD",
+        "refs": [
+          "ballerina/time:Utc"
+        ],
+        "type": "time:Utc",
+        "name": "dob",
+        "docs": "date of birth",
+        "defaultValue": "getDefaultDob()"
+      },
+      "name": {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": "name of the person",
+        "defaultValue": "\"John Doe\""
+      },
+      "id": {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "id",
+        "docs": "id of the person",
+        "defaultValue": "12"
+      }
+    },
+    "includes": []
+  },
+  "output": {
+    "test_pack2/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 0
+          },
+          "end": {
+            "line": 4,
+            "character": 0
+          }
+        },
+        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n# addresses of the person\nAddress[] address = [];\n# date of birth\ntime:Utc dob = getDefaultDob();\n# name of the person\nstring name = \"John Doe\";\n# id of the person\nint id = 12;\n|};\n"
+      }
+    ]
+  }
+}

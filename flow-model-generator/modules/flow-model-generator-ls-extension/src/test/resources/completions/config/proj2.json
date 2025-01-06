@@ -1,16 +1,18 @@
 {
   "description": "",
   "filePath": "proj/main.bal",
-  "expression": "+ ",
-  "startLine": {
-    "line": 7,
-    "offset": 33
-  },
-  "offset": 2,
   "context": {
+    "expression": "+ ",
+    "startLine": {
+      "line": 7,
+      "offset": 33
+    },
+    "offset": 2,
+    "node": {}
+  },
+  "completionContext": {
     "triggerKind": "Invoked"
   },
-  "node": {},
   "completions": [
     {
       "label": "start",
@@ -69,7 +71,7 @@
       "label": "error",
       "kind": "Event",
       "detail": "Error",
-      "sortText": "P",
+      "sortText": "AL",
       "insertText": "error",
       "insertTextFormat": "Snippet"
     },
@@ -388,7 +390,7 @@
       "label": "Address",
       "kind": "Struct",
       "detail": "Record",
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "Address",
       "insertTextFormat": "Snippet"
     },
@@ -396,7 +398,7 @@
       "label": "Admission",
       "kind": "Struct",
       "detail": "Record",
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "Admission",
       "insertTextFormat": "Snippet"
     },
@@ -404,7 +406,7 @@
       "label": "Employee",
       "kind": "Struct",
       "detail": "Record",
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "Employee",
       "insertTextFormat": "Snippet"
     },
@@ -412,15 +414,23 @@
       "label": "Location",
       "kind": "Struct",
       "detail": "Record",
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "Location",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "MyOk",
+      "kind": "Struct",
+      "detail": "Record",
+      "sortText": "AM",
+      "insertText": "MyOk",
       "insertTextFormat": "Snippet"
     },
     {
       "label": "Person",
       "kind": "Struct",
       "detail": "Record",
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "Person",
       "insertTextFormat": "Snippet"
     },
@@ -431,7 +441,7 @@
       "documentation": {
         "left": "Describes Strand execution details for the runtime.\n"
       },
-      "sortText": "Q",
+      "sortText": "AM",
       "insertText": "StrandData",
       "insertTextFormat": "Snippet"
     },
@@ -453,7 +463,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \nAdds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```  \n**Params**  \n- `int` a: The first integer to be added  \n- `int` b: The second integer to be added\n  \n  \n**Return** `int`   \n- The sum of the two integers  \n  \n# Example  \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "add",
       "insertText": "add(${1})",
       "insertTextFormat": "Snippet",
@@ -491,7 +501,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \n  \n"
         }
       },
-      "sortText": "ZD",
+      "sortText": "AZ",
       "filterText": "main",
       "insertText": "main()",
       "insertTextFormat": "Snippet"
@@ -514,7 +524,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \nComputes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n  \n**Params**  \n- `int[]` numbers: The array of integers for which the prefix sum is to be computed.  \n  \n**Return** `int[]`   \n- An array of integers representing the prefix sum of the input array.  \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "prefixSum",
       "insertText": "prefixSum(${1})",
       "insertTextFormat": "Snippet",
@@ -533,7 +543,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \nPerforms a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n  \n**Params**  \n- `float` a: The numerator of type `float`.  \n- `float` b: The denominator of type `float`.\n\n# Returns\n- `float` - The result of the division if the denominator is not zero.\n- `error` - An error indicating division by zero if the denominator is zero.\n  \n  \n**Return** `float|error`   \n- The result of the division or an error.  \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "safeDivide",
       "insertText": "safeDivide(${1})",
       "insertTextFormat": "Snippet",
@@ -552,7 +562,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \n  \n**Params**  \n- `int[]` numbers  \n  \n**Return** `int`   \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "sum",
       "insertText": "sum(${1})",
       "insertTextFormat": "Snippet",
@@ -571,7 +581,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \n  \n**Params**  \n- `Person` person  \n- `Admission` admission  \n  \n**Return** `Employee`   \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "transform",
       "insertText": "transform(${1})",
       "insertTextFormat": "Snippet",
