@@ -258,11 +258,11 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .label(Property.RESOURCE_PATH_LABEL)
                     .description(Property.RESOURCE_PATH_DOC)
                     .stepOut()
-                .type(Property.ValueType.EXPRESSION)
-                .value(path.replaceAll("\\\\", ""))
                 .codedata()
                     .originalName(path)
-                    .stepOut();
+                    .stepOut()
+                .type(Property.ValueType.EXPRESSION)
+                .value(path.replaceAll("\\\\", ""));
         addProperty(Property.RESOURCE_PATH_KEY);
         return this;
     }

@@ -633,13 +633,17 @@ public class CommonUtils {
                 String packageName = moduleId.packageName();
                 String moduleName = moduleId.moduleName();
 
-                if (isPredefinedLangLib(orgName, packageName) ||
+                if (isPredefinedLangLib(orgName, packageName) || isAnnotationLangLib(orgName, packageName) ||
                         isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
                     return;
                 }
                 imports.add(getImportStatement(orgName, packageName, moduleName));
             }
         }
+    }
+
+    private static boolean isAnnotationLangLib(String orgName, String packageName) {
+        return orgName.equals(CommonUtil.BALLERINA_ORG_NAME) && packageName.equals("lang.annotations");
     }
 
     /**
