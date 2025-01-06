@@ -38,6 +38,7 @@ public class Value {
     private List<String> items;
     private Codedata codedata;
     private List<Value> choices;
+    private boolean addNewButton = false;
 
     public Value() {
         this(null, false, true, null, null, null, false, null, false, false, null, null, null);

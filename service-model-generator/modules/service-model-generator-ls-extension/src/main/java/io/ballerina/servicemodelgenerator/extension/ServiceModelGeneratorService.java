@@ -74,6 +74,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceRe
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
@@ -434,6 +435,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (service.isEmpty()) {
                     return new ServiceFromSourceResponse();
                 }
+                Service serviceModel = service.get();
                 Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
                 if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
                     String serviceContractName = serviceTypeDesc.get().toString().trim();
@@ -441,7 +443,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                             .resolve(String.format("service_contract_%s.bal", serviceContractName));
                     Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
                     if (contractDoc.isEmpty()) {
-                        updateServiceModel(service.get(), serviceNode, semanticModel);
+                        updateServiceModel(serviceModel, serviceNode, semanticModel);
                     } else {
                         SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
                         ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
@@ -451,16 +453,28 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                                 .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
                                 .findFirst();
                         if (serviceContractType.isEmpty()) {
-                            updateServiceModel(service.get(), serviceNode, semanticModel);
+                            updateServiceModel(serviceModel, serviceNode, semanticModel);
                         } else {
-                            updateServiceContractModel(service.get(), serviceContractType.get(), serviceNode,
+                            updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
                                     semanticModel);
                         }
                     }
                 } else {
-                    updateServiceModel(service.get(), serviceNode, semanticModel);
+                    updateServiceModel(serviceModel, serviceNode, semanticModel);
                 }
-                return new ServiceFromSourceResponse(service.get());
+                serviceModel.setCodedata(request.codedata());
+                List<String> listenersList = getCompatibleListeners(serviceName.get(), modulePartNode,
+                        semanticModel);
+                Value listener = serviceModel.getListener();
+                if (!listenersList.isEmpty()) {
+                    if (serviceName.get().equals("kafka")) {
+                        listener.setValueType("SINGLE_SELECT");
+                    } else {
+                        listener.setValueType("MULTIPLE_SELECT");
+                    }
+                    listener.setItems(listenersList);
+                }
+                return new ServiceFromSourceResponse(serviceModel);
             } catch (Exception e) {
                 return new ServiceFromSourceResponse(e);
             }
@@ -500,8 +514,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (listener.isEmpty()) {
                     return new ListenerFromSourceResponse();
                 }
-                updateListenerModel(listener.get(), listenerNode);
-                return new ListenerFromSourceResponse(listener.get());
+                Listener listenerModel = listener.get();
+                updateListenerModel(listenerModel, listenerNode);
+                listenerModel.setCodedata(request.codedata());
+                return new ListenerFromSourceResponse(listenerModel);
             } catch (Exception e) {
                 return new ListenerFromSourceResponse(e);
             }
@@ -620,8 +636,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
                     String basePath = basePathValue.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
-                    if (!nodes.isEmpty() && nodes.size() == 1) {
-                        LineRange basePathLineRange = nodes.get(0).lineRange();
+                    if (!nodes.isEmpty()) {
+                        LinePosition startPos = nodes.get(0).lineRange().startLine();
+                        LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
+                        LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);;
                         TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), basePath);
                         edits.add(basePathEdit);
                     }

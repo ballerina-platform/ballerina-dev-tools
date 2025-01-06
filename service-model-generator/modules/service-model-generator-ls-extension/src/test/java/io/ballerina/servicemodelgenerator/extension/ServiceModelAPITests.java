@@ -9,9 +9,11 @@ import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
@@ -190,7 +192,7 @@ public class ServiceModelAPITests {
         Assert.assertTrue(Objects.nonNull(service));
         service.getListener().setValues(List.of("httpTestListener", "httpsTestListener"));
         Value designApproach = service.getDesignApproach();
-        Value selectedApproach = designApproach.getChoices().get(0);
+        Value selectedApproach = designApproach.getChoices().getFirst();
         Value basePath = selectedApproach.getProperty("basePath");
         basePath.setValue("/api/test");
         basePath.setEnabled(true);
@@ -435,5 +437,55 @@ public class ServiceModelAPITests {
         Assert.assertTrue(Objects.nonNull(response.service()));
         serviceType = service.getServiceType();
         Assert.assertEquals(serviceType.getItems().size(), 8);
+    }
+
+    @Test
+    public void testUpdateHttpListener() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample3/main.bal");
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(5, 0),
+                LinePosition.from(5, 56)));
+        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
+                filePath.toAbsolutePath().toString(), codedata);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getListenerFromSource",
+                sourceRequest);
+        ListenerFromSourceResponse sourceResponse = (ListenerFromSourceResponse) sourceResult.get();
+        Listener listener = sourceResponse.listener();
+        Assert.assertTrue(Objects.nonNull(listener));
+        Value name = listener.getProperty("name");
+        name.setValue("newHttpListener");
+        Value port = listener.getProperty("port");
+        port.setValue("8080");
+        Value version = listener.getProperty("httpVersion");
+        version.setEnabled(false);
+
+        ListenerModifierRequest updateRequest = new ListenerModifierRequest(filePath.toAbsolutePath().toString(),
+                listener);
+        CompletableFuture<?> updateResult = serviceEndpoint.request("serviceDesign/updateListener", updateRequest);
+        CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
+        Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
+        Assert.assertFalse(updateResponse.textEdits().isEmpty());
+    }
+
+    @Test
+    public void testUpdateHttpService() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample3/main.bal");
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
+                LinePosition.from(21, 1)));
+        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
+                filePath.toAbsolutePath().toString(), codedata);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getServiceFromSource",
+                sourceRequest);
+        ServiceFromSourceResponse sourceResponse = (ServiceFromSourceResponse) sourceResult.get();
+        Service service = sourceResponse.service();
+        Assert.assertTrue(Objects.nonNull(service));
+        service.getListener().setValue("newHttpListener");
+        service.getBasePath().setValue("/api/v1/test/new");
+
+        ServiceModifierRequest updateRequest = new ServiceModifierRequest(filePath.toAbsolutePath().toString(),
+                service);
+        CompletableFuture<?> updateResult = serviceEndpoint.request("serviceDesign/updateService", updateRequest);
+        CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
+        Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
+        Assert.assertFalse(updateResponse.textEdits().isEmpty());
     }
 }
