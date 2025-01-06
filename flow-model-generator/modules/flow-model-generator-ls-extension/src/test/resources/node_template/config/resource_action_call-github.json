@@ -12,7 +12,7 @@
     "object": "Client",
     "symbol": "post",
     "parentSymbol": "githubClient",
-    "resourcePath": "/app\\-manifests/[\"\"]/conversions"
+    "resourcePath": "/app\\-manifests/[code]/conversions"
   },
   "output": {
     "id": "31",
@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 2963
+      "id": 2038
     },
     "returning": false,
     "properties": {
@@ -49,10 +49,28 @@
           "description": "Resource Path"
         },
         "valueType": "EXPRESSION",
-        "value": "/app\\-manifests/[\"\"]/conversions",
+        "value": "/app-manifests/[code]/conversions",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "originalName": "/app\\-manifests/[code]/conversions"
+        }
+      },
+      "code": {
+        "metadata": {
+          "label": "code"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "PATH_PARAM",
+          "originalName": "code"
+        }
       },
       "type": {
         "metadata": {

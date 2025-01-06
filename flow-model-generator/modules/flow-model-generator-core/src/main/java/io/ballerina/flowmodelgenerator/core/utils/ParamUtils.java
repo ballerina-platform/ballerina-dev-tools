@@ -60,19 +60,29 @@ public class ParamUtils {
      * @param functionSymbol the function symbol
      * @return the resource path template
      */
-    public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
+    public static ResourcePathTemplate buildResourcePathTemplate(FunctionSymbol functionSymbol,
+                                                                 TypeSymbol errorTypeSymbol) {
+        Map<String, String> documentationMap = functionSymbol.documentation().map(Documentation::parameterMap)
+                .orElse(Map.of());
         StringBuilder pathBuilder = new StringBuilder();
         ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
         ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        List<ParameterResult> pathParams = new ArrayList<>();
         switch (resourcePath.kind()) {
             case PATH_SEGMENT_LIST -> {
                 PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
                 for (Symbol pathSegment : pathSegmentList.list()) {
                     pathBuilder.append("/");
                     if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        String value = DefaultValueGeneratorUtil
+                        String defaultValue = DefaultValueGeneratorUtil
                                 .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
-                        pathBuilder.append("[").append(value).append("]");
+                        String type = TypeUtils.getTypeSignature(pathParameterSymbol.typeDescriptor(),
+                                errorTypeSymbol, true);
+                        String paramName = pathParameterSymbol.getName().orElse("");
+                        String paramDescription = documentationMap.get(paramName);
+                        pathBuilder.append("[").append(paramName).append("]");
+                        pathParams.add(ParameterResult.from(paramName, type, Parameter.Kind.PATH_PARAM, defaultValue,
+                                paramDescription, 0));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
@@ -82,9 +92,12 @@ public class ParamUtils {
                 });
             }
             case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
-            case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
+            case DOT_RESOURCE_PATH -> pathBuilder.append("/");
         }
-        return pathBuilder.toString();
+        return new ResourcePathTemplate(pathBuilder.toString(), pathParams);
+    }
+
+    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterResult> pathParams) {
     }
 
     /**

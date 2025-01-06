@@ -12,7 +12,7 @@
     "object": "Client",
     "symbol": "get",
     "parentSymbol": "dsAdminClient",
-    "resourcePath": "/v2/organizations/[\"\"]/accounts/[\"\"]/groups"
+    "resourcePath": "/v2/organizations/[organizationId]/accounts/[accountId]/groups"
   },
   "output": {
     "id": "31",
@@ -27,7 +27,7 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "get",
-      "id": 1577
+      "id": 940
     },
     "returning": false,
     "properties": {
@@ -49,10 +49,45 @@
           "description": "Resource Path"
         },
         "valueType": "EXPRESSION",
-        "value": "/v2/organizations/[\"\"]/accounts/[\"\"]/groups",
+        "value": "/v2/organizations/[organizationId]/accounts/[accountId]/groups",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "originalName": "/v2/organizations/[organizationId]/accounts/[accountId]/groups"
+        }
+      },
+      "organizationId": {
+        "metadata": {
+          "label": "organizationId",
+          "description": "The organization ID Guid"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "kind": "PATH_PARAM",
+          "originalName": "organizationId"
+        }
+      },
+      "accountId": {
+        "metadata": {
+          "label": "accountId",
+          "description": "The account ID Guid"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PATH_PARAM",
+          "originalName": "accountId"
+        }
       },
       "start": {
         "metadata": {

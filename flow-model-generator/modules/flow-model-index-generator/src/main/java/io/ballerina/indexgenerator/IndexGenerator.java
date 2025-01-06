@@ -49,6 +49,7 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
@@ -204,9 +205,9 @@ class IndexGenerator {
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
-        String pathBuilder = "";
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
         if (functionType == FunctionType.RESOURCE) {
-            pathBuilder = ParamUtils.buildResourcePathTemplate(functionSymbol);
+            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(functionSymbol, errorTypeSymbol);
         }
 
         // Capture the name of the function
@@ -250,8 +251,21 @@ class IndexGenerator {
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
+
+        String resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                functionType.name(), pathBuilder, returnError);
+                functionType.name(), resourcePath, returnError);
+
+        // Store the resource path params
+        if (resourcePathTemplate != null) {
+            List<ParameterResult> parameterResults = resourcePathTemplate.pathParams();
+            for (ParameterResult parameterResult : parameterResults) {
+                DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
+                        parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
+                        FunctionParameterKind.fromString(parameterResult.kind().name()),
+                        parameterResult.optional(), null);
+            }
+        }
 
         // Handle the parameters of the function
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
@@ -460,7 +474,9 @@ class IndexGenerator {
         REST_PARAMETER,
         INCLUDED_FIELD,
         PARAM_FOR_TYPE_INFER,
-        INCLUDED_RECORD_REST;
+        INCLUDED_RECORD_REST,
+        PATH_PARAM,
+        PATH_REST_PARAM;
 
         // need to have a fromString logic here
         public static FunctionParameterKind fromString(String value) {

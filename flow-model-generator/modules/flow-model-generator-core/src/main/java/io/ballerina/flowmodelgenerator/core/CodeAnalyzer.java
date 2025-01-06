@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -34,6 +35,9 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
+import io.ballerina.compiler.api.symbols.resourcepath.util.PathSegment;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
@@ -43,6 +47,7 @@ import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CommentNode;
 import io.ballerina.compiler.syntax.tree.CommitActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.ComputedResourceAccessSegmentNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
@@ -120,6 +125,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
+import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -311,10 +317,9 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
         SeparatedNodeList<Node> nodes = clientResourceAccessActionNode.resourceAccessPath();
-        String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
-        String fullPath = "/" + resourcePath;
 
-        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol,
+                semanticModel.types().ERROR);
 
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -325,17 +330,54 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata()
                 .object("Client")
                 .symbol(methodName)
-                .resourcePath(resourcePathTemplate)
+                .resourcePath(resourcePathTemplate.resourcePathTemplate())
                 .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .resourcePath(fullPath)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
+
+        if (TypeUtils.isHttpModule(methodSymbol)) {
+            String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
+            String fullPath = "/" + resourcePath;
+            nodeBuilder.properties().httpResourcePath(fullPath);
+        } else {
+            nodeBuilder.properties().resourcePath(resourcePathTemplate.resourcePathTemplate());
+
+            int idx = 0;
+            for (int i = 0; i < nodes.size(); i++) {
+                Node node = nodes.get(i);
+                if (node instanceof ComputedResourceAccessSegmentNode computedResourceAccessSegmentNode) {
+                    ExpressionNode expr = computedResourceAccessSegmentNode.expression();
+
+                    ParameterResult paramResult = resourcePathTemplate.pathParams().get(idx);
+                    String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                    nodeBuilder.properties()
+                            .custom()
+                                .metadata()
+                                .label(unescapedParamName)
+                                .description(paramResult.description())
+                                .stepOut()
+                            .codedata()
+                                .kind(paramResult.kind().name())
+                                .originalName(paramResult.name())
+                                .stepOut()
+                            .value(expr.toSourceCode())
+                            .typeConstraint(paramResult.type())
+                            .type(Property.ValueType.EXPRESSION)
+                            .editable()
+                            .defaultable(paramResult.optional() == 1)
+                            .stepOut()
+                            .addProperty(unescapedParamName);
+                    idx++;
+                }
+            }
+        }
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
         Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), resourcePathTemplate, DatabaseManager.FunctionKind.RESOURCE);
+                symbol.get().getName().get(), resourcePathTemplate.resourcePathTemplate(),
+                DatabaseManager.FunctionKind.RESOURCE);
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -451,7 +493,9 @@ class CodeAnalyzer extends NodeVisitor {
             List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
             boolean hasOnlyRestParams = functionParameters.size() == 1;
             for (ParameterResult paramResult : functionParameters) {
-                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                if (paramResult.kind().equals(Parameter.Kind.PATH_PARAM) ||
+                        paramResult.kind().equals(Parameter.Kind.PATH_REST_PARAM) ||
+                        paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                         || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                     continue;
                 }
@@ -460,14 +504,14 @@ class CodeAnalyzer extends NodeVisitor {
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
                 customPropBuilder
                         .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
+                            .label(unescapedParamName)
+                            .description(paramResult.description())
+                            .stepOut()
                         .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
+                            .kind(paramResult.kind().name())
+                            .originalName(paramResult.name())
+                            .importStatements(paramResult.importStatements())
+                            .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
                         .editable()

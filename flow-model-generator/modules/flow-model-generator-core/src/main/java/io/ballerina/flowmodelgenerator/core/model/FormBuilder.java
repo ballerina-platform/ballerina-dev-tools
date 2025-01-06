@@ -259,6 +259,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(Property.RESOURCE_PATH_DOC)
                     .stepOut()
                 .type(Property.ValueType.EXPRESSION)
+                .value(path.replaceAll("\\\\", ""))
+                .codedata()
+                    .originalName(path)
+                    .stepOut();
+        addProperty(Property.RESOURCE_PATH_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> httpResourcePath(String path) {
+        propertyBuilder
+                .metadata()
+                .label(Property.RESOURCE_PATH_LABEL)
+                .description(Property.RESOURCE_PATH_DOC)
+                .stepOut()
+                .type(Property.ValueType.EXPRESSION)
                 .value(path)
                 .editable();
         addProperty(Property.RESOURCE_PATH_KEY);

@@ -22,14 +22,19 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -121,5 +126,69 @@ public class TypeUtils {
                 typeRefs.add(ts.signature());
             }
         }
+    }
+
+    public static String getTypeSignature(TypeSymbol typeSymbol, TypeSymbol errorTypeSymbol, boolean ignoreError) {
+        return switch (typeSymbol.typeKind()) {
+            case TYPE_REFERENCE -> {
+                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+                yield typeReferenceTypeSymbol.definition().getName()
+                        .map(name -> typeReferenceTypeSymbol.getModule()
+                                .flatMap(Symbol::getName)
+                                .map(prefix -> prefix + ":" + name)
+                                .orElse(name))
+                        .orElseGet(() -> getTypeSignature(
+                                typeReferenceTypeSymbol.typeDescriptor(), typeSymbol, ignoreError));
+            }
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                if (ignoreError) {
+                    yield unionTypeSymbol.memberTypeDescriptors().stream()
+                            .filter(typeSymbol1 -> !typeSymbol1.subtypeOf(errorTypeSymbol))
+                            .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, true))
+                            .reduce((s1, s2) -> s1 + "|" + s2)
+                            .orElse(unionTypeSymbol.signature());
+                }
+                yield unionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, false))
+                        .reduce((s1, s2) -> s1 + "|" + s2)
+                        .orElse(unionTypeSymbol.signature());
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, ignoreError))
+                        .reduce((s1, s2) -> s1 + " & " + s2)
+                        .orElse(intersectionTypeSymbol.signature());
+            }
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                yield typeDescTypeSymbol.typeParameter()
+                        .map(typeSymbol1 -> getTypeSignature(typeSymbol1, errorTypeSymbol, ignoreError))
+                        .orElse(typeDescTypeSymbol.signature());
+            }
+            case ERROR -> {
+                Optional<String> moduleName = typeSymbol.getModule()
+                        .map(module -> {
+                            String prefix = module.id().modulePrefix();
+                            return "annotations".equals(prefix) ? null : prefix;
+                        });
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
+            }
+            default -> {
+                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
+            }
+        };
+    }
+
+    public static boolean isHttpModule(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            return false;
+        }
+
+        ModuleID moduleId = module.get().id();
+        return moduleId.orgName().equals("ballerina") && moduleId.packageName().equals("http");
     }
 }
