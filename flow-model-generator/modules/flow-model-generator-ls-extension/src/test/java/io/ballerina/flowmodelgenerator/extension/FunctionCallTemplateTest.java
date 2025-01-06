@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class FunctionCallTemplateTest extends AbstractLSTest {
 
-    private static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
+
 
     @Override
     @Test(dataProvider = "data-provider")

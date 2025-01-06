@@ -79,7 +79,7 @@ public class NewConnectionBuilder extends NodeBuilder {
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String CONNECTION_NAME_LABEL = "Connection Name";
     public static final String CONNECTION_TYPE_LABEL = "Connection Type";
-    protected static Logger log = LoggerFactory.getLogger(NewConnectionBuilder.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(NewConnectionBuilder.class);
 
     @Override
     public void setConcreteConstData() {
@@ -125,12 +125,17 @@ public class NewConnectionBuilder extends NodeBuilder {
             Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
             try {
                 if (clientPath.toFile().exists()) {
-                    log.info("Loading client file from: " + clientPath);
+                    LOG.info("Loading client file from: " + clientPath);
                 } else {
-                    log.info("Client file does not exist: " + clientPath);
+                    LOG.info("Client file does not exist: " + clientPath);
                 }
                 WorkspaceManager workspaceManager = context.workspaceManager();
-                workspaceManager.loadProject(clientPath);
+                try {
+                    workspaceManager.loadProject(clientPath);
+                } catch (WorkspaceDocumentException e) {
+                    LOG.error("Error loading project: " + clientPath, e);
+                    throw new RuntimeException(e);
+                }
                 Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
                 if (optSemanticModel.isEmpty()) {
                     return;
@@ -153,7 +158,7 @@ public class NewConnectionBuilder extends NodeBuilder {
                     functionParameters = getParametersFromMethodSymbol(workspaceManager, methodSymbol, clientPath);
                     break;
                 }
-            } catch (WorkspaceDocumentException | EventSyncException e) {
+            } catch (EventSyncException e) {
                 throw new RuntimeException(e);
             }
             if (function == null) {

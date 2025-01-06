@@ -1,0 +1,6 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "importStatement": "import ballerina/io;\n",
+  "expression": "io:print"
+}

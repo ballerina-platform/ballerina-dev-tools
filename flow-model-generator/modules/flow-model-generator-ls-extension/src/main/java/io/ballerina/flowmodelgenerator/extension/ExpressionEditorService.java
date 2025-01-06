@@ -29,10 +29,12 @@ import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorComplet
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
+import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -252,6 +254,33 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
+    public CompletableFuture<SuccessResponse> importModule(ImportModuleRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            SuccessResponse response = new SuccessResponse();
+            try {
+                String fileUri = CommonUtils.getExprUri(request.filePath());
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+                if (document.isPresent()) {
+                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                            workspaceManagerProxy.get(fileUri),
+                            Path.of(request.filePath()), document.get());
+                    String importStatement = request.importStatement()
+                            .replaceFirst("^import\\s+", "")
+                            .replaceAll(";\\n$", "");
+                    Optional<TextEdit> importTextEdit = expressionEditorContext
+                            .getImport(importStatement);
+                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    response.setSuccess(true);
+                }
+            } catch (Exception e) {
+                response.setError(e);
+                response.setSuccess(false);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
     public CompletableFuture<ExpressionEditorDiagnosticsResponse> diagnostics(
             ExpressionEditorDiagnosticsRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -293,5 +322,4 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             return response;
         });
     }
-
 }

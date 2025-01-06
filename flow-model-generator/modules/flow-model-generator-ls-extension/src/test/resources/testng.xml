@@ -46,6 +46,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.ErrorHandlerGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.GetEnclosedFunctionDefTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.FunctionCallTemplateTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ImportModuleTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ClientGeneratorTest"/>
 
             <!--types manager-->
