@@ -41,4 +41,9 @@ public record Location(String filePath, LinePosition startLine, LinePosition end
         return Path.of(filePath()).toFile().getName().equals(Path.of(location.filePath()).toFile().getName()) &&
                 startLine().equals(location.startLine()) && endLine().equals(location.endLine());
     }
+
+    @Override
+    public int hashCode() {
+        return startLine().hashCode() + endLine().hashCode();
+    }
 }

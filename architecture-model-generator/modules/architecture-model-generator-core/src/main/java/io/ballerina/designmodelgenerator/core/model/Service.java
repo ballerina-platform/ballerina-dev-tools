@@ -107,7 +107,11 @@ public class Service extends DesignGraphNode {
 
     @Override
     public int hashCode() {
-        return location.startLine().hashCode() + location.endLine().hashCode();
+        return Objects.hash(displayName, type, absolutePath, attachedListeners.size(),
+                connections.size(),
+                functions.stream().map(Function::hashCode).reduce(0, Integer::sum),
+                remoteFunctions.stream().map(Function::hashCode).reduce(0, Integer::sum),
+                resourceFunctions.stream().map(ResourceFunction::hashCode).reduce(0, Integer::sum));
     }
 
     @Override
