@@ -32,7 +32,8 @@
       "isType": false,
       "placeholder": "",
       "optional": false,
-      "advanced": false
+      "advanced": false,
+      "addNewButton": true
     },
     "serviceType": {
         "metadata": {

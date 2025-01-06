@@ -154,7 +154,8 @@
         "isType": true,
         "placeholder": "error?",
         "optional": true,
-        "advanced": false
+        "advanced": false,
+        "addNewButton": true
       }
     }
   ]
