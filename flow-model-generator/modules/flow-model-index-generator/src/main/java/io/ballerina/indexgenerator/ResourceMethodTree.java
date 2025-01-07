@@ -89,21 +89,25 @@ public class ResourceMethodTree {
         return root;
     }
 
-    public void insertTreeToDatabase(NonTerminalNode root) {
-        // insert root node to database
-        // get the id of the root node
-        root.id = 1;
+    /**
+     * Inserts the tree structure to the database in BFS.
+     *
+     * @param node        root node of the tree
+     * @param connectorId connector id
+     */
+    public static void insertTreeToDatabase(NonTerminalNode node, int connectorId) {
+        int parentId = node.parent == null ? -1 : node.parent.id;
+        node.id = DatabaseManager.insertResourceMethodTree(parentId, 0, connectorId, node.path);
 
-        // insert all the children of the root node to the database
-        for (Node child : root.children) {
+        for (Node child : node.children) {
             if (child instanceof NonTerminalNode nonTerminalNode) {
-                insertTreeToDatabase(nonTerminalNode);
+                insertTreeToDatabase(nonTerminalNode, connectorId);
             } else if (child instanceof TerminalNode terminalNode) {
-                // insert the terminal node to the database
-                // insert the terminal node to function id relationship to the database
+                int id = DatabaseManager.insertResourceMethodTree(parentId, 1, connectorId,
+                        terminalNode.accessor);
+                DatabaseManager.insertFunctionToResourceMethodTree(id, terminalNode.functionId);
             }
         }
-
     }
 
     private static NonTerminalNode locateNode(NonTerminalNode nonTerminalNode, String path) {

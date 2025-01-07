@@ -118,4 +118,14 @@ class DatabaseManager {
         String sql = "INSERT INTO FunctionConnector (function_id, connector_id) VALUES (?, ?)";
         insertEntry(sql, new Object[]{actionId, connectorId});
     }
+
+    public static int insertResourceMethodTree(int parentId, int isLeaf, int connectorId, String path) {
+        String sql = "INSERT INTO ResourceMethodTree (parent_id, is_leaf, connector_id, path) VALUES (?, ?, ?, ?)";
+        return insertEntry(sql, new Object[]{parentId, isLeaf, connectorId, path});
+    }
+
+    public static void insertFunctionToResourceMethodTree(int treeNodeId, int functionId) {
+        String sql = "INSERT INTO FunctionToResourceMethodTree (tree_node_id, function_id) VALUES (?, ?)";
+        insertEntry(sql, new Object[]{treeNodeId, functionId});
+    }
 }

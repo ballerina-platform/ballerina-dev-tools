@@ -102,7 +102,7 @@ class IndexGenerator {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.forEach(
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
@@ -200,6 +200,9 @@ class IndexGenerator {
                     DatabaseManager.mapConnectorAction(functionId, connectorId);
                 }
                 ResourceMethodTree.NonTerminalNode root = treeGenerator.getRoot();
+                if (root != null) {
+                    ResourceMethodTree.insertTreeToDatabase(root, connectorId);
+                }
             }
         }
     }
