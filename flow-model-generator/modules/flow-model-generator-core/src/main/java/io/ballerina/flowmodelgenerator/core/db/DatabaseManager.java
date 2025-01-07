@@ -22,6 +22,7 @@ import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ResourceMethodTreeNode;
 
 import java.io.IOException;
 import java.net.URL;
@@ -491,7 +492,7 @@ public class DatabaseManager {
     }
 
     public List<FunctionResult> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
-                                                       FunctionKind kind) {
+                                                          FunctionKind kind) {
         if (packageNames == null || packageNames.isEmpty()) {
             return List.of();
         }
@@ -565,6 +566,45 @@ public class DatabaseManager {
                 functionResults.add(functionResult);
             }
             return functionResults;
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    public List<ResourceMethodTreeNode> getTreeNodesForConnector(int connectorId) {
+
+        String sql = "SELECT " +
+                "r.tree_node_id, " +
+                "r.parent_id, " +
+                "r.is_leaf, " +
+                "r.path, " +
+                "ftr.function_id, " +
+                "f.resource_path AS resource_path, " +
+                "f.description AS function_description " +
+                "FROM ResourceMethodTree r " +
+                "LEFT JOIN FunctionToResourceMethodTree ftr ON r.tree_node_id = ftr.tree_node_id " +
+                "LEFT JOIN Function f ON ftr.function_id = f.function_id " +
+                "WHERE r.connector_id = ?;";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, connectorId);
+            ResultSet rs = stmt.executeQuery();
+            List<ResourceMethodTreeNode> treeNodes = new ArrayList<>();
+            while (rs.next()) {
+                ResourceMethodTreeNode treeNode = new ResourceMethodTreeNode(
+                        rs.getInt("tree_node_id"),
+                        rs.getInt("parent_id"),
+                        rs.getInt("is_leaf"),
+                        rs.getString("path"),
+                        rs.getInt("function_id"),
+                        rs.getString("function_description"),
+                        rs.getString("resource_path")
+                );
+                treeNodes.add(treeNode);
+            }
+            return treeNodes;
         } catch (SQLException e) {
             LOGGER.severe("Error executing query: " + e.getMessage());
             return List.of();

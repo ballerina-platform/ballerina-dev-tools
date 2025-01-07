@@ -38,6 +38,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ResourceMethodTreeNode;
+import io.ballerina.flowmodelgenerator.core.db.model.TreeNode;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -53,7 +55,9 @@ import io.ballerina.tools.text.TextRange;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -240,7 +244,46 @@ public class AvailableNodesGenerator {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             }
         }
+
+        List<ResourceMethodTreeNode> treeNodeList = dbManager.getTreeNodesForConnector(connector.functionId());
+        TreeNode root = buildTree(treeNodeList, connector, parentSymbol);
+        if (root != null) {
+            availableNodes.add(root);
+        }
         return availableNodes;
+    }
+
+    public static TreeNode buildTree(List<ResourceMethodTreeNode>  rows, FunctionResult connector,
+                                     String parentSymbol) {
+        // Map to store nodes by their ID for quick access
+        Map<Integer, Item> nodeMap = new HashMap<>();
+
+        // Create nodes for each row and store in the map
+        for (ResourceMethodTreeNode row : rows) {
+            if (row.isLeaf() == 1) {
+                nodeMap.put(row.treeNodeId(), getResourceActionNode(row, connector, parentSymbol).buildAvailableNode());
+            } else {
+                nodeMap.put(row.treeNodeId(),
+                        new TreeNode(row.path(), row.resourcePath(), new ArrayList<>(), row.treeNodeId()));
+            }
+        }
+
+        // Define the root node (assuming root has parent ID = -1)
+        TreeNode root = null;
+
+        // Build the tree by linking nodes
+        for (ResourceMethodTreeNode row : rows) {
+            if (row.parentId() == -1) {
+                root = (TreeNode) nodeMap.get(row.treeNodeId());
+            } else {
+                Item parentNode = nodeMap.get(row.parentId());
+                if (parentNode instanceof TreeNode treeNode) {
+                    treeNode.children().add(nodeMap.get(row.treeNodeId()));
+                }
+            }
+        }
+
+        return root;
     }
 
     private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,
@@ -263,15 +306,17 @@ public class AvailableNodesGenerator {
         return actionBuilder;
     }
 
-    private static NodeBuilder getResourceActionNode(FunctionResult connectorAction, FunctionResult connector,
+    private static NodeBuilder getResourceActionNode(ResourceMethodTreeNode resourceMethodTreeNode,
+                                                     FunctionResult connector,
                                                      String parentSymbol) {
         NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
-        String label = connectorAction.name() + (isHttpModule(connector) ? "" : connectorAction.resourcePath());
+        String label = resourceMethodTreeNode.path() + (isHttpModule(connector) ? ""
+                : resourceMethodTreeNode.resourcePath());
         actionBuilder
                 .metadata()
                     .label(label)
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                    .description(connectorAction.description())
+                    .description(resourceMethodTreeNode.description())
                     .functionKind(Function.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
@@ -279,10 +324,10 @@ public class AvailableNodesGenerator {
                     .org(connector.org())
                     .module(connector.packageName())
                     .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                    .symbol(connectorAction.name())
+                    .symbol(resourceMethodTreeNode.path())
                     .parentSymbol(parentSymbol)
-                    .resourcePath(connectorAction.resourcePath())
-                    .id(connectorAction.functionId());
+                    .resourcePath(resourceMethodTreeNode.resourcePath())
+                    .id(resourceMethodTreeNode.functionId());
         return actionBuilder;
     }
 
