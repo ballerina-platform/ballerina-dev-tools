@@ -53,26 +53,16 @@ public class ResourceMethodTree {
             case PATH_SEGMENT_LIST -> {
                 PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
                 for (PathSegment pathSegment : pathSegmentList.list()) {
-                    String path = pathSegment.signature();
+                    String path = getPath(pathSegment);
                     NonTerminalNode grandParent = parent;
                     parent = locateNode(parent, path);
                     if (parent != null) {
                         continue;
                     }
                     parent = grandParent;
-                    if (pathSegment instanceof NamedPathSegment namedPathSegment) {
-                        NonTerminalNode nonTerminalNode = new NonTerminalNode(++idx, parent,
-                                "/" + namedPathSegment.signature());
-                        parent.addChild(nonTerminalNode);
-                        parent = nonTerminalNode;
-                        continue;
-                    }
-                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        NonTerminalNode nonTerminalNode = new NonTerminalNode(++idx, parent,
-                                "/[" + pathParameterSymbol.getName().orElse("^") + "]");
-                        parent.addChild(nonTerminalNode);
-                        parent = nonTerminalNode;
-                    }
+                    NonTerminalNode nonTerminalNode = new NonTerminalNode(++idx, parent, path);
+                    parent.addChild(nonTerminalNode);
+                    parent = nonTerminalNode;
                 }
                 TerminalNode terminalNode = new TerminalNode(++idx, parent, accessor, functionId);
                 parent.addChild(terminalNode);
@@ -83,6 +73,16 @@ public class ResourceMethodTree {
                 root.addChild(terminalNode);
             }
         }
+    }
+
+    private static String getPath(PathSegment pathSegment) {
+        if (pathSegment instanceof NamedPathSegment namedPathSegment) {
+            return "/" + namedPathSegment.signature();
+        }
+        if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+            return "/[" + pathParameterSymbol.getName().orElse("^") + "]";
+        }
+        return "";
     }
 
     public NonTerminalNode getRoot() {
