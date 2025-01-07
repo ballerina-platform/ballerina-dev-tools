@@ -34,6 +34,7 @@ import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -101,7 +102,7 @@ class IndexGenerator {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.forEach(
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
@@ -170,6 +171,7 @@ class IndexGenerator {
                     continue;
                 }
 
+                ResourceMethodTree treeGenerator = new ResourceMethodTree();
                 // Process the actions of the client
                 Map<String, MethodSymbol> methods = classSymbol.methods();
                 for (Map.Entry<String, MethodSymbol> entry : methods.entrySet()) {
@@ -191,8 +193,13 @@ class IndexGenerator {
                     if (functionId == -1) {
                         continue;
                     }
+                    if (functionType == FunctionType.RESOURCE) {
+                        ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) methodSymbol;
+                        treeGenerator.addResourceToTree(resourceMethodSymbol, functionId);
+                    }
                     DatabaseManager.mapConnectorAction(functionId, connectorId);
                 }
+                ResourceMethodTree.NonTerminalNode root = treeGenerator.getRoot();
             }
         }
     }
