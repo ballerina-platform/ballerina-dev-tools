@@ -62,7 +62,9 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -307,12 +309,12 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 if (semanticModel.isEmpty()) {
                     return response;
                 }
-                List<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
+                Set<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
                                 StreamSupport.stream(context.syntaxDiagnostics().spliterator(), false))
                         .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
-                        .toList();
+                        .collect(Collectors.toSet());
 
                 context.applyContent(oldTextDocument);
                 response.setDiagnostics(diagnostics);

@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension.response;
 
 import org.eclipse.lsp4j.Diagnostic;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * This class represents the response containing diagnostics for the expression editor.
@@ -29,13 +29,13 @@ import java.util.List;
  */
 public class ExpressionEditorDiagnosticsResponse extends AbstractFlowModelResponse {
 
-    List<Diagnostic> diagnostics;
+    Set<Diagnostic> diagnostics;
 
-    public List<Diagnostic> diagnostics() {
+    public Set<Diagnostic> diagnostics() {
         return diagnostics;
     }
 
-    public void setDiagnostics(List<Diagnostic> diagnostics) {
+    public void setDiagnostics(Set<Diagnostic> diagnostics) {
         this.diagnostics = diagnostics;
     }
 }
