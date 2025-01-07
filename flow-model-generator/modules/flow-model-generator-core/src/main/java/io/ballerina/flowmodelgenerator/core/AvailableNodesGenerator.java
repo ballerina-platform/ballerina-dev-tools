@@ -232,18 +232,12 @@ public class AvailableNodesGenerator {
         }
 
         FunctionResult connector = connectorResult.get();
-        List<FunctionResult> connectorActions = dbManager.getConnectorActions(connector.functionId());
+        List<FunctionResult> connectorActions = dbManager.getConnectorMethodsAndRemoteActions(connector.functionId());
 
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
-            if (connectorAction.kind() == Function.Kind.REMOTE) {
+            if (connectorAction.kind() != Function.Kind.RESOURCE) {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else {
-                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
-                    continue;
-                }
-                availableNodes.add(
-                        getResourceActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             }
         }
         return availableNodes;

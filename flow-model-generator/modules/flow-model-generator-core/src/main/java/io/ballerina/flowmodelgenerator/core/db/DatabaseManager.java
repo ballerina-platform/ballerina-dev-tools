@@ -452,18 +452,17 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getConnectorActions(int connectorId) {
+    public List<FunctionResult> getConnectorMethodsAndRemoteActions(int connectorId) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
                 "f.description, " +
                 "f.kind, " +
                 "f.return_type, " +
-                "f.resource_path, " +
                 "f.return_error " +
                 "FROM Function f " +
                 "JOIN FunctionConnector fc ON f.function_id = fc.function_id " +
-                "WHERE fc.connector_id = ?;";
+                "WHERE fc.connector_id = ? AND f.kind != 'RESOURCE';";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -479,7 +478,7 @@ public class DatabaseManager {
                         null, // packageName is not selected in this query
                         null, // org is not selected in this query
                         null, // version is not selected in this query
-                        rs.getString("resource_path"),
+                        null,
                         Function.Kind.valueOf(rs.getString("kind")),
                         rs.getInt("return_error"));
                 functionResults.add(functionResult);
