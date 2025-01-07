@@ -222,7 +222,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         template = codedata.symbol();
                         break;
                     case IMPORTED:
-                        template = codedata.module() + ":" + codedata.symbol();
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
                         break;
                     case AVAILABLE:
                         String fileUri = CommonUtils.getExprUri(request.filePath());
@@ -238,7 +238,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                             importTextEdit.ifPresent(
                                     textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
                         }
-                        template = codedata.module() + ":" + codedata.symbol();
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
                         break;
                     default:
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
