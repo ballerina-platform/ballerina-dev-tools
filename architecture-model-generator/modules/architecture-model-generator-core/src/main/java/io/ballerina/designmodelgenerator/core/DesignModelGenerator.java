@@ -100,14 +100,16 @@ public class DesignModelGenerator {
             List<Function> functions = new ArrayList<>();
             serviceModel.otherFunctions.forEach(otherFunction -> {
                 buildConnectionGraph(intermediateModel, otherFunction);
-                functions.add(new Function(otherFunction.name, otherFunction.location));
+                functions.add(new Function(otherFunction.name, otherFunction.location,
+                        otherFunction.allDependentConnections));
                 connections.addAll(otherFunction.allDependentConnections);
             });
 
             List<Function> remoteFunctions = new ArrayList<>();
             serviceModel.remoteFunctions.forEach(remoteFunction -> {
                 buildConnectionGraph(intermediateModel, remoteFunction);
-                remoteFunctions.add(new Function(remoteFunction.name, remoteFunction.location));
+                remoteFunctions.add(new Function(remoteFunction.name, remoteFunction.location,
+                        remoteFunction.connections));
                 connections.addAll(remoteFunction.allDependentConnections);
             });
 
@@ -115,7 +117,7 @@ public class DesignModelGenerator {
             serviceModel.resourceFunctions.forEach(resourceFunction -> {
                 buildConnectionGraph(intermediateModel, resourceFunction);
                 resourceFunctions.add(new ResourceFunction(resourceFunction.name, resourceFunction.path,
-                        resourceFunction.location));
+                        resourceFunction.location, resourceFunction.connections));
                 connections.addAll(resourceFunction.allDependentConnections);
             });
             List<Listener> allAttachedListeners = serviceModel.anonListeners;

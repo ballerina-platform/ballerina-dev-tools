@@ -19,6 +19,7 @@
 package io.ballerina.designmodelgenerator.core.model;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the main function in a ballerina package.
@@ -64,7 +65,8 @@ public final class Automation extends DesignGraphNode {
 
     @Override
     public int hashCode() {
-        return type.hashCode() + name.hashCode() + displayName.hashCode() + connections.size();
+       return Objects.hash(type.hashCode(), name.hashCode(), displayName.hashCode(), location.hashCode(),
+               connections.size());
     }
 
     @Override

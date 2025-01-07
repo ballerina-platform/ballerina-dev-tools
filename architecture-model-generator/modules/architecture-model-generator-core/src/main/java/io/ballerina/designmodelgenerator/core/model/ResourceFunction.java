@@ -18,14 +18,24 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * Represents a resource function definition node.
  *
  * @param accessor function accessor name
  * @param path path of the resource function
  * @param location location of the resource function
+ * @param connections dependent connections of the resource function
  *
  * @since 2.0.0
  */
-public record ResourceFunction(String accessor, String path, Location location) {
+public record ResourceFunction(String accessor, String path, Location location, Set<String> connections) {
+
+    @Override
+    public int hashCode() {
+        int connections = connections() != null ? connections().size() : 0;
+        return Objects.hash(accessor().hashCode(), path().hashCode(), location().hashCode(), connections);
+    }
 }
