@@ -50,3 +50,21 @@ CREATE TABLE Parameter (
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );
+
+-- Create Tree Index Table for Resource functions
+CREATE TABLE ResourceMethodTree (
+    tree_node_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    parent_id INTEGER,
+    is_leaf INTEGER CHECK(is_leaf IN (0, 1)) NOT NULL,
+    connector_id INTEGER NOT NULL,
+    path TEXT NOT NULL
+);
+
+-- Create Function to Tree Index Table Mapping
+CREATE TABLE FunctionToResourceMethodTree (
+    function_id INTEGER,
+    tree_node_id INTEGER,
+    PRIMARY KEY (function_id, tree_node_id),
+    FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE,
+    FOREIGN KEY (tree_node_id) REFERENCES ResourceMethodTree(tree_node_id) ON DELETE CASCADE
+);
