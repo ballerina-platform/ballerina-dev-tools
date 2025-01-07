@@ -583,8 +583,8 @@ public class DatabaseManager {
                 "f.resource_path AS resource_path, " +
                 "f.description AS function_description " +
                 "FROM ResourceMethodTree r " +
-                "LEFT JOIN FunctionToResourceMethodTree ftr ON r.tree_node_id = ftr.tree_node_id " +
-                "LEFT JOIN Function f ON ftr.function_id = f.function_id " +
+                "LEFT OUTER JOIN FunctionToResourceMethodTree ftr ON r.tree_node_id = ftr.tree_node_id " +
+                "LEFT OUTER JOIN Function f ON ftr.function_id = f.function_id " +
                 "WHERE r.connector_id = ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);

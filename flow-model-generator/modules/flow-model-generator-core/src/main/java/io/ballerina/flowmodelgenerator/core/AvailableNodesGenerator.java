@@ -273,7 +273,10 @@ public class AvailableNodesGenerator {
 
         // Build the tree by linking nodes
         for (ResourceMethodTreeNode row : rows) {
-            if (row.parentId() == -1) {
+            if (row.parentId() == -1) { // TODO: handle the issue with the index gen
+                if (root != null) {
+                    continue;
+                }
                 root = (TreeNode) nodeMap.get(row.treeNodeId());
             } else {
                 Item parentNode = nodeMap.get(row.parentId());

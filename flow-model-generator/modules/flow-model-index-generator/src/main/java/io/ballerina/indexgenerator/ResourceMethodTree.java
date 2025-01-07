@@ -103,7 +103,7 @@ public class ResourceMethodTree {
             if (child instanceof NonTerminalNode nonTerminalNode) {
                 insertTreeToDatabase(nonTerminalNode, connectorId);
             } else if (child instanceof TerminalNode terminalNode) {
-                int id = DatabaseManager.insertResourceMethodTree(parentId, 1, connectorId,
+                int id = DatabaseManager.insertResourceMethodTree(node.id, 1, connectorId,
                         terminalNode.accessor);
                 DatabaseManager.insertFunctionToResourceMethodTree(id, terminalNode.functionId);
             }
