@@ -21,6 +21,7 @@ package io.ballerina.designmodelgenerator.core.model;
 import io.ballerina.tools.text.LinePosition;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * Represents a location in a source file.
@@ -44,6 +45,6 @@ public record Location(String filePath, LinePosition startLine, LinePosition end
 
     @Override
     public int hashCode() {
-        return startLine().hashCode() + endLine().hashCode();
+        return Objects.hash(startLine().hashCode(), endLine().hashCode());
     }
 }

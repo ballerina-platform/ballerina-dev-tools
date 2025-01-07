@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -35,6 +36,6 @@ public record ResourceFunction(String accessor, String path, Location location, 
     @Override
     public int hashCode() {
         int connections = connections() != null ? connections().size() : 0;
-        return accessor().hashCode() + path().hashCode() + location().hashCode() + connections;
+        return Objects.hash(accessor().hashCode(), path().hashCode(), location().hashCode(), connections);
     }
 }
