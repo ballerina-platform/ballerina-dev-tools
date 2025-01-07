@@ -92,7 +92,7 @@ public class ResourceActionCallBuilder extends NodeBuilder {
                     continue;
                 }
                 PropertyCodedata propCodedata = property.get().codedata();
-                if (!(propCodedata != null && propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name()))) {
+                if (propCodedata == null || !propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name())) {
                     continue;
                 }
                 String pathParamSubString = "[" + key + "]";
