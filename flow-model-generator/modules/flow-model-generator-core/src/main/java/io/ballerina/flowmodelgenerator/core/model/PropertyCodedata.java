@@ -22,9 +22,10 @@ package io.ballerina.flowmodelgenerator.core.model;
 /**
  * Represents the codedata of a property.
  *
- * @param kind             The kind of the property
- * @param originalName     The original name of the property
- * @param importStatements import statements of the dependent types
+ * @param kind              The kind of the property
+ * @param originalName      The original name of the property
+ * @param importStatements  import statements of the dependent types
+ * @param dependentProperty The property that is dependent for this property to be enabled
  * @since 2.0.0
  */
 public record PropertyCodedata(String kind, String originalName, String importStatements, String dependentProperty) {

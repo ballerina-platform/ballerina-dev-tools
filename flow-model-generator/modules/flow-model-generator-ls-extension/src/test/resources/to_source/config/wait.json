@@ -1,0 +1,106 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Wait",
+      "description": "Wait for a set of futures to complete"
+    },
+    "codedata": {
+      "node": "WAIT",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "waitAll": {
+        "metadata": {
+          "label": "Wait All",
+          "description": "Wait for all tasks to complete"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "futures": {
+        "metadata": {
+          "label": "Futures",
+          "description": "The futures to wait for"
+        },
+        "valueType": "REPEATABLE_PROPERTY_LIST",
+        "value": {
+          "future": {
+            "metadata": {
+              "label": "Future",
+              "description": "The worker/async function to wait for"
+            },
+            "valueType": "FIXED_PROPERTY_LIST",
+            "value": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "false",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "dependentProperty": "waitAll"
+                }
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "foo",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "wait foo;"
+      }
+    ]
+  }
+}
