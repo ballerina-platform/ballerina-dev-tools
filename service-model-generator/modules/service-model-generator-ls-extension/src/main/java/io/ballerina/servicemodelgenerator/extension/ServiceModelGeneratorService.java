@@ -462,7 +462,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 } else {
                     updateServiceModel(serviceModel, serviceNode, semanticModel);
                 }
-                serviceModel.setCodedata(request.codedata());
                 List<String> listenersList = getCompatibleListeners(serviceName.get(), modulePartNode,
                         semanticModel);
                 Value listener = serviceModel.getListener();
@@ -516,7 +515,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 Listener listenerModel = listener.get();
                 updateListenerModel(listenerModel, listenerNode);
-                listenerModel.setCodedata(request.codedata());
                 return new ListenerFromSourceResponse(listenerModel);
             } catch (Exception e) {
                 return new ListenerFromSourceResponse(e);

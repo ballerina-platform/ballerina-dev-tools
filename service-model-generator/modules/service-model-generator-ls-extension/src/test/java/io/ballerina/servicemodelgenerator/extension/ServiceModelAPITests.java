@@ -314,8 +314,8 @@ public class ServiceModelAPITests {
     @Test
     public void testGetHttpListenerFromSource() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample3/main.bal");
-        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(5, 0),
-                LinePosition.from(5, 56)));
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(5, 23),
+                LinePosition.from(5, 37)));
         CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
                 filePath.toAbsolutePath().toString(), codedata);
         CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getListenerFromSource",

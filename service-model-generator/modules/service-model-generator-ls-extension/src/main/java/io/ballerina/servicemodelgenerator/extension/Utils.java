@@ -657,9 +657,11 @@ public final class Utils {
 
     public static void updateListenerModel(Listener listener, ListenerDeclarationNode listenerNode) {
         Optional<Listener> commonListener = getListenerModel(listenerNode);
-        commonListener.ifPresent(listenerModel ->
+        commonListener.ifPresent(listenerModel -> {
                 listenerModel.getProperties().forEach((key, value) ->
-                        updateValue(listener.getProperty(key), value)));
+                        updateValue(listener.getProperty(key), value));
+                listener.setCodedata(new Codedata(listenerNode.lineRange()));
+        });
     }
 
     public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
