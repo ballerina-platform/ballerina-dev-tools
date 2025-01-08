@@ -35,6 +35,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
 import io.ballerina.compiler.syntax.tree.ByteArrayLiteralNode;
@@ -1380,13 +1381,34 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(WaitActionNode waitActionNode) {
         startNode(NodeKind.WAIT, waitActionNode).properties()
                 .waitAll(false)
-                .propertyList()
-                .propertyList()
-                .expression((ExpressionNode) waitActionNode.waitFutureExpr())
-                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
-                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC)
-                .endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
-                        WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
+                .propertyList();
+
+        Node node = waitActionNode.waitFutureExpr();
+        switch (node.kind()) {
+            case BINARY_EXPRESSION -> {
+                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) node;
+                Stack<Node> futuresStack = new Stack<>();
+
+                futuresStack.push(binaryExpressionNode.rhsExpr());
+                Node lhsNode = binaryExpressionNode.lhsExpr();
+                while (lhsNode.kind() == SyntaxKind.BINARY_EXPRESSION) {
+                    BinaryExpressionNode nestedBinary = (BinaryExpressionNode) lhsNode;
+                    futuresStack.push(nestedBinary.rhsExpr());
+                    lhsNode = nestedBinary.lhsExpr();
+                }
+                futuresStack.push(lhsNode);
+
+                while (!futuresStack.isEmpty()) {
+                    nodeBuilder.properties()
+                            .propertyList()
+                            .expression((ExpressionNode) futuresStack.pop())
+                            .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                                    WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+                }
+            }
+        }
+        nodeBuilder.properties().endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
+                WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
 
     // Utility methods

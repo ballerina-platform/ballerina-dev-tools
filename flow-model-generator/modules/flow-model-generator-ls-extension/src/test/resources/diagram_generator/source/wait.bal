@@ -34,7 +34,7 @@ function waitForImportedFunction() returns error? {
 }
 
 // Basic alternate wait with two workers
-function basicAlternateWait() returns string|error {
+function basic2AlternateWait() returns string|error {
     worker A returns string|error {
         return mockFetch("http://a.com", 2);
     }
@@ -43,7 +43,26 @@ function basicAlternateWait() returns string|error {
         return mockFetch("http://b.com", 1);
     }
 
-    return wait A | B;
+    string|error result = wait A | B;
+    return result;
+}
+
+// Basic alternate wait with three workers
+function basic3AlternateWait() returns string|error {
+    worker A returns string|error {
+        return mockFetch("http://a.com", 2);
+    }
+
+    worker B returns string|error {
+        return mockFetch("http://b.com", 1);
+    }
+
+    worker C returns string|error {
+        return mockFetch("http://c.com", 3);
+    }
+
+    string|error result = wait A | B | C;
+    return result;
 }
 
 // Alternate wait with error cases
