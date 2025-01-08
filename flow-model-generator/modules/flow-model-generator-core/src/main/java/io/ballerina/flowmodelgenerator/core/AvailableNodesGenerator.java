@@ -158,21 +158,21 @@ public class AvailableNodesGenerator {
 
         this.rootBuilder
                 .stepIn(Category.Name.ERROR_HANDLING)
-                // TODO: Uncomment when error handling is implemented
+//                TODO: Uncomment when error handling is implemented
 //                    .node(NodeKind.ERROR_HANDLER)
                     .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
-                    .stepOut();
-        // TODO: Uncomment when concurrency is implemented
-//        this.rootBuilder
-//                .stepIn(Category.Name.CONCURRENCY)
+                    .stepOut()
+                .stepIn(Category.Name.CONCURRENCY)
+                    .node(NodeKind.WAIT)
+//                TODO: Uncomment when concurrency is implemented
 //                    .node(NodeKind.TRANSACTION)
 //                    .node(NodeKind.COMMIT)
 //                    .node(NodeKind.ROLLBACK)
 //                    .node(NodeKind.RETRY);
 //                    .node(NodeKind.LOCK)
 //                    .node(NodeKind.START)
-//                    .stepOut();
+                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
