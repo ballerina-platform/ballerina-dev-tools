@@ -426,15 +426,15 @@
               "description": "The futures to wait for"
             },
             "valueType": "REPEATABLE_PROPERTY_LIST",
-            "value": [
-              {
+            "value": {
+              "future1": {
                 "metadata": {
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
                 "valueType": "FIXED_PROPERTY_LIST",
-                "value": [
-                  {
+                "value": {
+                  "variable": {
                     "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
@@ -448,7 +448,7 @@
                       "dependentProperty": "waitAll"
                     }
                   },
-                  {
+                  "expression": {
                     "metadata": {
                       "label": "Expression",
                       "description": "Expression"
@@ -459,19 +459,19 @@
                     "editable": true,
                     "advanced": false
                   }
-                ],
+                },
                 "optional": false,
                 "editable": false,
                 "advanced": false
               },
-              {
+              "future2": {
                 "metadata": {
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
                 "valueType": "FIXED_PROPERTY_LIST",
-                "value": [
-                  {
+                "value": {
+                  "variable": {
                     "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
@@ -485,7 +485,7 @@
                       "dependentProperty": "waitAll"
                     }
                   },
-                  {
+                  "expression": {
                     "metadata": {
                       "label": "Expression",
                       "description": "Expression"
@@ -496,12 +496,12 @@
                     "editable": true,
                     "advanced": false
                   }
-                ],
+                },
                 "optional": false,
                 "editable": false,
                 "advanced": false
               }
-            ],
+            },
             "optional": false,
             "editable": false,
             "advanced": false
@@ -572,15 +572,15 @@
               "description": "The futures to wait for"
             },
             "valueType": "REPEATABLE_PROPERTY_LIST",
-            "value": [
-              {
+            "value": {
+              "future1": {
                 "metadata": {
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
                 "valueType": "FIXED_PROPERTY_LIST",
-                "value": [
-                  {
+                "value": {
+                  "variable": {
                     "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
@@ -594,7 +594,7 @@
                       "dependentProperty": "waitAll"
                     }
                   },
-                  {
+                  "expression": {
                     "metadata": {
                       "label": "Expression",
                       "description": "Expression"
@@ -605,19 +605,19 @@
                     "editable": true,
                     "advanced": false
                   }
-                ],
+                },
                 "optional": false,
                 "editable": false,
                 "advanced": false
               },
-              {
+              "future2": {
                 "metadata": {
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
                 "valueType": "FIXED_PROPERTY_LIST",
-                "value": [
-                  {
+                "value": {
+                  "variable": {
                     "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
@@ -631,7 +631,7 @@
                       "dependentProperty": "waitAll"
                     }
                   },
-                  {
+                  "expression": {
                     "metadata": {
                       "label": "Expression",
                       "description": "Expression"
@@ -642,12 +642,12 @@
                     "editable": true,
                     "advanced": false
                   }
-                ],
+                },
                 "optional": false,
                 "editable": false,
                 "advanced": false
               }
-            ],
+            },
             "optional": false,
             "editable": false,
             "advanced": false

@@ -1414,11 +1414,13 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         // Generate the wait all properties
-        nodeBuilder.properties().waitAll(waitAll).propertyList();
+        nodeBuilder.properties().waitAll(waitAll)
+                .propertyList();
 
         // Generate the properties for the futures
         Node waitField;
         ExpressionNode expressionNode;
+        int i = 1;
         for (Node n : nodes) {
             if (n.kind() == SyntaxKind.WAIT_FIELD) {
                 waitField = ((WaitFieldNode) n).fieldName();
@@ -1431,7 +1433,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .propertyList()
                     .waitField(waitField)
                     .expression(expressionNode)
-                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, "future" + i++,
                             WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
         }
 

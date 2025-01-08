@@ -71,9 +71,8 @@ import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.
  */
 public class FormBuilder<T> extends FacetedBuilder<T> {
 
-    private final Map<String, Property> nodeProperties;
-    private final Stack<List<Property>> propertyListStack;
-    private List<Property> propertyListBuffer;
+    private Map<String, Property> nodeProperties;
+    private final Stack<Map<String, Property>> nodePropertiesStack;
 
     private final SemanticModel semanticModel;
     private final DiagnosticHandler diagnosticHandler;
@@ -85,7 +84,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         super(parentBuilder);
         this.nodeProperties = new LinkedHashMap<>();
         this.propertyBuilder = new Property.Builder<>(this);
-        this.propertyListStack = new Stack<>();
+        this.nodePropertiesStack = new Stack<>();
         this.semanticModel = semanticModel;
         this.diagnosticHandler = diagnosticHandler;
         this.moduleInfo = moduleInfo;
@@ -761,11 +760,35 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> propertyList() {
-        if (propertyListBuffer != null) {
-            propertyListStack.push(propertyListBuffer);
-        }
-        propertyListBuffer = new ArrayList<>();
+        Map<String, Property> newProperties = new LinkedHashMap<>();
+        nodePropertiesStack.push(nodeProperties);
+        nodeProperties = newProperties;
         return this;
+    }
+
+    public FormBuilder<T> endPropertyList(Property.ValueType valueType, String key, String label, String doc) {
+        if (!nodeProperties.isEmpty()) {
+            propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(doc)
+                        .stepOut()
+                    .value(nodeProperties)
+                    .type(valueType);
+            if (!nodePropertiesStack.isEmpty()) {
+                nodeProperties = nodePropertiesStack.pop();
+            }
+            addProperty(key);
+        }
+        return this;
+    }
+
+    public final void addProperty(String key, Node node) {
+        if (node != null) {
+            diagnosticHandler.handle(propertyBuilder, node.lineRange(), true);
+        }
+        Property property = propertyBuilder.build();
+        this.nodeProperties.put(key, property);
     }
 
     public final void addProperty(String key) {
@@ -778,36 +801,6 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         }
         Property property = propertyBuilder.build();
         this.nodeProperties.put(key, property);
-    }
-
-    public final void addProperty(String key, Node node) {
-        if (node != null) {
-            diagnosticHandler.handle(propertyBuilder, node.lineRange(), true);
-        }
-        Property property = propertyBuilder.build();
-        if (this.propertyListBuffer != null) {
-            this.propertyListBuffer.add(property);
-        } else if (!this.propertyListStack.isEmpty()) {
-            this.propertyListStack.peek().add(property);
-        } else {
-            this.nodeProperties.put(key, property);
-        }
-    }
-
-    public FormBuilder<T> endPropertyList(Property.ValueType valueType, String key, String label, String doc) {
-        if (propertyListBuffer != null) {
-            propertyBuilder
-                    .metadata()
-                        .label(label)
-                        .description(doc)
-                        .stepOut()
-                    .value(propertyListBuffer)
-                    .type(valueType);
-            propertyListBuffer = null;
-            addProperty(key);
-        }
-        propertyListBuffer = propertyListStack.isEmpty() ? null : propertyListStack.pop();
-        return this;
     }
 
     public Map<String, Property> build() {
