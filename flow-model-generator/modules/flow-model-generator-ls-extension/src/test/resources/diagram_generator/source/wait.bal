@@ -123,48 +123,6 @@ function multipleWaitWithRecord() returns MultiResult {
     return mapResult;
 }
 
-// Wait with worker cancellation
-function waitWithCancellation() returns string[] {
-    string[] results = [];
-
-    worker WA {
-        runtime:sleep(1);
-        results.push("WA");
-    }
-
-    worker WB {
-        runtime:sleep(.5);
-        results.push("WB");
-    }
-
-    // Only wait for WB
-    wait WB;
-    return results;
-}
-
-// Sequential wait with dependencies
-function sequentialWaitWithDependencies() returns string[] {
-    string[] results = [];
-
-    worker First {
-        runtime:sleep(.5);
-        results.push("First done");
-    }
-
-    worker Second {
-        wait First;
-        results.push("Second after First");
-    }
-
-    worker Third {
-        wait Second;
-        results.push("Third after Second");
-    }
-
-    wait Third;
-    return results;
-}
-
 // Wait with mixed return types
 type MixedResult record {
     int a;

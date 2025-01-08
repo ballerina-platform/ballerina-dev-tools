@@ -1,0 +1,261 @@
+{
+  "start": {
+    "line": 132,
+    "offset": 0
+  },
+  "end": {
+    "line": 150,
+    "offset": 1
+  },
+  "source": "wait.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "wait.bal",
+    "nodes": [
+      {
+        "id": "164797",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 132,
+              "offset": 50
+            },
+            "endLine": {
+              "line": 150,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function waitWithMixedTypes() returns MixedResult {\n    worker WA returns int {\n        runtime:sleep(1);\n        return 42;\n    }\n\n    worker WB returns string {\n        runtime:sleep(2);\n        return \"Hello\";\n    }\n\n    worker WC returns boolean {\n        runtime:sleep(1);\n        return true;\n    }\n\n    MixedResult mapResult = wait {a: WA, b: WB, c: WC};\n    return mapResult;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "178739",
+        "metadata": {
+          "label": "Wait",
+          "description": "Wait for a set of futures to complete"
+        },
+        "codedata": {
+          "node": "WAIT",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 148,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 148,
+              "offset": 55
+            }
+          },
+          "sourceCode": "MixedResult mapResult = wait {a: WA, b: WB, c: WC};"
+        },
+        "returning": false,
+        "properties": {
+          "waitAll": {
+            "metadata": {
+              "label": "Wait All",
+              "description": "Wait for all tasks to complete"
+            },
+            "valueType": "FLAG",
+            "value": false,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "futures": {
+            "metadata": {
+              "label": "Futures",
+              "description": "The futures to wait for"
+            },
+            "valueType": "REPEATABLE_PROPERTY_LIST",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "a",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WA",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "b",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WB",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "c",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WC",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            ],
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "MixedResult",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "179697",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of 'mapResult'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 149,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 149,
+              "offset": 21
+            }
+          },
+          "sourceCode": "return mapResult;"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}
