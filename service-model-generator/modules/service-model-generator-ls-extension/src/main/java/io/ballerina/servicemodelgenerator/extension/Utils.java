@@ -639,7 +639,6 @@ public final class Utils {
             Parameter parameterModel = Parameter.getNewParameter();
             parameterModel.setKind("DEFAULTABLE");
             getHttpParameterType(parameter.annotations()).ifPresent(parameterModel::setHttpParamType);
-            // TODO: Set default value
             Value type = parameterModel.getType();
             type.setValue(parameter.typeName().toString().trim());
             type.setValueType("TYPE");
@@ -650,6 +649,10 @@ public final class Utils {
             name.setValueType("IDENTIFIER");
             name.setEnabled(true);
             parameterModel.setEnabled(true);
+            Value defaultValue = parameterModel.getDefaultValue();
+            defaultValue.setValue(parameter.expression().toString().trim());
+            defaultValue.setValueType("EXPRESSION");
+            defaultValue.setEnabled(true);
             return Optional.of(parameterModel);
         }
         return Optional.empty();
@@ -903,8 +906,14 @@ public final class Utils {
         List<String> params = new ArrayList<>();
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
-                String paramDef = String.format("%s %s", getValueString(param.getType()),
-                        getValueString(param.getName()));
+                String paramDef;
+                if (Objects.nonNull(param.getDefaultValue()) && param.getDefaultValue().isEnabled()) {
+                    paramDef = String.format("%s %s = %s", getValueString(param.getType()),
+                            getValueString(param.getName()), getValueString(param.getDefaultValue()));
+                } else {
+                    paramDef = String.format("%s %s", getValueString(param.getType()),
+                            getValueString(param.getName()));
+                }
                 if (Objects.nonNull(param.getHttpParamType()) && !param.getHttpParamType().equals("Query")) {
                     paramDef = String.format("@http:%s %s", param.getHttpParamType(), paramDef);
                 }

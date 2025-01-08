@@ -258,6 +258,8 @@ public class ServiceModelAPITests {
         header.setEnabled(true);
         header.getName().setValue("header");
         header.getType().setValue("string");
+        header.getDefaultValue().setEnabled(true);
+        header.getDefaultValue().setValue("\"test\"");
         resource.addParameter(header);
 
         Path filePath = resDir.resolve("sample3/main.bal");

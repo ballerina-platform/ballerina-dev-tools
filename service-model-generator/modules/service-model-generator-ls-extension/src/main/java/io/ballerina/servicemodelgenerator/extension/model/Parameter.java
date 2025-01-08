@@ -52,7 +52,7 @@ public class Parameter {
     }
 
     public static Parameter getNewParameter() {
-        return new Parameter(null, null, new Value(), new Value(), null, false, false, false, false, null);
+        return new Parameter(null, null, new Value(), new Value(), new Value(), false, false, false, false, null);
     }
 
     public MetaData getMetadata() {

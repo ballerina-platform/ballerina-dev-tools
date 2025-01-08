@@ -176,6 +176,21 @@
         "optional": false,
         "advanced": false
       },
+      "defaultValue": {
+        "metadata": {
+          "label": "Default Value",
+          "description": "The default value"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "",
+        "valueType": "STRING",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": true,
+        "advanced": false
+      },
       "enabled": false,
       "editable": true,
       "optional": false,
@@ -207,6 +222,21 @@
         "isType": false,
         "placeholder": "name",
         "optional": false,
+        "advanced": false
+      },
+      "defaultValue": {
+        "metadata": {
+          "label": "Default Value",
+          "description": "The default value"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "anydata",
+        "isType": false,
+        "placeholder": "",
+        "optional": true,
         "advanced": false
       },
       "enabled": false,

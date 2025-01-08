@@ -13,7 +13,7 @@ service /api/test on httpListener {
         }
     }
 
-    resource function get greeting/[string name](int id, @http:Header string header) returns json|http:InternalServerError {
+    resource function get greeting/[string name](@http:Header string header, int id = 45) returns json|http:InternalServerError {
         do {
         } on fail error err {
             // handle error
