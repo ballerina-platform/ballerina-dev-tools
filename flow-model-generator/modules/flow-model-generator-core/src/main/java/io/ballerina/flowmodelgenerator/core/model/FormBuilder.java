@@ -75,7 +75,6 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     private final Stack<List<Property>> propertyListStack;
     private List<Property> propertyListBuffer;
 
-
     private final SemanticModel semanticModel;
     private final DiagnosticHandler diagnosticHandler;
     protected Property.Builder<FormBuilder<T>> propertyBuilder;
@@ -128,6 +127,22 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .type(Property.ValueType.IDENTIFIER)
                 .editable();
         addProperty(Property.VARIABLE_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> waitField(Node node) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.VARIABLE_NAME)
+                    .description(Property.VARIABLE_DOC)
+                    .stepOut()
+                .codedata()
+                    .dependentProperty(WaitBuilder.WAIT_ALL_KEY)
+                    .stepOut()
+                .value(node == null ? "" : node.toSourceCode().strip())
+                .type(Property.ValueType.IDENTIFIER)
+                .editable();
+        addProperty(Property.VARIABLE_KEY, node);
         return this;
     }
 
@@ -772,8 +787,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         Property property = propertyBuilder.build();
         if (this.propertyListBuffer != null) {
             this.propertyListBuffer.add(property);
-        }
-        else if (!this.propertyListStack.isEmpty()) {
+        } else if (!this.propertyListStack.isEmpty()) {
             this.propertyListStack.peek().add(property);
         } else {
             this.nodeProperties.put(key, property);

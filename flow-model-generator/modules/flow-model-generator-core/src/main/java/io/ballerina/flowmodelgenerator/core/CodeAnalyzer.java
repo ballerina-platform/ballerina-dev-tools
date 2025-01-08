@@ -141,7 +141,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -1404,6 +1403,7 @@ class CodeAnalyzer extends NodeVisitor {
                 while (!futuresStack.isEmpty()) {
                     nodeBuilder.properties()
                             .propertyList()
+                            .waitField(null)
                             .expression((ExpressionNode) futuresStack.pop())
                             .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
                                     WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
@@ -1416,20 +1416,28 @@ class CodeAnalyzer extends NodeVisitor {
                         WaitFieldNode waitFieldNode = (WaitFieldNode) field;
                         nodeBuilder.properties()
                                 .propertyList()
+                                .waitField(waitFieldNode.fieldName())
                                 .expression(waitFieldNode.waitFutureExpr())
-                                .data(waitFieldNode.fieldName(), Set.of())
                                 .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
                                         WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
                     } else {
                         nodeBuilder.properties()
                                 .propertyList()
+                                .waitField(null)
                                 .expression((ExpressionNode) field)
                                 .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
                                         WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
                     }
                 }
             }
-
+            default -> {
+                nodeBuilder.properties()
+                        .propertyList()
+                        .waitField(null)
+                        .expression((ExpressionNode) node)
+                        .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                                WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+            }
         }
         nodeBuilder.properties().endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
                 WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);

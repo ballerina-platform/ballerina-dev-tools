@@ -85,22 +85,25 @@
                 "value": [
                   {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "WA",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  {
-                    "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "wa",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WA",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -117,6 +120,20 @@
                 },
                 "valueType": "FIXED_PROPERTY_LIST",
                 "value": [
+                  {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
                   {
                     "metadata": {
                       "label": "Expression",
@@ -142,22 +159,25 @@
                 "value": [
                   {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "WC",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  {
-                    "metadata": {
                       "label": "Variable Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
                     "value": "wC",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WC",
                     "optional": false,
                     "editable": true,
                     "advanced": false

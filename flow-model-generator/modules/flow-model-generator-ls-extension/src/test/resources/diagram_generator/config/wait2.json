@@ -182,6 +182,20 @@
                 "value": [
                   {
                     "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  {
+                    "metadata": {
                       "label": "Expression",
                       "description": "Expression"
                     },
