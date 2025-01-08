@@ -52,6 +52,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.StopBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.TransactionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WhileBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
@@ -123,6 +124,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.COMMENT, CommentBuilder::new);
         put(NodeKind.MATCH, MatchBuilder::new);
         put(NodeKind.CONFIG_VARIABLE, ConfigVariableBuilder::new);
+        put(NodeKind.WAIT, WaitBuilder::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {

@@ -93,6 +93,7 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.WaitActionNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
@@ -117,6 +118,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ReturnBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RollbackBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
@@ -1372,6 +1374,19 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                     .properties().expression(constructorExprNode);
         }
+    }
+
+    @Override
+    public void visit(WaitActionNode waitActionNode) {
+        startNode(NodeKind.WAIT, waitActionNode).properties()
+                .waitAll(false)
+                .propertyList()
+                .propertyList()
+                .expression((ExpressionNode) waitActionNode.waitFutureExpr())
+                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC)
+                .endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
+                        WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
 
     // Utility methods

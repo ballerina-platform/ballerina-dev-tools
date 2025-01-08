@@ -40,6 +40,7 @@ public enum NodeKind {
     COMMENT,
     MATCH,
     FUNCTION,
+    WAIT,
 
     // Branches
     CONDITIONAL,

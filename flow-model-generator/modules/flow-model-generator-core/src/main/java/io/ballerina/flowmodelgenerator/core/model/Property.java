@@ -167,7 +167,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         UNION,
         FLAG,
         MAPPING_EXPRESSION_SET,
-        EXPRESSION_SET
+        EXPRESSION_SET,
+        FIXED_PROPERTY_LIST,
+        REPEATABLE_PROPERTY_LIST
     }
 
     public static ValueType valueTypeFrom(String s) {

@@ -1,0 +1,233 @@
+{
+  "start": {
+    "line": 23,
+    "offset": 0
+  },
+  "end": {
+    "line": 26,
+    "offset": 1
+  },
+  "source": "wait.bal",
+  "description": "Tests a simple dagram flow",
+  "diagram": {
+    "fileName": "wait.bal",
+    "nodes": [
+      {
+        "id": "55336",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 1
+            }
+          },
+          "sourceCode": "// Simple wait example\nfunction simpleWait() {\n    future<MultiResult> futureResult = start multipleWaitWithRecord();\n    MultiResult|error result = wait futureResult;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "56830",
+        "metadata": {
+          "label": "Start",
+          "description": "Execute a function or a method invocation in a new strand"
+        },
+        "codedata": {
+          "node": "START",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 39
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 69
+            }
+          },
+          "sourceCode": "start multipleWaitWithRecord()"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Call action or expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "multipleWaitWithRecord()",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "55746",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 70
+            }
+          },
+          "sourceCode": "future<MultiResult> futureResult = start multipleWaitWithRecord();"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "start multipleWaitWithRecord()",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "futureResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "future<MultiResult>",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "56717",
+        "metadata": {
+          "label": "Wait",
+          "description": "Wait for a set of futures to complete"
+        },
+        "codedata": {
+          "node": "WAIT",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 25,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 49
+            }
+          },
+          "sourceCode": "MultiResult|error result = wait futureResult;"
+        },
+        "returning": false,
+        "properties": {
+          "waitAll": {
+            "metadata": {
+              "label": "Wait All",
+              "description": "Wait for all tasks to complete"
+            },
+            "valueType": "FLAG",
+            "value": false,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "futures": {
+            "metadata": {
+              "label": "Futures",
+              "description": "The futures to wait for"
+            },
+            "valueType": "REPEATABLE_PROPERTY_LIST",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "futureResult",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            ],
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "result",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "MultiResult",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}
