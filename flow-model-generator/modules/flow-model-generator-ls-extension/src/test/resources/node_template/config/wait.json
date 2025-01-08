@@ -1,0 +1,80 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "WAIT"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Wait",
+      "description": "Wait for a set of futures to complete"
+    },
+    "codedata": {
+      "node": "WAIT"
+    },
+    "returning": false,
+    "properties": {
+      "waitAll": {
+        "metadata": {
+          "label": "Wait All",
+          "description": "Wait for all tasks to complete"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "futures": {
+        "metadata": {
+          "label": "Futures",
+          "description": "The futures to wait for"
+        },
+        "valueType": "REPEATABLE_PROPERTY_LIST",
+        "value": [
+          {
+            "metadata": {
+              "label": "Future",
+              "description": "The worker/async function to wait for"
+            },
+            "valueType": "FIXED_PROPERTY_LIST",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "dependentProperty": "waitAll"
+                }
+              },
+              {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            ],
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        ],
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

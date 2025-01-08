@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -58,6 +59,15 @@ public class WaitBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
+        properties().waitAll(false)
+                .propertyList()
+                    .propertyList()
+                        .waitField(null)
+                        .expression(null)
+                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC)
+                .endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
+                        WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
 
     @Override
