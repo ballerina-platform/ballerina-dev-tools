@@ -23,18 +23,21 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the metadata of a diagram component.
  *
- * @param label       The label of the component
- * @param description The description of the component
- * @param keywords    The keywords of the component
- * @param icon        The icon of the component
+ * @param label        The label of the component
+ * @param description  The description of the component
+ * @param keywords     The keywords of the component
+ * @param icon         The icon of the component
  * @param functionKind The kind of the function
+ * @param data         The additional data
  * @since 2.0.0
  */
-public record Metadata(String label, String description, List<String> keywords, String icon, String functionKind) {
+public record Metadata(String label, String description, List<String> keywords, String icon, String functionKind,
+                       Map<String, Object> data) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
@@ -43,6 +46,7 @@ public record Metadata(String label, String description, List<String> keywords, 
         private List<String> keywords;
         private String icon;
         private String functionKind;
+        private Map<String, Object> data;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -83,8 +87,22 @@ public record Metadata(String label, String description, List<String> keywords, 
             return this;
         }
 
+        public Builder<T> data(Map<String, Object> data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder<T> addData(String key, Object value) {
+            if (data == null) {
+                data = Map.of(key, value);
+            } else {
+                data.put(key, value);
+            }
+            return this;
+        }
+
         public Metadata build() {
-            return new Metadata(label, description, keywords, icon, functionKind);
+            return new Metadata(label, description, keywords, icon, functionKind, data);
         }
     }
 }

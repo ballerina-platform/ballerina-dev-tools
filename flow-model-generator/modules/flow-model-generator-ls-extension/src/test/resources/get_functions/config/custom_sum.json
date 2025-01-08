@@ -29,44 +29,28 @@
       "items": [
         {
           "metadata": {
-            "label": "sum"
+            "label": "sum",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 15,
-                "offset": 12
-              }
-            }
+            "symbol": "sum"
           },
           "enabled": true
         },
         {
           "metadata": {
             "label": "prefixSum",
-            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n"
+            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 30,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 30,
-                "offset": 18
-              }
-            }
+            "symbol": "prefixSum"
           },
           "enabled": true
         }

@@ -28,130 +28,82 @@
       "items": [
         {
           "metadata": {
-            "label": "transform"
+            "label": "transform",
+            "data": {
+              "isDataMappedFunction": true
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "transform",
-            "lineRange": {
-              "fileName": "data_mapper.bal",
-              "startLine": {
-                "line": 1,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 1,
-                "offset": 18
-              }
-            }
+            "symbol": "transform"
           },
           "enabled": true
         },
         {
           "metadata": {
             "label": "add",
-            "description": "Adds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```"
+            "description": "Adds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "add",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 13,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 13,
-                "offset": 12
-              }
-            }
+            "symbol": "add"
           },
           "enabled": true
         },
         {
           "metadata": {
-            "label": "sum"
+            "label": "sum",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 15,
-                "offset": 12
-              }
-            }
+            "symbol": "sum"
           },
           "enabled": true
         },
         {
           "metadata": {
             "label": "prefixSum",
-            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n"
+            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 30,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 30,
-                "offset": 18
-              }
-            }
+            "symbol": "prefixSum"
           },
           "enabled": true
         },
         {
           "metadata": {
             "label": "safeDivide",
-            "description": "Performs a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n"
+            "description": "Performs a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "safeDivide",
-            "lineRange": {
-              "fileName": "fn.bal",
-              "startLine": {
-                "line": 53,
-                "offset": 16
-              },
-              "endLine": {
-                "line": 53,
-                "offset": 26
-              }
-            }
+            "symbol": "safeDivide"
           },
           "enabled": true
         },
         {
           "metadata": {
-            "label": "greet"
+            "label": "greet",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "greet",
-            "lineRange": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 8,
-                "offset": 9
-              },
-              "endLine": {
-                "line": 8,
-                "offset": 14
-              }
-            }
+            "symbol": "greet"
           },
           "enabled": true
         }
