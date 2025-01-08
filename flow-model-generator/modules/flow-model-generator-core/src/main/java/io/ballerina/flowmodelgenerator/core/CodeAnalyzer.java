@@ -95,6 +95,8 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WaitActionNode;
+import io.ballerina.compiler.syntax.tree.WaitFieldNode;
+import io.ballerina.compiler.syntax.tree.WaitFieldsListNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
@@ -139,6 +141,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -1406,6 +1409,27 @@ class CodeAnalyzer extends NodeVisitor {
                                     WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
                 }
             }
+            case WAIT_FIELDS_LIST -> {
+                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) node;
+                for (Node field : waitFieldsListNode.waitFields()) {
+                    if (field.kind() == SyntaxKind.WAIT_FIELD) {
+                        WaitFieldNode waitFieldNode = (WaitFieldNode) field;
+                        nodeBuilder.properties()
+                                .propertyList()
+                                .expression(waitFieldNode.waitFutureExpr())
+                                .data(waitFieldNode.fieldName(), Set.of())
+                                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+                    } else {
+                        nodeBuilder.properties()
+                                .propertyList()
+                                .expression((ExpressionNode) field)
+                                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+                    }
+                }
+            }
+
         }
         nodeBuilder.properties().endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
                 WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);

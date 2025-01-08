@@ -65,25 +65,46 @@ function basic3AlternateWait() returns string|error {
     return result;
 }
 
-// Alternate wait with error cases
-function alternateWaitWithErrors() returns string|error {
-    worker A returns string|error {
-        return mockFetch("http://error.com", 1);
-    }
-
-    worker B returns string|error {
-        return mockFetch("http://error2.com", 2);
-    }
-
-    return wait A | B;
-}
-
 // Multiple wait with record
 type MultiResult record {
     string|error a;
     string|error b;
     string|error c;
 };
+
+function multipleWait() returns map<string|error> {
+    worker WA returns string|error {
+        return mockFetch("http://a.com", 1);
+    }
+
+    worker WB returns string|error {
+        return mockFetch("http://b.com", 2);
+    }
+
+    worker WC returns string|error {
+        return mockFetch("http://error.com", 3);
+    }
+
+    map<string|error> mapResult = wait {WA, WB, WC};
+    return mapResult;
+}
+
+function multipleWaitWithRef() returns map<string|error> {
+    worker WA returns string|error {
+        return mockFetch("http://a.com", 1);
+    }
+
+    worker WB returns string|error {
+        return mockFetch("http://b.com", 2);
+    }
+
+    worker WC returns string|error {
+        return mockFetch("http://error.com", 3);
+    }
+
+    map<string|error> mapResult = wait {wa: WA, WB, wC: WC};
+    return mapResult;
+}
 
 function multipleWaitWithRecord() returns MultiResult {
     worker WA returns string|error {
@@ -98,7 +119,8 @@ function multipleWaitWithRecord() returns MultiResult {
         return mockFetch("http://error.com", 3);
     }
 
-    return wait {a: WA, b: WB, c: WC};
+    MultiResult mapResult = wait {a: WA, b: WB, c: WC};
+    return mapResult;
 }
 
 // Wait with worker cancellation

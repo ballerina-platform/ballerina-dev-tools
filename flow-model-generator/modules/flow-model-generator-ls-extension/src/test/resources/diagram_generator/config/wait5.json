@@ -1,0 +1,219 @@
+{
+  "start": {
+    "line": 74,
+    "offset": 0
+  },
+  "end": {
+    "line": 89,
+    "offset": 1
+  },
+  "source": "wait.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "wait.bal",
+    "nodes": [
+      {
+        "id": "107168",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 74,
+              "offset": 50
+            },
+            "endLine": {
+              "line": 89,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function multipleWait() returns map<string|error> {\n    worker WA returns string|error {\n        return mockFetch(\"http://a.com\", 1);\n    }\n\n    worker WB returns string|error {\n        return mockFetch(\"http://b.com\", 2);\n    }\n\n    worker WC returns string|error {\n        return mockFetch(\"http://error.com\", 3);\n    }\n\n    map<string|error> mapResult = wait {WA, WB, WC};\n    return mapResult;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "118224",
+        "metadata": {
+          "label": "Wait",
+          "description": "Wait for a set of futures to complete"
+        },
+        "codedata": {
+          "node": "WAIT",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 87,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 87,
+              "offset": 52
+            }
+          },
+          "sourceCode": "map<string|error> mapResult = wait {WA, WB, WC};"
+        },
+        "returning": false,
+        "properties": {
+          "waitAll": {
+            "metadata": {
+              "label": "Wait All",
+              "description": "Wait for all tasks to complete"
+            },
+            "valueType": "FLAG",
+            "value": false,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "futures": {
+            "metadata": {
+              "label": "Futures",
+              "description": "The futures to wait for"
+            },
+            "valueType": "REPEATABLE_PROPERTY_LIST",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WA",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WB",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY_LIST",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WC",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                ],
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            ],
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "map<string|error>",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "119185",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of 'mapResult'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 88,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 88,
+              "offset": 21
+            }
+          },
+          "sourceCode": "return mapResult;"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}
