@@ -561,7 +561,7 @@
               "description": "Wait for all tasks to complete"
             },
             "valueType": "FLAG",
-            "value": false,
+            "value": true,
             "optional": false,
             "editable": true,
             "advanced": false

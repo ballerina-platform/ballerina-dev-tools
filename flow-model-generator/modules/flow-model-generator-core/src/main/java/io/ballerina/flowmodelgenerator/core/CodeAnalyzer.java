@@ -1381,11 +1381,10 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(WaitActionNode waitActionNode) {
-        startNode(NodeKind.WAIT, waitActionNode).properties()
-                .waitAll(false)
-                .propertyList();
+        startNode(NodeKind.WAIT, waitActionNode);
 
         // Find the nodes for the futures
+        boolean waitAll = false;
         Node waitFutureExpr = waitActionNode.waitFutureExpr();
         List<Node> nodes = new ArrayList<>();
         switch (waitFutureExpr.kind()) {
@@ -1409,9 +1408,13 @@ class CodeAnalyzer extends NodeVisitor {
                 for (Node field : waitFieldsListNode.waitFields()) {
                     nodes.add(field);
                 }
+                waitAll = true;
             }
             default -> nodes.add(waitFutureExpr);
         }
+
+        // Generate the wait all properties
+        nodeBuilder.properties().waitAll(waitAll).propertyList();
 
         // Generate the properties for the futures
         Node waitField;
