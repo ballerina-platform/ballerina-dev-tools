@@ -148,27 +148,18 @@ public class DataMapperBuilder extends NodeBuilder {
     private void addDataMappingCapableTypes(Set<String> types, Symbol parentSymbol, TypeSymbol typeSymbol) {
         TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
         switch (rawType.typeKind()) {
-            case ARRAY:
-                addDataMappingCapableTypes(types, parentSymbol, ((ArrayTypeSymbol) rawType).memberTypeDescriptor());
-                break;
-            case RECORD:
+            case ARRAY ->
+                    addDataMappingCapableTypes(types, parentSymbol, ((ArrayTypeSymbol) rawType).memberTypeDescriptor());
+            case RECORD -> {
                 Optional<String> moduleName = parentSymbol.getModule().flatMap(Symbol::getName);
                 if (moduleName.isPresent() && moduleName.get().equals("lang.annotations")) {
                     break;
                 }
                 parentSymbol.getName().ifPresent(types::add);
-                break;
-            case NIL:
-            case BOOLEAN:
-            case INT:
-            case FLOAT:
-            case DECIMAL:
-            case BYTE:
-            case STRING:
-            case JSON:
-                parentSymbol.getName().ifPresent(types::add);
-                break;
-            default:
+            }
+            case NIL, BOOLEAN, INT, FLOAT, DECIMAL, BYTE, STRING, JSON -> parentSymbol.getName().ifPresent(types::add);
+            default -> {
+            }
         }
     }
 
