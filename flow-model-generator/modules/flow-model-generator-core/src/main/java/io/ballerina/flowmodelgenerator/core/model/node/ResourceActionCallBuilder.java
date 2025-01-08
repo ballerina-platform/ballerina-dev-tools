@@ -97,7 +97,7 @@ public class ResourceActionCallBuilder extends NodeBuilder {
                 }
                 String pathParamSubString = "[" + key + "]";
                 String replacement = "[" + property.get().value().toString() + "]";
-                resourcePath =  resourcePath.replace(pathParamSubString, replacement);
+                resourcePath = resourcePath.replace(pathParamSubString, replacement);
                 ignoredKeys.add(key);
             }
         }

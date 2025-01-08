@@ -60,7 +60,8 @@ public class ParamUtils {
      * @param functionSymbol the function symbol
      * @return the resource path template
      */
-    public static ResourcePathTemplate buildResourcePathTemplate(FunctionSymbol functionSymbol,
+    public static ResourcePathTemplate buildResourcePathTemplate(SemanticModel semanticModel,
+                                                                 FunctionSymbol functionSymbol,
                                                                  TypeSymbol errorTypeSymbol) {
         Map<String, String> documentationMap = functionSymbol.documentation().map(Documentation::parameterMap)
                 .orElse(Map.of());
@@ -76,8 +77,8 @@ public class ParamUtils {
                     if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
                         String defaultValue = DefaultValueGeneratorUtil
                                 .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
-                        String type = TypeUtils.getTypeSignature(pathParameterSymbol.typeDescriptor(),
-                                errorTypeSymbol, true);
+                        String type = CommonUtils.getTypeSignature(semanticModel, pathParameterSymbol.typeDescriptor(),
+                                true);
                         String paramName = pathParameterSymbol.getName().orElse("");
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");

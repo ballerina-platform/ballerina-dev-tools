@@ -147,7 +147,7 @@ class IndexGenerator {
                     continue;
                 }
 
-                processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
+                processFunctionSymbol(semanticModel, functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
                         descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 continue;
             }
@@ -164,7 +164,7 @@ class IndexGenerator {
                 if (!classSymbol.nameEquals("Client")) {
                     continue;
                 }
-                int connectorId = processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId,
+                int connectorId = processFunctionSymbol(semanticModel, initMethodSymbol.get(), classSymbol, packageId,
                         FunctionType.CONNECTOR,
                         descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 if (connectorId == -1) {
@@ -187,8 +187,8 @@ class IndexGenerator {
                     } else {
                         continue;
                     }
-                    int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType,
-                            descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                    int functionId = processFunctionSymbol(semanticModel, methodSymbol, methodSymbol, packageId,
+                            functionType, descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                     if (functionId == -1) {
                         continue;
                     }
@@ -202,12 +202,14 @@ class IndexGenerator {
         return !new HashSet<>(actualQualifiers).containsAll(expectedQualifiers);
     }
 
-    private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
+    private static int processFunctionSymbol(SemanticModel semanticModel, FunctionSymbol functionSymbol,
+                                             Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
         ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
         if (functionType == FunctionType.RESOURCE) {
-            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(functionSymbol, errorTypeSymbol);
+            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
+                    errorTypeSymbol);
         }
 
         // Capture the name of the function

@@ -314,8 +314,8 @@ class CodeAnalyzer extends NodeVisitor {
         String description = documentation.flatMap(Documentation::description).orElse("");
         SeparatedNodeList<Node> nodes = clientResourceAccessActionNode.resourceAccessPath();
 
-        ParamUtils.ResourcePathTemplate resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol,
-                semanticModel.types().ERROR);
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel,
+                methodSymbol, semanticModel.types().ERROR);
 
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -342,9 +342,11 @@ class CodeAnalyzer extends NodeVisitor {
             int idx = 0;
             for (int i = 0; i < nodes.size(); i++) {
                 Node node = nodes.get(i);
+                if (nodes.size() <= idx) {
+                    break;
+                }
                 if (node instanceof ComputedResourceAccessSegmentNode computedResourceAccessSegmentNode) {
                     ExpressionNode expr = computedResourceAccessSegmentNode.expression();
-
                     ParameterResult paramResult = resourcePathTemplate.pathParams().get(idx);
                     String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                     nodeBuilder.properties()
