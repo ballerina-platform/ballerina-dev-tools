@@ -33,7 +33,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum"
+            "symbol": "sum",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 15,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 12
+              }
+            }
           },
           "enabled": true
         },
@@ -44,7 +55,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum"
+            "symbol": "prefixSum",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 30,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 30,
+                "offset": 18
+              }
+            }
           },
           "enabled": true
         }

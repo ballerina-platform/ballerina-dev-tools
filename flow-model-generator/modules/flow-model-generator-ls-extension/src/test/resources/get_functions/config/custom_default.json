@@ -32,7 +32,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "transform"
+            "symbol": "transform",
+            "lineRange": {
+              "fileName": "data_mapper.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 18
+              }
+            }
           },
           "enabled": true
         },
@@ -43,7 +54,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "add"
+            "symbol": "add",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 13,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 13,
+                "offset": 12
+              }
+            }
           },
           "enabled": true
         },
@@ -53,7 +75,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum"
+            "symbol": "sum",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 15,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 12
+              }
+            }
           },
           "enabled": true
         },
@@ -64,7 +97,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum"
+            "symbol": "prefixSum",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 30,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 30,
+                "offset": 18
+              }
+            }
           },
           "enabled": true
         },
@@ -75,7 +119,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "safeDivide"
+            "symbol": "safeDivide",
+            "lineRange": {
+              "fileName": "fn.bal",
+              "startLine": {
+                "line": 53,
+                "offset": 16
+              },
+              "endLine": {
+                "line": 53,
+                "offset": 26
+              }
+            }
           },
           "enabled": true
         },
@@ -85,7 +140,18 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "greet"
+            "symbol": "greet",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 8,
+                "offset": 9
+              },
+              "endLine": {
+                "line": 8,
+                "offset": 14
+              }
+            }
           },
           "enabled": true
         }

@@ -92,7 +92,9 @@ public class FunctionGenerator {
         List<Item> availableNodes = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            LineRange lineRange = null;
             if (symbol.getLocation().isPresent()) {
+                lineRange = symbol.getLocation().get().lineRange();
                 LineRange fnLineRange = symbol.getLocation().get().lineRange();
                 if (PositionUtil.isWithinLineRange(fnLineRange, position)) {
                     continue;
@@ -115,6 +117,7 @@ public class FunctionGenerator {
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
+                    .lineRange(lineRange)
                     .symbol(symbol.getName().get());
             Optional<ModuleSymbol> module = functionSymbol.getModule();
             if (module.isPresent()) {

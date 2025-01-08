@@ -19,19 +19,17 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -55,7 +53,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  * Represents the properties of a data mapper node in the flow model.
@@ -92,7 +89,6 @@ public class DataMapperBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Set<String> allVisibleSymbolNames = context.getAllVisibleSymbolNames();
-        properties().data(null, allVisibleSymbolNames);
         properties().custom()
                 .metadata()
                     .label(FUNCTION_NAME_LABEL)
@@ -108,31 +104,18 @@ public class DataMapperBuilder extends NodeBuilder {
         WorkspaceManager workspaceManager = context.workspaceManager();
         SemanticModel semanticModel;
         Document document;
-        ModuleInfo currentModuleInfo;
         try {
             workspaceManager.loadProject(context.filePath());
             semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             document = workspaceManager.document(context.filePath()).orElseThrow();
-            currentModuleInfo = ModuleInfo.from(document.module().descriptor());
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
 
-        Set<String> visibleVariables = new TreeSet<>();
-        Set<String> visibleRecordTypes = new TreeSet<>();
-
+        Set<String> visibleTypes = new TreeSet<>();
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
-            if (symbol.kind().equals(SymbolKind.VARIABLE) &&
-                    symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
-                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
-                        ((VariableSymbol) symbol).typeDescriptor()).ifPresent(
-                        visibleVariables::add);
-            } else if (symbol.kind() == SymbolKind.PARAMETER) {
-                getVariableSignature(semanticModel, currentModuleInfo, symbol.getName().orElse(""),
-                        ((ParameterSymbol) symbol).typeDescriptor()).ifPresent(
-                        visibleVariables::add);
-            } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
+            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
+                addDataMappingCapableTypes(visibleTypes, symbol, ((TypeDefinitionSymbol) symbol).typeDescriptor());
             }
         }
 
@@ -143,7 +126,7 @@ public class DataMapperBuilder extends NodeBuilder {
                     .stepOut()
                 .type(Property.ValueType.MULTIPLE_SELECT)
                 .value("")
-                .typeConstraint(new ArrayList<>(visibleVariables))
+                .typeConstraint(new ArrayList<>(visibleTypes))
                 .optional(false)
                 .editable()
                 .stepOut()
@@ -155,34 +138,38 @@ public class DataMapperBuilder extends NodeBuilder {
                     .stepOut()
                 .type(Property.ValueType.SINGLE_SELECT)
                 .value("")
-                .typeConstraint(new ArrayList<>(visibleRecordTypes))
+                .typeConstraint(new ArrayList<>(visibleTypes))
                 .optional(false)
                 .editable()
                 .stepOut()
                 .addProperty(OUTPUT_KEY);
     }
 
-    private static Optional<String> getVariableSignature(SemanticModel semanticModel, ModuleInfo moduleInfo,
-                                                         String name, TypeSymbol typeSymbol) {
-        if (name == null || name.isEmpty()) {
-            return Optional.empty();
+    private void addDataMappingCapableTypes(Set<String> types, Symbol parentSymbol, TypeSymbol typeSymbol) {
+        TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+        switch (rawType.typeKind()) {
+            case ARRAY:
+                addDataMappingCapableTypes(types, parentSymbol, ((ArrayTypeSymbol) rawType).memberTypeDescriptor());
+                break;
+            case RECORD:
+                Optional<String> moduleName = parentSymbol.getModule().flatMap(Symbol::getName);
+                if (moduleName.isPresent() && moduleName.get().equals("lang.annotations")) {
+                    break;
+                }
+                parentSymbol.getName().ifPresent(types::add);
+                break;
+            case NIL:
+            case BOOLEAN:
+            case INT:
+            case FLOAT:
+            case DECIMAL:
+            case BYTE:
+            case STRING:
+            case JSON:
+                parentSymbol.getName().ifPresent(types::add);
+                break;
+            default:
         }
-        String typeSignature =
-                CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, moduleInfo);
-        return Optional.of(typeSignature + " " + name);
-    }
-
-    private static Optional<String> getRecordTypeSignature(TypeDefinitionSymbol symbol) {
-        if (symbol.typeDescriptor().typeKind() != TypeDescKind.RECORD) {
-            return Optional.empty();
-        }
-        Optional<String> moduleName = symbol.getModule().flatMap(Symbol::getName);
-
-        // TODO: Make this more scalable
-        if (moduleName.isPresent() && moduleName.get().equals("lang.annotations")) {
-            return Optional.empty();
-        }
-        return symbol.getName();
     }
 
     private Optional<LineRange> getTransformFunctionLocation(SourceBuilder sourceBuilder, String functionNameString) {
@@ -264,24 +251,6 @@ public class DataMapperBuilder extends NodeBuilder {
         getTransformFunctionLocation(sourceBuilder, functionNameString).ifPresentOrElse(
                 lineRange -> sourceBuilder.textEdit(false, "data_mappings.bal", lineRange, false),
                 () -> sourceBuilder.textEdit(false, "data_mappings.bal", false));
-
-        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
-        if (variable.isEmpty()) {
-            throw new IllegalStateException("Variable must be defined for a data mapper node");
-        }
-
-        String functionParameters = inputArray.stream()
-                .map(item -> item.split(" ")[1])
-                .collect(Collectors.joining(","));
-        sourceBuilder.newVariable(OUTPUT_KEY)
-                .token()
-                .name(functionNameString)
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
-                .name(functionParameters)
-                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                .endOfStatement()
-                .stepOut()
-                .textEdit(false);
 
         return sourceBuilder.build();
     }
