@@ -1385,12 +1385,13 @@ class CodeAnalyzer extends NodeVisitor {
                 .waitAll(false)
                 .propertyList();
 
-        Node node = waitActionNode.waitFutureExpr();
-        switch (node.kind()) {
+        // Find the nodes for the futures
+        Node waitFutureExpr = waitActionNode.waitFutureExpr();
+        List<Node> nodes = new ArrayList<>();
+        switch (waitFutureExpr.kind()) {
             case BINARY_EXPRESSION -> {
-                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) node;
+                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) waitFutureExpr;
                 Stack<Node> futuresStack = new Stack<>();
-
                 futuresStack.push(binaryExpressionNode.rhsExpr());
                 Node lhsNode = binaryExpressionNode.lhsExpr();
                 while (lhsNode.kind() == SyntaxKind.BINARY_EXPRESSION) {
@@ -1399,46 +1400,38 @@ class CodeAnalyzer extends NodeVisitor {
                     lhsNode = nestedBinary.lhsExpr();
                 }
                 futuresStack.push(lhsNode);
-
                 while (!futuresStack.isEmpty()) {
-                    nodeBuilder.properties()
-                            .propertyList()
-                            .waitField(null)
-                            .expression((ExpressionNode) futuresStack.pop())
-                            .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
-                                    WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+                    nodes.add(futuresStack.pop());
                 }
             }
             case WAIT_FIELDS_LIST -> {
-                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) node;
+                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) waitFutureExpr;
                 for (Node field : waitFieldsListNode.waitFields()) {
-                    if (field.kind() == SyntaxKind.WAIT_FIELD) {
-                        WaitFieldNode waitFieldNode = (WaitFieldNode) field;
-                        nodeBuilder.properties()
-                                .propertyList()
-                                .waitField(waitFieldNode.fieldName())
-                                .expression(waitFieldNode.waitFutureExpr())
-                                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
-                                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
-                    } else {
-                        nodeBuilder.properties()
-                                .propertyList()
-                                .waitField(null)
-                                .expression((ExpressionNode) field)
-                                .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
-                                        WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
-                    }
+                    nodes.add(field);
                 }
             }
-            default -> {
-                nodeBuilder.properties()
-                        .propertyList()
-                        .waitField(null)
-                        .expression((ExpressionNode) node)
-                        .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
-                                WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
-            }
+            default -> nodes.add(waitFutureExpr);
         }
+
+        // Generate the properties for the futures
+        Node waitField;
+        ExpressionNode expressionNode;
+        for (Node n : nodes) {
+            if (n.kind() == SyntaxKind.WAIT_FIELD) {
+                waitField = ((WaitFieldNode) n).fieldName();
+                expressionNode = ((WaitFieldNode) n).waitFutureExpr();
+            } else {
+                waitField = null;
+                expressionNode = (ExpressionNode) n;
+            }
+            nodeBuilder.properties()
+                    .propertyList()
+                    .waitField(waitField)
+                    .expression(expressionNode)
+                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                            WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+        }
+
         nodeBuilder.properties().endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
                 WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
