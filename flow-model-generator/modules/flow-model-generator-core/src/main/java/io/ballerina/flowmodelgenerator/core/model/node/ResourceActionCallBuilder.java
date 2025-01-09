@@ -77,30 +77,36 @@ public class ResourceActionCallBuilder extends NodeBuilder {
         Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
                 Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                 Property.CHECK_ERROR_KEY));
-        String resourcePath;
 
-        if (codedata.org().equals("ballerina") && codedata.module().equals("http")) {
+        String resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).codedata().originalName();
+
+        if (resourcePath.equals(ParamUtils.REST_RESOURCE_PATH)) {
             resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString();
-        } else {
-            resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).codedata().originalName();
-            Set<String> keys = new LinkedHashSet<>(flowNode.properties().keySet());
-            keys.removeAll(ignoredKeys);
+        }
 
-            for (String key : keys) {
-                Optional<Property> property = flowNode.getProperty(key);
-                if (property.isEmpty()) {
-                    continue;
-                }
-                PropertyCodedata propCodedata = property.get().codedata();
-                if (propCodedata == null || !propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name())) {
-                    continue;
-                }
+        Set<String> keys = new LinkedHashSet<>(flowNode.properties().keySet());
+        keys.removeAll(ignoredKeys);
+
+        for (String key : keys) {
+            Optional<Property> property = flowNode.getProperty(key);
+            if (property.isEmpty()) {
+                continue;
+            }
+            PropertyCodedata propCodedata = property.get().codedata();
+            if (propCodedata == null) {
+                continue;
+            }
+            if (propCodedata.kind().equals(Parameter.Kind.DEFAULTABLE.name())) {
                 String pathParamSubString = "[" + key + "]";
                 String replacement = "[" + property.get().value().toString() + "]";
                 resourcePath = resourcePath.replace(pathParamSubString, replacement);
-                ignoredKeys.add(key);
+            } else if (propCodedata.kind().equals(Parameter.Kind.REST_PARAMETER.name())) {
+                String replacement = property.get().value().toString();
+                resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
             }
+            ignoredKeys.add(key);
         }
+
 
         return sourceBuilder.token()
                 .name(connection.get().toSourceCode())
@@ -152,11 +158,8 @@ public class ResourceActionCallBuilder extends NodeBuilder {
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
 
-        if (function.org().equals("ballerina") && function.packageName().equals("http")) {
-            properties().httpResourcePath(function.resourcePath());
-        } else {
-            properties().resourcePath(function.resourcePath());
-        }
+        String resourcePath = function.resourcePath();
+        properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;

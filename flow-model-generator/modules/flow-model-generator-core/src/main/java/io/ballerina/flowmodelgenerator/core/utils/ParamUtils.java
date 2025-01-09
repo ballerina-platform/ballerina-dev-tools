@@ -54,6 +54,10 @@ import java.util.Map;
  */
 public class ParamUtils {
 
+    public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
+    public static final String REST_PARAM_PATH = "/path/to/resource";
+    public static final String REST_RESOURCE_PATH_LABEL = "Remaining Resource Path";
+
     /**
      * Builds the resource path template for the given function symbol.
      *
@@ -89,10 +93,13 @@ public class ParamUtils {
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    pathBuilder.append("/path/to/subdirectory");
+                    pathParams.add(ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
+                            Parameter.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, 0));
                 });
             }
-            case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
+            case PATH_REST_PARAM -> {
+                pathBuilder.append(REST_RESOURCE_PATH);
+            }
             case DOT_RESOURCE_PATH -> pathBuilder.append("/");
         }
         return new ResourcePathTemplate(pathBuilder.toString(), pathParams);

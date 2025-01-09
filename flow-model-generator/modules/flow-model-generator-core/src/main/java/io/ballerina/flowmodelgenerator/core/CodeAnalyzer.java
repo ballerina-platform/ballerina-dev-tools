@@ -335,9 +335,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (TypeUtils.isHttpModule(methodSymbol)) {
             String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
             String fullPath = "/" + resourcePath;
-            nodeBuilder.properties().httpResourcePath(fullPath);
+            nodeBuilder.properties().resourcePath(fullPath, true);
         } else {
-            nodeBuilder.properties().resourcePath(resourcePathTemplate.resourcePathTemplate());
+            nodeBuilder.properties().resourcePath(resourcePathTemplate.resourcePathTemplate(), false);
 
             int idx = 0;
             for (int i = 0; i < nodes.size(); i++) {
@@ -491,10 +491,11 @@ class CodeAnalyzer extends NodeVisitor {
             List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
             boolean hasOnlyRestParams = functionParameters.size() == 1;
             for (ParameterResult paramResult : functionParameters) {
-                if (paramResult.kind().equals(Parameter.Kind.PATH_PARAM) ||
-                        paramResult.kind().equals(Parameter.Kind.PATH_REST_PARAM) ||
-                        paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                Parameter.Kind paramKind = paramResult.kind();
+
+                if (paramKind.equals(Parameter.Kind.PATH_PARAM) || paramKind.equals(Parameter.Kind.PATH_REST_PARAM)
+                        || paramKind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramKind.equals(Parameter.Kind.INCLUDED_RECORD)) {
                     continue;
                 }
 
@@ -506,7 +507,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .description(paramResult.description())
                             .stepOut()
                         .codedata()
-                            .kind(paramResult.kind().name())
+                            .kind(paramKind.name())
                             .originalName(paramResult.name())
                             .importStatements(paramResult.importStatements())
                             .stepOut()
@@ -515,17 +516,17 @@ class CodeAnalyzer extends NodeVisitor {
                         .editable()
                         .defaultable(paramResult.optional() == 1);
 
-                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (paramKind == Parameter.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                } else if (paramKind == Parameter.Kind.REST_PARAMETER) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                } else if (paramKind == Parameter.Kind.REQUIRED) {
                     customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
                 } else {
                     customPropBuilder.type(Property.ValueType.EXPRESSION);

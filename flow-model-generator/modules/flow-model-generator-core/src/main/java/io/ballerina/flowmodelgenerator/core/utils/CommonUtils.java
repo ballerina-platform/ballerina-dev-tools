@@ -161,7 +161,7 @@ public class CommonUtils {
 
             String typeName = matcher.group(4);
 
-            if (!modPart.equals(moduleInfo.packageName())) {
+            if (moduleInfo == null || !modPart.equals(moduleInfo.packageName())) {
                 newText.append(modPart);
                 newText.append(":");
             }
