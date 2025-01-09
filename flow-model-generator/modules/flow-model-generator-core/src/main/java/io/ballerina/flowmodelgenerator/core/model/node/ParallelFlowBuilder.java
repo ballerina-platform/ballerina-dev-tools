@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents the properties of parallel flow node in the flow model.
@@ -57,7 +58,9 @@ public class ParallelFlowBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_BODY_BRANCH,
-                Branch.getDefaultOnFailBranch(true));
+        Set<String> names = context.getAllVisibleSymbolNames();
+        Branch firstBranch = Branch.getDefaultWorkerBranch(names);
+        names.add(firstBranch.label());
+        this.branches = List.of(firstBranch, Branch.getDefaultWorkerBranch(names));
     }
 }

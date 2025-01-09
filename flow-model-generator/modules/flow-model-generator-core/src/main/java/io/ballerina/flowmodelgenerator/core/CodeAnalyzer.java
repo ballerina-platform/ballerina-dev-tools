@@ -1239,8 +1239,7 @@ class CodeAnalyzer extends NodeVisitor {
             type = "";
         }
         workerBranchBuilder.properties()
-                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC,
-                        new HashSet<>())
+                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC, "worker")
                 .returnType(type);
 
         analyzeBlock(namedWorkerDeclarationNode.workerBody(), workerBranchBuilder);

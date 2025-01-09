@@ -1,0 +1,86 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FORK"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Fork",
+      "description": "Create parallel workers"
+    },
+    "codedata": {
+      "node": "FORK"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "worker1",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "worker1",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      },
+      {
+        "label": "worker2",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "worker2",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": []
+      }
+    ],
+    "flags": 0
+  }
+}

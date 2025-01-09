@@ -20,11 +20,13 @@ package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a branch of the node.
@@ -56,6 +58,20 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         return new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(NodeKind.ON_FAILURE).stepOut()
                 .properties().ignore(value).onErrorVariable(null).stepOut().build();
+    }
+
+    public static Branch getDefaultWorkerBranch(Set<String> names) {
+        String workerName = NameUtil.generateTypeName("worker", names);
+        return new Builder()
+                .label(workerName)
+                .kind(BranchKind.WORKER)
+                .repeatable(Repeatable.ONE_OR_MORE)
+                .codedata().node(NodeKind.WORKER).stepOut()
+                .properties()
+                    .returnType(null)
+                    .data(null, Property.WORKER_NAME, Property.WORKER_DOC, workerName)
+                .stepOut()
+                .build();
     }
 
     public enum BranchKind {

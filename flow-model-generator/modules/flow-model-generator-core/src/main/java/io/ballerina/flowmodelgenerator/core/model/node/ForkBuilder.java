@@ -36,7 +36,7 @@ import java.util.Optional;
  *
  * @since 2.0.0
  */
-public class ForkBuilder extends NodeBuilder {
+public class ForkBuilder extends ParallelFlowBuilder {
 
     public static final String LABEL = "Fork";
     public static final String DESCRIPTION = "Create parallel workers";
@@ -57,11 +57,5 @@ public class ForkBuilder extends NodeBuilder {
                 .onFailure()
                 .textEdit(false)
                 .build();
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_BODY_BRANCH,
-                Branch.getDefaultOnFailBranch(true));
     }
 }
