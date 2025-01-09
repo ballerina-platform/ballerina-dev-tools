@@ -19,17 +19,13 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Represents the properties of fork node in the flow model.
@@ -49,13 +45,25 @@ public class ForkBuilder extends ParallelFlowBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-        return sourceBuilder.token()
+        // Generate the fork statement
+        sourceBuilder.token()
                 .keyword(SyntaxKind.FORK_KEYWORD)
-                .stepOut()
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                .onFailure()
-                .textEdit(false)
-                .build();
+                .openBrace();
+        List<String> workerNames = generateWorkers(sourceBuilder);
+        sourceBuilder.token().closeBrace();
+
+        // Generate the wait statement
+        sourceBuilder.token()
+                .name("map<any>")
+                .whiteSpace()
+                .name("waitResult")
+                .keyword(SyntaxKind.EQUAL_TOKEN)
+                .keyword(SyntaxKind.WAIT_KEYWORD)
+                .keyword(SyntaxKind.OPEN_BRACE_TOKEN)
+                .name(String.join(",", workerNames))
+                .keyword(SyntaxKind.CLOSE_BRACE_TOKEN)
+                .endOfStatement();
+
+        return sourceBuilder.textEdit(false).build();
     }
 }

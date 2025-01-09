@@ -1,0 +1,296 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "37205",
+    "metadata": {
+      "label": "Fork",
+      "description": "Create parallel workers"
+    },
+    "codedata": {
+      "node": "FORK",
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 17,
+          "offset": 5
+        }
+      },
+      "sourceCode": "fork {\n        worker A returns string|error {\n            return \"A\";\n        }\n\n        worker B returns string|error {\n            return \"B\";\n        }\n\n        worker C returns string|error {\n            return \"C\";\n        }\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "A",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker A returns string|error {\n            return \"A\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "A",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string|error",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "39083",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"A\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 23
+                }
+              },
+              "sourceCode": "return \"A\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"A\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "B",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker B returns string|error {\n            return \"B\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "B",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string|error",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "43051",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"B\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 11,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 23
+                }
+              },
+              "sourceCode": "return \"B\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"B\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker C returns string|error {\n            return \"C\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "C",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string|error",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "47019",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"C\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 15,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 15,
+                  "offset": 23
+                }
+              },
+              "sourceCode": "return \"C\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"C\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 17,
+            "character": 5
+          }
+        },
+        "newText": "fork {\n    worker A returns string|error {\n        return \"A\";\n    }\n    worker B returns string|error {\n        return \"B\";\n    }\n    worker C returns string|error {\n        return \"C\";\n    }\n}map<any> waitResult= wait { A,B,C} ;"
+      }
+    ]
+  }
+}

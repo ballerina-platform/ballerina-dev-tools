@@ -1,0 +1,516 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "98802",
+    "metadata": {
+      "label": "Fork",
+      "description": "Create parallel workers"
+    },
+    "codedata": {
+      "node": "FORK",
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 67,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 82,
+          "offset": 5
+        }
+      },
+      "sourceCode": "fork {\n        worker First {\n            runtime:sleep(.5);\n            results.push(\"First done\");\n        }\n\n        worker Second {\n            wait First;\n            results.push(\"Second after First\");\n        }\n\n        worker Third {\n            wait Second;\n            results.push(\"Third after Second\");\n        }\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "First",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 68,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 71,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker First {\n            runtime:sleep(.5);\n            results.push(\"First done\");\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "First",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "100594",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 69,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 69,
+                  "offset": 30
+                }
+              },
+              "sourceCode": "runtime:sleep(.5);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": ".5",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "101595",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 70,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 70,
+                  "offset": 39
+                }
+              },
+              "sourceCode": "results.push(\"First done\");"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "results.push(\"First done\");",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Second",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 73,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 76,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker Second {\n            wait First;\n            results.push(\"Second after First\");\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "Second",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "105547",
+            "metadata": {
+              "label": "Wait",
+              "description": "Wait for a set of futures to complete"
+            },
+            "codedata": {
+              "node": "WAIT",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 74,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 74,
+                  "offset": 23
+                }
+              },
+              "sourceCode": "wait First;"
+            },
+            "returning": false,
+            "properties": {
+              "waitAll": {
+                "metadata": {
+                  "label": "Wait All",
+                  "description": "Wait for all tasks to complete"
+                },
+                "valueType": "FLAG",
+                "value": false,
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "futures": {
+                "metadata": {
+                  "label": "Futures",
+                  "description": "The futures to wait for"
+                },
+                "valueType": "REPEATABLE_PROPERTY_LIST",
+                "value": {
+                  "future1": {
+                    "metadata": {
+                      "label": "Future",
+                      "description": "The worker/async function to wait for"
+                    },
+                    "valueType": "FIXED_PROPERTY_LIST",
+                    "value": {
+                      "variable": {
+                        "metadata": {
+                          "label": "Variable Name",
+                          "description": "Name of the variable"
+                        },
+                        "valueType": "IDENTIFIER",
+                        "value": "",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false,
+                        "codedata": {
+                          "dependentProperty": "waitAll"
+                        }
+                      },
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Expression"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "First",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "106563",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 75,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 75,
+                  "offset": 47
+                }
+              },
+              "sourceCode": "results.push(\"Second after First\");"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "results.push(\"Second after First\");",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Third",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 78,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 81,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker Third {\n            wait Second;\n            results.push(\"Third after Second\");\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "Third",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "110508",
+            "metadata": {
+              "label": "Wait",
+              "description": "Wait for a set of futures to complete"
+            },
+            "codedata": {
+              "node": "WAIT",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 79,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 79,
+                  "offset": 24
+                }
+              },
+              "sourceCode": "wait Second;"
+            },
+            "returning": false,
+            "properties": {
+              "waitAll": {
+                "metadata": {
+                  "label": "Wait All",
+                  "description": "Wait for all tasks to complete"
+                },
+                "valueType": "FLAG",
+                "value": false,
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "futures": {
+                "metadata": {
+                  "label": "Futures",
+                  "description": "The futures to wait for"
+                },
+                "valueType": "REPEATABLE_PROPERTY_LIST",
+                "value": {
+                  "future1": {
+                    "metadata": {
+                      "label": "Future",
+                      "description": "The worker/async function to wait for"
+                    },
+                    "valueType": "FIXED_PROPERTY_LIST",
+                    "value": {
+                      "variable": {
+                        "metadata": {
+                          "label": "Variable Name",
+                          "description": "Name of the variable"
+                        },
+                        "valueType": "IDENTIFIER",
+                        "value": "",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false,
+                        "codedata": {
+                          "dependentProperty": "waitAll"
+                        }
+                      },
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Expression"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "Second",
+                        "optional": false,
+                        "editable": true,
+                        "advanced": false
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "111523",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 80,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 80,
+                  "offset": 47
+                }
+              },
+              "sourceCode": "results.push(\"Third after Second\");"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "results.push(\"Third after Second\");",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 67,
+            "character": 4
+          },
+          "end": {
+            "line": 82,
+            "character": 5
+          }
+        },
+        "newText": "fork {\n    worker First {\n        runtime:sleep(.5);\n        results.push(\"First done\");\n    }\n    worker Second {\n        wait First;\n        results.push(\"Second after First\");\n    }\n    worker Third {\n        wait Second;\n        results.push(\"Third after Second\");\n    }\n}map<any> waitResult= wait { First,Second,Third} ;"
+      }
+    ]
+  }
+}

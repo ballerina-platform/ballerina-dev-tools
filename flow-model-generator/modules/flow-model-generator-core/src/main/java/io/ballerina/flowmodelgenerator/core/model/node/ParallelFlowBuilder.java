@@ -17,14 +17,16 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -48,12 +50,8 @@ public class ParallelFlowBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-        return sourceBuilder
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                .onFailure()
-                .textEdit(false)
-                .build();
+        generateWorkers(sourceBuilder);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
@@ -62,5 +60,34 @@ public class ParallelFlowBuilder extends NodeBuilder {
         Branch firstBranch = Branch.getDefaultWorkerBranch(names);
         names.add(firstBranch.label());
         this.branches = List.of(firstBranch, Branch.getDefaultWorkerBranch(names));
+    }
+
+    protected List<String> generateWorkers(SourceBuilder sourceBuilder) {
+        List<Branch> branches = sourceBuilder.flowNode.branches();
+        List<String> workerNames = new ArrayList<>();
+        for (Branch branch : branches) {
+            // Write the worker name
+            Optional<Property> variableProperty = branch.getProperty(Property.VARIABLE_KEY);
+            if (variableProperty.isEmpty()) {
+                continue;
+            }
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.WORKER_KEYWORD)
+                    .name(variableProperty.get())
+                    .whiteSpace();
+            workerNames.add(variableProperty.get().value().toString());
+
+            // Write the return type
+            Optional<Property> typeProperty = branch.getProperty(Property.TYPE_KEY);
+            if (typeProperty.isPresent() && !typeProperty.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(typeProperty.get());
+            }
+
+            // Write the body
+            sourceBuilder.body(branch.children());
+        }
+        return workerNames;
     }
 }
