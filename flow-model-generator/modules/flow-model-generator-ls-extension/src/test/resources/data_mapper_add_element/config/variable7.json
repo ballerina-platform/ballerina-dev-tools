@@ -1,5 +1,5 @@
 {
-  "source": "variable1.bal",
+  "source": "variable4.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "variable4.bal",
         "startLine": {
-          "line": 1,
-          "offset": 4
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 1,
-          "offset": 14
+          "line": 0,
+          "offset": 0
         }
       },
-      "sourceCode": "int i = 2;"
+      "sourceCode": ""
     },
     "returning": false,
     "properties": {
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "2",
+        "value": "[{username: \"uname\", password: \"pword\", \t\nids: [\"id1\", \"id2\"]}]",
         "optional": false,
         "editable": true
       },
@@ -40,7 +40,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "i",
+        "value": "credentials",
         "optional": false,
         "editable": true
       },
@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "UserInfo",
+        "value": "Credentials[]",
         "optional": false,
         "editable": true
       }
@@ -58,27 +58,10 @@
     "flags": 0
   },
   "propertyKey": "expression",
-  "type": {
-    "fields": [
-      {
-        "name": "username",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      },
-      {
-        "name": "password",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      }
-    ],
-    "hasRestType": false,
-    "typeName": "record",
-    "optional": false,
-    "defaultable": false,
-    "isRestType": false
-  }
+  "position": {
+    "line": 13,
+    "offset": 12
+  },
+  "output": "[{username: \"uname\", password: \"pword\", \t\nids: [\"id1\", \"id2\", \"\"]}]",
+  "targetField": "credentials.0.ids"
 }

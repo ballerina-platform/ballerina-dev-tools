@@ -1,0 +1,176 @@
+{
+  "source": "variable16.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable16.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{contacts: [{primaryPhone: user.phoneNumber[0], secondaryPhone: user.phoneNumber[1]}, {primaryPhone: user.phoneNumber[2], secondaryPhone: user.phoneNumber[3]}]}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var3",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Person",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 23,
+    "offset": 12
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "member": {
+              "id": "user.phoneNumber",
+              "typeName": "string",
+              "kind": "string"
+            },
+            "id": "user.phoneNumber",
+            "variableName": "phoneNumber",
+            "typeName": "string[]",
+            "kind": "array"
+          }
+        ],
+        "id": "user",
+        "variableName": "user",
+        "typeName": "User",
+        "kind": "record",
+        "category": "parameter"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "member": {
+            "fields": [
+              {
+                "id": "var3.contacts.primaryPhone",
+                "variableName": "primaryPhone",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "var3.contacts.secondaryPhone",
+                "variableName": "secondaryPhone",
+                "typeName": "string",
+                "kind": "string"
+              }
+            ],
+            "id": "var3.contacts",
+            "typeName": "Contact",
+            "kind": "record"
+          },
+          "id": "var3.contacts",
+          "variableName": "contacts",
+          "typeName": "Contact[]",
+          "kind": "array"
+        }
+      ],
+      "id": "var3",
+      "variableName": "var3",
+      "typeName": "Person",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "var3.contacts",
+        "inputs": [],
+        "expression": "[{primaryPhone: user.phoneNumber[0], secondaryPhone: user.phoneNumber[1]}, {primaryPhone: user.phoneNumber[2], secondaryPhone: user.phoneNumber[3]}]",
+        "diagnostics": [],
+        "elements": [
+          {
+            "mappings": [
+              {
+                "output": "var3.contacts.0.primaryPhone",
+                "inputs": [
+                  "user.phoneNumber.0"
+                ],
+                "expression": "user.phoneNumber[0]",
+                "diagnostics": [],
+                "elements": []
+              },
+              {
+                "output": "var3.contacts.0.secondaryPhone",
+                "inputs": [
+                  "user.phoneNumber.1"
+                ],
+                "expression": "user.phoneNumber[1]",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
+          },
+          {
+            "mappings": [
+              {
+                "output": "var3.contacts.1.primaryPhone",
+                "inputs": [
+                  "user.phoneNumber.2"
+                ],
+                "expression": "user.phoneNumber[2]",
+                "diagnostics": [],
+                "elements": []
+              },
+              {
+                "output": "var3.contacts.1.secondaryPhone",
+                "inputs": [
+                  "user.phoneNumber.3"
+                ],
+                "expression": "user.phoneNumber[3]",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

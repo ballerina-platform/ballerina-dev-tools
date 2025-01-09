@@ -1,5 +1,5 @@
 {
-  "source": "variable1.bal",
+  "source": "variable8.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "variable8.bal",
         "startLine": {
-          "line": 1,
-          "offset": 4
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 1,
-          "offset": 14
+          "line": 0,
+          "offset": 0
         }
       },
-      "sourceCode": "int i = 2;"
+      "sourceCode": ""
     },
     "returning": false,
     "properties": {
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "2",
+        "value": "{user2: {user3: {i3: user.name.length(), user4: {user5: {u: user.name}}}}, s1: user.name}",
         "optional": false,
         "editable": true
       },
@@ -40,7 +40,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "i",
+        "value": "user1",
         "optional": false,
         "editable": true
       },
@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "UserInfo",
+        "value": "User1",
         "optional": false,
         "editable": true
       }
@@ -58,27 +58,38 @@
     "flags": 0
   },
   "propertyKey": "expression",
-  "type": {
-    "fields": [
-      {
-        "name": "username",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      },
-      {
-        "name": "password",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      }
-    ],
-    "hasRestType": false,
-    "typeName": "record",
-    "optional": false,
-    "defaultable": false,
-    "isRestType": false
-  }
+  "position": {
+    "line": 34,
+    "offset": 12
+  },
+  "mappings": [
+    {
+      "output": "user1.user2.user3.i3",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name.length()",
+      "diagnostics": [],
+      "elements": []
+    },
+    {
+      "output": "user1.user2.user3.user4.user5.u",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name",
+      "diagnostics": [],
+      "elements": []
+    },
+    {
+      "output": "user1.s1",
+      "inputs": [
+        "user.name"
+      ],
+      "expression": "user.name",
+      "diagnostics": [],
+      "elements": []
+    }
+  ],
+  "output": "{user2:{user3:{i3:user.name.length(),user4:{user5:{u:user.name}}}},s1:user.name}"
 }

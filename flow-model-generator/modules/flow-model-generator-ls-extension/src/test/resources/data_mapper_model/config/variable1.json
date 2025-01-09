@@ -10,17 +10,17 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "variable1.bal",
         "startLine": {
-          "line": 1,
-          "offset": 4
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 1,
-          "offset": 14
+          "line": 0,
+          "offset": 0
         }
       },
-      "sourceCode": "int i = 2;"
+      "sourceCode": ""
     },
     "returning": false,
     "properties": {
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "2",
+        "value": "{}",
         "optional": false,
         "editable": true
       },
@@ -40,7 +40,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "i",
+        "value": "student",
         "optional": false,
         "editable": true
       },
@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "UserInfo",
+        "value": "Student",
         "optional": false,
         "editable": true
       }
@@ -58,27 +58,39 @@
     "flags": 0
   },
   "propertyKey": "expression",
-  "type": {
-    "fields": [
+  "position": {
+    "line": 17,
+    "offset": 12
+  },
+  "model": {
+    "inputs": [
       {
-        "name": "username",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
-      },
-      {
-        "name": "password",
-        "typeName": "string",
-        "optional": false,
-        "defaultable": false,
-        "isRestType": false
+        "id": "CONST",
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
       }
     ],
-    "hasRestType": false,
-    "typeName": "record",
-    "optional": false,
-    "defaultable": false,
-    "isRestType": false
+    "output": {
+      "fields": [
+        {
+          "id": "student.username",
+          "variableName": "username",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "id": "student.password",
+          "variableName": "password",
+          "typeName": "string",
+          "kind": "string"
+        }
+      ],
+      "id": "student",
+      "variableName": "student",
+      "typeName": "Student",
+      "kind": "record"
+    },
+    "mappings": []
   }
 }
