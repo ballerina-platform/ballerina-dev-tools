@@ -14,7 +14,7 @@
         "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 694
+        "id": 722
       },
       "enabled": true
     },
@@ -30,7 +30,7 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 705
+        "id": 769
       },
       "enabled": true
     },
@@ -46,7 +46,7 @@
         "module": "mssql",
         "object": "Client",
         "symbol": "init",
-        "id": 750
+        "id": 887
       },
       "enabled": true
     }

@@ -53,7 +53,10 @@
         "value": "/path/to/subdirectory",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "originalName": "/path/to/subdirectory"
+        }
       },
       "headers": {
         "metadata": {
