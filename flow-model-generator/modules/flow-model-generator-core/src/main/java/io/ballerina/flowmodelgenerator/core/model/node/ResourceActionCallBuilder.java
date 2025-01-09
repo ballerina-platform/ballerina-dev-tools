@@ -72,8 +72,6 @@ public class ResourceActionCallBuilder extends NodeBuilder {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
 
-        Codedata codedata = flowNode.codedata();
-
         Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
                 Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                 Property.CHECK_ERROR_KEY));
