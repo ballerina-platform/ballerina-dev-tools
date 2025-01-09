@@ -94,15 +94,16 @@ public class ResourceActionCallBuilder extends NodeBuilder {
             if (propCodedata == null) {
                 continue;
             }
-            if (propCodedata.kind().equals(Parameter.Kind.DEFAULTABLE.name())) {
+            if (propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name())) {
                 String pathParamSubString = "[" + key + "]";
                 String replacement = "[" + property.get().value().toString() + "]";
                 resourcePath = resourcePath.replace(pathParamSubString, replacement);
-            } else if (propCodedata.kind().equals(Parameter.Kind.REST_PARAMETER.name())) {
+                ignoredKeys.add(key);
+            } else if (propCodedata.kind().equals(Parameter.Kind.PATH_REST_PARAM.name())) {
                 String replacement = property.get().value().toString();
                 resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
+                ignoredKeys.add(key);
             }
-            ignoredKeys.add(key);
         }
 
 
