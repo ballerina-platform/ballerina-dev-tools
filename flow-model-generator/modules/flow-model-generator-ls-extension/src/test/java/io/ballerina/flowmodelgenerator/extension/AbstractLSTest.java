@@ -59,7 +59,7 @@ import java.util.stream.Stream;
  *
  * @since 1.4.0
  */
-abstract class AbstractLSTest {
+public abstract class AbstractLSTest {
 
     protected static Logger log;
     protected static Path resDir, sourceDir, configDir;
@@ -67,6 +67,7 @@ abstract class AbstractLSTest {
 
     protected Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
+    protected static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @BeforeClass
     public final void init() {
@@ -131,6 +132,14 @@ abstract class AbstractLSTest {
     protected void updateConfig(Path configJsonPath, Object updatedConfig) throws IOException {
         String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
         Files.writeString(configJsonPath, objStr);
+    }
+
+    protected JsonObject getResponse(Endpoint endpoint, Object request) throws IOException {
+        Endpoint tempEndPoint = serviceEndpoint;
+        serviceEndpoint = endpoint;
+        JsonObject response = getResponse(request);
+        serviceEndpoint = tempEndPoint;
+        return response;
     }
 
     protected JsonObject getResponse(Object request) throws IOException {

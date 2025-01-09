@@ -76,7 +76,7 @@ public class Connection extends DesignGraphNode {
 
     @Override
     public int hashCode() {
-        return location.hashCode();
+        return Objects.hash(symbol.hashCode(), location.hashCode(), scope.hashCode());
     }
 
     @Override

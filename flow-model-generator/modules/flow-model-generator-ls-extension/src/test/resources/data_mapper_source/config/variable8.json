@@ -1,0 +1,119 @@
+{
+  "source": "variable7.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable7.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[{accountNumber: u1.phoneNumber[0]}]",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var6",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Account[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 19,
+    "offset": 32
+  },
+  "mappings": [
+    {
+      "output": "var6",
+      "inputs": [],
+      "expression": "[{accountNumber: u1.phoneNumber[0]}]",
+      "diagnostics": [
+        "missing non-defaultable required record field 'balance'",
+        "missing non-defaultable required record field 'lastTransaction'"
+      ],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "var6.0.accountNumber",
+              "inputs": [
+                "u1.phoneNumber.0"
+              ],
+              "expression": "u1.phoneNumber[0]",
+              "diagnostics": [],
+              "elements": []
+            },
+            {
+              "output": "var6.0.balance",
+              "inputs": [
+                "var1.contacts"
+              ],
+              "expression": "var1.contacts"
+            }
+          ]
+        },
+        {
+          "mappings": [
+            {
+              "output": "var6.1.accountNumber",
+              "inputs": [
+                "u1.phoneNumber.0"
+              ],
+              "expression": "u1.phoneNumber[0]",
+              "diagnostics": [],
+              "elements": []
+            },
+            {
+              "output": "var6.1.balance",
+              "inputs": [
+                "var1.contacts"
+              ],
+              "expression": "var1.contacts"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "[{accountNumber:u1.phoneNumber[0],balance:var1.contacts},{accountNumber:u1.phoneNumber[0],balance:var1.contacts}]"
+}

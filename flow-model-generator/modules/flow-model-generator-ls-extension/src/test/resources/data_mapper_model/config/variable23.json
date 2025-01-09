@@ -1,0 +1,167 @@
+{
+  "source": "variable11.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable11.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\n\tcity: std.lastName\n}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1909",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Person",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 29,
+    "offset": 14
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "id": "std.firstName",
+            "variableName": "firstName",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "std.lastName",
+            "variableName": "lastName",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "std.stdAge",
+            "variableName": "stdAge",
+            "typeName": "int",
+            "kind": "int"
+          }
+        ],
+        "id": "std",
+        "variableName": "std",
+        "typeName": "Student",
+        "kind": "record",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "id": "var1909.name",
+          "variableName": "name",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "id": "var1909.age",
+          "variableName": "age",
+          "typeName": "int",
+          "kind": "int"
+        },
+        {
+          "id": "var1909.city",
+          "variableName": "city",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "fields": [
+            {
+              "fields": [
+                {
+                  "id": "var1909.foo.bar.firstName",
+                  "variableName": "firstName",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "var1909.foo.bar.lastName",
+                  "variableName": "lastName",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "var1909.foo.bar.stdAge",
+                  "variableName": "stdAge",
+                  "typeName": "int",
+                  "kind": "int"
+                }
+              ],
+              "id": "var1909.foo.bar",
+              "variableName": "bar",
+              "typeName": "Student",
+              "kind": "record"
+            }
+          ],
+          "id": "var1909.foo",
+          "variableName": "foo",
+          "typeName": "record",
+          "kind": "record"
+        }
+      ],
+      "id": "var1909",
+      "variableName": "var1909",
+      "typeName": "Person",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "var1909.city",
+        "inputs": [
+          "std.lastName"
+        ],
+        "expression": "std.lastName\n",
+        "diagnostics": [],
+        "elements": []
+      }
+    ]
+  }
+}

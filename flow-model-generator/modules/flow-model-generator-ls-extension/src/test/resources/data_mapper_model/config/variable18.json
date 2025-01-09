@@ -1,0 +1,145 @@
+{
+  "source": "variable9.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable9.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "userInfo",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "credentials",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Credentials[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 19,
+    "offset": 119
+  },
+  "model": {
+    "inputs": [
+      {
+        "id": "CONST",
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
+      },
+      {
+        "member": {
+          "fields": [
+            {
+              "id": "userInfo.username",
+              "variableName": "username",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "userInfo.password",
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "userInfo.id",
+              "variableName": "id",
+              "typeName": "int",
+              "kind": "int"
+            }
+          ],
+          "id": "userInfo",
+          "typeName": "UserInfo",
+          "kind": "record"
+        },
+        "id": "userInfo",
+        "variableName": "userInfo",
+        "typeName": "UserInfo[]",
+        "kind": "array",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "member": {
+        "fields": [
+          {
+            "id": "credentials.username",
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "credentials.password",
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "credentials",
+        "typeName": "Credentials",
+        "kind": "record"
+      },
+      "id": "credentials",
+      "variableName": "credentials",
+      "typeName": "Credentials[]",
+      "kind": "array"
+    },
+    "mappings": [
+      {
+        "output": "credentials",
+        "inputs": [
+          "userInfo"
+        ],
+        "expression": "userInfo",
+        "diagnostics": [
+          "incompatible types: expected 'Credentials[]', found 'UserInfo[]'"
+        ],
+        "elements": []
+      }
+    ]
+  }
+}

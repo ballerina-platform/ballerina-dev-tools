@@ -23,18 +23,24 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
+import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
+import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -56,7 +62,9 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -205,6 +213,76 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
+    public CompletableFuture<FunctionCallTemplateResponse> functionCallTemplate(FunctionCallTemplateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FunctionCallTemplateResponse response = new FunctionCallTemplateResponse();
+            try {
+                Codedata codedata = request.codedata();
+                String template;
+                switch (request.kind()) {
+                    case CURRENT:
+                        template = codedata.symbol();
+                        break;
+                    case IMPORTED:
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                        break;
+                    case AVAILABLE:
+                        String fileUri = CommonUtils.getExprUri(request.filePath());
+                        Optional<Document> document =
+                                workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+
+                        if (document.isPresent()) {
+                            String importStatement = codedata.getImportSignature();
+                            Document doc = document.get();
+                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                                    workspaceManagerProxy.get(fileUri), Path.of(request.filePath()), doc);
+                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                            importTextEdit.ifPresent(
+                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                        }
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                        break;
+                    default:
+                        response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
+                                ". Expected kinds are: CURRENT, IMPORTED, AVAILABLE."));
+                        return response;
+                }
+                response.setTemplate(template + "(${1})");
+            } catch (Exception e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<SuccessResponse> importModule(ImportModuleRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            SuccessResponse response = new SuccessResponse();
+            try {
+                String fileUri = CommonUtils.getExprUri(request.filePath());
+                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
+                if (document.isPresent()) {
+                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                            workspaceManagerProxy.get(fileUri),
+                            Path.of(request.filePath()), document.get());
+                    String importStatement = request.importStatement()
+                            .replaceFirst("^import\\s+", "")
+                            .replaceAll(";\\n$", "");
+                    Optional<TextEdit> importTextEdit = expressionEditorContext
+                            .getImport(importStatement);
+                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    response.setSuccess(true);
+                }
+            } catch (Exception e) {
+                response.setError(e);
+                response.setSuccess(false);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
     public CompletableFuture<ExpressionEditorDiagnosticsResponse> diagnostics(
             ExpressionEditorDiagnosticsRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -231,12 +309,12 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 if (semanticModel.isEmpty()) {
                     return response;
                 }
-                List<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
+                Set<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
                                 StreamSupport.stream(context.syntaxDiagnostics().spliterator(), false))
                         .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                                 lineRange))
                         .map(CommonUtils::transformBallerinaDiagnostic)
-                        .toList();
+                        .collect(Collectors.toSet());
 
                 context.applyContent(oldTextDocument);
                 response.setDiagnostics(diagnostics);
@@ -246,5 +324,4 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             return response;
         });
     }
-
 }

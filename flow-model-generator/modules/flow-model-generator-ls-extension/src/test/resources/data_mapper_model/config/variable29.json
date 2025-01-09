@@ -1,0 +1,211 @@
+{
+  "source": "variable15.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable15.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{values: [[user.phoneNumber[0]], [user.phoneNumber[1]], [user.phoneNumber[2], user.phoneNumber[3]]]}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "td",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "TwoDim",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 18,
+    "offset": 12
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "member": {
+              "id": "user.phoneNumber",
+              "typeName": "string",
+              "kind": "string"
+            },
+            "id": "user.phoneNumber",
+            "variableName": "phoneNumber",
+            "typeName": "string[]",
+            "kind": "array"
+          }
+        ],
+        "id": "user",
+        "variableName": "user",
+        "typeName": "User",
+        "kind": "record",
+        "category": "parameter"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "member": {
+            "member": {
+              "id": "td.values",
+              "typeName": "string",
+              "kind": "string"
+            },
+            "id": "td.values",
+            "typeName": "string[]",
+            "kind": "array"
+          },
+          "id": "td.values",
+          "variableName": "values",
+          "typeName": "string[][]",
+          "kind": "array"
+        }
+      ],
+      "id": "td",
+      "variableName": "td",
+      "typeName": "TwoDim",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "td.values",
+        "inputs": [],
+        "expression": "[[user.phoneNumber[0]], [user.phoneNumber[1]], [user.phoneNumber[2], user.phoneNumber[3]]]",
+        "diagnostics": [],
+        "elements": [
+          {
+            "mappings": [
+              {
+                "output": "td.values.0",
+                "inputs": [],
+                "expression": "[user.phoneNumber[0]]",
+                "diagnostics": [],
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.0.0",
+                        "inputs": [
+                          "user.phoneNumber.0"
+                        ],
+                        "expression": "user.phoneNumber[0]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "mappings": [
+              {
+                "output": "td.values.1",
+                "inputs": [],
+                "expression": "[user.phoneNumber[1]]",
+                "diagnostics": [],
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.1.0",
+                        "inputs": [
+                          "user.phoneNumber.1"
+                        ],
+                        "expression": "user.phoneNumber[1]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "mappings": [
+              {
+                "output": "td.values.2",
+                "inputs": [],
+                "expression": "[user.phoneNumber[2], user.phoneNumber[3]]",
+                "diagnostics": [],
+                "elements": [
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.2.0",
+                        "inputs": [
+                          "user.phoneNumber.2"
+                        ],
+                        "expression": "user.phoneNumber[2]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  },
+                  {
+                    "mappings": [
+                      {
+                        "output": "td.values.2.1",
+                        "inputs": [
+                          "user.phoneNumber.3"
+                        ],
+                        "expression": "user.phoneNumber[3]",
+                        "diagnostics": [],
+                        "elements": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
