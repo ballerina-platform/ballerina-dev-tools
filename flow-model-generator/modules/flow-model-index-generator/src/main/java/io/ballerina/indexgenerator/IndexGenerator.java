@@ -206,12 +206,6 @@ class IndexGenerator {
                                              Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
-        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
-        if (functionType == FunctionType.RESOURCE) {
-            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
-                    errorTypeSymbol);
-        }
-
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -253,6 +247,11 @@ class IndexGenerator {
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
+        if (functionType == FunctionType.RESOURCE) {
+            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
+                    errorTypeSymbol);
+        }
 
         String resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
