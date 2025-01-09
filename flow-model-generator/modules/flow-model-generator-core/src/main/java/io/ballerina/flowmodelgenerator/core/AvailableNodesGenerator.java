@@ -164,6 +164,8 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.PANIC)
                     .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
+                    .node(NodeKind.FORK)
+                    .node(NodeKind.PARALLEL_FLOW)
                     .node(NodeKind.WAIT)
 //                TODO: Uncomment when concurrency is implemented
 //                    .node(NodeKind.TRANSACTION)
