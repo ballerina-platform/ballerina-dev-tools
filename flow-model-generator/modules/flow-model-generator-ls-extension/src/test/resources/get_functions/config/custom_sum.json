@@ -29,7 +29,10 @@
       "items": [
         {
           "metadata": {
-            "label": "sum"
+            "label": "sum",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -40,7 +43,10 @@
         {
           "metadata": {
             "label": "prefixSum",
-            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n"
+            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
