@@ -63,6 +63,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String IMPLICIT_VARIABLE_LABEL = "Name";
     public static final String VARIABLE_DOC = "Name of the variable";
 
+    public static final String WORKER_NAME = "Worker Name";
+    public static final String WORKER_DOC = "Name of the worker";
+
     public static final String NAME_KEY = "name";
     public static final String DESCRIPTION_KEY = "description";
     public static final String IS_ARRAY_KEY = "isArray";

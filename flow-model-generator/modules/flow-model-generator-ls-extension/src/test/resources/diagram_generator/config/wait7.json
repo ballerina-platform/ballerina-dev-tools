@@ -47,7 +47,7 @@
         "returning": false,
         "branches": [
           {
-            "label": "Body",
+            "label": "WA",
             "kind": "WORKER",
             "codedata": {
               "node": "WORKER",
@@ -66,6 +66,17 @@
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WA",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
               "type": {
                 "metadata": {
                   "label": "Return Type",
@@ -167,7 +178,7 @@
             ]
           },
           {
-            "label": "Body",
+            "label": "WB",
             "kind": "WORKER",
             "codedata": {
               "node": "WORKER",
@@ -186,6 +197,17 @@
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WB",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
               "type": {
                 "metadata": {
                   "label": "Return Type",
@@ -287,7 +309,7 @@
             ]
           },
           {
-            "label": "Body",
+            "label": "WC",
             "kind": "WORKER",
             "codedata": {
               "node": "WORKER",
@@ -306,6 +328,17 @@
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WC",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
               "type": {
                 "metadata": {
                   "label": "Return Type",

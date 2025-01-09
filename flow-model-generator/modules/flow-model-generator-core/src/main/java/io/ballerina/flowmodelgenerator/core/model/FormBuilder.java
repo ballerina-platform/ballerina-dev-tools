@@ -95,14 +95,15 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> data(Node node, boolean implicit, Set<String> names) {
-        return data(node, implicit ? Property.IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_NAME, names);
+        return data(node, implicit ? Property.IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_NAME, Property.VARIABLE_DOC,
+                names);
     }
 
-    public FormBuilder<T> data(Node node, String label, Set<String> names) {
+    public FormBuilder<T> data(Node node, String label, String doc, Set<String> names) {
         propertyBuilder
                 .metadata()
                     .label(label)
-                    .description(Property.VARIABLE_DOC)
+                    .description(doc)
                     .stepOut()
                 .value(node == null ? NameUtil.generateTypeName("var", names) :
                         CommonUtils.getVariableName(node))
@@ -197,9 +198,9 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return dataVariable(node, false, names);
     }
 
-    public FormBuilder<T> dataVariable(TypedBindingPatternNode node, String variableDoc, String typeDoc,
+    public FormBuilder<T> dataVariable(TypedBindingPatternNode node, String variableLabel, String typeDoc,
                                        boolean editable, Set<String> names) {
-        data(node == null ? null : node.bindingPattern(), variableDoc, names);
+        data(node == null ? null : node.bindingPattern(), variableLabel, Property.VARIABLE_DOC, names);
 
         String typeName = node == null ? "" : CommonUtils.getTypeSymbol(semanticModel, node)
                 .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo))

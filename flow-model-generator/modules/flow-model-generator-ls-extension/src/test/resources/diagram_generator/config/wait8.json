@@ -47,7 +47,7 @@
         "returning": false,
         "branches": [
           {
-            "label": "Body",
+            "label": "W1",
             "kind": "WORKER",
             "codedata": {
               "node": "WORKER",
@@ -66,6 +66,17 @@
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "W1",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
               "type": {
                 "metadata": {
                   "label": "Return Type",
@@ -165,7 +176,7 @@
             ]
           },
           {
-            "label": "Body",
+            "label": "W2",
             "kind": "WORKER",
             "codedata": {
               "node": "WORKER",
@@ -184,6 +195,17 @@
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "W2",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
               "type": {
                 "metadata": {
                   "label": "Return Type",

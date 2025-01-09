@@ -1226,9 +1226,10 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(NamedWorkerDeclarationNode namedWorkerDeclarationNode) {
         Branch.Builder workerBranchBuilder =
-                startBranch(Branch.BODY_LABEL, NodeKind.WORKER, Branch.BranchKind.WORKER,
+                startBranch(namedWorkerDeclarationNode.workerName().text(), NodeKind.WORKER, Branch.BranchKind.WORKER,
                         Branch.Repeatable.ONE_OR_MORE);
 
+        // Set the properties of the worker branch
         Optional<Node> returnTypeDesc = namedWorkerDeclarationNode.returnTypeDesc();
         String type;
         if (returnTypeDesc.isPresent() && returnTypeDesc.get().kind() == SyntaxKind.RETURN_TYPE_DESCRIPTOR) {
@@ -1237,7 +1238,10 @@ class CodeAnalyzer extends NodeVisitor {
         } else {
             type = "";
         }
-        workerBranchBuilder.properties().returnType(type);
+        workerBranchBuilder.properties()
+                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC,
+                        new HashSet<>())
+                .returnType(type);
 
         analyzeBlock(namedWorkerDeclarationNode.workerBody(), workerBranchBuilder);
         endBranch(workerBranchBuilder, namedWorkerDeclarationNode);
