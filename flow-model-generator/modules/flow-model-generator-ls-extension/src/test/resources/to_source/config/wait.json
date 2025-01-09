@@ -54,7 +54,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "false",
+                "value": "",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -68,7 +68,7 @@
                   "description": "Expression"
                 },
                 "valueType": "EXPRESSION",
-                "value": "foo",
+                "value": "",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -99,7 +99,7 @@
             "character": 0
           }
         },
-        "newText": "wait foo;"
+        "newText": "wait ;"
       }
     ]
   }

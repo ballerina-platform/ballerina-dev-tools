@@ -228,13 +228,24 @@
         "flags": 0
       },
       {
-        "id": "31",
+        "id": "65663",
         "metadata": {
           "label": "Parallel Flow",
           "description": "Create parallel flows"
         },
         "codedata": {
-          "node": "PARALLEL_FLOW"
+          "node": "PARALLEL_FLOW",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 36,
+              "offset": 5
+            }
+          }
         },
         "returning": false,
         "branches": [

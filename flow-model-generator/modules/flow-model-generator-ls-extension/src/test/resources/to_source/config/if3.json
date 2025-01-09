@@ -540,7 +540,7 @@
             "character": 9
           }
         },
-        "newText": "if food.price < 100 {\n    food.comment = \"cheap\";\n    return food;\n} else if food.price < 200 {\n    if food.remaining > 0 {\n        food.comment = \"fresh; \";\n    } else {\n        food.comment = \"expired; \";\n    }\n    food.comment += \"moderate\";\n;return food;\n} else {\n    food.comment = \"expensive\";\n    return food;\n}"
+        "newText": "if food.price < 100 {\n    food.comment = \"cheap\";\n    return food;\n} else if food.price < 200 {\n    if food.remaining > 0 {\n        food.comment = \"fresh; \";\n    } else {\n        food.comment = \"expired; \";\n    }\n    food.comment += \"moderate\";\n    return food;\n} else {\n    food.comment = \"expensive\";\n    return food;\n}"
       }
     ]
   }

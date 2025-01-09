@@ -1,5 +1,5 @@
-import ballerina/lang.runtime;
 import ballerina/io;
+import ballerina/lang.runtime;
 
 // Wait with alternate wait
 function basicAlternateWait() returns string|error {
@@ -98,13 +98,13 @@ function workersWithInitStatements() returns string? {
     }
 
     worker B {
-        io:println("Worker B");    
+        io:println("Worker B");
     }
 
     worker C {
         io:println("Worker C");
     }
-    
+
     string? value = wait A | B | C;
     return value;
 }
@@ -114,7 +114,7 @@ function workersWithFork() returns string? {
     string s = "12";
 
     worker B {
-        io:println("Worker B");    
+        io:println("Worker B");
     }
 
     worker C {
@@ -126,7 +126,7 @@ function workersWithFork() returns string? {
             return "hello" + s;
         }
     }
-    
+
     string? value = wait A | B | C;
     return value;
 }

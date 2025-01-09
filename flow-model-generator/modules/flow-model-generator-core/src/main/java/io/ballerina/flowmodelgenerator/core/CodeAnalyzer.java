@@ -1217,9 +1217,17 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(NamedWorkerDeclarator namedWorkerDeclarator) {
+        // Analyze the worker init statements
         namedWorkerDeclarator.workerInitStatements().forEach(statement -> statement.accept(this));
+
+        // Generate a parallel flow node for the named workers
         startNode(NodeKind.PARALLEL_FLOW);
-        namedWorkerDeclarator.namedWorkerDeclarations().forEach(this::visit);
+        NodeList<NamedWorkerDeclarationNode> workers = namedWorkerDeclarator.namedWorkerDeclarations();
+        LineRange startLineRange = workers.get(0).lineRange();
+        LinePosition endLine = workers.get(workers.size() - 1).lineRange().endLine();
+        workers.forEach(this::visit);
+        nodeBuilder.codedata()
+                .lineRange(LineRange.from(startLineRange.fileName(), startLineRange.startLine(), endLine));
         endNode();
     }
 

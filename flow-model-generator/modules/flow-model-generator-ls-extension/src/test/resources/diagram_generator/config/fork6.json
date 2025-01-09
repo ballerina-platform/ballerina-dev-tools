@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "function workersWithFork() returns string? {\n    int i = 12;\n    string s = \"12\";\n\n    worker B {\n        io:println(\"Worker B\");    \n    }\n\n    worker C {\n        io:println(\"Worker C\");\n    }\n\n    fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }\n    \n    string? value = wait A | B | C;\n    return value;\n}"
+           "sourceCode": "function workersWithFork() returns string? {\n    int i = 12;\n    string s = \"12\";\n\n    worker B {\n        io:println(\"Worker B\");\n    }\n\n    worker C {\n        io:println(\"Worker C\");\n    }\n\n    fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }\n\n    string? value = wait A | B | C;\n    return value;\n}"
         },
         "returning": false,
         "flags": 0
@@ -156,13 +156,24 @@
         "flags": 0
       },
       {
-        "id": "31",
+        "id": "146139",
         "metadata": {
           "label": "Parallel Flow",
           "description": "Create parallel flows"
         },
         "codedata": {
-          "node": "PARALLEL_FLOW"
+          "node": "PARALLEL_FLOW",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 115,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 121,
+              "offset": 5
+            }
+          }
         },
         "returning": false,
         "branches": [
@@ -182,7 +193,7 @@
                   "offset": 5
                 }
               },
-              "sourceCode": "worker B {\n        io:println(\"Worker B\");    \n    }"
+              "sourceCode": "worker B {\n        io:println(\"Worker B\");\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {

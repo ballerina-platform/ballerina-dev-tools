@@ -36,13 +36,24 @@
         "flags": 0
       },
       {
-        "id": "31",
+        "id": "68763",
         "metadata": {
           "label": "Parallel Flow",
           "description": "Create parallel flows"
         },
         "codedata": {
-          "node": "PARALLEL_FLOW"
+          "node": "PARALLEL_FLOW",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 37,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 43,
+              "offset": 5
+            }
+          }
         },
         "returning": false,
         "branches": [
