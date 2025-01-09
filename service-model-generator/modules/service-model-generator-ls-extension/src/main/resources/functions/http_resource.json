@@ -351,6 +351,21 @@
           "placeholder": "false",
           "optional": false,
           "advanced": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Name of the status code response",
+            "description": "The name of the status code response"
+          },
+          "enabled": false,
+          "editable": false,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "anydata",
+          "isType": true,
+          "placeholder": "",
+          "optional": true,
+          "advanced": false
         }
       }
     }

@@ -25,7 +25,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Trigger;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
-import io.ballerina.servicemodelgenerator.extension.request.FunctionRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerModelGenRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerSourceRequest;
@@ -157,7 +157,7 @@ public class TriggerServiceTest {
         String filePath = resDir.resolve("sample2/triggers.bal").toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from("triggers.bal", LinePosition.from(2, 0),
                 LinePosition.from(9, 1)));
-        FunctionRequest request = new FunctionRequest(filePath, function, codedata);
+        FunctionSourceRequest request = new FunctionSourceRequest(filePath, function, codedata);
         CompletableFuture<?> result = serviceEndpoint.request("triggerDesignService/addTriggerFunction", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }
@@ -176,7 +176,7 @@ public class TriggerServiceTest {
         Function function = service.getFunctions().get(0);
         function.getParameters().forEach(param -> param.setEnabled(true));
         filePath = resDir.resolve("sample3/triggers.bal").toAbsolutePath().toString();
-        FunctionRequest request = new FunctionRequest(filePath, function, codedata);
+        FunctionSourceRequest request = new FunctionSourceRequest(filePath, function, codedata);
         result = serviceEndpoint.request("triggerDesignService/updateTriggerFunction", request);
         TriggerCommonResponse response = (TriggerCommonResponse) result.get();
     }

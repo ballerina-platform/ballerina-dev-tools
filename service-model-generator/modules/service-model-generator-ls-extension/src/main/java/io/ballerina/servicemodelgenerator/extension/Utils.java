@@ -164,6 +164,73 @@ public final class Utils {
         HTTP_CODES = Collections.unmodifiableMap(httpCodeMap);
     }
 
+    public static final Map<String, String> HTTP_CODES_DES;
+    static {
+        Map<String, String> httpCodeMap = new HashMap<>();
+        httpCodeMap.put("100", "Continue");
+        httpCodeMap.put("101", "SwitchingProtocols");
+        httpCodeMap.put("102", "Processing");
+        httpCodeMap.put("103", "EarlyHints");
+        httpCodeMap.put("200", "Ok");
+        httpCodeMap.put("201", "Created");
+        httpCodeMap.put("202", "Accepted");
+        httpCodeMap.put("203", "NonAuthoritativeInformation");
+        httpCodeMap.put("204", "NoContent");
+        httpCodeMap.put("205", "RestContent");
+        httpCodeMap.put("206", "PartialContent");
+        httpCodeMap.put("207", "MultiStatus");
+        httpCodeMap.put("208", "AlreadyReported");
+        httpCodeMap.put("226", "IMUsed");
+        httpCodeMap.put("300", "MultipleChoices");
+        httpCodeMap.put("301", "MovedPermanently");
+        httpCodeMap.put("302", "Found");
+        httpCodeMap.put("303", "SeeOther");
+        httpCodeMap.put("304", "NotModified");
+        httpCodeMap.put("305", "UseProxy");
+        httpCodeMap.put("307", "TemporaryRedirect");
+        httpCodeMap.put("308", "PermanentRedirect");
+        httpCodeMap.put("400", "BadRequest");
+        httpCodeMap.put("401", "Unauthorized");
+        httpCodeMap.put("402", "PaymentRequired");
+        httpCodeMap.put("403", "Forbidden");
+        httpCodeMap.put("404", "NotFound");
+        httpCodeMap.put("405", "MethodNotAllowed");
+        httpCodeMap.put("406", "NotAcceptable");
+        httpCodeMap.put("407", "ProxyAuthenticationRequired");
+        httpCodeMap.put("408", "RequestTimeOut");
+        httpCodeMap.put("409", "Conflict");
+        httpCodeMap.put("410", "Gone");
+        httpCodeMap.put("411", "LengthRequired");
+        httpCodeMap.put("412", "PreconditionFailed");
+        httpCodeMap.put("413", "PayloadTooLarge");
+        httpCodeMap.put("414", "UriTooLong");
+        httpCodeMap.put("415", "UnsupportedMediaType");
+        httpCodeMap.put("416", "RangeNotSatisfiable");
+        httpCodeMap.put("417", "ExpectationFailed");
+        httpCodeMap.put("421", "MisdirectedRequest");
+        httpCodeMap.put("422", "UnprocessableEntity");
+        httpCodeMap.put("423", "Locked");
+        httpCodeMap.put("424", "FailedDependency");
+        httpCodeMap.put("425", "TooEarly");
+        httpCodeMap.put("426", "UpgradeRequired");
+        httpCodeMap.put("428", "PreconditionRequired");
+        httpCodeMap.put("429", "TooManyRequests");
+        httpCodeMap.put("431", "RequestHeaderFieldsTooLarge");
+        httpCodeMap.put("451", "UnavailableDueToLegalReasons");
+        httpCodeMap.put("500", "InternalServerError");
+        httpCodeMap.put("501", "NotImplemented");
+        httpCodeMap.put("502", "BadGateway");
+        httpCodeMap.put("503", "ServiceUnavailable");
+        httpCodeMap.put("504", "GatewayTimeout");
+        httpCodeMap.put("505", "HttpVersionNotSupported");
+        httpCodeMap.put("506", "VariantAlsoNegotiates");
+        httpCodeMap.put("507", "InsufficientStorage");
+        httpCodeMap.put("508", "LoopDetected");
+        httpCodeMap.put("510", "NotExtended");
+        httpCodeMap.put("511", "NetworkAuthenticationRequired");
+        HTTP_CODES_DES = Collections.unmodifiableMap(httpCodeMap);
+    }
+
     private Utils() {
     }
 
@@ -498,7 +565,13 @@ public final class Utils {
                         anydataResponses.add(member);
                     }
                 }),
-                () -> anydataResponses.add(returnTypeSymbol));
+                () -> {
+                    if (isSubTypeOfHttpStatusCodeResponse(returnTypeSymbol, semanticModel)) {
+                        statusCodeResponses.add(returnTypeSymbol);
+                    } else {
+                        anydataResponses.add(returnTypeSymbol);
+                    }
+                });
         List<HttpResponse> responses = new ArrayList<>(statusCodeResponses.stream()
                 .map(statusCodeResponse -> getHttpResponse(statusCodeResponse, String.valueOf(defaultStatusCode),
                         semanticModel, currentModuleName))
@@ -506,8 +579,10 @@ public final class Utils {
         String normalResponseBody = anydataResponses.stream()
                 .map(type -> getTypeName(type, currentModuleName))
                 .collect(Collectors.joining("|"));
-        HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody, "");
-        responses.add(normalResponse);
+        if (!normalResponseBody.isEmpty()) {
+            HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody, "");
+            responses.add(normalResponse);
+        }
         return responses;
     }
 
@@ -543,13 +618,18 @@ public final class Utils {
                                                SemanticModel semanticModel, String currentModuleName) {
         Optional<RecordTypeSymbol> statusCodeRecordType = getRecordTypeSymbol(statusCodeResponseType);
         String statusCode = getResponseCode(statusCodeResponseType, defaultStatusCode, semanticModel);
-        if (statusCodeRecordType.isEmpty()) {
-            return new HttpResponse(statusCode, getTypeName(semanticModel.types().ANYDATA, currentModuleName),
-                    getTypeName(statusCodeResponseType, currentModuleName));
+        TypeSymbol bodyType = semanticModel.types().ANYDATA;
+        String name = null;
+        if (statusCodeRecordType.isPresent()) {
+            bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
+            if (statusCodeRecordType.get().typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
+                name = getTypeName(statusCodeResponseType, currentModuleName);
+            }
         }
-        TypeSymbol bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
-        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName),
-                getTypeName(statusCodeResponseType, currentModuleName));
+        if (Objects.isNull(name)) {
+            return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName));
+        }
+        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName), name);
     }
 
     static String getTypeName(TypeSymbol typeSymbol, String currentModuleName) {
@@ -751,9 +831,48 @@ public final class Utils {
         commonSvcModel.getFunctions().forEach(functionModel -> {
             if (serviceModel.getFunctions().stream()
                     .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
-                serviceModel.addFunction(functionModel);
+                if (serviceModel.getModuleName().equals("http") &&
+                        functionModel.getKind().equals("RESOURCE")) {
+                    getResourceFunctionModel().ifPresentOrElse(
+                            resourceFunction -> {
+                                updateFunctionInfo(resourceFunction, functionModel);
+                                serviceModel.addFunction(resourceFunction);
+                            },
+                            () -> serviceModel.addFunction(functionModel)
+                    );
+                } else {
+                    serviceModel.addFunction(functionModel);
+                }
             }
         });
+    }
+
+    public static Optional<Function> getResourceFunctionModel() {
+        InputStream resourceStream = Utils.class.getClassLoader()
+                .getResourceAsStream("functions/http_resource.json");
+        if (resourceStream == null) {
+            return Optional.empty();
+        }
+
+        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
+            return Optional.of(new Gson().fromJson(reader, Function.class));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
+
+    private static void updateFunctionInfo(Function functionModel, Function commonFunction) {
+        functionModel.setEnabled(true);
+        functionModel.setKind(commonFunction.getKind());
+        functionModel.setCodedata(commonFunction.getCodedata());
+        updateValue(functionModel.getAccessor(), commonFunction.getAccessor());
+        updateValue(functionModel.getName(), commonFunction.getName());
+        updateValue(functionModel.getReturnType(), commonFunction.getReturnType());
+        List<Parameter> parameters = functionModel.getParameters();
+        parameters.removeIf(parameter -> commonFunction.getParameters().stream()
+                .anyMatch(newParameter -> newParameter.getName().getValue()
+                        .equals(parameter.getName().getValue())));
+        commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
     private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
@@ -780,6 +899,18 @@ public final class Utils {
         target.setEnabled(source.isEnabledWithValue());
         target.setValue(source.getValue());
         target.setValueType(source.getValueType());
+    }
+
+    public static void updateValue(FunctionReturnType target, FunctionReturnType source) {
+        if (Objects.isNull(target) || Objects.isNull(source)) {
+            return;
+        }
+        target.setEnabled(source.isEnabledWithValue());
+        target.setValue(source.getValue());
+        target.setValueType(source.getValueType());
+        if (Objects.nonNull(source.getResponses())) {
+            target.setResponses(source.getResponses());
+        }
     }
 
     public static void updateFunction(Function target, Function source, Service service) {
@@ -833,7 +964,7 @@ public final class Utils {
         List<String> functions = new ArrayList<>();
         service.getFunctions().forEach(function -> {
             if (function.isEnabled()) {
-                String functionNode = "\t" + getFunction(function).replace(System.lineSeparator(),
+                String functionNode = "\t" + getFunction(function, new ArrayList<>()).replace(System.lineSeparator(),
                         System.lineSeparator() + "\t");
                 functions.add(functionNode);
             }
@@ -871,7 +1002,7 @@ public final class Utils {
         return String.format("{%s}", String.join(", ", params));
     }
 
-    public static String getFunction(Function function) {
+    public static String getFunction(Function function, List<String> statusCodeResponses) {
         StringBuilder builder = new StringBuilder();
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
@@ -885,7 +1016,7 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function));
+        builder.append(getFunctionSignature(function, statusCodeResponses));
         builder.append("{");
         builder.append(System.lineSeparator());
         builder.append("\tdo {");
@@ -900,7 +1031,7 @@ public final class Utils {
         return builder.toString();
     }
 
-    public static String getFunctionSignature(Function function) {
+    public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
@@ -922,12 +1053,60 @@ public final class Utils {
         });
         builder.append(String.join(", ", params));
         builder.append(")");
-        Value returnType = function.getReturnType();
-        if (Objects.nonNull(returnType) && returnType.isEnabledWithValue()) {
-            builder.append(" returns ");
-            builder.append(getValueString(returnType));
+        FunctionReturnType returnType = function.getReturnType();
+        if (Objects.nonNull(returnType)) {
+            if (returnType.isEnabledWithValue()) {
+                builder.append(" returns ");
+                builder.append(getValueString(returnType));
+            } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
+                    !returnType.getResponses().isEmpty()) {
+                builder.append(" returns ");
+                List<String> responses = returnType.getResponses().stream()
+                        .map(response -> getStatusCodeResponse(response, statusCodeResponses))
+                        .toList();
+                builder.append(String.join("|", responses));
+            }
         }
         builder.append(" ");
+        return builder.toString();
+    }
+
+    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
+        if (Objects.isNull(response.getBody()) || !response.getBody().isEnabledWithValue()) {
+            if (!response.getStatusCode().isEnabledWithValue()) {
+                return "anydata";
+            }
+            String statusCode = response.getStatusCode().getValue();
+            String statusCodeRes = HTTP_CODES_DES.get(statusCode);
+            if (Objects.isNull(statusCodeRes)) {
+                return "anydata";
+            }
+            return String.format("http:%s", statusCodeRes);
+        }
+        String body = response.getBody().getValue();
+        String statusCode = response.getStatusCode().getValue();
+        String statusCodeRes = HTTP_CODES_DES.get(statusCode);
+        if (Objects.isNull(statusCodeRes)) {
+            return body;
+        }
+        if (Objects.nonNull(response.isCreateStatusCodeResponse()) &&
+                response.isCreateStatusCodeResponse().isEnabledWithValue() &&
+                response.getName().isEnabledWithValue()) {
+            statusCodeResponses.add(getStatusCodeResponseDef(statusCodeRes, body, response.getName().getValue()));
+            return response.getName().getValue();
+        }
+        return String.format("record {|*http:%s; %s body;|}", statusCodeRes, body);
+    }
+
+    public static String getStatusCodeResponseDef(String statusCodeTypeName, String body, String name) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("public type %s record {|", name));
+        builder.append(System.lineSeparator());
+        builder.append(String.format("\t*http:%s;", statusCodeTypeName));
+        builder.append(System.lineSeparator());
+        builder.append(String.format("\t%s body;", body));
+        builder.append(System.lineSeparator());
+        builder.append("|};");
         return builder.toString();
     }
 

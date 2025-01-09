@@ -13,7 +13,7 @@ service /api/test on httpListener {
         }
     }
 
-    resource function get greeting/[string name](@http:Header string header, int id = 45) returns json|http:InternalServerError {
+    resource function get greeting/[string name](@http:Header string header, int id = 45) returns record {|*http:NonAuthoritativeInformation; json body;|} {
         do {
         } on fail error err {
             // handle error

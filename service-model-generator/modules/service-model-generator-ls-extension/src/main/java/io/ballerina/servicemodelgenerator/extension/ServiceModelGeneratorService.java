@@ -46,7 +46,6 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
-import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
@@ -54,12 +53,11 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
-import io.ballerina.servicemodelgenerator.extension.request.FunctionRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -98,12 +96,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static io.ballerina.servicemodelgenerator.extension.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getFunction;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSignature;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
+import static io.ballerina.servicemodelgenerator.extension.Utils.getPath;
+import static io.ballerina.servicemodelgenerator.extension.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpServiceContractType;
@@ -370,7 +371,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> addResource(ResourceSourceRequest request) {
+    public CompletableFuture<CommonSourceResponse> addResource(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
@@ -391,11 +392,19 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
+                List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = System.lineSeparator() +
-                        "\t" + getFunction(request.resource()).replace(System.lineSeparator(),
+                        "\t" + getFunction(request.function(), statusCodeResponses).replace(System.lineSeparator(),
                         System.lineSeparator() + "\t") + System.lineSeparator();
-                TextEdit functionEdit = new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition);
-                return new CommonSourceResponse(Map.of(request.filePath(), List.of(functionEdit)));
+                List<TextEdit> textEdits = new ArrayList<>();
+                textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
+                String statusCodeResEdits = statusCodeResponses.stream()
+                        .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
+                if (!statusCodeResEdits.isEmpty()) {
+                    textEdits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
+                            System.lineSeparator() + statusCodeResEdits));
+                }
+                return new CommonSourceResponse(Map.of(request.filePath(), textEdits));
             } catch (Exception e) {
                 return new CommonSourceResponse(e);
             }
@@ -538,7 +547,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<CommonSourceResponse> addFunction(FunctionRequest request) {
+    public CompletableFuture<CommonSourceResponse> addFunction(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<TextEdit> edits = new ArrayList<>();
@@ -564,10 +573,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
-                String functionNode = "\n\t" + getFunction(request.function()).replace(System.lineSeparator(),
-                        System.lineSeparator() + "\t");
-                TextEdit functionEdit = new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode);
-                edits.add(functionEdit);
+                String functionNode = "\n\t" + getFunction(request.function(), new ArrayList<>())
+                        .replace(System.lineSeparator(), System.lineSeparator() + "\t");
+                edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -596,10 +604,39 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!(node instanceof FunctionDefinitionNode functionDefinitionNode)) {
                     return new CommonSourceResponse();
                 }
-                LineRange functionLineRange = functionDefinitionNode.functionSignature().lineRange();
-                String functionSignature = getFunctionSignature(request.function());
-                TextEdit functionEdit = new TextEdit(Utils.toRange(functionLineRange), functionSignature);
-                edits.add(functionEdit);
+                NonTerminalNode parentService = functionDefinitionNode.parent();
+                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                    return new CommonSourceResponse();
+                }
+                ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;
+                LineRange serviceEnd = serviceDeclarationNode.closeBraceToken().lineRange();
+
+                String functionName = functionDefinitionNode.functionName().text().trim();
+                LineRange nameRange = functionDefinitionNode.functionName().lineRange();
+                if (!functionName.equals(request.function().getAccessor().getValue())) {
+                    edits.add(new TextEdit(Utils.toRange(nameRange), request.function().getAccessor().getValue()));
+                }
+
+                NodeList<Node> path = functionDefinitionNode.relativeResourcePath();
+                if (Objects.nonNull(path) && !request.function().getName().getValue().equals(getPath(path))) {
+                    LinePosition startPos = path.get(0).lineRange().startLine();
+                    LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
+                    LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
+                    TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange), getPath(path));
+                    edits.add(pathEdit);
+                }
+
+                LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
+                List<String> statusCodeResponses = new ArrayList<>();
+                String functionSignature = getFunctionSignature(request.function(), statusCodeResponses);
+                edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
+                String statusCodeResEdits = statusCodeResponses.stream()
+                        .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
+                if (!statusCodeResEdits.isEmpty()) {
+                    edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
+                            System.lineSeparator() + statusCodeResEdits));
+                }
+
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -771,20 +808,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
         try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
             return Optional.of(new Gson().fromJson(reader, Service.class));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
-
-    private Optional<Function> getResourceFunctionModel() {
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream("functions/http_resource.json");
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
-
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, Function.class));
         } catch (IOException e) {
             return Optional.empty();
         }

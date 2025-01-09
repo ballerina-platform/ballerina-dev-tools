@@ -2,16 +2,18 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
-import io.ballerina.servicemodelgenerator.extension.request.ResourceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -262,10 +264,15 @@ public class ServiceModelAPITests {
         header.getDefaultValue().setValue("\"test\"");
         resource.addParameter(header);
 
+        HttpResponse response = new HttpResponse("201", "json", "Created");
+        response.setCreateStatusCodeResponse(new Value("true", "BOOLEAN", true));
+        resource.getReturnType().setResponses(List.of(response));
+        resource.getReturnType().setEnabled(true);
+
         Path filePath = resDir.resolve("sample3/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
                 LinePosition.from(21, 1)));
-        ResourceSourceRequest sourceRequest = new ResourceSourceRequest(filePath.toAbsolutePath().toString(),
+        FunctionSourceRequest sourceRequest = new FunctionSourceRequest(filePath.toAbsolutePath().toString(),
                 resource, codedata);
         CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/addResource", sourceRequest);
         CommonSourceResponse sourceResponse = (CommonSourceResponse) sourceResult.get();
@@ -486,6 +493,31 @@ public class ServiceModelAPITests {
         ServiceModifierRequest updateRequest = new ServiceModifierRequest(filePath.toAbsolutePath().toString(),
                 service);
         CompletableFuture<?> updateResult = serviceEndpoint.request("serviceDesign/updateService", updateRequest);
+        CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
+        Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
+        Assert.assertFalse(updateResponse.textEdits().isEmpty());
+    }
+
+    @Test
+    public void testUpdateFunction() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample3/main.bal");
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(7, 0),
+                LinePosition.from(21, 1)));
+        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
+                filePath.toAbsolutePath().toString(), codedata);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getServiceFromSource",
+                sourceRequest);
+        ServiceFromSourceResponse sourceResponse = (ServiceFromSourceResponse) sourceResult.get();
+        Service service = sourceResponse.service();
+        Assert.assertTrue(Objects.nonNull(service));
+        Assert.assertTrue(service.getFunctions().size() > 1);
+        Function function = service.getFunctions().get(1);
+        function.getAccessor().setValue("put");
+        function.getReturnType().setValue("");
+
+        FunctionModifierRequest updateRequest = new FunctionModifierRequest(filePath.toAbsolutePath().toString(),
+                function);
+        CompletableFuture<?> updateResult = serviceEndpoint.request("serviceDesign/updateFunction", updateRequest);
         CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
         Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
         Assert.assertFalse(updateResponse.textEdits().isEmpty());

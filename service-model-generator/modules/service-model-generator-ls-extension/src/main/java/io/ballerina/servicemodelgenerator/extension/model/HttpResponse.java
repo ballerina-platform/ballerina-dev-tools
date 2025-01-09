@@ -35,6 +35,11 @@ public class HttpResponse {
         this.createStatusCodeResponse = createStatusCodeResponse;
     }
 
+    public HttpResponse(String statusCode, String body) {
+        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.body = new Value(body, "EXPRESSION", true);
+    }
+
     public HttpResponse(String statusCode, String body, String name) {
         this.statusCode = new Value(statusCode, "EXPRESSION", true);
         this.body = new Value(body, "EXPRESSION", true);

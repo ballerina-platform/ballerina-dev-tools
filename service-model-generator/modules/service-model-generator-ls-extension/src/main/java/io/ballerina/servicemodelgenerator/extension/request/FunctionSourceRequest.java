@@ -21,5 +21,5 @@ package io.ballerina.servicemodelgenerator.extension.request;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 
-public record ResourceSourceRequest(String filePath, Function resource, Codedata codedata) {
+public record FunctionSourceRequest(String filePath, Function function, Codedata codedata) {
 }
