@@ -50,7 +50,7 @@
             "label": "Body",
             "kind": "WORKER",
             "codedata": {
-              "node": "BODY",
+              "node": "WORKER",
               "lineRange": {
                 "fileName": "wait.bal",
                 "startLine": {
@@ -170,7 +170,7 @@
             "label": "Body",
             "kind": "WORKER",
             "codedata": {
-              "node": "BODY",
+              "node": "WORKER",
               "lineRange": {
                 "fileName": "wait.bal",
                 "startLine": {
@@ -290,7 +290,7 @@
             "label": "Body",
             "kind": "WORKER",
             "codedata": {
-              "node": "BODY",
+              "node": "WORKER",
               "lineRange": {
                 "fileName": "wait.bal",
                 "startLine": {

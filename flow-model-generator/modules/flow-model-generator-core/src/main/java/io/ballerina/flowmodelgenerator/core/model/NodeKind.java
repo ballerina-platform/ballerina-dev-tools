@@ -49,6 +49,7 @@ public enum NodeKind {
     ELSE,
     ON_FAILURE,
     BODY,
+    WORKER,
 
     // Types
     RECORD,

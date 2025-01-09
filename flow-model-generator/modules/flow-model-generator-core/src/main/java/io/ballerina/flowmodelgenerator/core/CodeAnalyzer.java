@@ -1226,7 +1226,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(NamedWorkerDeclarationNode namedWorkerDeclarationNode) {
         Branch.Builder workerBranchBuilder =
-                startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.WORKER,
+                startBranch(Branch.BODY_LABEL, NodeKind.WORKER, Branch.BranchKind.WORKER,
                         Branch.Repeatable.ONE_OR_MORE);
 
         Optional<Node> returnTypeDesc = namedWorkerDeclarationNode.returnTypeDesc();
