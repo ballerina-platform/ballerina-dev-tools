@@ -173,6 +173,20 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> returnType(String value) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.RETURN_TYPE_LABEL)
+                    .description(Property.RETURN_TYPE_DOC)
+                    .stepOut()
+                .value(value)
+                .type(Property.ValueType.TYPE)
+                .optional(true)
+                .editable();
+        addProperty(Property.TYPE_KEY);
+        return this;
+    }
+
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
         return implicit ?
                 dataVariable(node, Property.IMPLICIT_VARIABLE_LABEL, Property.IMPLICIT_TYPE_LABEL, true, names)

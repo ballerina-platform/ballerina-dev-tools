@@ -59,7 +59,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
     }
 
     public enum BranchKind {
-        BLOCK
+        BLOCK,
+        WORKER
     }
 
     public enum Repeatable {

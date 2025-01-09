@@ -40,6 +40,8 @@ public enum NodeKind {
     COMMENT,
     MATCH,
     FUNCTION,
+    FORK,
+    PARALLEL_FLOW,
     WAIT,
 
     // Branches

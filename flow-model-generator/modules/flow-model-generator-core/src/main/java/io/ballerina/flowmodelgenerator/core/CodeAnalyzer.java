@@ -69,6 +69,8 @@ import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
+import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarator;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -83,6 +85,7 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
@@ -207,6 +210,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
+        functionBodyBlockNode.namedWorkerDeclarator()
+                .ifPresent(namedWorkerDeclarator -> namedWorkerDeclarator.accept(this));
         for (Node statementOrComment : functionBodyBlockNode.statementsWithComments()) {
             statementOrComment.accept(this);
         }
@@ -1205,7 +1210,37 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ForkStatementNode forkStatementNode) {
-        handleDefaultStatementNode(forkStatementNode, () -> super.visit(forkStatementNode));
+        startNode(NodeKind.FORK, forkStatementNode);
+        forkStatementNode.namedWorkerDeclarations().forEach(this::visit);
+        endNode(forkStatementNode);
+    }
+
+    @Override
+    public void visit(NamedWorkerDeclarator namedWorkerDeclarator) {
+        namedWorkerDeclarator.workerInitStatements().forEach(statement -> statement.accept(this));
+        startNode(NodeKind.PARALLEL_FLOW);
+        namedWorkerDeclarator.namedWorkerDeclarations().forEach(this::visit);
+        endNode();
+    }
+
+    @Override
+    public void visit(NamedWorkerDeclarationNode namedWorkerDeclarationNode) {
+        Branch.Builder workerBranchBuilder =
+                startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.WORKER,
+                        Branch.Repeatable.ONE_OR_MORE);
+
+        Optional<Node> returnTypeDesc = namedWorkerDeclarationNode.returnTypeDesc();
+        String type;
+        if (returnTypeDesc.isPresent() && returnTypeDesc.get().kind() == SyntaxKind.RETURN_TYPE_DESCRIPTOR) {
+            ReturnTypeDescriptorNode returnTypeDescriptorNode = (ReturnTypeDescriptorNode) returnTypeDesc.get();
+            type = returnTypeDescriptorNode.type().toSourceCode().strip();
+        } else {
+            type = "";
+        }
+        workerBranchBuilder.properties().returnType(type);
+
+        analyzeBlock(namedWorkerDeclarationNode.workerBody(), workerBranchBuilder);
+        endBranch(workerBranchBuilder, namedWorkerDeclarationNode);
     }
 
     @Override
@@ -1548,10 +1583,10 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(bodyNode);
     }
 
-    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {
         for (Node statementOrComment : blockStatement.statementsWithComments()) {
             statementOrComment.accept(this);
-            thenBranchBuilder.node(buildNode());
+            branchBuilder.node(buildNode());
         }
     }
 

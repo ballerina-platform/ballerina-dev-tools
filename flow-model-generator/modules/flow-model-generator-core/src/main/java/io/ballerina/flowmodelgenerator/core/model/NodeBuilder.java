@@ -36,6 +36,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.EventStartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ForeachBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ForkBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
@@ -43,6 +44,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.LockBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MatchBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ParallelFlowBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ResourceActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RetryBuilder;
@@ -124,6 +126,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.COMMENT, CommentBuilder::new);
         put(NodeKind.MATCH, MatchBuilder::new);
         put(NodeKind.CONFIG_VARIABLE, ConfigVariableBuilder::new);
+        put(NodeKind.FORK, ForkBuilder::new);
+        put(NodeKind.PARALLEL_FLOW, ParallelFlowBuilder::new);
         put(NodeKind.WAIT, WaitBuilder::new);
     }};
 

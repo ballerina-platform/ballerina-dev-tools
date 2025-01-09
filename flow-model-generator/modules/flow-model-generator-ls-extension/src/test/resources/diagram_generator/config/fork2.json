@@ -1,38 +1,208 @@
 {
   "start": {
-    "line": 50,
+    "line": 22,
     "offset": 0
   },
   "end": {
-    "line": 65,
+    "line": 39,
     "offset": 1
   },
-  "source": "wait.bal",
+  "source": "fork.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "wait.bal",
+    "fileName": "fork.bal",
     "nodes": [
       {
-        "id": "83422",
+        "id": "56979",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "wait.bal",
+            "fileName": "fork.bal",
             "startLine": {
-              "line": 50,
-              "offset": 52
+              "line": 23,
+              "offset": 61
             },
             "endLine": {
-              "line": 65,
+              "line": 40,
               "offset": 1
             }
           },
-          "sourceCode": "// Basic alternate wait with three workers\nfunction basic3AlternateWait() returns string|error {\n    worker A returns string|error {\n        return mockFetch(\"http://a.com\", 2);\n    }\n\n    worker B returns string|error {\n        return mockFetch(\"http://b.com\", 1);\n    }\n\n    worker C returns string|error {\n        return mockFetch(\"http://c.com\", 3);\n    }\n\n    string|error result = wait A | B | C;\n    return result;\n}"
+          "sourceCode": "function basicAlternateWaitWithOneOut() returns string|error {\n    fork {\n        worker A returns string|error {\n            return \"A\";\n        }\n\n        worker B returns string|error {\n            return \"B\";\n        }\n    }\n\n    worker C returns string|error {\n        return \"C\";\n    }\n\n    string|error result = wait A | B | C;\n    return result;\n}"
         },
         "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "55929",
+        "metadata": {
+          "label": "Fork",
+          "description": "Create parallel workers"
+        },
+        "codedata": {
+          "node": "FORK",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 5
+            }
+          },
+          "sourceCode": "fork {\n        worker A returns string|error {\n            return \"A\";\n        }\n\n        worker B returns string|error {\n            return \"B\";\n        }\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "worker A returns string|error {\n            return \"A\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string|error",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "57931",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"A\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 26,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 26,
+                      "offset": 23
+                    }
+                  },
+                  "sourceCode": "return \"A\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"A\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "Body",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 29,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 31,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "worker B returns string|error {\n            return \"B\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string|error",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "61899",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"B\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 30,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 30,
+                      "offset": 23
+                    }
+                  },
+                  "sourceCode": "return \"B\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"B\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
         "flags": 0
       },
       {
@@ -52,17 +222,17 @@
             "codedata": {
               "node": "BODY",
               "lineRange": {
-                "fileName": "wait.bal",
+                "fileName": "fork.bal",
                 "startLine": {
-                  "line": 51,
+                  "line": 34,
                   "offset": 4
                 },
                 "endLine": {
-                  "line": 53,
+                  "line": 36,
                   "offset": 5
                 }
               },
-              "sourceCode": "worker A returns string|error {\n        return mockFetch(\"http://a.com\", 2);\n    }"
+              "sourceCode": "worker C returns string|error {\n        return \"C\";\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -80,320 +250,38 @@
             },
             "children": [
               {
-                "id": "83620",
+                "id": "66731",
                 "metadata": {
-                  "label": "mockFetch",
-                  "description": ""
+                  "label": "Return",
+                  "description": "Value of '\"C\"'"
                 },
                 "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "$anon",
-                  "module": ".",
-                  "symbol": "mockFetch",
-                  "version": "0.0.0",
+                  "node": "RETURN",
                   "lineRange": {
-                    "fileName": "wait.bal",
+                    "fileName": "fork.bal",
                     "startLine": {
-                      "line": 52,
+                      "line": 35,
                       "offset": 8
                     },
                     "endLine": {
-                      "line": 52,
-                      "offset": 44
+                      "line": 35,
+                      "offset": 19
                     }
                   },
-                  "sourceCode": "return mockFetch(\"http://a.com\", 2);"
+                  "sourceCode": "return \"C\";"
                 },
                 "returning": true,
                 "properties": {
-                  "view": {
+                  "expression": {
                     "metadata": {
-                      "label": "View",
-                      "description": "Function definition location"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
-                    "valueType": "VIEW",
-                    "value": {
-                      "fileName": "wait.bal",
-                      "startLine": {
-                        "line": 4,
-                        "offset": 0
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 1
-                      }
-                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"C\"",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "advanced": false
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"http://a.com\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "url"
-                    }
-                  },
-                  "delay": {
-                    "metadata": {
-                      "label": "delay"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "decimal",
-                    "value": "2",
-                    "placeholder": "0.0d",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "delay"
-                    }
-                  }
-                },
-                "flags": 0
-              }
-            ]
-          },
-          {
-            "label": "Body",
-            "kind": "WORKER",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "wait.bal",
-                "startLine": {
-                  "line": 55,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 57,
-                  "offset": 5
-                }
-              },
-              "sourceCode": "worker B returns string|error {\n        return mockFetch(\"http://b.com\", 1);\n    }"
-            },
-            "repeatable": "ONE_OR_MORE",
-            "properties": {
-              "type": {
-                "metadata": {
-                  "label": "Return Type",
-                  "description": "Return type of the function/worker"
-                },
-                "valueType": "TYPE",
-                "value": "string|error",
-                "optional": true,
-                "editable": true,
-                "advanced": false
-              }
-            },
-            "children": [
-              {
-                "id": "87588",
-                "metadata": {
-                  "label": "mockFetch",
-                  "description": ""
-                },
-                "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "$anon",
-                  "module": ".",
-                  "symbol": "mockFetch",
-                  "version": "0.0.0",
-                  "lineRange": {
-                    "fileName": "wait.bal",
-                    "startLine": {
-                      "line": 56,
-                      "offset": 8
-                    },
-                    "endLine": {
-                      "line": 56,
-                      "offset": 44
-                    }
-                  },
-                  "sourceCode": "return mockFetch(\"http://b.com\", 1);"
-                },
-                "returning": true,
-                "properties": {
-                  "view": {
-                    "metadata": {
-                      "label": "View",
-                      "description": "Function definition location"
-                    },
-                    "valueType": "VIEW",
-                    "value": {
-                      "fileName": "wait.bal",
-                      "startLine": {
-                        "line": 4,
-                        "offset": 0
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 1
-                      }
-                    },
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"http://b.com\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "url"
-                    }
-                  },
-                  "delay": {
-                    "metadata": {
-                      "label": "delay"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "decimal",
-                    "value": "1",
-                    "placeholder": "0.0d",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "delay"
-                    }
-                  }
-                },
-                "flags": 0
-              }
-            ]
-          },
-          {
-            "label": "Body",
-            "kind": "WORKER",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "wait.bal",
-                "startLine": {
-                  "line": 59,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 61,
-                  "offset": 5
-                }
-              },
-              "sourceCode": "worker C returns string|error {\n        return mockFetch(\"http://c.com\", 3);\n    }"
-            },
-            "repeatable": "ONE_OR_MORE",
-            "properties": {
-              "type": {
-                "metadata": {
-                  "label": "Return Type",
-                  "description": "Return type of the function/worker"
-                },
-                "valueType": "TYPE",
-                "value": "string|error",
-                "optional": true,
-                "editable": true,
-                "advanced": false
-              }
-            },
-            "children": [
-              {
-                "id": "91556",
-                "metadata": {
-                  "label": "mockFetch",
-                  "description": ""
-                },
-                "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "$anon",
-                  "module": ".",
-                  "symbol": "mockFetch",
-                  "version": "0.0.0",
-                  "lineRange": {
-                    "fileName": "wait.bal",
-                    "startLine": {
-                      "line": 60,
-                      "offset": 8
-                    },
-                    "endLine": {
-                      "line": 60,
-                      "offset": 44
-                    }
-                  },
-                  "sourceCode": "return mockFetch(\"http://c.com\", 3);"
-                },
-                "returning": true,
-                "properties": {
-                  "view": {
-                    "metadata": {
-                      "label": "View",
-                      "description": "Function definition location"
-                    },
-                    "valueType": "VIEW",
-                    "value": {
-                      "fileName": "wait.bal",
-                      "startLine": {
-                        "line": 4,
-                        "offset": 0
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 1
-                      }
-                    },
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"http://c.com\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "url"
-                    }
-                  },
-                  "delay": {
-                    "metadata": {
-                      "label": "delay"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "decimal",
-                    "value": "3",
-                    "placeholder": "0.0d",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "delay"
-                    }
                   }
                 },
                 "flags": 0
@@ -404,7 +292,7 @@
         "flags": 0
       },
       {
-        "id": "94405",
+        "id": "69605",
         "metadata": {
           "label": "Wait",
           "description": "Wait for a set of futures to complete"
@@ -412,13 +300,13 @@
         "codedata": {
           "node": "WAIT",
           "lineRange": {
-            "fileName": "wait.bal",
+            "fileName": "fork.bal",
             "startLine": {
-              "line": 63,
+              "line": 38,
               "offset": 4
             },
             "endLine": {
-              "line": 63,
+              "line": 38,
               "offset": 41
             }
           },
@@ -587,7 +475,7 @@
         "flags": 0
       },
       {
-        "id": "95374",
+        "id": "70574",
         "metadata": {
           "label": "Return",
           "description": "Value of 'result'"
@@ -595,13 +483,13 @@
         "codedata": {
           "node": "RETURN",
           "lineRange": {
-            "fileName": "wait.bal",
+            "fileName": "fork.bal",
             "startLine": {
-              "line": 64,
+              "line": 39,
               "offset": 4
             },
             "endLine": {
-              "line": 64,
+              "line": 39,
               "offset": 18
             }
           },

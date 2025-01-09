@@ -82,6 +82,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String TYPE_ARRAY_SIZE_LABEL = "Size of the array";
     public static final String TYPE_ARRAY_SIZE_DOC = "Array dimensions";
 
+    public static final String RETURN_TYPE_LABEL = "Return Type";
+    public static final String RETURN_TYPE_DOC = "Return type of the function/worker";
+
     public static final String EXPRESSION_KEY = "expression";
     public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_DOC = "Expression";
