@@ -449,6 +449,30 @@ public class ServiceModelAPITests {
     }
 
     @Test
+    public void testAddTriggerFunction() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample7/main.bal");
+        Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(4, 0),
+                LinePosition.from(11, 1)));
+        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(
+                filePath.toAbsolutePath().toString(), codedata);
+        CompletableFuture<?> sourceResult = serviceEndpoint.request("serviceDesign/getServiceFromSource",
+                sourceRequest);
+        ServiceFromSourceResponse sourceResponse = (ServiceFromSourceResponse) sourceResult.get();
+        Service service = sourceResponse.service();
+        Assert.assertTrue(Objects.nonNull(service));
+
+        Function onErrorFunction = service.getFunctions().get(1);
+        onErrorFunction.setEnabled(true);
+
+        FunctionSourceRequest request = new FunctionSourceRequest(filePath.toAbsolutePath().toString(),
+                onErrorFunction, codedata);
+        CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/addFunction", request);
+        CommonSourceResponse response = (CommonSourceResponse) result.get();
+        Assert.assertTrue(Objects.nonNull(response.textEdits()));
+        Assert.assertFalse(response.textEdits().isEmpty());
+    }
+
+    @Test
     public void testUpdateHttpListener() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample3/main.bal");
         Codedata codedata = new Codedata(LineRange.from("main.bal", LinePosition.from(5, 0),
@@ -514,6 +538,14 @@ public class ServiceModelAPITests {
         Function function = service.getFunctions().get(1);
         function.getAccessor().setValue("put");
         function.getReturnType().setValue("");
+        List<HttpResponse> responses = function.getReturnType().getResponses();
+
+        HttpResponse response1 = new HttpResponse("204", "map<int>", "NoContent");
+        response1.setCreateStatusCodeResponse(new Value("true", "BOOLEAN", true));
+        responses.add(response1);
+
+        HttpResponse response2 = new HttpResponse("map<string>");
+        responses.add(response2);
 
         FunctionModifierRequest updateRequest = new FunctionModifierRequest(filePath.toAbsolutePath().toString(),
                 function);

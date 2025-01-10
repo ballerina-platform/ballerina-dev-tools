@@ -13,10 +13,15 @@ service /api/test on httpListener {
         }
     }
 
-    resource function get greeting/[string name](@http:Header string header, int id = 45) returns record {|*http:NonAuthoritativeInformation; json body;|} {
+    resource function get greeting/[string name](@http:Header string header, int id = 45) returns OkResponse {
         do {
         } on fail error err {
             // handle error
         }
     }
 }
+
+public type OkResponse record {|
+    *http:Ok;
+    json body;
+|};

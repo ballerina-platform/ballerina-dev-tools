@@ -23,16 +23,18 @@ public class HttpResponse {
     private Value body;
     private Value name;
     private Value createStatusCodeResponse;
+    private Value type;
 
     public HttpResponse() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
-    public HttpResponse(Value statusCode, Value body, Value name, Value createStatusCodeResponse) {
+    public HttpResponse(Value statusCode, Value body, Value name, Value createStatusCodeResponse, Value type) {
         this.statusCode = statusCode;
         this.body = body;
         this.name = name;
         this.createStatusCodeResponse = createStatusCodeResponse;
+        this.type = type;
     }
 
     public HttpResponse(String statusCode, String body) {
@@ -40,10 +42,21 @@ public class HttpResponse {
         this.body = new Value(body, "EXPRESSION", true);
     }
 
+    public HttpResponse(String type) {
+        this.type = new Value(type, "EXPRESSION", true);
+    }
+
     public HttpResponse(String statusCode, String body, String name) {
         this.statusCode = new Value(statusCode, "EXPRESSION", true);
         this.body = new Value(body, "EXPRESSION", true);
         this.name = new Value(name, "EXPRESSION", true);
+    }
+
+    public HttpResponse(String statusCode, String body, String name, String type) {
+        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.body = new Value(body, "EXPRESSION", true);
+        this.name = new Value(name, "EXPRESSION", true);
+        this.type = new Value(name, "EXPRESSION", true);
     }
 
     public Value getStatusCode() {
@@ -76,5 +89,13 @@ public class HttpResponse {
 
     public void setCreateStatusCodeResponse(Value createStatusCodeResponse) {
         this.createStatusCodeResponse = createStatusCodeResponse;
+    }
+
+    public Value getType() {
+        return type;
+    }
+
+    public void setType(Value type) {
+        this.type = type;
     }
 }

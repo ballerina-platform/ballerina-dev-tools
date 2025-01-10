@@ -300,7 +300,7 @@
             "label": "Status Code",
             "description": "The status code"
           },
-          "enabled": true,
+          "enabled": false,
           "editable": false,
           "value": "",
           "valueType": "SINGLE_SELECT",
@@ -327,7 +327,7 @@
             "label": "Body",
             "description": "The response body"
           },
-          "enabled": true,
+          "enabled": false,
           "editable": false,
           "value": "",
           "valueType": "TYPE",
@@ -362,6 +362,21 @@
           "value": "",
           "valueType": "EXPRESSION",
           "valueTypeConstraint": "anydata",
+          "isType": true,
+          "placeholder": "",
+          "optional": true,
+          "advanced": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Response Type",
+            "description": "The response type"
+          },
+          "enabled": false,
+          "editable": false,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "anydata|http:StatusCodeResponse",
           "isType": true,
           "placeholder": "",
           "optional": true,

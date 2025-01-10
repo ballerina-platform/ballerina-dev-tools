@@ -206,4 +206,8 @@ public class Value {
     public Value getProperty(String key) {
         return properties.get(key);
     }
+
+    public boolean isAddNewButton() {
+        return addNewButton;
+    }
 }

@@ -580,7 +580,8 @@ public final class Utils {
                 .map(type -> getTypeName(type, currentModuleName))
                 .collect(Collectors.joining("|"));
         if (!normalResponseBody.isEmpty()) {
-            HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody, "");
+            HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody,
+                    normalResponseBody, normalResponseBody);
             responses.add(normalResponse);
         }
         return responses;
@@ -622,14 +623,12 @@ public final class Utils {
         String name = null;
         if (statusCodeRecordType.isPresent()) {
             bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
-            if (statusCodeRecordType.get().typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-                name = getTypeName(statusCodeResponseType, currentModuleName);
-            }
+            name = getTypeName(statusCodeResponseType, currentModuleName);
         }
         if (Objects.isNull(name)) {
             return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName));
         }
-        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName), name);
+        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName), name, name);
     }
 
     static String getTypeName(TypeSymbol typeSymbol, String currentModuleName) {
@@ -1072,6 +1071,9 @@ public final class Utils {
     }
 
     public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
+        if (Objects.nonNull(response.getType()) && response.getType().isEnabledWithValue()) {
+            return response.getType().getValue();
+        }
         if (Objects.isNull(response.getBody()) || !response.getBody().isEnabledWithValue()) {
             if (!response.getStatusCode().isEnabledWithValue()) {
                 return "anydata";
