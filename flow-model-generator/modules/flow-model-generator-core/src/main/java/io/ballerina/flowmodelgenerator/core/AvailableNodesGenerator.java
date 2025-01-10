@@ -147,7 +147,7 @@ public class AvailableNodesGenerator {
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
-                .node(NodeKind.DATA_MAPPER);
+                .node(NodeKind.DATA_MAPPER_CALL);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
