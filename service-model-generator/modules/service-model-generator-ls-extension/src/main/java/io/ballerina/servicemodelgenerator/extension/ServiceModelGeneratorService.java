@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -206,7 +206,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             try {
                 List<TextEdit> edits = new ArrayList<>();
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -375,7 +375,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -553,7 +553,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             try {
                 List<TextEdit> edits = new ArrayList<>();
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -574,7 +574,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
-                String functionNode = "\n\t" + getFunction(request.function(), new ArrayList<>())
+                String functionNode = System.lineSeparator() + "\t" + getFunction(request.function(), new ArrayList<>())
                         .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -590,7 +590,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             try {
                 List<TextEdit> edits = new ArrayList<>();
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -652,7 +652,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 List<TextEdit> edits = new ArrayList<>();
                 Service service = request.service();
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -675,7 +675,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     if (!nodes.isEmpty()) {
                         LinePosition startPos = nodes.get(0).lineRange().startLine();
                         LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
-                        LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);;
+                        LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
                         TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), basePath);
                         edits.add(basePathEdit);
                     }
@@ -704,7 +704,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 List<TextEdit> edits = new ArrayList<>();
                 Listener listener = request.listener();
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
