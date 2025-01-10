@@ -414,78 +414,79 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     @JsonRequest
     public CompletableFuture<ServiceFromSourceResponse> getServiceFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
+            Path filePath = Path.of(request.filePath());
+            Project project;
             try {
-                Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Package currentPackage = project.currentPackage();
-                Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-                ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty() || Objects.isNull(semanticModel)) {
-                    return new ServiceFromSourceResponse();
-                }
-                SyntaxTree syntaxTree = document.get().syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.codedata().getLineRange();
-                int start = textDocument.textPositionFrom(lineRange.startLine());
-                int end = textDocument.textPositionFrom(lineRange.endLine());
-                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
-                    return new ServiceFromSourceResponse();
-                }
-                ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-                Optional<String> serviceName = getServiceName(serviceNode, semanticModel);
-                if (serviceName.isEmpty()) {
-                    return new ServiceFromSourceResponse();
-                }
-                Optional<Service> service = getServiceByName(serviceName.get());
-                if (service.isEmpty()) {
-                    return new ServiceFromSourceResponse();
-                }
-                Service serviceModel = service.get();
-                Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
-                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
-                    String serviceContractName = serviceTypeDesc.get().toString().trim();
-                    Path contractPath = project.sourceRoot().toAbsolutePath()
-                            .resolve(String.format("service_contract_%s.bal", serviceContractName));
-                    Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
-                    if (contractDoc.isEmpty()) {
-                        updateServiceModel(serviceModel, serviceNode, semanticModel);
-                    } else {
-                        SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
-                        ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
-                        Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
-                                .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
-                                .map(member -> ((TypeDefinitionNode) member))
-                                .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
-                                .findFirst();
-                        if (serviceContractType.isEmpty()) {
-                            updateServiceModel(serviceModel, serviceNode, semanticModel);
-                        } else {
-                            updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
-                                    semanticModel);
-                        }
-                    }
-                } else {
-                    updateServiceModel(serviceModel, serviceNode, semanticModel);
-                }
-                List<String> listenersList = getCompatibleListeners(serviceName.get(), modulePartNode,
-                        semanticModel);
-                Value listener = serviceModel.getListener();
-                if (!listenersList.isEmpty()) {
-                    if (serviceName.get().equals("kafka")) {
-                        listener.setValueType("SINGLE_SELECT");
-                    } else {
-                        listener.setValueType("MULTIPLE_SELECT");
-                    }
-                    listener.setItems(listenersList);
-                }
-                return new ServiceFromSourceResponse(serviceModel);
+                project = this.workspaceManager.loadProject(filePath);
             } catch (Exception e) {
                 return new ServiceFromSourceResponse(e);
             }
+            Package currentPackage = project.currentPackage();
+            Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+            ModuleId moduleId = module.moduleId();
+            SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+            Optional<Document> document = this.workspaceManager.document(filePath);
+            if (document.isEmpty() || Objects.isNull(semanticModel)) {
+                return new ServiceFromSourceResponse();
+            }
+            SyntaxTree syntaxTree = document.get().syntaxTree();
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            TextDocument textDocument = syntaxTree.textDocument();
+            LineRange lineRange = request.codedata().getLineRange();
+            int start = textDocument.textPositionFrom(lineRange.startLine());
+            int end = textDocument.textPositionFrom(lineRange.endLine());
+            NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+            if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
+                return new ServiceFromSourceResponse();
+            }
+            ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
+            Optional<String> serviceName = getServiceName(serviceNode, semanticModel);
+            if (serviceName.isEmpty()) {
+                return new ServiceFromSourceResponse();
+            }
+            Optional<Service> service = getServiceByName(serviceName.get());
+            if (service.isEmpty()) {
+                return new ServiceFromSourceResponse();
+            }
+            Service serviceModel = service.get();
+            Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
+            if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
+                String serviceContractName = serviceTypeDesc.get().toString().trim();
+                Path contractPath = project.sourceRoot().toAbsolutePath()
+                        .resolve(String.format("service_contract_%s.bal", serviceContractName));
+                Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
+                if (contractDoc.isEmpty()) {
+                    updateServiceModel(serviceModel, serviceNode, semanticModel);
+                } else {
+                    SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
+                    ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
+                    Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
+                            .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
+                            .map(member -> ((TypeDefinitionNode) member))
+                            .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
+                            .findFirst();
+                    if (serviceContractType.isEmpty()) {
+                        updateServiceModel(serviceModel, serviceNode, semanticModel);
+                    } else {
+                        updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
+                                semanticModel);
+                    }
+                }
+            } else {
+                updateServiceModel(serviceModel, serviceNode, semanticModel);
+            }
+            List<String> listenersList = getCompatibleListeners(serviceName.get(), modulePartNode,
+                    semanticModel);
+            Value listener = serviceModel.getListener();
+            if (!listenersList.isEmpty()) {
+                if (serviceName.get().equals("kafka")) {
+                    listener.setValueType("SINGLE_SELECT");
+                } else {
+                    listener.setValueType("MULTIPLE_SELECT");
+                }
+                listener.setItems(listenersList);
+            }
+            return new ServiceFromSourceResponse(serviceModel);
         });
     }
 
