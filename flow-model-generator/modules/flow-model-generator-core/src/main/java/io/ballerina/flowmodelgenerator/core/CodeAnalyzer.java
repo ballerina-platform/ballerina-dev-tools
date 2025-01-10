@@ -25,7 +25,6 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -1075,7 +1074,6 @@ class CodeAnalyzer extends NodeVisitor {
 
         Optional<Documentation> documentation = functionSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
-        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
 
         String functionName = switch (nameReferenceNode.kind()) {
             case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
@@ -1089,52 +1087,30 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
 
-//        if (dataMappings.containsKey(functionName)) {
-//            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode.parent()).properties()
-//                    .functionName(functionName)
-//                    .output(this.typedBindingPatternNode);
-//            Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
-//            if (funcParams.isPresent()) {
-//                List<ParameterSymbol> params = funcParams.get().stream()
-//                        .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-//                        .toList();
-//                nodeBuilder.properties().inputs(arguments, params);
-//            }
-//            nodeBuilder.properties().view(dataMappings.get(functionName));
-//        } else {
-//            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
-            if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
-                functionSymbol.getLocation()
-                        .flatMap(location -> CommonUtil.findNode(functionSymbol,
-                                CommonUtils.getDocument(project, location).syntaxTree()))
-                        .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
-            }
-            nodeBuilder
-                    .symbolInfo(functionSymbol)
-                    .metadata()
-                    .label(functionName)
-                    .description(description)
-                    .stepOut()
-                    .codedata()
-                    .symbol(functionName);
+        if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
+            functionSymbol.getLocation()
+                    .flatMap(location -> CommonUtil.findNode(functionSymbol,
+                            CommonUtils.getDocument(project, location).syntaxTree()))
+                    .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
+        }
 
-            DatabaseManager dbManager = DatabaseManager.getInstance();
-            ModuleID id = functionSymbol.getModule().get().id();
-            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                    functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        ModuleID id = functionSymbol.getModule().get().id();
+        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
 
-            final Map<String, Node> namedArgValueMap = new HashMap<>();
-            final Queue<Node> positionalArgs = new LinkedList<>();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, functionCallExpressionNode.arguments());
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
 
-            if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHandleExprArgs(functionCallExpressionNode.arguments(), dbManager, functionResult.get(),
-                        functionSymbol, positionalArgs, namedArgValueMap);
-            } else {
-                handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(), functionSymbol);
-            }
-            handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
-//        }
+        if (functionResult.isPresent()) { // function details are indexed
+            analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(), functionSymbol, positionalArgs,
+                    namedArgValueMap);
+        } else {
+            handleFunctionCallActionCallsParams(arguments, functionSymbol);
+        }
+        handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
 
         nodeBuilder
                 .symbolInfo(functionSymbol)

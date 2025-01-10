@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -20,10 +20,18 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 
+/**
+ * Represents the properties of a data mapper call node.
+ *
+ * @since 2.0.0
+ */
 public class DataMapperCallBuilder extends FunctionCall {
+
+    public static final String LABEL = "Map Data";
 
     @Override
     public void setConcreteConstData() {
+        metadata().label(LABEL);
         codedata().node(NodeKind.DATA_MAPPER_CALL);
     }
 }
