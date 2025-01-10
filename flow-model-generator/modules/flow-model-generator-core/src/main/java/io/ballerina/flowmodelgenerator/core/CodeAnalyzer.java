@@ -1084,19 +1084,25 @@ class CodeAnalyzer extends NodeVisitor {
         };
 
         if (dataMappings.containsKey(functionName)) {
-            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode.parent()).properties()
-                    .functionName(functionName)
-                    .output(this.typedBindingPatternNode);
-            Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
-            if (funcParams.isPresent()) {
-                List<ParameterSymbol> params = funcParams.get().stream()
-                        .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
-                        .toList();
-                nodeBuilder.properties().inputs(arguments, params);
-            }
-            nodeBuilder.properties().view(dataMappings.get(functionName));
+            startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
+        }
+
+//        if (dataMappings.containsKey(functionName)) {
+//            startNode(NodeKind.DATA_MAPPER, functionCallExpressionNode.parent()).properties()
+//                    .functionName(functionName)
+//                    .output(this.typedBindingPatternNode);
+//            Optional<List<ParameterSymbol>> funcParams = functionSymbol.typeDescriptor().params();
+//            if (funcParams.isPresent()) {
+//                List<ParameterSymbol> params = funcParams.get().stream()
+//                        .filter(p -> p.paramKind() != ParameterKind.INCLUDED_RECORD)
+//                        .toList();
+//                nodeBuilder.properties().inputs(arguments, params);
+//            }
+//            nodeBuilder.properties().view(dataMappings.get(functionName));
+//        } else {
+//            startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
             if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
                 functionSymbol.getLocation()
                         .flatMap(location -> CommonUtil.findNode(functionSymbol,
@@ -1128,7 +1134,7 @@ class CodeAnalyzer extends NodeVisitor {
                 handleFunctionCallActionCallsParams(functionCallExpressionNode.arguments(), functionSymbol);
             }
             handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
-        }
+//        }
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
