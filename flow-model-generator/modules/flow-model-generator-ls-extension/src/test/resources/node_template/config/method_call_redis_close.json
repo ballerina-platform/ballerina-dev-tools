@@ -1,0 +1,47 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "METHOD_CALL",
+    "org": "ballerinax",
+    "module": "redis",
+    "object": "Client",
+    "symbol": "close",
+    "parentSymbol": "rc",
+    "version": "3.0.2"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "close",
+      "description": "Close the connection.\n"
+    },
+    "codedata": {
+      "node": "METHOD_CALL",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "close",
+      "version": "3.0.2"
+    },
+    "returning": false,
+    "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}
