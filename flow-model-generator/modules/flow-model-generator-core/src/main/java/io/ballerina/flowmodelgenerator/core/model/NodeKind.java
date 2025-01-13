@@ -44,6 +44,7 @@ public enum NodeKind {
     FORK,
     PARALLEL_FLOW,
     WAIT,
+    DATA_MAPPER_CALL,
 
     // Branches
     CONDITIONAL,
@@ -58,5 +59,11 @@ public enum NodeKind {
     ARRAY,
     UNION,
     ERROR,
-    DATA_MAPPER_CALL
+    MAP,
+    STREAM,
+    FUTURE,
+    TYPEDESC,
+    CLASS,
+    OBJECT,
+    INTERSECTION
 }

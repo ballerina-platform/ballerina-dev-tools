@@ -44,6 +44,7 @@ public record TypeData(
         Map<String, Member> members,
         Member restMember,
         List<String> includes,
+        List<Function> functions,
         List<Annotation> annotations
 ) {
 
@@ -53,6 +54,7 @@ public record TypeData(
         private boolean editable = false;
         private Map<String, Member> members;
         private Member restMember;
+        private List<Function> functions;
         private List<String> includes;
         private List<TypeData.Annotation> annotations;
         protected Metadata.Builder<TypeDataBuilder> metadataBuilder;
@@ -106,6 +108,11 @@ public record TypeData(
             return this;
         }
 
+        public TypeDataBuilder functions(List<Function> functions) {
+            this.functions = functions;
+            return this;
+        }
+
         public TypeDataBuilder includes(List<String> includes) {
             this.includes = includes;
             return this;
@@ -141,6 +148,7 @@ public record TypeData(
                     members,
                     restMember,
                     includes,
+                    functions,
                     annotations
             );
         }
