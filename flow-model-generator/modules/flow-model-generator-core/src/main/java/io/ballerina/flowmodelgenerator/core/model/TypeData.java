@@ -33,6 +33,7 @@ import java.util.Map;
  * @param members       members of the type
  * @param restMember    rest member of the type
  * @param includes      type inclusions of the type
+ * @param functions     functions of a class or object
  * @param annotations   annotations of the type
  */
 public record TypeData(
@@ -65,6 +66,10 @@ public record TypeData(
         protected DiagnosticHandler diagnosticHandler;
 
         public TypeDataBuilder() {
+        }
+
+        public String name() {
+            return this.name;
         }
 
         public TypeDataBuilder name(String name) {

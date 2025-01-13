@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
@@ -32,16 +31,13 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
-import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.utils.TypeDefinitionNodeVisitor;
+import io.ballerina.flowmodelgenerator.core.utils.TypeTransformer;
 import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -67,7 +63,6 @@ public class TypesManager {
     private static final Gson gson = new Gson();
     private final Module module;
     private final Document typeDocument;
-    private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
     private static final List<SymbolKind> supportedSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.ENUM,
             SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS);
 
@@ -112,12 +107,13 @@ public class TypesManager {
             addMemberTypes(typeSymbol, symbolMap);
         });
 
-        List<TypeData> allTypes = new ArrayList<>();
+        List<Object> allTypes = new ArrayList<>();
+        TypeTransformer typeTransformer = new TypeTransformer(this.module);
         symbolMap.values().forEach(symbol -> {
             if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol;
                 if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-                    allTypes.add(getRecordType(typeDef));
+                    allTypes.add(typeTransformer.transform(typeDef));
                 }
             }
         });
@@ -137,7 +133,8 @@ public class TypesManager {
                 TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
                 if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
                     // Only supports records so far. TODO: support unions, array, errors
-                    return gson.toJsonTree(getRecordType(typeDef));
+                    TypeTransformer typeTransformer = new TypeTransformer(this.module);
+                    return gson.toJsonTree(typeTransformer.transform(typeDef));
                 }
                 return null;
             }
@@ -252,88 +249,6 @@ public class TypesManager {
         }
     }
 
-    private TypeData getRecordType(TypeDefinitionSymbol recTypeDefSymbol) {
-        TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
-        ModuleInfo currentModuleInfo = ModuleInfo.from(this.module.descriptor());
-
-        String typeName;
-        if (CommonUtils.isWithinPackage(recTypeDefSymbol, currentModuleInfo)) {
-            typeName = recTypeDefSymbol.getName().get();
-        } else {
-            ModuleID recTypeModuleId = recTypeDefSymbol.getModule().get().id();
-            typeName = String.format("%s/%s:%s",
-                    recTypeModuleId.orgName(), recTypeModuleId.packageName(), recTypeDefSymbol.getName().get());
-        }
-
-        // metadata and codedata
-        typeDataBuilder
-                .name(typeName)
-                .editable()
-                .metadata()
-                .label(typeName)
-                .description(recTypeDefSymbol.documentation().isEmpty() ? "" :
-                        recTypeDefSymbol.documentation().get().description().orElse(""))
-                .stepOut()
-                .codedata()
-                .lineRange(recTypeDefSymbol.getLocation().get().lineRange())
-                .node(NodeKind.RECORD);
-
-        // properties
-        typeDataBuilder.properties()
-                .name(typeName, false, true, false)
-                .description(
-                        recTypeDefSymbol.documentation().isEmpty() ? ""
-                                : recTypeDefSymbol.documentation().get().description().orElse(""),
-                        false, true, false)
-                .isArray("false", true, true, true)
-                .arraySize("", true, true, true);
-
-        RecordTypeSymbol typeDesc = (RecordTypeSymbol) recTypeDefSymbol.typeDescriptor();
-
-        // includes
-        List<String> inclusions = new ArrayList<>();
-        typeDesc.typeInclusions().forEach(inc -> {
-            if (inc.typeKind() == TypeDescKind.TYPE_REFERENCE) {
-                inclusions.add(TypeUtils.generateReferencedTypeId(inc, currentModuleInfo));
-            }
-        });
-        typeDataBuilder.includes(inclusions);
-
-        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-
-        // rest member
-        Optional<TypeSymbol> restTypeDesc = typeDesc.restTypeDescriptor();
-        if (restTypeDesc.isPresent()) {
-            TypeSymbol restTypeSymbol = restTypeDesc.get();
-            typeDataBuilder.restMember(memberBuilder
-                    .kind(Member.MemberKind.FIELD)
-                    .type(CommonUtils.getTypeSignature(restTypeSymbol, currentModuleInfo))
-                    .refs(TypeUtils.getTypeRefIds(restTypeSymbol, currentModuleInfo))
-                    .build());
-        }
-
-        // members
-        Map<String, Member> fieldMembers = new HashMap<>();
-        typeDesc.fieldDescriptors().forEach((name, field) -> {
-            TypeSymbol fieldTypeDesc = field.typeDescriptor();
-            fieldMembers.put(name,
-                    memberBuilder
-                            .kind(Member.MemberKind.FIELD)
-                            .type(CommonUtils.getTypeSignature(fieldTypeDesc, currentModuleInfo))
-                            .refs(TypeUtils.getTypeRefIds(fieldTypeDesc, currentModuleInfo))
-                            .name(name)
-                            .docs(field.documentation().isEmpty() ? ""
-                                    : field.documentation().get().description().orElse(""))
-                            .defaultValue(getDefaultValueOfField(typeName, name).orElse(null))
-                            .build());
-        });
-        typeDataBuilder.members(fieldMembers);
-
-        // TODO: Add support for annotations
-
-        return typeDataBuilder.build();
-    }
-
     private String createRecordTypeDefCodeSnippet(TypeData typeData) {
         StringBuilder recordBuilder = new StringBuilder();
 
@@ -381,32 +296,5 @@ public class TypesManager {
         recordBuilder.append("|};\n");
 
         return recordBuilder.toString();
-    }
-
-    private Map<String, RecordTypeDescriptorNode> getRecordTypeDescNodes() {
-        if (this.recordTypeDescNodes != null) {
-            return this.recordTypeDescNodes;
-        }
-        TypeDefinitionNodeVisitor typeDefNodeVisitor = new TypeDefinitionNodeVisitor();
-        this.module.documentIds().forEach(documentId -> {
-            Document document = this.module.document(documentId);
-            SyntaxTree syntaxTree = document.syntaxTree();
-            syntaxTree.rootNode().accept(typeDefNodeVisitor);
-        });
-        this.recordTypeDescNodes = typeDefNodeVisitor.getRecordTypeDescNodes();
-        return this.recordTypeDescNodes;
-    }
-
-    private Optional<String> getDefaultValueOfField(String typeName, String fieldName) {
-        RecordTypeDescriptorNode recordTypeDescriptorNode = getRecordTypeDescNodes().get(typeName);
-        if (recordTypeDescriptorNode == null) {
-            return Optional.empty();
-        }
-        return recordTypeDescriptorNode.fields().stream()
-                .filter(field ->
-                        field.kind() == SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE &&
-                                ((RecordFieldWithDefaultValueNode) field).fieldName().text().equals(fieldName))
-                .findFirst()
-                .map(node -> ((RecordFieldWithDefaultValueNode) node).expression().toString());
     }
 }
