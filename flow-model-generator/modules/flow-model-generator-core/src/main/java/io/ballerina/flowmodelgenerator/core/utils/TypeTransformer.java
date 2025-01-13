@@ -19,10 +19,16 @@
 package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
+import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
+import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
@@ -143,9 +149,39 @@ public class TypeTransformer {
         return typeDataBuilder.build();
     }
 
+    public Object transform(ArrayTypeSymbol arrayTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(arrayTypeSymbol, NodeKind.ARRAY, typeDataBuilder);
+    }
+
+    public Object transform(MapTypeSymbol mapTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(mapTypeSymbol, NodeKind.MAP, typeDataBuilder);
+    }
+
+    public Object transform(StreamTypeSymbol streamTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(streamTypeSymbol, NodeKind.STREAM, typeDataBuilder);
+    }
+
+    public Object transform(FutureTypeSymbol futureTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(futureTypeSymbol, NodeKind.FUTURE, typeDataBuilder);
+    }
+
+    public Object transform(TypeDescTypeSymbol typeDescTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(typeDescTypeSymbol, NodeKind.TYPEDESC, typeDataBuilder);
+    }
+
+    public Object transform(ErrorTypeSymbol errorTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        return transformTypesWithConstraintType(errorTypeSymbol, NodeKind.ERROR, typeDataBuilder);
+    }
+
     public Object transform(TypeSymbol typeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
         return switch (typeSymbol.typeKind()) {
             case RECORD -> transform((RecordTypeSymbol) typeSymbol, typeDataBuilder);
+            case ARRAY -> transform((ArrayTypeSymbol) typeSymbol, typeDataBuilder);
+            case MAP -> transform((MapTypeSymbol) typeSymbol, typeDataBuilder);
+            case STREAM -> transform((StreamTypeSymbol) typeSymbol, typeDataBuilder);
+            case FUTURE -> transform((FutureTypeSymbol) typeSymbol, typeDataBuilder);
+            case TYPEDESC -> transform((TypeDescTypeSymbol) typeSymbol, typeDataBuilder);
+            case ERROR -> transform((ErrorTypeSymbol) typeSymbol, typeDataBuilder);
             default -> CommonUtils.getTypeSignature(typeSymbol, this.moduleInfo);
         };
     }
@@ -183,5 +219,45 @@ public class TypeTransformer {
             return documentable.documentation().get().description().orElse("");
         }
         return null;
+    }
+
+    private Object transformTypesWithConstraintType(TypeSymbol typeSymbol,
+                                                    NodeKind nodeKind,
+                                                    TypeData.TypeDataBuilder typeDataBuilder) {
+        typeDataBuilder
+                .codedata()
+                    .node(nodeKind)
+                    .stepOut()
+                .properties()
+                    .isArray(nodeKind == NodeKind.ARRAY ? "true" : "false", true, true, true)
+                    .arraySize("", false, false, false);
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        TypeSymbol memberTypeDesc = switch (typeSymbol.typeKind()) {
+            case ARRAY -> ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor();
+            case MAP -> ((MapTypeSymbol) typeSymbol).typeParam();
+            case FUTURE -> ((FutureTypeSymbol) typeSymbol).typeParameter().orElse(null);
+            case STREAM -> ((StreamTypeSymbol) typeSymbol).typeParameter();
+            case TYPEDESC -> ((TypeDescTypeSymbol) typeSymbol).typeParameter().orElse(null);
+            case ERROR -> ((ErrorTypeSymbol) typeSymbol).detailTypeDescriptor();
+            default -> null;
+        };
+
+        if (memberTypeDesc == null) {
+            return typeDataBuilder.build();
+        }
+
+        String memberTypeName = CommonUtils.getTypeSignature(memberTypeDesc, moduleInfo);
+        TypeData.TypeDataBuilder memberTypeDataBuilder = new TypeData.TypeDataBuilder();
+        Object transformedMemberType = transform(memberTypeDesc, memberTypeDataBuilder);
+        Member memberType = memberBuilder
+                .name(memberTypeName)
+                .type(transformedMemberType)
+                .refs(transformedMemberType instanceof String ?
+                        TypeUtils.getTypeRefIds(memberTypeDesc, moduleInfo) : List.of())
+                .build();
+        typeDataBuilder.members(Map.of(memberTypeName, memberType));
+
+        return typeDataBuilder.build();
     }
 }

@@ -188,10 +188,46 @@
         },
         "mixField3": {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "map<Address>",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "MAP"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            }
+          },
           "name": "mixField3",
           "docs": ""
         },
@@ -287,10 +323,46 @@
         },
         "addresses": {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            }
+          },
           "name": "addresses",
           "docs": ""
         },
@@ -392,10 +464,46 @@
       "members": {
         "addresses": {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            }
+          },
           "name": "addresses",
           "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
           "docs": "addresses of the person"
