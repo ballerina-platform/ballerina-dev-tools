@@ -42,6 +42,7 @@ import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CommentNode;
 import io.ballerina.compiler.syntax.tree.CommitActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.ComputedResourceAccessSegmentNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
@@ -119,6 +120,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
+import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -310,10 +312,9 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
         SeparatedNodeList<Node> nodes = clientResourceAccessActionNode.resourceAccessPath();
-        String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
-        String fullPath = "/" + resourcePath;
 
-        String resourcePathTemplate = ParamUtils.buildResourcePathTemplate(methodSymbol);
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel,
+                methodSymbol, semanticModel.types().ERROR);
 
         startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
                 .symbolInfo(methodSymbol)
@@ -324,17 +325,56 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata()
                 .object("Client")
                 .symbol(methodName)
-                .resourcePath(resourcePathTemplate)
+                .resourcePath(resourcePathTemplate.resourcePathTemplate())
                 .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .resourcePath(fullPath)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
+
+        if (TypeUtils.isHttpModule(methodSymbol)) {
+            String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
+            String fullPath = "/" + resourcePath;
+            nodeBuilder.properties().resourcePath(fullPath, true);
+        } else {
+            nodeBuilder.properties().resourcePath(resourcePathTemplate.resourcePathTemplate(), false);
+
+            int idx = 0;
+            for (int i = 0; i < nodes.size(); i++) {
+                Node node = nodes.get(i);
+                if (nodes.size() <= idx) {
+                    break;
+                }
+                if (node instanceof ComputedResourceAccessSegmentNode computedResourceAccessSegmentNode) {
+                    ExpressionNode expr = computedResourceAccessSegmentNode.expression();
+                    ParameterResult paramResult = resourcePathTemplate.pathParams().get(idx);
+                    String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                    nodeBuilder.properties()
+                            .custom()
+                                .metadata()
+                                .label(unescapedParamName)
+                                .description(paramResult.description())
+                                .stepOut()
+                            .codedata()
+                                .kind(paramResult.kind().name())
+                                .originalName(paramResult.name())
+                                .stepOut()
+                            .value(expr.toSourceCode())
+                            .typeConstraint(paramResult.type())
+                            .type(Property.ValueType.EXPRESSION)
+                            .editable()
+                            .defaultable(paramResult.optional() == 1)
+                            .stepOut()
+                            .addProperty(unescapedParamName);
+                    idx++;
+                }
+            }
+        }
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
         Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), resourcePathTemplate, DatabaseManager.FunctionKind.RESOURCE);
+                symbol.get().getName().get(), resourcePathTemplate.resourcePathTemplate(),
+                DatabaseManager.FunctionKind.RESOURCE);
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -450,8 +490,11 @@ class CodeAnalyzer extends NodeVisitor {
             List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
             boolean hasOnlyRestParams = functionParameters.size() == 1;
             for (ParameterResult paramResult : functionParameters) {
-                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+                Parameter.Kind paramKind = paramResult.kind();
+
+                if (paramKind.equals(Parameter.Kind.PATH_PARAM) || paramKind.equals(Parameter.Kind.PATH_REST_PARAM)
+                        || paramKind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramKind.equals(Parameter.Kind.INCLUDED_RECORD)) {
                     continue;
                 }
 
@@ -459,30 +502,30 @@ class CodeAnalyzer extends NodeVisitor {
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
                 customPropBuilder
                         .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
+                            .label(unescapedParamName)
+                            .description(paramResult.description())
+                            .stepOut()
                         .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
+                            .kind(paramKind.name())
+                            .originalName(paramResult.name())
+                            .importStatements(paramResult.importStatements())
+                            .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
                         .editable()
                         .defaultable(paramResult.optional() == 1);
 
-                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (paramKind == Parameter.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+                } else if (paramKind == Parameter.Kind.REST_PARAMETER) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+                } else if (paramKind == Parameter.Kind.REQUIRED) {
                     customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
                 } else {
                     customPropBuilder.type(Property.ValueType.EXPRESSION);
