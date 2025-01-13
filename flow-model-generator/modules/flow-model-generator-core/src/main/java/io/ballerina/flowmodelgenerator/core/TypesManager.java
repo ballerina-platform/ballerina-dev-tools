@@ -68,6 +68,8 @@ public class TypesManager {
     private final Module module;
     private final Document typeDocument;
     private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
+    private static final List<SymbolKind> supportedSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.ENUM,
+            SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS);
 
     private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
         if (symbol.getName().isEmpty()) {
@@ -126,17 +128,32 @@ public class TypesManager {
     public JsonElement getType(Document document, LinePosition linePosition) {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
-        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.TYPE_DEFINITION) {
+        if (symbol.isEmpty() || !supportedSymbolKinds.contains(symbol.get().kind())) {
             return null;
         }
 
-        TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
-        // Only supports records so far. TODO: support unions, array, errors
-        if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-            return gson.toJsonTree(getRecordType(typeDef));
+        switch (symbol.get().kind()) {
+            case TYPE_DEFINITION -> {
+                TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
+                if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
+                    // Only supports records so far. TODO: support unions, array, errors
+                    return gson.toJsonTree(getRecordType(typeDef));
+                }
+                return null;
+            }
+            case SERVICE_DECLARATION -> {
+                return null;
+            }
+            case CLASS -> {
+                return null;
+            }
+            case ENUM -> {
+                return null;
+            }
+            default -> {
+                return null;
+            }
         }
-
-        return null;
     }
 
     public JsonElement updateType(Path filePath, TypeData typeData) {
