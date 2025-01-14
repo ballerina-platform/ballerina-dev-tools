@@ -167,12 +167,61 @@
       },
       "address": {
         "kind": "FIELD",
-        "refs": [
-          "xml",
-          "City",
-          "UserAddress"
-        ],
-        "type": "xml|City|UserAddress",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": {
+            "xml": {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "xml",
+              "name": "xml"
+            },
+            "UserAddress": {
+              "kind": "TYPE",
+              "refs": [
+                "UserAddress"
+              ],
+              "type": "UserAddress",
+              "name": "UserAddress"
+            },
+            "City": {
+              "kind": "TYPE",
+              "refs": [
+                "City"
+              ],
+              "type": "City",
+              "name": "City"
+            }
+          }
+        },
         "name": "address",
         "docs": "Union of of type-refs and a built-in type"
       },

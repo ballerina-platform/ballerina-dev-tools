@@ -1,0 +1,102 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "position": {
+    "line": 57,
+    "offset": 5
+  },
+  "description": "Get a record type data",
+  "type": {
+    "name": "Misc",
+    "editable": true,
+    "metadata": {
+      "label": "Misc",
+      "description": ""
+    },
+    "codedata": {
+      "node": "UNION",
+      "lineRange": {
+        "fileName": "types.bal",
+        "startLine": {
+          "line": 57,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 57,
+          "offset": 9
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Misc",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": {
+      "Color": {
+        "kind": "TYPE",
+        "refs": [
+          "Color"
+        ],
+        "type": "Color",
+        "name": "Color"
+      },
+      "Employees": {
+        "kind": "TYPE",
+        "refs": [
+          "Employees"
+        ],
+        "type": "Employees",
+        "name": "Employees"
+      },
+      "Person": {
+        "kind": "TYPE",
+        "refs": [
+          "Person"
+        ],
+        "type": "Person",
+        "name": "Person"
+      }
+    }
+  }
+}

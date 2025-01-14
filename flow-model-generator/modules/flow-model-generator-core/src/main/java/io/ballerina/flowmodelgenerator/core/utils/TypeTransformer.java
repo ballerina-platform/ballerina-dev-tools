@@ -27,7 +27,6 @@ import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -145,6 +144,36 @@ public class TypeTransformer {
         return typeDataBuilder.build();
     }
 
+    public Object transform(UnionTypeSymbol unionTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        typeDataBuilder
+                .codedata()
+                    .node(NodeKind.UNION)
+                    .stepOut()
+                .properties()
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false)
+                    .stepOut();
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        Map<String, Member> memberTypes = new HashMap<>();
+        unionTypeSymbol.userSpecifiedMemberTypes().forEach(memberTypeSymbol -> {
+            TypeData.TypeDataBuilder memberTypeBuilder = new TypeData.TypeDataBuilder();
+            Object transformed = transform(memberTypeSymbol, memberTypeBuilder);
+            String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
+            Member member = memberBuilder
+                    .kind(Member.MemberKind.TYPE)
+                    .name(name)
+                    .type(transformed)
+                    .refs(transformed instanceof String ?
+                            TypeUtils.getTypeRefIds(memberTypeSymbol, moduleInfo) : List.of())
+                    .build();
+            memberTypes.putIfAbsent(name, member);
+        });
+        typeDataBuilder.members(memberTypes);
+
+        return typeDataBuilder.build();
+    }
+
     public Object transform(ArrayTypeSymbol arrayTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
         return transformTypesWithConstraintType(arrayTypeSymbol, NodeKind.ARRAY, typeDataBuilder);
     }
@@ -178,6 +207,7 @@ public class TypeTransformer {
             case FUTURE -> transform((FutureTypeSymbol) typeSymbol, typeDataBuilder);
             case TYPEDESC -> transform((TypeDescTypeSymbol) typeSymbol, typeDataBuilder);
             case ERROR -> transform((ErrorTypeSymbol) typeSymbol, typeDataBuilder);
+            case UNION -> transform((UnionTypeSymbol) typeSymbol, typeDataBuilder);
             default -> CommonUtils.getTypeSignature(typeSymbol, this.moduleInfo);
         };
     }
