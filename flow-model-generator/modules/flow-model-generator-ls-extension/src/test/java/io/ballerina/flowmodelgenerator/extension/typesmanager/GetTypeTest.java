@@ -44,6 +44,9 @@ public class GetTypeTest extends AbstractLSTest {
                 {Path.of("get_record_type1.json")},
                 {Path.of("get_record_type2.json")},
                 {Path.of("get_record_type3.json")},
+                {Path.of("get_record_type4.json")},
+                {Path.of("get_record_type5.json")},
+
         };
     }
 

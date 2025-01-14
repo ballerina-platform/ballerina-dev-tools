@@ -53,7 +53,7 @@ type Employees record {|
 
 type Names string[];
 
-type User [Person, int];
+type PersonWithId [int, Person];
 
 type Misc Person|Employees|Color;
 

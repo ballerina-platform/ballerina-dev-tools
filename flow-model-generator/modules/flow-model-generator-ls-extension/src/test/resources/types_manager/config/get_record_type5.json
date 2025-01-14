@@ -1,0 +1,121 @@
+{
+  "filePath": "test_pack2/records.bal",
+  "position": {
+    "line": 15,
+    "offset": 5
+  },
+  "description": "Get a record type data",
+  "type": {
+    "name": "TimeSheet",
+    "editable": true,
+    "metadata": {
+      "label": "TimeSheet",
+      "description": ""
+    },
+    "codedata": {
+      "node": "ARRAY",
+      "lineRange": {
+        "fileName": "records.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 14
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "TimeSheet",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "true",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": {
+      "time:Utc[]": {
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "ARRAY"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": {
+            "time:Utc": {
+              "refs": [
+                "ballerina/time:Utc"
+              ],
+              "type": "time:Utc",
+              "name": "time:Utc"
+            }
+          }
+        },
+        "name": "time:Utc[]"
+      }
+    }
+  }
+}

@@ -131,12 +131,8 @@ public class TypesManager {
         switch (symbol.get().kind()) {
             case TYPE_DEFINITION -> {
                 TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
-                if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-                    // Only supports records so far. TODO: support unions, array, errors
-                    TypeTransformer typeTransformer = new TypeTransformer(this.module);
-                    return gson.toJsonTree(typeTransformer.transform(typeDef));
-                }
-                return null;
+                TypeTransformer typeTransformer = new TypeTransformer(this.module);
+                return gson.toJsonTree(typeTransformer.transform(typeDef));
             }
             case SERVICE_DECLARATION -> {
                 return null;

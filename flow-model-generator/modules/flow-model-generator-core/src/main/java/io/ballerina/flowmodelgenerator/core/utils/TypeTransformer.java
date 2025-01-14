@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -59,11 +60,6 @@ public class TypeTransformer {
 
     // Transform type definition symbol to a type-data object
     public Object transform(TypeDefinitionSymbol typeDef) {
-        // TODO: Fix this. Support all types
-        if (typeDef.typeDescriptor().typeKind() != TypeDescKind.RECORD) {
-            return null;
-        }
-
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
         String typeName;
         if (CommonUtils.isWithinPackage(typeDef, this.moduleInfo)) {
