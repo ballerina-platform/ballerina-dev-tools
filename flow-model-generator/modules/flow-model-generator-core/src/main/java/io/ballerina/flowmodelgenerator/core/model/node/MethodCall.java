@@ -109,8 +109,18 @@ public class MethodCall extends NodeBuilder {
 
             metadata().label(codedata.symbol());
             codedata()
-                    .node(NodeKind.FUNCTION_CALL)
+                    .node(NodeKind.METHOD_CALL)
                     .symbol(codedata.symbol());
+            properties()
+                    .custom()
+                        .metadata()
+                            .label(Property.CONNECTION_LABEL)
+                            .description(Property.CONNECTION_KEY)
+                            .stepOut()
+                        .value(codedata.parentSymbol())
+                        .type(Property.ValueType.IDENTIFIER)
+                        .stepOut()
+                    .addProperty(Property.CONNECTION_KEY);
 
             LinkedHashMap<String, ParameterResult> stringParameterResultLinkedHashMap =
                     ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel);
@@ -187,7 +197,7 @@ public class MethodCall extends NodeBuilder {
                         DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
+            throw new RuntimeException("Method not found: " + codedata.symbol());
         }
 
         FunctionResult function = functionResult.get();
@@ -200,7 +210,19 @@ public class MethodCall extends NodeBuilder {
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
+                .id(function.functionId())
                 .symbol(codedata.symbol());
+
+        properties()
+                .custom()
+                .metadata()
+                    .label(Property.CONNECTION_LABEL)
+                    .description(Property.CONNECTION_KEY)
+                    .stepOut()
+                .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
@@ -276,26 +298,19 @@ public class MethodCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Codedata codedata = flowNode.codedata();
-        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
-            return sourceBuilder.token()
-                    .name(codedata.symbol())
-                    .stepOut()
-                    .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
-                    .textEdit(false)
-                    .acceptImport()
-                    .build();
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        if (connection.isEmpty()) {
+            throw new IllegalStateException("Client must be defined for an action call node");
         }
 
-        String module = flowNode.codedata().module();
-        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
-        String methodCall = methodCallPrefix + flowNode.metadata().label();
-
+        String methodCall = flowNode.metadata().label();
         return sourceBuilder.token()
+                .name(connection.get().toSourceCode())
+                .keyword(SyntaxKind.DOT_TOKEN)
                 .name(methodCall)
                 .stepOut()
-                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
+                .functionParameters(flowNode, Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
+                        Property.CHECK_ERROR_KEY, "view"))
                 .textEdit(false)
                 .acceptImport(sourceBuilder.filePath)
                 .build();

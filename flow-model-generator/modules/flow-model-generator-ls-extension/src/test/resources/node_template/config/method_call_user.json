@@ -21,6 +21,17 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "connection"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "cart",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "item": {
         "metadata": {
           "label": "item"

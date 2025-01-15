@@ -1,20 +1,7 @@
 {
-  "source": "data_mapper/main.bal",
-  "position": {
-    "line": 14,
-    "offset": 0
-  },
+  "source": "empty.bal",
   "description": "Sample diagram node",
-  "codedata": {
-    "node": "METHOD_CALL",
-    "org": "ballerinax",
-    "module": "redis",
-    "object": "Client",
-    "symbol": "close",
-    "parentSymbol": "rc",
-    "version": "3.0.2"
-  },
-  "output": {
+  "diagram": {
     "id": "31",
     "metadata": {
       "label": "close",
@@ -27,7 +14,18 @@
       "object": "Client",
       "symbol": "close",
       "version": "3.0.2",
-      "id": 788
+      "id": 788,
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -55,5 +53,35 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "check rc.close();"
+      }
+    ]
   }
 }
