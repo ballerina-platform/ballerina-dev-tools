@@ -211,11 +211,16 @@
               {
                 "id": "41843",
                 "metadata": {
-                  "label": "Return",
-                  "description": "Value of 'e.message()'"
+                  "label": "message",
+                  "description": "Returns the error's message.\n\n```ballerina\nerror(\"IO error\").message() ⇒ IO error\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.error_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "RETURN",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.error",
+                  "symbol": "message",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "service.bal",
                     "startLine": {
@@ -231,16 +236,32 @@
                 },
                 "returning": true,
                 "properties": {
-                  "expression": {
+                  "connection": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Return value"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "e.message()",
+                    "value": "e",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "e": {
+                    "metadata": {
+                      "label": "e",
+                      "description": "the error value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
+                    "placeholder": "error(\"\")",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "e"
+                    }
                   }
                 },
                 "flags": 0,
