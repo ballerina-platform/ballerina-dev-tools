@@ -47,7 +47,9 @@ public class Parameter {
         REST_PARAMETER,
         INCLUDED_FIELD,
         PARAM_FOR_TYPE_INFER,
-        INCLUDED_RECORD_REST
+        INCLUDED_RECORD_REST,
+        PATH_PARAM,
+        PATH_REST_PARAM
     }
 
     @Id

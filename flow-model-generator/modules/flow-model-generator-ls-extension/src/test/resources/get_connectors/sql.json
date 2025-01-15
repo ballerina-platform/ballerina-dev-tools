@@ -14,23 +14,7 @@
         "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 648
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "mssql",
-        "description": "Represents an MSSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "mssql",
-        "object": "Client",
-        "symbol": "init",
-        "id": 662
+        "id": 722
       },
       "enabled": true
     },
@@ -46,7 +30,23 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 762
+        "id": 769
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mssql",
+        "description": "Represents an MSSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mssql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 887
       },
       "enabled": true
     }

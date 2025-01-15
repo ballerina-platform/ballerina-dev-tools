@@ -13,14 +13,118 @@
     "symbol": "get",
     "version": "2.12.0",
     "parentSymbol": "httpClient",
-    "resourcePath": "[/path/to/resource]"
+    "resourcePath": "/path/to/subdirectory"
   },
   "output": {
     "id": "31",
+    "metadata": {
+      "label": "get",
+      "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+    },
     "codedata": {
-      "node": "RESOURCE_ACTION_CALL"
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
+      "id": 579
     },
     "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "http:Client",
+        "value": "httpClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/path/to/subdirectory",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "originalName": "/path/to/subdirectory"
+        }
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<string|string[]>|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "valueTypeConstraint": "http:QueryParamType",
+        "placeholder": "[]",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "jsonResult",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
     "flags": 0
   }
 }

@@ -22,7 +22,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -34,15 +33,7 @@ import java.nio.file.Path;
  *
  * @since 2.0.0
  */
-public class DataMapManagerTypesTest extends AbstractLSTest {
-
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[][]{
-                {Path.of("function_call2.json")}
-        };
-    }
+public class DataMappingTypesTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -71,7 +62,7 @@ public class DataMapManagerTypesTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return DataMapManagerTypesTest.class;
+        return DataMappingTypesTest.class;
     }
 
     @Override

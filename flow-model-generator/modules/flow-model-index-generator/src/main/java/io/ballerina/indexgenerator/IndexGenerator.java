@@ -49,6 +49,7 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
@@ -146,7 +147,7 @@ class IndexGenerator {
                     continue;
                 }
 
-                processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
+                processFunctionSymbol(semanticModel, functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
                         descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 continue;
             }
@@ -163,7 +164,7 @@ class IndexGenerator {
                 if (!classSymbol.nameEquals("Client")) {
                     continue;
                 }
-                int connectorId = processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId,
+                int connectorId = processFunctionSymbol(semanticModel, initMethodSymbol.get(), classSymbol, packageId,
                         FunctionType.CONNECTOR,
                         descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 if (connectorId == -1) {
@@ -186,8 +187,8 @@ class IndexGenerator {
                     } else {
                         continue;
                     }
-                    int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType,
-                            descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                    int functionId = processFunctionSymbol(semanticModel, methodSymbol, methodSymbol, packageId,
+                            functionType, descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                     if (functionId == -1) {
                         continue;
                     }
@@ -201,14 +202,10 @@ class IndexGenerator {
         return !new HashSet<>(actualQualifiers).containsAll(expectedQualifiers);
     }
 
-    private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
+    private static int processFunctionSymbol(SemanticModel semanticModel, FunctionSymbol functionSymbol,
+                                             Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
                                              TypeSymbol errorTypeSymbol, Package resolvedPackage) {
-        String pathBuilder = "";
-        if (functionType == FunctionType.RESOURCE) {
-            pathBuilder = ParamUtils.buildResourcePathTemplate(functionSymbol);
-        }
-
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -250,8 +247,26 @@ class IndexGenerator {
         int returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
+        if (functionType == FunctionType.RESOURCE) {
+            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
+                    errorTypeSymbol);
+        }
+
+        String resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                functionType.name(), pathBuilder, returnError);
+                functionType.name(), resourcePath, returnError);
+
+        // Store the resource path params
+        if (resourcePathTemplate != null) {
+            List<ParameterResult> parameterResults = resourcePathTemplate.pathParams();
+            for (ParameterResult parameterResult : parameterResults) {
+                DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
+                        parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
+                        FunctionParameterKind.fromString(parameterResult.kind().name()),
+                        parameterResult.optional(), null);
+            }
+        }
 
         // Handle the parameters of the function
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
@@ -460,7 +475,9 @@ class IndexGenerator {
         REST_PARAMETER,
         INCLUDED_FIELD,
         PARAM_FOR_TYPE_INFER,
-        INCLUDED_RECORD_REST;
+        INCLUDED_RECORD_REST,
+        PATH_PARAM,
+        PATH_REST_PARAM;
 
         // need to have a fromString logic here
         public static FunctionParameterKind fromString(String value) {

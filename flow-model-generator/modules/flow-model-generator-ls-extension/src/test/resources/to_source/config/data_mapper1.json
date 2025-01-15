@@ -86,21 +86,6 @@
         },
         "newText": "function transformToPerson(string name, string email, Address address) returns Person => {\n    address: {houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"},\n    name: \"\",\n    email: \"\"\n};"
       }
-    ],
-    "data_mapper/main.bal": [
-      {
-        "range": {
-          "start": {
-            "line": 21,
-            "character": 4
-          },
-          "end": {
-            "line": 21,
-            "character": 60
-          }
-        },
-        "newText": "Person person = transformToPerson(name, email, address);"
-      }
     ]
   }
 }

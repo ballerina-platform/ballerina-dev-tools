@@ -47,7 +47,9 @@
           "label": "Resource Path",
           "description": "Resource Path"
         },
-        "valueType": "EXPRESSION",
+        "codedata": {
+          "originalName": "/path/to/subdirectory"
+        },
         "value": "/western/apples",
         "optional": false,
         "editable": true,
