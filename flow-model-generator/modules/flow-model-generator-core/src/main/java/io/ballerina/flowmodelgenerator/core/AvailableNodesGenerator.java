@@ -244,18 +244,19 @@ public class AvailableNodesGenerator {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             } else if (connectorAction.kind() == Function.Kind.FUNCTION) {
                 availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else {
-                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
-                    continue;
-                }
-                List<ResourceMethodTreeNode> treeNodeList = dbManager.getTreeNodesForConnector(connector.functionId());
-                TreeNode root = buildTree(treeNodeList, connector, parentSymbol);
-                if (root != null) {
-                    availableNodes.add(root);
-                }
             }
+//            else {
+//                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
+//                    continue;
+//                }
+//            }
         }
 
+        List<ResourceMethodTreeNode> treeNodeList = dbManager.getTreeNodesForConnector(connector.functionId());
+        TreeNode root = buildTree(treeNodeList, connector, parentSymbol);
+        if (root != null) {
+            availableNodes.add(root);
+        }
 
         return availableNodes;
     }

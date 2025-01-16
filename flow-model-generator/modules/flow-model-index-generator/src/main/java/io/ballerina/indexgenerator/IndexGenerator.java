@@ -166,8 +166,7 @@ class IndexGenerator {
                     continue;
                 }
                 int connectorId = processFunctionSymbol(semanticModel, initMethodSymbol.get(), classSymbol, packageId,
-                        FunctionType.CONNECTOR,
-                        descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                        FunctionType.CONNECTOR, descriptor.name().value(), errorTypeSymbol, resolvedPackage);
                 if (connectorId == -1) {
                     continue;
                 }

@@ -78,6 +78,30 @@
       "items": [
         {
           "metadata": {
+            "label": "data.xmldata",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "parseString",
+                "description": "Converts XML string to record type with projection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.xmldata",
+                "symbol": "parseString",
+                "version": "1.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "data.csv",
             "description": "",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.1.0.png"
@@ -119,30 +143,6 @@
                 "module": "data.yaml",
                 "symbol": "parseString",
                 "version": "0.1.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "data.xmldata",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "parseString",
-                "description": "Converts XML string to record type with projection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.xmldata",
-                "symbol": "parseString",
-                "version": "1.0.0"
               },
               "enabled": true
             }
