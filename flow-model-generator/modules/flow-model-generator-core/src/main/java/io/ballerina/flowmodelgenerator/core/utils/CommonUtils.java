@@ -58,6 +58,8 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
@@ -733,5 +735,20 @@ public class CommonUtils {
         }
         ModuleID id = module.get().id();
         return id.orgName().equals(BALLERINA_ORG_NAME) && id.packageName().equals(VALUE_LANG_LIB);
+    }
+
+    /**
+     * Load the project from the given file path.
+     *
+     * @param workspaceManager the workspace manager
+     * @param filePath the file path
+     * @return the loaded project
+     */
+    public static Project loadProject(WorkspaceManager workspaceManager, Path filePath) {
+        try {
+            return workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException("Error loading project: " + e.getMessage());
+        }
     }
 }

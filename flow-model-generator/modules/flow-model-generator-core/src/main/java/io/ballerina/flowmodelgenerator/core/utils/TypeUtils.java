@@ -126,6 +126,12 @@ public class TypeUtils {
         }
     }
 
+    /**
+     * Check whether the given symbol is a http module.
+     *
+     * @param symbol symbol to check
+     * @return true if the symbol is a http module, false otherwise
+     */
     public static boolean isHttpModule(Symbol symbol) {
         Optional<ModuleSymbol> module = symbol.getModule();
         if (module.isEmpty()) {
@@ -133,6 +139,6 @@ public class TypeUtils {
         }
 
         ModuleID moduleId = module.get().id();
-        return moduleId.orgName().equals("ballerina") && moduleId.packageName().equals("http");
+        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 }

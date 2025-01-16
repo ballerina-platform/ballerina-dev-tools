@@ -38,6 +38,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
@@ -47,12 +48,17 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Represents a function call node.
+ *
+ * @since 2.0.0
+ */
 public class FunctionCall extends NodeBuilder {
 
     @Override
@@ -63,101 +69,14 @@ public class FunctionCall extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-
         if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            WorkspaceManager workspaceManager = context.workspaceManager();
-
-            try {
-                Project project = workspaceManager.loadProject(context.filePath());
-                this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
-            } catch (WorkspaceDocumentException | EventSyncException e) {
-                throw new RuntimeException("Error loading project: " + e.getMessage());
-            }
-            SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-            Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                    .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                    .findFirst();
-            if (outSymbol.isEmpty()) {
-                throw new RuntimeException("Function not found: " + codedata.symbol());
-            }
-
-            FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-
-            metadata().label(codedata.symbol());
-            codedata()
-                    .node(NodeKind.FUNCTION_CALL)
-                    .symbol(codedata.symbol());
-
-            LinkedHashMap<String, ParameterResult> stringParameterResultLinkedHashMap =
-                    ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel);
-            boolean hasOnlyRestParams = stringParameterResultLinkedHashMap.size() == 1;
-            for (ParameterResult paramResult : stringParameterResultLinkedHashMap.values()) {
-                if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                        || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
-                    continue;
-                }
-
-                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
-                customPropBuilder
-                        .metadata()
-                            .label(unescapedParamName)
-                            .description(paramResult.description())
-                            .stepOut()
-                        .codedata()
-                            .kind(paramResult.kind().name())
-                            .originalName(paramResult.name())
-                            .importStatements(paramResult.importStatements())
-                            .stepOut()
-                        .placeholder(paramResult.defaultValue())
-                        .typeConstraint(paramResult.type())
-                        .editable()
-                        .defaultable(paramResult.optional() == 1);
-
-                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    unescapedParamName = "additionalValues";
-                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
-                } else {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION);
-                }
-                customPropBuilder
-                        .stepOut()
-                        .addProperty(unescapedParamName);
-            }
-
-            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-                boolean editable = true;
-                if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-                    returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
-                    editable = true;
-                }
-                properties()
-                        .type(returnTypeName, editable)
-                        .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
-            });
-            TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
-            int returnError = functionTypeSymbol.returnTypeDescriptor()
-                    .map(returnTypeDesc ->
-                            CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
-            if (returnError == 1 && CommonUtils.withinDoClause(context.workspaceManager(),
-                    context.filePath(), context.codedata().lineRange())) {
-                properties().checkError(true);
-            }
-            return;
+            handleLocalFunction(context, codedata);
+        } else {
+            handleImportedFunction(context, codedata);
         }
+    }
 
+    private void handleImportedFunction(TemplateContext context, Codedata codedata) {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult =
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
@@ -179,27 +98,70 @@ public class FunctionCall extends NodeBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+
+        String returnTypeName = function.returnType();
+        if (CommonUtils.hasReturn(function.returnType())) {
+            setReturnTypeProperties(returnTypeName, context);
+        }
+
+        if (function.returnError() == 1) {
+            properties().checkError(true);
+        }
+    }
+
+    private void handleLocalFunction(TemplateContext context, Codedata codedata) {
+        WorkspaceManager workspaceManager = context.workspaceManager();
+        Project project = CommonUtils.loadProject(workspaceManager, context.filePath());
+        this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
+
+        SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+        Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
+                .findFirst();
+        if (outSymbol.isEmpty()) {
+            throw new RuntimeException("Function not found: " + codedata.symbol());
+        }
+
+        FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+
+        metadata().label(codedata.symbol());
+        codedata()
+                .node(NodeKind.FUNCTION_CALL)
+                .symbol(codedata.symbol());
+
+        setCustomProperties(ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values());
+        functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
+            String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
+            setReturnTypeProperties(returnTypeName, context);
+        });
+
+        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && withinDoClause(context)) {
+            properties().checkError(true);
+        }
+    }
+
+    private void setCustomProperties(Collection<ParameterResult> functionParameters) {
         boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
+        for (ParameterResult paramResult :functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
+                    .label(unescapedParamName)
+                    .description(paramResult.description())
+                    .stepOut()
                     .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
+                    .kind(paramResult.kind().name())
+                    .originalName(paramResult.name())
+                    .importStatements(paramResult.importStatements())
+                    .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
@@ -225,31 +187,15 @@ public class FunctionCall extends NodeBuilder {
                     .stepOut()
                     .addProperty(unescapedParamName);
         }
-
-        String returnTypeName = function.returnType();
-        if (CommonUtils.hasReturn(function.returnType())) {
-            boolean editable = false;
-            if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
-                editable = true;
-            }
-            properties()
-                    .type(returnTypeName, editable)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
-        }
-
-        if (function.returnError() == 1) {
-            properties().checkError(true);
-        }
     }
+
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
-                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
@@ -278,7 +224,18 @@ public class FunctionCall extends NodeBuilder {
                 .build();
     }
 
-    public boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
+    private void setReturnTypeProperties(String returnTypeName, TemplateContext context) {
+        boolean editable = false;
+        if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
+            returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
+            editable = true;
+        }
+        properties()
+                .type(returnTypeName, editable)
+                .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+    }
+
+    protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
         if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
             return true;
         }
@@ -295,5 +252,17 @@ public class FunctionCall extends NodeBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return false;
         }
+    }
+
+    protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
+                                                       FunctionTypeSymbol functionTypeSymbol) {
+        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+        return functionTypeSymbol.returnTypeDescriptor()
+                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
+    }
+
+    protected static boolean withinDoClause(TemplateContext context) {
+        return CommonUtils.withinDoClause(context.workspaceManager(), context.filePath(),
+                context.codedata().lineRange());
     }
 }

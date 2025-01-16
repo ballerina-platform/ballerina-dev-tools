@@ -57,7 +57,7 @@
         "value": "string",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {
