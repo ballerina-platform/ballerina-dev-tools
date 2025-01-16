@@ -64,7 +64,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
-import io.ballerina.servicemodelgenerator.extension.model.MetaData;
+import io.ballerina.servicemodelgenerator.extension.model.Metadata;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
@@ -346,7 +346,7 @@ public final class Utils {
         ObjectTypeDescriptorNode serviceNode = (ObjectTypeDescriptorNode) serviceTypeNode.typeDescriptor();
         Optional<String> basePath = getPath(serviceTypeNode);
         if (basePath.isPresent() && !basePath.get().isEmpty()) {
-            MetaData metaData = new MetaData("Service Base Path", "The base path for the service");
+            Metadata metaData = new Metadata("Service Base Path", "The base path for the service");
             Value basePathValue = new Value();
             basePathValue.setValue(basePath.get());
             basePathValue.setValueType("IDENTIFIER");

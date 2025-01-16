@@ -160,15 +160,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+                Optional<SemanticModel> semanticModelOpt = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                if (document.isEmpty() || semanticModelOpt.isEmpty()) {
                     return new ListenerDiscoveryResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 List<String> listeners = getCompatibleListeners(request.moduleName(), modulePartNode,
-                        semanticModel);
+                        semanticModelOpt.get());
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
@@ -181,8 +181,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         return modulePartNode.members().stream()
                 .filter(member -> member.kind().equals(SyntaxKind.LISTENER_DECLARATION))
                 .map(member -> (ListenerDeclarationNode) member)
-                .filter(listener -> getListenerName(listener, semanticModel).isPresent() &&
-                        getListenerName(listener, semanticModel).get().equals(moduleName))
+                .filter(listener -> getListenerName(listener, semanticModel)
+                        .map(name -> name.equals(moduleName))
+                        .orElse(false))
                 .map(listener -> listener.variableName().text().trim())
                 .toList();
     }
@@ -191,9 +192,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ListenerModelResponse> getListenerModel(ListenerModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return getListenerByName(request.moduleName())
-                        .map(ListenerModelResponse::new)
-                        .orElseGet(ListenerModelResponse::new);
+                return new ListenerModelResponse(getListenerByName(request.moduleName()).orElse(null));
             } catch (Throwable e) {
                 return new ListenerModelResponse(e);
             }
@@ -219,10 +218,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 TextEdit listenerEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
                         System.lineSeparator() + listenerDeclaration);
                 if (!importExists(node, listener.getOrgName(), listener.getModuleName())) {
-                    String importText = String.format("%simport %s/%s;%s", System.lineSeparator(),
-                            listener.getOrgName(), listener.getModuleName(), System.lineSeparator());
-                    TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
-                    edits.add(importEdit);
+                    addImportTextEdit(listener.getOrgName(), listener.getModuleName(), lineRange, edits);
                 }
                 edits.add(listenerEdit);
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -230,6 +226,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new CommonSourceResponse(e);
             }
         });
+    }
+
+    private static void addImportTextEdit(String orgName, String moduleName, LineRange lineRange,
+                                          List<TextEdit> edits) {
+        String importText = String.format(System.lineSeparator() + "import %s/%s;" + System.lineSeparator(),
+                orgName, moduleName);
+        TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
+        edits.add(importEdit);
     }
 
     @JsonRequest
@@ -247,15 +251,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+                Optional<SemanticModel> semanticModelOpt = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                if (document.isEmpty() || semanticModelOpt.isEmpty()) {
                     return new ServiceModelResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 List<String> listenersList = getCompatibleListeners(request.moduleName(), modulePartNode,
-                        semanticModel);
+                        semanticModelOpt.get());
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -332,10 +336,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 TextEdit serviceEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
                         System.lineSeparator() + serviceDeclaration);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
-                    String importText = String.format("%simport %s/%s;%s", System.lineSeparator(), service.getOrgName(),
-                            service.getModuleName(), System.lineSeparator());
-                    TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
-                    edits.add(importEdit);
+                    addImportTextEdit(service.getOrgName(), service.getModuleName(), lineRange, edits);
                 }
                 edits.add(serviceEdit);
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -424,11 +425,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             Package currentPackage = project.currentPackage();
             Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
             ModuleId moduleId = module.moduleId();
-            SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+            Optional<SemanticModel> semanticModelOpt = this.workspaceManager.semanticModel(filePath);
             Optional<Document> document = this.workspaceManager.document(filePath);
-            if (document.isEmpty() || Objects.isNull(semanticModel)) {
+            if (document.isEmpty() || semanticModelOpt.isEmpty()) {
                 return new ServiceFromSourceResponse();
             }
+            SemanticModel semanticModel = semanticModelOpt.get();
             SyntaxTree syntaxTree = document.get().syntaxTree();
             ModulePartNode modulePartNode = syntaxTree.rootNode();
             TextDocument textDocument = syntaxTree.textDocument();
@@ -499,9 +501,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+                Optional<SemanticModel> semanticModelOpt = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                if (document.isEmpty() || semanticModelOpt.isEmpty()) {
                     return new ListenerFromSourceResponse();
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
@@ -515,7 +517,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new ListenerFromSourceResponse();
                 }
                 ListenerDeclarationNode listenerNode = (ListenerDeclarationNode) node;
-                Optional<String> listenerName = getListenerName(listenerNode, semanticModel);
+                Optional<String> listenerName = getListenerName(listenerNode, semanticModelOpt.get());
                 if (listenerName.isEmpty()) {
                     return new ListenerFromSourceResponse();
                 }
@@ -606,7 +608,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse();
                 }
                 NonTerminalNode parentService = functionDefinitionNode.parent();
-                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (parentService.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new CommonSourceResponse();
                 }
                 ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;

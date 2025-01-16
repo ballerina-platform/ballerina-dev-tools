@@ -123,11 +123,8 @@ public class OpenApiServiceGenerator {
         }
 
         if (!errorMessages.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (String errorMessage : errorMessages) {
-                sb.append(DiagnosticSeverity.ERROR).append(": ").append(errorMessage).append(System.lineSeparator());
-            }
-            throw new BallerinaOpenApiException(sb.toString());
+            String errorMessage = String.join(System.lineSeparator(), errorMessages);
+            throw new BallerinaOpenApiException(DiagnosticSeverity.ERROR + ": " + errorMessage);
         }
 
         Path mainFile = projectPath.resolve(MAIN_BAL);

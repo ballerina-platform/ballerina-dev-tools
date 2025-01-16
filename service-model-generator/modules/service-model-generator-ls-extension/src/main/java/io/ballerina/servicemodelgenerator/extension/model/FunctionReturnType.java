@@ -29,7 +29,7 @@ public class FunctionReturnType extends Value {
         this(null, false, false, null, null, null, false, null, false, false, null, null, null, null, null);
     }
 
-    public FunctionReturnType(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
+    public FunctionReturnType(Metadata metadata, boolean enabled, boolean editable, String value, String valueType,
                               String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                               boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
                               List<HttpResponse> responses, Map<String, HttpResponse> schema) {

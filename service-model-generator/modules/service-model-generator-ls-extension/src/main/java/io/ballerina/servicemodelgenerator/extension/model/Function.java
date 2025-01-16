@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Function {
-    private MetaData metadata;
+    private Metadata metadata;
     private List<String> qualifiers;
     private String kind;
     private Value accessor;
@@ -41,7 +41,7 @@ public class Function {
         this(null, null, null, null, null, null, null, null, false, false, false, null);
     }
 
-    public Function(MetaData metadata, List<String> qualifiers, String kind, Value accessor, Value name,
+    public Function(Metadata metadata, List<String> qualifiers, String kind, Value accessor, Value name,
                     List<Parameter> parameters, Map<String, Parameter> schema, FunctionReturnType returnType,
                     boolean enabled, boolean optional, boolean editable, Codedata codedata) {
         this.metadata = metadata;
@@ -63,11 +63,11 @@ public class Function {
                 null, new FunctionReturnType(), false, false, false, null);
     }
 
-    public MetaData getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(MetaData metadata) {
+    public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
 

@@ -18,12 +18,13 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class Value {
-    private MetaData metadata;
+    private Metadata metadata;
     private boolean enabled;
     private boolean editable;
     private String value;
@@ -48,7 +49,7 @@ public class Value {
         this(null, isEnabled, true, value, valueType, null, false, null, false, false, null, null, null);
     }
 
-    public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
+    public Value(Metadata metadata, boolean enabled, boolean editable, String value, String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata) {
         this.metadata = metadata;
@@ -66,11 +67,11 @@ public class Value {
         this.codedata = codedata;
     }
 
-    public MetaData getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(MetaData metadata) {
+    public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
 
@@ -117,7 +118,8 @@ public class Value {
 
     public void addValue(String value) {
         if (Objects.isNull(this.values)) {
-            this.values = List.of(value);
+            this.values = new ArrayList<>();
+            this.values.add(value);
         } else {
             this.values.add(value);
         }

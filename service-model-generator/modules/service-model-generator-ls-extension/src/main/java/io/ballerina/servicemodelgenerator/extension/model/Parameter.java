@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class Parameter {
-    private MetaData metadata;
+    private Metadata metadata;
     private String kind;
     private Value type;
     private Value name;
@@ -37,7 +37,7 @@ public class Parameter {
         this(null, null, null, null, null, false, false, false, false, null);
     }
 
-    public Parameter(MetaData metadata, String kind, Value type, Value name, Value defaultValue, boolean enabled,
+    public Parameter(Metadata metadata, String kind, Value type, Value name, Value defaultValue, boolean enabled,
                      boolean editable, boolean optional, boolean advanced, String httpParamType) {
         this.metadata = metadata;
         this.kind = kind;
@@ -55,11 +55,11 @@ public class Parameter {
         return new Parameter(null, null, new Value(), new Value(), new Value(), false, false, false, false, null);
     }
 
-    public MetaData getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(MetaData metadata) {
+    public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
 
