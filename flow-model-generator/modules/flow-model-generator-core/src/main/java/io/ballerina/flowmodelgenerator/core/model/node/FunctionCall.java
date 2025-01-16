@@ -39,6 +39,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
@@ -112,7 +113,7 @@ public class FunctionCall extends NodeBuilder {
 
     private void handleLocalFunction(TemplateContext context, Codedata codedata) {
         WorkspaceManager workspaceManager = context.workspaceManager();
-        Project project = CommonUtils.loadProject(workspaceManager, context.filePath());
+        Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
         this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
 
         SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
@@ -137,14 +138,14 @@ public class FunctionCall extends NodeBuilder {
             setReturnTypeProperties(returnTypeName, context);
         });
 
-        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && withinDoClause(context)) {
+        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && FlowNodeUtil.withinDoClause(context)) {
             properties().checkError(true);
         }
     }
 
     private void setCustomProperties(Collection<ParameterResult> functionParameters) {
         boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult :functionParameters) {
+        for (ParameterResult paramResult : functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
@@ -154,35 +155,41 @@ public class FunctionCall extends NodeBuilder {
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                    .label(unescapedParamName)
-                    .description(paramResult.description())
-                    .stepOut()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
                     .codedata()
-                    .kind(paramResult.kind().name())
-                    .originalName(paramResult.name())
-                    .importStatements(paramResult.importStatements())
-                    .stepOut()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
+                        .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
                     .defaultable(paramResult.optional() == 1);
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                unescapedParamName = "additionalValues";
-                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
-            } else {
-                customPropBuilder.type(Property.ValueType.EXPRESSION);
+            switch (paramResult.kind()) {
+                case INCLUDED_RECORD_REST:
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    unescapedParamName = "additionalValues";
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                    break;
+                case REST_PARAMETER:
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                    break;
+                case REQUIRED:
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                    break;
+                default:
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                    break;
             }
+
             customPropBuilder
                     .stepOut()
                     .addProperty(unescapedParamName);
@@ -226,13 +233,14 @@ public class FunctionCall extends NodeBuilder {
 
     private void setReturnTypeProperties(String returnTypeName, TemplateContext context) {
         boolean editable = false;
+        String updatedReturnType = returnTypeName;
         if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-            returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
+            updatedReturnType = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
             editable = true;
         }
         properties()
-                .type(returnTypeName, editable)
-                .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+                .type(updatedReturnType, editable)
+                .data(updatedReturnType, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
     }
 
     protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
@@ -259,10 +267,5 @@ public class FunctionCall extends NodeBuilder {
         TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
         return functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
-    }
-
-    protected static boolean withinDoClause(TemplateContext context) {
-        return CommonUtils.withinDoClause(context.workspaceManager(), context.filePath(),
-                context.codedata().lineRange());
     }
 }

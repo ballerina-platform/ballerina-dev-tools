@@ -58,8 +58,6 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
@@ -738,17 +736,18 @@ public class CommonUtils {
     }
 
     /**
-     * Load the project from the given file path.
+     * Check whether the given symbol is a http module.
      *
-     * @param workspaceManager the workspace manager
-     * @param filePath the file path
-     * @return the loaded project
+     * @param symbol symbol to check
+     * @return true if the symbol is a http module, false otherwise
      */
-    public static Project loadProject(WorkspaceManager workspaceManager, Path filePath) {
-        try {
-            return workspaceManager.loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error loading project: " + e.getMessage());
+    public static boolean isHttpModule(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            return false;
         }
+
+        ModuleID moduleId = module.get().id();
+        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 }

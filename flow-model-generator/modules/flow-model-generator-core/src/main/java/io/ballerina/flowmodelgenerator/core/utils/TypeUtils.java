@@ -22,9 +22,7 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -32,7 +30,6 @@ import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -124,21 +121,5 @@ public class TypeUtils {
                 typeRefs.add(ts.signature());
             }
         }
-    }
-
-    /**
-     * Check whether the given symbol is a http module.
-     *
-     * @param symbol symbol to check
-     * @return true if the symbol is a http module, false otherwise
-     */
-    public static boolean isHttpModule(Symbol symbol) {
-        Optional<ModuleSymbol> module = symbol.getModule();
-        if (module.isEmpty()) {
-            return false;
-        }
-
-        ModuleID moduleId = module.get().id();
-        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 }

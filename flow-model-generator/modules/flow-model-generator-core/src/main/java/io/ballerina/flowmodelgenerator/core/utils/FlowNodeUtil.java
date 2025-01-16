@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 
 /**
@@ -37,5 +38,16 @@ public class FlowNodeUtil {
     public static boolean hasCheckKeyFlagSet(FlowNode flowNode) {
         return flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
                 flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true);
+    }
+
+    /**
+     * Check weather the given position is within a do clause.
+     *
+     * @param context template context
+     * @return true if the context is within a do clause, false otherwise
+     */
+    public static boolean withinDoClause(NodeBuilder.TemplateContext context) {
+        return CommonUtils.withinDoClause(context.workspaceManager(), context.filePath(),
+                context.codedata().lineRange());
     }
 }

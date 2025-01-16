@@ -40,6 +40,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
+import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -139,7 +140,7 @@ public class MethodCall extends NodeBuilder {
 
     private void handleLocalObjMethods(TemplateContext context, Codedata codedata) {
         WorkspaceManager workspaceManager = context.workspaceManager();
-        Project project = CommonUtils.loadProject(workspaceManager, context.filePath());
+        Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
         this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
 
         SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
@@ -168,7 +169,7 @@ public class MethodCall extends NodeBuilder {
         });
 
         if (FunctionCall.containsErrorInReturnType(semanticModel, functionTypeSymbol)
-                && FunctionCall.withinDoClause(context)) {
+                && FlowNodeUtil.withinDoClause(context)) {
             properties().checkError(true);
         }
     }
@@ -198,35 +199,41 @@ public class MethodCall extends NodeBuilder {
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
             customPropBuilder
                     .metadata()
-                    .label(unescapedParamName)
-                    .description(paramResult.description())
-                    .stepOut()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
                     .codedata()
-                    .kind(paramResult.kind().name())
-                    .originalName(paramResult.name())
-                    .importStatements(paramResult.importStatements())
-                    .stepOut()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
+                        .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
                     .defaultable(paramResult.optional() == 1);
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                unescapedParamName = "additionalValues";
-                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
-            } else {
-                customPropBuilder.type(Property.ValueType.EXPRESSION);
+            switch (paramResult.kind()) {
+                case INCLUDED_RECORD_REST:
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    unescapedParamName = "additionalValues";
+                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
+                    break;
+                case REST_PARAMETER:
+                    if (hasOnlyRestParams) {
+                        customPropBuilder.defaultable(false);
+                    }
+                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
+                    break;
+                case REQUIRED:
+                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
+                    break;
+                default:
+                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                    break;
             }
+
             customPropBuilder
                     .stepOut()
                     .addProperty(unescapedParamName);

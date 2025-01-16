@@ -121,7 +121,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
-import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -332,7 +331,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
 
-        if (TypeUtils.isHttpModule(methodSymbol)) {
+        if (CommonUtils.isHttpModule(methodSymbol)) {
             String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
             String fullPath = "/" + resourcePath;
             nodeBuilder.properties().resourcePath(fullPath, true);
@@ -1119,11 +1118,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Documentation> documentation = functionSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
 
-        String functionName = switch (nameReferenceNode.kind()) {
-            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
-            default -> "";
-        };
+        String functionName = getIdentifierName(nameReferenceNode);
 
         startNode(NodeKind.METHOD_CALL, methodCallExpressionNode.parent());
         if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
@@ -1139,9 +1134,8 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(description)
                     .stepOut()
                 .codedata()
-                .symbol(functionName);
-
-        nodeBuilder
+                    .symbol(functionName)
+                    .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY);
 
@@ -1189,11 +1183,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Documentation> documentation = functionSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
 
-        String functionName = switch (nameReferenceNode.kind()) {
-            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
-            default -> "";
-        };
+        String functionName = getIdentifierName(nameReferenceNode);
 
         if (dataMappings.containsKey(functionName)) {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
@@ -1233,6 +1223,14 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(description)
                 .stepOut()
                 .codedata().symbol(functionName);
+    }
+
+    private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
+        return switch (nameReferenceNode.kind()) {
+            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
+            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
+            default -> "";
+        };
     }
 
     @Override
