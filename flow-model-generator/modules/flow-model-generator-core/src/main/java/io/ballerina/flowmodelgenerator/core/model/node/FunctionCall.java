@@ -169,25 +169,22 @@ public class FunctionCall extends NodeBuilder {
                     .defaultable(paramResult.optional() == 1);
 
             switch (paramResult.kind()) {
-                case INCLUDED_RECORD_REST:
+                case INCLUDED_RECORD_REST -> {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     unescapedParamName = "additionalValues";
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                    break;
-                case REST_PARAMETER:
+                }
+                case REST_PARAMETER -> {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                    break;
-                case REQUIRED:
-                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
-                    break;
-                default:
-                    customPropBuilder.type(Property.ValueType.EXPRESSION);
-                    break;
+                }
+                case REQUIRED -> customPropBuilder.type(Property.ValueType.EXPRESSION)
+                        .value(paramResult.defaultValue());
+                default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
 
             customPropBuilder
