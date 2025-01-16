@@ -57,7 +57,7 @@
     },
     "flags": 0
   },
-  "property": "variable",
+  "propertyKey": "expression",
   "type": {
     "fields": [
       {

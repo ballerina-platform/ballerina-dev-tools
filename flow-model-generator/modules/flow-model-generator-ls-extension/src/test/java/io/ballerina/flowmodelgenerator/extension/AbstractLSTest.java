@@ -134,6 +134,14 @@ public abstract class AbstractLSTest {
         Files.writeString(configJsonPath, objStr);
     }
 
+    protected JsonObject getResponse(Endpoint endpoint, Object request) throws IOException {
+        Endpoint tempEndPoint = serviceEndpoint;
+        serviceEndpoint = endpoint;
+        JsonObject response = getResponse(request);
+        serviceEndpoint = tempEndPoint;
+        return response;
+    }
+
     protected JsonObject getResponse(Object request) throws IOException {
         return getResponse(request, getServiceName() + "/" + getApiName());
     }

@@ -1,0 +1,162 @@
+{
+  "source": "variable11.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable11.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[{users6: [{balance: 2.0, account: user.name}, {balance: 3.0, account: user.name}], user5: {u: [user.name, user.name]}}]",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "users4",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "User4[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 39,
+    "offset": 12
+  },
+  "mappings": [
+    {
+      "output": "users4",
+      "inputs": [],
+      "expression": "[{users6: [{balance: 2.0, account: user.name}], user5: {u: [user.name, user.name]}}]",
+      "diagnostics": [],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "users4.0.users6",
+              "inputs": [],
+              "expression": "[{balance: 2.0, account: user.name}]",
+              "diagnostics": [],
+              "elements": [
+                {
+                  "mappings": [
+                    {
+                      "output": "users4.0.users6.0.balance",
+                      "inputs": [],
+                      "expression": "2.0",
+                      "diagnostics": [],
+                      "elements": []
+                    },
+                    {
+                      "output": "users4.0.users6.0.account",
+                      "inputs": [
+                        "user.name"
+                      ],
+                      "expression": "user.name",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                },
+                {
+                  "mappings": [
+                    {
+                      "output": "users4.0.users6.1.balance",
+                      "inputs": [],
+                      "expression": "2.0",
+                      "diagnostics": [],
+                      "elements": []
+                    },
+                    {
+                      "output": "users4.0.users6.1.account",
+                      "inputs": [
+                        "user.name"
+                      ],
+                      "expression": "user.name",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "output": "users4.0.user5.u",
+              "inputs": [],
+              "expression": "[user.name, user.name]",
+              "diagnostics": [],
+              "elements": [
+                {
+                  "mappings": [
+                    {
+                      "output": "users4.0.user5.u.0",
+                      "inputs": [
+                        "user.name"
+                      ],
+                      "expression": "user.name",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                },
+                {
+                  "mappings": [
+                    {
+                      "output": "users4.0.user5.u.1",
+                      "inputs": [
+                        "user.name"
+                      ],
+                      "expression": "user.name",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "[{users6:[{balance:2.0,account:user.name},{balance:2.0,account:user.name}],user5:{u:[user.name,user.name]}}]"
+}

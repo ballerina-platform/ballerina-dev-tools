@@ -224,17 +224,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/pears",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -245,6 +234,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/pears",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {

@@ -1,0 +1,99 @@
+{
+  "id": 0,
+  "name": "GraphQL Service",
+  "type": "graphql",
+  "diaplayName": "GraphQL Service",
+  "documentation": "GraphQL Service",
+  "displayAnnotation": {
+    "label": "GraphQL Service",
+    "iconPath": "http://localhost:8080/icons/graphql.png"
+  },
+  "moduleName": "graphql",
+  "orgName": "ballerina",
+  "version": "1.15.0",
+  "packageName": "graphql",
+  "listenerProtocol": "graphql",
+  "icon": "http://localhost:8080/icons/graphql.png",
+  "properties": {
+    "listener": {
+      "metadata": {
+        "label": "Listeners",
+        "description": "The Listeners to be bound with the service"
+      },
+      "codedata": {
+        "type": "LISTENER"
+      },
+      "enabled": true,
+      "editable": false,
+      "value": "",
+      "values": [],
+      "valueType": "MULTIPLE_SELECT",
+      "valueTypeConstraint": "graphql:Listener",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "addNewButton": true
+    },
+    "basePath": {
+      "metadata": {
+        "label": "Service Base Path",
+        "description": "The base path for the service"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "type": "SERVICE_BASEPATH"
+      }
+    }
+  },
+  "functions": [
+    {
+      "metadata": {
+        "label": "Service Init Function",
+        "description": "The service initialization function"
+      },
+      "kind": "DEFAULT",
+      "enabled": true,
+      "optional": false,
+      "editable": true,
+      "name": {
+        "metadata": {
+          "label": "Init Function",
+          "description": "The init function"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "init",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false
+      },
+      "returnType": {
+        "metadata": {
+          "label": "Return type",
+          "description": "Return type of the function"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    }
+  ]
+}

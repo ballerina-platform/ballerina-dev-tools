@@ -56,5 +56,6 @@ public enum NodeKind {
     ENUM,
     ARRAY,
     UNION,
-    ERROR
+    ERROR,
+    DATA_MAPPER_CALL
 }

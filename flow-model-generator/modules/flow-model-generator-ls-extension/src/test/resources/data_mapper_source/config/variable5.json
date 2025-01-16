@@ -1,0 +1,110 @@
+{
+  "source": "variable4.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable8.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{id: 1234, credentials: [], length: 0}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "student",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Student",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 18,
+    "offset": 65
+  },
+  "mappings": [
+    {
+      "output": "student.id",
+      "inputs": [],
+      "expression": "1234",
+      "diagnostics": []
+    },
+    {
+      "output": "student.credentials",
+      "inputs": [],
+      "expression": "[{username: userInfo[0].username, password: userInfo[1].password}]",
+      "diagnostics": [],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "student.credentials.0.username",
+              "inputs": [
+                "userInfo"
+              ],
+              "expression": "userInfo[0].username",
+              "diagnostics": [],
+              "elements": []
+            },
+            {
+              "output": "student.credentials.0.password",
+              "inputs": [
+                "userInfo"
+              ],
+              "expression": "userInfo[1].password",
+              "diagnostics": [],
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "output": "student.length",
+      "inputs": [],
+      "expression": "0",
+      "diagnostics": []
+    }
+  ],
+  "output": "{id:1234,credentials:[{username:userInfo[0].username,password:userInfo[1].password}],length:0}"
+}

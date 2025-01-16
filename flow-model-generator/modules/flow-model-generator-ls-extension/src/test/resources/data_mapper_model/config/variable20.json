@@ -1,0 +1,206 @@
+{
+  "source": "variable10.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable10.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "from var bank in banks select {name: bank.name, credentials: from var info in bank.userInfo select {password: , username: info.username}}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "stores",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Store[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 30,
+    "offset": 64
+  },
+  "model": {
+    "inputs": [
+      {
+        "id": "CONST",
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
+      },
+      {
+        "member": {
+          "fields": [
+            {
+              "id": "banks.name",
+              "variableName": "name",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "member": {
+                "fields": [
+                  {
+                    "id": "banks.userInfo.username",
+                    "variableName": "username",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  {
+                    "id": "banks.userInfo.password",
+                    "variableName": "password",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  {
+                    "id": "banks.userInfo.id",
+                    "variableName": "id",
+                    "typeName": "int",
+                    "kind": "int"
+                  }
+                ],
+                "id": "banks.userInfo",
+                "typeName": "UserInfo",
+                "kind": "record"
+              },
+              "id": "banks.userInfo",
+              "variableName": "userInfo",
+              "typeName": "UserInfo[]",
+              "kind": "array"
+            }
+          ],
+          "id": "banks",
+          "typeName": "Bank",
+          "kind": "record"
+        },
+        "id": "banks",
+        "variableName": "banks",
+        "typeName": "Bank[]",
+        "kind": "array",
+        "category": "variable"
+      },
+      {
+        "member": {
+          "fields": [
+            {
+              "id": "userInfo.username",
+              "variableName": "username",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "userInfo.password",
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "userInfo.id",
+              "variableName": "id",
+              "typeName": "int",
+              "kind": "int"
+            }
+          ],
+          "id": "userInfo",
+          "typeName": "UserInfo",
+          "kind": "record"
+        },
+        "id": "userInfo",
+        "variableName": "userInfo",
+        "typeName": "UserInfo[]",
+        "kind": "array",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "member": {
+        "fields": [
+          {
+            "id": "credentials.username",
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "credentials.password",
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "credentials",
+        "typeName": "Credentials",
+        "kind": "record"
+      },
+      "id": "credentials",
+      "variableName": "credentials",
+      "typeName": "Credentials[]",
+      "kind": "array"
+    },
+    "mappings": [
+      {
+        "output": "credentials.password",
+        "inputs": [
+          ""
+        ],
+        "expression": "",
+        "diagnostics": [
+          "missing identifier"
+        ],
+        "elements": []
+      },
+      {
+        "output": "credentials.username",
+        "inputs": [
+          "info.username"
+        ],
+        "expression": "info.username",
+        "diagnostics": [],
+        "elements": []
+      }
+    ]
+  },
+  "targetField": "stores.credentials"
+}

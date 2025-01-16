@@ -38,6 +38,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 
@@ -288,15 +289,27 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> resourcePath(String path) {
+    public FormBuilder<T> resourcePath(String path, boolean editable) {
         propertyBuilder
                 .metadata()
                     .label(Property.RESOURCE_PATH_LABEL)
                     .description(Property.RESOURCE_PATH_DOC)
                     .stepOut()
-                .type(Property.ValueType.EXPRESSION)
-                .value(path)
-                .editable();
+                .type(Property.ValueType.EXPRESSION);
+        if (editable) {
+            propertyBuilder
+                    .codedata()
+                        .originalName(ParamUtils.REST_RESOURCE_PATH)
+                        .stepOut()
+                    .value(path)
+                    .editable();
+        } else {
+            propertyBuilder
+                    .codedata()
+                        .originalName(path)
+                        .stepOut()
+                    .value(path.replaceAll("\\\\", ""));
+        }
         addProperty(Property.RESOURCE_PATH_KEY);
         return this;
     }

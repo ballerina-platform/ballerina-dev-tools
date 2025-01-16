@@ -28,7 +28,10 @@
       "items": [
         {
           "metadata": {
-            "label": "transform"
+            "label": "transform",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -39,7 +42,10 @@
         {
           "metadata": {
             "label": "add",
-            "description": "Adds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```"
+            "description": "Adds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -49,7 +55,10 @@
         },
         {
           "metadata": {
-            "label": "sum"
+            "label": "sum",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -60,7 +69,10 @@
         {
           "metadata": {
             "label": "prefixSum",
-            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n"
+            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -71,7 +83,10 @@
         {
           "metadata": {
             "label": "safeDivide",
-            "description": "Performs a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n"
+            "description": "Performs a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -81,7 +96,10 @@
         },
         {
           "metadata": {
-            "label": "greet"
+            "label": "greet",
+            "data": {
+              "isDataMappedFunction": false
+            }
           },
           "codedata": {
             "node": "FUNCTION_CALL",

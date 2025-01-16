@@ -30,7 +30,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 570
+                "id": 566
               },
               "enabled": true
             },
@@ -47,7 +47,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 572
+                "id": 568
               },
               "enabled": true
             },
@@ -64,7 +64,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 574
+                "id": 573
               },
               "enabled": true
             },
@@ -389,11 +389,10 @@
         },
         {
           "metadata": {
-            "label": "Data Mapper",
-            "description": "Map data from multiple variables to a record type"
+            "label": "Map Data"
           },
           "codedata": {
-            "node": "DATA_MAPPER"
+            "node": "DATA_MAPPER_CALL"
           },
           "enabled": true
         }

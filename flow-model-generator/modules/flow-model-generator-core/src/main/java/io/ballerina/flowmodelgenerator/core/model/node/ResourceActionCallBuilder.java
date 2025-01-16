@@ -29,12 +29,15 @@ import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,17 +71,50 @@ public class ResourceActionCallBuilder extends NodeBuilder {
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
+
+        Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
+                Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
+                Property.CHECK_ERROR_KEY));
+
+        String resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).codedata().originalName();
+
+        if (resourcePath.equals(ParamUtils.REST_RESOURCE_PATH)) {
+            resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString();
+        }
+
+        Set<String> keys = new LinkedHashSet<>(flowNode.properties().keySet());
+        keys.removeAll(ignoredKeys);
+
+        for (String key : keys) {
+            Optional<Property> property = flowNode.getProperty(key);
+            if (property.isEmpty()) {
+                continue;
+            }
+            PropertyCodedata propCodedata = property.get().codedata();
+            if (propCodedata == null) {
+                continue;
+            }
+            if (propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name())) {
+                String pathParamSubString = "[" + key + "]";
+                String replacement = "[" + property.get().value().toString() + "]";
+                resourcePath = resourcePath.replace(pathParamSubString, replacement);
+                ignoredKeys.add(key);
+            } else if (propCodedata.kind().equals(Parameter.Kind.PATH_REST_PARAM.name())) {
+                String replacement = property.get().value().toString();
+                resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
+                ignoredKeys.add(key);
+            }
+        }
+
+
         return sourceBuilder.token()
                 .name(connection.get().toSourceCode())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .resourcePath(sourceBuilder.flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString())
+                .resourcePath(resourcePath)
                 .keyword(SyntaxKind.DOT_TOKEN)
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
-                .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                                Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
-                                Property.CHECK_ERROR_KEY))
+                .functionParameters(flowNode, ignoredKeys)
                 .textEdit(false)
                 .acceptImport()
                 .build();
@@ -121,7 +157,8 @@ public class ResourceActionCallBuilder extends NodeBuilder {
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
 
-        properties().resourcePath(function.resourcePath());
+        String resourcePath = function.resourcePath();
+        properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;

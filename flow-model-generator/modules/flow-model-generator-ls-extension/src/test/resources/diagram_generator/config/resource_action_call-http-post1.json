@@ -76,17 +76,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/western/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -97,6 +86,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/western/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -247,17 +250,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -268,6 +260,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -419,17 +425,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -440,6 +435,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -590,17 +599,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -611,6 +609,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -762,17 +774,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -783,6 +784,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -934,17 +949,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -955,6 +959,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {
@@ -1105,17 +1123,6 @@
             "editable": false,
             "advanced": false
           },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples/[varRef]/[12 + 3]",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -1126,6 +1133,20 @@
             "optional": false,
             "editable": true,
             "advanced": false
+          },
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples/[varRef]/[12 + 3]",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
           },
           "message": {
             "metadata": {

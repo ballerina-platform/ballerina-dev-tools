@@ -42,11 +42,16 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ModuleNodesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesUpdateTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.DataMapManagerTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ErrorHandlerGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.GetEnclosedFunctionDefTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.FunctionCallTemplateTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ImportModuleTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingTypesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingModelTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingSourceTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingQueryConvertTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingVisualizeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.DataMappingAddElementTest"/>
             <!--types manager-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>
