@@ -30,7 +30,7 @@
           "metadata": {
             "label": "transform",
             "data": {
-              "isDataMappedFunction": true
+              "isDataMappedFunction": false
             }
           },
           "codedata": {

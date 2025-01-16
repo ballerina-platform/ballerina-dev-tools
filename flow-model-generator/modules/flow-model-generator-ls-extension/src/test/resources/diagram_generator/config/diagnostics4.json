@@ -101,11 +101,11 @@
       {
         "id": "37895",
         "metadata": {
-          "label": "Data Mapper",
-          "description": "Map data from multiple variables to a record type"
+          "label": "Map Data",
+          "description": ""
         },
         "codedata": {
-          "node": "DATA_MAPPER",
+          "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
           "symbol": "transform",
@@ -125,50 +125,6 @@
         },
         "returning": false,
         "properties": {
-          "functionName": {
-            "metadata": {
-              "label": "Data mapper name",
-              "description": "Name of the data mapper function"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "transform",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "output": {
-            "metadata": {
-              "label": "Output",
-              "description": "Output of the data mapper function"
-            },
-            "valueType": "SINGLE_SELECT",
-            "value": "Target",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "redeclared symbol 'var1'"
-                }
-              ]
-            }
-          },
-          "inputs": {
-            "metadata": {
-              "label": "Inputs",
-              "description": "Input variables of the data mapper function"
-            },
-            "valueType": "MULTIPLE_SELECT",
-            "value": [
-              "Source {firstName: \"John\", lastName: \"Doe\", age: 30}"
-            ],
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "view": {
             "metadata": {
               "label": "View",
@@ -190,6 +146,22 @@
             "editable": false,
             "advanced": false
           },
+          "src": {
+            "metadata": {
+              "label": "src"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "Source",
+            "value": "{firstName: \"John\", lastName: \"Doe\", age: 30}",
+            "placeholder": "{firstName: \"\", lastName: \"\", age: 0}",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "src"
+            }
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -197,6 +169,27 @@
             },
             "valueType": "IDENTIFIER",
             "value": "var1",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "redeclared symbol 'var1'"
+                }
+              ]
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Target",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -210,11 +203,11 @@
       {
         "id": "38870",
         "metadata": {
-          "label": "Data Mapper",
-          "description": "Map data from multiple variables to a record type"
+          "label": "Map Data",
+          "description": ""
         },
         "codedata": {
-          "node": "DATA_MAPPER",
+          "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
           "symbol": "transform",
@@ -234,41 +227,6 @@
         },
         "returning": false,
         "properties": {
-          "functionName": {
-            "metadata": {
-              "label": "Data mapper name",
-              "description": "Name of the data mapper function"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "transform",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "output": {
-            "metadata": {
-              "label": "Output",
-              "description": "Output of the data mapper function"
-            },
-            "valueType": "SINGLE_SELECT",
-            "value": "Target",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
-          "inputs": {
-            "metadata": {
-              "label": "Inputs",
-              "description": "Input variables of the data mapper function"
-            },
-            "valueType": "MULTIPLE_SELECT",
-            "value": [
-              "Source {firstName: \"John\", age: 30}"
-            ],
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "view": {
             "metadata": {
               "label": "View",
@@ -290,6 +248,31 @@
             "editable": false,
             "advanced": false
           },
+          "src": {
+            "metadata": {
+              "label": "src"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "Source",
+            "value": "{firstName: \"John\", age: 30}",
+            "placeholder": "{firstName: \"\", lastName: \"\", age: 0}",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "missing non-defaultable required record field 'lastName'"
+                }
+              ]
+            },
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "src"
+            }
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -297,6 +280,18 @@
             },
             "valueType": "IDENTIFIER",
             "value": "var2",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Target",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

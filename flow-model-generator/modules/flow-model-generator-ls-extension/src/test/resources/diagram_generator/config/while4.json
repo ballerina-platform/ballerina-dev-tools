@@ -327,11 +327,16 @@
               {
                 "id": "72868",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "toString",
+                  "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.value",
+                  "symbol": "toString",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -347,26 +352,15 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "connection": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Assign value"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"Response received from food service: \" + response.toString()",
+                    "value": "response",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "msg",
-                    "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   }
                 },
@@ -471,11 +465,16 @@
               {
                 "id": "75841",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "message",
+                  "description": "Returns the error's message.\n\n```ballerina\nerror(\"IO error\").message() ⇒ IO error\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.error_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.error",
+                  "symbol": "message",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -491,27 +490,32 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "connection": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Assign value"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"Error occurred while invoking food service\" + e.message()",
+                    "value": "e",
                     "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   },
-                  "variable": {
+                  "e": {
                     "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
+                      "label": "e",
+                      "description": "the error value"
                     },
-                    "valueType": "IDENTIFIER",
-                    "value": "msg",
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
+                    "placeholder": "error(\"\")",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "e"
+                    }
                   }
                 },
                 "flags": 0

@@ -59,7 +59,7 @@ public class FunctionGenerator {
     private final Category.Builder rootBuilder;
 
     private static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
-    private static final String DATA_MAPPER_FILE_NAME = "data_mapper.bal";
+    private static final String DATA_MAPPER_FILE_NAME = "data_mappings.bal";
 
     public FunctionGenerator(Module module) {
         gson = new Gson();

@@ -40,4 +40,11 @@ public record ParameterResult(
         String description,
         Integer optional,
         String importStatements) {
+
+
+    public static ParameterResult from(String name, String type, Parameter.Kind kind, String defaultValue,
+                                       String description, Integer optional) {
+        return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
+                null);
+    }
 }
