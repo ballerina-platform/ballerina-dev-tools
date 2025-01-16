@@ -1,0 +1,284 @@
+{
+    "id": 2,
+    "name": "RabbitMQ Listener",
+    "type": "event",
+    "displayName": "RabbitMQ",
+    "documentation": "The RabbitMQ listener can be attached to a RabbitMQ service which listens to messages from a RabbitMQ server. The listener should define the queue name as the base path and should implement either the `onMessage` or `onRequest` remote method to handle the incoming messages. Additionally, the listener can implement the `onError` remote method to handle errors.",
+    "moduleName": "rabbitmq",
+    "orgName": "ballerinax",
+    "packageName": "rabbitmq",
+    "version": "3.1.0",
+    "listenerProtocol": "rabbitmq",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.1.0.png",
+    "displayAnnotation": {
+        "label": "RabbitMQ",
+        "iconPath": "docs/icon.png"
+    },
+    "properties": {
+        "name": {
+            "metadata": {
+                "label": "Name",
+                "description": "The name of the listener"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false,
+            "codedata": {
+                "type": "LISTENER_VAR_NAME"
+            }
+        },
+        "host": {
+            "metadata": {
+                "label": "Server Hostname",
+                "description": "The RabbitMQ server host name used for establishing the connection"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "\"localhost\"",
+            "optional": false,
+            "advanced": false
+        },
+        "port": {
+            "metadata": {
+                "label": "Server Port",
+                "description": "The RabbitMQ server port used for establishing the connection"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "isType": false,
+            "placeholder": "5672",
+            "optional": false,
+            "advanced": false
+        },
+        "qosSettings": {
+            "metadata": {
+                "label": "QoS Settings",
+                "description": "The consumer prefetch settings"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "rabbitmq:QosSettings",
+            "isType": false,
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "username": {
+            "metadata": {
+                "label": "Username",
+                "description": "The username used for establishing the connection"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "string",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "password": {
+            "metadata": {
+                "label": "Password",
+                "description": "The password used for establishing the connection"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "string",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "virtualHost": {
+            "metadata": {
+                "label": "Virtual Host",
+                "description": "The virtual host to use when connecting to the broker"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "string",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "connectionTimeout": {
+            "metadata": {
+                "label": "Connection Timeout",
+                "description": "Connection TCP establishment timeout in seconds and zero for infinite"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "decimal",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "handshakeTimeout": {
+            "metadata": {
+                "label": "Handshake Timeout",
+                "description": "The AMQP 0-9-1 protocol handshake timeout in seconds"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "decimal",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "shutdownTimeout": {
+            "metadata": {
+                "label": "Shutdown Timeout",
+                "description": "Shutdown timeout in seconds, zero for infinite, and the default value is 10. If the consumers exceed this timeout, then any remaining queued deliveries (and other Consumer callbacks) will be lost"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "decimal",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "heartbeat": {
+            "metadata": {
+                "label": "Heartbeat Timeout",
+                "description": "The initially-requested heartbeat timeout in seconds and zero for none"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "decimal",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "validation": {
+            "metadata": {
+                "label": "Constraint Validation",
+                "description": "Configuration related to constraint validation check"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "BOOLEAN",
+            "isType": false,
+            "valueTypeConstraint": "boolean",
+            "placeholder": "true",
+            "optional": true,
+            "advanced": true
+        },
+        "secureSocket": {
+            "metadata": {
+                "label": "Secure Socket Configuration",
+                "description": "Configurations for facilitating secure connections"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "rabbitmq:SecureSocket",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        },
+        "auth": {
+            "metadata": {
+                "label": "Authentication Configuration",
+                "description": "Configurations related to authentication"
+            },
+            "codedata": {
+                "type": "LISTENER_INIT_PARAM",
+                "argType": "NAMED"
+            },
+            "enabled": false,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "valueTypeConstraint": "rabbitmq:Credentials",
+            "placeholder": "",
+            "optional": true,
+            "advanced": true
+        }
+    }
+}
