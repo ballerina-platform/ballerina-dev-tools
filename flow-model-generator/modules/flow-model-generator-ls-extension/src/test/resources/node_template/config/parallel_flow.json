@@ -10,7 +10,8 @@
       "description": "Create parallel flows"
     },
     "codedata": {
-      "node": "PARALLEL_FLOW"
+      "node": "PARALLEL_FLOW",
+      "isNew": true
     },
     "returning": false,
     "branches": [

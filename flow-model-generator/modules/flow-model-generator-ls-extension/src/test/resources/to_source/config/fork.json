@@ -9,6 +9,7 @@
     },
     "codedata": {
       "node": "FORK",
+      "isNew": true,
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {

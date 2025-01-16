@@ -10,7 +10,8 @@
       "description": "Create parallel workers"
     },
     "codedata": {
-      "node": "FORK"
+      "node": "FORK",
+      "isNew": true
     },
     "returning": false,
     "branches": [

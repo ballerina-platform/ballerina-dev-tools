@@ -53,16 +53,19 @@ public class ForkBuilder extends ParallelFlowBuilder {
         sourceBuilder.token().closeBrace();
 
         // Generate the wait statement
-        sourceBuilder.token()
-                .name("map<any>")
-                .whiteSpace()
-                .name("waitResult")
-                .keyword(SyntaxKind.EQUAL_TOKEN)
-                .keyword(SyntaxKind.WAIT_KEYWORD)
-                .keyword(SyntaxKind.OPEN_BRACE_TOKEN)
-                .name(String.join(",", workerNames))
-                .keyword(SyntaxKind.CLOSE_BRACE_TOKEN)
-                .endOfStatement();
+        Boolean isNew = sourceBuilder.flowNode.codedata().isNew();
+        if (isNew != null && isNew) {
+            sourceBuilder.token()
+                    .name("map<any>")
+                    .whiteSpace()
+                    .name("waitResult")
+                    .keyword(SyntaxKind.EQUAL_TOKEN)
+                    .keyword(SyntaxKind.WAIT_KEYWORD)
+                    .keyword(SyntaxKind.OPEN_BRACE_TOKEN)
+                    .name(String.join(",", workerNames))
+                    .keyword(SyntaxKind.CLOSE_BRACE_TOKEN)
+                    .endOfStatement();
+        }
 
         return sourceBuilder.textEdit(false).build();
     }

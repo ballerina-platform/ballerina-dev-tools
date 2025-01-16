@@ -30,14 +30,14 @@
           "label": "Futures",
           "description": "The futures to wait for"
         },
-        "valueType": "REPEATABLE_PROPERTY_LIST",
+        "valueType": "REPEATABLE_PROPERTY",
         "value": {
           "future": {
             "metadata": {
               "label": "Future",
               "description": "The worker/async function to wait for"
             },
-            "valueType": "FIXED_PROPERTY_LIST",
+            "valueType": "FIXED_PROPERTY",
             "value": {
               "variable": {
                 "metadata": {
