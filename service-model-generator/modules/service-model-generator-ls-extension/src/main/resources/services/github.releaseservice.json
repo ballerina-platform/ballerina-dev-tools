@@ -1,0 +1,561 @@
+{
+  "id": 3,
+  "name": "GitHub Channel",
+  "type": "event",
+  "displayName": "GitHub",
+  "documentation": "The GitHub service can be attached to  GitHub channel which listens to GitHub events and triggers the service when a GitHub event is received",
+  "moduleName": "trigger.github",
+  "orgName": "ballerinax",
+  "packageName": "trigger.github",
+  "version": "0.9.2",
+  "listenerProtocol": "github",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_trigger.github_0.9.2.png",
+  "displayAnnotation": {
+    "label": "GitHub",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "listener": {
+      "metadata": {
+        "label": "Listeners",
+        "description": "The Listeners to be bound with the service"
+      },
+      "codedata": {
+        "type": "LISTENER"
+      },
+      "enabled": true,
+      "editable": false,
+      "value": "",
+      "values": [],
+      "valueType": "MULTIPLE_SELECT",
+      "valueTypeConstraint": "github:Listener",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "addNewButton": true
+    },
+    "serviceType": {
+        "metadata": {
+            "label": "Channel",
+            "description": "The channel name"
+        },
+        "codedata": {
+            "type": "SERVICE_TYPE"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "ReleaseService",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "github:GenericServiceType",
+        "isType": true,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "IssuesService",
+          "IssueCommentService",
+          "PullRequestService",
+          "PullRequestReviewService",
+          "PullRequestReviewCommentService",
+          "ReleaseService",
+          "LabelService",
+          "MilestoneService",
+          "PushService",
+          "ProjectCardService"
+      ]
+    }
+  },
+  "functions": [
+    {
+      "metadata": {
+        "label": "onPublished",
+        "description": "Triggers when a new release is published."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onPublished",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onPublished",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onUnpublished",
+        "description": "Triggers when a release is unpublished."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onUnpublished",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onUnpublished",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onCreated",
+        "description": "Triggers when a new release is created."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onCreated",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onCreated",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onEdited",
+        "description": "Triggers when a release is edited."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onEdited",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onEdited",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onDeleted",
+        "description": "Triggers when a release is deleted."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onDeleted",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onDeleted",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onPreReleased",
+        "description": "Triggers when a package is pre-released."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onPreReleased",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onPreReleased",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onReleased",
+        "description": "Triggers when a package is released."
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onReleased",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "onReleased",
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "payload",
+            "description": "The information about the triggered event."
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": false,
+            "value": "github:ReleaseEvent",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "string",
+            "isType": true,
+            "placeholder": "github:ReleaseEvent",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "payload",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "payload",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "error?",
+          "description": "Error object."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    }
+  ]
+}

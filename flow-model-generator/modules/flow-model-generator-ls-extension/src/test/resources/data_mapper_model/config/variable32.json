@@ -1,0 +1,160 @@
+{
+  "source": "variable17.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable17.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\n                contacts: [\"123\", \"456\"]\n            }",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var3",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Person",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 19,
+    "offset": 32
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "member": {
+              "id": "u1.phoneNumber",
+              "typeName": "string",
+              "kind": "string"
+            },
+            "id": "u1.phoneNumber",
+            "variableName": "phoneNumber",
+            "typeName": "string[]",
+            "kind": "array"
+          }
+        ],
+        "id": "u1",
+        "variableName": "u1",
+        "typeName": "User",
+        "kind": "record",
+        "category": "variable"
+      },
+      {
+        "fields": [
+          {
+            "member": {
+              "id": "user.phoneNumber",
+              "typeName": "string",
+              "kind": "string"
+            },
+            "id": "user.phoneNumber",
+            "variableName": "phoneNumber",
+            "typeName": "string[]",
+            "kind": "array"
+          }
+        ],
+        "id": "user",
+        "variableName": "user",
+        "typeName": "User",
+        "kind": "record",
+        "category": "parameter"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "member": {
+            "id": "var3.contacts",
+            "typeName": "string",
+            "kind": "string"
+          },
+          "id": "var3.contacts",
+          "variableName": "contacts",
+          "typeName": "string[]",
+          "kind": "array"
+        }
+      ],
+      "id": "var3",
+      "variableName": "var3",
+      "typeName": "Person",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "var3.contacts",
+        "inputs": [],
+        "expression": "[\"123\", \"456\"]\n",
+        "diagnostics": [],
+        "elements": [
+          {
+            "mappings": [
+              {
+                "output": "var3.contacts.0",
+                "inputs": [],
+                "expression": "\"123\"",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
+          },
+          {
+            "mappings": [
+              {
+                "output": "var3.contacts.1",
+                "inputs": [],
+                "expression": "\"456\"",
+                "diagnostics": [],
+                "elements": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -151,7 +151,7 @@ public class AvailableNodesGenerator {
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
-                .node(NodeKind.DATA_MAPPER);
+                .node(NodeKind.DATA_MAPPER_CALL);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
@@ -240,16 +240,23 @@ public class AvailableNodesGenerator {
 
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
-            if (connectorAction.kind() != Function.Kind.RESOURCE) {
+            if (connectorAction.kind() == Function.Kind.REMOTE) {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
+            } else if (connectorAction.kind() == Function.Kind.FUNCTION) {
+                availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
+            } else {
+                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
+                    continue;
+                }
+                List<ResourceMethodTreeNode> treeNodeList = dbManager.getTreeNodesForConnector(connector.functionId());
+                TreeNode root = buildTree(treeNodeList, connector, parentSymbol);
+                if (root != null) {
+                    availableNodes.add(root);
+                }
             }
         }
 
-        List<ResourceMethodTreeNode> treeNodeList = dbManager.getTreeNodesForConnector(connector.functionId());
-        TreeNode root = buildTree(treeNodeList, connector, parentSymbol);
-        if (root != null) {
-            availableNodes.add(root);
-        }
+
         return availableNodes;
     }
 
@@ -287,6 +294,25 @@ public class AvailableNodesGenerator {
         }
 
         return root;
+    }
+
+    private static NodeBuilder getMethodCallNode(FunctionResult functionResult, FunctionResult connector,
+                                                 String parentSymbol) {
+        NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
+        methodCallBuilder
+                .metadata()
+                    .label(functionResult.name())
+                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                    .description(functionResult.description())
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.METHOD_CALL)
+                    .org(connector.org())
+                    .module(connector.packageName())
+                    .symbol(functionResult.name())
+                    .parentSymbol(parentSymbol)
+                    .id(functionResult.functionId());
+        return methodCallBuilder;
     }
 
     private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,

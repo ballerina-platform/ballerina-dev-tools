@@ -28,3 +28,5 @@ type Admission record {
     string empId;
     string admissionDate;
 };
+
+type Persons Person[];

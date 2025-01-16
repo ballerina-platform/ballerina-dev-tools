@@ -31,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.CommitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ConfigVariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ContinueBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapperCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.EventStartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
@@ -41,6 +42,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.LockBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MatchBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
@@ -116,6 +118,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.BINARY_DATA, BinaryBuilder::new);
         put(NodeKind.STOP, StopBuilder::new);
         put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+        put(NodeKind.METHOD_CALL, MethodCall::new);
         put(NodeKind.FOREACH, ForeachBuilder::new);
         put(NodeKind.DATA_MAPPER, DataMapperBuilder::new);
         put(NodeKind.VARIABLE, VariableBuilder::new);
@@ -123,6 +126,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.COMMENT, CommentBuilder::new);
         put(NodeKind.MATCH, MatchBuilder::new);
         put(NodeKind.CONFIG_VARIABLE, ConfigVariableBuilder::new);
+        put(NodeKind.DATA_MAPPER_CALL, DataMapperCallBuilder::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {

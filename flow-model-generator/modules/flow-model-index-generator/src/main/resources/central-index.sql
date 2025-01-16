@@ -42,7 +42,7 @@ CREATE TABLE Parameter (
     name TEXT NOT NULL,
     description TEXT,
     kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST_PARAMETER',
-    'INCLUDED_FIELD', 'INCLUDED_RECORD_REST', 'PARAM_FOR_TYPE_INFER')),
+    'INCLUDED_FIELD', 'INCLUDED_RECORD_REST', 'PARAM_FOR_TYPE_INFER', 'PATH_PARAM', 'PATH_REST_PARAM')),
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
     optional INTEGER CHECK(optional IN (0, 1)),

@@ -36,6 +36,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Module;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
@@ -58,6 +59,7 @@ public class FunctionGenerator {
     private final Category.Builder rootBuilder;
 
     private static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
+    private static final String DATA_MAPPER_FILE_NAME = "data_mappings.bal";
 
     public FunctionGenerator(Module module) {
         gson = new Gson();
@@ -92,8 +94,11 @@ public class FunctionGenerator {
         List<Item> availableNodes = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
-            if (symbol.getLocation().isPresent()) {
-                LineRange fnLineRange = symbol.getLocation().get().lineRange();
+            boolean isDataMappedFunction = false;
+            Optional<Location> location = symbol.getLocation();
+            if (location.isPresent()) {
+                isDataMappedFunction = location.get().lineRange().fileName().equals(DATA_MAPPER_FILE_NAME);
+                LineRange fnLineRange = location.get().lineRange();
                 if (PositionUtil.isWithinLineRange(fnLineRange, position)) {
                     continue;
                 }
@@ -111,6 +116,7 @@ public class FunctionGenerator {
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))
+                    .addData("isDataMappedFunction", isDataMappedFunction)
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)

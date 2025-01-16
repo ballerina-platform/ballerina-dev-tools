@@ -1,0 +1,174 @@
+{
+  "id": 6,
+  "name": "FTP Service",
+  "type": "file",
+  "displayName": "FTP",
+  "documentation": "The FTP service can be attached to a FTP listener which listens to file changes and trigger the service when a file change event occurs. The FTP service should implement the `onFileChange` function which will be triggered when a file change event occurs",
+  "moduleName": "ftp",
+  "orgName": "ballerina",
+  "packageName": "ftp",
+  "version": "2.11.0",
+  "listenerProtocol": "ftp",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.11.0.png",
+  "displayAnnotation": {
+    "label": "FTP",
+    "iconPath": "docs/icon.png"
+  },
+  "properties": {
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "The name of the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_VAR_NAME"
+      }
+    },
+    "protocol": {
+      "metadata": {
+        "label": "Protocol",
+        "description": "Supported FTP protocols"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "\"ftp\"",
+      "valueType": "SINGLE_SELECT",
+      "isType": false,
+      "valueTypeConstraint": "ftp:Protocol",
+      "placeholder": "\"ftp\"",
+      "optional": true,
+      "advanced": false,
+      "items": [
+        "\"ftp\"",
+        "\"sftp\""
+      ],
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "host": {
+      "metadata": {
+        "label": "Host",
+        "description": "Target service url"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "\"127.0.0.1\"",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "string",
+      "placeholder": "\"127.0.0.1\"",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "port": {
+      "metadata": {
+        "label": "Port",
+        "description": "Port number of the remote service"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "21",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "int",
+      "placeholder": "21",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "auth": {
+      "metadata": {
+        "label": "Authentication Optiona",
+        "description": "Authentication options"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "ftp:AuthConfiguration",
+      "placeholder": "",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "path": {
+      "metadata": {
+        "label": "Path",
+        "description": "Remote FTP directory location"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "\"/\"",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "string",
+      "placeholder": "\"/\"",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "fileNamePattern": {
+      "metadata": {
+        "label": "File Name Pattern",
+        "description": "File name pattern that event need to trigger"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "string",
+      "placeholder": "",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    },
+    "pollingInterval": {
+      "metadata": {
+        "label": "Polling Interval",
+        "description": "Periodic time interval to check new update"
+      },
+      "enabled": false,
+      "editable": true,
+      "value": "60",
+      "valueType": "EXPRESSION",
+      "isType": false,
+      "valueTypeConstraint": "decimal",
+      "placeholder": "60",
+      "optional": true,
+      "advanced": false,
+      "codedata": {
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      }
+    }
+  }
+}

@@ -19,17 +19,6 @@
     },
     "returning": false,
     "properties": {
-      "variable": {
-        "metadata": {
-          "label": "Variable Name",
-          "description": "Name of the variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "var2",
-        "optional": false,
-        "editable": true,
-        "advanced": false
-      },
       "functionName": {
         "metadata": {
           "label": "Data mapper name",
@@ -48,15 +37,14 @@
         },
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
-          "Address address",
-          "Address var1",
-          "Address[] addresses",
-          "Input moduleInput",
-          "http:Client httpClient",
-          "http:Client httpClientResult",
-          "int x",
-          "snowflake:Client snowflakeCl",
-          "string z"
+          "Address",
+          "Admission",
+          "Employee",
+          "Input",
+          "Location",
+          "Output",
+          "Person",
+          "Persons"
         ],
         "value": "",
         "optional": false,
@@ -76,7 +64,8 @@
           "Input",
           "Location",
           "Output",
-          "Person"
+          "Person",
+          "Persons"
         ],
         "value": "",
         "optional": false,

@@ -85,21 +85,6 @@
         },
         "newText": "function transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
       }
-    ],
-    "data_mapper/main.bal": [
-      {
-        "range": {
-          "start": {
-            "line": 29,
-            "character": 4
-          },
-          "end": {
-            "line": 29,
-            "character": 63
-          }
-        },
-        "newText": "Employee employee = transformToEmployee(person, admission);"
-      }
     ]
   }
 }

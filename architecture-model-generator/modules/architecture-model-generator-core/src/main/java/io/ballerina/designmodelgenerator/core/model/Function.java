@@ -18,13 +18,23 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * Represents a function definition node.
  *
  * @param name name of the function
  * @param location location of the function
+ * @param connections dependent connections of the function
  *
  * @since 2.0.0
  */
-public record Function(String name, Location location) {
+public record Function(String name, Location location, Set<String> connections) {
+
+    @Override
+    public int hashCode() {
+        int connections = connections() != null ? connections().size() : 0;
+        return Objects.hash(name().hashCode(), location().hashCode(), connections);
+    }
 }

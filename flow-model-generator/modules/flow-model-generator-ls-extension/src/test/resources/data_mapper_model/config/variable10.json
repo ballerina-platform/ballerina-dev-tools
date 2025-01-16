@@ -1,0 +1,170 @@
+{
+  "source": "variable5.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable5.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{id: 1234, credentials: {username: userInfo.username, password: userInfo.password}, length: 0}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "student",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Student",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 24,
+    "offset": 65
+  },
+  "model": {
+    "inputs": [
+      {
+        "id": "CONST",
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
+      },
+      {
+        "fields": [
+          {
+            "id": "userInfo.username",
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "userInfo.password",
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "userInfo",
+        "variableName": "userInfo",
+        "typeName": "UserInfo",
+        "kind": "record",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "id": "student.id",
+          "variableName": "id",
+          "typeName": "decimal",
+          "kind": "decimal"
+        },
+        {
+          "fields": [
+            {
+              "id": "student.credentials.username",
+              "variableName": "username",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "student.credentials.password",
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "student.credentials",
+          "variableName": "credentials",
+          "typeName": "Credentials",
+          "kind": "record"
+        },
+        {
+          "id": "student.length",
+          "variableName": "length",
+          "typeName": "int",
+          "kind": "int"
+        }
+      ],
+      "id": "student",
+      "variableName": "student",
+      "typeName": "Student",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "student.id",
+        "inputs": [],
+        "expression": "1234",
+        "diagnostics": [],
+        "elements": []
+      },
+      {
+        "output": "student.credentials.username",
+        "inputs": [
+          "userInfo.username"
+        ],
+        "expression": "userInfo.username",
+        "diagnostics": [],
+        "elements": []
+      },
+      {
+        "output": "student.credentials.password",
+        "inputs": [
+          "userInfo.password"
+        ],
+        "expression": "userInfo.password",
+        "diagnostics": [],
+        "elements": []
+      },
+      {
+        "output": "student.length",
+        "inputs": [],
+        "expression": "0",
+        "diagnostics": [],
+        "elements": []
+      }
+    ]
+  }
+}

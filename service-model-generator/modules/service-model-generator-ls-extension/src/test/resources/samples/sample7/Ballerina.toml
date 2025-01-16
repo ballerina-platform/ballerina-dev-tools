@@ -1,0 +1,6 @@
+[package]
+org = "ballerina"
+name = "service_designer"
+version = "0.1.0"
+
+bi = true
