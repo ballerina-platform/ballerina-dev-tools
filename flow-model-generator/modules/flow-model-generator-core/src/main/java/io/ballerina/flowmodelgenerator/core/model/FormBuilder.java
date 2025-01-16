@@ -787,14 +787,14 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> propertyList() {
+    public FormBuilder<T> nestedProperty() {
         Map<String, Property> newProperties = new LinkedHashMap<>();
         nodePropertiesStack.push(nodeProperties);
         nodeProperties = newProperties;
         return this;
     }
 
-    public FormBuilder<T> endPropertyList(Property.ValueType valueType, String key, String label, String doc) {
+    public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc) {
         if (!nodeProperties.isEmpty()) {
             propertyBuilder
                     .metadata()

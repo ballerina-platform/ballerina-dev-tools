@@ -30,7 +30,7 @@
               "offset": 1
             }
           },
-           "sourceCode": "function workersWithFork() returns string? {\n    int i = 12;\n    string s = \"12\";\n\n    worker B {\n        io:println(\"Worker B\");\n    }\n\n    worker C {\n        io:println(\"Worker C\");\n    }\n\n    fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }\n\n    string? value = wait A | B | C;\n    return value;\n}"
+          "sourceCode": "function workersWithFork() returns string? {\n    int i = 12;\n    string s = \"12\";\n\n    worker B {\n        io:println(\"Worker B\");\n    }\n\n    worker C {\n        io:println(\"Worker C\");\n    }\n\n    fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }\n\n    string? value = wait A | B | C;\n    return value;\n}"
         },
         "returning": false,
         "flags": 0
@@ -520,14 +520,14 @@
               "label": "Futures",
               "description": "The futures to wait for"
             },
-            "valueType": "REPEATABLE_PROPERTY_LIST",
+            "valueType": "REPEATABLE_PROPERTY",
             "value": {
               "future1": {
                 "metadata": {
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
-                "valueType": "FIXED_PROPERTY_LIST",
+                "valueType": "FIXED_PROPERTY",
                 "value": {
                   "variable": {
                     "metadata": {
@@ -564,7 +564,7 @@
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
-                "valueType": "FIXED_PROPERTY_LIST",
+                "valueType": "FIXED_PROPERTY",
                 "value": {
                   "variable": {
                     "metadata": {
@@ -601,7 +601,7 @@
                   "label": "Future",
                   "description": "The worker/async function to wait for"
                 },
-                "valueType": "FIXED_PROPERTY_LIST",
+                "valueType": "FIXED_PROPERTY",
                 "value": {
                   "variable": {
                     "metadata": {

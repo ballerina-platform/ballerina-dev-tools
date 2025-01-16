@@ -66,13 +66,13 @@ public class WaitBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().waitAll(false)
-                .propertyList()
-                    .propertyList()
+                .nestedProperty()
+                    .nestedProperty()
                         .waitField(null)
                         .expression(null)
-                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, WaitBuilder.FUTURE_KEY,
+                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, WaitBuilder.FUTURE_KEY,
                         WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC)
-                .endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, WaitBuilder.FUTURES_KEY,
                         WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
 

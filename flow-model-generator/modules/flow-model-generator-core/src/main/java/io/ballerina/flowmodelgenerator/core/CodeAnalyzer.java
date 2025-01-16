@@ -1275,9 +1275,77 @@ class CodeAnalyzer extends NodeVisitor {
                 .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC, "worker")
                 .returnType(type);
 
+        // Analyze the body of the worker
         analyzeBlock(namedWorkerDeclarationNode.workerBody(), workerBranchBuilder);
         endBranch(workerBranchBuilder, namedWorkerDeclarationNode);
     }
+
+    @Override
+    public void visit(WaitActionNode waitActionNode) {
+        startNode(NodeKind.WAIT, waitActionNode);
+
+        // Capture the future nodes associated with the wait node
+        boolean waitAll = false;
+        Node waitFutureExpr = waitActionNode.waitFutureExpr();
+        List<Node> nodes = new ArrayList<>();
+        switch (waitFutureExpr.kind()) {
+            case BINARY_EXPRESSION -> {
+                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) waitFutureExpr;
+                Stack<Node> futuresStack = new Stack<>();
+
+                // Capture the right most future
+                futuresStack.push(binaryExpressionNode.rhsExpr());
+
+                // Build the stack for the left futures, starting from the right
+                Node lhsNode = binaryExpressionNode.lhsExpr();
+                while (lhsNode.kind() == SyntaxKind.BINARY_EXPRESSION) {
+                    BinaryExpressionNode nestedBinary = (BinaryExpressionNode) lhsNode;
+                    futuresStack.push(nestedBinary.rhsExpr());
+                    lhsNode = nestedBinary.lhsExpr();
+                }
+                futuresStack.push(lhsNode);
+
+                // Add the futures to the node list in reverse order from the stack
+                while (!futuresStack.isEmpty()) {
+                    nodes.add(futuresStack.pop());
+                }
+            }
+            case WAIT_FIELDS_LIST -> {
+                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) waitFutureExpr;
+                for (Node field : waitFieldsListNode.waitFields()) {
+                    nodes.add(field);
+                }
+                waitAll = true;
+            }
+            default -> nodes.add(waitFutureExpr);
+        }
+
+
+        // Generate the properties for the futures
+        nodeBuilder.properties().waitAll(waitAll).nestedProperty();
+        Node waitField;
+        ExpressionNode expressionNode;
+        int i = 1;
+        for (Node n : nodes) {
+            if (n.kind() == SyntaxKind.WAIT_FIELD) {
+                waitField = ((WaitFieldNode) n).fieldName();
+                expressionNode = ((WaitFieldNode) n).waitFutureExpr();
+            } else {
+                waitField = null;
+                expressionNode = (ExpressionNode) n;
+            }
+            nodeBuilder.properties()
+                    .nestedProperty()
+                    .waitField(waitField)
+                    .expression(expressionNode)
+                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, "future" + i++,
+                            WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+        }
+
+        nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, WaitBuilder.FUTURES_KEY,
+                WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
+    }
+
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
@@ -1449,69 +1517,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-
-    @Override
-    public void visit(WaitActionNode waitActionNode) {
-        startNode(NodeKind.WAIT, waitActionNode);
-
-        // Find the nodes for the futures
-        boolean waitAll = false;
-        Node waitFutureExpr = waitActionNode.waitFutureExpr();
-        List<Node> nodes = new ArrayList<>();
-        switch (waitFutureExpr.kind()) {
-            case BINARY_EXPRESSION -> {
-                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) waitFutureExpr;
-                Stack<Node> futuresStack = new Stack<>();
-                futuresStack.push(binaryExpressionNode.rhsExpr());
-                Node lhsNode = binaryExpressionNode.lhsExpr();
-                while (lhsNode.kind() == SyntaxKind.BINARY_EXPRESSION) {
-                    BinaryExpressionNode nestedBinary = (BinaryExpressionNode) lhsNode;
-                    futuresStack.push(nestedBinary.rhsExpr());
-                    lhsNode = nestedBinary.lhsExpr();
-                }
-                futuresStack.push(lhsNode);
-                while (!futuresStack.isEmpty()) {
-                    nodes.add(futuresStack.pop());
-                }
-            }
-            case WAIT_FIELDS_LIST -> {
-                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) waitFutureExpr;
-                for (Node field : waitFieldsListNode.waitFields()) {
-                    nodes.add(field);
-                }
-                waitAll = true;
-            }
-            default -> nodes.add(waitFutureExpr);
-        }
-
-        // Generate the wait all properties
-        nodeBuilder.properties().waitAll(waitAll)
-                .propertyList();
-
-        // Generate the properties for the futures
-        Node waitField;
-        ExpressionNode expressionNode;
-        int i = 1;
-        for (Node n : nodes) {
-            if (n.kind() == SyntaxKind.WAIT_FIELD) {
-                waitField = ((WaitFieldNode) n).fieldName();
-                expressionNode = ((WaitFieldNode) n).waitFutureExpr();
-            } else {
-                waitField = null;
-                expressionNode = (ExpressionNode) n;
-            }
-            nodeBuilder.properties()
-                    .propertyList()
-                    .waitField(waitField)
-                    .expression(expressionNode)
-                    .endPropertyList(Property.ValueType.FIXED_PROPERTY_LIST, "future" + i++,
-                            WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
-        }
-
-        nodeBuilder.properties().endPropertyList(Property.ValueType.REPEATABLE_PROPERTY_LIST, WaitBuilder.FUTURES_KEY,
-                WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
-    }
-
     // Utility methods
 
     /**

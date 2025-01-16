@@ -174,8 +174,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         FLAG,
         MAPPING_EXPRESSION_SET,
         EXPRESSION_SET,
-        FIXED_PROPERTY_LIST,
-        REPEATABLE_PROPERTY_LIST
+        FIXED_PROPERTY,
+        REPEATABLE_PROPERTY
     }
 
     public static ValueType valueTypeFrom(String s) {
