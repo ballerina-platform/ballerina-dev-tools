@@ -47,6 +47,9 @@
           "label": "Resource Path",
           "description": "Resource Path"
         },
+        "codedata": {
+          "originalName": "/path/to/subdirectory"
+        },
         "valueType": "EXPRESSION",
         "value": "/",
         "optional": false,

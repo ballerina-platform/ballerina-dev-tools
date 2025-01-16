@@ -59,6 +59,10 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         return org + "/" + module;
     }
 
+    public String getModulePrefix() {
+        return module.substring(module.lastIndexOf('.') + 1);
+    }
+
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private NodeKind node;

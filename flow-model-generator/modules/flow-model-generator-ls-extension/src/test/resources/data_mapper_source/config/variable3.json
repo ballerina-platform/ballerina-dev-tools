@@ -1,0 +1,84 @@
+{
+  "source": "variable2.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable2.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "from var item in userInfo select ",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "credentials",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Credentials[]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 18,
+    "offset": 65
+  },
+  "mappings": [
+    {
+      "output": "credentials.username",
+      "inputs": [
+        "item.username"
+      ],
+      "expression": "item.username",
+      "diagnostics": []
+    },
+    {
+      "output": "credentials.password",
+      "inputs": [
+        "item.password"
+      ],
+      "expression": "item.password",
+      "diagnostics": []
+    }
+  ],
+  "output": "from var item in userInfo  select {username:item.username,password:item.password};"
+}

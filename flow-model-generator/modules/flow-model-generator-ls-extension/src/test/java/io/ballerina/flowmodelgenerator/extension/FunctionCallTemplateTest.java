@@ -37,11 +37,9 @@ import java.util.List;
 /**
  * Tests for the function call template service.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class FunctionCallTemplateTest extends AbstractLSTest {
-
-
 
     @Override
     @Test(dataProvider = "data-provider")

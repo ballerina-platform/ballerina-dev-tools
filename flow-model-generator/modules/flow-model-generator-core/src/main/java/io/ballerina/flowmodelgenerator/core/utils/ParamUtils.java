@@ -54,37 +54,58 @@ import java.util.Map;
  */
 public class ParamUtils {
 
+    public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
+    public static final String REST_PARAM_PATH = "/path/to/resource";
+    public static final String REST_RESOURCE_PATH_LABEL = "Remaining Resource Path";
+
     /**
      * Builds the resource path template for the given function symbol.
      *
      * @param functionSymbol the function symbol
      * @return the resource path template
      */
-    public static String buildResourcePathTemplate(FunctionSymbol functionSymbol) {
+    public static ResourcePathTemplate buildResourcePathTemplate(SemanticModel semanticModel,
+                                                                 FunctionSymbol functionSymbol,
+                                                                 TypeSymbol errorTypeSymbol) {
+        Map<String, String> documentationMap = functionSymbol.documentation().map(Documentation::parameterMap)
+                .orElse(Map.of());
         StringBuilder pathBuilder = new StringBuilder();
         ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
         ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        List<ParameterResult> pathParams = new ArrayList<>();
         switch (resourcePath.kind()) {
             case PATH_SEGMENT_LIST -> {
                 PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
                 for (Symbol pathSegment : pathSegmentList.list()) {
                     pathBuilder.append("/");
                     if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
-                        String value = DefaultValueGeneratorUtil
+                        String defaultValue = DefaultValueGeneratorUtil
                                 .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
-                        pathBuilder.append("[").append(value).append("]");
+                        String type = CommonUtils.getTypeSignature(semanticModel, pathParameterSymbol.typeDescriptor(),
+                                true);
+                        String paramName = pathParameterSymbol.getName().orElse("");
+                        String paramDescription = documentationMap.get(paramName);
+                        pathBuilder.append("[").append(paramName).append("]");
+                        pathParams.add(ParameterResult.from(paramName, type, Parameter.Kind.PATH_PARAM, defaultValue,
+                                paramDescription, 0));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    pathBuilder.append("/path/to/subdirectory");
+                    pathParams.add(ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
+                            Parameter.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, 0));
                 });
             }
-            case PATH_REST_PARAM -> pathBuilder.append("/path/to/subdirectory");
-            case DOT_RESOURCE_PATH -> pathBuilder.append("\\.");
+            case PATH_REST_PARAM -> {
+                pathBuilder.append(REST_RESOURCE_PATH);
+            }
+            case DOT_RESOURCE_PATH -> pathBuilder.append("/");
         }
-        return pathBuilder.toString();
+        return new ResourcePathTemplate(pathBuilder.toString(), pathParams);
+    }
+
+    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterResult> pathParams) {
     }
 
     /**

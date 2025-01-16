@@ -299,6 +299,10 @@
   ],
   "ballerinax": [
     {
+      "name": "github",
+      "version": "5.0.2"
+    },
+    {
       "name": "googleapis.sheets",
       "version": "3.5.1"
     },
@@ -437,10 +441,6 @@
     {
       "name": "docusign.dsesign",
       "version": "1.0.0"
-    },
-    {
-      "name": "github",
-      "version": "5.0.2"
     },
     {
       "name": "googleapis.calendar",

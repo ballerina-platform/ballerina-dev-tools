@@ -1,0 +1,354 @@
+{
+  "source": "variable13.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32874",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "variable13.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      },
+      "sourceCode": ""
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "u",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "User",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 47,
+    "offset": 42
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "id": "param.fullName",
+            "variableName": "fullName",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "fields": [
+              {
+                "id": "param.contactDetails.email",
+                "variableName": "email",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "param.contactDetails.primaryPhone",
+                "variableName": "primaryPhone",
+                "typeName": "string",
+                "kind": "string"
+              }
+            ],
+            "id": "param.contactDetails",
+            "variableName": "contactDetails",
+            "typeName": "record",
+            "kind": "record"
+          },
+          {
+            "fields": [
+              {
+                "id": "param.location.city",
+                "variableName": "city",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "param.location.state",
+                "variableName": "state",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "param.location.zipCode",
+                "variableName": "zipCode",
+                "typeName": "string",
+                "kind": "string"
+              }
+            ],
+            "id": "param.location",
+            "variableName": "location",
+            "typeName": "record",
+            "kind": "record"
+          },
+          {
+            "fields": [
+              {
+                "id": "param.accountInfo.accountNumber",
+                "variableName": "accountNumber",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "param.accountInfo.balance",
+                "variableName": "balance",
+                "typeName": "int",
+                "kind": "int"
+              }
+            ],
+            "id": "param.accountInfo",
+            "variableName": "accountInfo",
+            "typeName": "record",
+            "kind": "record"
+          },
+          {
+            "id": "param.transactionDate",
+            "variableName": "transactionDate",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "param",
+        "variableName": "param",
+        "typeName": "Person",
+        "kind": "record",
+        "category": "parameter"
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "id": "user.customer.firstName",
+                "variableName": "firstName",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "user.customer.lastName",
+                "variableName": "lastName",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "user.customer.email",
+                "variableName": "email",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "fields": [
+                  {
+                    "id": "user.customer.address.street",
+                    "variableName": "street",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  {
+                    "id": "user.customer.address.city",
+                    "variableName": "city",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  {
+                    "id": "user.customer.address.state",
+                    "variableName": "state",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  {
+                    "id": "user.customer.address.postalCode",
+                    "variableName": "postalCode",
+                    "typeName": "int",
+                    "kind": "int"
+                  }
+                ],
+                "id": "user.customer.address",
+                "variableName": "address",
+                "typeName": "record",
+                "kind": "record"
+              },
+              {
+                "id": "user.customer.phoneNumber",
+                "variableName": "phoneNumber",
+                "typeName": "string",
+                "kind": "string"
+              }
+            ],
+            "id": "user.customer",
+            "variableName": "customer",
+            "typeName": "record",
+            "kind": "record"
+          },
+          {
+            "fields": [
+              {
+                "id": "user.account.accountNumber",
+                "variableName": "accountNumber",
+                "typeName": "string",
+                "kind": "string"
+              },
+              {
+                "id": "user.account.balance",
+                "variableName": "balance",
+                "typeName": "int",
+                "kind": "int"
+              },
+              {
+                "id": "user.account.lastTransaction",
+                "variableName": "lastTransaction",
+                "typeName": "string",
+                "kind": "string"
+              }
+            ],
+            "id": "user.account",
+            "variableName": "account",
+            "typeName": "record",
+            "kind": "record"
+          }
+        ],
+        "id": "user",
+        "variableName": "user",
+        "typeName": "User",
+        "kind": "record",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "fields": [
+            {
+              "id": "u.customer.firstName",
+              "variableName": "firstName",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "u.customer.lastName",
+              "variableName": "lastName",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "u.customer.email",
+              "variableName": "email",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "fields": [
+                {
+                  "id": "u.customer.address.street",
+                  "variableName": "street",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "u.customer.address.city",
+                  "variableName": "city",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "u.customer.address.state",
+                  "variableName": "state",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "u.customer.address.postalCode",
+                  "variableName": "postalCode",
+                  "typeName": "int",
+                  "kind": "int"
+                }
+              ],
+              "id": "u.customer.address",
+              "variableName": "address",
+              "typeName": "record",
+              "kind": "record"
+            },
+            {
+              "id": "u.customer.phoneNumber",
+              "variableName": "phoneNumber",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "u.customer",
+          "variableName": "customer",
+          "typeName": "record",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "u.account.accountNumber",
+              "variableName": "accountNumber",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "u.account.balance",
+              "variableName": "balance",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "u.account.lastTransaction",
+              "variableName": "lastTransaction",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "u.account",
+          "variableName": "account",
+          "typeName": "record",
+          "kind": "record"
+        }
+      ],
+      "id": "u",
+      "variableName": "u",
+      "typeName": "User",
+      "kind": "record"
+    },
+    "mappings": []
+  }
+}
