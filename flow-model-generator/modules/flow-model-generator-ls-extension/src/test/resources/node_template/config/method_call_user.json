@@ -1,39 +1,51 @@
 {
-  "source": "data_mapper/main.bal",
+  "source": "data_mapper/method_call.bal",
   "position": {
-    "line": 14,
-    "offset": 0
+    "line": 11,
+    "offset": 4
   },
-  "description": "Sample diagram node",
+  "description": "Local method call template",
   "codedata": {
-    "node": "FUNCTION_CALL",
-    "symbol": "fn"
+    "node": "METHOD_CALL",
+    "symbol": "addItem",
+    "parentSymbol": "cart"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "fn"
+      "label": "addItem"
     },
     "codedata": {
-      "node": "FUNCTION_CALL",
-      "symbol": "fn"
+      "node": "METHOD_CALL",
+      "symbol": "addItem"
     },
     "returning": false,
     "properties": {
-      "x": {
+      "connection": {
         "metadata": {
-          "label": "x"
+          "label": "Connection",
+          "description": "connection"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "cart",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "item": {
+        "metadata": {
+          "label": "item"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int",
-        "value": "0",
-        "placeholder": "0",
+        "valueTypeConstraint": "string",
+        "value": "\"\"",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
         "codedata": {
           "kind": "REQUIRED",
-          "originalName": "x"
+          "originalName": "item"
         }
       },
       "type": {
@@ -42,7 +54,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "string",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -54,7 +66,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "intResult",
+        "value": "stringResult",
         "optional": false,
         "editable": true,
         "advanced": false

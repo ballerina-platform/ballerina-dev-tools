@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -19,11 +19,12 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
@@ -41,10 +42,10 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.PackageUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
-import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import io.ballerina.tools.text.LinePosition;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -56,35 +57,60 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents a function call node.
+ * Represents a method call.
  *
  * @since 2.0.0
  */
-public class FunctionCall extends NodeBuilder {
+public class MethodCall extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.FUNCTION_CALL);
+        codedata().node(NodeKind.METHOD_CALL);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
+
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        if (connection.isEmpty()) {
+            throw new IllegalStateException("Object must be defined for a method call node");
+        }
+
+        return sourceBuilder.token()
+                .name(connection.get().toSourceCode())
+                .keyword(SyntaxKind.DOT_TOKEN)
+                .name(flowNode.metadata().label())
+                .stepOut()
+                .functionParameters(flowNode, Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
+                        Property.CHECK_ERROR_KEY, "view"))
+                .textEdit(false)
+                .acceptImport(sourceBuilder.filePath)
+                .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            handleLocalFunction(context, codedata);
+        if (FunctionCall.isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
+            handleLocalObjMethods(context, codedata);
         } else {
-            handleImportedFunction(context, codedata);
+            handleImportedModuleObjMethods(context, codedata);
         }
     }
 
-    private void handleImportedFunction(TemplateContext context, Codedata codedata) {
+    private void handleImportedModuleObjMethods(TemplateContext context, Codedata codedata) {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                        DatabaseManager.FunctionKind.FUNCTION);
+        Optional<FunctionResult> functionResult = dbManager.getFunction(codedata.org(), codedata.module(),
+                codedata.symbol(), DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
+            throw new RuntimeException("Method not found: " + codedata.symbol());
         }
 
         FunctionResult function = functionResult.get();
@@ -92,13 +118,14 @@ public class FunctionCall extends NodeBuilder {
                 .label(function.name())
                 .description(function.description());
         codedata()
-                .node(NodeKind.FUNCTION_CALL)
+                .node(NodeKind.METHOD_CALL)
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
+                .id(function.functionId())
                 .symbol(codedata.symbol());
-
+        setExpressionProperty(codedata);
         setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
 
         String returnTypeName = function.returnType();
@@ -111,41 +138,58 @@ public class FunctionCall extends NodeBuilder {
         }
     }
 
-    private void handleLocalFunction(TemplateContext context, Codedata codedata) {
+    private void handleLocalObjMethods(TemplateContext context, Codedata codedata) {
         WorkspaceManager workspaceManager = context.workspaceManager();
         Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
         this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
 
         SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-        Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                .findFirst();
-        if (outSymbol.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
+        Document document = workspaceManager.document(context.filePath()).orElseThrow();
 
-        FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        VariableSymbol varSymbol = findVariableSymbol(semanticModel, document, context.position(),
+                codedata.parentSymbol());
+        ObjectTypeSymbol objectTypeSymbol = getObjectTypeSymbol(varSymbol);
+
+        MethodSymbol methodSymbol = objectTypeSymbol.methods().get(codedata.symbol());
+        if (methodSymbol == null) {
+            throw new RuntimeException("Method not found: " + codedata.symbol());
+        }
 
         metadata().label(codedata.symbol());
         codedata()
-                .node(NodeKind.FUNCTION_CALL)
+                .node(NodeKind.METHOD_CALL)
                 .symbol(codedata.symbol());
+        setExpressionProperty(codedata);
+        setCustomProperties(ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel).values());
+        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
 
-        setCustomProperties(ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values());
         functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
             String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
             setReturnTypeProperties(returnTypeName, context);
         });
 
-        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && FlowNodeUtil.withinDoClause(context)) {
+        if (FunctionCall.containsErrorInReturnType(semanticModel, functionTypeSymbol)
+                && FlowNodeUtil.withinDoClause(context)) {
             properties().checkError(true);
         }
     }
 
+    private void setExpressionProperty(Codedata codedata) {
+        properties()
+                .custom()
+                .metadata()
+                .label(Property.CONNECTION_LABEL)
+                .description(Property.CONNECTION_KEY)
+                .stepOut()
+                .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
+    }
+
     private void setCustomProperties(Collection<ParameterResult> functionParameters) {
         boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
+        for (ParameterResult paramResult :functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
@@ -193,76 +237,38 @@ public class FunctionCall extends NodeBuilder {
         }
     }
 
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
-            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
-
-        Codedata codedata = flowNode.codedata();
-        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
-            return sourceBuilder.token()
-                    .name(codedata.symbol())
-                    .stepOut()
-                    .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
-                    .textEdit(false)
-                    .acceptImport()
-                    .build();
-        }
-
-        String module = flowNode.codedata().module();
-        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
-        String methodCall = methodCallPrefix + flowNode.metadata().label();
-
-        return sourceBuilder.token()
-                .name(methodCall)
-                .stepOut()
-                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
-                .textEdit(false)
-                .acceptImport(sourceBuilder.filePath)
-                .build();
-    }
-
     private void setReturnTypeProperties(String returnTypeName, TemplateContext context) {
         boolean editable = false;
-        String updatedReturnType = returnTypeName;
         if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-            updatedReturnType = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
+            returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
             editable = true;
         }
         properties()
-                .type(updatedReturnType, editable)
-                .data(updatedReturnType, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+                .type(returnTypeName, editable)
+                .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
     }
 
-    protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
-        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
-            return true;
+    private ObjectTypeSymbol getObjectTypeSymbol(VariableSymbol varSymbol) {
+        TypeSymbol rawType = CommonUtil.getRawType(varSymbol.typeDescriptor());
+        if (!(rawType instanceof ObjectTypeSymbol objectTypeSymbol)) {
+            throw new RuntimeException("Invalid object type: " + rawType);
         }
-        try {
-            Project project = workspaceManager.loadProject(filePath);
-            PackageDescriptor descriptor = project.currentPackage().descriptor();
-            String packageOrg = descriptor.org().value();
-            String packageName = descriptor.name().value();
-            String packageVersion = descriptor.version().value().toString();
-
-            return packageOrg.equals(codedata.org())
-                    && packageName.equals(codedata.module())
-                    && packageVersion.equals(codedata.version());
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            return false;
-        }
+        return objectTypeSymbol;
     }
 
-    protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
-                                                       FunctionTypeSymbol functionTypeSymbol) {
-        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
-        return functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
+    private VariableSymbol findVariableSymbol(SemanticModel semanticModel, Document document,
+                                              LinePosition position, String exprSymbol) {
+
+        Optional<VariableSymbol> varSymbol = semanticModel.visibleSymbols(document, position)
+                .stream()
+                .filter(symbol -> symbol.getName().orElse("").equals(exprSymbol))
+                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
+                .map(symbol -> (VariableSymbol) symbol)
+                .findFirst();
+
+        if (varSymbol.isEmpty()) {
+            throw new RuntimeException("Variable not found: " + exprSymbol);
+        }
+        return varSymbol.get();
     }
 }

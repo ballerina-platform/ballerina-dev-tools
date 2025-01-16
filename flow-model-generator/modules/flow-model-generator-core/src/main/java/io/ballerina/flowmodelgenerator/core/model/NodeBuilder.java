@@ -42,6 +42,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.LockBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MatchBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
@@ -117,6 +118,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.BINARY_DATA, BinaryBuilder::new);
         put(NodeKind.STOP, StopBuilder::new);
         put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+        put(NodeKind.METHOD_CALL, MethodCall::new);
         put(NodeKind.FOREACH, ForeachBuilder::new);
         put(NodeKind.DATA_MAPPER, DataMapperBuilder::new);
         put(NodeKind.VARIABLE, VariableBuilder::new);

@@ -105,11 +105,16 @@
       {
         "id": "34874",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "toString",
+          "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "METHOD_CALL",
+          "org": "ballerina",
+          "module": "lang.value",
+          "symbol": "toString",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -125,20 +130,20 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "connection": {
             "metadata": {
-              "label": "Expression",
-              "description": "Initialize with value"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "i.toString()",
-            "optional": true,
-            "editable": true,
+            "value": "i",
+            "optional": false,
+            "editable": false,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -149,7 +154,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

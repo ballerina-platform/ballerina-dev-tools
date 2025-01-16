@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.utils;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
@@ -67,7 +68,6 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -84,7 +84,8 @@ public class CommonUtils {
     private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
     private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
             Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
-    private static final List<String> NON_DEFAULT_LANG_LIBS = List.of("array", "regexp", "value");
+    public static final String BALLERINA_ORG_NAME = "ballerina";
+    public static final String VALUE_LANG_LIB = "lang.value";
 
     /**
      * Removes the quotes from the given string.
@@ -717,5 +718,36 @@ public class CommonUtils {
 
         // Convert StringBuilder to String and return
         return formattedComment.toString();
+    }
+
+    /**
+     * Checks if the given function symbol is a value language library function.
+     *
+     * @param functionSymbol the function symbol to check
+     * @return true if the function symbol is a value language library function, false otherwise
+     */
+    public static boolean isValueLangLibFunction(FunctionSymbol functionSymbol) {
+        Optional<ModuleSymbol> module = functionSymbol.getModule();
+        if (module.isEmpty()) {
+            return false;
+        }
+        ModuleID id = module.get().id();
+        return id.orgName().equals(BALLERINA_ORG_NAME) && id.packageName().equals(VALUE_LANG_LIB);
+    }
+
+    /**
+     * Check whether the given symbol is a http module.
+     *
+     * @param symbol symbol to check
+     * @return true if the symbol is a http module, false otherwise
+     */
+    public static boolean isHttpModule(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            return false;
+        }
+
+        ModuleID moduleId = module.get().id();
+        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 }
