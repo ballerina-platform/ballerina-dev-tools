@@ -213,11 +213,16 @@
               {
                 "id": "101595",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "push",
+                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.array",
+                  "symbol": "push",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -233,16 +238,50 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "connection": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "results.push(\"First done\");",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "arr": {
+                    "metadata": {
+                      "label": "arr",
+                      "description": "the array"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "value": "\"First done\"",
+                    "placeholder": "[]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "arr"
+                    }
+                  },
+                  "vals": {
+                    "metadata": {
+                      "label": "vals",
+                      "description": "values to add to the end of the array"
+                    },
+                    "valueType": "EXPRESSION_SET",
+                    "valueTypeConstraint": "lang.array:Type",
+                    "value": [],
+                    "placeholder": "()",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "REST_PARAMETER",
+                      "originalName": "vals"
+                    }
                   }
                 },
                 "flags": 0
@@ -382,11 +421,16 @@
               {
                 "id": "106563",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "push",
+                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.array",
+                  "symbol": "push",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -402,16 +446,50 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "connection": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "results.push(\"Second after First\");",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "arr": {
+                    "metadata": {
+                      "label": "arr",
+                      "description": "the array"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "value": "\"Second after First\"",
+                    "placeholder": "[]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "arr"
+                    }
+                  },
+                  "vals": {
+                    "metadata": {
+                      "label": "vals",
+                      "description": "values to add to the end of the array"
+                    },
+                    "valueType": "EXPRESSION_SET",
+                    "valueTypeConstraint": "lang.array:Type",
+                    "value": [],
+                    "placeholder": "()",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "REST_PARAMETER",
+                      "originalName": "vals"
+                    }
                   }
                 },
                 "flags": 0
@@ -551,11 +629,16 @@
               {
                 "id": "111523",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "push",
+                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.array",
+                  "symbol": "push",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -571,16 +654,50 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "connection": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "results.push(\"Third after Second\");",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "arr": {
+                    "metadata": {
+                      "label": "arr",
+                      "description": "the array"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "value": "\"Third after Second\"",
+                    "placeholder": "[]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "arr"
+                    }
+                  },
+                  "vals": {
+                    "metadata": {
+                      "label": "vals",
+                      "description": "values to add to the end of the array"
+                    },
+                    "valueType": "EXPRESSION_SET",
+                    "valueTypeConstraint": "lang.array:Type",
+                    "value": [],
+                    "placeholder": "()",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "REST_PARAMETER",
+                      "originalName": "vals"
+                    }
                   }
                 },
                 "flags": 0
