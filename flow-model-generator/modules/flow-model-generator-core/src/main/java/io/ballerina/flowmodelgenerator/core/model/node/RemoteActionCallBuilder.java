@@ -31,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -59,8 +60,7 @@ public class RemoteActionCallBuilder extends NodeBuilder {
         sourceBuilder.newVariable();
         FlowNode flowNode = sourceBuilder.flowNode;
 
-        if (flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
-                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true)) {
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 

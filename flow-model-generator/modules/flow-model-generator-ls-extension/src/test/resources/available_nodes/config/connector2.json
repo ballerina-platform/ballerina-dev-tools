@@ -276,17 +276,14 @@
               "metadata": {
                 "label": "getCookieStore",
                 "description": "Retrieves the cookie store of the client.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerina",
                 "module": "http",
-                "object": "Client",
                 "symbol": "getCookieStore",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
                 "id": 591
               },
               "enabled": true
@@ -295,17 +292,14 @@
               "metadata": {
                 "label": "circuitBreakerForceClose",
                 "description": "The circuit breaker client related method to force the circuit into a closed state in which it will allow\nrequests regardless of the error percentage until the failure threshold exceeds.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerina",
                 "module": "http",
-                "object": "Client",
                 "symbol": "circuitBreakerForceClose",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
                 "id": 592
               },
               "enabled": true
@@ -314,17 +308,14 @@
               "metadata": {
                 "label": "circuitBreakerForceOpen",
                 "description": "The circuit breaker client related method to force the circuit into a open state in which it will suspend all\nrequests until `resetTime` interval exceeds.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerina",
                 "module": "http",
-                "object": "Client",
                 "symbol": "circuitBreakerForceOpen",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
                 "id": 593
               },
               "enabled": true
@@ -333,17 +324,14 @@
               "metadata": {
                 "label": "getCircuitBreakerCurrentState",
                 "description": "The circuit breaker client related method to provides the `http:CircuitState` of the circuit breaker.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerina",
                 "module": "http",
-                "object": "Client",
                 "symbol": "getCircuitBreakerCurrentState",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
                 "id": 594
               },
               "enabled": true
@@ -2178,17 +2166,14 @@
               "metadata": {
                 "label": "close",
                 "description": "Close the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerinax",
                 "module": "redis",
-                "object": "Client",
                 "symbol": "close",
                 "parentSymbol": "redisClient",
-                "resourcePath": "",
                 "id": 1325
               },
               "enabled": true
@@ -4023,17 +4008,14 @@
               "metadata": {
                 "label": "close",
                 "description": "Close the connection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png",
-                "functionKind": "RESOURCE"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
-                "node": "RESOURCE_ACTION_CALL",
+                "node": "METHOD_CALL",
                 "org": "ballerinax",
                 "module": "redis",
-                "object": "Client",
                 "symbol": "close",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": "",
                 "id": 1325
               },
               "enabled": true

@@ -267,11 +267,16 @@
               {
                 "id": "41078",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "toString",
+                  "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "METHOD_CALL",
+                  "org": "ballerina",
+                  "module": "lang.value",
+                  "symbol": "toString",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -287,26 +292,15 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "connection": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Assign value"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "res2.toString()",
+                    "value": "res2",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "msg",
-                    "optional": false,
-                    "editable": true,
+                    "editable": false,
                     "advanced": false
                   }
                 },

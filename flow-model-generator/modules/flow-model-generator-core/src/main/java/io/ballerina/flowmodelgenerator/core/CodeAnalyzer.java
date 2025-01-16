@@ -66,6 +66,7 @@ import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchClauseNode;
 import io.ballerina.compiler.syntax.tree.MatchGuardNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
@@ -128,7 +129,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
-import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -341,7 +341,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
 
-        if (TypeUtils.isHttpModule(methodSymbol)) {
+        if (CommonUtils.isHttpModule(methodSymbol)) {
             String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
             String fullPath = "/" + resourcePath;
             nodeBuilder.properties().resourcePath(fullPath, true);
@@ -1115,6 +1115,71 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
+    public void visit(MethodCallExpressionNode methodCallExpressionNode) {
+        Optional<Symbol> symbol = semanticModel.symbol(methodCallExpressionNode);
+        if (symbol.isEmpty() || !(symbol.get() instanceof FunctionSymbol functionSymbol)) {
+            handleExpressionNode(methodCallExpressionNode);
+            return;
+        }
+
+        ExpressionNode expressionNode = methodCallExpressionNode.expression();
+        NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
+
+        Optional<Documentation> documentation = functionSymbol.documentation();
+        String description = documentation.flatMap(Documentation::description).orElse("");
+
+        String functionName = getIdentifierName(nameReferenceNode);
+
+        startNode(NodeKind.METHOD_CALL, methodCallExpressionNode.parent());
+        if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
+            functionSymbol.getLocation()
+                    .flatMap(location -> CommonUtil.findNode(functionSymbol,
+                            CommonUtils.getDocument(project, location).syntaxTree()))
+                    .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
+        }
+        nodeBuilder
+                .symbolInfo(functionSymbol)
+                    .metadata()
+                    .label(functionName)
+                    .description(description)
+                    .stepOut()
+                .codedata()
+                    .symbol(functionName)
+                    .stepOut()
+                .properties()
+                .callExpression(expressionNode, Property.CONNECTION_KEY);
+
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        ModuleID id = functionSymbol.getModule().get().id();
+        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
+                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+
+        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
+            SeparatedNodeList<FunctionArgumentNode> arguments = methodCallExpressionNode.arguments();
+            calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
+
+            if (functionResult.isPresent()) { // function details are indexed
+                analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(),
+                        functionSymbol, positionalArgs, namedArgValueMap);
+            } else {
+                handleFunctionCallActionCallsParams(arguments, functionSymbol);
+            }
+        }
+        handleCheckFlag(methodCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
+
+        nodeBuilder
+                .symbolInfo(functionSymbol)
+                .metadata()
+                .label(functionName)
+                .description(description)
+                .stepOut()
+                .codedata().symbol(functionName);
+    }
+
+    @Override
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
         Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode);
         if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
@@ -1128,11 +1193,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Documentation> documentation = functionSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
 
-        String functionName = switch (nameReferenceNode.kind()) {
-            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
-            default -> "";
-        };
+        String functionName = getIdentifierName(nameReferenceNode);
 
         if (dataMappings.containsKey(functionName)) {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
@@ -1172,6 +1233,14 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(description)
                 .stepOut()
                 .codedata().symbol(functionName);
+    }
+
+    private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
+        return switch (nameReferenceNode.kind()) {
+            case QUALIFIED_NAME_REFERENCE -> ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
+            case SIMPLE_NAME_REFERENCE -> ((SimpleNameReferenceNode) nameReferenceNode).name().text();
+            default -> "";
+        };
     }
 
     @Override

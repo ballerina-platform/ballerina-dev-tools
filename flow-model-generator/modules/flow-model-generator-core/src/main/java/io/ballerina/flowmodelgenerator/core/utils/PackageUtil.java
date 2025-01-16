@@ -23,6 +23,7 @@ import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
 import io.ballerina.projects.PackageOrg;
 import io.ballerina.projects.PackageVersion;
+import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectEnvironmentBuilder;
 import io.ballerina.projects.bala.BalaProject;
 import io.ballerina.projects.directory.BuildProject;
@@ -31,6 +32,9 @@ import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
 import io.ballerina.projects.environment.ResolutionResponse;
 import io.ballerina.projects.repos.TempDirCompilationCache;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -114,5 +118,20 @@ public class PackageUtil {
 
     private static Path getParentPath(Path path) {
         return Objects.requireNonNull(path, "Path cannot be null").getParent();
+    }
+
+    /**
+     * Load the project from the given file path.
+     *
+     * @param workspaceManager the workspace manager
+     * @param filePath the file path
+     * @return the loaded project
+     */
+    public static Project loadProject(WorkspaceManager workspaceManager, Path filePath) {
+        try {
+            return workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException("Error loading project: " + e.getMessage());
+        }
     }
 }
