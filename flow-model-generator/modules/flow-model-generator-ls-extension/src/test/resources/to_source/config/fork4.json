@@ -510,7 +510,7 @@
             "character": 5
           }
         },
-        "newText": "fork {\n    worker First {\n        runtime:sleep(.5);\n        results.push(\"First done\");\n    }\n    worker Second {\n        wait First;\n        results.push(\"Second after First\");\n    }\n    worker Third {\n        wait Second;\n        results.push(\"Third after Second\");\n    }\n}map<any> waitResult= wait { First,Second,Third} ;"
+        "newText": "fork {\n    worker First {\n        runtime:sleep(.5);\n        results.push(\"First done\");\n    }\n    worker Second {\n        wait First;\n        results.push(\"Second after First\");\n    }\n    worker Third {\n        wait Second;\n        results.push(\"Third after Second\");\n    }\n}map<any|error> waitResult= wait { First,Second,Third} ;"
       }
     ]
   }

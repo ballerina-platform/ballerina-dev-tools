@@ -106,7 +106,7 @@
             "character": 0
           }
         },
-        "newText": "fork {\n    worker worker1 {\n    }\n    worker worker2 {\n    }\n}map<any> waitResult= wait { worker1,worker2} ;"
+        "newText": "fork {\n    worker worker1 {\n    }\n    worker worker2 {\n    }\n}map<any|error> waitResult= wait { worker1,worker2} ;"
       }
     ]
   }

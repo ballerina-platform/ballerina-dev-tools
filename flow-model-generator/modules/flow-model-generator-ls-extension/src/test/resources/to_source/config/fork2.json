@@ -207,7 +207,7 @@
             "character": 5
           }
         },
-        "newText": "fork {\n    worker A returns string|error {\n        return \"A\";\n    }\n    worker B returns string|error {\n        return \"B\";\n    }\n}map<any> waitResult= wait { A,B} ;"
+        "newText": "fork {\n    worker A returns string|error {\n        return \"A\";\n    }\n    worker B returns string|error {\n        return \"B\";\n    }\n}map<any|error> waitResult= wait { A,B} ;"
       }
     ]
   }

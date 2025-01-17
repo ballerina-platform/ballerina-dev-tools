@@ -56,8 +56,9 @@ public class ForkBuilder extends ParallelFlowBuilder {
         Boolean isNew = sourceBuilder.flowNode.codedata().isNew();
         if (isNew != null && isNew) {
             sourceBuilder.token()
-                    .name("map<any>")
+                    .name("map<any|error>")
                     .whiteSpace()
+                    //TODO: Set this value dynamically after adding the line position to the getSourceCode API
                     .name("waitResult")
                     .keyword(SyntaxKind.EQUAL_TOKEN)
                     .keyword(SyntaxKind.WAIT_KEYWORD)
