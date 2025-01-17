@@ -24,7 +24,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
@@ -75,6 +77,7 @@ import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -695,7 +698,7 @@ public class DataMapManager {
         int startTextPosition = textDocument.textPositionFrom(position);
         io.ballerina.tools.text.TextEdit textEdit =
                 io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
-                0), source);
+                        0), source);
         io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
         TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(textEdits));
         Document modifiedDoc =
@@ -712,6 +715,41 @@ public class DataMapManager {
         NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
 
         return new SourceModification(source, modifiedDoc, newSemanticModel, stNode);
+    }
+
+    private SourceModification applyConnection(FlowNode flowNode, Project project, Path filePath) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
+        Path connectionPath = workspaceManager.projectRoot(filePath).resolve("connections.bal");
+        List<TextEdit> connectionTextEdits =
+                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder).get(connectionPath);
+        Document document = workspaceManager.document(connectionPath).orElseThrow();
+        TextDocument textDocument = document.textDocument();
+        io.ballerina.tools.text.TextEdit[] textEdits = new io.ballerina.tools.text.TextEdit[connectionTextEdits.size()];
+        for (int i = 0; i < connectionTextEdits.size(); i++) {
+            TextEdit connectionTextEdit = connectionTextEdits.get(i);
+            Position start = connectionTextEdit.getRange().getStart();
+            int startTextPosition = textDocument.textPositionFrom(LinePosition.from(start.getLine(),
+                    start.getCharacter()));
+            Position end = connectionTextEdit.getRange().getEnd();
+            int endTextPosition = textDocument.textPositionFrom(LinePosition.from(end.getLine(), end.getCharacter()));
+            io.ballerina.tools.text.TextEdit textEdit =
+                    io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
+                            endTextPosition - startTextPosition), connectionTextEdit.getNewText());
+            textEdits[i] = textEdit;
+        }
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(textEdits));
+        Document modifiedDoc =
+                project.duplicate().currentPackage().module(document.module().moduleId())
+                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
+                                modifiedTextDoc.textLines())).apply();
+
+        Optional<Property> optVariable = flowNode.getProperty("variable");
+        if (optVariable.isEmpty()) {
+            throw new IllegalStateException("Variable cannot be found for the connection");
+        }
+        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+                .getSemanticModel(modifiedDoc.module().moduleId());
+        return new SourceModification("", modifiedDoc, newSemanticModel, null);
     }
 
     private record SourceModification(String source, Document document, SemanticModel semanticModel, Node stNode) {
@@ -744,22 +782,56 @@ public class DataMapManager {
                                                  LinePosition position) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         List<String> visualizableProperties = new ArrayList<>();
-        if (flowNode.codedata().node() != NodeKind.VARIABLE) {
-            return gson.toJsonTree(visualizableProperties);
-        }
+        NodeKind nodeKind = flowNode.codedata().node();
+        if (nodeKind == NodeKind.VARIABLE) {
+            SourceModification sourceModification = applyNode(flowNode, project, filePath, position);
+            Node stNode = sourceModification.stNode();
+            if (stNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+                throw new IllegalStateException("Node is not a variable declaration");
+            }
+            Optional<Symbol> optVarSymbol = sourceModification.semanticModel().symbol(stNode);
+            if (optVarSymbol.isEmpty()) {
+                throw new IllegalStateException("Symbol cannot be found for the variable declaration");
+            }
+            VariableSymbol variableSymbol = (VariableSymbol) optVarSymbol.get();
+            if (isEffectiveRecordType(variableSymbol.typeDescriptor())) {
+                visualizableProperties.add("expression");
+            }
+        } else if (nodeKind == NodeKind.NEW_CONNECTION) {
+            SourceModification sourceModification = applyConnection(flowNode, project, filePath);
+            Optional<Property> optVariable = flowNode.getProperty("variable");
+            if (optVariable.isEmpty()) {
+                throw new IllegalStateException("Variable cannot be found for the connection");
+            }
+            List<Symbol> symbols = sourceModification.semanticModel().moduleSymbols();
+            String variableName = optVariable.get().toSourceCode();
+            Optional<Symbol> optVariableSymbol = symbols.parallelStream()
+                    .filter(symbol -> symbol.getName().isPresent() && symbol.getName().get().equals(variableName))
+                    .findAny();
+            if (optVariableSymbol.isEmpty()) {
+                throw new IllegalStateException("Symbol cannot be found for the connection variable");
+            }
 
-        SourceModification sourceModification = applyNode(flowNode, project, filePath, position);
-        Node stNode = sourceModification.stNode();
-        if (stNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
-            throw new IllegalStateException("Node is not a variable declaration");
-        }
-        Optional<Symbol> optVarSymbol = sourceModification.semanticModel().symbol(stNode);
-        if (optVarSymbol.isEmpty()) {
-            throw new IllegalStateException("Symbol cannot be found for the variable declaration");
-        }
-        VariableSymbol variableSymbol = (VariableSymbol) optVarSymbol.get();
-        if (isEffectiveRecordType(variableSymbol.typeDescriptor())) {
-            visualizableProperties.add("expression");
+            VariableSymbol variableSymbol = (VariableSymbol) optVariableSymbol.get();
+            TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
+            if (typeSymbol.kind() != SymbolKind.CLASS) {
+                throw new IllegalStateException("Connection symbol is not a class symbol");
+            }
+            ClassSymbol classSymbol = (ClassSymbol) typeSymbol;
+            Optional<MethodSymbol> optInitMethodSymbol = classSymbol.initMethod();
+            if (optInitMethodSymbol.isEmpty()) {
+                throw new IllegalStateException("Init method cannot be found for the connection class");
+            }
+            MethodSymbol initMethodSymbol = optInitMethodSymbol.get();
+            Optional<List<ParameterSymbol>> optParams = initMethodSymbol.typeDescriptor().params();
+            if (optParams.isPresent()) {
+                List<ParameterSymbol> params = optParams.get();
+                for (ParameterSymbol param : params) {
+                    if (isEffectiveRecordType(param.typeDescriptor())) {
+                        visualizableProperties.add(param.getName().get());
+                    }
+                }
+            }
         }
         return gson.toJsonTree(visualizableProperties);
     }
