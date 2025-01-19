@@ -32,8 +32,8 @@ public class ClientGeneratorTest extends AbstractLSTest {
     protected Object[] getConfigsList() {
         return new Object[][]{
                 {Path.of("config1.json")},
-//                {Path.of("config2.json")},
-//                {Path.of("config3.json")},
+                {Path.of("config2.json")},
+                {Path.of("config3.json")},
         };
     }
 
@@ -117,7 +117,7 @@ public class ClientGeneratorTest extends AbstractLSTest {
                     new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),
                             testConfig.source(), testConfig.position(), testConfig.description(),
                             testConfig.codedata(), nodeTemplate, newMap);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

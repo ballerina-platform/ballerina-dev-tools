@@ -191,7 +191,8 @@ public class OpenAPIClientGenerator {
         return LS + "[[tool.openapi]]" + LS +
                 "id" + " = " + moduleWithQuotes + LS +
                 "targetModule" + " = " + moduleWithQuotes + LS +
-                "filePath" + " = " + "\"" + oAContractPath.toAbsolutePath() + "\"" + LS;
+                "filePath" + " = " + "\"" +
+                oAContractPath.toAbsolutePath().toString().replace("\\", "\\\\") + "\"" + LS;
     }
 
     private record ClientSource(boolean isModuleExists, Map<Path, List<TextEdit>> textEditsMap) {
