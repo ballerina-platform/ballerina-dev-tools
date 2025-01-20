@@ -168,13 +168,8 @@ public class RemoteActionCallBuilder extends NodeBuilder {
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            boolean editable = false;
-            if (returnTypeName.contains(TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
-                editable = true;
-            }
             nodeBuilder.properties()
-                    .type(returnTypeName, editable)
+                    .type(returnTypeName, function.inferredReturnType() == 1)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 

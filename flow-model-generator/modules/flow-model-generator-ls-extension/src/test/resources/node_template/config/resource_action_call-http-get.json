@@ -99,7 +99,7 @@
         "value": "json",
         "placeholder": "var",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "variable": {

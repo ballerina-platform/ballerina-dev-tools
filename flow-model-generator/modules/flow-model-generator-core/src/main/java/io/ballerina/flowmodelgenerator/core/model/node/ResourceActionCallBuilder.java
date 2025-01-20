@@ -208,13 +208,8 @@ public class ResourceActionCallBuilder extends NodeBuilder {
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
-            boolean editable = false;
-            if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
-                editable = true;
-            }
             properties()
-                    .type(returnTypeName, editable)
+                    .type(returnTypeName, function.inferredReturnType() == 1)
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
