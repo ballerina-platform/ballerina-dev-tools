@@ -26,7 +26,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 566
+      "id": 561
     },
     "returning": false,
     "properties": {
@@ -117,7 +117,7 @@
         "value": "json",
         "placeholder": "var",
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": false
       },
       "variable": {

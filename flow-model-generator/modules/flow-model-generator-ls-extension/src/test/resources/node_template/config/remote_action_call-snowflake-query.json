@@ -26,7 +26,7 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "query",
-      "id": 646
+      "id": 1593
     },
     "returning": false,
     "properties": {

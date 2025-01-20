@@ -255,7 +255,7 @@ class IndexGenerator {
 
         String resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                functionType.name(), resourcePath, returnError);
+                functionType.name(), resourcePath, returnError, paramForTypeInfer != null);
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
@@ -264,7 +264,7 @@ class IndexGenerator {
                 DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
                         parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
                         FunctionParameterKind.fromString(parameterResult.kind().name()),
-                        parameterResult.optional(), null);
+                        parameterResult.optional() ? 1 : 0, null);
             }
         }
 

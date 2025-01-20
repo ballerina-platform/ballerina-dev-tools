@@ -106,7 +106,7 @@ public class FunctionCall extends NodeBuilder {
             setReturnTypeProperties(returnTypeName, context);
         }
 
-        if (function.returnError() == 1) {
+        if (function.returnError()) {
             properties().checkError(true);
         }
     }
@@ -166,7 +166,7 @@ public class FunctionCall extends NodeBuilder {
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1);
+                    .defaultable(paramResult.optional());
 
             switch (paramResult.kind()) {
                 case INCLUDED_RECORD_REST -> {

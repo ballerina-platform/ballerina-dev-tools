@@ -20,7 +20,7 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "init",
-      "id": 645
+      "id": 1592
     },
     "returning": false,
     "properties": {

@@ -93,11 +93,11 @@ class DatabaseManager {
     }
 
     public static int insertFunction(int packageId, String name, String description, String returnType, String kind,
-                                     String resourcePath, int returnError) {
+                                     String resourcePath, int returnError, boolean inferredReturnType) {
         String sql = "INSERT INTO Function (package_id, name, description, " +
-                "return_type, kind, resource_path, return_error) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "return_type, kind, resource_path, return_error, inferred_return_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         return insertEntry(sql, new Object[]{packageId, name, description,
-                returnType, kind, resourcePath, returnError});
+                returnType, kind, resourcePath, returnError, inferredReturnType ? 1 : 0});
     }
 
     public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,

@@ -30,7 +30,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 566
+                "id": 561
               },
               "enabled": true
             },
@@ -47,7 +47,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 568
+                "id": 572
               },
               "enabled": true
             },
@@ -64,7 +64,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 573
+                "id": 574
               },
               "enabled": true
             },
