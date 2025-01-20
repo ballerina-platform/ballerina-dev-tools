@@ -1,0 +1,204 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "118224",
+    "metadata": {
+      "label": "Wait",
+      "description": "Wait for a set of futures to complete"
+    },
+    "codedata": {
+      "node": "WAIT",
+      "lineRange": {
+        "fileName": "wait.bal",
+        "startLine": {
+          "line": 87,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 87,
+          "offset": 52
+        }
+      },
+      "sourceCode": "map<string|error> mapResult = wait {WA, WB, WC};"
+    },
+    "returning": false,
+    "properties": {
+      "waitAll": {
+        "metadata": {
+          "label": "Wait All",
+          "description": "Wait for all tasks to complete"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "futures": {
+        "metadata": {
+          "label": "Futures",
+          "description": "The futures to wait for"
+        },
+        "valueType": "REPEATABLE_PROPERTY_LIST",
+        "value": {
+          "future1": {
+            "metadata": {
+              "label": "Future",
+              "description": "The worker/async function to wait for"
+            },
+            "valueType": "FIXED_PROPERTY_LIST",
+            "value": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "dependentProperty": "waitAll"
+                }
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "WA",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "future2": {
+            "metadata": {
+              "label": "Future",
+              "description": "The worker/async function to wait for"
+            },
+            "valueType": "FIXED_PROPERTY_LIST",
+            "value": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "dependentProperty": "waitAll"
+                }
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "WB",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "future3": {
+            "metadata": {
+              "label": "Future",
+              "description": "The worker/async function to wait for"
+            },
+            "valueType": "FIXED_PROPERTY_LIST",
+            "value": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "dependentProperty": "waitAll"
+                }
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "WC",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "mapResult",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "map<string|error>",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 87,
+            "character": 4
+          },
+          "end": {
+            "line": 87,
+            "character": 52
+          }
+        },
+        "newText": "wait {WA, WB, WC};"
+      }
+    ]
+  }
+}

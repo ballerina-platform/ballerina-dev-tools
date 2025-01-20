@@ -34,6 +34,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
 import io.ballerina.compiler.syntax.tree.ByteArrayLiteralNode;
@@ -69,6 +70,8 @@ import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
+import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarator;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -83,6 +86,7 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
@@ -94,6 +98,9 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.WaitActionNode;
+import io.ballerina.compiler.syntax.tree.WaitFieldNode;
+import io.ballerina.compiler.syntax.tree.WaitFieldsListNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
@@ -118,6 +125,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ReturnBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RollbackBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
@@ -203,6 +211,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
+        functionBodyBlockNode.namedWorkerDeclarator()
+                .ifPresent(namedWorkerDeclarator -> namedWorkerDeclarator.accept(this));
         for (Node statementOrComment : functionBodyBlockNode.statementsWithComments()) {
             statementOrComment.accept(this);
         }
@@ -1294,8 +1304,117 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ForkStatementNode forkStatementNode) {
-        handleDefaultStatementNode(forkStatementNode, () -> super.visit(forkStatementNode));
+        startNode(NodeKind.FORK, forkStatementNode);
+        forkStatementNode.namedWorkerDeclarations().forEach(this::visit);
+        endNode(forkStatementNode);
     }
+
+    @Override
+    public void visit(NamedWorkerDeclarator namedWorkerDeclarator) {
+        // Analyze the worker init statements
+        namedWorkerDeclarator.workerInitStatements().forEach(statement -> statement.accept(this));
+
+        // Generate a parallel flow node for the named workers
+        startNode(NodeKind.PARALLEL_FLOW);
+        NodeList<NamedWorkerDeclarationNode> workers = namedWorkerDeclarator.namedWorkerDeclarations();
+        LineRange startLineRange = workers.get(0).lineRange();
+        LinePosition endLine = workers.get(workers.size() - 1).lineRange().endLine();
+        workers.forEach(this::visit);
+        nodeBuilder.codedata()
+                .lineRange(LineRange.from(startLineRange.fileName(), startLineRange.startLine(), endLine));
+        endNode();
+    }
+
+    @Override
+    public void visit(NamedWorkerDeclarationNode namedWorkerDeclarationNode) {
+        Branch.Builder workerBranchBuilder =
+                startBranch(namedWorkerDeclarationNode.workerName().text(), NodeKind.WORKER, Branch.BranchKind.WORKER,
+                        Branch.Repeatable.ONE_OR_MORE);
+
+        // Set the properties of the worker branch
+        Optional<Node> returnTypeDesc = namedWorkerDeclarationNode.returnTypeDesc();
+        String type;
+        if (returnTypeDesc.isPresent() && returnTypeDesc.get().kind() == SyntaxKind.RETURN_TYPE_DESCRIPTOR) {
+            ReturnTypeDescriptorNode returnTypeDescriptorNode = (ReturnTypeDescriptorNode) returnTypeDesc.get();
+            type = returnTypeDescriptorNode.type().toSourceCode().strip();
+        } else {
+            type = "";
+        }
+        workerBranchBuilder.properties()
+                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC, "worker")
+                .returnType(type);
+
+        // Analyze the body of the worker
+        analyzeBlock(namedWorkerDeclarationNode.workerBody(), workerBranchBuilder);
+        endBranch(workerBranchBuilder, namedWorkerDeclarationNode);
+    }
+
+    @Override
+    public void visit(WaitActionNode waitActionNode) {
+        startNode(NodeKind.WAIT, waitActionNode);
+
+        // Capture the future nodes associated with the wait node
+        boolean waitAll = false;
+        Node waitFutureExpr = waitActionNode.waitFutureExpr();
+        List<Node> nodes = new ArrayList<>();
+        switch (waitFutureExpr.kind()) {
+            case BINARY_EXPRESSION -> {
+                BinaryExpressionNode binaryExpressionNode = (BinaryExpressionNode) waitFutureExpr;
+                Stack<Node> futuresStack = new Stack<>();
+
+                // Capture the right most future
+                futuresStack.push(binaryExpressionNode.rhsExpr());
+
+                // Build the stack for the left futures, starting from the right
+                Node lhsNode = binaryExpressionNode.lhsExpr();
+                while (lhsNode.kind() == SyntaxKind.BINARY_EXPRESSION) {
+                    BinaryExpressionNode nestedBinary = (BinaryExpressionNode) lhsNode;
+                    futuresStack.push(nestedBinary.rhsExpr());
+                    lhsNode = nestedBinary.lhsExpr();
+                }
+                futuresStack.push(lhsNode);
+
+                // Add the futures to the node list in reverse order from the stack
+                while (!futuresStack.isEmpty()) {
+                    nodes.add(futuresStack.pop());
+                }
+            }
+            case WAIT_FIELDS_LIST -> {
+                WaitFieldsListNode waitFieldsListNode = (WaitFieldsListNode) waitFutureExpr;
+                for (Node field : waitFieldsListNode.waitFields()) {
+                    nodes.add(field);
+                }
+                waitAll = true;
+            }
+            default -> nodes.add(waitFutureExpr);
+        }
+
+
+        // Generate the properties for the futures
+        nodeBuilder.properties().waitAll(waitAll).nestedProperty();
+        Node waitField;
+        ExpressionNode expressionNode;
+        int i = 1;
+        for (Node n : nodes) {
+            if (n.kind() == SyntaxKind.WAIT_FIELD) {
+                waitField = ((WaitFieldNode) n).fieldName();
+                expressionNode = ((WaitFieldNode) n).waitFutureExpr();
+            } else {
+                waitField = null;
+                expressionNode = (ExpressionNode) n;
+            }
+            nodeBuilder.properties()
+                    .nestedProperty()
+                    .waitField(waitField)
+                    .expression(expressionNode)
+                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, "future" + i++,
+                            WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
+        }
+
+        nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, WaitBuilder.FUTURES_KEY,
+                WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
+    }
+
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
@@ -1467,7 +1586,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-
     // Utility methods
 
     /**
@@ -1575,10 +1693,10 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(bodyNode);
     }
 
-    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {
         for (Node statementOrComment : blockStatement.statementsWithComments()) {
             statementOrComment.accept(this);
-            thenBranchBuilder.node(buildNode());
+            branchBuilder.node(buildNode());
         }
     }
 

@@ -341,7 +341,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/oranges\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; } on fail {\n    msg = \"Error occurred while invoking food service\";\n}"
+        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/oranges\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n} on fail {\n    msg = \"Error occurred while invoking food service\";\n}"
       }
     ]
   }

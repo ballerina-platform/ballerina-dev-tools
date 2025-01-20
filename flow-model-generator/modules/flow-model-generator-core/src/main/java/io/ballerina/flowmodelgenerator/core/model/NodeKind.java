@@ -41,12 +41,16 @@ public enum NodeKind {
     COMMENT,
     MATCH,
     FUNCTION,
+    FORK,
+    PARALLEL_FLOW,
+    WAIT,
 
     // Branches
     CONDITIONAL,
     ELSE,
     ON_FAILURE,
     BODY,
+    WORKER,
 
     // Types
     RECORD,

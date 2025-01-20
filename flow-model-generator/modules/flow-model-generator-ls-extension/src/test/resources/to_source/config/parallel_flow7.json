@@ -1,0 +1,129 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65663",
+    "metadata": {
+      "label": "Parallel Flow",
+      "description": "Create parallel flows"
+    },
+    "codedata": {
+      "node": "PARALLEL_FLOW",
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 36,
+          "offset": 5
+        }
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "C",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 36,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker C returns string|error {\n        return \"C\";\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "C",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string|error",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "66731",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"C\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 35,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 35,
+                  "offset": 19
+                }
+              },
+              "sourceCode": "return \"C\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"C\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 4
+          },
+          "end": {
+            "line": 36,
+            "character": 5
+          }
+        },
+        "newText": "worker C returns string|error{\nreturn \"C\"; }"
+      }
+    ]
+  }
+}

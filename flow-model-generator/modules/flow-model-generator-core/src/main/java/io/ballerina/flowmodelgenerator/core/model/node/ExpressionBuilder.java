@@ -67,8 +67,7 @@ public class ExpressionBuilder extends NodeBuilder {
                     "One of from the following properties is required: variable, expression, statement");
         }
         sourceBuilder.token()
-                .expression(statement.get())
-                .endOfStatement();
+                .expression(statement.get());
         return sourceBuilder.textEdit(false).build();
     }
 

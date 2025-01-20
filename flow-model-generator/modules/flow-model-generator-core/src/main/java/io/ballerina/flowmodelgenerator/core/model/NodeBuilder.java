@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.EventStartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ForeachBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ForkBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
@@ -45,6 +46,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.MatchBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ParallelFlowBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ResourceActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RetryBuilder;
@@ -54,6 +56,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.StopBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.TransactionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WhileBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
@@ -127,6 +130,9 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.MATCH, MatchBuilder::new);
         put(NodeKind.CONFIG_VARIABLE, ConfigVariableBuilder::new);
         put(NodeKind.DATA_MAPPER_CALL, DataMapperCallBuilder::new);
+        put(NodeKind.FORK, ForkBuilder::new);
+        put(NodeKind.PARALLEL_FLOW, ParallelFlowBuilder::new);
+        put(NodeKind.WAIT, WaitBuilder::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {

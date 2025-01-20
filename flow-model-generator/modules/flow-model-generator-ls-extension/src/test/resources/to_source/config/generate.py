@@ -50,7 +50,7 @@ def write_json(output_node, output_filename, node_kind):
         json.dump(output_data, output_file)
 
 
-def process_file_code(file_code, in_codedata_type):
+def process_file_code(file_code, file_prefix, in_codedata_type):
     # Split the user input by "-"
     input_parts = file_code.split("-")
     input_node_name = input_parts[0]
@@ -89,7 +89,7 @@ def process_file_code(file_code, in_codedata_type):
     # Write each node to a JSON file
     output_nodes_set = remove_duplicates(output_nodes)
     for index, node in enumerate(output_nodes_set):
-        write_json(node, f"{file_code}{index+1}.json", codedata_type)
+        write_json(node, f"{file_prefix}{index+1}.json", codedata_type)
 
     # Add a test case for the template file
     template_file_dir = os.path.join(
@@ -120,6 +120,9 @@ file_code = sys.argv[1]
 # Get the optional second argument from the command line
 in_codedata_type = sys.argv[2] if len(sys.argv) > 2 else None
 
+# Create file_prefix based on in_codedata_type or file_code
+file_prefix = in_codedata_type if in_codedata_type else file_code
+
 # Exit the program if the user input is empty
 if not file_code:
     print("Please enter the node kind")
@@ -136,7 +139,7 @@ if file_code == "all":
     for template_file in template_files:
         prefix = template_file.split(".")[0]
         print(f"Generating node: {template_file}...")
-        process_file_code(prefix, in_codedata_type)
+        process_file_code(prefix, prefix, in_codedata_type)
 else:
     # Call the function with the file_code input
-    process_file_code(file_code, in_codedata_type)
+    process_file_code(file_code, file_prefix, in_codedata_type)

@@ -1,0 +1,439 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "164212",
+    "metadata": {
+      "label": "Parallel Flow",
+      "description": "Create parallel flows"
+    },
+    "codedata": {
+      "node": "PARALLEL_FLOW",
+      "lineRange": {
+        "fileName": "wait.bal",
+        "startLine": {
+          "line": 133,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 146,
+          "offset": 5
+        }
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "WA",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 133,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 136,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker WA returns int {\n        runtime:sleep(1);\n        return 42;\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "WA",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "164945",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 134,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 134,
+                  "offset": 25
+                }
+              },
+              "sourceCode": "runtime:sleep(1);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": "1",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "165930",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '42'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 135,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 135,
+                  "offset": 18
+                }
+              },
+              "sourceCode": "return 42;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "42",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "WB",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 138,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 141,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker WB returns string {\n        runtime:sleep(2);\n        return \"Hello\";\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "WB",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "169905",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 139,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 139,
+                  "offset": 25
+                }
+              },
+              "sourceCode": "runtime:sleep(2);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": "2",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "170895",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"Hello\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 140,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 140,
+                  "offset": 23
+                }
+              },
+              "sourceCode": "return \"Hello\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"Hello\"",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "WC",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 143,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 146,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker WC returns boolean {\n        runtime:sleep(1);\n        return true;\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "WC",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "boolean",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "174865",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 144,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 144,
+                  "offset": 25
+                }
+              },
+              "sourceCode": "runtime:sleep(1);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": "1",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "175852",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'true'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 145,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 145,
+                  "offset": 20
+                }
+              },
+              "sourceCode": "return true;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "true",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 133,
+            "character": 4
+          },
+          "end": {
+            "line": 146,
+            "character": 5
+          }
+        },
+        "newText": "worker WA returns int{\nruntime:sleep(1);return 42; } worker WB returns string{\nruntime:sleep(2);return \"Hello\"; } worker WC returns boolean{\nruntime:sleep(1);return true; }"
+      }
+    ]
+  }
+}
