@@ -1,0 +1,673 @@
+{
+  "start": {
+    "line": 74,
+    "offset": 0
+  },
+  "end": {
+    "line": 89,
+    "offset": 1
+  },
+  "source": "wait.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "wait.bal",
+    "nodes": [
+      {
+        "id": "107168",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 74,
+              "offset": 50
+            },
+            "endLine": {
+              "line": 89,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function multipleWait() returns map<string|error> {\n    worker WA returns string|error {\n        return mockFetch(\"http://a.com\", 1);\n    }\n\n    worker WB returns string|error {\n        return mockFetch(\"http://b.com\", 2);\n    }\n\n    worker WC returns string|error {\n        return mockFetch(\"http://error.com\", 3);\n    }\n\n    map<string|error> mapResult = wait {WA, WB, WC};\n    return mapResult;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "106583",
+        "metadata": {
+          "label": "Parallel Flow",
+          "description": "Create parallel flows"
+        },
+        "codedata": {
+          "node": "PARALLEL_FLOW",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 75,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 85,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "WA",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 75,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 77,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "worker WA returns string|error {\n        return mockFetch(\"http://a.com\", 1);\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WA",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string|error",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "107428",
+                "metadata": {
+                  "label": "mockFetch",
+                  "description": ""
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "mockFetch",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 76,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 76,
+                      "offset": 44
+                    }
+                  },
+                  "sourceCode": "return mockFetch(\"http://a.com\", 1);"
+                },
+                "returning": true,
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "wait.bal",
+                      "startLine": {
+                        "line": 4,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 10,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "url": {
+                    "metadata": {
+                      "label": "url"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"http://a.com\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "url"
+                    }
+                  },
+                  "delay": {
+                    "metadata": {
+                      "label": "delay"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "decimal",
+                    "value": "1",
+                    "placeholder": "0.0d",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "delay"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "WB",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 79,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 81,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "worker WB returns string|error {\n        return mockFetch(\"http://b.com\", 2);\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WB",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string|error",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "111396",
+                "metadata": {
+                  "label": "mockFetch",
+                  "description": ""
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "mockFetch",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 80,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 80,
+                      "offset": 44
+                    }
+                  },
+                  "sourceCode": "return mockFetch(\"http://b.com\", 2);"
+                },
+                "returning": true,
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "wait.bal",
+                      "startLine": {
+                        "line": 4,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 10,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "url": {
+                    "metadata": {
+                      "label": "url"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"http://b.com\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "url"
+                    }
+                  },
+                  "delay": {
+                    "metadata": {
+                      "label": "delay"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "decimal",
+                    "value": "2",
+                    "placeholder": "0.0d",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "delay"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "WC",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 83,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 85,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "worker WC returns string|error {\n        return mockFetch(\"http://error.com\", 3);\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "WC",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string|error",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "115368",
+                "metadata": {
+                  "label": "mockFetch",
+                  "description": ""
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "mockFetch",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 84,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 84,
+                      "offset": 48
+                    }
+                  },
+                  "sourceCode": "return mockFetch(\"http://error.com\", 3);"
+                },
+                "returning": true,
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "wait.bal",
+                      "startLine": {
+                        "line": 4,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 10,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
+                  },
+                  "url": {
+                    "metadata": {
+                      "label": "url"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "string",
+                    "value": "\"http://error.com\"",
+                    "placeholder": "\"\"",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REQUIRED",
+                      "originalName": "url"
+                    }
+                  },
+                  "delay": {
+                    "metadata": {
+                      "label": "delay"
+                    },
+                    "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "decimal",
+                    "value": "3",
+                    "placeholder": "0.0d",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true,
+                    "codedata": {
+                      "kind": "DEFAULTABLE",
+                      "originalName": "delay"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "118224",
+        "metadata": {
+          "label": "Wait",
+          "description": "Wait for a set of futures to complete"
+        },
+        "codedata": {
+          "node": "WAIT",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 87,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 87,
+              "offset": 52
+            }
+          },
+          "sourceCode": "map<string|error> mapResult = wait {WA, WB, WC};"
+        },
+        "returning": false,
+        "properties": {
+          "waitAll": {
+            "metadata": {
+              "label": "Wait All",
+              "description": "Wait for all tasks to complete"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "futures": {
+            "metadata": {
+              "label": "Futures",
+              "description": "The futures to wait for"
+            },
+            "valueType": "REPEATABLE_PROPERTY",
+            "value": {
+              "future1": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WA",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              "future2": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WB",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              "future3": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "WC",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "map<string|error>",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "119185",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of 'mapResult'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "wait.bal",
+            "startLine": {
+              "line": 88,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 88,
+              "offset": 21
+            }
+          },
+          "sourceCode": "return mapResult;"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "mapResult",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

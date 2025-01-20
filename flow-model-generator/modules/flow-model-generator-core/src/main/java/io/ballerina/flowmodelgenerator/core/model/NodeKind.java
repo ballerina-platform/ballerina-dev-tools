@@ -13,6 +13,7 @@ public enum NodeKind {
     REMOTE_ACTION_CALL,
     RESOURCE_ACTION_CALL,
     FUNCTION_CALL,
+    METHOD_CALL,
     NEW_CONNECTION,
     RETURN,
     EXPRESSION,
@@ -40,12 +41,16 @@ public enum NodeKind {
     COMMENT,
     MATCH,
     FUNCTION,
+    FORK,
+    PARALLEL_FLOW,
+    WAIT,
 
     // Branches
     CONDITIONAL,
     ELSE,
     ON_FAILURE,
     BODY,
+    WORKER,
 
     // Types
     RECORD,

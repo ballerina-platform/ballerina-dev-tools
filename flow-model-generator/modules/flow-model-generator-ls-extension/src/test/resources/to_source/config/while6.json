@@ -416,7 +416,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = foodClient->get(\"/food/bananas\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    } else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    i += 1;\n; }"
+        "newText": "while i < count {\n    json response = foodClient->get(\"/food/bananas\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    } else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    i += 1;\n}"
       }
     ]
   }

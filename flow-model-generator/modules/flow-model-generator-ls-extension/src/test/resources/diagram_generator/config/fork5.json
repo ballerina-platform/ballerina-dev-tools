@@ -1,0 +1,707 @@
+{
+  "start": {
+    "line": 89,
+    "offset": 0
+  },
+  "end": {
+    "line": 109,
+    "offset": 1
+  },
+  "source": "fork.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "fork.bal",
+    "nodes": [
+      {
+        "id": "122296",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 89,
+              "offset": 53
+            },
+            "endLine": {
+              "line": 109,
+              "offset": 1
+            }
+          },
+          "sourceCode": "// Workers with init statements\nfunction workersWithInitStatements() returns string? {\n    int i = 12;\n    string s = \"12\";\n\n    fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }\n\n    worker B {\n        io:println(\"Worker B\");\n    }\n\n    worker C {\n        io:println(\"Worker C\");\n    }\n\n    string? value = wait A | B | C;\n    return value;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "121163",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 90,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 90,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int i = 12;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "12",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "i",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "122160",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 91,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 91,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string s = \"12\";"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"12\"",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "s",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "124253",
+        "metadata": {
+          "label": "Fork",
+          "description": "Create parallel workers"
+        },
+        "codedata": {
+          "node": "FORK",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 93,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 97,
+              "offset": 5
+            }
+          },
+          "sourceCode": "fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "A",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 94,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 96,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "worker A returns string {\n            return \"hello\" + s;\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "A",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "string",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "126387",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"hello\" + s'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 95,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 95,
+                      "offset": 31
+                    }
+                  },
+                  "sourceCode": "return \"hello\" + s;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"hello\" + s",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "130267",
+        "metadata": {
+          "label": "Parallel Flow",
+          "description": "Create parallel flows"
+        },
+        "codedata": {
+          "node": "PARALLEL_FLOW",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 99,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 105,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "B",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 99,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 101,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "worker B {\n        io:println(\"Worker B\");\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "B",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "131223",
+                "metadata": {
+                  "label": "println",
+                  "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "io",
+                  "symbol": "println",
+                  "version": "1.7.0",
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 100,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 100,
+                      "offset": 31
+                    }
+                  },
+                  "sourceCode": "io:println(\"Worker B\");"
+                },
+                "returning": false,
+                "properties": {
+                  "values": {
+                    "metadata": {
+                      "label": "values",
+                      "description": "The value(s) to be printed"
+                    },
+                    "valueType": "EXPRESSION_SET",
+                    "valueTypeConstraint": "io:Printable",
+                    "value": [
+                      "\"Worker B\""
+                    ],
+                    "placeholder": "()",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REST_PARAMETER",
+                      "originalName": "values"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "C",
+            "kind": "WORKER",
+            "codedata": {
+              "node": "WORKER",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 103,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 105,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "worker C {\n        io:println(\"Worker C\");\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Worker Name",
+                  "description": "Name of the worker"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "C",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Return Type",
+                  "description": "Return type of the function/worker"
+                },
+                "valueType": "TYPE",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "children": [
+              {
+                "id": "135191",
+                "metadata": {
+                  "label": "println",
+                  "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "io",
+                  "symbol": "println",
+                  "version": "1.7.0",
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 104,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 104,
+                      "offset": 31
+                    }
+                  },
+                  "sourceCode": "io:println(\"Worker C\");"
+                },
+                "returning": false,
+                "properties": {
+                  "values": {
+                    "metadata": {
+                      "label": "values",
+                      "description": "The value(s) to be printed"
+                    },
+                    "valueType": "EXPRESSION_SET",
+                    "valueTypeConstraint": "io:Printable",
+                    "value": [
+                      "\"Worker C\""
+                    ],
+                    "placeholder": "()",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "kind": "REST_PARAMETER",
+                      "originalName": "values"
+                    }
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "138047",
+        "metadata": {
+          "label": "Wait",
+          "description": "Wait for a set of futures to complete"
+        },
+        "codedata": {
+          "node": "WAIT",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 107,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 107,
+              "offset": 35
+            }
+          },
+          "sourceCode": "string? value = wait A | B | C;"
+        },
+        "returning": false,
+        "properties": {
+          "waitAll": {
+            "metadata": {
+              "label": "Wait All",
+              "description": "Wait for all tasks to complete"
+            },
+            "valueType": "FLAG",
+            "value": false,
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "futures": {
+            "metadata": {
+              "label": "Futures",
+              "description": "The futures to wait for"
+            },
+            "valueType": "REPEATABLE_PROPERTY",
+            "value": {
+              "future1": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "A ",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              "future2": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "B ",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              },
+              "future3": {
+                "metadata": {
+                  "label": "Future",
+                  "description": "The worker/async function to wait for"
+                },
+                "valueType": "FIXED_PROPERTY",
+                "value": {
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "codedata": {
+                      "dependentProperty": "waitAll"
+                    }
+                  },
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "C",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
+                  }
+                },
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "value",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string|()",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "139021",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of 'value'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 108,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 108,
+              "offset": 17
+            }
+          },
+          "sourceCode": "return value;"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "value",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

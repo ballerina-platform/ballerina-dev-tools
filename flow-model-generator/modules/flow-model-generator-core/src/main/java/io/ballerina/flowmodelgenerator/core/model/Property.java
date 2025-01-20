@@ -63,6 +63,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String IMPLICIT_VARIABLE_LABEL = "Name";
     public static final String VARIABLE_DOC = "Name of the variable";
 
+    public static final String WORKER_NAME = "Worker Name";
+    public static final String WORKER_DOC = "Name of the worker";
+
     public static final String NAME_KEY = "name";
     public static final String DESCRIPTION_KEY = "description";
     public static final String IS_ARRAY_KEY = "isArray";
@@ -81,6 +84,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String TYPE_IS_ARRAY_DOC = "Is this type an array or list value";
     public static final String TYPE_ARRAY_SIZE_LABEL = "Size of the array";
     public static final String TYPE_ARRAY_SIZE_DOC = "Array dimensions";
+
+    public static final String RETURN_TYPE_LABEL = "Return Type";
+    public static final String RETURN_TYPE_DOC = "Return type of the function/worker";
 
     public static final String EXPRESSION_KEY = "expression";
     public static final String EXPRESSION_LABEL = "Expression";
@@ -167,7 +173,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         UNION,
         FLAG,
         MAPPING_EXPRESSION_SET,
-        EXPRESSION_SET
+        EXPRESSION_SET,
+        FIXED_PROPERTY,
+        REPEATABLE_PROPERTY
     }
 
     public static ValueType valueTypeFrom(String s) {

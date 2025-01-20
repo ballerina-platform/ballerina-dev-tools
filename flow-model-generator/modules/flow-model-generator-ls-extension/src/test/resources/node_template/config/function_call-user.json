@@ -45,7 +45,7 @@
         "value": "int",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "variable": {

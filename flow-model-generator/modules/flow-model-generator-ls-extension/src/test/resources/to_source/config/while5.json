@@ -876,7 +876,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n;i += 1;\n; } on fail http:ClientError e {\n    int attempts = 0;\n    http:Client adminClient = new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    } on fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
+        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n    i += 1;\n} on fail http:ClientError e {\n    int attempts = 0;\n    http:Client adminClient = new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    } on fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
       }
     ]
   }

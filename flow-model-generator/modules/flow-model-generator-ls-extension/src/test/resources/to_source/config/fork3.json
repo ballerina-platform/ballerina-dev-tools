@@ -1,0 +1,310 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "77815",
+    "metadata": {
+      "label": "Fork",
+      "description": "Create parallel workers"
+    },
+    "codedata": {
+      "node": "FORK",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 46,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 56,
+          "offset": 5
+        }
+      },
+      "sourceCode": "fork {\n        worker WA {\n            runtime:sleep(1);\n            results.push(\"WA\");\n        }\n\n        worker WB {\n            runtime:sleep(.5);\n            results.push(\"WB\");\n        }\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "WA",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 47,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 50,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker WA {\n            runtime:sleep(1);\n            results.push(\"WA\");\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "WA",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "79761",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 48,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 48,
+                  "offset": 29
+                }
+              },
+              "sourceCode": "runtime:sleep(1);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": "1",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "80755",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 49,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 49,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "results.push(\"WA\");"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "results.push(\"WA\");",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "WB",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 52,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker WB {\n            runtime:sleep(.5);\n            results.push(\"WB\");\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "WB",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "84722",
+            "metadata": {
+              "label": "sleep",
+              "description": "Halts the current strand for a predefined amount of time.\n\n```ballerina\nruntime:sleep(5);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.runtime_0.0.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "lang.runtime",
+              "symbol": "sleep",
+              "version": "0.0.0",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 53,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 53,
+                  "offset": 30
+                }
+              },
+              "sourceCode": "runtime:sleep(.5);"
+            },
+            "returning": false,
+            "properties": {
+              "seconds": {
+                "metadata": {
+                  "label": "seconds",
+                  "description": "An amount of time to sleep in seconds"
+                },
+                "valueType": "EXPRESSION",
+                "valueTypeConstraint": "decimal",
+                "value": ".5",
+                "placeholder": "0.0d",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REQUIRED",
+                  "originalName": "seconds"
+                }
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "85715",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 54,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 54,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "results.push(\"WB\");"
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "valueType": "EXPRESSION",
+                "value": "results.push(\"WB\");",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 46,
+            "character": 4
+          },
+          "end": {
+            "line": 56,
+            "character": 5
+          }
+        },
+        "newText": "fork {\n    worker WA {\n        runtime:sleep(1);\n        results.push(\"WA\");\n    }\n    worker WB {\n        runtime:sleep(.5);\n        results.push(\"WB\");\n    }\n}map<any|error> waitResult= wait { WA,WB} ;"
+      }
+    ]
+  }
+}

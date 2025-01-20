@@ -225,6 +225,9 @@
             "advanced": false
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 1
       }
     ],

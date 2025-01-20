@@ -1,0 +1,238 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "130267",
+    "metadata": {
+      "label": "Parallel Flow",
+      "description": "Create parallel flows"
+    },
+    "codedata": {
+      "node": "PARALLEL_FLOW",
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 99,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 105,
+          "offset": 5
+        }
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "B",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 99,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 101,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker B {\n        io:println(\"Worker B\");\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "B",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "131223",
+            "metadata": {
+              "label": "println",
+              "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "io",
+              "symbol": "println",
+              "version": "1.7.0",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 100,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 100,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "io:println(\"Worker B\");"
+            },
+            "returning": false,
+            "properties": {
+              "values": {
+                "metadata": {
+                  "label": "values",
+                  "description": "The value(s) to be printed"
+                },
+                "valueType": "EXPRESSION_SET",
+                "valueTypeConstraint": "io:Printable",
+                "value": [
+                  "\"Worker B\""
+                ],
+                "placeholder": "()",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REST_PARAMETER",
+                  "originalName": "values"
+                }
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 103,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 105,
+              "offset": 5
+            }
+          },
+          "sourceCode": "worker C {\n        io:println(\"Worker C\");\n    }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "C",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "135191",
+            "metadata": {
+              "label": "println",
+              "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+            },
+            "codedata": {
+              "node": "FUNCTION_CALL",
+              "org": "ballerina",
+              "module": "io",
+              "symbol": "println",
+              "version": "1.7.0",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 104,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 104,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "io:println(\"Worker C\");"
+            },
+            "returning": false,
+            "properties": {
+              "values": {
+                "metadata": {
+                  "label": "values",
+                  "description": "The value(s) to be printed"
+                },
+                "valueType": "EXPRESSION_SET",
+                "valueTypeConstraint": "io:Printable",
+                "value": [
+                  "\"Worker C\""
+                ],
+                "placeholder": "()",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "codedata": {
+                  "kind": "REST_PARAMETER",
+                  "originalName": "values"
+                }
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 99,
+            "character": 4
+          },
+          "end": {
+            "line": 105,
+            "character": 5
+          }
+        },
+        "newText": "worker B {\nio:println(\"Worker B\"); } worker C {\nio:println(\"Worker C\"); }"
+      }
+    ]
+  }
+}

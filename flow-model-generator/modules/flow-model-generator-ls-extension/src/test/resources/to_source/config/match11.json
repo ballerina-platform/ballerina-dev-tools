@@ -486,7 +486,7 @@
             "character": 9
           }
         },
-        "newText": "match data {\n    var objif obj is record {|int quantity; string 'type;|} => {\n        int quantity = int:fromString(obj.quantity.toString());\n        'type = obj.'type;\n        return string `Order for ${quantity} ${'type} cherries placed`;\n    }\n    _ => {\n        return error(\"Invalid data format\");\n    }\n} on fail error e {\n    if e is error {\n        return error(\"Data processing failed\", e);\n    }\n}"
+        "newText": "match data {\n    var objif obj is record {|int quantity; string 'type;|} => {\n        int quantity = int:fromString(obj.quantity.toString())        'type = obj.'type;\n        return string `Order for ${quantity} ${'type} cherries placed`;\n    }\n    _ => {\n        return error(\"Invalid data format\");\n    }\n} on fail error e {\n    if e is error {\n        return error(\"Data processing failed\", e);\n    }\n}"
       }
     ]
   }

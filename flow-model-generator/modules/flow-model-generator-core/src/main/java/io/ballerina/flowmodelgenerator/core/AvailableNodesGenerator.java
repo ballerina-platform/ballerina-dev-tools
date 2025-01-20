@@ -158,21 +158,23 @@ public class AvailableNodesGenerator {
 
         this.rootBuilder
                 .stepIn(Category.Name.ERROR_HANDLING)
-                // TODO: Uncomment when error handling is implemented
+//                TODO: Uncomment when error handling is implemented
 //                    .node(NodeKind.ERROR_HANDLER)
                     .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
-                    .stepOut();
-        // TODO: Uncomment when concurrency is implemented
-//        this.rootBuilder
-//                .stepIn(Category.Name.CONCURRENCY)
+                    .stepOut()
+                .stepIn(Category.Name.CONCURRENCY)
+                    .node(NodeKind.FORK)
+                    .node(NodeKind.PARALLEL_FLOW)
+                    .node(NodeKind.WAIT)
+//                TODO: Uncomment when concurrency is implemented
 //                    .node(NodeKind.TRANSACTION)
 //                    .node(NodeKind.COMMIT)
 //                    .node(NodeKind.ROLLBACK)
 //                    .node(NodeKind.RETRY);
 //                    .node(NodeKind.LOCK)
 //                    .node(NodeKind.START)
-//                    .stepOut();
+                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
@@ -238,6 +240,8 @@ public class AvailableNodesGenerator {
         for (FunctionResult connectorAction : connectorActions) {
             if (connectorAction.kind() == Function.Kind.REMOTE) {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
+            } else if (connectorAction.kind() == Function.Kind.FUNCTION) {
+                availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             } else {
                 if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
                     continue;
@@ -247,6 +251,25 @@ public class AvailableNodesGenerator {
             }
         }
         return availableNodes;
+    }
+
+    private static NodeBuilder getMethodCallNode(FunctionResult functionResult, FunctionResult connector,
+                                                 String parentSymbol) {
+        NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
+        methodCallBuilder
+                .metadata()
+                    .label(functionResult.name())
+                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                    .description(functionResult.description())
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.METHOD_CALL)
+                    .org(connector.org())
+                    .module(connector.packageName())
+                    .symbol(functionResult.name())
+                    .parentSymbol(parentSymbol)
+                    .id(functionResult.functionId());
+        return methodCallBuilder;
     }
 
     private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,

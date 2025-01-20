@@ -1,0 +1,131 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "124253",
+    "metadata": {
+      "label": "Fork",
+      "description": "Create parallel workers"
+    },
+    "codedata": {
+      "node": "FORK",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "fork.bal",
+        "startLine": {
+          "line": 93,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 97,
+          "offset": 5
+        }
+      },
+      "sourceCode": "fork {\n        worker A returns string {\n            return \"hello\" + s;\n        }\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "A",
+        "kind": "WORKER",
+        "codedata": {
+          "node": "WORKER",
+          "lineRange": {
+            "fileName": "fork.bal",
+            "startLine": {
+              "line": 94,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 96,
+              "offset": 9
+            }
+          },
+          "sourceCode": "worker A returns string {\n            return \"hello\" + s;\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Worker Name",
+              "description": "Name of the worker"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "A",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "type": {
+            "metadata": {
+              "label": "Return Type",
+              "description": "Return type of the function/worker"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "children": [
+          {
+            "id": "126387",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"hello\" + s'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 95,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 95,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "return \"hello\" + s;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"hello\" + s",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 93,
+            "character": 4
+          },
+          "end": {
+            "line": 97,
+            "character": 5
+          }
+        },
+        "newText": "fork {\n    worker A returns string {\n        return \"hello\" + s;\n    }\n}map<any|error> waitResult= wait { A} ;"
+      }
+    ]
+  }
+}
