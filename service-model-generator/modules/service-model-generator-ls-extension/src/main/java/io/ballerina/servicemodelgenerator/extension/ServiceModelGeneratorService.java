@@ -623,7 +623,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     LinePosition startPos = path.get(0).lineRange().startLine();
                     LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
                     LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
-                    TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange), getPath(path));
+                    TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange),
+                            request.function().getName().getValue());
                     edits.add(pathEdit);
                 }
 

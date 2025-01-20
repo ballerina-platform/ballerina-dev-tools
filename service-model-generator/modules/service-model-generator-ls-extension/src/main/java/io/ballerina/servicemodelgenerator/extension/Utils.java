@@ -79,7 +79,9 @@ import org.eclipse.lsp4j.Range;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -176,7 +178,7 @@ public final class Utils {
         httpCodeMap.put("202", "Accepted");
         httpCodeMap.put("203", "NonAuthoritativeInformation");
         httpCodeMap.put("204", "NoContent");
-        httpCodeMap.put("205", "RestContent");
+        httpCodeMap.put("205", "ResetContent");
         httpCodeMap.put("206", "PartialContent");
         httpCodeMap.put("207", "MultiStatus");
         httpCodeMap.put("208", "AlreadyReported");
@@ -1182,5 +1184,16 @@ public final class Utils {
         Codedata codedata = new Codedata(listenerDeclarationNode.lineRange());
         return Optional.of(new Listener(null, null, null, null, null, null, null, null, null, null, listenerProtocol,
                 null, properties, codedata));
+    }
+
+    /**
+     * Generates the URI for the given source path.
+     *
+     * @param sourcePath the source path
+     * @return the generated URI as a string
+     */
+    public static String getExprUri(String sourcePath) {
+        String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
+        return URI.create(exprUriString).toString();
     }
 }
