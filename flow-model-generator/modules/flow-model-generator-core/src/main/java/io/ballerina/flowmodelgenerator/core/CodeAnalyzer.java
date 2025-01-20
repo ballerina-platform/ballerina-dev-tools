@@ -372,7 +372,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .typeConstraint(paramResult.type())
                             .type(Property.ValueType.EXPRESSION)
                             .editable()
-                            .defaultable(paramResult.optional() == 1)
+                            .defaultable(paramResult.optional())
                             .stepOut()
                             .addProperty(unescapedParamName);
                     idx++;
@@ -437,7 +437,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1);
+                    .defaultable(paramResult.optional());
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -523,7 +523,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
                         .editable()
-                        .defaultable(paramResult.optional() == 1);
+                        .defaultable(paramResult.optional());
 
                 if (paramKind == Parameter.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
@@ -584,7 +584,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .value(value)
                             .placeholder(paramResult.defaultValue())
                             .editable()
-                            .defaultable(paramResult.optional() == 1)
+                            .defaultable(paramResult.optional())
                             .codedata()
                                 .kind(paramResult.kind().name())
                                 .originalName(paramResult.name())
@@ -670,7 +670,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
-                                    .defaultable(paramResult.optional() == 1)
+                                    .defaultable(paramResult.optional())
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
@@ -700,7 +700,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
-                                        .defaultable(paramResult.optional() == 1)
+                                        .defaultable(paramResult.optional())
                                         .codedata()
                                             .kind(paramResult.kind().name())
                                             .originalName(paramResult.name())
@@ -730,7 +730,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
-                                    .defaultable(paramResult.optional() == 1)
+                                    .defaultable(paramResult.optional())
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
@@ -762,7 +762,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
-                        .defaultable(paramResult.optional() == 1)
+                        .defaultable(paramResult.optional())
                         .codedata()
                             .kind(paramResult.kind().name())
                             .originalName(paramResult.name())
@@ -792,7 +792,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()
-                        .defaultable(includedRecordRest.optional() == 1)
+                        .defaultable(includedRecordRest.optional())
                         .codedata()
                             .kind(includedRecordRest.kind().name())
                             .originalName(includedRecordRest.name())

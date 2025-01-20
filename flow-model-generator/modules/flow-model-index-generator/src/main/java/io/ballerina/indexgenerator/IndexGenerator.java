@@ -264,7 +264,7 @@ class IndexGenerator {
                 DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
                         parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
                         FunctionParameterKind.fromString(parameterResult.kind().name()),
-                        parameterResult.optional(), null);
+                        parameterResult.optional() ? 1 : 0, null);
             }
         }
 

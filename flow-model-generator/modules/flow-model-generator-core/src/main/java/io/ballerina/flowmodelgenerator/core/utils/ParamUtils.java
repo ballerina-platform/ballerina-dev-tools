@@ -87,14 +87,14 @@ public class ParamUtils {
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");
                         pathParams.add(ParameterResult.from(paramName, type, Parameter.Kind.PATH_PARAM, defaultValue,
-                                paramDescription, 0));
+                                paramDescription, false));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
                     pathParams.add(ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
-                            Parameter.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, 0));
+                            Parameter.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, false));
                 });
             }
             case PATH_REST_PARAM -> {
@@ -192,10 +192,7 @@ public class ParamUtils {
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
             String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldTypeDescriptor, true, moduleInfo);
-            int optional = 0;
-            if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
-                optional = 1;
-            }
+            boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
             funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
                     Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional,
                     CommonUtils.getImportStatements(recordFieldTypeDescriptor, moduleInfo).orElse(null)));
@@ -205,7 +202,7 @@ public class ParamUtils {
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
                     "Additional Values", paramType,
-                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", 1,
+                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", true,
                     CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         });
     }
@@ -219,7 +216,7 @@ public class ParamUtils {
         String paramDescription = documentationMap.get(paramName);
         ParameterKind parameterKind = paramSymbol.paramKind();
         String paramType;
-        int optional = 1;
+        boolean optional = true;
         String defaultValue;
         Parameter.Kind kind;
         ModuleInfo moduleInfo = ModuleInfo.from(paramSymbol.getModule().get().id());
@@ -243,15 +240,16 @@ public class ParamUtils {
         } else if (parameterKind == ParameterKind.REQUIRED) {
             paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true, moduleInfo);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
-            optional = 0;
+            optional = false;
             kind = Parameter.Kind.REQUIRED;
         } else {
             if (paramForTypeInfer != null) {
                 if (paramForTypeInfer.paramName().equals(paramName)) {
                     defaultValue = paramForTypeInfer.type();
                     paramType = paramForTypeInfer.type();
-                    funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                            Parameter.Kind.PARAM_FOR_TYPE_INFER, defaultValue, paramDescription, 1, importStatements));
+                    funcParamMap.put(paramName,
+                            new ParameterResult(0, paramName, paramType, Parameter.Kind.PARAM_FOR_TYPE_INFER,
+                                    defaultValue, paramDescription, true, importStatements));
                     return;
                 }
             }

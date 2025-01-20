@@ -132,7 +132,7 @@ public class NewConnectionBuilder extends NodeBuilder {
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1);
+                    .defaultable(paramResult.optional());
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
