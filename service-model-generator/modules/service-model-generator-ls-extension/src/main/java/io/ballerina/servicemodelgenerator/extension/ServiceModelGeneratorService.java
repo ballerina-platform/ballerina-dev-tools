@@ -151,6 +151,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         return null;
     }
 
+    /**
+     * Get the compatible listeners for the given module.
+     *
+     * @param request Listener discovery request
+     * @return {@link ListenerDiscoveryResponse} of the listener discovery response
+     */
     @JsonRequest
     public CompletableFuture<ListenerDiscoveryResponse> getListeners(ListenerDiscoveryRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -187,6 +193,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 .toList();
     }
 
+    /**
+     * Get the listener model template for the given module.
+     *
+     * @param request Listener model request
+     * @return {@link ListenerModelResponse} of the listener model response
+     */
     @JsonRequest
     public CompletableFuture<ListenerModelResponse> getListenerModel(ListenerModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -200,6 +212,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a listener to the given module.
+     *
+     * @param request Listener source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addListener(ListenerSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -232,6 +250,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the service model template for the given module.
+     *
+     * @param request Service model request
+     * @return {@link ServiceModelResponse} of the service model response
+     */
     @JsonRequest
     public CompletableFuture<ServiceModelResponse> getServiceModel(ServiceModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -303,6 +327,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a service to the given module.
+     *
+     * @param request Service source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addService(ServiceSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -345,6 +375,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Find matching trigger models for the given request.
+     *
+     * @param request Trigger list request
+     * @return {@link TriggerListResponse} of the trigger list response
+     */
     @JsonRequest
     public CompletableFuture<TriggerListResponse> getTriggerModels(TriggerListRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -357,6 +393,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the http service model template.
+     *
+     * @return {@link ResourceModelResponse} of the resource model response
+     */
     @JsonRequest
     public CompletableFuture<ResourceModelResponse> getHttpResourceModel() {
         return CompletableFuture.supplyAsync(() -> {
@@ -370,6 +411,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a resource function to a service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addResource(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -411,6 +458,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the service model for the given line range.
+     *
+     * @param request Common model from source request
+     * @return {@link ServiceFromSourceResponse} of the service from source response
+     */
     @JsonRequest
     public CompletableFuture<ServiceFromSourceResponse> getServiceFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -490,6 +543,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the listener model for the given line range.
+     *
+     * @param request Common model from source request
+     * @return {@link ListenerFromSourceResponse} of the listener from source response
+     */
     @JsonRequest
     public CompletableFuture<ListenerFromSourceResponse> getListenerFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -532,6 +591,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of triggers for a given search query.
+     *
+     * @param request Trigger list request
+     * @return {@link TriggerListResponse} of the trigger list response
+     */
     @JsonRequest
     public CompletableFuture<TriggerResponse> getTriggerModel(TriggerRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -547,6 +612,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a function skeleton to the given service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addFunction(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -584,6 +655,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a function in the given service.
+     *
+     * @param request Function modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateFunction(FunctionModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -646,6 +723,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a service in the given module.
+     *
+     * @param request Service modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateService(ServiceModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -698,6 +781,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a listener in the given module.
+     *
+     * @param request Listener modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateListener(ListenerModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
