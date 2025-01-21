@@ -82,6 +82,9 @@ public class DataMappingModelTest extends AbstractLSTest {
                 {Path.of("variable36.json")},
                 {Path.of("variable37.json")},
                 {Path.of("variable38.json")},
+                {Path.of("function_call1.json")},
+                {Path.of("function_call2.json")},
+                {Path.of("new_connection1.json")},
         };
     }
 
@@ -103,7 +106,7 @@ public class DataMappingModelTest extends AbstractLSTest {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model,
                     testConfig.targetField());
-//            updateConfig(configJsonPath, updateConfig);
+            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }

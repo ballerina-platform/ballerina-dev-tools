@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
@@ -37,20 +38,31 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
+import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
+import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
+import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.QueryExpressionNode;
 import io.ballerina.compiler.syntax.tree.SelectClauseNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -150,12 +162,18 @@ public class DataMapManager {
     public JsonElement getMappings(JsonElement node, LinePosition position, String propertyKey, Path filePath,
                                    String targetField, Project project) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
-        SourceModification modification = applyNode(flowNode, project, filePath, position);
+        SourceModification modification;
+        if (flowNode.codedata().node() == NodeKind.NEW_CONNECTION) {
+            modification = applyConnection(flowNode, project, filePath);
+        } else {
+            modification = applyNode(flowNode, project, filePath, position);
+        }
         SemanticModel newSemanticModel = modification.semanticModel();
         List<MappingPort> inputPorts = getInputPorts(newSemanticModel, modification.document(), position);
         inputPorts.sort(Comparator.comparing(mt -> mt.id));
 
-        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, newSemanticModel);
+        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, flowNode.codedata().node(),
+                propertyKey, newSemanticModel);
         if (targetNode == null) {
             return null;
         }
@@ -176,11 +194,22 @@ public class DataMapManager {
         return gson.toJsonTree(new Model(inputPorts, outputPort, mappings));
     }
 
-    private TargetNode getTargetNode(Node parentNode, String targetField, SemanticModel semanticModel) {
-        if (parentNode.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+    private TargetNode getTargetNode(Node parentNode, String targetField, NodeKind nodeKind, String propertyKey,
+                                     SemanticModel semanticModel) {
+        SyntaxKind kind = parentNode.kind();
+        Optional<ExpressionNode> optInitializer;
+        TypedBindingPatternNode typedBindingPattern;
+        if (kind == SyntaxKind.LOCAL_VAR_DECL) {
+            VariableDeclarationNode varDeclNode = (VariableDeclarationNode) parentNode;
+            optInitializer = varDeclNode.initializer();
+            typedBindingPattern = varDeclNode.typedBindingPattern();
+        } else if (kind == SyntaxKind.MODULE_VAR_DECL) {
+            ModuleVariableDeclarationNode moduleVarDeclNode = (ModuleVariableDeclarationNode) parentNode;
+            optInitializer = moduleVarDeclNode.initializer();
+            typedBindingPattern = moduleVarDeclNode.typedBindingPattern();
+        } else {
             return null;
         }
-        VariableDeclarationNode varDeclNode = (VariableDeclarationNode) parentNode;
 
         Optional<Symbol> optSymbol = semanticModel.symbol(parentNode);
         if (optSymbol.isEmpty()) {
@@ -193,11 +222,78 @@ public class DataMapManager {
         VariableSymbol variableSymbol = (VariableSymbol) symbol;
 
         TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
-        Optional<ExpressionNode> optInitializer = varDeclNode.initializer();
         if (optInitializer.isEmpty()) {
             return new TargetNode(typeSymbol, variableSymbol.getName().get(), null);
         }
         ExpressionNode initializer = optInitializer.get();
+        if (initializer.kind() == SyntaxKind.FUNCTION_CALL && nodeKind == NodeKind.FUNCTION_CALL) {
+            FunctionCallExpressionNode funcCallExprNode = (FunctionCallExpressionNode) initializer;
+            Optional<Symbol> optFunctionSymbol = semanticModel.symbol(funcCallExprNode);
+            if (optFunctionSymbol.isEmpty() || optFunctionSymbol.get().kind() != SymbolKind.FUNCTION) {
+                return null;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) optFunctionSymbol.get();
+            Optional<List<ParameterSymbol>> optParams = functionSymbol.typeDescriptor().params();
+            if (optParams.isEmpty()) {
+                return null;
+            }
+            List<ParameterSymbol> paramSymbols = optParams.get();
+            for (int i = 0; i < paramSymbols.size(); i++) {
+                ParameterSymbol paramSymbol = paramSymbols.get(i);
+                if (paramSymbol.paramKind() != ParameterKind.REQUIRED) {
+                    continue;
+                }
+                if (paramSymbol.getName().get().equals(propertyKey)) {
+                    FunctionArgumentNode arg = funcCallExprNode.arguments().get(i);
+                    if (arg.kind() == SyntaxKind.POSITIONAL_ARG) {
+                        return new TargetNode(paramSymbol.typeDescriptor(), propertyKey,
+                                ((PositionalArgumentNode) arg).expression());
+                    }
+                    break;
+                }
+            }
+            return null;
+        } else if (initializer.kind() == SyntaxKind.CHECK_EXPRESSION && nodeKind == NodeKind.NEW_CONNECTION) {
+            ExpressionNode expressionNode = ((CheckExpressionNode) initializer).expression();
+            if (expressionNode.kind() != SyntaxKind.IMPLICIT_NEW_EXPRESSION) {
+                return null;
+            }
+            TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+            if (rawType.kind() != SymbolKind.CLASS) {
+                return null;
+            }
+            ClassSymbol classSymbol = (ClassSymbol) rawType;
+            Optional<MethodSymbol> optInitMethodSymbol = classSymbol.initMethod();
+            if (optInitMethodSymbol.isEmpty()) {
+                return null;
+            }
+            MethodSymbol initMethodSymbol = optInitMethodSymbol.get();
+            Optional<List<ParameterSymbol>> optParams = initMethodSymbol.typeDescriptor().params();
+            if (optParams.isEmpty()) {
+                return null;
+            }
+            ImplicitNewExpressionNode implicitNewExprNode = (ImplicitNewExpressionNode) expressionNode;
+            List<ParameterSymbol> paramSymbols = optParams.get();
+            for (int i = 0; i < paramSymbols.size(); i++) {
+                ParameterSymbol paramSymbol = paramSymbols.get(i);
+                if (paramSymbol.paramKind() != ParameterKind.REQUIRED) {
+                    continue;
+                }
+                if (paramSymbol.getName().get().equals(propertyKey)) {
+                    Optional<ParenthesizedArgList> optParenthesizedArgList = implicitNewExprNode.parenthesizedArgList();
+                    if (optParenthesizedArgList.isEmpty()) {
+                        return null;
+                    }
+                    FunctionArgumentNode arg = optParenthesizedArgList.get().arguments().get(i);
+                    if (arg.kind() == SyntaxKind.POSITIONAL_ARG) {
+                        return new TargetNode(paramSymbol.typeDescriptor(), propertyKey,
+                                ((PositionalArgumentNode) arg).expression());
+                    }
+                    break;
+                }
+            }
+        }
+
         if (targetField == null) {
             return new TargetNode(typeSymbol, variableSymbol.getName().get(), initializer);
         }
@@ -222,7 +318,7 @@ public class DataMapManager {
         MappingConstructorExpressionNode mappingCtrExprNode = (MappingConstructorExpressionNode) initializer;
 
         String[] splits = targetField.split("\\.");
-        if (!splits[0].equals(varDeclNode.typedBindingPattern().bindingPattern().toSourceCode().trim())) {
+        if (!splits[0].equals(typedBindingPattern.bindingPattern().toSourceCode().trim())) {
             return null;
         }
 
@@ -660,7 +756,8 @@ public class DataMapManager {
         FlowNode flowNode = gson.fromJson(fNode, FlowNode.class);
         SourceModification modification = applyNode(flowNode, project, filePath, position);
 
-        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, modification.semanticModel());
+        TargetNode targetNode = getTargetNode(modification.stNode(), targetField, flowNode.codedata().node(), null,
+                modification.semanticModel());
         if (targetNode == null) {
             return "";
         }
@@ -749,13 +846,28 @@ public class DataMapManager {
         }
         SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
                 .getSemanticModel(modifiedDoc.module().moduleId());
-        return new SourceModification("", modifiedDoc, newSemanticModel, null);
+        return new SourceModification("", modifiedDoc, newSemanticModel, connectionNode(modifiedDoc,
+                optVariable.get().toSourceCode()));
+    }
+
+    private Node connectionNode(Document document, String connectionName) {
+        ModulePartNode modulePartNode = document.syntaxTree().rootNode();
+        NodeList<ModuleMemberDeclarationNode> members = modulePartNode.members();
+        for (ModuleMemberDeclarationNode member : members) {
+            if (member.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                ModuleVariableDeclarationNode varDecl = (ModuleVariableDeclarationNode) member;
+                if (varDecl.typedBindingPattern().bindingPattern().toSourceCode().trim().equals(connectionName)) {
+                    return varDecl;
+                }
+            }
+        }
+        return null;
     }
 
     private record SourceModification(String source, Document document, SemanticModel semanticModel, Node stNode) {
     }
 
-    private String getQuerySource(ExpressionNode inputExpr, RecordTypeSymbol recordTypeSymbol) {
+    private String getQuerySource(NonTerminalNode inputExpr, RecordTypeSymbol recordTypeSymbol) {
         String name = "item";
         SyntaxKind kind = inputExpr.kind();
         if (kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {

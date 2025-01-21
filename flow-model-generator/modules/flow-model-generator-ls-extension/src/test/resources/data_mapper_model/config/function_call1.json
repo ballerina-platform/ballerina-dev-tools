@@ -56,7 +56,7 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "UserInfo",
         "value": "{}",
-        "placeholder": "{}}",
+        "placeholder": "{}",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -146,17 +146,6 @@
       "typeName": "UserInfo",
       "kind": "record"
     },
-    "mappings": [
-      {
-        "output": "userInfo",
-        "inputs": [],
-        "expression": "{}",
-        "diagnostics": [
-          "missing non-defaultable required record field 'password'",
-          "missing non-defaultable required record field 'username'"
-        ],
-        "elements": []
-      }
-    ]
+    "mappings": []
   }
 }
