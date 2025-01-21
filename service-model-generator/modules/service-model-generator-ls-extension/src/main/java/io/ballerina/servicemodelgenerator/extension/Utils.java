@@ -273,7 +273,7 @@ public final class Utils {
     }
 
     private static void populateRequiredFunctions(Service service) {
-        Value value = service.getProperty("requiredFunctions");
+        Value value = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
         if (Objects.nonNull(value) && value.isEnabledWithValue()) {
             String requiredFunction = value.getValue();
             service.getFunctions()
@@ -300,7 +300,7 @@ public final class Utils {
             designApproach.getChoices().stream()
                     .filter(Value::isEnabled).findFirst()
                     .ifPresent(selectedApproach -> service.addProperties(selectedApproach.getProperties()));
-            service.getProperties().remove("designApproach");
+            service.getProperties().remove(ServiceModelGeneratorConstants.PROPERTY_DESIGN_APPROACH);
         }
     }
 
@@ -351,14 +351,14 @@ public final class Utils {
             MetaData metaData = new MetaData("Service Base Path", "The base path for the service");
             Value basePathValue = new Value();
             basePathValue.setValue(basePath.get());
-            basePathValue.setValueType("IDENTIFIER");
+            basePathValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
             basePathValue.setEnabled(true);
             basePathValue.setMetadata(metaData);
             serviceModel.setBasePath(basePathValue);
         }
         Value serviceType = new Value();
         serviceType.setValue(serviceTypeNode.typeName().text().trim());
-        serviceType.setValueType("TYPE");
+        serviceType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
         serviceType.setEnabled(true);
         serviceModel.setServiceContractTypeName(serviceType);
         List<Function> functionModels = new ArrayList<>();
@@ -379,7 +379,7 @@ public final class Utils {
         if (!basePath.isEmpty()) {
             Value basePathValue = new Value();
             basePathValue.setValue(basePath);
-            basePathValue.setValueType("IDENTIFIER");
+            basePathValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
             basePathValue.setEnabled(true);
             serviceModel.setBasePath(basePathValue);
         }
@@ -387,7 +387,7 @@ public final class Utils {
         if (serviceTypeDesc.isPresent()) {
             Value serviceType = new Value();
             serviceType.setValue(serviceTypeDesc.get().toString().trim());
-            serviceType.setValueType("TYPE");
+            serviceType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
             serviceType.setEnabled(true);
             if (isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
                 serviceModel.setServiceContractTypeName(serviceType);
@@ -430,15 +430,15 @@ public final class Utils {
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.methodName().text().trim());
-        functionName.setValueType("IDENTIFIER");
+        functionName.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         functionName.setEnabled(true);
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
-            if (qualifier.text().trim().matches("remote")) {
-                functionModel.setKind("REMOTE");
-            } else if (qualifier.text().trim().matches("resource")) {
-                functionModel.setKind("RESOURCE");
+            if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
+                functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
+            } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
+                functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
                 accessor.setValue(functionDefinitionNode.methodName().text().trim());
-                accessor.setValueType("IDENTIFIER");
+                accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
                 accessor.setEnabled(true);
                 functionName.setValue(getPath(functionDefinitionNode.relativeResourcePath()));
             } else {
@@ -451,7 +451,7 @@ public final class Utils {
             FunctionReturnType returnType = functionModel.getReturnType();
             if (Objects.nonNull(returnType)) {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
-                returnType.setValueType("TYPE");
+                returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
                 returnType.setEnabled(true);
             }
             if (isHttp) {
@@ -476,15 +476,15 @@ public final class Utils {
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.functionName().text().trim());
-        functionName.setValueType("IDENTIFIER");
+        functionName.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         functionName.setEnabled(true);
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
-            if (qualifier.text().trim().matches("remote")) {
-                functionModel.setKind("REMOTE");
-            } else if (qualifier.text().trim().matches("resource")) {
-                functionModel.setKind("RESOURCE");
+            if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
+                functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
+            } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
+                functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
                 accessor.setValue(functionDefinitionNode.functionName().text().trim());
-                accessor.setValueType("IDENTIFIER");
+                accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
                 accessor.setEnabled(true);
                 functionName.setValue(getPath(functionDefinitionNode.relativeResourcePath()));
             } else {
@@ -497,7 +497,7 @@ public final class Utils {
             FunctionReturnType returnType = functionModel.getReturnType();
             if (Objects.nonNull(returnType)) {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
-                returnType.setValueType("TYPE");
+                returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
                 returnType.setEnabled(true);
             }
             if (isHttp) {
@@ -702,37 +702,37 @@ public final class Utils {
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             Parameter parameterModel = Parameter.getNewParameter();
-            parameterModel.setKind("REQUIRED");
+            parameterModel.setKind(ServiceModelGeneratorConstants.KIND_REQUIRED);
             getHttpParameterType(parameter.annotations())
                     .ifPresent(parameterModel::setHttpParamType);
             Value type = parameterModel.getType();
             type.setValue(parameter.typeName().toString().trim());
-            type.setValueType("TYPE");
+            type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
             type.setType(true);
             type.setEnabled(true);
             Value name = parameterModel.getName();
             name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType("IDENTIFIER");
+            name.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
             name.setEnabled(true);
             parameterModel.setEnabled(true);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             Parameter parameterModel = Parameter.getNewParameter();
-            parameterModel.setKind("DEFAULTABLE");
+            parameterModel.setKind(ServiceModelGeneratorConstants.KIND_DEFAULTABLE);
             getHttpParameterType(parameter.annotations()).ifPresent(parameterModel::setHttpParamType);
             Value type = parameterModel.getType();
             type.setValue(parameter.typeName().toString().trim());
-            type.setValueType("TYPE");
+            type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
             type.setType(true);
             type.setEnabled(true);
             Value name = parameterModel.getName();
             name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType("IDENTIFIER");
+            name.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
             name.setEnabled(true);
             parameterModel.setEnabled(true);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
-            defaultValue.setValueType("EXPRESSION");
+            defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
             defaultValue.setEnabled(true);
             return Optional.of(parameterModel);
         }
@@ -764,7 +764,8 @@ public final class Utils {
             return Optional.empty();
         }
         Optional<AnnotationNode> httpServiceConfig = metadata.get().annotations().stream()
-                .filter(annotation -> annotation.annotReference().toString().trim().equals("http:ServiceConfig"))
+                .filter(annotation -> annotation.annotReference().toString().trim().equals(
+                        ServiceModelGeneratorConstants.TYPE_HTTP_SERVICE_CONFIG))
                 .findFirst();
         if (httpServiceConfig.isEmpty()) {
             return Optional.empty();
@@ -776,7 +777,8 @@ public final class Utils {
         Optional<SpecificFieldNode> basePathField = mapExpr.get().fields().stream()
                 .filter(fieldNode -> fieldNode.kind().equals(SyntaxKind.SPECIFIC_FIELD))
                 .map(fieldNode -> (SpecificFieldNode) fieldNode)
-                .filter(fieldNode -> fieldNode.fieldName().toString().trim().equals("basePath"))
+                .filter(fieldNode -> fieldNode.fieldName().toString().trim()
+                        .equals(ServiceModelGeneratorConstants.BASE_PATH))
                 .findFirst();
         if (basePathField.isEmpty()) {
             return Optional.empty();
@@ -791,11 +793,11 @@ public final class Utils {
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
-        if (serviceModel.getModuleName().equals("http")) {
+        if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP)) {
             serviceModel.setFunctions(new ArrayList<>());
         }
         Service commonSvcModel = getServiceModel(serviceNode, semanticModel,
-                serviceModel.getModuleName().equals("http"));
+                serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP));
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
@@ -832,8 +834,8 @@ public final class Utils {
         commonSvcModel.getFunctions().forEach(functionModel -> {
             if (serviceModel.getFunctions().stream()
                     .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
-                if (serviceModel.getModuleName().equals("http") &&
-                        functionModel.getKind().equals("RESOURCE")) {
+                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP) &&
+                        functionModel.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
                     getResourceFunctionModel().ifPresentOrElse(
                             resourceFunction -> {
                                 updateFunctionInfo(resourceFunction, functionModel);
@@ -926,7 +928,7 @@ public final class Utils {
             parameter.ifPresent(value -> updateParameter(param, value));
         });
         updateValue(target.getReturnType(), source.getReturnType());
-        Value requiredFunctions = service.getProperty("requiredFunctions");
+        Value requiredFunctions = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
         if (Objects.nonNull(requiredFunctions)) {
             if (source.isEnabled() && requiredFunctions.getItems().contains(source.getName().getValue())) {
                 requiredFunctions.setValue(source.getName().getValue());
@@ -943,24 +945,24 @@ public final class Utils {
 
     public static String getServiceDeclarationNode(Service service) {
         StringBuilder builder = new StringBuilder();
-        builder.append("service ");
+        builder.append(ServiceModelGeneratorConstants.SERVICE).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
-            builder.append(" ");
+            builder.append(ServiceModelGeneratorConstants.SPACE);
         }
         if (Objects.nonNull(service.getServiceContractTypeNameValue()) &&
                 service.getServiceContractTypeNameValue().isEnabledWithValue()) {
             builder.append(service.getServiceContractTypeName());
-            builder.append(" ");
+            builder.append(ServiceModelGeneratorConstants.SPACE);
         } else if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
             builder.append(getValueString(service.getBasePath()));
-            builder.append(" ");
+            builder.append(ServiceModelGeneratorConstants.SPACE);
         }
-        builder.append("on ");
+        builder.append(ServiceModelGeneratorConstants.ON).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getListener()) && service.getListener().isEnabledWithValue()) {
             builder.append(service.getListener().getValue());
         }
-        builder.append(" {");
+        builder.append(ServiceModelGeneratorConstants.SPACE).append(ServiceModelGeneratorConstants.OPEN_BRACE);
         builder.append(System.lineSeparator());
         List<String> functions = new ArrayList<>();
         service.getFunctions().forEach(function -> {
@@ -972,7 +974,7 @@ public final class Utils {
         });
         builder.append(String.join(System.lineSeparator() + System.lineSeparator(), functions));
         builder.append(System.lineSeparator());
-        builder.append("}");
+        builder.append(ServiceModelGeneratorConstants.CLOSE_BRACE);
         return builder.toString();
     }
 
@@ -1127,6 +1129,14 @@ public final class Utils {
         return String.join(" ", qualifiers);
     }
 
+    /**
+     * Checks whether the given import exists in the given module part node.
+     *
+     * @param node module part node
+     * @param org organization name
+     * @param module module name
+     * @return true if the import exists, false otherwise
+     */
     public static boolean importExists(ModulePartNode node, String org, String module) {
         return node.imports().stream().anyMatch(importDeclarationNode -> {
             String moduleName = importDeclarationNode.moduleName().stream()
@@ -1136,6 +1146,19 @@ public final class Utils {
                     org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
                     module.equals(moduleName);
         });
+    }
+
+    /**
+     * Generates the import statement for the given organization and module.
+     *
+     * @param org organization name
+     * @param module module name
+     * @return generated import statement
+     */
+    public static String getImportStmt(String org, String module) {
+        return String.format(ServiceModelGeneratorConstants.IMPORT_STMT_TEMPLATE,
+                ServiceModelGeneratorConstants.LINE_SEPARATOR,
+                org, module, ServiceModelGeneratorConstants.LINE_SEPARATOR);
     }
 
     public static boolean filterTriggers(TriggerProperty triggerProperty, TriggerListRequest request) {
@@ -1171,16 +1194,16 @@ public final class Utils {
                         Value value = new Value();
                         value.setValue(namedArgumentNode.expression().toString().trim());
                         value.setEnabled(true);
-                        value.setValueType("EXPRESSION");
+                        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
                         properties.put(namedArgumentNode.argumentName().name().text().trim(), value);
                     }
                 })
         );
         Value nameValue = new Value();
         nameValue.setEnabled(true);
-        nameValue.setValueType("EXPRESSION");
+        nameValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
         nameValue.setValue(listenerDeclarationNode.variableName().text().trim());
-        properties.put("name", nameValue);
+        properties.put(ServiceModelGeneratorConstants.PROPERTY_NAME, nameValue);
         Codedata codedata = new Codedata(listenerDeclarationNode.lineRange());
         return Optional.of(new Listener(null, null, null, null, null, null, null, null, null, null, listenerProtocol,
                 null, properties, codedata));
