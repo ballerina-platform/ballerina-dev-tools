@@ -691,7 +691,7 @@ public final class Utils {
                 continue;
             }
             String[] annotStrings = annotName.split(":");
-            if (!annotStrings[0].trim().equals("http")) {
+            if (!annotStrings[0].trim().equals(ServiceModelGeneratorConstants.HTTP)) {
                 continue;
             }
             return Optional.of(annotStrings[annotStrings.length - 1].trim().toUpperCase(Locale.ROOT));
@@ -701,35 +701,16 @@ public final class Utils {
 
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
-            Parameter parameterModel = Parameter.getNewParameter();
-            parameterModel.setKind(ServiceModelGeneratorConstants.KIND_REQUIRED);
-            getHttpParameterType(parameter.annotations())
-                    .ifPresent(parameterModel::setHttpParamType);
-            Value type = parameterModel.getType();
-            type.setValue(parameter.typeName().toString().trim());
-            type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-            type.setType(true);
-            type.setEnabled(true);
-            Value name = parameterModel.getName();
-            name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            name.setEnabled(true);
-            parameterModel.setEnabled(true);
+            String paramName = parameter.paramName().get().toString().trim();
+            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
+                    ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
+                    parameter.annotations());
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
-            Parameter parameterModel = Parameter.getNewParameter();
-            parameterModel.setKind(ServiceModelGeneratorConstants.KIND_DEFAULTABLE);
-            getHttpParameterType(parameter.annotations()).ifPresent(parameterModel::setHttpParamType);
-            Value type = parameterModel.getType();
-            type.setValue(parameter.typeName().toString().trim());
-            type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-            type.setType(true);
-            type.setEnabled(true);
-            Value name = parameterModel.getName();
-            name.setValue(parameter.paramName().get().toString().trim());
-            name.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            name.setEnabled(true);
-            parameterModel.setEnabled(true);
+            String paramName = parameter.paramName().get().toString().trim();
+            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
+                    ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
+                    parameter.annotations());
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -737,6 +718,25 @@ public final class Utils {
             return Optional.of(parameterModel);
         }
         return Optional.empty();
+    }
+
+    private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
+                                             NodeList<AnnotationNode> annotationNodes) {
+        Parameter parameterModel = Parameter.getNewParameter();
+        parameterModel.setMetadata(new MetaData(paramName, paramName));
+        parameterModel.setKind(paramKind);
+        getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
+        Value type = parameterModel.getType();
+        type.setValue(typeName);
+        type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
+        type.setType(true);
+        type.setEnabled(true);
+        Value name = parameterModel.getName();
+        name.setValue(paramName);
+        name.setValueType(valueType);
+        name.setEnabled(true);
+        parameterModel.setEnabled(true);
+        return parameterModel;
     }
 
     public static void updateListenerModel(Listener listener, ListenerDeclarationNode listenerNode) {
