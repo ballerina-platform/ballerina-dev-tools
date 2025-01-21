@@ -20,12 +20,17 @@ package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
+import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -34,6 +39,7 @@ import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -57,7 +63,118 @@ public class TypeTransformer {
         this.moduleInfo = ModuleInfo.from(module.descriptor());
     }
 
-    // Transform type definition symbol to a type-data object
+    public Object transform(ClassSymbol classSymbol) {
+        TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
+        typeDataBuilder
+                .codedata()
+                    .node(NodeKind.CLASS)
+                    .stepOut()
+                .properties()
+                    .qualifiers(classSymbol.qualifiers().stream().map(Qualifier::getValue).toList(), true, true, true)
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false)
+                    .stepOut();
+
+        // inclusions
+        List<String> includes = new ArrayList<>();
+        classSymbol.typeInclusions().forEach(typeInclusion -> {
+            includes.add(CommonUtils.getTypeSignature(typeInclusion, this.moduleInfo));
+        });
+        typeDataBuilder.includes(includes);
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+
+        // class fields
+        Map<String, Member> fieldMembers = new HashMap<>();
+        classSymbol.fieldDescriptors().forEach((fieldName, fieldSymbol) -> {
+            TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
+            Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
+            Member member = memberBuilder
+                    .name(fieldName)
+                    .type(transformedAttributeType)
+                    .refs(transformedAttributeType instanceof String ?
+                            TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
+                    .docs(getDocumentString(fieldSymbol))
+                    .build();
+            fieldMembers.putIfAbsent(fieldName, member);
+        });
+        typeDataBuilder.members(fieldMembers);
+
+        // methods
+        List<Function> methods = new ArrayList<>();
+        classSymbol.methods().forEach((name, methodSymbol) -> {
+            Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
+            FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+
+            functionBuilder
+                    .kind(Function.FunctionKind.FUNCTION)
+                    .accessor(methodSymbol.getName().orElse(""));
+
+            // return type
+            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
+                Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
+                        new TypeData.TypeDataBuilder());
+                functionBuilder
+                        .returnType(transformed)
+                        .returnTypeRefs(transformed instanceof String
+                                ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
+                                : List.of());
+            });
+
+            // params
+            functionTypeSymbol.params().ifPresent(params -> {
+                Map<String, Member> parameters = new HashMap<>();
+                params.forEach((paramSymbol) -> {
+                    Object transformedParamType = transform(paramSymbol.typeDescriptor(), new TypeData.TypeDataBuilder());
+                    Member member = memberBuilder
+                            .name(paramSymbol.getName().get())
+                            .type(transformedParamType)
+                            .refs(transformedParamType instanceof String ?
+                                    TypeUtils.getTypeRefIds(paramSymbol.typeDescriptor(), moduleInfo) : List.of())
+                            .build();
+                    parameters.put(paramSymbol.getName().get(), member);
+                });
+                functionBuilder.parameters(parameters);
+            });
+
+            // rest param
+            functionTypeSymbol.restParam().ifPresent(restParam -> {
+                Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
+                Member restParameter = memberBuilder
+                        .name(restParam.getName().get())
+                        .type(transformedRestParamType)
+                        .refs(transformedRestParamType instanceof String ?
+                                TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
+                        .build();
+                functionBuilder.restParameter(restParameter);
+            });
+
+
+            // qualifiers
+            List<String> qualifiers = new ArrayList<>();
+            methodSymbol.qualifiers().forEach(q -> {
+                qualifiers.add(q.name());
+                if (q.equals(Qualifier.REMOTE)) {
+                    functionBuilder.kind(Function.FunctionKind.REMOTE);
+                } else if (q.equals(Qualifier.RESOURCE)) {
+                    functionBuilder.kind(Function.FunctionKind.RESOURCE);
+                }
+            });
+            functionBuilder.qualifiers(qualifiers);
+
+            // resource path
+            // TODO: Need a structured schema for resourcePath
+            if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
+                functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
+            }
+
+            methods.add(functionBuilder.build());
+        });
+        typeDataBuilder.functions(methods);
+
+        return typeDataBuilder.build();
+    }
+
     public Object transform(TypeDefinitionSymbol typeDef) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
         String typeName;
@@ -87,7 +204,6 @@ public class TypeTransformer {
                     .properties().description(doc, false, true, false);
         }
 
-        // Need to set the node in codedata, properties and other type descriptor specific data
         return transform(typeDef.typeDescriptor(), typeDataBuilder);
     }
 

@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -128,17 +129,19 @@ public class TypesManager {
             return null;
         }
 
+        TypeTransformer typeTransformer = new TypeTransformer(this.module);
+
         switch (symbol.get().kind()) {
             case TYPE_DEFINITION -> {
                 TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
-                TypeTransformer typeTransformer = new TypeTransformer(this.module);
                 return gson.toJsonTree(typeTransformer.transform(typeDef));
             }
             case SERVICE_DECLARATION -> {
                 return null;
             }
             case CLASS -> {
-                return null;
+                ClassSymbol classSymbol = (ClassSymbol) symbol.get();
+                return gson.toJsonTree(typeTransformer.transform(classSymbol));
             }
             case ENUM -> {
                 return null;
