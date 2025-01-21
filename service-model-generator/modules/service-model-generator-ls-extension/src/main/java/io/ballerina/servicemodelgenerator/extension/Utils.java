@@ -1156,9 +1156,7 @@ public final class Utils {
      * @return generated import statement
      */
     public static String getImportStmt(String org, String module) {
-        return String.format(ServiceModelGeneratorConstants.IMPORT_STMT_TEMPLATE,
-                ServiceModelGeneratorConstants.LINE_SEPARATOR,
-                org, module, ServiceModelGeneratorConstants.LINE_SEPARATOR);
+        return String.format(ServiceModelGeneratorConstants.IMPORT_STMT_TEMPLATE, org, module);
     }
 
     public static boolean filterTriggers(TriggerProperty triggerProperty, TriggerListRequest request) {

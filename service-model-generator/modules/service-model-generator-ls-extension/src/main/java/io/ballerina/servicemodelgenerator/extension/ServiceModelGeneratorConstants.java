@@ -25,14 +25,12 @@ package io.ballerina.servicemodelgenerator.extension;
  */
 public class ServiceModelGeneratorConstants {
 
-    private ServiceModelGeneratorConstants() {
-    }
     public static final String CAPABILITY_NAME = "serviceModel";
     public static final String SPACE = " ";
     public static final String OPEN_BRACE = "{";
     public static final String CLOSE_BRACE = "}";
     public static final String LINE_SEPARATOR = System.lineSeparator();
-    public static final String IMPORT_STMT_TEMPLATE = "%simport %s/%s;%s";
+    public static final String IMPORT_STMT_TEMPLATE = "%nimport %s/%s;%n";
 
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
@@ -61,4 +59,7 @@ public class ServiceModelGeneratorConstants {
     public static final String VALUE_TYPE_TYPE = "TYPE";
 
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
+
+    private ServiceModelGeneratorConstants() {
+    }
 }

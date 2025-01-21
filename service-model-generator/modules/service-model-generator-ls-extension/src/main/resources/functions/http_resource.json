@@ -354,7 +354,7 @@
         },
         "name": {
           "metadata": {
-            "label": "Name Of the Status Code Response Type",
+            "label": "Name of the Response Status Code Type",
             "description": "Type name of the status code response"
           },
           "enabled": false,
