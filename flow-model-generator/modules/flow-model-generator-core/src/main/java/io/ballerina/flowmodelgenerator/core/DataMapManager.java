@@ -27,7 +27,6 @@ import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
@@ -52,6 +51,7 @@ import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -237,22 +237,7 @@ public class DataMapManager {
             if (optParams.isEmpty()) {
                 return null;
             }
-            List<ParameterSymbol> paramSymbols = optParams.get();
-            for (int i = 0; i < paramSymbols.size(); i++) {
-                ParameterSymbol paramSymbol = paramSymbols.get(i);
-                if (paramSymbol.paramKind() != ParameterKind.REQUIRED) {
-                    continue;
-                }
-                if (paramSymbol.getName().get().equals(propertyKey)) {
-                    FunctionArgumentNode arg = funcCallExprNode.arguments().get(i);
-                    if (arg.kind() == SyntaxKind.POSITIONAL_ARG) {
-                        return new TargetNode(paramSymbol.typeDescriptor(), propertyKey,
-                                ((PositionalArgumentNode) arg).expression());
-                    }
-                    break;
-                }
-            }
-            return null;
+            return getTargetNodeForFunctionParam(optParams.get(), propertyKey, funcCallExprNode.arguments());
         } else if (initializer.kind() == SyntaxKind.CHECK_EXPRESSION && nodeKind == NodeKind.NEW_CONNECTION) {
             ExpressionNode expressionNode = ((CheckExpressionNode) initializer).expression();
             if (expressionNode.kind() != SyntaxKind.IMPLICIT_NEW_EXPRESSION) {
@@ -273,25 +258,12 @@ public class DataMapManager {
                 return null;
             }
             ImplicitNewExpressionNode implicitNewExprNode = (ImplicitNewExpressionNode) expressionNode;
-            List<ParameterSymbol> paramSymbols = optParams.get();
-            for (int i = 0; i < paramSymbols.size(); i++) {
-                ParameterSymbol paramSymbol = paramSymbols.get(i);
-                if (paramSymbol.paramKind() != ParameterKind.REQUIRED) {
-                    continue;
-                }
-                if (paramSymbol.getName().get().equals(propertyKey)) {
-                    Optional<ParenthesizedArgList> optParenthesizedArgList = implicitNewExprNode.parenthesizedArgList();
-                    if (optParenthesizedArgList.isEmpty()) {
-                        return null;
-                    }
-                    FunctionArgumentNode arg = optParenthesizedArgList.get().arguments().get(i);
-                    if (arg.kind() == SyntaxKind.POSITIONAL_ARG) {
-                        return new TargetNode(paramSymbol.typeDescriptor(), propertyKey,
-                                ((PositionalArgumentNode) arg).expression());
-                    }
-                    break;
-                }
+            Optional<ParenthesizedArgList> optParenthesizedArgList = implicitNewExprNode.parenthesizedArgList();
+            if (optParenthesizedArgList.isEmpty()) {
+                return new TargetNode(optParams.get().getFirst().typeDescriptor(), propertyKey, null);
             }
+            return getTargetNodeForFunctionParam(optParams.get(), propertyKey,
+                    optParenthesizedArgList.get().arguments());
         }
 
         if (targetField == null) {
@@ -340,6 +312,35 @@ public class DataMapManager {
     }
 
     private record TargetNode(TypeSymbol typeSymbol, String name, ExpressionNode expressionNode) {
+    }
+
+    private TargetNode getTargetNodeForFunctionParam(List<ParameterSymbol> paramSymbols, String propertyKey,
+                                                     SeparatedNodeList<FunctionArgumentNode> args) {
+        for (int i = 0; i < paramSymbols.size(); i++) {
+            ParameterSymbol paramSymbol = paramSymbols.get(i);
+            if (paramSymbol.getName().get().equals(propertyKey)) {
+                return new TargetNode(paramSymbol.typeDescriptor(), propertyKey, getArgForParam(propertyKey, i, args));
+            }
+        }
+        throw new IllegalStateException("Parameter is not available for : " + propertyKey);
+    }
+
+    private ExpressionNode getArgForParam(String param, int index, SeparatedNodeList<FunctionArgumentNode> args) {
+        for (int i = 0; i < args.size(); i++) {
+            FunctionArgumentNode arg = args.get(i);
+            SyntaxKind kind = arg.kind();
+            if (kind == SyntaxKind.POSITIONAL_ARG) {
+                if (index == i) {
+                    return ((PositionalArgumentNode) arg).expression();
+                }
+            } else if (kind == SyntaxKind.NAMED_ARG) {
+                NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
+                if (namedArgumentNode.argumentName().toSourceCode().equals(param)) {
+                    return namedArgumentNode.expression();
+                }
+            }
+        }
+        return null;
     }
 
     private Map<String, MappingFieldNode> convertMappingFieldsToMap(SeparatedNodeList<MappingFieldNode> mappingFields) {
