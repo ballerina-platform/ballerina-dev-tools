@@ -212,6 +212,12 @@ public class Value {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
+                placeholder, optional, advanced, properties, items, codedata, choices, addNewButton);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (Objects.isNull(obj) || !(obj instanceof Value v)) {
             return false;
