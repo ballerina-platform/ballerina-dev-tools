@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FunctionReturnType extends Value {
     private List<HttpResponse> responses;
@@ -53,5 +54,17 @@ public class FunctionReturnType extends Value {
 
     public void setSchema(Map<String, HttpResponse> schema) {
         this.schema = schema;
+    }
+
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), responses, schema);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (Objects.isNull(obj) || !(obj instanceof FunctionReturnType functionReturnType)) {
+            return false;
+        }
+        return super.equals(functionReturnType);
     }
 }

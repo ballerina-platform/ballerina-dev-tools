@@ -210,4 +210,26 @@ public class Value {
     public boolean isAddNewButton() {
         return addNewButton;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
+                placeholder, optional, advanced, properties, items, codedata, choices, addNewButton);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (Objects.isNull(obj) || !(obj instanceof Value v)) {
+            return false;
+        }
+        return Objects.equals(metadata, v.metadata) && enabled == v.enabled && editable == v.editable
+                && Objects.equals(value, v.value) && Objects.equals(values, v.values)
+                && Objects.equals(valueType, v.valueType)
+                && Objects.equals(valueTypeConstraint, v.valueTypeConstraint)
+                && isType == v.isType && Objects.equals(placeholder, v.placeholder)
+                && optional == v.optional
+                && advanced == v.advanced && Objects.equals(properties, v.properties)
+                && Objects.equals(items, v.items) && Objects.equals(codedata, v.codedata)
+                && Objects.equals(choices, v.choices) && addNewButton == v.addNewButton;
+    }
 }

@@ -102,6 +102,7 @@ import static io.ballerina.servicemodelgenerator.extension.Utils.expectsTriggerB
 import static io.ballerina.servicemodelgenerator.extension.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getFunction;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSignature;
+import static io.ballerina.servicemodelgenerator.extension.Utils.getImportStmt;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getResourceFunctionModel;
@@ -151,6 +152,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         return null;
     }
 
+    /**
+     * Get the compatible listeners for the given module.
+     *
+     * @param request Listener discovery request
+     * @return {@link ListenerDiscoveryResponse} of the listener discovery response
+     */
     @JsonRequest
     public CompletableFuture<ListenerDiscoveryResponse> getListeners(ListenerDiscoveryRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -187,6 +194,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 .toList();
     }
 
+    /**
+     * Get the listener model template for the given module.
+     *
+     * @param request Listener model request
+     * @return {@link ListenerModelResponse} of the listener model response
+     */
     @JsonRequest
     public CompletableFuture<ListenerModelResponse> getListenerModel(ListenerModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -200,6 +213,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a listener to the given module.
+     *
+     * @param request Listener source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addListener(ListenerSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -216,15 +235,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 Listener listener = request.listener();
                 String listenerDeclaration = listener.getDeclaration();
-                TextEdit listenerEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
-                        System.lineSeparator() + listenerDeclaration);
                 if (!importExists(node, listener.getOrgName(), listener.getModuleName())) {
-                    String importText = String.format("%simport %s/%s;%s", System.lineSeparator(),
-                            listener.getOrgName(), listener.getModuleName(), System.lineSeparator());
-                    TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
-                    edits.add(importEdit);
+                    String importText = getImportStmt(listener.getOrgName(), listener.getModuleName());
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
-                edits.add(listenerEdit);
+                edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                        ServiceModelGeneratorConstants.LINE_SEPARATOR + listenerDeclaration));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -232,6 +248,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the service model template for the given module.
+     *
+     * @param request Service model request
+     * @return {@link ServiceModelResponse} of the service model response
+     */
     @JsonRequest
     public CompletableFuture<ServiceModelResponse> getServiceModel(ServiceModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -261,10 +283,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
                 }
                 if (!listenersList.isEmpty()) {
-                    if (request.moduleName().equals("kafka")) {
-                        listener.setValueType("SINGLE_SELECT");
+                    if (request.moduleName().equals(ServiceModelGeneratorConstants.KAFKA)) {
+                        listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
                     } else {
-                        listener.setValueType("MULTIPLE_SELECT");
+                        listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                     }
                     listener.setItems(listenersList);
                 }
@@ -303,6 +325,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a service to the given module.
+     *
+     * @param request Service source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addService(ServiceSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -329,15 +357,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 String serviceDeclaration = getServiceDeclarationNode(service);
-                TextEdit serviceEdit = new TextEdit(Utils.toRange(lineRange.endLine()),
-                        System.lineSeparator() + serviceDeclaration);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
-                    String importText = String.format("%simport %s/%s;%s", System.lineSeparator(), service.getOrgName(),
-                            service.getModuleName(), System.lineSeparator());
-                    TextEdit importEdit = new TextEdit(Utils.toRange(lineRange.startLine()), importText);
-                    edits.add(importEdit);
+                    String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
-                edits.add(serviceEdit);
+                edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                        ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -345,6 +370,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Find matching trigger models for the given request.
+     *
+     * @param request Trigger list request
+     * @return {@link TriggerListResponse} of the trigger list response
+     */
     @JsonRequest
     public CompletableFuture<TriggerListResponse> getTriggerModels(TriggerListRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -357,6 +388,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the http service model template.
+     *
+     * @return {@link ResourceModelResponse} of the resource model response
+     */
     @JsonRequest
     public CompletableFuture<ResourceModelResponse> getHttpResourceModel() {
         return CompletableFuture.supplyAsync(() -> {
@@ -370,6 +406,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a resource function to a service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addResource(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -393,16 +435,19 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
-                String functionDefinition = System.lineSeparator() +
-                        "\t" + getFunction(request.function(), statusCodeResponses).replace(System.lineSeparator(),
-                        System.lineSeparator() + "\t") + System.lineSeparator();
+                String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
+                        "\t" + getFunction(request.function(), statusCodeResponses)
+                        .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
+                        ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
+                        + ServiceModelGeneratorConstants.LINE_SEPARATOR;
                 List<TextEdit> textEdits = new ArrayList<>();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
                 String statusCodeResEdits = statusCodeResponses.stream()
-                        .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
+                        .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
+                                + ServiceModelGeneratorConstants.LINE_SEPARATOR));
                 if (!statusCodeResEdits.isEmpty()) {
                     textEdits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
-                            System.lineSeparator() + statusCodeResEdits));
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
                 }
                 return new CommonSourceResponse(Map.of(request.filePath(), textEdits));
             } catch (Exception e) {
@@ -411,6 +456,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the service model for the given line range.
+     *
+     * @param request Common model from source request
+     * @return {@link ServiceFromSourceResponse} of the service from source response
+     */
     @JsonRequest
     public CompletableFuture<ServiceFromSourceResponse> getServiceFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -479,10 +530,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     semanticModel);
             Value listener = serviceModel.getListener();
             if (!listenersList.isEmpty()) {
-                if (serviceName.get().equals("kafka")) {
-                    listener.setValueType("SINGLE_SELECT");
+                if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
+                    listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
                 } else {
-                    listener.setValueType("MULTIPLE_SELECT");
+                    listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                 }
                 listener.setItems(listenersList);
             }
@@ -490,6 +541,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the listener model for the given line range.
+     *
+     * @param request Common model from source request
+     * @return {@link ListenerFromSourceResponse} of the listener from source response
+     */
     @JsonRequest
     public CompletableFuture<ListenerFromSourceResponse> getListenerFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -532,6 +589,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of triggers for a given search query.
+     *
+     * @param request Trigger list request
+     * @return {@link TriggerListResponse} of the trigger list response
+     */
     @JsonRequest
     public CompletableFuture<TriggerResponse> getTriggerModel(TriggerRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -547,6 +610,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to add a function skeleton to the given service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> addFunction(FunctionSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -574,8 +643,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
-                String functionNode = System.lineSeparator() + "\t" + getFunction(request.function(), new ArrayList<>())
-                        .replace(System.lineSeparator(), System.lineSeparator() + "\t");
+                String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
+                        + getFunction(request.function(), new ArrayList<>())
+                        .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
+                                ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t");
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
@@ -584,6 +655,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a function in the given service.
+     *
+     * @param request Function modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateFunction(FunctionModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -633,10 +710,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 String functionSignature = getFunctionSignature(request.function(), statusCodeResponses);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
                 String statusCodeResEdits = statusCodeResponses.stream()
-                        .collect(Collectors.joining(System.lineSeparator() + System.lineSeparator()));
+                        .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
+                                + ServiceModelGeneratorConstants.LINE_SEPARATOR));
                 if (!statusCodeResEdits.isEmpty()) {
                     edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
-                            System.lineSeparator() + statusCodeResEdits));
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
                 }
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -646,6 +724,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a service in the given module.
+     *
+     * @param request Service modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateService(ServiceModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -698,6 +782,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a listener in the given module.
+     *
+     * @param request Listener modifier request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateListener(ListenerModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -780,7 +870,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Listener> getListenerByName(String name) {
-        if (!name.equals("http") && !name.equals("graphql") &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
@@ -798,7 +888,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Service> getServiceByName(String name) {
-        if (!name.equals("http") && !name.equals("graphql") &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
