@@ -44,6 +44,7 @@ import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.MethodDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -897,8 +898,8 @@ public final class Utils {
     }
 
     private static String getListenerExprName(ExpressionNode expressionNode) {
-        if (expressionNode instanceof SimpleNameReferenceNode listener) {
-            return listener.name().text().trim();
+        if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
+            return nameReferenceNode.toSourceCode().trim();
         } else if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
             return explicitNewExpressionNode.toSourceCode().trim();
         }
