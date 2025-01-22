@@ -475,6 +475,9 @@ public class DataMapManager {
             Mapping firstMapping = mappings.getFirst();
             if (firstMapping.output().equals(prevOutput)) {
                 List<MappingElements> elements = firstMapping.elements();
+                if (elements == null) {
+                    return genExprFromMapping(firstMapping);
+                }
                 List<Object> rawMappings = new ArrayList<>();
                 for (MappingElements element : elements) {
                     genSourceFromMappingThroughElements(element, firstMapping.output(), rawMappings);
