@@ -84,7 +84,7 @@ public class ServiceModelAPITests {
         Assert.assertEquals(response.listeners().size(), 0);
     }
 
-    @Test(enabled = false)
+    @Test
     public void testListenerDiscovery() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample2/main.bal");
         ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
@@ -107,9 +107,10 @@ public class ServiceModelAPITests {
         result = serviceEndpoint.request("serviceDesign/getListeners", request);
         response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
-        Assert.assertEquals(response.listeners().size(), 2);
+        Assert.assertEquals(response.listeners().size(), 3);
         Assert.assertTrue(response.listeners().contains("httpListener"));
         Assert.assertTrue(response.listeners().contains("githubListener"));
+        Assert.assertTrue(response.listeners().contains("remoteEPListener"));
 
         request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
                 "ballerinax", "kafka");
