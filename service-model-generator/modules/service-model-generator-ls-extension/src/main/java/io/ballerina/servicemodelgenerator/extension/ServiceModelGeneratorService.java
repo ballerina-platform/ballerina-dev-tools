@@ -28,14 +28,17 @@ import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -81,6 +84,7 @@ import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.model.tree.expressions.VariableReferenceNode;
 import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
@@ -814,16 +818,25 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
-        Optional<Symbol> serviceSymbol = semanticModel.symbol(serviceNode);
-        if (serviceSymbol.isEmpty() ||
-                !(serviceSymbol.get() instanceof ServiceDeclarationSymbol serviceDeclaration)) {
+        SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
+        if (expressions.isEmpty()) {
             return Optional.empty();
         }
-        Optional<ModuleSymbol> module = serviceDeclaration.listenerTypes().getFirst().getModule();
-        if (module.isEmpty()) {
-            return Optional.empty();
-        }
-        return module.get().getName();
+        Optional<ModuleSymbol> module = Optional.empty();
+        ExpressionNode expressionNode = expressions.get(0);
+        if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
+            if (symbol.isEmpty()) {
+                return Optional.empty();
+            }
+            module = symbol.get().getModule();
+        } else if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
+            Optional<Symbol> symbol = semanticModel.symbol(nameReferenceNode);
+            if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
+                module = variableSymbol.typeDescriptor().getModule();
+            }
+        } // TODO: handle the global listener case
+        return module.isEmpty() ? Optional.empty() : module.get().getName();
     }
 
     public static Optional<String> getListenerName(ListenerDeclarationNode listenerDeclarationNode,
