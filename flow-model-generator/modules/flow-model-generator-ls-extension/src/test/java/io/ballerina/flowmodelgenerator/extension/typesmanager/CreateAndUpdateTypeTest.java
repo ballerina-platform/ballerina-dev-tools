@@ -57,7 +57,7 @@ public class CreateAndUpdateTypeTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.description(),
                     testConfig.type(), newMap);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
