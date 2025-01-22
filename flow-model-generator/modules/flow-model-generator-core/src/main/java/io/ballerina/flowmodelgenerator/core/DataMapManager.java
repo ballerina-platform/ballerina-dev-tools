@@ -538,7 +538,7 @@ public class DataMapManager {
             String lastSplit = splits[length - 1];
             if (length == 1 && lastSplit.matches("^-?\\d+$")) {
                 elements.add(mapping.expression());
-                return;
+                continue;
             }
             Map<String, Object> currentMapping = m;
             String key = splits[0];
@@ -562,7 +562,9 @@ public class DataMapManager {
                 }
             }
         }
-        elements.add(m);
+        if (!m.isEmpty()) {
+            elements.add(m);
+        }
     }
 
     public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
