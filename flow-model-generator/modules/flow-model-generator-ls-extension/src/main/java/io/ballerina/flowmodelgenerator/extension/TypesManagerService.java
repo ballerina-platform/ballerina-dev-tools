@@ -102,7 +102,7 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             TypeUpdateResponse response = new TypeUpdateResponse();
             try {
-                Path filePath = Path.of(request.typesFilePath());
+                Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 TypeData typeData = (new Gson()).fromJson(request.type(), TypeData.class);
                 Optional<Document> document = this.workspaceManager.document(filePath);
