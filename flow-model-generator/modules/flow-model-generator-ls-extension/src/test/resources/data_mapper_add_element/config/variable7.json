@@ -62,6 +62,6 @@
     "line": 13,
     "offset": 12
   },
-  "output": "[{username: \"uname\", password: \"pword\", \t\nids: [\"id1\", \"id2\", \"\"]}]",
+  "output": "[\n    {\n        username: \"uname\",\n        password: \"pword\",\n        ids: [\"id1\", \"id2\", \"\"]\n    }\n]",
   "targetField": "credentials.0.ids"
 }
