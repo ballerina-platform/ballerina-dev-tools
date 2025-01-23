@@ -107,9 +107,10 @@ public class ServiceModelAPITests {
         result = serviceEndpoint.request("serviceDesign/getListeners", request);
         response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
-        Assert.assertEquals(response.listeners().size(), 2);
+        Assert.assertEquals(response.listeners().size(), 3);
         Assert.assertTrue(response.listeners().contains("httpListener"));
         Assert.assertTrue(response.listeners().contains("githubListener"));
+        Assert.assertTrue(response.listeners().contains("remoteEPListener"));
 
         request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
                 "ballerinax", "kafka");

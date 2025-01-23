@@ -23,17 +23,21 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -168,14 +172,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
-                    return new ListenerDiscoveryResponse();
-                }
-                SyntaxTree syntaxTree = document.get().syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                List<String> listeners = getCompatibleListeners(request.moduleName(), modulePartNode,
-                        semanticModel);
+                List<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
@@ -183,14 +180,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
-    private static List<String> getCompatibleListeners(String moduleName, ModulePartNode modulePartNode,
-                                                        SemanticModel semanticModel) {
-        return modulePartNode.members().stream()
-                .filter(member -> member.kind().equals(SyntaxKind.LISTENER_DECLARATION))
-                .map(member -> (ListenerDeclarationNode) member)
-                .filter(listener -> getListenerName(listener, semanticModel).isPresent() &&
-                        getListenerName(listener, semanticModel).get().equals(moduleName))
-                .map(listener -> listener.variableName().text().trim())
+    private static List<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
+        return semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol instanceof VariableSymbol)
+                .map(symbol -> (VariableSymbol) symbol)
+                .filter(variableSymbol -> variableSymbol.qualifiers().contains(Qualifier.LISTENER))
+                .filter(variableSymbol -> variableSymbol.typeDescriptor().getModule().isPresent() && variableSymbol
+                        .typeDescriptor().getModule().get().id().moduleName().equals(moduleName))
+                .map(variableSymbol -> variableSymbol.getName().orElse(""))
                 .toList();
     }
 
@@ -276,8 +273,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
-                List<String> listenersList = getCompatibleListeners(request.moduleName(), modulePartNode,
-                        semanticModel);
+                List<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -526,8 +522,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            List<String> listenersList = getCompatibleListeners(serviceName.get(), modulePartNode,
-                    semanticModel);
+            List<String> listenersList = getCompatibleListeners(serviceName.get(), semanticModel);
             Value listener = serviceModel.getListener();
             if (!listenersList.isEmpty()) {
                 if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
@@ -821,16 +816,25 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
-        Optional<Symbol> serviceSymbol = semanticModel.symbol(serviceNode);
-        if (serviceSymbol.isEmpty() ||
-                !(serviceSymbol.get() instanceof ServiceDeclarationSymbol serviceDeclaration)) {
+        SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
+        if (expressions.isEmpty()) {
             return Optional.empty();
         }
-        Optional<ModuleSymbol> module = serviceDeclaration.listenerTypes().getFirst().getModule();
-        if (module.isEmpty()) {
-            return Optional.empty();
+        Optional<ModuleSymbol> module = Optional.empty();
+        ExpressionNode expressionNode = expressions.get(0);
+        if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
+            if (symbol.isEmpty()) {
+                return Optional.empty();
+            }
+            module = symbol.get().getModule();
+        } else if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
+            Optional<Symbol> symbol = semanticModel.symbol(nameReferenceNode);
+            if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
+                module = variableSymbol.typeDescriptor().getModule();
+            }
         }
-        return module.get().getName();
+        return module.isEmpty() ? Optional.empty() : module.get().getName();
     }
 
     public static Optional<String> getListenerName(ListenerDeclarationNode listenerDeclarationNode,

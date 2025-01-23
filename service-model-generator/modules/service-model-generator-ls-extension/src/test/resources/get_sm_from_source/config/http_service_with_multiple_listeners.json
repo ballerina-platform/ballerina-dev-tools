@@ -1,0 +1,152 @@
+{
+  "filePath": "sample3/main.bal",
+  "description": "Test the generation of service model for a service with multiple listeners",
+  "start": {
+    "line": 5,
+    "offset": 0
+  },
+  "end": {
+    "line": 12,
+    "offset": 1
+  },
+  "response": {
+    "id": "0",
+    "name": "HTTP Service",
+    "type": "http",
+    "displayAnnotation": {
+      "label": "HTTP Service",
+      "iconPath": "http://localhost:8080/icons/http.png"
+    },
+    "moduleName": "http",
+    "orgName": "ballerina",
+    "version": "2.12.0",
+    "packageName": "http",
+    "listenerProtocol": "http",
+    "icon": "http://localhost:8080/icons/http.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "",
+        "values": [
+          "new http:Listener(port = 8080)",
+          "httpListener",
+          "githubListener"
+        ],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "http:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "httpListener",
+          "githubListener"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": "The base path for the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/api/test",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASEPATH"
+        },
+        "addNewButton": false
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 12,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": [
+      {
+        "qualifiers": [],
+        "kind": "DEFAULT",
+        "accessor": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "init",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [],
+        "returnType": {
+          "enabled": true,
+          "editable": false,
+          "value": "error?",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      }
+    ]
+  }
+}

@@ -33,6 +33,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
+import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
@@ -43,6 +44,7 @@ import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.MethodDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -53,7 +55,6 @@ import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
@@ -879,14 +880,29 @@ public final class Utils {
     }
 
     private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
-        Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
-        if (listenerExpression.isPresent() && listenerExpression.get() instanceof SimpleNameReferenceNode listener) {
-            serviceModel.getListener().setValue(listener.name().text().trim());
+        SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
+        int size = expressions.size();
+        if (size == 1) {
+            serviceModel.getListener().setValue(getListenerExprName(expressions.get(0)));
+        } else if (size > 1) {
+            for (int i = 0; i < size; i++) {
+                ExpressionNode expressionNode = expressions.get(i);
+                serviceModel.getListener().addValue(getListenerExprName(expressionNode));
+            }
         }
         NodeList<Node> paths = serviceNode.absoluteResourcePath();
         if (!paths.isEmpty()) {
             serviceModel.getBasePath().setValue(getPath(paths));
         }
+    }
+
+    private static String getListenerExprName(ExpressionNode expressionNode) {
+        if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
+            return nameReferenceNode.toSourceCode().trim();
+        } else if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            return explicitNewExpressionNode.toSourceCode().trim();
+        }
+        return "";
     }
 
     private static boolean isPresent(Function functionModel, Function newFunction) {
