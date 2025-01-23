@@ -1,0 +1,151 @@
+{
+  "source": "function_call1.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "99361",
+    "metadata": {
+      "label": "greet",
+      "description": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "getStudent",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "function_call1.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 65
+        },
+        "endLine": {
+          "line": 18,
+          "offset": 65
+        }
+      },
+      "sourceCode": "Student student = getStudent(userInfo);"
+    },
+    "returning": false,
+    "properties": {
+      "view": {
+        "metadata": {
+          "label": "View",
+          "description": "Function definition location"
+        },
+        "valueType": "VIEW",
+        "value": {
+          "fileName": "function_call.bal",
+          "startLine": {
+            "line": 33,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 35,
+            "offset": 1
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "userInfo": {
+        "metadata": {
+          "label": "userInfo"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "UserInfo",
+        "value": "{}",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "userInfo"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "student",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Student",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "userInfo",
+  "position": {
+    "line": 18,
+    "offset": 65
+  },
+  "model": {
+    "inputs": [
+      {
+        "id": "CONST",
+        "typeName": "CONST",
+        "kind": "CONST",
+        "category": "constant"
+      },
+      {
+        "fields": [
+          {
+            "id": "userInfo.username",
+            "variableName": "username",
+            "typeName": "string",
+            "kind": "string"
+          },
+          {
+            "id": "userInfo.password",
+            "variableName": "password",
+            "typeName": "string",
+            "kind": "string"
+          }
+        ],
+        "id": "userInfo",
+        "variableName": "userInfo",
+        "typeName": "UserInfo",
+        "kind": "record",
+        "category": "variable"
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "id": "userInfo.username",
+          "variableName": "username",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "id": "userInfo.password",
+          "variableName": "password",
+          "typeName": "string",
+          "kind": "string"
+        }
+      ],
+      "id": "userInfo",
+      "variableName": "userInfo",
+      "typeName": "UserInfo",
+      "kind": "record"
+    },
+    "mappings": []
+  }
+}
