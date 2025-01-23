@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "55411",
+    "id": "54730",
     "metadata": {
       "label": "Start",
       "description": "Execute a function or a method invocation in a new strand"
@@ -13,13 +13,14 @@
         "fileName": "start.bal",
         "startLine": {
           "line": 23,
-          "offset": 26
+          "offset": 4
         },
         "endLine": {
           "line": 23,
-          "offset": 45
+          "offset": 46
         }
-      }
+      },
+      "sourceCode": "future<string> name = start f1->getName();"
     },
     "returning": false,
     "properties": {
@@ -28,10 +29,34 @@
           "label": "Expression",
           "description": "Call action or expression"
         },
-        "valueType": "future<string>",
+        "valueType": "EXPRESSION",
         "value": "f1->getName()",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "name",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "future<string>",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
@@ -42,14 +67,14 @@
         "range": {
           "start": {
             "line": 23,
-            "character": 26
+            "character": 4
           },
           "end": {
             "line": 23,
-            "character": 45
+            "character": 46
           }
         },
-        "newText": "start f1->getName();"
+        "newText": "future<string> name = start f1->getName();"
       }
     ]
   }
