@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "33649",
+    "id": "32906",
     "metadata": {
       "label": "Start",
       "description": "Execute a function or a method invocation in a new strand"
@@ -13,13 +13,14 @@
         "fileName": "start.bal",
         "startLine": {
           "line": 1,
-          "offset": 28
+          "offset": 4
         },
         "endLine": {
           "line": 1,
-          "offset": 45
+          "offset": 46
         }
-      }
+      },
+      "sourceCode": "future<int> futureVar = start sum(40, 50);"
     },
     "returning": false,
     "properties": {
@@ -28,10 +29,34 @@
           "label": "Expression",
           "description": "Call action or expression"
         },
-        "valueType": "int",
+        "valueType": "EXPRESSION",
         "value": "sum(40, 50)",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "futureVar",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "future<int>",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
@@ -42,14 +67,14 @@
         "range": {
           "start": {
             "line": 1,
-            "character": 28
+            "character": 4
           },
           "end": {
             "line": 1,
-            "character": 45
+            "character": 46
           }
         },
-        "newText": "start sum(40, 50);"
+        "newText": "future<int> futureVar = start sum(40, 50);"
       }
     ]
   }

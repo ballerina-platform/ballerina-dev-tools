@@ -1285,9 +1285,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(StartActionNode startActionNode) {
-        startNode(NodeKind.START, startActionNode)
-                .properties().expression(startActionNode.expression(), StartBuilder.START_EXPRESSION_DOC);
-        endNode(startActionNode);
+        startNode(NodeKind.START, startActionNode).properties()
+                .expression(startActionNode.expression(), StartBuilder.START_EXPRESSION_DOC);
     }
 
     @Override
@@ -1389,7 +1388,6 @@ class CodeAnalyzer extends NodeVisitor {
             default -> nodes.add(waitFutureExpr);
         }
 
-
         // Generate the properties for the futures
         nodeBuilder.properties().waitAll(waitAll).nestedProperty();
         Node waitField;
@@ -1414,7 +1412,6 @@ class CodeAnalyzer extends NodeVisitor {
         nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, WaitBuilder.FUTURES_KEY,
                 WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
     }
-
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {

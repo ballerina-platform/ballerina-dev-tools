@@ -36,50 +36,13 @@
         "flags": 0
       },
       {
-        "id": "204468",
+        "id": "203539",
         "metadata": {
           "label": "Start",
           "description": "Execute a function or a method invocation in a new strand"
         },
         "codedata": {
           "node": "START",
-          "lineRange": {
-            "fileName": "wait.bal",
-            "startLine": {
-              "line": 173,
-              "offset": 34
-            },
-            "endLine": {
-              "line": 173,
-              "offset": 54
-            }
-          },
-          "sourceCode": "start fetchExample()"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Call action or expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fetchExample()",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "203539",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
           "lineRange": {
             "fileName": "wait.bal",
             "startLine": {
@@ -98,17 +61,17 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Initialize with value"
+              "description": "Call action or expression"
             },
             "valueType": "EXPRESSION",
-            "value": "start fetchExample()",
-            "optional": true,
+            "value": "fetchExample()",
+            "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -119,7 +82,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -133,50 +96,13 @@
         "flags": 0
       },
       {
-        "id": "205493",
+        "id": "204533",
         "metadata": {
           "label": "Start",
           "description": "Execute a function or a method invocation in a new strand"
         },
         "codedata": {
           "node": "START",
-          "lineRange": {
-            "fileName": "wait.bal",
-            "startLine": {
-              "line": 174,
-              "offset": 35
-            },
-            "endLine": {
-              "line": 174,
-              "offset": 56
-            }
-          },
-          "sourceCode": "start fetchExample(1)"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Call action or expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fetchExample(1)",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "204533",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
           "lineRange": {
             "fileName": "wait.bal",
             "startLine": {
@@ -195,17 +121,17 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Initialize with value"
+              "description": "Call action or expression"
             },
             "valueType": "EXPRESSION",
-            "value": "start fetchExample(1)",
-            "optional": true,
+            "value": "fetchExample(1)",
+            "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -216,7 +142,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -230,50 +156,13 @@
         "flags": 0
       },
       {
-        "id": "206694",
+        "id": "205548",
         "metadata": {
           "label": "Start",
           "description": "Execute a function or a method invocation in a new strand"
         },
         "codedata": {
           "node": "START",
-          "lineRange": {
-            "fileName": "wait.bal",
-            "startLine": {
-              "line": 175,
-              "offset": 41
-            },
-            "endLine": {
-              "line": 175,
-              "offset": 79
-            }
-          },
-          "sourceCode": "start mockFetch(\"http://error.com\", 1)"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Call action or expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "mockFetch(\"http://error.com\", 1)",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "205548",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
           "lineRange": {
             "fileName": "wait.bal",
             "startLine": {
@@ -292,17 +181,17 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Initialize with value"
+              "description": "Call action or expression"
             },
             "valueType": "EXPRESSION",
-            "value": "start mockFetch(\"http://error.com\", 1)",
-            "optional": true,
+            "value": "mockFetch(\"http://error.com\", 1)",
+            "optional": false,
             "editable": true,
             "advanced": false
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -313,7 +202,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
