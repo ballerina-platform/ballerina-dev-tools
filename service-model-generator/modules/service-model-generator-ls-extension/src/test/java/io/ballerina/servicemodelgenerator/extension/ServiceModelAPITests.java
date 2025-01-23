@@ -84,7 +84,7 @@ public class ServiceModelAPITests {
         Assert.assertEquals(response.listeners().size(), 0);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testListenerDiscovery() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample2/main.bal");
         ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),

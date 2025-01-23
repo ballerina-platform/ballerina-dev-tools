@@ -833,7 +833,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
                 module = variableSymbol.typeDescriptor().getModule();
             }
-        } // TODO: handle the global listener case
+        }
         return module.isEmpty() ? Optional.empty() : module.get().getName();
     }
 

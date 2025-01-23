@@ -22,10 +22,10 @@ under the License.
 <suite name="trigger-model-test-suite">
     <test name="trigger-model-test" parallel="false">
         <classes>
+            <class name="io.ballerina.servicemodelgenerator.extension.GetServiceModelFromSourceTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.ServiceModelAPITests"/>
             <class name="io.ballerina.servicemodelgenerator.extension.UpdateFunctionTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.GetHttpResourceModelTest"/>
-            <class name="io.ballerina.servicemodelgenerator.extension.GetServiceModelFromSourceTest"/>
         </classes>
     </test>
 </suite>

@@ -49,7 +49,7 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
         String sourcePath = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from(sourcePath, testConfig.start(), testConfig.end()));
         CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(sourcePath, codedata);
-        JsonObject jsonMap = getResponse(sourceRequest);
+        JsonObject jsonMap = getResponseAndCloseFile(sourceRequest, sourcePath);
         ServiceFromSourceResponse serviceFromSourceResponse = gson.fromJson(jsonMap, ServiceFromSourceResponse.class);
 
         Service actualServiceModel = serviceFromSourceResponse.service();

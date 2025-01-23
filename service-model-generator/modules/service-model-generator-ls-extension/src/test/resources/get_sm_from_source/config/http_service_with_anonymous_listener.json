@@ -2,7 +2,7 @@
   "filePath": "sample2/main.bal",
   "description": "Test the generation of service model for a service with an anonymous listener",
   "start": {
-    "line": 3,
+    "line": 2,
     "offset": 0
   },
   "end": {
