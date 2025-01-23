@@ -158,8 +158,7 @@ public class AvailableNodesGenerator {
 
         this.rootBuilder
                 .stepIn(Category.Name.ERROR_HANDLING)
-//                TODO: Uncomment when error handling is implemented
-//                    .node(NodeKind.ERROR_HANDLER)
+                    .node(NodeKind.ERROR_HANDLER)
                     .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
                     .stepOut()
@@ -167,13 +166,12 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.FORK)
                     .node(NodeKind.PARALLEL_FLOW)
                     .node(NodeKind.WAIT)
-//                TODO: Uncomment when concurrency is implemented
-//                    .node(NodeKind.TRANSACTION)
-//                    .node(NodeKind.COMMIT)
-//                    .node(NodeKind.ROLLBACK)
-//                    .node(NodeKind.RETRY);
-//                    .node(NodeKind.LOCK)
-//                    .node(NodeKind.START)
+                    .node(NodeKind.LOCK)
+                    .node(NodeKind.START)
+                    .node(NodeKind.TRANSACTION)
+                    .node(NodeKind.COMMIT)
+                    .node(NodeKind.ROLLBACK)
+                    .node(NodeKind.RETRY)
                     .stepOut();
     }
 
