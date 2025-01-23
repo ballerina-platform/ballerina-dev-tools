@@ -60,6 +60,8 @@ public class StartBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", START_EXPRESSION_DOC);
+        properties()
+                .dataVariable(null, true, context.getAllVisibleSymbolNames())
+                .expression("", START_EXPRESSION_DOC);
     }
 }
