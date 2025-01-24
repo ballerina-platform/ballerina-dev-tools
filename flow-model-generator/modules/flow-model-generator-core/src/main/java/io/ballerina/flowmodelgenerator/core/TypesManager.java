@@ -235,6 +235,10 @@ public class TypesManager {
         }
     }
 
+    public TypeData genRecordTypeData(TypeDefinitionSymbol recTypeDefSymbol) {
+        return getRecordType(recTypeDefSymbol);
+    }
+
     private TypeData getRecordType(TypeDefinitionSymbol recTypeDefSymbol) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
         ModuleInfo currentModuleInfo = ModuleInfo.from(this.module.descriptor());

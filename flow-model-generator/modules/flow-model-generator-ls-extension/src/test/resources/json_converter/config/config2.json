@@ -1,0 +1,10 @@
+{
+  "filePath": "proj/main.bal",
+  "testFilePath": "test2.bal",
+  "jsonString": "{\n  \"people\" : [\n    {\n       \"firstName\": \"Joe\",\n       \"lastName\": \"Jackson\",\n       \"gender\": \"male\",\n       \"age\": 28,\n       \"number\": \"7349282382\"\n    },\n    {\n       \"firstName\": \"James\",\n       \"lastName\": \"Smith\",\n       \"gender\": \"male\",\n       \"age\": 32,\n       \"number\": \"5678568567\"\n    },\n    {\n       \"firstName\": \"Emily\",\n       \"lastName\": \"Jones\",\n       \"gender\": \"female\",\n       \"age\": 24,\n       \"number\": \"456754675\"\n    }\n  ]\n}\n",
+  "recordName": "Rec",
+  "prefix": "",
+  "isClosed": false,
+  "isRecordTypeDesc": false,
+  "records": "type PeopleItem record {|\nstring firstName;\nstring lastName;\nstring number;\nstring gender;\nint age;\njson...;\n|};\n\ntype Rec record {|\nPeopleItem[] people;\njson...;\n|};\n\n"
+}

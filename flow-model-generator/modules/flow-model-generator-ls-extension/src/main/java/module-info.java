@@ -28,4 +28,6 @@ module io.ballerina.LSExtensions.FlowService {
     requires io.ballerina.language.server.core;
     requires io.ballerina.parser;
     requires io.ballerina.tools.api;
+    requires io.ballerina.jsonmapper;
+    requires io.ballerina.formatter.core;
 }
