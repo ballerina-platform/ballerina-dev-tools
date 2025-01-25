@@ -18,12 +18,12 @@
 
 package io.ballerina.testmanagerservice.extension;
 
+import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
 import io.ballerina.testmanagerservice.extension.request.TestsDiscoveryRequest;
-import io.ballerina.testmanagerservice.extension.response.FileTestsDiscoveryResponse;
-import io.ballerina.testmanagerservice.extension.response.ProjectTestsDiscoveryResponse;
+import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -32,6 +32,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -63,15 +64,22 @@ public class TestManagerService implements ExtendedLanguageServerService {
      * @return the response to discover tests in a file
      */
     @JsonRequest
-    public CompletableFuture<FileTestsDiscoveryResponse> discoverInFile(TestsDiscoveryRequest request) {
+    public CompletableFuture<TestsDiscoveryResponse> discoverInFile(TestsDiscoveryRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                io.ballerina.projects.Package currentPackage = project.currentPackage();
-                return FileTestsDiscoveryResponse.from();
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    throw new RuntimeException("Test document not found: " + filePath);
+                }
+                ModuleTestDetailsHolder moduleTestDetailsHolder = new ModuleTestDetailsHolder();
+                TestFunctionsFinder testFunctionsFinder = new TestFunctionsFinder(document.get(),
+                        moduleTestDetailsHolder);
+                testFunctionsFinder.find();
+                return TestsDiscoveryResponse.from(moduleTestDetailsHolder.getGroupsToFunctions());
             } catch (Throwable e) {
-                return FileTestsDiscoveryResponse.from(e);
+                return TestsDiscoveryResponse.from(e);
             }
         });
     }
@@ -83,7 +91,7 @@ public class TestManagerService implements ExtendedLanguageServerService {
      * @return the response to discover tests in a project
      */
     @JsonRequest
-    public CompletableFuture<ProjectTestsDiscoveryResponse> discoverInProject(TestsDiscoveryRequest request) {
+    public CompletableFuture<TestsDiscoveryResponse> discoverInProject(TestsDiscoveryRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
@@ -96,9 +104,9 @@ public class TestManagerService implements ExtendedLanguageServerService {
                             defaultModule.document(documentId), moduleTestDetailsHolder);
                     testFunctionsFinder.find();
                 }
-                return ProjectTestsDiscoveryResponse.from(moduleTestDetailsHolder.getGroupsToFunctions());
+                return TestsDiscoveryResponse.from(moduleTestDetailsHolder.getGroupsToFunctions());
             } catch (Throwable e) {
-                return ProjectTestsDiscoveryResponse.from(e);
+                return TestsDiscoveryResponse.from(e);
             }
         });
     }

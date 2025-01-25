@@ -29,13 +29,13 @@ import java.util.Map;
  *
  * @since 2.0.0
  */
-public record ProjectTestsDiscoveryResponse(Map<String, List<TestFunction>> result, String errorMsg, String stacktrace) {
+public record TestsDiscoveryResponse(Map<String, List<TestFunction>> result, String errorMsg, String stacktrace) {
 
-    public static ProjectTestsDiscoveryResponse from(Map<String, List<TestFunction>> result) {
-        return new ProjectTestsDiscoveryResponse(result, null, null);
+    public static TestsDiscoveryResponse from(Map<String, List<TestFunction>> result) {
+        return new TestsDiscoveryResponse(result, null, null);
     }
 
-    public static ProjectTestsDiscoveryResponse from(Throwable e) {
-        return new ProjectTestsDiscoveryResponse(null, e.toString(), Arrays.toString(e.getStackTrace()));
+    public static TestsDiscoveryResponse from(Throwable e) {
+        return new TestsDiscoveryResponse(null, e.toString(), Arrays.toString(e.getStackTrace()));
     }
 }

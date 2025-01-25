@@ -20,7 +20,7 @@ package io.ballerina.testmanagerservice.extension;
 
 import com.google.gson.JsonObject;
 import io.ballerina.testmanagerservice.extension.request.TestsDiscoveryRequest;
-import io.ballerina.testmanagerservice.extension.response.ProjectTestsDiscoveryResponse;
+import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -46,7 +46,7 @@ public class TestProjectTestDiscovery extends AbstractLSTest {
         TestsDiscoveryRequest request = new TestsDiscoveryRequest(testSourcePath);
         JsonObject jsonMap = getResponse(request);
 
-        ProjectTestsDiscoveryResponse testsDiscoveryResponse = gson.fromJson(jsonMap, ProjectTestsDiscoveryResponse.class);
+        TestsDiscoveryResponse testsDiscoveryResponse = gson.fromJson(jsonMap, TestsDiscoveryResponse.class);
         boolean assertTrue = false;
 
         if (!assertTrue) {
@@ -79,7 +79,7 @@ public class TestProjectTestDiscovery extends AbstractLSTest {
      * @param description The description of the test
      * @param response    The expected response
      */
-    private record TestConfig(String filePath, String description, ProjectTestsDiscoveryResponse response) {
+    private record TestConfig(String filePath, String description, TestsDiscoveryResponse response) {
         public String description() {
             return description == null ? "" : description;
         }
