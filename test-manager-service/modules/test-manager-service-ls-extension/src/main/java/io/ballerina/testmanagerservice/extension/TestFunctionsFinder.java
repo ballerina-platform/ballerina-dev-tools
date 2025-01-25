@@ -50,6 +50,7 @@ public class TestFunctionsFinder {
     private static final String FIELD_GROUPS = "groups";
     private static final String FIELD_ENABLED = "enabled";
     private static final String VALUE_TRUE = "true";
+    private static final String GROUP_NOT_SPECIFIED = "GROUP_NOT_SPECIFIED";
 
     private final Document document;
     private final ModuleTestDetailsHolder moduleTestDetailsHolder;
@@ -88,7 +89,7 @@ public class TestFunctionsFinder {
 
     private TestFunctionConfig processTestAnnotation(AnnotationNode annotationNode) {
         if (annotationNode.annotValue().isEmpty()) {
-            return new TestFunctionConfig(List.of(), true);
+            return new TestFunctionConfig(List.of(GROUP_NOT_SPECIFIED), true);
         }
         MappingConstructorExpressionNode annotValue = annotationNode.annotValue().get();
 
@@ -107,6 +108,9 @@ public class TestFunctionsFinder {
                         break;
                     }
                     SeparatedNodeList<Node> expressions = listConstructorExpressionNode.expressions();
+                    if (expressions.isEmpty()) {
+                        break;
+                    }
                     for (Node expression : expressions) {
                         if (expression instanceof BasicLiteralNode basicLiteralNode) {
                             groups.add(basicLiteralNode.toSourceCode().trim());
@@ -124,8 +128,9 @@ public class TestFunctionsFinder {
                     // ignore
             }
         }
-        // process the test annotation
-
+        if (groups.isEmpty()) {
+            groups.add(GROUP_NOT_SPECIFIED);
+        }
         return new TestFunctionConfig(Collections.unmodifiableList(groups), enabled);
     }
 }
