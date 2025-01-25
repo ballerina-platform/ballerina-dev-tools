@@ -27,6 +27,10 @@ import java.util.Map;
 /**
  * Represents a response to discover tests in a project.
  *
+ * @param result     discovered tests
+ * @param errorMsg   error message if an error occurred
+ * @param stacktrace stacktrace of the error
+ *
  * @since 2.0.0
  */
 public record TestsDiscoveryResponse(Map<String, List<TestFunction>> result, String errorMsg, String stacktrace) {

@@ -76,6 +76,7 @@ public class TestProjectTestDiscovery extends AbstractLSTest {
     /**
      * Represents the test configuration.
      *
+     * @param filePath    The file path
      * @param description The description of the test
      * @param response    The expected response
      */

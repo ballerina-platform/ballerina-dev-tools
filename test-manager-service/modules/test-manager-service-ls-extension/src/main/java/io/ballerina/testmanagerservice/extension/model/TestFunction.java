@@ -23,6 +23,10 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents a test function.
  *
+ * @param functionName name of the function
+ * @param lineRange    line range of the function body
+ * @param config       Config annotation values of the function
+ *
  * @since 2.0.0
  */
 public record TestFunction(String functionName, LineRange lineRange, TestFunctionConfig config) {
