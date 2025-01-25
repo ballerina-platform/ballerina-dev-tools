@@ -1,8 +1,50 @@
 {
-  "filePath": "sample1/tests/test1.bal",
+  "filePath": "sample1",
   "description": "Test to discover tests in a project",
   "response": {
     "result": {
+      "GROUP_NOT_SPECIFIED": [
+        {
+          "functionName": "testFunction4",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 1
+            }
+          },
+          "config": {
+            "groups": [
+              "GROUP_NOT_SPECIFIED"
+            ],
+            "enabled": true
+          }
+        },
+        {
+          "functionName": "testFunction6",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 1
+            }
+          },
+          "config": {
+            "groups": [
+              "GROUP_NOT_SPECIFIED"
+            ],
+            "enabled": true
+          }
+        }
+      ],
       "\"g2\"": [
         {
           "functionName": "testFunction2",
@@ -44,6 +86,27 @@
             ],
             "enabled": true
           }
+        },
+        {
+          "functionName": "testFunction5",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "config": {
+            "groups": [
+              "\"g1\"",
+              "\"g2\""
+            ],
+            "enabled": true
+          }
         }
       ],
       "\"g1\"": [
@@ -71,6 +134,27 @@
           "functionName": "testFunction2",
           "lineRange": {
             "fileName": "tests/test1.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "config": {
+            "groups": [
+              "\"g1\"",
+              "\"g2\""
+            ],
+            "enabled": true
+          }
+        },
+        {
+          "functionName": "testFunction5",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
             "startLine": {
               "line": 8,
               "offset": 0

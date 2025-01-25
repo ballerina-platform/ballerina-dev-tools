@@ -47,13 +47,13 @@ public class TestProjectTestDiscovery extends AbstractLSTest {
         JsonObject jsonMap = getResponse(request);
 
         TestsDiscoveryResponse testsDiscoveryResponse = gson.fromJson(jsonMap, TestsDiscoveryResponse.class);
-        boolean assertTrue = false;
+        boolean assertTrue = testsDiscoveryResponse.equals(testConfig.response());
 
         if (!assertTrue) {
             TestProjectTestDiscovery.TestConfig updatedConfig =
                     new TestProjectTestDiscovery.TestConfig(testConfig.filePath(), testConfig.description(),
                             testsDiscoveryResponse);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
