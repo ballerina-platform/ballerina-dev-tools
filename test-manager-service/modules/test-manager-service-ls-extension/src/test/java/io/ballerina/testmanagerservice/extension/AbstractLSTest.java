@@ -322,7 +322,7 @@ public abstract class AbstractLSTest {
     protected abstract String getApiName();
 
     protected String getServiceName() {
-        return "serviceDesign";
+        return "testManagerService";
     }
 
     @AfterClass

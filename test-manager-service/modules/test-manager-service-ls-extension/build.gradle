@@ -45,6 +45,10 @@ dependencies {
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
     testImplementation "org.testng:testng:${testngVersion}"
+
+    balTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
+        transitive = false
+    }
     implementation "io.ballerina.openapi:core:${openAPICoreVersion}"
     implementation("io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}") {
         exclude group: "io.swagger", module: "swagger-compat-spec-parser"
@@ -67,8 +71,42 @@ task jBallerinaPack() {
     outputs.dir balDistribution
 }
 
+task unpackStdLibs() {
+    dependsOn(jBallerinaPack)
+    doLast {
+        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            copy {
+                from project.zipTree(artifact.getFile())
+                into new File("${project.buildDir}/extracted-stdlibs/" + artifact.name + "-zip")
+            }
+        }
+    }
+}
+
+task copyStdlibs() {
+    dependsOn(unpackStdLibs)
+    doLast {
+        /* Standard Libraries */
+        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            def artifactExtractedPath = "${project.buildDir}/extracted-stdlibs/" + artifact.name + '-zip'
+            project.copy {
+                def ballerinaDist = "build/extracted-distribution/jballerina-tools-${project.ballerinaLangVersion}"
+                into ballerinaDist
+                into('repo/bala') {
+                    from "${artifactExtractedPath}/bala"
+                }
+                into('repo/cache') {
+                    from "${artifactExtractedPath}/cache"
+                }
+            }
+        }
+    }
+}
 
 test {
+    dependsOn {
+        copyStdlibs
+    }
     systemProperty "ballerina.home", balDistribution
 
     useTestNG() {
