@@ -123,6 +123,7 @@ def targetFlowModelGeneratorLSExt = file("$project.rootDir/flow-model-generator/
 def targetServiceModelGeneratorLSExt = file("$project.rootDir/service-model-generator/modules/service-model-generator-ls-extension/build/libs/service-model-generator-ls-extension-${project.version}.jar")
 def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-core/build/libs/sequence-model-generator-core-${project.version}.jar")
 def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
+def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
@@ -134,8 +135,10 @@ task copyArtifactZip {
     dependsOn(":flow-model-generator:flow-model-generator-core:build")
     dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
     dependsOn(":service-model-generator:service-model-generator-ls-extension:build")
+    dependsOn(":test-manager-service:test-manager-service-ls-extension:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
+    dependsOn(":test-manager-service:test-manager-service-ls-extension:build")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
@@ -176,6 +179,10 @@ task copyArtifactZip {
         }
         copy {
             from targetServiceModelGeneratorLSExt
+            into file("$artifactServiceLibParent/ls-libs")
+        }
+        copy {
+            from targetTestManagerServiceLSExt
             into file("$artifactServiceLibParent/ls-libs")
         }
     }
@@ -255,6 +262,10 @@ task buildDesign {
 task buildSequence {
     dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
     dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
+}
+
+task buildTestService {
+    dependsOn(":test-manager-service:test-manager-service-ls-extension:build")
 }
 
 build.doNotTrackState("build needs to run every time")
