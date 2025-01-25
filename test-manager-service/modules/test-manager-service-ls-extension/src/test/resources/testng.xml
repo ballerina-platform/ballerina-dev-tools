@@ -23,6 +23,7 @@ under the License.
     <test name="test-manager-service-test" parallel="false">
         <classes>
             <class name="io.ballerina.testmanagerservice.extension.TestProjectTestDiscovery"/>
+            <class name="io.ballerina.testmanagerservice.extension.TestFileTestDiscovery"/>
         </classes>
     </test>
 </suite>
