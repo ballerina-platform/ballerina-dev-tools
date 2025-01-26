@@ -180,6 +180,7 @@ public class SourceBuilder {
         if (!importExists) {
             String importSignature;
             Boolean generated = codedata.isGenerated();
+            // TODO: Check this condition for other cases like persist module
             if (!currentModuleName.isEmpty() && generated != null && generated) {
                 importSignature = currentModuleName + "." + module;
             } else {

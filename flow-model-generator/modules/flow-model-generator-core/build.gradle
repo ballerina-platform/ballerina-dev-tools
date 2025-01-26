@@ -61,7 +61,7 @@ dependencies {
     implementation "io.swagger.core.v3:swagger-models"
     implementation "jakarta.persistence:jakarta.persistence-api:${jakartaPersistenceVersion}"
     implementation "org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"
-    implementation group: 'org.ballerinalang', name: 'toml-parser', version: "${ballerinaLangVersion}"
+    implementation "org.ballerinalang:toml-parser:${ballerinaLangVersion}"
 }
 
 def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")

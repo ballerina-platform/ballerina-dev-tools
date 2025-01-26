@@ -255,7 +255,7 @@ public class NewConnectionBuilder extends NodeBuilder {
             }
         }
 
-        return new FunctionResult(-1, methodSymbol.getName().get(), description, retType, module, "", "", "",
+        return new FunctionResult(-1, methodSymbol.getName().orElse(""), description, retType, module, "", "", "",
                 Function.Kind.CONNECTOR, 0);
     }
 
@@ -269,31 +269,33 @@ public class NewConnectionBuilder extends NodeBuilder {
 
         Optional<Location> optLocation = methodSymbol.getLocation();
         Map<String, String> defaultValues = new HashMap<>();
-        optLocation.ifPresent(location -> getDefaultValues(workspaceManager, filePath, location.textRange(),
-                defaultValues));
+        if (optLocation.isPresent()) {
+            defaultValues = getDefaultValues(workspaceManager, filePath, optLocation.get().textRange());
+        }
         List<ParameterSymbol> paramSymbols = optParams.get();
         for (int i = 0; i < paramSymbols.size(); i++) {
             ParameterSymbol paramSymbol = paramSymbols.get(i);
             Optional<String> optParamName = paramSymbol.getName();
             String paramName = optParamName.orElse("param" + i);
             TypeSymbol paramType = paramSymbol.typeDescriptor();
-            String type = paramType.signature();
+            String type = CommonUtils.getTypeSignature(semanticModel, paramType, true);
             parameterResults.add(new ParameterResult(i, paramName, type, getParamKind(paramSymbol.paramKind()),
                     defaultValues.getOrDefault(paramName, ""), "", 0, ""));
         }
         return parameterResults;
     }
 
-    private void getDefaultValues(WorkspaceManager workspaceManager, Path file,
-                                  TextRange functionLocation, Map<String, String> defaultValues) {
+    private Map<String, String> getDefaultValues(WorkspaceManager workspaceManager, Path file,
+                                  TextRange functionLocation) {
         Optional<Document> document = workspaceManager.document(file);
+        Map<String, String> defaultValues = new HashMap<>();
         if (document.isEmpty()) {
-            return;
+            return defaultValues;
         }
         ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
         NonTerminalNode node = modulePartNode.findNode(functionLocation);
         if (node.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
-            return;
+            return defaultValues;
         }
         FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) node;
         functionDefinitionNode.functionSignature().parameters().forEach(parameter -> {
@@ -303,6 +305,7 @@ public class NewConnectionBuilder extends NodeBuilder {
                         defaultableParameterNode.expression().toString()));
             }
         });
+        return defaultValues;
     }
 
     private Parameter.Kind getParamKind(ParameterKind kind) {

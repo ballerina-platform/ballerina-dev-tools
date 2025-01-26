@@ -40,7 +40,7 @@
           "description": ""
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "oas/client2.mod2:0.1.0:ConnectionConfig",
+        "valueTypeConstraint": "mod2:ConnectionConfig",
         "placeholder": "{}",
         "optional": false,
         "editable": true,
