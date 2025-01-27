@@ -114,6 +114,7 @@ import static io.ballerina.servicemodelgenerator.extension.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpDefaultListenerAttached;
 import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpServiceContractType;
 import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
 import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
@@ -365,10 +366,17 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
-                    // TODO: handle default listener case
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
+                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName())
+                        && isHttpDefaultListenerAttached(service.getListener()) &&
+                        !importExists(node, service.getOrgName(), ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
+                    String importText = Utils.getImportStmt(service.getOrgName(),
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
+                }
+
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -787,6 +795,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         TextEdit listenerEdit = new TextEdit(Utils.toRange(listenerLineRange), listenerName);
                         edits.add(listenerEdit);
                     }
+                }
+                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName()) &&
+                        isHttpDefaultListenerAttached(service.getListener()) &&
+                        !importExists(modulePartNode, service.getOrgName(),
+                                ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
+                    String importText = Utils.getImportStmt(service.getOrgName(),
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
