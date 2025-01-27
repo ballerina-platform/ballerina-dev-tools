@@ -95,7 +95,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -183,7 +183,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        Set<String> listeners = new HashSet<>();
+        Set<String> listeners = new LinkedHashSet<>();
         if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
             listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
         }
