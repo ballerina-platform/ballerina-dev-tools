@@ -95,10 +95,12 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -172,7 +174,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                List<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
@@ -180,8 +182,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
-    private static List<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        List<String> listeners = new ArrayList<>();
+    private static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
+        Set<String> listeners = new HashSet<>();
         if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
             listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
         }
@@ -282,7 +284,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
-                List<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -293,7 +295,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                     }
-                    listener.setItems(listenersList);
+                    listener.setItems(listenersList.stream().toList());
                 }
                 return new ServiceModelResponse(serviceModel);
             } catch (Throwable e) {
@@ -363,6 +365,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
+                    // TODO: handle default listener case
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
@@ -531,15 +534,21 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            List<String> listenersList = getCompatibleListeners(serviceName.get(), semanticModel);
+            Set<String> listenersSet = getCompatibleListeners(serviceName.get(), semanticModel);
+            List<String> allValues = serviceModel.getListener().getValues();
+            if (allValues.isEmpty()) {
+                listenersSet.add(serviceModel.getListener().getValue());
+            } else {
+                listenersSet.addAll(allValues);
+            }
             Value listener = serviceModel.getListener();
-            if (!listenersList.isEmpty()) {
+            if (!listenersSet.isEmpty()) {
                 if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
                     listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
                 } else {
                     listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                 }
-                listener.setItems(listenersList);
+                listener.setItems(listenersSet.stream().toList());
             }
             return new ServiceFromSourceResponse(serviceModel);
         });
