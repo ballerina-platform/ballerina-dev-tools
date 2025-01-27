@@ -36,11 +36,12 @@ import io.ballerina.tools.text.LineRange;
  * @param resourcePath The path of the resource function
  * @param id           The unique identifier of the component if exists
  * @param isNew        Whether the component is a node template
+ * @param isGenerated  The component is auto generated or not
  * @since 2.0.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
                        String version, LineRange lineRange, String sourceCode, String parentSymbol,
-                       String resourcePath, Integer id, Boolean isNew) {
+                       String resourcePath, Integer id, Boolean isNew, Boolean isGenerated) {
 
     @Override
     public String toString() {
@@ -77,6 +78,7 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private String resourcePath;
         private Integer id;
         private Boolean isNew;
+        private Boolean isGenerated;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -148,9 +150,14 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> isGenerated(Boolean isGenerated) {
+            this.isGenerated = isGenerated;
+            return this;
+        }
+
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
-                    resourcePath, id, isNew);
+                    resourcePath, id, isNew, isGenerated);
         }
     }
 }
