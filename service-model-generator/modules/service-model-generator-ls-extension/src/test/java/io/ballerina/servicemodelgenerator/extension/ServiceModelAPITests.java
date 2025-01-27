@@ -80,8 +80,8 @@ public class ServiceModelAPITests {
                 "ballerina", "http");
         CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/getListeners", request);
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
-        Assert.assertFalse(response.hasListeners());
-        Assert.assertEquals(response.listeners().size(), 0);
+        Assert.assertTrue(response.hasListeners());
+        Assert.assertEquals(response.listeners().size(), 1);
     }
 
     @Test(enabled = false)
