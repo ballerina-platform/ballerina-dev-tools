@@ -18,10 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.response;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public record ListenerDiscoveryResponse(boolean hasListeners, Set<String> listeners, String errorMsg,
