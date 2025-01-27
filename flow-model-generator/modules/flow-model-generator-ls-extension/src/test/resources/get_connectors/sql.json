@@ -4,22 +4,6 @@
   "categories": [
     {
       "metadata": {
-        "label": "postgresql",
-        "description": "Represents a PostgreSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "postgresql",
-        "object": "Client",
-        "symbol": "init",
-        "id": 722
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "mysql",
         "description": "Represents a MySQL database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
@@ -30,7 +14,7 @@
         "module": "mysql",
         "object": "Client",
         "symbol": "init",
-        "id": 769
+        "id": 641
       },
       "enabled": true
     },
@@ -46,7 +30,23 @@
         "module": "mssql",
         "object": "Client",
         "symbol": "init",
-        "id": 887
+        "id": 643
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "postgresql",
+        "description": "Represents a PostgreSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "postgresql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 706
       },
       "enabled": true
     }

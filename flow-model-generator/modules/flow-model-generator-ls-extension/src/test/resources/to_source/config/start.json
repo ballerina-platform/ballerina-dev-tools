@@ -23,15 +23,39 @@
     },
     "returning": false,
     "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
       "expression": {
         "metadata": {
           "label": "Expression",
           "description": "Call action or expression"
         },
         "valueType": "EXPRESSION",
-        "value": "",
+        "value": "fn()",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
@@ -49,7 +73,7 @@
             "character": 0
           }
         },
-        "newText": "start ;"
+        "newText": "var var1 = start fn();"
       }
     ]
   }

@@ -1,0 +1,568 @@
+{
+  "source": "proj/connections.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "GitHub's v3 REST API.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "github",
+      "object": "Client",
+      "symbol": "init",
+      "id": 1793
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "github:ConnectionConfig",
+        "value": "{auth: {token: \"\"}}",
+        "placeholder": "{auth: {token: \"\"}}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "config"
+        }
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"https://api.github.com\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "github:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "githubClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "config",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "model": {
+    "inputs": [],
+    "output": {
+      "fields": [
+        {
+          "fields": [
+            {
+              "id": "config.auth.token",
+              "variableName": "token",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "config.auth",
+          "variableName": "auth",
+          "typeName": "BearerTokenConfig",
+          "kind": "record"
+        },
+        null,
+        {
+          "fields": [
+            null,
+            null,
+            {
+              "fields": [
+                {
+                  "id": "config.http1Settings.proxy.host",
+                  "variableName": "host",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "config.http1Settings.proxy.port",
+                  "variableName": "port",
+                  "typeName": "int",
+                  "kind": "int"
+                },
+                {
+                  "id": "config.http1Settings.proxy.userName",
+                  "variableName": "userName",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                {
+                  "id": "config.http1Settings.proxy.password",
+                  "variableName": "password",
+                  "typeName": "string",
+                  "kind": "string"
+                }
+              ],
+              "id": "config.http1Settings.proxy",
+              "variableName": "proxy",
+              "typeName": "ProxyConfig",
+              "kind": "record"
+            }
+          ],
+          "id": "config.http1Settings",
+          "variableName": "http1Settings",
+          "typeName": "ClientHttp1Settings",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.http2Settings.http2PriorKnowledge",
+              "variableName": "http2PriorKnowledge",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            {
+              "id": "config.http2Settings.http2InitialWindowSize",
+              "variableName": "http2InitialWindowSize",
+              "typeName": "int",
+              "kind": "int"
+            }
+          ],
+          "id": "config.http2Settings",
+          "variableName": "http2Settings",
+          "typeName": "ClientHttp2Settings",
+          "kind": "record"
+        },
+        {
+          "id": "config.timeout",
+          "variableName": "timeout",
+          "typeName": "decimal",
+          "kind": "decimal"
+        },
+        {
+          "id": "config.forwarded",
+          "variableName": "forwarded",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.poolConfig.maxActiveConnections",
+              "variableName": "maxActiveConnections",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.poolConfig.maxIdleConnections",
+              "variableName": "maxIdleConnections",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.poolConfig.waitTime",
+              "variableName": "waitTime",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.poolConfig.maxActiveStreamsPerConnection",
+              "variableName": "maxActiveStreamsPerConnection",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.poolConfig.minEvictableIdleTime",
+              "variableName": "minEvictableIdleTime",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.poolConfig.timeBetweenEvictionRuns",
+              "variableName": "timeBetweenEvictionRuns",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.poolConfig.minIdleTimeInStaleState",
+              "variableName": "minIdleTimeInStaleState",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.poolConfig.timeBetweenStaleEviction",
+              "variableName": "timeBetweenStaleEviction",
+              "typeName": "decimal",
+              "kind": "decimal"
+            }
+          ],
+          "id": "config.poolConfig",
+          "variableName": "poolConfig",
+          "typeName": "PoolConfiguration",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.cache.enabled",
+              "variableName": "enabled",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            {
+              "id": "config.cache.isShared",
+              "variableName": "isShared",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            {
+              "id": "config.cache.capacity",
+              "variableName": "capacity",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.cache.evictionFactor",
+              "variableName": "evictionFactor",
+              "typeName": "float",
+              "kind": "float"
+            },
+            null
+          ],
+          "id": "config.cache",
+          "variableName": "cache",
+          "typeName": "CacheConfig",
+          "kind": "record"
+        },
+        null,
+        {
+          "fields": [
+            {
+              "fields": [
+                {
+                  "id": "config.circuitBreaker.rollingWindow.requestVolumeThreshold",
+                  "variableName": "requestVolumeThreshold",
+                  "typeName": "int",
+                  "kind": "int"
+                },
+                {
+                  "id": "config.circuitBreaker.rollingWindow.timeWindow",
+                  "variableName": "timeWindow",
+                  "typeName": "decimal",
+                  "kind": "decimal"
+                },
+                {
+                  "id": "config.circuitBreaker.rollingWindow.bucketSize",
+                  "variableName": "bucketSize",
+                  "typeName": "decimal",
+                  "kind": "decimal"
+                }
+              ],
+              "id": "config.circuitBreaker.rollingWindow",
+              "variableName": "rollingWindow",
+              "typeName": "RollingWindow",
+              "kind": "record"
+            },
+            {
+              "id": "config.circuitBreaker.failureThreshold",
+              "variableName": "failureThreshold",
+              "typeName": "float",
+              "kind": "float"
+            },
+            {
+              "id": "config.circuitBreaker.resetTime",
+              "variableName": "resetTime",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "member": {
+                "id": "config.circuitBreaker.statusCodes",
+                "typeName": "int",
+                "kind": "int"
+              },
+              "id": "config.circuitBreaker.statusCodes",
+              "variableName": "statusCodes",
+              "typeName": "int[]",
+              "kind": "array"
+            }
+          ],
+          "id": "config.circuitBreaker",
+          "variableName": "circuitBreaker",
+          "typeName": "CircuitBreakerConfig",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.retryConfig.count",
+              "variableName": "count",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.retryConfig.interval",
+              "variableName": "interval",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.retryConfig.backOffFactor",
+              "variableName": "backOffFactor",
+              "typeName": "float",
+              "kind": "float"
+            },
+            {
+              "id": "config.retryConfig.maxWaitInterval",
+              "variableName": "maxWaitInterval",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "member": {
+                "id": "config.retryConfig.statusCodes",
+                "typeName": "int",
+                "kind": "int"
+              },
+              "id": "config.retryConfig.statusCodes",
+              "variableName": "statusCodes",
+              "typeName": "int[]",
+              "kind": "array"
+            }
+          ],
+          "id": "config.retryConfig",
+          "variableName": "retryConfig",
+          "typeName": "RetryConfig",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.responseLimits.maxStatusLineLength",
+              "variableName": "maxStatusLineLength",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.responseLimits.maxHeaderSize",
+              "variableName": "maxHeaderSize",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.responseLimits.maxEntityBodySize",
+              "variableName": "maxEntityBodySize",
+              "typeName": "int",
+              "kind": "int"
+            }
+          ],
+          "id": "config.responseLimits",
+          "variableName": "responseLimits",
+          "typeName": "ResponseLimitConfigs",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.secureSocket.enable",
+              "variableName": "enable",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            null,
+            null,
+            {
+              "fields": [
+                null,
+                {
+                  "member": {
+                    "id": "config.secureSocket.protocol.versions",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  "id": "config.secureSocket.protocol.versions",
+                  "variableName": "versions",
+                  "typeName": "string[]",
+                  "kind": "array"
+                }
+              ],
+              "id": "config.secureSocket.protocol",
+              "variableName": "protocol",
+              "typeName": "record",
+              "kind": "record"
+            },
+            {
+              "fields": [
+                null,
+                {
+                  "id": "config.secureSocket.certValidation.cacheSize",
+                  "variableName": "cacheSize",
+                  "typeName": "int",
+                  "kind": "int"
+                },
+                {
+                  "id": "config.secureSocket.certValidation.cacheValidityPeriod",
+                  "variableName": "cacheValidityPeriod",
+                  "typeName": "int",
+                  "kind": "int"
+                }
+              ],
+              "id": "config.secureSocket.certValidation",
+              "variableName": "certValidation",
+              "typeName": "record",
+              "kind": "record"
+            },
+            {
+              "member": {
+                "id": "config.secureSocket.ciphers",
+                "typeName": "string",
+                "kind": "string"
+              },
+              "id": "config.secureSocket.ciphers",
+              "variableName": "ciphers",
+              "typeName": "string[]",
+              "kind": "array"
+            },
+            {
+              "id": "config.secureSocket.verifyHostName",
+              "variableName": "verifyHostName",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            {
+              "id": "config.secureSocket.shareSession",
+              "variableName": "shareSession",
+              "typeName": "boolean",
+              "kind": "boolean"
+            },
+            {
+              "id": "config.secureSocket.handshakeTimeout",
+              "variableName": "handshakeTimeout",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.secureSocket.sessionTimeout",
+              "variableName": "sessionTimeout",
+              "typeName": "decimal",
+              "kind": "decimal"
+            },
+            {
+              "id": "config.secureSocket.serverName",
+              "variableName": "serverName",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "config.secureSocket",
+          "variableName": "secureSocket",
+          "typeName": "ClientSecureSocket",
+          "kind": "record"
+        },
+        {
+          "fields": [
+            {
+              "id": "config.proxy.host",
+              "variableName": "host",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "config.proxy.port",
+              "variableName": "port",
+              "typeName": "int",
+              "kind": "int"
+            },
+            {
+              "id": "config.proxy.userName",
+              "variableName": "userName",
+              "typeName": "string",
+              "kind": "string"
+            },
+            {
+              "id": "config.proxy.password",
+              "variableName": "password",
+              "typeName": "string",
+              "kind": "string"
+            }
+          ],
+          "id": "config.proxy",
+          "variableName": "proxy",
+          "typeName": "ProxyConfig",
+          "kind": "record"
+        },
+        {
+          "id": "config.validation",
+          "variableName": "validation",
+          "typeName": "boolean",
+          "kind": "boolean"
+        }
+      ],
+      "id": "config",
+      "variableName": "config",
+      "typeName": "ConnectionConfig",
+      "kind": "record"
+    },
+    "mappings": [
+      {
+        "output": "config.auth.token",
+        "inputs": [],
+        "expression": "\"\"",
+        "diagnostics": [],
+        "elements": []
+      }
+    ]
+  }
+}

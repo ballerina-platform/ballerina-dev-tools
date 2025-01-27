@@ -38,12 +38,12 @@ public record ParameterResult(
         Parameter.Kind kind,
         String defaultValue,
         String description,
-        Integer optional,
+        boolean optional,
         String importStatements) {
 
 
     public static ParameterResult from(String name, String type, Parameter.Kind kind, String defaultValue,
-                                       String description, Integer optional) {
+                                       String description, boolean optional) {
         return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
                 null);
     }

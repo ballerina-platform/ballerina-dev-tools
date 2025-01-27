@@ -211,7 +211,7 @@ public class NewConnectionBuilder extends NodeBuilder {
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1);
+                    .defaultable(paramResult.optional());
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -256,7 +256,7 @@ public class NewConnectionBuilder extends NodeBuilder {
         }
 
         return new FunctionResult(-1, methodSymbol.getName().orElse(""), description, retType, module, "", "", "",
-                Function.Kind.CONNECTOR, 0);
+                Function.Kind.CONNECTOR, false, false);
     }
 
     private List<ParameterResult> getParametersFromMethodSymbol(WorkspaceManager workspaceManager,
@@ -280,7 +280,7 @@ public class NewConnectionBuilder extends NodeBuilder {
             TypeSymbol paramType = paramSymbol.typeDescriptor();
             String type = CommonUtils.getTypeSignature(semanticModel, paramType, true);
             parameterResults.add(new ParameterResult(i, paramName, type, getParamKind(paramSymbol.paramKind()),
-                    defaultValues.getOrDefault(paramName, ""), "", 0, ""));
+                    defaultValues.getOrDefault(paramName, ""), "", false, ""));
         }
         return parameterResults;
     }

@@ -143,7 +143,7 @@ public class RemoteActionCallBuilder extends NodeBuilder {
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .editable()
-                    .defaultable(paramResult.optional() == 1);
+                    .defaultable(paramResult.optional());
 
             if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
@@ -168,17 +168,12 @@ public class RemoteActionCallBuilder extends NodeBuilder {
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            boolean editable = false;
-            if (returnTypeName.contains(TARGET_TYPE_KEY)) {
-                returnTypeName = returnTypeName.replace(TARGET_TYPE_KEY, "json");
-                editable = true;
-            }
             nodeBuilder.properties()
-                    .type(returnTypeName, editable)
+                    .type(returnTypeName, function.inferredReturnType())
                     .data(function.returnType(), context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
-        if (function.returnError() == 1) {
+        if (function.returnError()) {
             nodeBuilder.properties().checkError(true);
         }
         return nodeBuilder.build();

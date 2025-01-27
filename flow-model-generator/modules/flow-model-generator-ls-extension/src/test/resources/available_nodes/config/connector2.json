@@ -30,7 +30,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 566
+                "id": 561
               },
               "enabled": true
             },
@@ -47,7 +47,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 568
+                "id": 572
               },
               "enabled": true
             },
@@ -64,7 +64,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 573
+                "id": 574
               },
               "enabled": true
             },
@@ -356,7 +356,7 @@
                 "object": "Client",
                 "symbol": "append",
                 "parentSymbol": "redisClient",
-                "id": 1088
+                "id": 2229
               },
               "enabled": true
             },
@@ -373,7 +373,7 @@
                 "object": "Client",
                 "symbol": "bitCount",
                 "parentSymbol": "redisClient",
-                "id": 1089
+                "id": 2236
               },
               "enabled": true
             },
@@ -390,7 +390,7 @@
                 "object": "Client",
                 "symbol": "bitOpAnd",
                 "parentSymbol": "redisClient",
-                "id": 1090
+                "id": 2238
               },
               "enabled": true
             },
@@ -407,7 +407,7 @@
                 "object": "Client",
                 "symbol": "bitOpOr",
                 "parentSymbol": "redisClient",
-                "id": 1091
+                "id": 2239
               },
               "enabled": true
             },
@@ -424,7 +424,7 @@
                 "object": "Client",
                 "symbol": "bitOpNot",
                 "parentSymbol": "redisClient",
-                "id": 1092
+                "id": 2240
               },
               "enabled": true
             },
@@ -441,7 +441,7 @@
                 "object": "Client",
                 "symbol": "bitOpXor",
                 "parentSymbol": "redisClient",
-                "id": 1099
+                "id": 2245
               },
               "enabled": true
             },
@@ -458,7 +458,7 @@
                 "object": "Client",
                 "symbol": "decr",
                 "parentSymbol": "redisClient",
-                "id": 1100
+                "id": 2248
               },
               "enabled": true
             },
@@ -475,7 +475,7 @@
                 "object": "Client",
                 "symbol": "decrBy",
                 "parentSymbol": "redisClient",
-                "id": 1101
+                "id": 2249
               },
               "enabled": true
             },
@@ -492,7 +492,7 @@
                 "object": "Client",
                 "symbol": "getBit",
                 "parentSymbol": "redisClient",
-                "id": 1115
+                "id": 2258
               },
               "enabled": true
             },
@@ -509,7 +509,7 @@
                 "object": "Client",
                 "symbol": "getRange",
                 "parentSymbol": "redisClient",
-                "id": 1116
+                "id": 2259
               },
               "enabled": true
             },
@@ -526,7 +526,7 @@
                 "object": "Client",
                 "symbol": "getSet",
                 "parentSymbol": "redisClient",
-                "id": 1118
+                "id": 2269
               },
               "enabled": true
             },
@@ -543,7 +543,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "redisClient",
-                "id": 1120
+                "id": 2271
               },
               "enabled": true
             },
@@ -560,7 +560,7 @@
                 "object": "Client",
                 "symbol": "incr",
                 "parentSymbol": "redisClient",
-                "id": 1141
+                "id": 2273
               },
               "enabled": true
             },
@@ -577,7 +577,7 @@
                 "object": "Client",
                 "symbol": "incrBy",
                 "parentSymbol": "redisClient",
-                "id": 1142
+                "id": 2275
               },
               "enabled": true
             },
@@ -594,7 +594,7 @@
                 "object": "Client",
                 "symbol": "incrByFloat",
                 "parentSymbol": "redisClient",
-                "id": 1143
+                "id": 2276
               },
               "enabled": true
             },
@@ -611,7 +611,7 @@
                 "object": "Client",
                 "symbol": "mGet",
                 "parentSymbol": "redisClient",
-                "id": 1145
+                "id": 2282
               },
               "enabled": true
             },
@@ -628,7 +628,7 @@
                 "object": "Client",
                 "symbol": "mSet",
                 "parentSymbol": "redisClient",
-                "id": 1146
+                "id": 2283
               },
               "enabled": true
             },
@@ -645,7 +645,7 @@
                 "object": "Client",
                 "symbol": "mSetNx",
                 "parentSymbol": "redisClient",
-                "id": 1147
+                "id": 2284
               },
               "enabled": true
             },
@@ -662,7 +662,7 @@
                 "object": "Client",
                 "symbol": "pSetEx",
                 "parentSymbol": "redisClient",
-                "id": 1151
+                "id": 2285
               },
               "enabled": true
             },
@@ -679,7 +679,7 @@
                 "object": "Client",
                 "symbol": "set",
                 "parentSymbol": "redisClient",
-                "id": 1152
+                "id": 2286
               },
               "enabled": true
             },
@@ -696,7 +696,7 @@
                 "object": "Client",
                 "symbol": "setBit",
                 "parentSymbol": "redisClient",
-                "id": 1153
+                "id": 2287
               },
               "enabled": true
             },
@@ -713,7 +713,7 @@
                 "object": "Client",
                 "symbol": "setEx",
                 "parentSymbol": "redisClient",
-                "id": 1154
+                "id": 2288
               },
               "enabled": true
             },
@@ -730,7 +730,7 @@
                 "object": "Client",
                 "symbol": "setNx",
                 "parentSymbol": "redisClient",
-                "id": 1155
+                "id": 2295
               },
               "enabled": true
             },
@@ -747,7 +747,7 @@
                 "object": "Client",
                 "symbol": "setRange",
                 "parentSymbol": "redisClient",
-                "id": 1156
+                "id": 2297
               },
               "enabled": true
             },
@@ -764,7 +764,7 @@
                 "object": "Client",
                 "symbol": "strLen",
                 "parentSymbol": "redisClient",
-                "id": 1158
+                "id": 2301
               },
               "enabled": true
             },
@@ -781,7 +781,7 @@
                 "object": "Client",
                 "symbol": "lPush",
                 "parentSymbol": "redisClient",
-                "id": 1159
+                "id": 2302
               },
               "enabled": true
             },
@@ -798,7 +798,7 @@
                 "object": "Client",
                 "symbol": "lPop",
                 "parentSymbol": "redisClient",
-                "id": 1160
+                "id": 2303
               },
               "enabled": true
             },
@@ -815,7 +815,7 @@
                 "object": "Client",
                 "symbol": "lPushX",
                 "parentSymbol": "redisClient",
-                "id": 1161
+                "id": 2304
               },
               "enabled": true
             },
@@ -832,7 +832,7 @@
                 "object": "Client",
                 "symbol": "bLPop",
                 "parentSymbol": "redisClient",
-                "id": 1162
+                "id": 2309
               },
               "enabled": true
             },
@@ -849,7 +849,7 @@
                 "object": "Client",
                 "symbol": "bRPop",
                 "parentSymbol": "redisClient",
-                "id": 1163
+                "id": 2310
               },
               "enabled": true
             },
@@ -866,7 +866,7 @@
                 "object": "Client",
                 "symbol": "lIndex",
                 "parentSymbol": "redisClient",
-                "id": 1164
+                "id": 2311
               },
               "enabled": true
             },
@@ -883,7 +883,7 @@
                 "object": "Client",
                 "symbol": "lInsert",
                 "parentSymbol": "redisClient",
-                "id": 1165
+                "id": 2312
               },
               "enabled": true
             },
@@ -900,7 +900,7 @@
                 "object": "Client",
                 "symbol": "lLen",
                 "parentSymbol": "redisClient",
-                "id": 1168
+                "id": 2313
               },
               "enabled": true
             },
@@ -917,7 +917,7 @@
                 "object": "Client",
                 "symbol": "lRange",
                 "parentSymbol": "redisClient",
-                "id": 1169
+                "id": 2314
               },
               "enabled": true
             },
@@ -934,7 +934,7 @@
                 "object": "Client",
                 "symbol": "lRem",
                 "parentSymbol": "redisClient",
-                "id": 1170
+                "id": 2315
               },
               "enabled": true
             },
@@ -951,7 +951,7 @@
                 "object": "Client",
                 "symbol": "lSet",
                 "parentSymbol": "redisClient",
-                "id": 1171
+                "id": 2316
               },
               "enabled": true
             },
@@ -968,7 +968,7 @@
                 "object": "Client",
                 "symbol": "lTrim",
                 "parentSymbol": "redisClient",
-                "id": 1172
+                "id": 2317
               },
               "enabled": true
             },
@@ -985,7 +985,7 @@
                 "object": "Client",
                 "symbol": "rPop",
                 "parentSymbol": "redisClient",
-                "id": 1173
+                "id": 2318
               },
               "enabled": true
             },
@@ -1002,7 +1002,7 @@
                 "object": "Client",
                 "symbol": "rPopLPush",
                 "parentSymbol": "redisClient",
-                "id": 1174
+                "id": 2321
               },
               "enabled": true
             },
@@ -1019,7 +1019,7 @@
                 "object": "Client",
                 "symbol": "rPush",
                 "parentSymbol": "redisClient",
-                "id": 1175
+                "id": 2322
               },
               "enabled": true
             },
@@ -1036,7 +1036,7 @@
                 "object": "Client",
                 "symbol": "rPushX",
                 "parentSymbol": "redisClient",
-                "id": 1176
+                "id": 2324
               },
               "enabled": true
             },
@@ -1053,7 +1053,7 @@
                 "object": "Client",
                 "symbol": "sAdd",
                 "parentSymbol": "redisClient",
-                "id": 1177
+                "id": 2325
               },
               "enabled": true
             },
@@ -1070,7 +1070,7 @@
                 "object": "Client",
                 "symbol": "sCard",
                 "parentSymbol": "redisClient",
-                "id": 1178
+                "id": 2326
               },
               "enabled": true
             },
@@ -1087,7 +1087,7 @@
                 "object": "Client",
                 "symbol": "sDiff",
                 "parentSymbol": "redisClient",
-                "id": 1179
+                "id": 2327
               },
               "enabled": true
             },
@@ -1104,7 +1104,7 @@
                 "object": "Client",
                 "symbol": "sDiffStore",
                 "parentSymbol": "redisClient",
-                "id": 1180
+                "id": 2329
               },
               "enabled": true
             },
@@ -1121,7 +1121,7 @@
                 "object": "Client",
                 "symbol": "sInter",
                 "parentSymbol": "redisClient",
-                "id": 1181
+                "id": 2331
               },
               "enabled": true
             },
@@ -1138,7 +1138,7 @@
                 "object": "Client",
                 "symbol": "sInterStore",
                 "parentSymbol": "redisClient",
-                "id": 1182
+                "id": 2337
               },
               "enabled": true
             },
@@ -1155,7 +1155,7 @@
                 "object": "Client",
                 "symbol": "sIsMember",
                 "parentSymbol": "redisClient",
-                "id": 1190
+                "id": 2338
               },
               "enabled": true
             },
@@ -1172,7 +1172,7 @@
                 "object": "Client",
                 "symbol": "sMembers",
                 "parentSymbol": "redisClient",
-                "id": 1191
+                "id": 2341
               },
               "enabled": true
             },
@@ -1189,7 +1189,7 @@
                 "object": "Client",
                 "symbol": "sMove",
                 "parentSymbol": "redisClient",
-                "id": 1192
+                "id": 2342
               },
               "enabled": true
             },
@@ -1206,7 +1206,7 @@
                 "object": "Client",
                 "symbol": "sPop",
                 "parentSymbol": "redisClient",
-                "id": 1193
+                "id": 2343
               },
               "enabled": true
             },
@@ -1223,7 +1223,7 @@
                 "object": "Client",
                 "symbol": "sRandMember",
                 "parentSymbol": "redisClient",
-                "id": 1194
+                "id": 2344
               },
               "enabled": true
             },
@@ -1240,7 +1240,7 @@
                 "object": "Client",
                 "symbol": "sRem",
                 "parentSymbol": "redisClient",
-                "id": 1195
+                "id": 2346
               },
               "enabled": true
             },
@@ -1257,7 +1257,7 @@
                 "object": "Client",
                 "symbol": "sUnion",
                 "parentSymbol": "redisClient",
-                "id": 1196
+                "id": 2347
               },
               "enabled": true
             },
@@ -1274,7 +1274,7 @@
                 "object": "Client",
                 "symbol": "sUnionStore",
                 "parentSymbol": "redisClient",
-                "id": 1197
+                "id": 2349
               },
               "enabled": true
             },
@@ -1291,7 +1291,7 @@
                 "object": "Client",
                 "symbol": "zAdd",
                 "parentSymbol": "redisClient",
-                "id": 1198
+                "id": 2351
               },
               "enabled": true
             },
@@ -1308,7 +1308,7 @@
                 "object": "Client",
                 "symbol": "zCard",
                 "parentSymbol": "redisClient",
-                "id": 1199
+                "id": 2352
               },
               "enabled": true
             },
@@ -1325,7 +1325,7 @@
                 "object": "Client",
                 "symbol": "zCount",
                 "parentSymbol": "redisClient",
-                "id": 1200
+                "id": 2366
               },
               "enabled": true
             },
@@ -1342,7 +1342,7 @@
                 "object": "Client",
                 "symbol": "zIncrBy",
                 "parentSymbol": "redisClient",
-                "id": 1201
+                "id": 2368
               },
               "enabled": true
             },
@@ -1359,7 +1359,7 @@
                 "object": "Client",
                 "symbol": "zInterStore",
                 "parentSymbol": "redisClient",
-                "id": 1202
+                "id": 2369
               },
               "enabled": true
             },
@@ -1376,7 +1376,7 @@
                 "object": "Client",
                 "symbol": "zLexCount",
                 "parentSymbol": "redisClient",
-                "id": 1203
+                "id": 2370
               },
               "enabled": true
             },
@@ -1393,7 +1393,7 @@
                 "object": "Client",
                 "symbol": "zRange",
                 "parentSymbol": "redisClient",
-                "id": 1204
+                "id": 2373
               },
               "enabled": true
             },
@@ -1410,7 +1410,7 @@
                 "object": "Client",
                 "symbol": "zRangeByLex",
                 "parentSymbol": "redisClient",
-                "id": 1205
+                "id": 2374
               },
               "enabled": true
             },
@@ -1427,7 +1427,7 @@
                 "object": "Client",
                 "symbol": "zRevRangeByLex",
                 "parentSymbol": "redisClient",
-                "id": 1206
+                "id": 2376
               },
               "enabled": true
             },
@@ -1444,7 +1444,7 @@
                 "object": "Client",
                 "symbol": "zRangeByScore",
                 "parentSymbol": "redisClient",
-                "id": 1221
+                "id": 2396
               },
               "enabled": true
             },
@@ -1461,7 +1461,7 @@
                 "object": "Client",
                 "symbol": "zRank",
                 "parentSymbol": "redisClient",
-                "id": 1222
+                "id": 2398
               },
               "enabled": true
             },
@@ -1478,7 +1478,7 @@
                 "object": "Client",
                 "symbol": "zRem",
                 "parentSymbol": "redisClient",
-                "id": 1223
+                "id": 2399
               },
               "enabled": true
             },
@@ -1495,7 +1495,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByLex",
                 "parentSymbol": "redisClient",
-                "id": 1224
+                "id": 2401
               },
               "enabled": true
             },
@@ -1512,7 +1512,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByRank",
                 "parentSymbol": "redisClient",
-                "id": 1225
+                "id": 2402
               },
               "enabled": true
             },
@@ -1529,7 +1529,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByScore",
                 "parentSymbol": "redisClient",
-                "id": 1226
+                "id": 2409
               },
               "enabled": true
             },
@@ -1546,7 +1546,7 @@
                 "object": "Client",
                 "symbol": "zRevRange",
                 "parentSymbol": "redisClient",
-                "id": 1227
+                "id": 2410
               },
               "enabled": true
             },
@@ -1563,7 +1563,7 @@
                 "object": "Client",
                 "symbol": "zRevRangeByScore",
                 "parentSymbol": "redisClient",
-                "id": 1251
+                "id": 2411
               },
               "enabled": true
             },
@@ -1580,7 +1580,7 @@
                 "object": "Client",
                 "symbol": "zRevRank",
                 "parentSymbol": "redisClient",
-                "id": 1253
+                "id": 2412
               },
               "enabled": true
             },
@@ -1597,7 +1597,7 @@
                 "object": "Client",
                 "symbol": "zScore",
                 "parentSymbol": "redisClient",
-                "id": 1254
+                "id": 2416
               },
               "enabled": true
             },
@@ -1614,7 +1614,7 @@
                 "object": "Client",
                 "symbol": "zUnionStore",
                 "parentSymbol": "redisClient",
-                "id": 1255
+                "id": 2417
               },
               "enabled": true
             },
@@ -1631,7 +1631,7 @@
                 "object": "Client",
                 "symbol": "hDel",
                 "parentSymbol": "redisClient",
-                "id": 1256
+                "id": 2418
               },
               "enabled": true
             },
@@ -1648,7 +1648,7 @@
                 "object": "Client",
                 "symbol": "hExists",
                 "parentSymbol": "redisClient",
-                "id": 1257
+                "id": 2419
               },
               "enabled": true
             },
@@ -1665,7 +1665,7 @@
                 "object": "Client",
                 "symbol": "hGet",
                 "parentSymbol": "redisClient",
-                "id": 1260
+                "id": 2420
               },
               "enabled": true
             },
@@ -1682,7 +1682,7 @@
                 "object": "Client",
                 "symbol": "hGetAll",
                 "parentSymbol": "redisClient",
-                "id": 1261
+                "id": 2421
               },
               "enabled": true
             },
@@ -1699,7 +1699,7 @@
                 "object": "Client",
                 "symbol": "hIncrBy",
                 "parentSymbol": "redisClient",
-                "id": 1262
+                "id": 2422
               },
               "enabled": true
             },
@@ -1716,7 +1716,7 @@
                 "object": "Client",
                 "symbol": "hIncrByFloat",
                 "parentSymbol": "redisClient",
-                "id": 1263
+                "id": 2423
               },
               "enabled": true
             },
@@ -1733,7 +1733,7 @@
                 "object": "Client",
                 "symbol": "hKeys",
                 "parentSymbol": "redisClient",
-                "id": 1264
+                "id": 2427
               },
               "enabled": true
             },
@@ -1750,7 +1750,7 @@
                 "object": "Client",
                 "symbol": "hLen",
                 "parentSymbol": "redisClient",
-                "id": 1265
+                "id": 2429
               },
               "enabled": true
             },
@@ -1767,7 +1767,7 @@
                 "object": "Client",
                 "symbol": "hMGet",
                 "parentSymbol": "redisClient",
-                "id": 1266
+                "id": 2430
               },
               "enabled": true
             },
@@ -1784,7 +1784,7 @@
                 "object": "Client",
                 "symbol": "hMSet",
                 "parentSymbol": "redisClient",
-                "id": 1267
+                "id": 2431
               },
               "enabled": true
             },
@@ -1801,7 +1801,7 @@
                 "object": "Client",
                 "symbol": "hSet",
                 "parentSymbol": "redisClient",
-                "id": 1268
+                "id": 2432
               },
               "enabled": true
             },
@@ -1818,7 +1818,7 @@
                 "object": "Client",
                 "symbol": "hSetNx",
                 "parentSymbol": "redisClient",
-                "id": 1270
+                "id": 2433
               },
               "enabled": true
             },
@@ -1835,7 +1835,7 @@
                 "object": "Client",
                 "symbol": "hStrLen",
                 "parentSymbol": "redisClient",
-                "id": 1271
+                "id": 2434
               },
               "enabled": true
             },
@@ -1852,7 +1852,7 @@
                 "object": "Client",
                 "symbol": "hVals",
                 "parentSymbol": "redisClient",
-                "id": 1282
+                "id": 2435
               },
               "enabled": true
             },
@@ -1869,7 +1869,7 @@
                 "object": "Client",
                 "symbol": "del",
                 "parentSymbol": "redisClient",
-                "id": 1284
+                "id": 2437
               },
               "enabled": true
             },
@@ -1886,7 +1886,7 @@
                 "object": "Client",
                 "symbol": "exists",
                 "parentSymbol": "redisClient",
-                "id": 1287
+                "id": 2439
               },
               "enabled": true
             },
@@ -1903,7 +1903,7 @@
                 "object": "Client",
                 "symbol": "expire",
                 "parentSymbol": "redisClient",
-                "id": 1289
+                "id": 2440
               },
               "enabled": true
             },
@@ -1920,7 +1920,7 @@
                 "object": "Client",
                 "symbol": "keys",
                 "parentSymbol": "redisClient",
-                "id": 1301
+                "id": 2442
               },
               "enabled": true
             },
@@ -1937,7 +1937,7 @@
                 "object": "Client",
                 "symbol": "move",
                 "parentSymbol": "redisClient",
-                "id": 1303
+                "id": 2443
               },
               "enabled": true
             },
@@ -1954,7 +1954,7 @@
                 "object": "Client",
                 "symbol": "persist",
                 "parentSymbol": "redisClient",
-                "id": 1304
+                "id": 2445
               },
               "enabled": true
             },
@@ -1971,7 +1971,7 @@
                 "object": "Client",
                 "symbol": "pExpire",
                 "parentSymbol": "redisClient",
-                "id": 1310
+                "id": 2446
               },
               "enabled": true
             },
@@ -1988,7 +1988,7 @@
                 "object": "Client",
                 "symbol": "pTtl",
                 "parentSymbol": "redisClient",
-                "id": 1314
+                "id": 2447
               },
               "enabled": true
             },
@@ -2005,7 +2005,7 @@
                 "object": "Client",
                 "symbol": "randomKey",
                 "parentSymbol": "redisClient",
-                "id": 1315
+                "id": 2448
               },
               "enabled": true
             },
@@ -2022,7 +2022,7 @@
                 "object": "Client",
                 "symbol": "rename",
                 "parentSymbol": "redisClient",
-                "id": 1316
+                "id": 2449
               },
               "enabled": true
             },
@@ -2039,7 +2039,7 @@
                 "object": "Client",
                 "symbol": "renameNx",
                 "parentSymbol": "redisClient",
-                "id": 1317
+                "id": 2450
               },
               "enabled": true
             },
@@ -2056,7 +2056,7 @@
                 "object": "Client",
                 "symbol": "sort",
                 "parentSymbol": "redisClient",
-                "id": 1318
+                "id": 2452
               },
               "enabled": true
             },
@@ -2073,7 +2073,7 @@
                 "object": "Client",
                 "symbol": "ttl",
                 "parentSymbol": "redisClient",
-                "id": 1319
+                "id": 2453
               },
               "enabled": true
             },
@@ -2090,7 +2090,7 @@
                 "object": "Client",
                 "symbol": "redisType",
                 "parentSymbol": "redisClient",
-                "id": 1320
+                "id": 2454
               },
               "enabled": true
             },
@@ -2107,7 +2107,7 @@
                 "object": "Client",
                 "symbol": "clusterInfo",
                 "parentSymbol": "redisClient",
-                "id": 1321
+                "id": 2455
               },
               "enabled": true
             },
@@ -2124,7 +2124,7 @@
                 "object": "Client",
                 "symbol": "ping",
                 "parentSymbol": "redisClient",
-                "id": 1322
+                "id": 2456
               },
               "enabled": true
             },
@@ -2141,7 +2141,7 @@
                 "object": "Client",
                 "symbol": "auth",
                 "parentSymbol": "redisClient",
-                "id": 1323
+                "id": 2457
               },
               "enabled": true
             },
@@ -2158,7 +2158,7 @@
                 "object": "Client",
                 "symbol": "echo",
                 "parentSymbol": "redisClient",
-                "id": 1324
+                "id": 2458
               },
               "enabled": true
             },
@@ -2174,7 +2174,7 @@
                 "module": "redis",
                 "symbol": "close",
                 "parentSymbol": "redisClient",
-                "id": 1325
+                "id": 2459
               },
               "enabled": true
             }
@@ -2198,7 +2198,7 @@
                 "object": "Client",
                 "symbol": "append",
                 "parentSymbol": "redisClientResult",
-                "id": 1088
+                "id": 2229
               },
               "enabled": true
             },
@@ -2215,7 +2215,7 @@
                 "object": "Client",
                 "symbol": "bitCount",
                 "parentSymbol": "redisClientResult",
-                "id": 1089
+                "id": 2236
               },
               "enabled": true
             },
@@ -2232,7 +2232,7 @@
                 "object": "Client",
                 "symbol": "bitOpAnd",
                 "parentSymbol": "redisClientResult",
-                "id": 1090
+                "id": 2238
               },
               "enabled": true
             },
@@ -2249,7 +2249,7 @@
                 "object": "Client",
                 "symbol": "bitOpOr",
                 "parentSymbol": "redisClientResult",
-                "id": 1091
+                "id": 2239
               },
               "enabled": true
             },
@@ -2266,7 +2266,7 @@
                 "object": "Client",
                 "symbol": "bitOpNot",
                 "parentSymbol": "redisClientResult",
-                "id": 1092
+                "id": 2240
               },
               "enabled": true
             },
@@ -2283,7 +2283,7 @@
                 "object": "Client",
                 "symbol": "bitOpXor",
                 "parentSymbol": "redisClientResult",
-                "id": 1099
+                "id": 2245
               },
               "enabled": true
             },
@@ -2300,7 +2300,7 @@
                 "object": "Client",
                 "symbol": "decr",
                 "parentSymbol": "redisClientResult",
-                "id": 1100
+                "id": 2248
               },
               "enabled": true
             },
@@ -2317,7 +2317,7 @@
                 "object": "Client",
                 "symbol": "decrBy",
                 "parentSymbol": "redisClientResult",
-                "id": 1101
+                "id": 2249
               },
               "enabled": true
             },
@@ -2334,7 +2334,7 @@
                 "object": "Client",
                 "symbol": "getBit",
                 "parentSymbol": "redisClientResult",
-                "id": 1115
+                "id": 2258
               },
               "enabled": true
             },
@@ -2351,7 +2351,7 @@
                 "object": "Client",
                 "symbol": "getRange",
                 "parentSymbol": "redisClientResult",
-                "id": 1116
+                "id": 2259
               },
               "enabled": true
             },
@@ -2368,7 +2368,7 @@
                 "object": "Client",
                 "symbol": "getSet",
                 "parentSymbol": "redisClientResult",
-                "id": 1118
+                "id": 2269
               },
               "enabled": true
             },
@@ -2385,7 +2385,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "redisClientResult",
-                "id": 1120
+                "id": 2271
               },
               "enabled": true
             },
@@ -2402,7 +2402,7 @@
                 "object": "Client",
                 "symbol": "incr",
                 "parentSymbol": "redisClientResult",
-                "id": 1141
+                "id": 2273
               },
               "enabled": true
             },
@@ -2419,7 +2419,7 @@
                 "object": "Client",
                 "symbol": "incrBy",
                 "parentSymbol": "redisClientResult",
-                "id": 1142
+                "id": 2275
               },
               "enabled": true
             },
@@ -2436,7 +2436,7 @@
                 "object": "Client",
                 "symbol": "incrByFloat",
                 "parentSymbol": "redisClientResult",
-                "id": 1143
+                "id": 2276
               },
               "enabled": true
             },
@@ -2453,7 +2453,7 @@
                 "object": "Client",
                 "symbol": "mGet",
                 "parentSymbol": "redisClientResult",
-                "id": 1145
+                "id": 2282
               },
               "enabled": true
             },
@@ -2470,7 +2470,7 @@
                 "object": "Client",
                 "symbol": "mSet",
                 "parentSymbol": "redisClientResult",
-                "id": 1146
+                "id": 2283
               },
               "enabled": true
             },
@@ -2487,7 +2487,7 @@
                 "object": "Client",
                 "symbol": "mSetNx",
                 "parentSymbol": "redisClientResult",
-                "id": 1147
+                "id": 2284
               },
               "enabled": true
             },
@@ -2504,7 +2504,7 @@
                 "object": "Client",
                 "symbol": "pSetEx",
                 "parentSymbol": "redisClientResult",
-                "id": 1151
+                "id": 2285
               },
               "enabled": true
             },
@@ -2521,7 +2521,7 @@
                 "object": "Client",
                 "symbol": "set",
                 "parentSymbol": "redisClientResult",
-                "id": 1152
+                "id": 2286
               },
               "enabled": true
             },
@@ -2538,7 +2538,7 @@
                 "object": "Client",
                 "symbol": "setBit",
                 "parentSymbol": "redisClientResult",
-                "id": 1153
+                "id": 2287
               },
               "enabled": true
             },
@@ -2555,7 +2555,7 @@
                 "object": "Client",
                 "symbol": "setEx",
                 "parentSymbol": "redisClientResult",
-                "id": 1154
+                "id": 2288
               },
               "enabled": true
             },
@@ -2572,7 +2572,7 @@
                 "object": "Client",
                 "symbol": "setNx",
                 "parentSymbol": "redisClientResult",
-                "id": 1155
+                "id": 2295
               },
               "enabled": true
             },
@@ -2589,7 +2589,7 @@
                 "object": "Client",
                 "symbol": "setRange",
                 "parentSymbol": "redisClientResult",
-                "id": 1156
+                "id": 2297
               },
               "enabled": true
             },
@@ -2606,7 +2606,7 @@
                 "object": "Client",
                 "symbol": "strLen",
                 "parentSymbol": "redisClientResult",
-                "id": 1158
+                "id": 2301
               },
               "enabled": true
             },
@@ -2623,7 +2623,7 @@
                 "object": "Client",
                 "symbol": "lPush",
                 "parentSymbol": "redisClientResult",
-                "id": 1159
+                "id": 2302
               },
               "enabled": true
             },
@@ -2640,7 +2640,7 @@
                 "object": "Client",
                 "symbol": "lPop",
                 "parentSymbol": "redisClientResult",
-                "id": 1160
+                "id": 2303
               },
               "enabled": true
             },
@@ -2657,7 +2657,7 @@
                 "object": "Client",
                 "symbol": "lPushX",
                 "parentSymbol": "redisClientResult",
-                "id": 1161
+                "id": 2304
               },
               "enabled": true
             },
@@ -2674,7 +2674,7 @@
                 "object": "Client",
                 "symbol": "bLPop",
                 "parentSymbol": "redisClientResult",
-                "id": 1162
+                "id": 2309
               },
               "enabled": true
             },
@@ -2691,7 +2691,7 @@
                 "object": "Client",
                 "symbol": "bRPop",
                 "parentSymbol": "redisClientResult",
-                "id": 1163
+                "id": 2310
               },
               "enabled": true
             },
@@ -2708,7 +2708,7 @@
                 "object": "Client",
                 "symbol": "lIndex",
                 "parentSymbol": "redisClientResult",
-                "id": 1164
+                "id": 2311
               },
               "enabled": true
             },
@@ -2725,7 +2725,7 @@
                 "object": "Client",
                 "symbol": "lInsert",
                 "parentSymbol": "redisClientResult",
-                "id": 1165
+                "id": 2312
               },
               "enabled": true
             },
@@ -2742,7 +2742,7 @@
                 "object": "Client",
                 "symbol": "lLen",
                 "parentSymbol": "redisClientResult",
-                "id": 1168
+                "id": 2313
               },
               "enabled": true
             },
@@ -2759,7 +2759,7 @@
                 "object": "Client",
                 "symbol": "lRange",
                 "parentSymbol": "redisClientResult",
-                "id": 1169
+                "id": 2314
               },
               "enabled": true
             },
@@ -2776,7 +2776,7 @@
                 "object": "Client",
                 "symbol": "lRem",
                 "parentSymbol": "redisClientResult",
-                "id": 1170
+                "id": 2315
               },
               "enabled": true
             },
@@ -2793,7 +2793,7 @@
                 "object": "Client",
                 "symbol": "lSet",
                 "parentSymbol": "redisClientResult",
-                "id": 1171
+                "id": 2316
               },
               "enabled": true
             },
@@ -2810,7 +2810,7 @@
                 "object": "Client",
                 "symbol": "lTrim",
                 "parentSymbol": "redisClientResult",
-                "id": 1172
+                "id": 2317
               },
               "enabled": true
             },
@@ -2827,7 +2827,7 @@
                 "object": "Client",
                 "symbol": "rPop",
                 "parentSymbol": "redisClientResult",
-                "id": 1173
+                "id": 2318
               },
               "enabled": true
             },
@@ -2844,7 +2844,7 @@
                 "object": "Client",
                 "symbol": "rPopLPush",
                 "parentSymbol": "redisClientResult",
-                "id": 1174
+                "id": 2321
               },
               "enabled": true
             },
@@ -2861,7 +2861,7 @@
                 "object": "Client",
                 "symbol": "rPush",
                 "parentSymbol": "redisClientResult",
-                "id": 1175
+                "id": 2322
               },
               "enabled": true
             },
@@ -2878,7 +2878,7 @@
                 "object": "Client",
                 "symbol": "rPushX",
                 "parentSymbol": "redisClientResult",
-                "id": 1176
+                "id": 2324
               },
               "enabled": true
             },
@@ -2895,7 +2895,7 @@
                 "object": "Client",
                 "symbol": "sAdd",
                 "parentSymbol": "redisClientResult",
-                "id": 1177
+                "id": 2325
               },
               "enabled": true
             },
@@ -2912,7 +2912,7 @@
                 "object": "Client",
                 "symbol": "sCard",
                 "parentSymbol": "redisClientResult",
-                "id": 1178
+                "id": 2326
               },
               "enabled": true
             },
@@ -2929,7 +2929,7 @@
                 "object": "Client",
                 "symbol": "sDiff",
                 "parentSymbol": "redisClientResult",
-                "id": 1179
+                "id": 2327
               },
               "enabled": true
             },
@@ -2946,7 +2946,7 @@
                 "object": "Client",
                 "symbol": "sDiffStore",
                 "parentSymbol": "redisClientResult",
-                "id": 1180
+                "id": 2329
               },
               "enabled": true
             },
@@ -2963,7 +2963,7 @@
                 "object": "Client",
                 "symbol": "sInter",
                 "parentSymbol": "redisClientResult",
-                "id": 1181
+                "id": 2331
               },
               "enabled": true
             },
@@ -2980,7 +2980,7 @@
                 "object": "Client",
                 "symbol": "sInterStore",
                 "parentSymbol": "redisClientResult",
-                "id": 1182
+                "id": 2337
               },
               "enabled": true
             },
@@ -2997,7 +2997,7 @@
                 "object": "Client",
                 "symbol": "sIsMember",
                 "parentSymbol": "redisClientResult",
-                "id": 1190
+                "id": 2338
               },
               "enabled": true
             },
@@ -3014,7 +3014,7 @@
                 "object": "Client",
                 "symbol": "sMembers",
                 "parentSymbol": "redisClientResult",
-                "id": 1191
+                "id": 2341
               },
               "enabled": true
             },
@@ -3031,7 +3031,7 @@
                 "object": "Client",
                 "symbol": "sMove",
                 "parentSymbol": "redisClientResult",
-                "id": 1192
+                "id": 2342
               },
               "enabled": true
             },
@@ -3048,7 +3048,7 @@
                 "object": "Client",
                 "symbol": "sPop",
                 "parentSymbol": "redisClientResult",
-                "id": 1193
+                "id": 2343
               },
               "enabled": true
             },
@@ -3065,7 +3065,7 @@
                 "object": "Client",
                 "symbol": "sRandMember",
                 "parentSymbol": "redisClientResult",
-                "id": 1194
+                "id": 2344
               },
               "enabled": true
             },
@@ -3082,7 +3082,7 @@
                 "object": "Client",
                 "symbol": "sRem",
                 "parentSymbol": "redisClientResult",
-                "id": 1195
+                "id": 2346
               },
               "enabled": true
             },
@@ -3099,7 +3099,7 @@
                 "object": "Client",
                 "symbol": "sUnion",
                 "parentSymbol": "redisClientResult",
-                "id": 1196
+                "id": 2347
               },
               "enabled": true
             },
@@ -3116,7 +3116,7 @@
                 "object": "Client",
                 "symbol": "sUnionStore",
                 "parentSymbol": "redisClientResult",
-                "id": 1197
+                "id": 2349
               },
               "enabled": true
             },
@@ -3133,7 +3133,7 @@
                 "object": "Client",
                 "symbol": "zAdd",
                 "parentSymbol": "redisClientResult",
-                "id": 1198
+                "id": 2351
               },
               "enabled": true
             },
@@ -3150,7 +3150,7 @@
                 "object": "Client",
                 "symbol": "zCard",
                 "parentSymbol": "redisClientResult",
-                "id": 1199
+                "id": 2352
               },
               "enabled": true
             },
@@ -3167,7 +3167,7 @@
                 "object": "Client",
                 "symbol": "zCount",
                 "parentSymbol": "redisClientResult",
-                "id": 1200
+                "id": 2366
               },
               "enabled": true
             },
@@ -3184,7 +3184,7 @@
                 "object": "Client",
                 "symbol": "zIncrBy",
                 "parentSymbol": "redisClientResult",
-                "id": 1201
+                "id": 2368
               },
               "enabled": true
             },
@@ -3201,7 +3201,7 @@
                 "object": "Client",
                 "symbol": "zInterStore",
                 "parentSymbol": "redisClientResult",
-                "id": 1202
+                "id": 2369
               },
               "enabled": true
             },
@@ -3218,7 +3218,7 @@
                 "object": "Client",
                 "symbol": "zLexCount",
                 "parentSymbol": "redisClientResult",
-                "id": 1203
+                "id": 2370
               },
               "enabled": true
             },
@@ -3235,7 +3235,7 @@
                 "object": "Client",
                 "symbol": "zRange",
                 "parentSymbol": "redisClientResult",
-                "id": 1204
+                "id": 2373
               },
               "enabled": true
             },
@@ -3252,7 +3252,7 @@
                 "object": "Client",
                 "symbol": "zRangeByLex",
                 "parentSymbol": "redisClientResult",
-                "id": 1205
+                "id": 2374
               },
               "enabled": true
             },
@@ -3269,7 +3269,7 @@
                 "object": "Client",
                 "symbol": "zRevRangeByLex",
                 "parentSymbol": "redisClientResult",
-                "id": 1206
+                "id": 2376
               },
               "enabled": true
             },
@@ -3286,7 +3286,7 @@
                 "object": "Client",
                 "symbol": "zRangeByScore",
                 "parentSymbol": "redisClientResult",
-                "id": 1221
+                "id": 2396
               },
               "enabled": true
             },
@@ -3303,7 +3303,7 @@
                 "object": "Client",
                 "symbol": "zRank",
                 "parentSymbol": "redisClientResult",
-                "id": 1222
+                "id": 2398
               },
               "enabled": true
             },
@@ -3320,7 +3320,7 @@
                 "object": "Client",
                 "symbol": "zRem",
                 "parentSymbol": "redisClientResult",
-                "id": 1223
+                "id": 2399
               },
               "enabled": true
             },
@@ -3337,7 +3337,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByLex",
                 "parentSymbol": "redisClientResult",
-                "id": 1224
+                "id": 2401
               },
               "enabled": true
             },
@@ -3354,7 +3354,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByRank",
                 "parentSymbol": "redisClientResult",
-                "id": 1225
+                "id": 2402
               },
               "enabled": true
             },
@@ -3371,7 +3371,7 @@
                 "object": "Client",
                 "symbol": "zRemRangeByScore",
                 "parentSymbol": "redisClientResult",
-                "id": 1226
+                "id": 2409
               },
               "enabled": true
             },
@@ -3388,7 +3388,7 @@
                 "object": "Client",
                 "symbol": "zRevRange",
                 "parentSymbol": "redisClientResult",
-                "id": 1227
+                "id": 2410
               },
               "enabled": true
             },
@@ -3405,7 +3405,7 @@
                 "object": "Client",
                 "symbol": "zRevRangeByScore",
                 "parentSymbol": "redisClientResult",
-                "id": 1251
+                "id": 2411
               },
               "enabled": true
             },
@@ -3422,7 +3422,7 @@
                 "object": "Client",
                 "symbol": "zRevRank",
                 "parentSymbol": "redisClientResult",
-                "id": 1253
+                "id": 2412
               },
               "enabled": true
             },
@@ -3439,7 +3439,7 @@
                 "object": "Client",
                 "symbol": "zScore",
                 "parentSymbol": "redisClientResult",
-                "id": 1254
+                "id": 2416
               },
               "enabled": true
             },
@@ -3456,7 +3456,7 @@
                 "object": "Client",
                 "symbol": "zUnionStore",
                 "parentSymbol": "redisClientResult",
-                "id": 1255
+                "id": 2417
               },
               "enabled": true
             },
@@ -3473,7 +3473,7 @@
                 "object": "Client",
                 "symbol": "hDel",
                 "parentSymbol": "redisClientResult",
-                "id": 1256
+                "id": 2418
               },
               "enabled": true
             },
@@ -3490,7 +3490,7 @@
                 "object": "Client",
                 "symbol": "hExists",
                 "parentSymbol": "redisClientResult",
-                "id": 1257
+                "id": 2419
               },
               "enabled": true
             },
@@ -3507,7 +3507,7 @@
                 "object": "Client",
                 "symbol": "hGet",
                 "parentSymbol": "redisClientResult",
-                "id": 1260
+                "id": 2420
               },
               "enabled": true
             },
@@ -3524,7 +3524,7 @@
                 "object": "Client",
                 "symbol": "hGetAll",
                 "parentSymbol": "redisClientResult",
-                "id": 1261
+                "id": 2421
               },
               "enabled": true
             },
@@ -3541,7 +3541,7 @@
                 "object": "Client",
                 "symbol": "hIncrBy",
                 "parentSymbol": "redisClientResult",
-                "id": 1262
+                "id": 2422
               },
               "enabled": true
             },
@@ -3558,7 +3558,7 @@
                 "object": "Client",
                 "symbol": "hIncrByFloat",
                 "parentSymbol": "redisClientResult",
-                "id": 1263
+                "id": 2423
               },
               "enabled": true
             },
@@ -3575,7 +3575,7 @@
                 "object": "Client",
                 "symbol": "hKeys",
                 "parentSymbol": "redisClientResult",
-                "id": 1264
+                "id": 2427
               },
               "enabled": true
             },
@@ -3592,7 +3592,7 @@
                 "object": "Client",
                 "symbol": "hLen",
                 "parentSymbol": "redisClientResult",
-                "id": 1265
+                "id": 2429
               },
               "enabled": true
             },
@@ -3609,7 +3609,7 @@
                 "object": "Client",
                 "symbol": "hMGet",
                 "parentSymbol": "redisClientResult",
-                "id": 1266
+                "id": 2430
               },
               "enabled": true
             },
@@ -3626,7 +3626,7 @@
                 "object": "Client",
                 "symbol": "hMSet",
                 "parentSymbol": "redisClientResult",
-                "id": 1267
+                "id": 2431
               },
               "enabled": true
             },
@@ -3643,7 +3643,7 @@
                 "object": "Client",
                 "symbol": "hSet",
                 "parentSymbol": "redisClientResult",
-                "id": 1268
+                "id": 2432
               },
               "enabled": true
             },
@@ -3660,7 +3660,7 @@
                 "object": "Client",
                 "symbol": "hSetNx",
                 "parentSymbol": "redisClientResult",
-                "id": 1270
+                "id": 2433
               },
               "enabled": true
             },
@@ -3677,7 +3677,7 @@
                 "object": "Client",
                 "symbol": "hStrLen",
                 "parentSymbol": "redisClientResult",
-                "id": 1271
+                "id": 2434
               },
               "enabled": true
             },
@@ -3694,7 +3694,7 @@
                 "object": "Client",
                 "symbol": "hVals",
                 "parentSymbol": "redisClientResult",
-                "id": 1282
+                "id": 2435
               },
               "enabled": true
             },
@@ -3711,7 +3711,7 @@
                 "object": "Client",
                 "symbol": "del",
                 "parentSymbol": "redisClientResult",
-                "id": 1284
+                "id": 2437
               },
               "enabled": true
             },
@@ -3728,7 +3728,7 @@
                 "object": "Client",
                 "symbol": "exists",
                 "parentSymbol": "redisClientResult",
-                "id": 1287
+                "id": 2439
               },
               "enabled": true
             },
@@ -3745,7 +3745,7 @@
                 "object": "Client",
                 "symbol": "expire",
                 "parentSymbol": "redisClientResult",
-                "id": 1289
+                "id": 2440
               },
               "enabled": true
             },
@@ -3762,7 +3762,7 @@
                 "object": "Client",
                 "symbol": "keys",
                 "parentSymbol": "redisClientResult",
-                "id": 1301
+                "id": 2442
               },
               "enabled": true
             },
@@ -3779,7 +3779,7 @@
                 "object": "Client",
                 "symbol": "move",
                 "parentSymbol": "redisClientResult",
-                "id": 1303
+                "id": 2443
               },
               "enabled": true
             },
@@ -3796,7 +3796,7 @@
                 "object": "Client",
                 "symbol": "persist",
                 "parentSymbol": "redisClientResult",
-                "id": 1304
+                "id": 2445
               },
               "enabled": true
             },
@@ -3813,7 +3813,7 @@
                 "object": "Client",
                 "symbol": "pExpire",
                 "parentSymbol": "redisClientResult",
-                "id": 1310
+                "id": 2446
               },
               "enabled": true
             },
@@ -3830,7 +3830,7 @@
                 "object": "Client",
                 "symbol": "pTtl",
                 "parentSymbol": "redisClientResult",
-                "id": 1314
+                "id": 2447
               },
               "enabled": true
             },
@@ -3847,7 +3847,7 @@
                 "object": "Client",
                 "symbol": "randomKey",
                 "parentSymbol": "redisClientResult",
-                "id": 1315
+                "id": 2448
               },
               "enabled": true
             },
@@ -3864,7 +3864,7 @@
                 "object": "Client",
                 "symbol": "rename",
                 "parentSymbol": "redisClientResult",
-                "id": 1316
+                "id": 2449
               },
               "enabled": true
             },
@@ -3881,7 +3881,7 @@
                 "object": "Client",
                 "symbol": "renameNx",
                 "parentSymbol": "redisClientResult",
-                "id": 1317
+                "id": 2450
               },
               "enabled": true
             },
@@ -3898,7 +3898,7 @@
                 "object": "Client",
                 "symbol": "sort",
                 "parentSymbol": "redisClientResult",
-                "id": 1318
+                "id": 2452
               },
               "enabled": true
             },
@@ -3915,7 +3915,7 @@
                 "object": "Client",
                 "symbol": "ttl",
                 "parentSymbol": "redisClientResult",
-                "id": 1319
+                "id": 2453
               },
               "enabled": true
             },
@@ -3932,7 +3932,7 @@
                 "object": "Client",
                 "symbol": "redisType",
                 "parentSymbol": "redisClientResult",
-                "id": 1320
+                "id": 2454
               },
               "enabled": true
             },
@@ -3949,7 +3949,7 @@
                 "object": "Client",
                 "symbol": "clusterInfo",
                 "parentSymbol": "redisClientResult",
-                "id": 1321
+                "id": 2455
               },
               "enabled": true
             },
@@ -3966,7 +3966,7 @@
                 "object": "Client",
                 "symbol": "ping",
                 "parentSymbol": "redisClientResult",
-                "id": 1322
+                "id": 2456
               },
               "enabled": true
             },
@@ -3983,7 +3983,7 @@
                 "object": "Client",
                 "symbol": "auth",
                 "parentSymbol": "redisClientResult",
-                "id": 1323
+                "id": 2457
               },
               "enabled": true
             },
@@ -4000,7 +4000,7 @@
                 "object": "Client",
                 "symbol": "echo",
                 "parentSymbol": "redisClientResult",
-                "id": 1324
+                "id": 2458
               },
               "enabled": true
             },
@@ -4016,7 +4016,7 @@
                 "module": "redis",
                 "symbol": "close",
                 "parentSymbol": "redisClientResult",
-                "id": 1325
+                "id": 2459
               },
               "enabled": true
             }
@@ -4135,6 +4135,16 @@
       "items": [
         {
           "metadata": {
+            "label": "ErrorHandler",
+            "description": "Catch and handle errors"
+          },
+          "codedata": {
+            "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Fail",
             "description": "Fail the execution"
           },
@@ -4188,6 +4198,66 @@
           },
           "codedata": {
             "node": "WAIT"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Commit",
+            "description": "Commit transaction"
+          },
+          "codedata": {
+            "node": "COMMIT"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Rollback",
+            "description": "Rollback the transaction"
+          },
+          "codedata": {
+            "node": "ROLLBACK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Retry Block",
+            "description": "Retry block."
+          },
+          "codedata": {
+            "node": "RETRY"
           },
           "enabled": true
         }
