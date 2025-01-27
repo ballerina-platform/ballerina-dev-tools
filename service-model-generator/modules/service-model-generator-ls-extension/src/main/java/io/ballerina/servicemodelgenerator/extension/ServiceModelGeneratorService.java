@@ -181,14 +181,23 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private static List<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        return semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol instanceof VariableSymbol)
-                .map(symbol -> (VariableSymbol) symbol)
-                .filter(variableSymbol -> variableSymbol.qualifiers().contains(Qualifier.LISTENER))
-                .filter(variableSymbol -> variableSymbol.typeDescriptor().getModule().isPresent() && variableSymbol
-                        .typeDescriptor().getModule().get().id().moduleName().equals(moduleName))
-                .map(variableSymbol -> variableSymbol.getName().orElse(""))
-                .toList();
+        List<String> listeners = new ArrayList<>();
+        if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
+            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
+        }
+
+        for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
+            if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
+                    || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
+                continue;
+            }
+            Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
+            if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName)) {
+                continue;
+            }
+            listeners.add(variableSymbol.getName().orElse(""));
+        }
+        return listeners;
     }
 
     /**
