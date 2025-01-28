@@ -116,7 +116,14 @@ public class TypeTransformer {
 
     public Object transform(ClassSymbol classSymbol) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
+        String typeName = getTypeName(classSymbol);
         typeDataBuilder
+                .name(typeName)
+                .editable()
+                .metadata()
+                    .label(typeName)
+                    .description(getDocumentString(classSymbol))
+                    .stepOut()
                 .codedata()
                     .node(NodeKind.CLASS)
                     .lineRange(classSymbol.getLocation().get().lineRange())

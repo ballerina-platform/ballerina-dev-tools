@@ -298,7 +298,12 @@
       "includes": []
     },
     {
-      "editable": false,
+      "name": "UserProfile",
+      "editable": true,
+      "metadata": {
+        "label": "UserProfile",
+        "description": ""
+      },
       "codedata": {
         "node": "CLASS",
         "lineRange": {
