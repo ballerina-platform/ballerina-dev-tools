@@ -87,9 +87,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "name",
+        "name": "name",
         "returnType": "string",
-        "returnTypeRefs": []
+        "refs": []
       },
       {
         "accessor": "get",
@@ -99,9 +99,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "subject",
+        "name": "subject",
         "returnType": "string",
-        "returnTypeRefs": []
+        "refs": []
       },
       {
         "accessor": "get",
@@ -111,9 +111,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "profile",
+        "name": "profile",
         "returnType": "Profile",
-        "returnTypeRefs": [
+        "refs": [
           "Profile"
         ]
       }
@@ -175,9 +175,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "name",
+          "name": "name",
           "returnType": "string",
-          "returnTypeRefs": []
+          "refs": []
         }
       ]
     }

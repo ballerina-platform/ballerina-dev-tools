@@ -500,7 +500,7 @@ public class TypeTransformer {
                         new TypeData.TypeDataBuilder());
                 functionBuilder
                         .returnType(transformed)
-                        .returnTypeRefs(transformed instanceof String
+                        .refs(transformed instanceof String
                                 ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
                                 : List.of());
             });
@@ -549,7 +549,7 @@ public class TypeTransformer {
             // resource path
             // TODO: Need a structured schema for resourcePath
             if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
+                functionBuilder.name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
             }
 
             functions.add(functionBuilder.build());

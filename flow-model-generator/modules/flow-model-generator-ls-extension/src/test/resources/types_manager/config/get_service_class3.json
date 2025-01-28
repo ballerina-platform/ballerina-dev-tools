@@ -82,9 +82,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "profile21",
+        "name": "profile21",
         "returnType": "AbstractProfile",
-        "returnTypeRefs": [
+        "refs": [
           "AbstractProfile"
         ]
       },
@@ -96,9 +96,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "profile",
+        "name": "profile",
         "returnType": "UserProfile",
-        "returnTypeRefs": [
+        "refs": [
           "UserProfile"
         ]
       },
@@ -120,7 +120,7 @@
         ],
         "kind": "REMOTE",
         "returnType": "UserProfile",
-        "returnTypeRefs": [
+        "refs": [
           "UserProfile"
         ]
       }
@@ -377,9 +377,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "name",
+          "name": "name",
           "returnType": "string",
-          "returnTypeRefs": []
+          "refs": []
         },
         {
           "accessor": "get",
@@ -389,9 +389,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "age",
+          "name": "age",
           "returnType": "int",
-          "returnTypeRefs": []
+          "refs": []
         },
         {
           "accessor": "get",
@@ -401,9 +401,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "isAdult",
+          "name": "isAdult",
           "returnType": "boolean",
-          "returnTypeRefs": []
+          "refs": []
         }
       ]
     },

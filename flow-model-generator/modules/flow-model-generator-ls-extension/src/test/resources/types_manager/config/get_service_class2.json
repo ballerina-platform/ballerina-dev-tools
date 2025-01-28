@@ -81,9 +81,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "name",
+        "name": "name",
         "returnType": "string",
-        "returnTypeRefs": []
+        "refs": []
       }
     ]
   },
@@ -143,9 +143,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "name",
+          "name": "name",
           "returnType": "string",
-          "returnTypeRefs": []
+          "refs": []
         }
       ]
     }
