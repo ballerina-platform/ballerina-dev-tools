@@ -99,12 +99,12 @@ public class TypeTransformer {
         // class fields
         Map<String, Member> fieldMembers = new HashMap<>();
         serviceDeclarationSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
+            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
         // methods
-        List<Function> methods = transformMethodSymbols((Map<String, MethodSymbol>) serviceDeclarationSymbol.methods());
+        List<Function> methods = transformMethodSymbols(serviceDeclarationSymbol.methods());
         typeDataBuilder.functions(methods);
 
         return typeDataBuilder.build();
@@ -115,6 +115,7 @@ public class TypeTransformer {
         typeDataBuilder
                 .codedata()
                     .node(NodeKind.CLASS)
+                    .lineRange(classSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
                     .qualifiers(classSymbol.qualifiers().stream().map(Qualifier::getValue).toList(), true, true, true)
@@ -131,7 +132,7 @@ public class TypeTransformer {
         // class fields
         Map<String, Member> fieldMembers = new HashMap<>();
         classSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
+            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -155,7 +156,7 @@ public class TypeTransformer {
         // object fields
         Map<String, Member> fieldMembers = new HashMap<>();
         objectTypeSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
+            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -164,92 +165,6 @@ public class TypeTransformer {
         typeDataBuilder.functions(functions);
 
         return typeDataBuilder.build();
-    }
-
-    public Member transformFieldSymbol(String fieldName, ObjectFieldSymbol fieldSymbol) {
-        TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
-        Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
-        return (new Member.MemberBuilder())
-                .name(fieldName)
-                .type(transformedAttributeType)
-                .refs(transformedAttributeType instanceof String ?
-                        TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
-                .docs(getDocumentString(fieldSymbol))
-                .build();
-    }
-
-    public List<Function> transformMethodSymbols(Map<String, MethodSymbol> methods) {
-        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        List<Function> functions = new ArrayList<>();
-        methods.forEach((name, methodSymbol) -> {
-            Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
-            FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
-
-            functionBuilder
-                    .kind(Function.FunctionKind.FUNCTION)
-                    .accessor(methodSymbol.getName().orElse(""));
-
-            // return type
-            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
-                        new TypeData.TypeDataBuilder());
-                functionBuilder
-                        .returnType(transformed)
-                        .returnTypeRefs(transformed instanceof String
-                                ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
-                                : List.of());
-            });
-
-            // params
-            functionTypeSymbol.params().ifPresent(params -> {
-                Map<String, Member> parameters = new HashMap<>();
-                params.forEach((param) -> {
-                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
-                    Member member = memberBuilder
-                            .name(param.getName().get())
-                            .type(transformedParamType)
-                            .refs(transformedParamType instanceof String ?
-                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
-                            .build();
-                    parameters.put(param.getName().get(), member);
-                });
-                functionBuilder.parameters(parameters);
-            });
-
-            // rest param
-            functionTypeSymbol.restParam().ifPresent(restParam -> {
-                Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
-                Member restParameter = memberBuilder
-                        .name(restParam.getName().get())
-                        .type(transformedRestParamType)
-                        .refs(transformedRestParamType instanceof String ?
-                                TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
-                        .build();
-                functionBuilder.restParameter(restParameter);
-            });
-
-
-            // qualifiers
-            List<String> qualifiers = new ArrayList<>();
-            methodSymbol.qualifiers().forEach(q -> {
-                qualifiers.add(q.name());
-                if (q.equals(Qualifier.REMOTE)) {
-                    functionBuilder.kind(Function.FunctionKind.REMOTE);
-                } else if (q.equals(Qualifier.RESOURCE)) {
-                    functionBuilder.kind(Function.FunctionKind.RESOURCE);
-                }
-            });
-            functionBuilder.qualifiers(qualifiers);
-
-            // resource path
-            // TODO: Need a structured schema for resourcePath
-            if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
-            }
-
-            functions.add(functionBuilder.build());
-        });
-        return functions;
     }
 
     public Object transform(TypeDefinitionSymbol typeDef) {
@@ -349,16 +264,8 @@ public class TypeTransformer {
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         Map<String, Member> memberTypes = new HashMap<>();
         unionTypeSymbol.userSpecifiedMemberTypes().forEach(memberTypeSymbol -> {
-            TypeData.TypeDataBuilder memberTypeBuilder = new TypeData.TypeDataBuilder();
-            Object transformed = transform(memberTypeSymbol, memberTypeBuilder);
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
-            Member member = memberBuilder
-                    .kind(Member.MemberKind.TYPE)
-                    .name(name)
-                    .type(transformed)
-                    .refs(transformed instanceof String ?
-                            TypeUtils.getTypeRefIds(memberTypeSymbol, moduleInfo) : List.of())
-                    .build();
+            Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
             memberTypes.putIfAbsent(name, member);
         });
         typeDataBuilder.members(memberTypes);
@@ -378,16 +285,8 @@ public class TypeTransformer {
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         Map<String, Member> memberTypes = new HashMap<>();
         intersectionTypeSymbol.memberTypeDescriptors().forEach(memberTypeSymbol -> {
-            TypeData.TypeDataBuilder memberTypeBuilder = new TypeData.TypeDataBuilder();
-            Object transformed = transform(memberTypeSymbol, memberTypeBuilder);
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
-            Member member = memberBuilder
-                    .kind(Member.MemberKind.TYPE)
-                    .name(name)
-                    .type(transformed)
-                    .refs(transformed instanceof String ?
-                            TypeUtils.getTypeRefIds(memberTypeSymbol, moduleInfo) : List.of())
-                    .build();
+            Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
             memberTypes.putIfAbsent(name, member);
         });
         typeDataBuilder.members(memberTypes);
@@ -497,17 +396,110 @@ public class TypeTransformer {
         }
 
         String memberTypeName = CommonUtils.getTypeSignature(memberTypeDesc, moduleInfo);
+        Member memberType = transformTypeAsMember(memberTypeName, memberTypeDesc, memberBuilder);
+        typeDataBuilder.members(Map.of(memberTypeName, memberType));
+
+        return typeDataBuilder.build();
+    }
+
+    private List<Function> transformMethodSymbols(Map<String, ? extends MethodSymbol> methods) {
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        List<Function> functions = new ArrayList<>();
+        methods.forEach((name, methodSymbol) -> {
+            Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
+            FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+
+            functionBuilder
+                    .kind(Function.FunctionKind.FUNCTION)
+                    .accessor(methodSymbol.getName().orElse(""));
+
+            // return type
+            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
+                Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
+                        new TypeData.TypeDataBuilder());
+                functionBuilder
+                        .returnType(transformed)
+                        .returnTypeRefs(transformed instanceof String
+                                ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
+                                : List.of());
+            });
+
+            // params
+            functionTypeSymbol.params().ifPresent(params -> {
+                Map<String, Member> parameters = new HashMap<>();
+                params.forEach((param) -> {
+                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
+                    Member member = memberBuilder
+                            .name(param.getName().orElse(null))
+                            .type(transformedParamType)
+                            .refs(transformedParamType instanceof String ?
+                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
+                            .build();
+                    parameters.put(param.getName().get(), member);
+                });
+                functionBuilder.parameters(parameters);
+            });
+
+            // rest param
+            functionTypeSymbol.restParam().ifPresent(restParam -> {
+                Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
+                Member restParameter = memberBuilder
+                        .name(restParam.getName().get())
+                        .type(transformedRestParamType)
+                        .refs(transformedRestParamType instanceof String ?
+                                TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
+                        .build();
+                functionBuilder.restParameter(restParameter);
+            });
+
+
+            // qualifiers
+            List<String> qualifiers = new ArrayList<>();
+            methodSymbol.qualifiers().forEach(q -> {
+                qualifiers.add(q.name());
+                if (q.equals(Qualifier.REMOTE)) {
+                    functionBuilder.kind(Function.FunctionKind.REMOTE);
+                } else if (q.equals(Qualifier.RESOURCE)) {
+                    functionBuilder.kind(Function.FunctionKind.RESOURCE);
+                }
+            });
+            functionBuilder.qualifiers(qualifiers);
+
+            // resource path
+            // TODO: Need a structured schema for resourcePath
+            if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
+                functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
+            }
+
+            functions.add(functionBuilder.build());
+        });
+        return functions;
+    }
+
+    private Member transformObjectFieldAsMember(String fieldName, ObjectFieldSymbol fieldSymbol) {
+        TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
+        Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
+        return (new Member.MemberBuilder())
+                .name(fieldName)
+                .kind(Member.MemberKind.FIELD)
+                .type(transformedAttributeType)
+                .refs(transformedAttributeType instanceof String ?
+                        TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
+                .docs(getDocumentString(fieldSymbol))
+                .build();
+    }
+
+    private Member transformTypeAsMember(String typeName, TypeSymbol memberTypeDesc,
+                                         Member.MemberBuilder memberBuilder) {
         TypeData.TypeDataBuilder memberTypeDataBuilder = new TypeData.TypeDataBuilder();
         Object transformedMemberType = transform(memberTypeDesc, memberTypeDataBuilder);
-        Member memberType = memberBuilder
-                .name(memberTypeName)
+        return memberBuilder
+                .name(typeName)
+                .kind(Member.MemberKind.TYPE)
                 .type(transformedMemberType)
                 .refs(transformedMemberType instanceof String ?
                         TypeUtils.getTypeRefIds(memberTypeDesc, moduleInfo) : List.of())
                 .build();
-        typeDataBuilder.members(Map.of(memberTypeName, memberType));
-
-        return typeDataBuilder.build();
     }
 
     private String getAttachPoint(ServiceAttachPoint attachPoint) {

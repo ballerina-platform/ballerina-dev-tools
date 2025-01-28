@@ -68,8 +68,8 @@
         "advanced": true
       }
     },
-    "members": {
-      "user": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [
           "Person"
@@ -78,14 +78,14 @@
         "name": "user",
         "docs": ""
       },
-      "id": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
         "name": "id",
         "docs": ""
       }
-    },
+    ],
     "includes": []
   },
   "output": {

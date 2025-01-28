@@ -72,8 +72,8 @@
         "advanced": true
       }
     },
-    "members": {
-      "addresses": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [],
         "type": {
@@ -105,21 +105,22 @@
               "advanced": false
             }
           },
-          "members": {
-            "Address": {
+          "members": [
+            {
+              "kind": "TYPE",
               "refs": [
                 "Address"
               ],
               "type": "Address",
               "name": "Address"
             }
-          }
+          ]
         },
         "name": "addresses",
         "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
         "docs": "addresses of the person"
       },
-      "dob": {
+      {
         "kind": "FIELD",
         "refs": [
           "ballerina/time:Utc"
@@ -129,7 +130,7 @@
         "defaultValue": "getDefaultDob()",
         "docs": "date of birth"
       },
-      "name": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
@@ -137,7 +138,7 @@
         "defaultValue": "\"John\"",
         "docs": "name of the person"
       },
-      "id": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
@@ -145,7 +146,7 @@
         "defaultValue": "12",
         "docs": "id of the person"
       }
-    },
+    ],
     "includes": []
   },
   "refs": {
@@ -216,43 +217,43 @@
           "advanced": true
         }
       },
-      "members": {
-        "country": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
-        "houseNo": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "houseNo",
           "docs": ""
         },
-        "line2": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line2",
           "docs": ""
         },
-        "line1": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line1",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     },
     "ballerina/time:Utc": {
@@ -322,8 +323,8 @@
           "advanced": false
         }
       },
-      "members": {
-        "readonly": {
+      "members": [
+        {
           "kind": "TYPE",
           "refs": [
             "readonly"
@@ -331,7 +332,7 @@
           "type": "readonly",
           "name": "readonly"
         },
-        "[int, decimal]": {
+        {
           "kind": "TYPE",
           "refs": [
             "[int, decimal]"
@@ -339,7 +340,7 @@
           "type": "[int, decimal]",
           "name": "[int, decimal]"
         }
-      }
+      ]
     }
   }
 }

@@ -72,8 +72,8 @@
         "advanced": true
       }
     },
-    "members": {
-      "field1": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [],
         "type": {
@@ -105,15 +105,15 @@
               "advanced": true
             }
           },
-          "members": {
-            "iA": {
+          "members": [
+            {
               "kind": "FIELD",
               "refs": [],
               "type": "int",
               "name": "iA",
               "docs": ""
             },
-            "iB": {
+            {
               "kind": "FIELD",
               "refs": [],
               "type": {
@@ -145,27 +145,27 @@
                     "advanced": true
                   }
                 },
-                "members": {
-                  "iiA": {
+                "members": [
+                  {
                     "kind": "FIELD",
                     "refs": [],
                     "type": "int",
                     "name": "iiA",
                     "docs": ""
                   }
-                },
+                ],
                 "includes": []
               },
               "name": "iB",
               "docs": ""
             }
-          },
+          ],
           "includes": []
         },
         "name": "field1",
         "docs": "Anonymous nested record type"
       },
-      "address": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": {
@@ -197,14 +197,14 @@
               "advanced": false
             }
           },
-          "members": {
-            "xml": {
+          "members": [
+            {
               "kind": "TYPE",
               "refs": [],
               "type": "xml",
               "name": "xml"
             },
-            "UserAddress": {
+            {
               "kind": "TYPE",
               "refs": [
                 "UserAddress"
@@ -212,7 +212,7 @@
               "type": "UserAddress",
               "name": "UserAddress"
             },
-            "City": {
+            {
               "kind": "TYPE",
               "refs": [
                 "City"
@@ -220,26 +220,26 @@
               "type": "City",
               "name": "City"
             }
-          }
+          ]
         },
         "name": "address",
         "docs": "Union of of type-refs and a built-in type"
       },
-      "name": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "name",
         "docs": "Name of the employee"
       },
-      "age": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
         "name": "age",
         "docs": "Age of the employee"
       }
-    },
+    ],
     "restMember": {
       "kind": "FIELD",
       "refs": [],
@@ -315,8 +315,8 @@
           "advanced": true
         }
       },
-      "members": {
-        "no": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": {
@@ -348,46 +348,46 @@
                 "advanced": false
               }
             },
-            "members": {
-              "string": {
+            "members": [
+              {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "string",
                 "name": "string"
               },
-              "int": {
+              {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
                 "name": "int"
               }
-            }
+            ]
           },
           "name": "no",
           "docs": "Union of built-in types"
         },
-        "country": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
-        "street": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "street",
           "docs": ""
         }
-      },
+      ],
       "restMember": {
         "kind": "FIELD",
         "refs": [],
@@ -464,22 +464,22 @@
           "advanced": true
         }
       },
-      "members": {
-        "country": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     }
   }

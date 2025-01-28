@@ -42,7 +42,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
@@ -422,10 +421,8 @@ public class TypesManager {
         }
 
         // Add members
-        for (Map.Entry<String, Member> entry : typeData.members().entrySet()) {
-            String memberName = entry.getKey();
-            Member member = entry.getValue();
 
+        typeData.members().forEach(member -> {
             if (member.docs() != null && !member.docs().isEmpty()) {
                 recordBuilder.append(CommonUtils.convertToBalDocs(member.docs()));
             }
@@ -433,11 +430,11 @@ public class TypesManager {
             recordBuilder
                     .append(member.type())
                     .append(" ")
-                    .append(memberName)
+                    .append(member.name())
                     .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
                             " = " + member.defaultValue() : "")
                     .append(";\n");
-        }
+        });
 
         // Add rest member if present
         Optional.ofNullable(typeData.restMember()).ifPresent(restMember -> {

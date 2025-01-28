@@ -72,7 +72,7 @@
         "advanced": false
       }
     },
-    "members": {},
+    "members": [],
     "functions": [
       {
         "accessor": "get",
@@ -172,35 +172,46 @@
           "advanced": true
         }
       },
-      "members": {
-        "number": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "number",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
-        "street": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "street",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     },
     "UserProfile": {
       "editable": false,
       "codedata": {
-        "node": "CLASS"
+        "node": "CLASS",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 14
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 25
+          }
+        }
       },
       "properties": {
         "qualifiers": {
@@ -240,20 +251,22 @@
           "advanced": false
         }
       },
-      "members": {
-        "name": {
+      "members": [
+        {
+          "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
           "docs": ""
         },
-        "age": {
+        {
+          "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "age",
           "docs": ""
         }
-      },
+      ],
       "includes": [],
       "functions": [
         {
@@ -361,8 +374,8 @@
           "advanced": true
         }
       },
-      "members": {
-        "address": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [
             "Address"
@@ -371,21 +384,21 @@
           "name": "address",
           "docs": ""
         },
-        "name": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
           "docs": ""
         },
-        "age": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "age",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     }
   }

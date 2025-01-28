@@ -72,8 +72,9 @@
         "advanced": false
       }
     },
-    "members": {
-      "time:Utc[]": {
+    "members": [
+      {
+        "kind": "TYPE",
         "refs": [],
         "type": {
           "editable": false,
@@ -104,19 +105,20 @@
               "advanced": false
             }
           },
-          "members": {
-            "time:Utc": {
+          "members": [
+            {
+              "kind": "TYPE",
               "refs": [
                 "ballerina/time:Utc"
               ],
               "type": "time:Utc",
               "name": "time:Utc"
             }
-          }
+          ]
         },
         "name": "time:Utc[]"
       }
-    }
+    ]
   },
   "refs": {
     "ballerina/time:Utc": {
@@ -186,8 +188,8 @@
           "advanced": false
         }
       },
-      "members": {
-        "readonly": {
+      "members": [
+        {
           "kind": "TYPE",
           "refs": [
             "readonly"
@@ -195,7 +197,7 @@
           "type": "readonly",
           "name": "readonly"
         },
-        "[int, decimal]": {
+        {
           "kind": "TYPE",
           "refs": [
             "[int, decimal]"
@@ -203,7 +205,7 @@
           "type": "[int, decimal]",
           "name": "[int, decimal]"
         }
-      }
+      ]
     }
   }
 }

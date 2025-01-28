@@ -8,7 +8,18 @@
   "type": {
     "editable": false,
     "codedata": {
-      "node": "CLASS"
+      "node": "CLASS",
+      "lineRange": {
+        "fileName": "graphql_class.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 30
+        }
+      }
     },
     "properties": {
       "qualifiers": {
@@ -49,14 +60,15 @@
         "advanced": false
       }
     },
-    "members": {
-      "name": {
+    "members": [
+      {
+        "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "name",
         "docs": ""
       }
-    },
+    ],
     "includes": [
       "Profile"
     ],
@@ -121,7 +133,7 @@
           "advanced": false
         }
       },
-      "members": {},
+      "members": [],
       "includes": [],
       "functions": [
         {

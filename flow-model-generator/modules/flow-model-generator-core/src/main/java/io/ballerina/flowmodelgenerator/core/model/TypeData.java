@@ -42,7 +42,7 @@ public record TypeData(
         Metadata metadata,
         Codedata codedata,
         Map<String, Property> properties,
-        Map<String, Member> members,
+        List<Member> members,
         Member restMember,
         List<String> includes,
         List<Function> functions,
@@ -53,7 +53,7 @@ public record TypeData(
 
         private String name;
         private boolean editable = false;
-        private Map<String, Member> members;
+        private List<Member> members;
         private Member restMember;
         private List<Function> functions;
         private List<String> includes;
@@ -104,7 +104,7 @@ public record TypeData(
         }
 
         public TypeDataBuilder members(Map<String, Member> members) {
-            this.members = members;
+            this.members = members.values().stream().toList();
             return this;
         }
 
