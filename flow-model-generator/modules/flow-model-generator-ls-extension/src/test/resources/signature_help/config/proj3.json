@@ -15,7 +15,7 @@
   },
   "signatureHelp": [
     {
-      "label": "printInfo(string msg, error? 'error, error:StackFrame[]? stackTrace, log:KeyValues keyValues)",
+      "label": "printInfo(string|log:PrintableRawTemplate msg, error? 'error, error:StackFrame[]? stackTrace, log:KeyValues keyValues)",
       "documentation": {
         "right": {
           "kind": "markdown",
@@ -26,22 +26,22 @@
         {
           "label": {
             "right": {
-              "first": 17,
-              "second": 20
+              "first": 42,
+              "second": 45
             }
           },
           "documentation": {
             "right": {
               "kind": "markdown",
-              "value": "**Parameter**  \n**`string`msg**: The message to be logged"
+              "value": "**Parameter**  \n**`string|log:PrintableRawTemplate`msg**: The message to be logged"
             }
           }
         },
         {
           "label": {
             "right": {
-              "first": 29,
-              "second": 35
+              "first": 54,
+              "second": 60
             }
           },
           "documentation": {
@@ -54,8 +54,8 @@
         {
           "label": {
             "right": {
-              "first": 57,
-              "second": 67
+              "first": 82,
+              "second": 92
             }
           },
           "documentation": {
@@ -68,8 +68,8 @@
         {
           "label": {
             "right": {
-              "first": 83,
-              "second": 92
+              "first": 108,
+              "second": 117
             }
           },
           "documentation": {
