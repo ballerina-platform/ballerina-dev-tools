@@ -57,6 +57,7 @@ public class ServiceModelGeneratorConstants {
     public static final String BASE_PATH = "basePath";
     public static final String ON = "on";
     public static final String SUBSCRIBE = "subscribe";
+    public static final String GET = "get";
 
     public static final String VALUE_TYPE_EXPRESSION = "EXPRESSION";
     public static final String VALUE_TYPE_IDENTIFIER = "IDENTIFIER";

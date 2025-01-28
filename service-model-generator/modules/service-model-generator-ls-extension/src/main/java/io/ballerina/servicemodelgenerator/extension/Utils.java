@@ -1043,9 +1043,18 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append("function ");
-        if (function.getKind().equals("RESOURCE") && Objects.nonNull(function.getAccessor())
+        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)
+                && Objects.nonNull(function.getAccessor())
                 && function.getAccessor().isEnabledWithValue()) {
             builder.append(getValueString(function.getAccessor()).toLowerCase(Locale.ROOT));
+            builder.append(" ");
+        }
+        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_SUBSCRIPTION)) {
+            builder.append(ServiceModelGeneratorConstants.SUBSCRIBE);
+            builder.append(" ");
+        }
+        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_QUERY)) {
+            builder.append(ServiceModelGeneratorConstants.GET);
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
@@ -1151,8 +1160,12 @@ public final class Utils {
         qualifiers = Objects.isNull(qualifiers) ? new ArrayList<>() : qualifiers;
         String kind = function.getKind();
         switch (kind) {
-            case "REMOTE" -> qualifiers.add("remote");
-            case "RESOURCE" -> qualifiers.add("resource");
+            case ServiceModelGeneratorConstants.KIND_QUERY, ServiceModelGeneratorConstants.KIND_SUBSCRIPTION,
+                 ServiceModelGeneratorConstants.KIND_RESOURCE ->
+                    qualifiers.add(ServiceModelGeneratorConstants.RESOURCE);
+            case ServiceModelGeneratorConstants.KIND_REMOTE, ServiceModelGeneratorConstants.KIND_MUTATION ->
+                    qualifiers.add(ServiceModelGeneratorConstants.REMOTE);
+
             default -> {
             }
         }
