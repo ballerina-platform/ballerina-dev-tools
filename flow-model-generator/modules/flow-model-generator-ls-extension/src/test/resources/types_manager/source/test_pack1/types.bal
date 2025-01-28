@@ -46,9 +46,15 @@ enum Color {
     GREEN
 };
 
+enum Gender {
+    MALE = "male",
+    FEMALE = "female"
+}
+
 type Employees record {|
     int id;
     string name;
+    Names otherNames;
 |}[];
 
 type Names string[];

@@ -1,7 +1,7 @@
 {
   "filePath": "test_pack1/types.bal",
   "position": {
-    "line": 57,
+    "line": 63,
     "offset": 5
   },
   "description": "Get a record type data",
@@ -17,11 +17,11 @@
       "lineRange": {
         "fileName": "types.bal",
         "startLine": {
-          "line": 57,
+          "line": 63,
           "offset": 5
         },
         "endLine": {
-          "line": 57,
+          "line": 63,
           "offset": 9
         }
       }
@@ -100,6 +100,82 @@
     ]
   },
   "refs": [
+    {
+      "name": "Names",
+      "editable": true,
+      "metadata": {
+        "label": "Names",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ARRAY",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 59,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 59,
+            "offset": 10
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Names",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": "string",
+          "name": "string"
+        }
+      ]
+    },
     {
       "name": "Address",
       "editable": true,
@@ -304,11 +380,11 @@
         "lineRange": {
           "fileName": "types.bal",
           "startLine": {
-            "line": 48,
+            "line": 53,
             "offset": 5
           },
           "endLine": {
-            "line": 48,
+            "line": 53,
             "offset": 14
           }
         }
@@ -395,6 +471,15 @@
             "members": [
               {
                 "kind": "FIELD",
+                "refs": [
+                  "Names"
+                ],
+                "type": "Names",
+                "name": "otherNames",
+                "docs": ""
+              },
+              {
+                "kind": "FIELD",
                 "refs": [],
                 "type": "string",
                 "name": "name",
@@ -410,7 +495,7 @@
             ],
             "includes": []
           },
-          "name": "record {|int id; string name;|}"
+          "name": "record {|int id; string name; Names otherNames;|}"
         }
       ]
     },
