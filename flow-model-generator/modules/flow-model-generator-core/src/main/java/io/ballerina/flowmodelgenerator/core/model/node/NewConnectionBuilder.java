@@ -18,8 +18,24 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Documentation;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -31,9 +47,19 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
+import io.ballerina.projects.Document;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,6 +79,7 @@ public class NewConnectionBuilder extends NodeBuilder {
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String CONNECTION_NAME_LABEL = "Connection Name";
     public static final String CONNECTION_TYPE_LABEL = "Connection Type";
+    protected static final Logger LOG = LoggerFactory.getLogger(NewConnectionBuilder.class);
 
     @Override
     public void setConcreteConstData() {
@@ -88,15 +115,67 @@ public class NewConnectionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                        DatabaseManager.FunctionKind.CONNECTOR);
-        if (functionResult.isEmpty()) {
-            return;
+        FunctionResult function = null;
+        List<ParameterResult> functionParameters = null;
+        if (codedata.isGenerated() != null && codedata.isGenerated()) {
+            Path projectPath = context.filePath().getParent();
+            if (projectPath == null) {
+                return;
+            }
+            Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
+            try {
+                if (clientPath.toFile().exists()) {
+                    LOG.info("Loading client file from: " + clientPath);
+                } else {
+                    LOG.info("Client file does not exist: " + clientPath);
+                }
+                WorkspaceManager workspaceManager = context.workspaceManager();
+                try {
+                    workspaceManager.loadProject(clientPath);
+                } catch (WorkspaceDocumentException e) {
+                    LOG.error("Error loading project: " + clientPath, e);
+                    throw new RuntimeException(e);
+                }
+                Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
+                if (optSemanticModel.isEmpty()) {
+                    return;
+                }
+                for (Symbol symbol : optSemanticModel.get().moduleSymbols()) {
+                    if (symbol.kind() != SymbolKind.CLASS) {
+                        continue;
+                    }
+                    ClassSymbol classSymbol = (ClassSymbol) symbol;
+                    if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                        continue;
+                    }
+                    Optional<MethodSymbol> optInitMethodSymbol = classSymbol.initMethod();
+                    if (optInitMethodSymbol.isEmpty()) {
+                        continue;
+                    }
+                    MethodSymbol methodSymbol = optInitMethodSymbol.get();
+                    function = convertMethodSymbolToFunctionResult(methodSymbol, codedata.module(),
+                            classSymbol.getName().get());
+                    functionParameters = getParametersFromMethodSymbol(workspaceManager, methodSymbol, clientPath);
+                    break;
+                }
+            } catch (EventSyncException e) {
+                throw new RuntimeException(e);
+            }
+            if (function == null) {
+                return;
+            }
+        } else {
+            DatabaseManager dbManager = DatabaseManager.getInstance();
+            Optional<FunctionResult> optFunctionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
+                    dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                            DatabaseManager.FunctionKind.CONNECTOR);
+            if (optFunctionResult.isEmpty()) {
+                return;
+            }
+            function = optFunctionResult.get();
+            functionParameters = dbManager.getFunctionParameters(function.functionId());
         }
 
-        FunctionResult function = functionResult.get();
         metadata()
                 .label(function.packageName())
                 .description(function.description())
@@ -107,9 +186,9 @@ public class NewConnectionBuilder extends NodeBuilder {
                 .module(function.packageName())
                 .object(CLIENT_SYMBOL)
                 .symbol(INIT_SYMBOL)
-                .id(function.functionId());
+                .id(function.functionId())
+                .isGenerated(codedata.isGenerated());
 
-        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
@@ -163,5 +242,78 @@ public class NewConnectionBuilder extends NodeBuilder {
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
+    }
+
+    private FunctionResult convertMethodSymbolToFunctionResult(MethodSymbol methodSymbol, String module, String name) {
+        String retType = module + ":" + name;
+        String description = "";
+        Optional<Documentation> documentation = methodSymbol.documentation();
+        if (documentation.isPresent()) {
+            Optional<String> optDescription = documentation.get().description();
+            if (optDescription.isPresent()) {
+                description = optDescription.get();
+            }
+        }
+
+        return new FunctionResult(-1, methodSymbol.getName().orElse(""), description, retType, module, "", "", "",
+                Function.Kind.CONNECTOR, false, false);
+    }
+
+    private List<ParameterResult> getParametersFromMethodSymbol(WorkspaceManager workspaceManager,
+                                                                MethodSymbol methodSymbol, Path filePath) {
+        List<ParameterResult> parameterResults = new ArrayList<>();
+        Optional<List<ParameterSymbol>> optParams = methodSymbol.typeDescriptor().params();
+        if (optParams.isEmpty()) {
+            return parameterResults;
+        }
+
+        Optional<Location> optLocation = methodSymbol.getLocation();
+        Map<String, String> defaultValues = new HashMap<>();
+        if (optLocation.isPresent()) {
+            defaultValues = getDefaultValues(workspaceManager, filePath, optLocation.get().textRange());
+        }
+        List<ParameterSymbol> paramSymbols = optParams.get();
+        for (int i = 0; i < paramSymbols.size(); i++) {
+            ParameterSymbol paramSymbol = paramSymbols.get(i);
+            Optional<String> optParamName = paramSymbol.getName();
+            String paramName = optParamName.orElse("param" + i);
+            TypeSymbol paramType = paramSymbol.typeDescriptor();
+            String type = CommonUtils.getTypeSignature(semanticModel, paramType, true);
+            parameterResults.add(new ParameterResult(i, paramName, type, getParamKind(paramSymbol.paramKind()),
+                    defaultValues.getOrDefault(paramName, ""), "", false, ""));
+        }
+        return parameterResults;
+    }
+
+    private Map<String, String> getDefaultValues(WorkspaceManager workspaceManager, Path file,
+                                  TextRange functionLocation) {
+        Optional<Document> document = workspaceManager.document(file);
+        Map<String, String> defaultValues = new HashMap<>();
+        if (document.isEmpty()) {
+            return defaultValues;
+        }
+        ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
+        NonTerminalNode node = modulePartNode.findNode(functionLocation);
+        if (node.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
+            return defaultValues;
+        }
+        FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) node;
+        functionDefinitionNode.functionSignature().parameters().forEach(parameter -> {
+            if (parameter instanceof DefaultableParameterNode defaultableParameterNode) {
+                Optional<Token> optParamName = defaultableParameterNode.paramName();
+                optParamName.ifPresent(token -> defaultValues.put(token.text(),
+                        defaultableParameterNode.expression().toString()));
+            }
+        });
+        return defaultValues;
+    }
+
+    private Parameter.Kind getParamKind(ParameterKind kind) {
+        return switch (kind) {
+            case DEFAULTABLE -> Parameter.Kind.DEFAULTABLE;
+            case INCLUDED_RECORD -> Parameter.Kind.INCLUDED_RECORD;
+            case REST -> Parameter.Kind.REST_PARAMETER;
+            default -> Parameter.Kind.REQUIRED;
+        };
     }
 }

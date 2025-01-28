@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -64,28 +65,35 @@ public class VisibleVariableTypesGenerator {
         List<Category.Variable> moduleVariables = new ArrayList<>();
         List<Category.Variable> configurableVariables = new ArrayList<>();
         List<Category.Variable> localVariables = new ArrayList<>();
+        List<Category.Variable> parameters = new ArrayList<>();
         List<Category> categories = Arrays.asList(
                 new Category(Category.MODULE_CATEGORY, moduleVariables),
                 new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
-                new Category(Category.LOCAL_CATEGORY, localVariables)
+                new Category(Category.LOCAL_CATEGORY, localVariables),
+                new Category(Category.PARAMETER_CATEGORY, parameters)
         );
 
-        semanticModel.visibleSymbols(document, position).stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                .map(symbol -> (VariableSymbol) symbol)
-                .forEach(variableSymbol -> {
-                    String name = variableSymbol.getName().orElse("");
-                    Type type = Type.fromSemanticSymbol(variableSymbol);
+        List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
+        for (Symbol symbol : symbols) {
+            if (symbol.kind() == SymbolKind.VARIABLE) {
+                VariableSymbol variableSymbol = (VariableSymbol) symbol;
+                String name = variableSymbol.getName().orElse("");
+                Type type = Type.fromSemanticSymbol(variableSymbol);
 
-                    if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
-                        configurableVariables.add(new Category.Variable(name, type));
-                    } else if (functionLineRange.isPresent() &&
-                            isInFunctionRange(variableSymbol, functionLineRange.get())) {
-                        localVariables.add(new Category.Variable(name, type));
-                    } else {
-                        moduleVariables.add(new Category.Variable(name, type));
-                    }
-                });
+                if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
+                    configurableVariables.add(new Category.Variable(name, type));
+                } else if (functionLineRange.isPresent() &&
+                        isInFunctionRange(variableSymbol, functionLineRange.get())) {
+                    localVariables.add(new Category.Variable(name, type));
+                } else {
+                    moduleVariables.add(new Category.Variable(name, type));
+                }
+            } else if (symbol.kind() == SymbolKind.PARAMETER) {
+                String name = symbol.getName().orElse("");
+                Type type = Type.fromSemanticSymbol(symbol);
+                parameters.add(new Category.Variable(name, type));
+            }
+        }
 
         categories.forEach(category -> Collections.sort(category.types()));
         return gson.toJsonTree(categories).getAsJsonArray();
@@ -122,6 +130,7 @@ public class VisibleVariableTypesGenerator {
         public static final String MODULE_CATEGORY = "Module Variables";
         public static final String CONFIGURABLE_CATEGORY = "Configurable Variables";
         public static final String LOCAL_CATEGORY = "Local Variables";
+        public static final String PARAMETER_CATEGORY = "Parameters";
 
         public record Variable(String name, Type type) implements Comparable<Variable> {
 

@@ -9,7 +9,7 @@ configurable table<Input> key(name) configTable = table [
 ];
 
 service /p1 on new http:Listener(9091) {
-    resource function get greeting() returns json|http:InternalServerError {
+    resource function get greeting(string value, int i = 12) returns json|http:InternalServerError {
         do {
             Input localInput = {name: "John", age: 30};
 
