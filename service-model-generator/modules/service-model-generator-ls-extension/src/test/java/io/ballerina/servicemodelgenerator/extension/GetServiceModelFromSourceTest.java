@@ -59,7 +59,7 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
             GetServiceModelFromSourceTest.TestConfig updatedConfig =
                     new GetServiceModelFromSourceTest.TestConfig(testConfig.filePath(), testConfig.description(),
                             testConfig.start(), testConfig.end(), actualServiceModel);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

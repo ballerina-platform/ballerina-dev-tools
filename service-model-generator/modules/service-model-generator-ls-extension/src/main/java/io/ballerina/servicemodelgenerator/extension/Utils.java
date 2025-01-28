@@ -374,7 +374,7 @@ public final class Utils {
     }
 
     public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel,
-                                          boolean isHttp) {
+                                          boolean isHttp, boolean isGraphQL) {
         Service serviceModel = Service.getNewService();
         String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
         if (!basePath.isEmpty()) {
@@ -399,7 +399,7 @@ public final class Utils {
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp);
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp, isGraphQL);
                 functionModels.add(functionModel);
             }
         });
@@ -471,7 +471,7 @@ public final class Utils {
     }
 
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode,
-                                            SemanticModel semanticModel, boolean isHttp) {
+                                            SemanticModel semanticModel, boolean isHttp, boolean isGraphQL) {
         Function functionModel = Function.getNewFunction();
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
@@ -481,9 +481,21 @@ public final class Utils {
         functionName.setEnabled(true);
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
-                functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
+                if (isGraphQL) {
+                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_MUTATION);
+                } else {
+                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
+                }
             } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
-                functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
+                if (isGraphQL) {
+                    if (functionName.getValue().equals(ServiceModelGeneratorConstants.SUBSCRIBE)) {
+                        functionModel.setKind(ServiceModelGeneratorConstants.KIND_SUBSCRIPTION);
+                    } else {
+                        functionModel.setKind(ServiceModelGeneratorConstants.KIND_QUERY);
+                    }
+                } else {
+                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
+                }
                 accessor.setValue(functionDefinitionNode.functionName().text().trim());
                 accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
                 accessor.setEnabled(true);
@@ -794,11 +806,13 @@ public final class Utils {
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
-        if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP)) {
+        String moduleName = serviceModel.getModuleName();
+        boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
+        boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
+        if (isHttp || isGraphql) {
             serviceModel.setFunctions(new ArrayList<>());
         }
-        Service commonSvcModel = getServiceModel(serviceNode, semanticModel,
-                serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP));
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
