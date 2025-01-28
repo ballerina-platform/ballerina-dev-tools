@@ -581,6 +581,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
                 .type(Property.ValueType.EXPRESSION)
+                .optional(true)
                 .editable();
         addProperty(Property.DEFAULTABLE_KEY, expr);
         return this;
