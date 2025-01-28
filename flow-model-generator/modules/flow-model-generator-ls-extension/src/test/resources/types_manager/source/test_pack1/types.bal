@@ -64,3 +64,5 @@ type PersonWithId [int, Person];
 type Misc Person|Employees|Color;
 
 type PersonError error<Person>;
+
+type AddressTable table<Address> key<string|int>;

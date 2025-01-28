@@ -56,6 +56,8 @@ public class GetTypeTest extends AbstractLSTest {
                 {Path.of("get_enum_type1.json")},
                 {Path.of("get_enum_type2.json")},
                 {Path.of("get_array_type_def.json")},
+                {Path.of("get_table_type_def.json")},
+                {Path.of("get_error_type_def.json")},
         };
     }
 
