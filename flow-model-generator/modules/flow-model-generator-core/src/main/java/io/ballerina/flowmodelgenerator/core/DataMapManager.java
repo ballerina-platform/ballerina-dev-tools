@@ -633,9 +633,9 @@ public class DataMapManager {
             String[] splits = substring.split("\\.");
             int length = splits.length;
             String lastSplit = splits[length - 1];
-            if (length == 1 && lastSplit.matches("^-?\\d+$")) {
+            if (length == 1 && lastSplit.matches("\\d+")) {
                 elements.add(mapping.expression());
-                return;
+                continue;
             }
             Map<String, Object> currentMapping = m;
             String key = splits[0];
@@ -643,7 +643,7 @@ public class DataMapManager {
                 String split = splits[i];
                 Object o = currentMapping.get(key);
                 if (o == null) {
-                    if (!split.matches("^-?\\d+$")) {
+                    if (!split.matches("\\d+")) {
                         if (i == length - 1) {
                             Object o1 = genExprFromMapping(mapping);
                             currentMapping.put(split, o1);
@@ -659,7 +659,9 @@ public class DataMapManager {
                 }
             }
         }
-        elements.add(m);
+        if (!m.isEmpty()) {
+            elements.add(m);
+        }
     }
 
     public String getSource(JsonElement mp, JsonElement fNode, String targetField) {

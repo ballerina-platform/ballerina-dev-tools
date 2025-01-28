@@ -1,0 +1,141 @@
+{
+  "source": "variable15.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Variable",
+      "description": "New variable with type"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "startLine": {
+          "line": 16,
+          "offset": 36
+        },
+        "endLine": {
+          "line": 16,
+          "offset": 36
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Studentss",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{names:[[\"1\", \"6\"],[\"10\", \"60\"],[\"10\", \"60\", \"70\"]]}",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 17,
+    "offset": 30
+  },
+  "mappings": [
+    {
+      "output": "var1.names",
+      "inputs": [],
+      "expression": "[[\"1\", \"6\"], [\"10\", \"60\", \"70\"]]",
+      "diagnostics": [],
+      "elements": [
+        {
+          "mappings": [
+            {
+              "output": "var1.names.0",
+              "inputs": [],
+              "expression": "[\"1\", \"6\"]",
+              "diagnostics": [],
+              "elements": [
+                {
+                  "mappings": [
+                    {
+                      "output": "var1.names.0.0",
+                      "inputs": [],
+                      "expression": "\"1\"",
+                      "diagnostics": [],
+                      "elements": []
+                    },
+                    {
+                      "output": "var1.names.0.1",
+                      "inputs": [],
+                      "expression": "\"6\"",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "output": "var1.names.2",
+              "inputs": [],
+              "expression": "[\"10\", \"60\", \"70\"]",
+              "diagnostics": [],
+              "elements": [
+                {
+                  "mappings": [
+                    {
+                      "output": "var1.names.2.0",
+                      "inputs": [],
+                      "expression": "\"10\"",
+                      "diagnostics": [],
+                      "elements": []
+                    },
+                    {
+                      "output": "var1.names.2.1",
+                      "inputs": [],
+                      "expression": "\"60\"",
+                      "diagnostics": [],
+                      "elements": []
+                    },
+                    {
+                      "output": "var1.names.2.2",
+                      "inputs": [],
+                      "expression": "\"70\"",
+                      "diagnostics": [],
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "{names:[[\"1\", \"6\"],[\"10\", \"60\", \"70\"]]}"
+}

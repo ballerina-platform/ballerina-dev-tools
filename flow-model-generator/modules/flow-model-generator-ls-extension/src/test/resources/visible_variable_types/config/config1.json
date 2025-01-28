@@ -311,6 +311,10 @@
           }
         }
       ]
+    },
+    {
+      "name": "Parameters",
+      "types": []
     }
   ]
 }
