@@ -44,8 +44,8 @@ public class GetGraphqlTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-//                {Path.of("get_service_class1.json")},
-//                {Path.of("get_service_class2.json")},
+                {Path.of("get_service_class1.json")},
+                {Path.of("get_service_class2.json")},
                 {Path.of("get_service_class3.json")},
         };
     }

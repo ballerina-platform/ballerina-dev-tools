@@ -6,7 +6,12 @@
   },
   "description": "Get a record type data",
   "type": {
-    "editable": false,
+    "name": "Student",
+    "editable": true,
+    "metadata": {
+      "label": "Student",
+      "description": ""
+    },
     "codedata": {
       "node": "CLASS",
       "lineRange": {
