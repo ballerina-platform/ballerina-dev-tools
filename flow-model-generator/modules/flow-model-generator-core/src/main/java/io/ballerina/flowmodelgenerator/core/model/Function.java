@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a function.
@@ -38,7 +37,7 @@ import java.util.Map;
 public record Function(
         String accessor,
         List<String> qualifiers,
-        Map<String, Member> parameters,
+        List<Member> parameters,
         Member restParameter,
         FunctionKind kind,
         String resourcePath,    // TODO: Need a structured schema for resourcePath
@@ -55,7 +54,7 @@ public record Function(
     public static class FunctionBuilder {
         private String accessor;
         private List<String> qualifiers;
-        private Map<String, Member> parameters;
+        private List<Member> parameters;
         private Member restParameter;
         private FunctionKind kind;
         private String resourcePath;
@@ -76,7 +75,7 @@ public record Function(
             return this;
         }
 
-        public FunctionBuilder parameters(Map<String, Member> parameters) {
+        public FunctionBuilder parameters(List<Member> parameters) {
             this.parameters = parameters;
             return this;
         }

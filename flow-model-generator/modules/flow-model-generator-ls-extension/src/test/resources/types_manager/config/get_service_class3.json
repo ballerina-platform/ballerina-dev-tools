@@ -1,7 +1,7 @@
 {
   "filePath": "test_pack2/graphql_service.bal",
   "position": {
-    "line": 34,
+    "line": 38,
     "offset": 0
   },
   "description": "Get a record type data",
@@ -17,11 +17,11 @@
       "lineRange": {
         "fileName": "graphql_service.bal",
         "startLine": {
-          "line": 34,
+          "line": 38,
           "offset": 0
         },
         "endLine": {
-          "line": 50,
+          "line": 58,
           "offset": 1
         }
       }
@@ -80,7 +80,7 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "profile21",
         "returnType": "AbstractProfile",
@@ -94,9 +94,31 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "profile",
+        "returnType": "UserProfile",
+        "returnTypeRefs": [
+          "UserProfile"
+        ]
+      },
+      {
+        "accessor": "updateName",
+        "qualifiers": [
+          "ISOLATED",
+          "REMOTE"
+        ],
+        "parameters": [
+          {
+            "kind": "FIELD",
+            "refs": [
+              "UserName"
+            ],
+            "type": "UserName",
+            "name": "userName"
+          }
+        ],
+        "kind": "REMOTE",
         "returnType": "UserProfile",
         "returnTypeRefs": [
           "UserProfile"
@@ -105,6 +127,84 @@
     ]
   },
   "refs": {
+    "UserName": {
+      "name": "UserName",
+      "editable": true,
+      "metadata": {
+        "label": "UserName",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 13
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "UserName",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "value",
+          "docs": ""
+        }
+      ],
+      "includes": []
+    },
     "Address": {
       "name": "Address",
       "editable": true,
@@ -117,11 +217,11 @@
         "lineRange": {
           "fileName": "graphql_service.bal",
           "startLine": {
-            "line": 28,
+            "line": 32,
             "offset": 12
           },
           "endLine": {
-            "line": 28,
+            "line": 32,
             "offset": 19
           }
         }
@@ -204,11 +304,11 @@
         "lineRange": {
           "fileName": "graphql_service.bal",
           "startLine": {
-            "line": 8,
+            "line": 12,
             "offset": 14
           },
           "endLine": {
-            "line": 8,
+            "line": 12,
             "offset": 25
           }
         }
@@ -275,7 +375,7 @@
             "ISOLATED",
             "RESOURCE"
           ],
-          "parameters": {},
+          "parameters": [],
           "kind": "RESOURCE",
           "resourcePath": "name",
           "returnType": "string",
@@ -287,7 +387,7 @@
             "ISOLATED",
             "RESOURCE"
           ],
-          "parameters": {},
+          "parameters": [],
           "kind": "RESOURCE",
           "resourcePath": "age",
           "returnType": "int",
@@ -299,7 +399,7 @@
             "ISOLATED",
             "RESOURCE"
           ],
-          "parameters": {},
+          "parameters": [],
           "kind": "RESOURCE",
           "resourcePath": "isAdult",
           "returnType": "boolean",

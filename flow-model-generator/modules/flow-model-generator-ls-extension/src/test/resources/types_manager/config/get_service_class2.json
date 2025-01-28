@@ -79,7 +79,7 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "name",
         "returnType": "string",
@@ -141,7 +141,7 @@
           "qualifiers": [
             "RESOURCE"
           ],
-          "parameters": {},
+          "parameters": [],
           "kind": "RESOURCE",
           "resourcePath": "name",
           "returnType": "string",

@@ -85,7 +85,7 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "name",
         "returnType": "string",
@@ -97,7 +97,7 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "subject",
         "returnType": "string",
@@ -109,7 +109,7 @@
           "ISOLATED",
           "RESOURCE"
         ],
-        "parameters": {},
+        "parameters": [],
         "kind": "RESOURCE",
         "resourcePath": "profile",
         "returnType": "Profile",
@@ -173,7 +173,7 @@
           "qualifiers": [
             "RESOURCE"
           ],
-          "parameters": {},
+          "parameters": [],
           "kind": "RESOURCE",
           "resourcePath": "name",
           "returnType": "string",

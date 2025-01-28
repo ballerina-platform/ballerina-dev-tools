@@ -6,6 +6,10 @@ public type AbstractProfile record {|
     Address address;
 |};
 
+type UserName record {|
+    string value;
+|};
+
 service class UserProfile {
     private final string name;
     private final int age;
@@ -47,5 +51,9 @@ service /graphql on new graphql:Listener(9090) {
 
     resource function get profile() returns UserProfile {
         return new ("Walter White", 51);
+    }
+
+    remote function updateName(UserName userName) returns UserProfile {
+        return new (userName.value, 51);
     }
 }
