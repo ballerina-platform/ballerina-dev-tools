@@ -178,11 +178,61 @@
       "members": {
         "mixField2": {
           "kind": "FIELD",
-          "refs": [
-            "Address",
-            "Person"
-          ],
-          "type": "Address|Person|int",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              "Person": {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              },
+              "int": {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            }
+          },
           "name": "mixField2",
           "docs": ""
         },
@@ -233,12 +283,63 @@
         },
         "mixField1": {
           "kind": "FIELD",
-          "refs": [
-            "ballerina/time:Utc",
-            "Person",
-            "Address"
-          ],
-          "type": "time:Utc|Person|Address",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              "time:Utc": {
+                "kind": "TYPE",
+                "refs": [
+                  "ballerina/time:Utc"
+                ],
+                "type": "time:Utc",
+                "name": "time:Utc"
+              },
+              "Person": {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              }
+            }
+          },
           "name": "mixField1",
           "docs": ""
         }
