@@ -255,11 +255,12 @@ public class TypesManager {
 
         String name = type.getName().get();
 
-        if (CommonUtils.isWithinPackage(type, ModuleInfo.from(this.module.descriptor()))) {
+        ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
+        if (CommonUtils.isWithinPackage(type, moduleInfo)) {
             return;
         }
 
-        String typeName = TypeUtils.generateReferencedTypeId(type, ModuleInfo.from(this.module.descriptor()));
+        String typeName = TypeUtils.generateReferencedTypeId(type, moduleInfo);
         if (!foreignSymbols.containsKey(name)) {
             foreignSymbols.put(typeName, type);
         }
@@ -360,9 +361,10 @@ public class TypesManager {
             }
             case TYPE_REFERENCE -> {
                 Symbol definition = ((TypeReferenceTypeSymbol) typeSymbol).definition();
-                String typeName = TypeUtils.generateReferencedTypeId(typeSymbol, ModuleInfo.from(this.module.descriptor()));
+                ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
+                String typeName = TypeUtils.generateReferencedTypeId(typeSymbol, moduleInfo);
                 references.putIfAbsent(typeName, getTypeData(definition));
-                if (CommonUtils.isWithinPackage(definition, ModuleInfo.from(this.module.descriptor()))) {
+                if (CommonUtils.isWithinPackage(definition, moduleInfo)) {
                     addDependencyTypes(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor(), references);
                 }
             }
@@ -420,5 +422,6 @@ public class TypesManager {
         return recordBuilder.toString();
     }
 
-    record TypeDataWithRefs(Object type, Map<String, Object> refs) {}
+    record TypeDataWithRefs(Object type, Map<String, Object> refs) {
+    }
 }

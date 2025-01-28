@@ -74,8 +74,7 @@ public class TypeTransformer {
                 .properties()
                     .qualifiers(classSymbol.qualifiers().stream().map(Qualifier::getValue).toList(), true, true, true)
                     .isArray("false", true, true, true)
-                    .arraySize("", false, false, false)
-                    .stepOut();
+                    .arraySize("", false, false, false);
 
         // inclusions
         List<String> includes = new ArrayList<>();
@@ -126,15 +125,15 @@ public class TypeTransformer {
             // params
             functionTypeSymbol.params().ifPresent(params -> {
                 Map<String, Member> parameters = new HashMap<>();
-                params.forEach((paramSymbol) -> {
-                    Object transformedParamType = transform(paramSymbol.typeDescriptor(), new TypeData.TypeDataBuilder());
+                params.forEach((param) -> {
+                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
                     Member member = memberBuilder
-                            .name(paramSymbol.getName().get())
+                            .name(param.getName().get())
                             .type(transformedParamType)
                             .refs(transformedParamType instanceof String ?
-                                    TypeUtils.getTypeRefIds(paramSymbol.typeDescriptor(), moduleInfo) : List.of())
+                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
                             .build();
-                    parameters.put(paramSymbol.getName().get(), member);
+                    parameters.put(param.getName().get(), member);
                 });
                 functionBuilder.parameters(parameters);
             });
@@ -229,15 +228,15 @@ public class TypeTransformer {
             // params
             functionTypeSymbol.params().ifPresent(params -> {
                 Map<String, Member> parameters = new HashMap<>();
-                params.forEach((paramSymbol) -> {
-                    Object transformedParamType = transform(paramSymbol.typeDescriptor(), new TypeData.TypeDataBuilder());
+                params.forEach((param) -> {
+                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
                     Member member = memberBuilder
-                            .name(paramSymbol.getName().get())
+                            .name(param.getName().get())
                             .type(transformedParamType)
                             .refs(transformedParamType instanceof String ?
-                                    TypeUtils.getTypeRefIds(paramSymbol.typeDescriptor(), moduleInfo) : List.of())
+                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
                             .build();
-                    parameters.put(paramSymbol.getName().get(), member);
+                    parameters.put(param.getName().get(), member);
                 });
                 functionBuilder.parameters(parameters);
             });
@@ -372,8 +371,7 @@ public class TypeTransformer {
                     .stepOut()
                 .properties()
                     .isArray("false", true, true, true)
-                    .arraySize("", false, false, false)
-                    .stepOut();
+                    .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         Map<String, Member> memberTypes = new HashMap<>();
@@ -402,8 +400,7 @@ public class TypeTransformer {
                     .stepOut()
                 .properties()
                     .isArray("false", true, true, true)
-                    .arraySize("", false, false, false)
-                    .stepOut();
+                    .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         Map<String, Member> memberTypes = new HashMap<>();
