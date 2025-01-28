@@ -35,6 +35,9 @@ public class ServiceModelGeneratorConstants {
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
 
+    public static final String HTTP_DEFAULT_LISTENER_REF = "default:httpListener";
+    public static final String HTTP_DEFAULT_MODULE = "http.default";
+
     public static final String KAFKA = "kafka";
     public static final String HTTP = "http";
     public static final String GRAPHQL = "graphql";
@@ -57,6 +60,7 @@ public class ServiceModelGeneratorConstants {
     public static final String VALUE_TYPE_EXPRESSION = "EXPRESSION";
     public static final String VALUE_TYPE_IDENTIFIER = "IDENTIFIER";
     public static final String VALUE_TYPE_TYPE = "TYPE";
+    public static final String HTTP_PARAM_TYPE_QUERY = "QUERY";
 
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
 

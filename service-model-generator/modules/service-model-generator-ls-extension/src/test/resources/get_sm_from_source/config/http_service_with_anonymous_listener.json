@@ -39,6 +39,10 @@
         "placeholder": "",
         "optional": false,
         "advanced": false,
+        "items": [
+          "default:httpListener",
+          "new http:Listener(port = 8080)"
+        ],
         "codedata": {
           "inListenerInit": false,
           "isBasePath": false,
@@ -371,7 +375,8 @@
             "enabled": true,
             "editable": false,
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "httpParamType": "QUERY"
           }
         ],
         "schema": {

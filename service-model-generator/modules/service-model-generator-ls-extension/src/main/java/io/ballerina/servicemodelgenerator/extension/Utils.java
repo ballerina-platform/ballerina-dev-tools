@@ -462,7 +462,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
@@ -508,7 +508,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
@@ -700,18 +700,18 @@ public final class Utils {
         return Optional.empty();
     }
 
-    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
+    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations());
+                    parameter.annotations(), isHttp);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
                     ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
-                    parameter.annotations());
+                    parameter.annotations(), isHttp);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -722,11 +722,18 @@ public final class Utils {
     }
 
     private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
-                                             NodeList<AnnotationNode> annotationNodes) {
+                                             NodeList<AnnotationNode> annotationNodes, boolean isHttp) {
         Parameter parameterModel = Parameter.getNewParameter();
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
-        getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
+        if (isHttp) {
+            Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
+            if (httpParameterType.isPresent()) {
+                parameterModel.setHttpParamType(httpParameterType.get());
+            } else {
+                parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
+            }
+        }
         Value type = parameterModel.getType();
         type.setValue(typeName);
         type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
@@ -1232,5 +1239,18 @@ public final class Utils {
     public static String getExprUri(String sourcePath) {
         String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
         return URI.create(exprUriString).toString();
+    }
+
+    /**
+     * Check if the `default:httpListener` is attached to the service.
+     *
+     * @param value the Listener value
+     * @return true if the `default:httpListener` is attached, false otherwise
+     */
+    public static boolean isHttpDefaultListenerAttached(Value value) {
+        if (value.getValues().isEmpty()) {
+            return ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF.equals(value.getValue().trim());
+        }
+        return value.getValues().contains(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
     }
 }

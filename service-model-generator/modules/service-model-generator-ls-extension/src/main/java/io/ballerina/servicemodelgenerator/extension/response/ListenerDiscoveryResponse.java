@@ -18,22 +18,22 @@
 
 package io.ballerina.servicemodelgenerator.extension.response;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public record ListenerDiscoveryResponse(boolean hasListeners, List<String> listeners, String errorMsg,
+public record ListenerDiscoveryResponse(boolean hasListeners, Set<String> listeners, String errorMsg,
                                         String stacktrace) {
 
     public ListenerDiscoveryResponse() {
-        this(false, new ArrayList<>(), null, null);
+        this(false, new HashSet<>(), null, null);
     }
 
-    public ListenerDiscoveryResponse(List<String> listeners) {
+    public ListenerDiscoveryResponse(Set<String> listeners) {
         this(!listeners.isEmpty(), listeners, null, null);
     }
 
     public ListenerDiscoveryResponse(Throwable e) {
-        this(false, new ArrayList<>(), e.toString(), Arrays.toString(e.getStackTrace()));
+        this(false, new HashSet<>(), e.toString(), Arrays.toString(e.getStackTrace()));
     }
 }
