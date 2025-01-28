@@ -50,6 +50,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
@@ -670,7 +671,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.function().getCodedata().getLineRange();
+                Function function = request.function();
+                LineRange lineRange = function.getCodedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
@@ -686,23 +688,32 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 String functionName = functionDefinitionNode.functionName().text().trim();
                 LineRange nameRange = functionDefinitionNode.functionName().lineRange();
-                if (!functionName.equals(request.function().getAccessor().getValue())) {
-                    edits.add(new TextEdit(Utils.toRange(nameRange), request.function().getAccessor().getValue()));
+                String functionKind = function.getKind();
+                boolean isRemoteFunction = functionKind.equals(ServiceModelGeneratorConstants.KIND_REMOTE)
+                        || functionKind.equals(ServiceModelGeneratorConstants.KIND_MUTATION);
+                if (isRemoteFunction && !functionName.equals(function.getName().getValue())) {
+                    edits.add(new TextEdit(Utils.toRange(nameRange), function.getName().getValue()));
+                } else {
+                    if (!isRemoteFunction && !functionName.equals(function.getAccessor().getValue())) {
+                        edits.add(new TextEdit(Utils.toRange(nameRange), function.getAccessor().getValue()));
+                    }
                 }
 
-                NodeList<Node> path = functionDefinitionNode.relativeResourcePath();
-                if (Objects.nonNull(path) && !request.function().getName().getValue().equals(getPath(path))) {
-                    LinePosition startPos = path.get(0).lineRange().startLine();
-                    LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
-                    LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
-                    TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange),
-                            request.function().getName().getValue());
-                    edits.add(pathEdit);
+                if (!isRemoteFunction) {
+                    NodeList<Node> path = functionDefinitionNode.relativeResourcePath();
+                    if (Objects.nonNull(path) && !function.getName().getValue().equals(getPath(path))) {
+                        LinePosition startPos = path.get(0).lineRange().startLine();
+                        LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
+                        LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
+                        TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange),
+                                function.getName().getValue());
+                        edits.add(pathEdit);
+                    }
                 }
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
-                String functionSignature = getFunctionSignature(request.function(), statusCodeResponses);
+                String functionSignature = getFunctionSignature(function, statusCodeResponses);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
