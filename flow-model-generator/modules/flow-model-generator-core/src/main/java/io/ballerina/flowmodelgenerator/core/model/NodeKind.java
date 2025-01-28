@@ -66,5 +66,6 @@ public enum NodeKind {
     CLASS,
     OBJECT,
     INTERSECTION,
-    SERVICE_DECLARATION
+    SERVICE_DECLARATION,
+    TABLE
 }

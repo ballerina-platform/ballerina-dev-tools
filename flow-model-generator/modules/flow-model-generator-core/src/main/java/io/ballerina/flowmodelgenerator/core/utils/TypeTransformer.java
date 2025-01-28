@@ -41,6 +41,7 @@ import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -331,6 +332,48 @@ public class TypeTransformer {
         return typeDataBuilder.build();
     }
 
+    public Object transform(TableTypeSymbol tableTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        typeDataBuilder
+                .codedata()
+                    .node(NodeKind.TABLE)
+                    .stepOut()
+                .properties()
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false);
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+
+        Map<String, Member> memberTypes = new HashMap<>();
+
+        // row type
+        TypeSymbol rowTypeSymbol = tableTypeSymbol.rowTypeParameter();
+        Object transformedRowType = transform(rowTypeSymbol, new TypeData.TypeDataBuilder());
+        Member rowTypeMember = memberBuilder
+                .name("rowType")
+                .kind(Member.MemberKind.TYPE)
+                .type(transformedRowType)
+                .refs(transformedRowType instanceof String ?
+                        TypeUtils.getTypeRefIds(rowTypeSymbol, moduleInfo) : List.of())
+                .build();
+        memberTypes.putIfAbsent(rowTypeMember.name(), rowTypeMember);
+
+        // key constraint type
+        tableTypeSymbol.keyConstraintTypeParameter().ifPresent(typeSymbol -> {
+            Object transformedKeyConstraintType = transform(typeSymbol, new TypeData.TypeDataBuilder());
+            Member keyConstraintTypeMember = memberBuilder
+                    .name("keyConstraintType")
+                    .kind(Member.MemberKind.TYPE)
+                    .type(transformedKeyConstraintType)
+                    .refs(transformedKeyConstraintType instanceof String ?
+                            TypeUtils.getTypeRefIds(typeSymbol, moduleInfo) : List.of())
+                    .build();
+            memberTypes.putIfAbsent(keyConstraintTypeMember.name(), keyConstraintTypeMember);
+        });
+        typeDataBuilder.members(memberTypes);
+
+        return typeDataBuilder.build();
+    }
+
     public Object transform(ArrayTypeSymbol arrayTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
         return transformTypesWithConstraintType(arrayTypeSymbol, NodeKind.ARRAY, typeDataBuilder);
     }
@@ -367,6 +410,7 @@ public class TypeTransformer {
             case UNION -> transform((UnionTypeSymbol) typeSymbol, typeDataBuilder);
             case INTERSECTION -> transform((IntersectionTypeSymbol) typeSymbol, typeDataBuilder);
             case OBJECT -> transform((ObjectTypeSymbol) typeSymbol, typeDataBuilder);
+            case TABLE -> transform((TableTypeSymbol) typeSymbol, typeDataBuilder);
             default -> CommonUtils.getTypeSignature(typeSymbol, this.moduleInfo);
         };
     }
