@@ -22,7 +22,13 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
+import io.ballerina.testmanagerservice.extension.model.TestFunction;
+import io.ballerina.testmanagerservice.extension.request.AddTestFunctionRequest;
+import io.ballerina.testmanagerservice.extension.request.GetTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.request.TestsDiscoveryRequest;
+import io.ballerina.testmanagerservice.extension.request.UpdateTestFunctionRequest;
+import io.ballerina.testmanagerservice.extension.response.CommonSourceResponse;
+import io.ballerina.testmanagerservice.extension.response.GetTestFunctionResponse;
 import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -107,6 +113,58 @@ public class TestManagerService implements ExtendedLanguageServerService {
                 return TestsDiscoveryResponse.from(moduleTestDetailsHolder.getGroupsToFunctions());
             } catch (Throwable e) {
                 return TestsDiscoveryResponse.from(e);
+            }
+        });
+    }
+
+    /**
+     * Get the test function model for the given test function.
+     *
+     * @param request the request to get the test function model
+     * @return the response to get the test function model
+     */
+    @JsonRequest
+    public CompletableFuture<GetTestFunctionResponse> getTestFunction(GetTestFunctionRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                TestFunction testFunction = new TestFunction(null, null, null);
+                return GetTestFunctionResponse.from(testFunction);
+            } catch (Throwable e) {
+                return GetTestFunctionResponse.from(e);
+            }
+        });
+    }
+
+    /**
+     * Add a test function to the given test function.
+     *
+     * @param request the request to get the test function model
+     * @return the response to get the test function model
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> addTestFunction(AddTestFunctionRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return new CommonSourceResponse();
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Update the test function model for the given test function.
+     *
+     * @param request the request to get the test function model
+     * @return the response to get the test function model
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateTestFunction(UpdateTestFunctionRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return new CommonSourceResponse();
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
             }
         });
     }
