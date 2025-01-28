@@ -99,6 +99,12 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
+    public CompletableFuture<TypeResponse> getGraphqlType(GetTypeRequest request) {
+        // TODO: Different implementation may be needed with future requirements
+        return getType(request);
+    }
+
+    @JsonRequest
     public CompletableFuture<TypeUpdateResponse> updateType(TypeUpdateRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             TypeUpdateResponse response = new TypeUpdateResponse();
