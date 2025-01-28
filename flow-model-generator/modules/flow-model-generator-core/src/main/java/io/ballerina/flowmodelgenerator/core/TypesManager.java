@@ -149,7 +149,7 @@ public class TypesManager {
             }
         }
 
-        return gson.toJsonTree(new TypeDataWithRefs(type, refs));
+        return gson.toJsonTree(new TypeDataWithRefs(type, refs.values().stream().toList()));
     }
 
     public JsonElement updateType(Path filePath, TypeData typeData) {
@@ -449,6 +449,6 @@ public class TypesManager {
         return recordBuilder.toString();
     }
 
-    record TypeDataWithRefs(Object type, Map<String, Object> refs) {
+    record TypeDataWithRefs(Object type, List<Object> refs) {
     }
 }

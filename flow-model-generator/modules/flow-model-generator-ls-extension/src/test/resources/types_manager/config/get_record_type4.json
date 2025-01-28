@@ -247,8 +247,8 @@
     },
     "includes": []
   },
-  "refs": {
-    "UserAddress": {
+  "refs": [
+    {
       "name": "UserAddress",
       "editable": true,
       "metadata": {
@@ -397,7 +397,7 @@
         "City"
       ]
     },
-    "City": {
+    {
       "name": "City",
       "editable": true,
       "metadata": {
@@ -482,5 +482,5 @@
       ],
       "includes": []
     }
-  }
+  ]
 }

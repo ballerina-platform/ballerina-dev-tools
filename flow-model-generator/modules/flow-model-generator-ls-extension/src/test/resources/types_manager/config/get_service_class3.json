@@ -126,8 +126,8 @@
       }
     ]
   },
-  "refs": {
-    "UserName": {
+  "refs": [
+    {
       "name": "UserName",
       "editable": true,
       "metadata": {
@@ -205,7 +205,7 @@
       ],
       "includes": []
     },
-    "Address": {
+    {
       "name": "Address",
       "editable": true,
       "metadata": {
@@ -297,7 +297,7 @@
       ],
       "includes": []
     },
-    "UserProfile": {
+    {
       "editable": false,
       "codedata": {
         "node": "CLASS",
@@ -407,7 +407,7 @@
         }
       ]
     },
-    "AbstractProfile": {
+    {
       "name": "AbstractProfile",
       "editable": true,
       "metadata": {
@@ -501,5 +501,5 @@
       ],
       "includes": []
     }
-  }
+  ]
 }

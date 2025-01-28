@@ -149,8 +149,8 @@
     ],
     "includes": []
   },
-  "refs": {
-    "Address": {
+  "refs": [
+    {
       "name": "Address",
       "editable": true,
       "metadata": {
@@ -256,7 +256,7 @@
       ],
       "includes": []
     },
-    "ballerina/time:Utc": {
+    {
       "name": "ballerina/time:Utc",
       "editable": true,
       "metadata": {
@@ -342,5 +342,5 @@
         }
       ]
     }
-  }
+  ]
 }

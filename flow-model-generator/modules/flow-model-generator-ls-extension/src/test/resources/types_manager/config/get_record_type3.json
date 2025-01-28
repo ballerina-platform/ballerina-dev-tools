@@ -155,8 +155,8 @@
       "Person"
     ]
   },
-  "refs": {
-    "Address": {
+  "refs": [
+    {
       "name": "Address",
       "editable": true,
       "metadata": {
@@ -262,7 +262,7 @@
       ],
       "includes": []
     },
-    "ballerina/time:Utc": {
+    {
       "name": "ballerina/time:Utc",
       "editable": true,
       "metadata": {
@@ -348,7 +348,7 @@
         }
       ]
     },
-    "Person": {
+    {
       "name": "Person",
       "editable": true,
       "metadata": {
@@ -492,5 +492,5 @@
       ],
       "includes": []
     }
-  }
+  ]
 }

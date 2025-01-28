@@ -119,8 +119,8 @@
       }
     ]
   },
-  "refs": {
-    "Profile": {
+  "refs": [
+    {
       "name": "Profile",
       "editable": true,
       "metadata": {
@@ -181,5 +181,5 @@
         }
       ]
     }
-  }
+  ]
 }
