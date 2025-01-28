@@ -106,5 +106,68 @@
         ]
       }
     ]
+  },
+  "refs": {
+    "Profile": {
+      "name": "Profile",
+      "editable": true,
+      "metadata": {
+        "label": "Profile",
+        "description": ""
+      },
+      "codedata": {
+        "node": "OBJECT",
+        "lineRange": {
+          "fileName": "class.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 12
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Profile",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "members": {},
+      "includes": [],
+      "functions": [
+        {
+          "accessor": "get",
+          "qualifiers": [
+            "RESOURCE"
+          ],
+          "parameters": {},
+          "kind": "RESOURCE",
+          "resourcePath": "name",
+          "returnType": "string",
+          "returnTypeRefs": []
+        }
+      ]
+    }
   }
 }

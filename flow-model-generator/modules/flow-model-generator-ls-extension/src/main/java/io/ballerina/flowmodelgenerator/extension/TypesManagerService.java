@@ -88,8 +88,9 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
-                JsonElement type = typesManager.getType(document.get(), request.linePosition());
-                response.setType(type);
+                JsonElement result = typesManager.getType(document.get(), request.linePosition());
+                response.setType(result.getAsJsonObject().getAsJsonObject("type"));
+                response.setRefs(result.getAsJsonObject().getAsJsonObject("refs"));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

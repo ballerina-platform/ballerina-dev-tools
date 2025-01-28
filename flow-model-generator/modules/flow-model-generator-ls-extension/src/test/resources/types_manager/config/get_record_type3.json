@@ -153,5 +153,342 @@
     "includes": [
       "Person"
     ]
+  },
+  "refs": {
+    "Address": {
+      "name": "Address",
+      "editable": true,
+      "metadata": {
+        "label": "Address",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 12
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Address",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "country": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "country",
+          "docs": ""
+        },
+        "city": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        "houseNo": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "houseNo",
+          "docs": ""
+        },
+        "line2": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "line2",
+          "docs": ""
+        },
+        "line1": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "line1",
+          "docs": ""
+        }
+      },
+      "includes": []
+    },
+    "ballerina/time:Utc": {
+      "name": "ballerina/time:Utc",
+      "editable": true,
+      "metadata": {
+        "label": "ballerina/time:Utc",
+        "description": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second)."
+      },
+      "codedata": {
+        "node": "INTERSECTION",
+        "lineRange": {
+          "fileName": "time_types.bal",
+          "startLine": {
+            "line": 41,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 15
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "ballerina/time:Utc",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second).",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": {
+        "readonly": {
+          "kind": "TYPE",
+          "refs": [
+            "readonly"
+          ],
+          "type": "readonly",
+          "name": "readonly"
+        },
+        "[int, decimal]": {
+          "kind": "TYPE",
+          "refs": [
+            "[int, decimal]"
+          ],
+          "type": "[int, decimal]",
+          "name": "[int, decimal]"
+        }
+      }
+    },
+    "Person": {
+      "name": "Person",
+      "editable": true,
+      "metadata": {
+        "label": "Person",
+        "description": "Person record\nUsed to represent person object"
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 12,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 11
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Person",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "Person record\nUsed to represent person object",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": {
+        "addresses": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": {
+              "Address": {
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            }
+          },
+          "name": "addresses",
+          "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
+          "docs": "addresses of the person"
+        },
+        "dob": {
+          "kind": "FIELD",
+          "refs": [
+            "ballerina/time:Utc"
+          ],
+          "type": "time:Utc",
+          "name": "dob",
+          "defaultValue": "getDefaultDob()",
+          "docs": "date of birth"
+        },
+        "name": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "defaultValue": "\"John\"",
+          "docs": "name of the person"
+        },
+        "id": {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "id",
+          "defaultValue": "12",
+          "docs": "id of the person"
+        }
+      },
+      "includes": []
+    }
   }
 }

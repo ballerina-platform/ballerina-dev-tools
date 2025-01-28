@@ -23,12 +23,20 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
+import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -129,27 +137,14 @@ public class TypesManager {
             return null;
         }
 
-        TypeTransformer typeTransformer = new TypeTransformer(this.module);
+        Map<String, Object> refs = new HashMap<>();
 
-        switch (symbol.get().kind()) {
-            case TYPE_DEFINITION -> {
-                TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol.get();
-                return gson.toJsonTree(typeTransformer.transform(typeDef));
-            }
-            case SERVICE_DECLARATION -> {
-                return null;
-            }
-            case CLASS -> {
-                ClassSymbol classSymbol = (ClassSymbol) symbol.get();
-                return gson.toJsonTree(typeTransformer.transform(classSymbol));
-            }
-            case ENUM -> {
-                return null;
-            }
-            default -> {
-                return null;
-            }
+        Object type = getTypeData(symbol.get());
+        TypeSymbol typeDescriptor = getTypeDescriptor(symbol.get());
+        if (typeDescriptor != null) {
+            addDependencyTypes(typeDescriptor, refs);
         }
+        return gson.toJsonTree(new TypeDataWithRefs(type, refs));
     }
 
     public JsonElement updateType(Path filePath, TypeData typeData) {
@@ -229,6 +224,28 @@ public class TypesManager {
         }
     }
 
+    private Object getTypeData(Symbol symbol) {
+        TypeTransformer typeTransformer = new TypeTransformer(this.module);
+        return switch (symbol.kind()) {
+            case TYPE_DEFINITION -> typeTransformer.transform((TypeDefinitionSymbol) symbol);
+            case CLASS -> typeTransformer.transform((ClassSymbol) symbol);
+//            case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
+//            case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
+            default ->  null;
+        };
+    }
+
+    // Get type descriptor from the symbol
+    private TypeSymbol getTypeDescriptor(Symbol symbol) {
+        return switch (symbol.kind()) {
+            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) symbol).typeDescriptor();
+            case CLASS -> ((ClassSymbol) symbol);
+//            case ENUM -> ((EnumSymbol) symbol).typeDescriptor();
+//            case SERVICE_DECLARATION -> ((ServiceDeclarationSymbol) symbol).typeDescriptor();
+            default -> null;
+        };
+    }
+
     private void addToMapIfForeignAndNotAdded(Map<String, Symbol> foreignSymbols, TypeSymbol type) {
         if (type.typeKind() != TypeDescKind.TYPE_REFERENCE
                 || type.getName().isEmpty()
@@ -245,6 +262,112 @@ public class TypesManager {
         String typeName = TypeUtils.generateReferencedTypeId(type, ModuleInfo.from(this.module.descriptor()));
         if (!foreignSymbols.containsKey(name)) {
             foreignSymbols.put(typeName, type);
+        }
+    }
+
+    // Recursive call to get Types
+    private void addDependencyTypes(TypeSymbol typeSymbol, Map<String, Object> references) {
+        switch (typeSymbol.typeKind()) {
+            case RECORD -> {
+                RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
+
+                // type inclusions
+                recordTypeSymbol.typeInclusions().forEach(includedType -> {
+                    addDependencyTypes(includedType, references);
+                });
+
+                // members
+                recordTypeSymbol.fieldDescriptors().forEach((key, field) -> {
+                    addDependencyTypes(field.typeDescriptor(), references);
+                });
+
+                // rest member
+                if (recordTypeSymbol.restTypeDescriptor().isPresent()) {
+                    addDependencyTypes(recordTypeSymbol.restTypeDescriptor().get(), references);
+                }
+            }
+            case ARRAY -> {
+                addDependencyTypes(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), references);
+            }
+            case UNION -> {
+                ((UnionTypeSymbol) typeSymbol).memberTypeDescriptors().forEach(memberTypes -> {
+                    addDependencyTypes(memberTypes, references);
+                });
+            }
+            case ERROR -> {
+                addDependencyTypes(((ErrorTypeSymbol) typeSymbol).detailTypeDescriptor(), references);
+            }
+            case FUTURE -> {
+                Optional<TypeSymbol> typeParam = ((FutureTypeSymbol) typeSymbol).typeParameter();
+                if (typeParam.isEmpty()) {
+                    return;
+                }
+                addDependencyTypes(typeParam.get(), references);
+            }
+            case MAP -> {
+                TypeSymbol typeParam = ((MapTypeSymbol) typeSymbol).typeParam();
+                addDependencyTypes(typeParam, references);
+            }
+            case STREAM -> {
+                TypeSymbol typeParam = ((StreamTypeSymbol) typeSymbol).typeParameter();
+                addDependencyTypes(typeParam, references);
+            }
+            case INTERSECTION -> {
+                ((IntersectionTypeSymbol) typeSymbol).memberTypeDescriptors().forEach(memberTypes -> {
+                    addDependencyTypes(memberTypes, references);
+                });
+            }
+            case TABLE -> {
+                TableTypeSymbol tableTypeSymbol = (TableTypeSymbol) typeSymbol;
+                addDependencyTypes(tableTypeSymbol.rowTypeParameter(), references);
+                if (tableTypeSymbol.keyConstraintTypeParameter().isPresent()) {
+                    addDependencyTypes(tableTypeSymbol.keyConstraintTypeParameter().get(), references);
+                }
+            }
+            case OBJECT -> {
+                ObjectTypeSymbol objectTypeSymbol = (ObjectTypeSymbol) typeSymbol;
+
+                // inclusions
+                objectTypeSymbol.typeInclusions().forEach(includedType -> {
+                    addDependencyTypes(includedType, references);
+                });
+
+                // attributes
+                objectTypeSymbol.fieldDescriptors().forEach((key, field) -> {
+                    addDependencyTypes(field.typeDescriptor(), references);
+                });
+
+                // methods
+                objectTypeSymbol.methods().forEach((key, method) -> {
+                    // params
+                    method.typeDescriptor().params().ifPresent(params -> params.forEach(param -> {
+                                addDependencyTypes(param.typeDescriptor(), references);
+                    }));
+
+                    // return type
+                    method.typeDescriptor().returnTypeDescriptor().ifPresent(returnType -> {
+                        addDependencyTypes(returnType, references);
+                    });
+
+                    // rest param
+                    method.typeDescriptor().restParam().ifPresent(restParam -> {
+                        addDependencyTypes(restParam.typeDescriptor(), references);
+                    });
+                });
+            }
+            case FUNCTION, TUPLE -> {
+                // TODO: Implement
+            }
+            case TYPE_REFERENCE -> {
+                Symbol definition = ((TypeReferenceTypeSymbol) typeSymbol).definition();
+                String typeName = TypeUtils.generateReferencedTypeId(typeSymbol, ModuleInfo.from(this.module.descriptor()));
+                references.putIfAbsent(typeName, getTypeData(definition));
+                if (CommonUtils.isWithinPackage(definition, ModuleInfo.from(this.module.descriptor()))) {
+                    addDependencyTypes(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor(), references);
+                }
+            }
+            default -> {
+            }
         }
     }
 
@@ -296,4 +419,6 @@ public class TypesManager {
 
         return recordBuilder.toString();
     }
+
+    record TypeDataWithRefs(Object type, Map<String, Object> refs) {}
 }

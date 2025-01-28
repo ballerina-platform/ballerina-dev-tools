@@ -27,6 +27,7 @@ import com.google.gson.JsonElement;
  */
 public class TypeResponse extends AbstractFlowModelResponse {
     private JsonElement type;
+    private JsonElement refs;
 
     public TypeResponse() {
     }
@@ -37,5 +38,13 @@ public class TypeResponse extends AbstractFlowModelResponse {
 
     public void setType(JsonElement type) {
         this.type = type;
+    }
+
+    public JsonElement getRefs() {
+        return refs;
+    }
+
+    public void setRefs(JsonElement refs) {
+        this.refs = refs;
     }
 }

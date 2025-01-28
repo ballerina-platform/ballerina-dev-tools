@@ -27,12 +27,13 @@ public class GetTypeTest extends AbstractLSTest {
         GetTypeRequest request = new GetTypeRequest(
                 sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(),
                 testConfig.position());
-        JsonElement response = getResponse(request).getAsJsonObject("type");
-        if (!response.equals(testConfig.type())) {
+        JsonElement typeResponse = getResponse(request).getAsJsonObject("type");
+        JsonElement refsResponse = getResponse(request).getAsJsonObject("refs");
+        if (!typeResponse.equals(testConfig.type()) || !refsResponse.equals(testConfig.refs())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.position(),
-                    testConfig.description(), response);
+                    testConfig.description(), typeResponse, refsResponse);
 //            updateConfig(configJsonPath, updateConfig);
-            compareJsonElements(response, testConfig.type());
+            compareJsonElements(typeResponse, testConfig.type());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -72,6 +73,10 @@ public class GetTypeTest extends AbstractLSTest {
         return "typesManager";
     }
 
-    private record TestConfig(String filePath, LinePosition position, String description, JsonElement type) {
+    private record TestConfig(String filePath,
+                              LinePosition position,
+                              String description,
+                              JsonElement type,
+                              JsonElement refs) {
     }
 }
