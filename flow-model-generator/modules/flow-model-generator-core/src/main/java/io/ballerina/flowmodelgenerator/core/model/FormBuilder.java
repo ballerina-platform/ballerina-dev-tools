@@ -774,6 +774,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> qualifiers(List<String> value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                .label(Property.TYPE_QUALIFIERS_LABEL)
+                .description(Property.TYPE_QUALIFIERS_DOC)
+                .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.MULTIPLE_SELECT);
+        addProperty(Property.QUALIFIERS_KEY);
+        return this;
+    }
+
     public FormBuilder<T> waitAll(boolean value) {
         propertyBuilder
                 .metadata()

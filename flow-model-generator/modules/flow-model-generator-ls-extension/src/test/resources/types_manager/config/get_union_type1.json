@@ -1,28 +1,28 @@
 {
   "filePath": "test_pack1/types.bal",
   "position": {
-    "line": 37,
+    "line": 63,
     "offset": 5
   },
   "description": "Get a record type data",
   "type": {
-    "name": "Student",
+    "name": "Misc",
     "editable": true,
     "metadata": {
-      "label": "Student",
+      "label": "Misc",
       "description": ""
     },
     "codedata": {
-      "node": "RECORD",
+      "node": "UNION",
       "lineRange": {
         "fileName": "types.bal",
         "startLine": {
-          "line": 37,
+          "line": 63,
           "offset": 5
         },
         "endLine": {
-          "line": 37,
-          "offset": 12
+          "line": 63,
+          "offset": 9
         }
       }
     },
@@ -33,7 +33,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "Student",
+        "value": "Misc",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -67,95 +67,115 @@
         },
         "valueType": "STRING",
         "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "optional": false,
+        "editable": false,
+        "advanced": false
       }
     },
     "members": [
       {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "studentId",
-        "defaultValue": "22",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "ARRAY"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "true",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [
-                "Address"
-              ],
-              "type": "Address",
-              "name": "Address"
-            }
-          ]
-        },
-        "name": "addresses",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
+        "kind": "TYPE",
         "refs": [
-          "ballerina/time:Utc"
+          "Color"
         ],
-        "type": "time:Utc",
-        "name": "dob",
-        "docs": ""
+        "type": "Color",
+        "name": "Color"
       },
       {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": ""
+        "kind": "TYPE",
+        "refs": [
+          "Employees"
+        ],
+        "type": "Employees",
+        "name": "Employees"
       },
       {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
-        "docs": ""
+        "kind": "TYPE",
+        "refs": [
+          "Person"
+        ],
+        "type": "Person",
+        "name": "Person"
       }
-    ],
-    "includes": [
-      "Person"
     ]
   },
   "refs": [
+    {
+      "name": "Names",
+      "editable": true,
+      "metadata": {
+        "label": "Names",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ARRAY",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 59,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 59,
+            "offset": 10
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Names",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": "string",
+          "name": "string"
+        }
+      ]
+    },
     {
       "name": "Address",
       "editable": true,
@@ -345,6 +365,137 @@
           ],
           "type": "[int, decimal]",
           "name": "[int, decimal]"
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "editable": true,
+      "metadata": {
+        "label": "Employees",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ARRAY",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 53,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 53,
+            "offset": 14
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Employees",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "RECORD"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              }
+            },
+            "members": [
+              {
+                "kind": "FIELD",
+                "refs": [
+                  "Names"
+                ],
+                "type": "Names",
+                "name": "otherNames",
+                "docs": ""
+              },
+              {
+                "kind": "FIELD",
+                "refs": [],
+                "type": "string",
+                "name": "name",
+                "docs": ""
+              },
+              {
+                "kind": "FIELD",
+                "refs": [],
+                "type": "int",
+                "name": "id",
+                "docs": ""
+              }
+            ],
+            "includes": []
+          },
+          "name": "record {|int id; string name; Names otherNames;|}"
         }
       ]
     },

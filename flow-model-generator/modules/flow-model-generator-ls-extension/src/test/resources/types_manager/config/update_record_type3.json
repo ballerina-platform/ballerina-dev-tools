@@ -68,8 +68,8 @@
         "advanced": true
       }
     },
-    "members": {
-      "user": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [
           "Person"
@@ -78,7 +78,7 @@
         "name": "user",
         "docs": ""
       },
-      "id": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
@@ -86,7 +86,7 @@
         "docs": "",
         "defaultValue": "23"
       }
-    },
+    ],
     "includes": [
       "Person"
     ]

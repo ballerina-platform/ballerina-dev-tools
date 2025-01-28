@@ -46,15 +46,23 @@ enum Color {
     GREEN
 };
 
+enum Gender {
+    MALE = "male",
+    FEMALE = "female"
+}
+
 type Employees record {|
     int id;
     string name;
+    Names otherNames;
 |}[];
 
 type Names string[];
 
-type User [Person, int];
+type PersonWithId [int, Person];
 
 type Misc Person|Employees|Color;
 
 type PersonError error<Person>;
+
+type AddressTable table<Address> key<string|int>;

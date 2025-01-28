@@ -69,43 +69,43 @@
           "advanced": true
         }
       },
-      "members": {
-        "country": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
-        "houseNo": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "houseNo",
           "docs": ""
         },
-        "line2": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line2",
           "docs": ""
         },
-        "line1": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line1",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     },
     {
@@ -175,38 +175,176 @@
           "advanced": true
         }
       },
-      "members": {
-        "mixField2": {
+      "members": [
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address",
-            "Person"
-          ],
-          "type": "Address|Person|int",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
           "name": "mixField2",
           "docs": ""
         },
-        "mixField3": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "map<Address>",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "MAP"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "mixField3",
           "docs": ""
         },
-        "mixField1": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "ballerina/time:Utc",
-            "Person",
-            "Address"
-          ],
-          "type": "time:Utc|Person|Address",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "ballerina/time:Utc"
+                ],
+                "type": "time:Utc",
+                "name": "time:Utc"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              }
+            ]
+          },
           "name": "mixField1",
           "docs": ""
         }
-      },
+      ],
       "includes": []
     },
     {
@@ -276,8 +414,8 @@
           "advanced": true
         }
       },
-      "members": {
-        "studentId": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
@@ -285,16 +423,53 @@
           "defaultValue": "22",
           "docs": ""
         },
-        "addresses": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "addresses",
           "docs": ""
         },
-        "dob": {
+        {
           "kind": "FIELD",
           "refs": [
             "ballerina/time:Utc"
@@ -303,21 +478,21 @@
           "name": "dob",
           "docs": ""
         },
-        "name": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
           "docs": ""
         },
-        "id": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "id",
           "docs": ""
         }
-      },
+      ],
       "includes": [
         "Person"
       ]
@@ -389,18 +564,55 @@
           "advanced": true
         }
       },
-      "members": {
-        "addresses": {
+      "members": [
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "addresses",
           "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
           "docs": "addresses of the person"
         },
-        "dob": {
+        {
           "kind": "FIELD",
           "refs": [
             "ballerina/time:Utc"
@@ -410,7 +622,7 @@
           "defaultValue": "getDefaultDob()",
           "docs": "date of birth"
         },
-        "name": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
@@ -418,7 +630,7 @@
           "defaultValue": "\"John\"",
           "docs": "name of the person"
         },
-        "id": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
@@ -426,7 +638,7 @@
           "defaultValue": "12",
           "docs": "id of the person"
         }
-      },
+      ],
       "includes": []
     }
   ]
