@@ -198,7 +198,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName)) {
                 continue;
             }
-            listeners.add(variableSymbol.getName().orElse(""));
+            variableSymbol.getName().ifPresent(listeners::add);
         }
         return listeners;
     }
@@ -542,21 +542,21 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            Set<String> listenersSet = getCompatibleListeners(serviceName.get(), semanticModel);
+            Set<String> listeners = getCompatibleListeners(serviceName.get(), semanticModel);
             List<String> allValues = serviceModel.getListener().getValues();
             if (allValues.isEmpty()) {
-                listenersSet.add(serviceModel.getListener().getValue());
+                listeners.add(serviceModel.getListener().getValue());
             } else {
-                listenersSet.addAll(allValues);
+                listeners.addAll(allValues);
             }
             Value listener = serviceModel.getListener();
-            if (!listenersSet.isEmpty()) {
+            if (!listeners.isEmpty()) {
                 if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
                     listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
                 } else {
                     listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                 }
-                listener.setItems(listenersSet.stream().toList());
+                listener.setItems(listeners.stream().toList());
             }
             return new ServiceFromSourceResponse(serviceModel);
         });
