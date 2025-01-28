@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.symbols.AbsResourcePathAttachPoint;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
+import io.ballerina.compiler.api.symbols.EnumSymbol;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
@@ -38,11 +39,13 @@ import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.ServiceAttachPoint;
 import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.values.ConstantValue;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -169,14 +172,7 @@ public class TypeTransformer {
 
     public Object transform(TypeDefinitionSymbol typeDef) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
-        String typeName;
-        if (CommonUtils.isWithinPackage(typeDef, this.moduleInfo)) {
-            typeName = typeDef.getName().get();
-        } else {
-            ModuleID recTypeModuleId = typeDef.getModule().get().id();
-            typeName = String.format("%s/%s:%s",
-                    recTypeModuleId.orgName(), recTypeModuleId.packageName(), typeDef.getName().get());
-        }
+        String typeName = getTypeName(typeDef);
         typeDataBuilder
                 .name(typeName)
                 .editable()
@@ -197,6 +193,47 @@ public class TypeTransformer {
         }
 
         return transform(typeDef.typeDescriptor(), typeDataBuilder);
+    }
+
+    public Object transform(EnumSymbol enumSymbol) {
+        TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
+        String typeName = getTypeName(enumSymbol);
+        typeDataBuilder
+                .name(typeName)
+                .editable()
+                .metadata()
+                    .label(typeName)
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.ENUM)
+                    .lineRange(enumSymbol.getLocation().get().lineRange())
+                    .stepOut()
+                .properties()
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false);
+
+        if (enumSymbol.documentation().isPresent()) {
+            String doc = getDocumentString(enumSymbol);
+            typeDataBuilder
+                    .metadata().description(getDocumentString(enumSymbol)).stepOut()
+                    .properties().description(doc, false, true, false);
+        }
+
+        Map<String, Member> members = new HashMap<>();
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        enumSymbol.members().forEach(enumMember -> {
+            String name = enumMember.getName().get();
+            Member member = memberBuilder
+                    .name(name)
+                    .kind(Member.MemberKind.NAME)
+                    .type(((ConstantValue) enumMember.constValue()).value().toString())
+                    .refs(List.of())
+                    .build();
+            members.putIfAbsent(name, member);
+        });
+        typeDataBuilder.members(members);
+
+        return typeDataBuilder.build();
     }
 
     public Object transform(RecordTypeSymbol recordTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
@@ -508,5 +545,17 @@ public class TypeTransformer {
                     String.join("/", ((AbsResourcePathAttachPoint) attachPoint).segments());
             case STRING_LITERAL -> ((LiteralAttachPoint) attachPoint).literal();
         };
+    }
+
+    private String getTypeName(Symbol symbol) {
+        String typeName;
+        if (CommonUtils.isWithinPackage(symbol, this.moduleInfo)) {
+            typeName = symbol.getName().get();
+        } else {
+            ModuleID recTypeModuleId = symbol.getModule().get().id();
+            typeName = String.format("%s/%s:%s",
+                    recTypeModuleId.orgName(), recTypeModuleId.packageName(), symbol.getName().get());
+        }
+        return typeName;
     }
 }

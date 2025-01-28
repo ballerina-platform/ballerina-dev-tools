@@ -23,6 +23,7 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.EnumSymbol;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -234,7 +235,7 @@ public class TypesManager {
         return switch (symbol.kind()) {
             case TYPE_DEFINITION -> typeTransformer.transform((TypeDefinitionSymbol) symbol);
             case CLASS -> typeTransformer.transform((ClassSymbol) symbol);
-//            case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
+            case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
             case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
             default ->  null;
         };
@@ -245,8 +246,6 @@ public class TypesManager {
         return switch (symbol.kind()) {
             case TYPE_DEFINITION -> ((TypeDefinitionSymbol) symbol).typeDescriptor();
             case CLASS -> ((ClassSymbol) symbol);
-//            case ENUM -> ((EnumSymbol) symbol).typeDescriptor();
-//            case SERVICE_DECLARATION -> ((ServiceDeclarationSymbol) symbol).typeDescriptor().get();
             default -> null;
         };
     }
