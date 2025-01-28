@@ -7,7 +7,7 @@ type Profile distinct service object {
 distinct service class Teacher {
     *Profile;
 
-    private final string name;
+    private string name;
     private final string subject;
 
     function init(string name, string subject) {
@@ -31,7 +31,7 @@ distinct service class Teacher {
 distinct service class Student {
     *Profile;
 
-    private final string name;
+    private string name;
 
     function init(string name) {
         self.name = name;

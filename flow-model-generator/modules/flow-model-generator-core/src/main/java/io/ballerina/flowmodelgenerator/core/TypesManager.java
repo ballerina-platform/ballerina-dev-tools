@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -137,13 +138,18 @@ public class TypesManager {
             return null;
         }
 
-        Map<String, Object> refs = new HashMap<>();
-
         Object type = getTypeData(symbol.get());
-        TypeSymbol typeDescriptor = getTypeDescriptor(symbol.get());
-        if (typeDescriptor != null) {
-            addDependencyTypes(typeDescriptor, refs);
+
+        Map<String, Object> refs = new HashMap<>();
+        if (symbol.get().kind() == SymbolKind.SERVICE_DECLARATION) {
+            addDependencyTypes((ServiceDeclarationSymbol) symbol.get(), refs);
+        } else {
+            TypeSymbol typeDescriptor = getTypeDescriptor(symbol.get());
+            if (typeDescriptor != null) {
+                addDependencyTypes(typeDescriptor, refs);
+            }
         }
+
         return gson.toJsonTree(new TypeDataWithRefs(type, refs));
     }
 
@@ -230,7 +236,7 @@ public class TypesManager {
             case TYPE_DEFINITION -> typeTransformer.transform((TypeDefinitionSymbol) symbol);
             case CLASS -> typeTransformer.transform((ClassSymbol) symbol);
 //            case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
-//            case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
+            case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
             default ->  null;
         };
     }
@@ -241,7 +247,7 @@ public class TypesManager {
             case TYPE_DEFINITION -> ((TypeDefinitionSymbol) symbol).typeDescriptor();
             case CLASS -> ((ClassSymbol) symbol);
 //            case ENUM -> ((EnumSymbol) symbol).typeDescriptor();
-//            case SERVICE_DECLARATION -> ((ServiceDeclarationSymbol) symbol).typeDescriptor();
+//            case SERVICE_DECLARATION -> ((ServiceDeclarationSymbol) symbol).typeDescriptor().get();
             default -> null;
         };
     }
@@ -266,7 +272,31 @@ public class TypesManager {
         }
     }
 
-    // Recursive call to get Types
+    private void addDependencyTypes(ServiceDeclarationSymbol serviceDeclarationSymbol, Map<String, Object> references) {
+        // attributes
+        serviceDeclarationSymbol.fieldDescriptors().forEach((key, field) -> {
+            addDependencyTypes(field.typeDescriptor(), references);
+        });
+
+        // methods
+        serviceDeclarationSymbol.methods().forEach((key, method) -> {
+            // params
+            method.typeDescriptor().params().ifPresent(params -> params.forEach(param -> {
+                addDependencyTypes(param.typeDescriptor(), references);
+            }));
+
+            // return type
+            method.typeDescriptor().returnTypeDescriptor().ifPresent(returnType -> {
+                addDependencyTypes(returnType, references);
+            });
+
+            // rest param
+            method.typeDescriptor().restParam().ifPresent(restParam -> {
+                addDependencyTypes(restParam.typeDescriptor(), references);
+            });
+        });
+    }
+
     private void addDependencyTypes(TypeSymbol typeSymbol, Map<String, Object> references) {
         switch (typeSymbol.typeKind()) {
             case RECORD -> {

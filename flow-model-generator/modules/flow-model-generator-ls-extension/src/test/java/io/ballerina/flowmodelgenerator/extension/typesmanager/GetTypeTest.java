@@ -1,6 +1,7 @@
 package io.ballerina.flowmodelgenerator.extension.typesmanager;
 
 import com.google.gson.JsonElement;
+import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.tools.text.LinePosition;
@@ -28,6 +29,7 @@ public class GetTypeTest extends AbstractLSTest {
                 sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(),
                 testConfig.position());
         JsonElement typeResponse = getResponse(request).getAsJsonObject("type");
+        gson.fromJson(typeResponse, TypeData.class);
         JsonElement refsResponse = getResponse(request).getAsJsonObject("refs");
         if (!typeResponse.equals(testConfig.type()) || !refsResponse.equals(testConfig.refs())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.position(),
@@ -50,6 +52,7 @@ public class GetTypeTest extends AbstractLSTest {
                 {Path.of("get_union_type1.json")},
                 {Path.of("get_service_class1.json")},
                 {Path.of("get_service_class2.json")},
+                {Path.of("get_service_class3.json")},
         };
     }
 

@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.symbols.AbsResourcePathAttachPoint;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
@@ -26,11 +27,16 @@ import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.LiteralAttachPoint;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ObjectFieldSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.ServiceAttachPoint;
+import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -55,6 +61,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Transformer to transform Ballerina type symbols to type data.
+ * @since 2.0.0
+ */
 public class TypeTransformer {
     private final Module module;
     private final ModuleInfo moduleInfo;
@@ -63,6 +73,41 @@ public class TypeTransformer {
     public TypeTransformer(Module module) {
         this.module = module;
         this.moduleInfo = ModuleInfo.from(module.descriptor());
+    }
+
+    public Object transform(ServiceDeclarationSymbol serviceDeclarationSymbol) {
+        TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
+        String attachPoint = serviceDeclarationSymbol.attachPoint().map(this::getAttachPoint).orElse("");
+        List<String> qualifiers = serviceDeclarationSymbol.qualifiers().stream().map(Qualifier::getValue).toList();
+        typeDataBuilder
+                .name(attachPoint)
+                .editable()
+                .metadata()
+                    .label(attachPoint)
+                    .description(getDocumentString(serviceDeclarationSymbol))
+                    .stepOut()
+                .codedata()
+                    .node(NodeKind.SERVICE_DECLARATION)
+                    .lineRange(serviceDeclarationSymbol.getLocation().get().lineRange())
+                    .stepOut()
+                .properties()
+                    .name(attachPoint, false, true, false)
+                    .qualifiers(qualifiers, true, true, true)
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false);
+
+        // class fields
+        Map<String, Member> fieldMembers = new HashMap<>();
+        serviceDeclarationSymbol.fieldDescriptors().forEach((name, symbol) -> {
+            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
+        });
+        typeDataBuilder.members(fieldMembers);
+
+        // methods
+        List<Function> methods = transformMethodSymbols((Map<String, MethodSymbol>) serviceDeclarationSymbol.methods());
+        typeDataBuilder.functions(methods);
+
+        return typeDataBuilder.build();
     }
 
     public Object transform(ClassSymbol classSymbol) {
@@ -83,94 +128,15 @@ public class TypeTransformer {
         });
         typeDataBuilder.includes(includes);
 
-        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-
         // class fields
         Map<String, Member> fieldMembers = new HashMap<>();
-        classSymbol.fieldDescriptors().forEach((fieldName, fieldSymbol) -> {
-            TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
-            Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
-            Member member = memberBuilder
-                    .name(fieldName)
-                    .type(transformedAttributeType)
-                    .refs(transformedAttributeType instanceof String ?
-                            TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
-                    .docs(getDocumentString(fieldSymbol))
-                    .build();
-            fieldMembers.putIfAbsent(fieldName, member);
+        classSymbol.fieldDescriptors().forEach((name, symbol) -> {
+            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
         // methods
-        List<Function> methods = new ArrayList<>();
-        classSymbol.methods().forEach((name, methodSymbol) -> {
-            Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
-            FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
-
-            functionBuilder
-                    .kind(Function.FunctionKind.FUNCTION)
-                    .accessor(methodSymbol.getName().orElse(""));
-
-            // return type
-            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
-                        new TypeData.TypeDataBuilder());
-                functionBuilder
-                        .returnType(transformed)
-                        .returnTypeRefs(transformed instanceof String
-                                ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
-                                : List.of());
-            });
-
-            // params
-            functionTypeSymbol.params().ifPresent(params -> {
-                Map<String, Member> parameters = new HashMap<>();
-                params.forEach((param) -> {
-                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
-                    Member member = memberBuilder
-                            .name(param.getName().get())
-                            .type(transformedParamType)
-                            .refs(transformedParamType instanceof String ?
-                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
-                            .build();
-                    parameters.put(param.getName().get(), member);
-                });
-                functionBuilder.parameters(parameters);
-            });
-
-            // rest param
-            functionTypeSymbol.restParam().ifPresent(restParam -> {
-                Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
-                Member restParameter = memberBuilder
-                        .name(restParam.getName().get())
-                        .type(transformedRestParamType)
-                        .refs(transformedRestParamType instanceof String ?
-                                TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
-                        .build();
-                functionBuilder.restParameter(restParameter);
-            });
-
-
-            // qualifiers
-            List<String> qualifiers = new ArrayList<>();
-            methodSymbol.qualifiers().forEach(q -> {
-                qualifiers.add(q.name());
-                if (q.equals(Qualifier.REMOTE)) {
-                    functionBuilder.kind(Function.FunctionKind.REMOTE);
-                } else if (q.equals(Qualifier.RESOURCE)) {
-                    functionBuilder.kind(Function.FunctionKind.RESOURCE);
-                }
-            });
-            functionBuilder.qualifiers(qualifiers);
-
-            // resource path
-            // TODO: Need a structured schema for resourcePath
-            if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
-            }
-
-            methods.add(functionBuilder.build());
-        });
+        List<Function> methods = transformMethodSymbols(classSymbol.methods());
         typeDataBuilder.functions(methods);
 
         return typeDataBuilder.build();
@@ -186,27 +152,36 @@ public class TypeTransformer {
         });
         typeDataBuilder.includes(includes);
 
-        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-
         // object fields
         Map<String, Member> fieldMembers = new HashMap<>();
-        objectTypeSymbol.fieldDescriptors().forEach((fieldName, fieldSymbol) -> {
-            TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
-            Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
-            Member member = memberBuilder
-                    .name(fieldName)
-                    .type(transformedAttributeType)
-                    .refs(transformedAttributeType instanceof String ?
-                            TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
-                    .docs(getDocumentString(fieldSymbol))
-                    .build();
-            fieldMembers.putIfAbsent(fieldName, member);
+        objectTypeSymbol.fieldDescriptors().forEach((name, symbol) -> {
+            fieldMembers.putIfAbsent(name, transformFieldSymbol(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
         // methods
-        List<Function> methods = new ArrayList<>();
-        objectTypeSymbol.methods().forEach((name, methodSymbol) -> {
+        List<Function> functions = transformMethodSymbols(objectTypeSymbol.methods());
+        typeDataBuilder.functions(functions);
+
+        return typeDataBuilder.build();
+    }
+
+    public Member transformFieldSymbol(String fieldName, ObjectFieldSymbol fieldSymbol) {
+        TypeData.TypeDataBuilder attributeTypeDataBuilder = new TypeData.TypeDataBuilder();
+        Object transformedAttributeType = transform(fieldSymbol.typeDescriptor(), attributeTypeDataBuilder);
+        return (new Member.MemberBuilder())
+                .name(fieldName)
+                .type(transformedAttributeType)
+                .refs(transformedAttributeType instanceof String ?
+                        TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
+                .docs(getDocumentString(fieldSymbol))
+                .build();
+    }
+
+    public List<Function> transformMethodSymbols(Map<String, MethodSymbol> methods) {
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        List<Function> functions = new ArrayList<>();
+        methods.forEach((name, methodSymbol) -> {
             Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
             FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
 
@@ -272,11 +247,9 @@ public class TypeTransformer {
                 functionBuilder.resourcePath(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
             }
 
-            methods.add(functionBuilder.build());
+            functions.add(functionBuilder.build());
         });
-        typeDataBuilder.functions(methods);
-
-        return typeDataBuilder.build();
+        return functions;
     }
 
     public Object transform(TypeDefinitionSymbol typeDef) {
@@ -535,5 +508,13 @@ public class TypeTransformer {
         typeDataBuilder.members(Map.of(memberTypeName, memberType));
 
         return typeDataBuilder.build();
+    }
+
+    private String getAttachPoint(ServiceAttachPoint attachPoint) {
+        return switch (attachPoint.kind()) {
+            case ABSOLUTE_RESOURCE_PATH -> "/" +
+                    String.join("/", ((AbsResourcePathAttachPoint) attachPoint).segments());
+            case STRING_LITERAL -> ((LiteralAttachPoint) attachPoint).literal();
+        };
     }
 }

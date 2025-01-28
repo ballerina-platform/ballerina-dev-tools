@@ -1,5 +1,5 @@
 {
-  "filePath": "test_pack2/class.bal",
+  "filePath": "test_pack2/graphql_class.bal",
   "position": {
     "line": 30,
     "offset": 23
@@ -86,7 +86,7 @@
       "codedata": {
         "node": "OBJECT",
         "lineRange": {
-          "fileName": "class.bal",
+          "fileName": "graphql_class.bal",
           "startLine": {
             "line": 2,
             "offset": 5
