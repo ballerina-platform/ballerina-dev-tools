@@ -97,11 +97,11 @@
         "range": {
           "start": {
             "line": 0,
-            "character": 5
+            "character": 0
           },
           "end": {
-            "line": 0,
-            "character": 13
+            "line": 3,
+            "character": 3
           }
         },
         "newText": "type Employee record {|\n*Person;\nPerson user;\nint id = 23;\n|};\n"

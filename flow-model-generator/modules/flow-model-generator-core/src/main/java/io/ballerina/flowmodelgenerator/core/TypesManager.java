@@ -42,9 +42,9 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.TypeTransformer;
@@ -53,6 +53,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -158,20 +159,29 @@ public class TypesManager {
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(filePath, textEdits);
 
-        if (NodeKind.RECORD.equals(typeData.codedata().node())) {
-            String recordTypeDef = createRecordTypeDefCodeSnippet(typeData);
-            LineRange lineRange = typeData.codedata().lineRange();
-            if (lineRange == null) {
-                SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-                textEdits.add(new TextEdit(CommonUtils.toRange(startPos), recordTypeDef));
-            } else {
-                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), recordTypeDef));
-            }
+        // Regenerate code snippet for the type
+        String codeSnippet = createCodeSnippet(typeData);
+
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        LineRange lineRange = typeData.codedata().lineRange();
+        if (lineRange == null) {
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
+        } else {
+            NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(lineRange), syntaxTree);
+            textEdits.add(new TextEdit(CommonUtils.toRange(node.lineRange()), codeSnippet));
         }
 
         return gson.toJsonTree(textEditsMap);
+    }
+
+    private String createCodeSnippet(TypeData typeData) {
+        return switch (typeData.codedata().node()) {
+            case RECORD -> createRecordTypeDefCodeSnippet(typeData);
+            // TODO: Handle other kinds of type: service-decl, array, union, error, future, map, stream, intersection
+            default -> "";
+        };
     }
 
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
