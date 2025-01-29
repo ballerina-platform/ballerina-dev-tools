@@ -80,8 +80,8 @@ public class ServiceModelAPITests {
                 "ballerina", "http");
         CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/getListeners", request);
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
-        Assert.assertFalse(response.hasListeners());
-        Assert.assertEquals(response.listeners().size(), 0);
+        Assert.assertTrue(response.hasListeners());
+        Assert.assertEquals(response.listeners().size(), 1);
     }
 
     @Test(enabled = false)
@@ -204,7 +204,7 @@ public class ServiceModelAPITests {
         ServiceModelResponse modelResponse = (ServiceModelResponse) modelResult.get();
         Service service = modelResponse.service();
         Assert.assertTrue(Objects.nonNull(service));
-        service.getListener().setValues(List.of("httpTestListener", "httpsTestListener"));
+        service.getListener().setValues(List.of("default:httpListener", "httpsTestListener"));
         Value designApproach = service.getDesignApproach();
         Value selectedApproach = designApproach.getChoices().getFirst();
         Value basePath = selectedApproach.getProperty("basePath");
@@ -523,7 +523,7 @@ public class ServiceModelAPITests {
         ServiceFromSourceResponse sourceResponse = (ServiceFromSourceResponse) sourceResult.get();
         Service service = sourceResponse.service();
         Assert.assertTrue(Objects.nonNull(service));
-        service.getListener().setValue("newHttpListener");
+        service.getListener().setValues(List.of("newHttpListener", "default:httpListener"));
         service.getBasePath().setValue("/api/v1/test/new");
 
         ServiceModifierRequest updateRequest = new ServiceModifierRequest(filePath.toAbsolutePath().toString(),

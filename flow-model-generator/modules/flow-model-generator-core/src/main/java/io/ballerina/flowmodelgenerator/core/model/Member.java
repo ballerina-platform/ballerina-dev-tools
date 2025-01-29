@@ -36,7 +36,7 @@ import java.util.List;
 public record Member(
         MemberKind kind,
         List<String> refs,
-        String type,
+        Object type,
         String name,
         String defaultValue,
         String docs,
@@ -45,7 +45,7 @@ public record Member(
     public static class MemberBuilder {
         private Member.MemberKind kind;
         private List<String> refs;
-        private String type;
+        private Object type;
         private String name;
         private String defaultValue;
         private String docs;
@@ -64,7 +64,7 @@ public record Member(
             return this;
         }
 
-        public MemberBuilder type(String type) {
+        public MemberBuilder type(Object type) {
             this.type = type;
             return this;
         }

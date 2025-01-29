@@ -1,0 +1,510 @@
+{
+  "filePath": "test_pack2/graphql_service.bal",
+  "position": {
+    "line": 38,
+    "offset": 0
+  },
+  "description": "Get a record type data",
+  "type": {
+    "name": "/graphql",
+    "editable": true,
+    "metadata": {
+      "label": "/graphql",
+      "description": ""
+    },
+    "codedata": {
+      "node": "SERVICE_DECLARATION",
+      "lineRange": {
+        "fileName": "graphql_service.bal",
+        "startLine": {
+          "line": 38,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 58,
+          "offset": 1
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "/graphql",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "qualifiers": {
+        "metadata": {
+          "label": "Type Qualifiers",
+          "description": "Qualifiers of the type"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "value": [],
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [],
+    "functions": [
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "profile21",
+        "returnType": "AbstractProfile",
+        "refs": [
+          "AbstractProfile"
+        ]
+      },
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "profile",
+        "returnType": "UserProfile",
+        "refs": [
+          "UserProfile"
+        ]
+      },
+      {
+        "accessor": "updateName",
+        "qualifiers": [
+          "ISOLATED",
+          "REMOTE"
+        ],
+        "parameters": [
+          {
+            "kind": "FIELD",
+            "refs": [
+              "UserName"
+            ],
+            "type": "UserName",
+            "name": "userName"
+          }
+        ],
+        "kind": "REMOTE",
+        "returnType": "UserProfile",
+        "refs": [
+          "UserProfile"
+        ]
+      }
+    ]
+  },
+  "refs": [
+    {
+      "name": "UserName",
+      "editable": true,
+      "metadata": {
+        "label": "UserName",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 13
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "UserName",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "value",
+          "docs": ""
+        }
+      ],
+      "includes": []
+    },
+    {
+      "name": "Address",
+      "editable": true,
+      "metadata": {
+        "label": "Address",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 32,
+            "offset": 19
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Address",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "number",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "street",
+          "docs": ""
+        }
+      ],
+      "includes": []
+    },
+    {
+      "name": "UserProfile",
+      "editable": true,
+      "metadata": {
+        "label": "UserProfile",
+        "description": ""
+      },
+      "codedata": {
+        "node": "CLASS",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 12,
+            "offset": 14
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 25
+          }
+        }
+      },
+      "properties": {
+        "qualifiers": {
+          "metadata": {
+            "label": "Type Qualifiers",
+            "description": "Qualifiers of the type"
+          },
+          "valueType": "MULTIPLE_SELECT",
+          "value": [
+            "isolated",
+            "service"
+          ],
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "age",
+          "docs": ""
+        }
+      ],
+      "includes": [],
+      "functions": [
+        {
+          "accessor": "get",
+          "qualifiers": [
+            "ISOLATED",
+            "RESOURCE"
+          ],
+          "parameters": [],
+          "kind": "RESOURCE",
+          "name": "name",
+          "returnType": "string",
+          "refs": []
+        },
+        {
+          "accessor": "get",
+          "qualifiers": [
+            "ISOLATED",
+            "RESOURCE"
+          ],
+          "parameters": [],
+          "kind": "RESOURCE",
+          "name": "age",
+          "returnType": "int",
+          "refs": []
+        },
+        {
+          "accessor": "get",
+          "qualifiers": [
+            "ISOLATED",
+            "RESOURCE"
+          ],
+          "parameters": [],
+          "kind": "RESOURCE",
+          "name": "isAdult",
+          "returnType": "boolean",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "name": "AbstractProfile",
+      "editable": true,
+      "metadata": {
+        "label": "AbstractProfile",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "graphql_service.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 27
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "AbstractProfile",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address",
+          "name": "address",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "age",
+          "docs": ""
+        }
+      ],
+      "includes": []
+    }
+  ]
+}

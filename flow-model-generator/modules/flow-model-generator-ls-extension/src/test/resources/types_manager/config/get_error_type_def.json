@@ -1,28 +1,28 @@
 {
   "filePath": "test_pack1/types.bal",
   "position": {
-    "line": 37,
+    "line": 65,
     "offset": 5
   },
   "description": "Get a record type data",
   "type": {
-    "name": "Student",
+    "name": "PersonError",
     "editable": true,
     "metadata": {
-      "label": "Student",
+      "label": "PersonError",
       "description": ""
     },
     "codedata": {
-      "node": "RECORD",
+      "node": "ERROR",
       "lineRange": {
         "fileName": "types.bal",
         "startLine": {
-          "line": 37,
+          "line": 65,
           "offset": 5
         },
         "endLine": {
-          "line": 37,
-          "offset": 12
+          "line": 65,
+          "offset": 16
         }
       }
     },
@@ -33,7 +33,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "Student",
+        "value": "PersonError",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -67,92 +67,20 @@
         },
         "valueType": "STRING",
         "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "optional": false,
+        "editable": false,
+        "advanced": false
       }
     },
     "members": [
       {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "studentId",
-        "defaultValue": "22",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "ARRAY"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "true",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [
-                "Address"
-              ],
-              "type": "Address",
-              "name": "Address"
-            }
-          ]
-        },
-        "name": "addresses",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
+        "kind": "TYPE",
         "refs": [
-          "ballerina/time:Utc"
+          "Person"
         ],
-        "type": "time:Utc",
-        "name": "dob",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
-        "docs": ""
+        "type": "Person",
+        "name": "Person"
       }
-    ],
-    "includes": [
-      "Person"
     ]
   },
   "refs": [

@@ -33,6 +33,7 @@ import java.util.Map;
  * @param members       members of the type
  * @param restMember    rest member of the type
  * @param includes      type inclusions of the type
+ * @param functions     functions of a class or object
  * @param annotations   annotations of the type
  */
 public record TypeData(
@@ -41,9 +42,10 @@ public record TypeData(
         Metadata metadata,
         Codedata codedata,
         Map<String, Property> properties,
-        Map<String, Member> members,
+        List<Member> members,
         Member restMember,
         List<String> includes,
+        List<Function> functions,
         List<Annotation> annotations
 ) {
 
@@ -51,8 +53,9 @@ public record TypeData(
 
         private String name;
         private boolean editable = false;
-        private Map<String, Member> members;
+        private List<Member> members;
         private Member restMember;
+        private List<Function> functions;
         private List<String> includes;
         private List<TypeData.Annotation> annotations;
         protected Metadata.Builder<TypeDataBuilder> metadataBuilder;
@@ -63,6 +66,10 @@ public record TypeData(
         protected DiagnosticHandler diagnosticHandler;
 
         public TypeDataBuilder() {
+        }
+
+        public String name() {
+            return this.name;
         }
 
         public TypeDataBuilder name(String name) {
@@ -97,12 +104,17 @@ public record TypeData(
         }
 
         public TypeDataBuilder members(Map<String, Member> members) {
-            this.members = members;
+            this.members = members.values().stream().toList();
             return this;
         }
 
         public TypeDataBuilder restMember(Member restMember) {
             this.restMember = restMember;
+            return this;
+        }
+
+        public TypeDataBuilder functions(List<Function> functions) {
+            this.functions = functions;
             return this;
         }
 
@@ -141,6 +153,7 @@ public record TypeData(
                     members,
                     restMember,
                     includes,
+                    functions,
                     annotations
             );
         }

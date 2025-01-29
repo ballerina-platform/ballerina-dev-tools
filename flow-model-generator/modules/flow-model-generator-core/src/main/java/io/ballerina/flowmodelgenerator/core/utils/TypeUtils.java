@@ -43,7 +43,9 @@ public class TypeUtils {
             TypeDescKind.DECIMAL, TypeDescKind.BOOLEAN, TypeDescKind.STRING,
             TypeDescKind.INT_SIGNED8, TypeDescKind.INT_SIGNED16, TypeDescKind.INT_SIGNED32,
             TypeDescKind.INT_UNSIGNED8, TypeDescKind.INT_UNSIGNED16, TypeDescKind.INT_UNSIGNED32,
-            TypeDescKind.STRING_CHAR, TypeDescKind.ANYDATA, TypeDescKind.ANY, TypeDescKind.NIL, TypeDescKind.NEVER
+            TypeDescKind.STRING_CHAR, TypeDescKind.ANYDATA, TypeDescKind.ANY, TypeDescKind.NIL, TypeDescKind.NEVER,
+            TypeDescKind.XML, TypeDescKind.XML_COMMENT, TypeDescKind.XML_ELEMENT, TypeDescKind.XML_TEXT,
+            TypeDescKind.XML_PROCESSING_INSTRUCTION
     );
 
     /**

@@ -1,28 +1,28 @@
 {
-  "filePath": "test_pack1/types.bal",
+  "filePath": "test_pack2/records.bal",
   "position": {
-    "line": 12,
+    "line": 15,
     "offset": 5
   },
   "description": "Get a record type data",
   "type": {
-    "name": "Person",
+    "name": "TimeSheet",
     "editable": true,
     "metadata": {
-      "label": "Person",
-      "description": "Person record\nUsed to represent person object"
+      "label": "TimeSheet",
+      "description": ""
     },
     "codedata": {
-      "node": "RECORD",
+      "node": "ARRAY",
       "lineRange": {
-        "fileName": "types.bal",
+        "fileName": "records.bal",
         "startLine": {
-          "line": 12,
+          "line": 15,
           "offset": 5
         },
         "endLine": {
-          "line": 12,
-          "offset": 11
+          "line": 15,
+          "offset": 14
         }
       }
     },
@@ -33,7 +33,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "Person",
+        "value": "TimeSheet",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,7 +44,7 @@
           "description": "Detailed description about the type"
         },
         "valueType": "STRING",
-        "value": "Person record\nUsed to represent person object",
+        "value": "",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -55,7 +55,7 @@
           "description": "Is this type an array or list value"
         },
         "valueType": "FLAG",
-        "value": "false",
+        "value": "true",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -67,14 +67,14 @@
         },
         "valueType": "STRING",
         "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "optional": false,
+        "editable": false,
+        "advanced": false
       }
     },
     "members": [
       {
-        "kind": "FIELD",
+        "kind": "TYPE",
         "refs": [],
         "type": {
           "editable": false,
@@ -109,153 +109,18 @@
             {
               "kind": "TYPE",
               "refs": [
-                "Address"
+                "ballerina/time:Utc"
               ],
-              "type": "Address",
-              "name": "Address"
+              "type": "time:Utc",
+              "name": "time:Utc"
             }
           ]
         },
-        "name": "addresses",
-        "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
-        "docs": "addresses of the person"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [
-          "ballerina/time:Utc"
-        ],
-        "type": "time:Utc",
-        "name": "dob",
-        "defaultValue": "getDefaultDob()",
-        "docs": "date of birth"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "defaultValue": "\"John\"",
-        "docs": "name of the person"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
-        "defaultValue": "12",
-        "docs": "id of the person"
+        "name": "time:Utc[]"
       }
-    ],
-    "includes": []
+    ]
   },
   "refs": [
-    {
-      "name": "Address",
-      "editable": true,
-      "metadata": {
-        "label": "Address",
-        "description": ""
-      },
-      "codedata": {
-        "node": "RECORD",
-        "lineRange": {
-          "fileName": "types.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 5
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 12
-          }
-        }
-      },
-      "properties": {
-        "name": {
-          "metadata": {
-            "label": "Type name",
-            "description": "Unique name to identify the type"
-          },
-          "valueType": "IDENTIFIER",
-          "value": "Address",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "description": {
-          "metadata": {
-            "label": "Type description",
-            "description": "Detailed description about the type"
-          },
-          "valueType": "STRING",
-          "value": "",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "isArray": {
-          "metadata": {
-            "label": "Is array type",
-            "description": "Is this type an array or list value"
-          },
-          "valueType": "FLAG",
-          "value": "false",
-          "optional": true,
-          "editable": true,
-          "advanced": true
-        },
-        "arraySize": {
-          "metadata": {
-            "label": "Size of the array",
-            "description": "Array dimensions"
-          },
-          "valueType": "STRING",
-          "value": "",
-          "optional": true,
-          "editable": true,
-          "advanced": true
-        }
-      },
-      "members": [
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "country",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "city",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "houseNo",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "line2",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "line1",
-          "docs": ""
-        }
-      ],
-      "includes": []
-    },
     {
       "name": "ballerina/time:Utc",
       "editable": true,

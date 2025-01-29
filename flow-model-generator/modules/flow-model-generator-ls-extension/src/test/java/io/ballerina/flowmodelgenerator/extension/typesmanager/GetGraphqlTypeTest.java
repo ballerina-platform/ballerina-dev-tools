@@ -14,11 +14,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Test cases for retrieving types.
+ * Test cases for retrieving types for GraphQL.
  *
  * @since 2.0.0
  */
-public class GetTypeTest extends AbstractLSTest {
+public class GetGraphqlTypeTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -44,20 +44,9 @@ public class GetTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("get_record_type1.json")},
-                {Path.of("get_record_type2.json")},
-                {Path.of("get_record_type3.json")},
-                {Path.of("get_record_type4.json")},
-                {Path.of("get_record_type5.json")},
-                {Path.of("get_union_type1.json")},
                 {Path.of("get_service_class1.json")},
                 {Path.of("get_service_class2.json")},
                 {Path.of("get_service_class3.json")},
-                {Path.of("get_enum_type1.json")},
-                {Path.of("get_enum_type2.json")},
-                {Path.of("get_array_type_def.json")},
-                {Path.of("get_table_type_def.json")},
-                {Path.of("get_error_type_def.json")},
         };
     }
 
@@ -68,12 +57,12 @@ public class GetTypeTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return GetTypeTest.class;
+        return GetGraphqlTypeTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getType";
+        return "getGraphqlType";
     }
 
     @Override
