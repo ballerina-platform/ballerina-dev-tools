@@ -6,7 +6,12 @@
   },
   "description": "Get a record type data",
   "type": {
-    "editable": false,
+    "name": "Student",
+    "editable": true,
+    "metadata": {
+      "label": "Student",
+      "description": ""
+    },
     "codedata": {
       "node": "CLASS",
       "lineRange": {
@@ -81,9 +86,9 @@
         ],
         "parameters": [],
         "kind": "RESOURCE",
-        "resourcePath": "name",
+        "name": "name",
         "returnType": "string",
-        "returnTypeRefs": []
+        "refs": []
       }
     ]
   },
@@ -143,9 +148,9 @@
           ],
           "parameters": [],
           "kind": "RESOURCE",
-          "resourcePath": "name",
+          "name": "name",
           "returnType": "string",
-          "returnTypeRefs": []
+          "refs": []
         }
       ]
     }

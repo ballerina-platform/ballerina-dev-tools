@@ -23,15 +23,15 @@ import java.util.List;
 /**
  * Represents a function.
  *
- * @param accessor       Accessor of the function.
- * @param qualifiers     Qualifiers of the function.
- * @param parameters     Parameters of the function.
- * @param restParameter  Rest parameter of the function.
- * @param kind           Kind of the function.
- * @param resourcePath   Resource path of the function.
- * @param description    Description of the function.
- * @param returnType     Return type of the function.
- * @param returnTypeRefs Return type references of the function.
+ * @param accessor      Accessor of the function.
+ * @param qualifiers    Qualifiers of the function.
+ * @param parameters    Parameters of the function.
+ * @param restParameter Rest parameter of the function.
+ * @param kind          Kind of the function.
+ * @param name          Resource path of the function.
+ * @param description   Description of the function.
+ * @param returnType    Return type of the function.
+ * @param refs          Type references associated with the return type of the function.
  * @since 2.0.0
  */
 public record Function(
@@ -40,10 +40,10 @@ public record Function(
         List<Member> parameters,
         Member restParameter,
         FunctionKind kind,
-        String resourcePath,    // TODO: Need a structured schema for resourcePath
+        String name,    // TODO: Need a structured schema for resource path
         String description,
         Object returnType,
-        List<String> returnTypeRefs
+        List<String> refs
 ) {
     public enum FunctionKind {
         FUNCTION,
@@ -57,10 +57,10 @@ public record Function(
         private List<Member> parameters;
         private Member restParameter;
         private FunctionKind kind;
-        private String resourcePath;
-        private String description;
+        private String name;
+        private String docs;
         private Object returnType;
-        private List<String> returnTypeRefs;
+        private List<String> refs;
 
         public FunctionBuilder() {
         }
@@ -90,13 +90,13 @@ public record Function(
             return this;
         }
 
-        public FunctionBuilder resourcePath(String resourcePath) {
-            this.resourcePath = resourcePath;
+        public FunctionBuilder name(String name) {
+            this.name = name;
             return this;
         }
 
-        public FunctionBuilder description(String description) {
-            this.description = description;
+        public FunctionBuilder docs(String docs) {
+            this.docs = docs;
             return this;
         }
 
@@ -105,14 +105,14 @@ public record Function(
             return this;
         }
 
-        public FunctionBuilder returnTypeRefs(List<String> returnTypeRefs) {
-            this.returnTypeRefs = returnTypeRefs;
+        public FunctionBuilder refs(List<String> refs) {
+            this.refs = refs;
             return this;
         }
 
         public Function build() {
-            return new Function(accessor, qualifiers, parameters, restParameter, kind, resourcePath, description,
-                    returnType, returnTypeRefs);
+            return new Function(accessor, qualifiers, parameters, restParameter, kind, name, docs,
+                    returnType, refs);
         }
     }
 }
