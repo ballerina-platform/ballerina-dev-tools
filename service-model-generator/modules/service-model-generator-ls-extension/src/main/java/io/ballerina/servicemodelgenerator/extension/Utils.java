@@ -880,8 +880,8 @@ public final class Utils {
     }
 
     public static Optional<Function> getFunctionModel(String serviceType, String functionNameOrType) {
-        String resourcePath =  String.format("functions/%s_%s.json", serviceType.toLowerCase(),
-                functionNameOrType.toLowerCase());
+        String resourcePath =  String.format("functions/%s_%s.json", serviceType.toLowerCase(Locale.US),
+                functionNameOrType.toLowerCase(Locale.US));
         InputStream resourceStream = Utils.class.getClassLoader()
                 .getResourceAsStream(resourcePath);
         if (resourceStream == null) {

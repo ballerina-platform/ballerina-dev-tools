@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -29,28 +30,30 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Assert the response returned by the getHttpResourceMethod.
+ * Assert the response returned by the getFunctionModel.
  *
  * @since 2.0.0
  */
-public class GetHttpResourceModelTest extends AbstractLSTest {
+public class GetFunctionModelTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        GetHttpResourceModelTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
-                GetHttpResourceModelTest.TestConfig.class);
+        GetFunctionModelTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+                GetFunctionModelTest.TestConfig.class);
 
-        JsonObject jsonMap = getResponse(null);
+        FunctionModelRequest request = new FunctionModelRequest(testConfig.type(), testConfig.functionName());
+        JsonObject jsonMap = getResponse(request);
 
         FunctionModelResponse functionModelResponse = gson.fromJson(jsonMap, FunctionModelResponse.class);
         Function actualResourceModel = functionModelResponse.function();
         boolean assertTrue = isAssertTrue(testConfig, actualResourceModel);
 
         if (!assertTrue) {
-            GetHttpResourceModelTest.TestConfig updatedConfig =
-                    new GetHttpResourceModelTest.TestConfig(testConfig.description(), functionModelResponse);
+            GetFunctionModelTest.TestConfig updatedConfig =
+                    new GetFunctionModelTest.TestConfig(testConfig.description(), testConfig.type(),
+                            testConfig.functionName(), testConfig.response());
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -72,26 +75,29 @@ public class GetHttpResourceModelTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "get_http_resource_model";
+        return "get_function_model";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return GetHttpResourceModelTest.class;
+        return GetFunctionModelTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getHttpResourceModel";
+        return "getFunctionModel";
     }
 
     /**
      * Represents the test configuration.
      *
+     * @param functionName The name of the function
+     * @param type        The type of the function
      * @param description The description of the test
      * @param response    The expected response
      */
-    private record TestConfig(String description, FunctionModelResponse response) {
+    private record TestConfig(String description, String type, String functionName,
+                              FunctionModelResponse response) {
         public String description() {
             return description == null ? "" : description;
         }

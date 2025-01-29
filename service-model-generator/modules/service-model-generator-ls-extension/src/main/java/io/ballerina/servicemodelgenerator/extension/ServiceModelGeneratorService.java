@@ -70,10 +70,10 @@ import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -406,7 +406,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     /**
-     * Get the function model template for a given function in a service type
+     * Get the function model template for a given function in a service type.
      *
      * @return {@link FunctionModelResponse} of the resource model response
      */

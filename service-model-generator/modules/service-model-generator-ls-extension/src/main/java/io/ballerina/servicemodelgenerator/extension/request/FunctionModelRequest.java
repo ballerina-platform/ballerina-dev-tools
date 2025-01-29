@@ -19,7 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension.request;
 
 /**
- * FunctionModelRequest class to hold the
+ * Request to get the function model for a given function in a service type.
  *
  * @param type type of the service
  * @param functionName name of the function

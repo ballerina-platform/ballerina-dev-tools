@@ -36,10 +36,10 @@ import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -252,7 +252,7 @@ public class ServiceModelAPITests {
         CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getHttpResourceModel", null);
         FunctionModelResponse modelResponse = (FunctionModelResponse) modelResult.get();
 
-        Function resource = modelResponse.resource();
+        Function resource = modelResponse.function();
         resource.getAccessor().setValue("POST");
         resource.getName().setValue("test/[string name]/api");
 
