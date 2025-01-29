@@ -1,0 +1,91 @@
+{
+  "filePath": "add_functions_for_graphql.bal",
+  "description": "Add graphql Subscription",
+  "codedata": {
+    "lineRange": {
+      "fileName": "add_functions_for_graphql.bal",
+      "startLine": {
+        "line": 17,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 28,
+        "offset": 0
+      }
+    },
+    "inListenerInit": false,
+    "isBasePath": false,
+    "inDisplayAnnotation": false
+  },
+  "function": {
+    "qualifiers": [],
+    "kind": "SUBSCRIPTION",
+    "accessor": {
+      "enabled": true,
+      "editable": true,
+      "value": "subscribe",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "enabled": true,
+      "editable": true,
+      "value": "names",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [],
+    "returnType": {
+      "enabled": true,
+      "editable": false,
+      "value": "stream<string, error?>",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 49,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 55,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    }
+  },
+  "output": {
+    "add_functions_for_graphql.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 26,
+            "character": 5
+          },
+          "end": {
+            "line": 26,
+            "character": 5
+          }
+        },
+        "newText": "\n\tresource function subscribe names() returns stream<string, error?> {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,426 @@
+{
+  "filePath": "sample5/main.bal",
+  "description": "Test the generation of service model for a service with a single listener",
+  "start": {
+    "line": 17,
+    "offset": 0
+  },
+  "end": {
+    "line": 56,
+    "offset": 0
+  },
+  "response": {
+    "id": "0",
+    "name": "GraphQL Service",
+    "type": "graphql",
+    "displayAnnotation": {
+      "label": "GraphQL Service",
+      "iconPath": "http://localhost:8080/icons/graphql.png"
+    },
+    "moduleName": "graphql",
+    "orgName": "ballerina",
+    "version": "1.15.0",
+    "packageName": "graphql",
+    "listenerProtocol": "graphql",
+    "icon": "http://localhost:8080/icons/graphql.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "graphQLListener",
+        "values": [],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "graphql:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "graphQLListener"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": "The base path for the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/graphql",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASEPATH"
+        },
+        "addNewButton": false
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 17,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 56,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": [
+      {
+        "qualifiers": [],
+        "kind": "DEFAULT",
+        "accessor": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "init",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [],
+        "returnType": {
+          "enabled": true,
+          "editable": false,
+          "value": "error?",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "qualifiers": [],
+        "kind": "QUERY",
+        "accessor": {
+          "enabled": true,
+          "editable": true,
+          "value": "get",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "greeting",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": true,
+              "value": "string",
+              "valueType": "TYPE",
+              "isType": true,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "name",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "enabled": false,
+              "editable": true,
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": false,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "enabled": true,
+          "editable": false,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "qualifiers": [],
+        "kind": "MUTATION",
+        "accessor": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "updateName",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": true,
+              "value": "int",
+              "valueType": "TYPE",
+              "isType": true,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "id",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "enabled": false,
+              "editable": true,
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": false,
+            "optional": false,
+            "advanced": false
+          },
+          {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "enabled": true,
+              "editable": true,
+              "value": "string",
+              "valueType": "TYPE",
+              "isType": true,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "enabled": true,
+              "editable": true,
+              "value": "name",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "enabled": false,
+              "editable": true,
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": false,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "enabled": true,
+          "editable": false,
+          "value": "Profile|error",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 46,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "qualifiers": [],
+        "kind": "SUBSCRIPTION",
+        "accessor": {
+          "enabled": true,
+          "editable": true,
+          "value": "subscribe",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "names",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [],
+        "returnType": {
+          "enabled": true,
+          "editable": false,
+          "value": "stream<string, error?>",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 49,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      }
+    ]
+  }
+}

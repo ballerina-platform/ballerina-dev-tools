@@ -46,6 +46,9 @@ public class ServiceModelGeneratorConstants {
     public static final String PROPERTY_DESIGN_APPROACH = "designApproach";
     public static final String PROPERTY_NAME = "name";
 
+    public static final String KIND_QUERY = "QUERY";
+    public static final String KIND_MUTATION = "MUTATION";
+    public static final String KIND_SUBSCRIPTION = "SUBSCRIPTION";
     public static final String KIND_RESOURCE = "RESOURCE";
     public static final String KIND_REMOTE = "REMOTE";
     public static final String KIND_REQUIRED = "REQUIRED";
@@ -56,6 +59,8 @@ public class ServiceModelGeneratorConstants {
     public static final String REMOTE = "remote";
     public static final String BASE_PATH = "basePath";
     public static final String ON = "on";
+    public static final String SUBSCRIBE = "subscribe";
+    public static final String GET = "get";
 
     public static final String VALUE_TYPE_EXPRESSION = "EXPRESSION";
     public static final String VALUE_TYPE_IDENTIFIER = "IDENTIFIER";

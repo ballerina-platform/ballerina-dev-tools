@@ -1,0 +1,168 @@
+{
+  "filePath": "add_functions_for_graphql.bal",
+  "description": "Add graphql Mutation",
+  "codedata": {
+    "lineRange": {
+      "fileName": "add_functions_for_graphql.bal",
+      "startLine": {
+        "line": 17,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 28,
+        "offset": 0
+      }
+    },
+    "inListenerInit": false,
+    "isBasePath": false,
+    "inDisplayAnnotation": false
+  },
+  "function": {
+    "qualifiers": [],
+    "kind": "MUTATION",
+    "accessor": {
+      "enabled": false,
+      "editable": true,
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "enabled": true,
+      "editable": true,
+      "value": "updateName",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [
+      {
+        "metadata": {
+          "label": "id",
+          "description": "id"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "enabled": true,
+          "editable": true,
+          "value": "int",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "id",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      },
+      {
+        "metadata": {
+          "label": "name",
+          "description": "name"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "name",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
+    ],
+    "returnType": {
+      "enabled": true,
+      "editable": false,
+      "value": "Profile|error",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 46,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    }
+  },
+  "output": {
+    "add_functions_for_graphql.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 26,
+            "character": 5
+          },
+          "end": {
+            "line": 26,
+            "character": 5
+          }
+        },
+        "newText": "\n\tremote function updateName(int id, string name) returns Profile|error {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "filePath": "update_graphql.bal",
+  "description": "Update graphql Query",
+  "function": {
+    "qualifiers": [],
+    "kind": "QUERY",
+    "accessor": {
+      "enabled": true,
+      "editable": true,
+      "value": "get",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "enabled": true,
+      "editable": true,
+      "value": "greeting/[string param]",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [
+      {
+        "metadata": {
+          "label": "name",
+          "description": "name"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "id",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
+    ],
+    "returnType": {
+      "enabled": true,
+      "editable": false,
+      "value": "string|int",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false,
+    "codedata": {
+      "lineRange": {
+        "fileName": "update_graphql.bal",
+        "startLine": {
+          "line": 29,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 31,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    }
+  },
+  "output": {
+    "update_graphql.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 26
+          },
+          "end": {
+            "line": 29,
+            "character": 34
+          }
+        },
+        "newText": "greeting/[string param]"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 34
+          },
+          "end": {
+            "line": 29,
+            "character": 62
+          }
+        },
+        "newText": "(string id) returns string|int "
+      }
+    ]
+  }
+}
