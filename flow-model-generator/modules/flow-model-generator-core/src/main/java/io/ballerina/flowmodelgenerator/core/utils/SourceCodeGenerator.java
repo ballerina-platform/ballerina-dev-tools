@@ -44,7 +44,31 @@ public class SourceCodeGenerator {
     }
 
     private String generateEnumCodeSnippet(TypeData typeData) {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Add documentation if present
+        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
+            stringBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
+        }
+
+        // Add enum names
+        stringBuilder.append("enum ")
+                .append(typeData.name())
+                .append(" {");
+
+        // Add enum values
+        for (int i = 0; i < typeData.members().size(); i++) {
+            Member member = typeData.members().get(i);
+            stringBuilder.append("\n\t")
+                    .append(member.name())
+                    .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
+                            " = " + member.defaultValue() : "");
+            if (i < typeData.members().size() - 1) {
+                stringBuilder.append(",");
+            }
+        }
+
+        return stringBuilder.append("\n}\n").toString();
     }
 
     private String generateTypeDefCodeSnippet(TypeData typeData) {
