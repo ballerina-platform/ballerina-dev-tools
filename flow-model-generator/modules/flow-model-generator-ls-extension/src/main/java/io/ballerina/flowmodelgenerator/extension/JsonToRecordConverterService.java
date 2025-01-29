@@ -18,10 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
-import io.ballerina.flowmodelgenerator.core.converters.JsonToRecordConverter;
 import io.ballerina.flowmodelgenerator.core.converters.JsonToRecordMapper;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.response.JsonToRecordResponse;
@@ -79,21 +76,11 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
                 if (document.isEmpty()) {
                     return response;
                 }
-                JsonElement parsedJson = JsonParser.parseString(jsonString);
-                if (parsedJson.isJsonObject() && parsedJson.getAsJsonObject().has("$schema")) {
-                    try {
-                        response.setCodeBlock(JsonToRecordConverter.convert(jsonString, recordName, isRecordTypeDesc,
-                                isClosed, forceFormatRecordFields));
-                    } catch (Throwable e) {
-                        response.setError(e);
-                    }
-                } else {
-                    TypesManager typesManager = new TypesManager(document.get());
-                    JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, project,
-                            document.get(), filePath, typesManager);
-                    response.setTypes(jsonToRecordMapper.convert(jsonString, isRecordTypeDesc, isClosed,
-                            forceFormatRecordFields, workspaceManager, isNullAsOptional));
-                }
+                TypesManager typesManager = new TypesManager(document.get());
+                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, project,
+                        document.get(), filePath, typesManager);
+                response.setTypes(jsonToRecordMapper.convert(jsonString, isRecordTypeDesc, isClosed,
+                        forceFormatRecordFields, workspaceManager, isNullAsOptional));
             } catch (Throwable e) {
                 response.setError(e);
             }

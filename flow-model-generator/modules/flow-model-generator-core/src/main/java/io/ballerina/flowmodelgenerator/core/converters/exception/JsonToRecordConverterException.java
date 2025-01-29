@@ -25,10 +25,6 @@ package io.ballerina.flowmodelgenerator.core.converters.exception;
  */
 public class JsonToRecordConverterException extends Exception {
 
-    public JsonToRecordConverterException(String message, Throwable e) {
-        super(message, e);
-    }
-
     public JsonToRecordConverterException(String message) {
         super(message);
     }

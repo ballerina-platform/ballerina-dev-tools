@@ -75,7 +75,7 @@ public class JsonConverterTest extends AbstractLSTest {
                     testConfig.jsonString(), testConfig.recordName(), testConfig.prefix(), testConfig.isClosed(),
                     testConfig.isRecordTypeDesc(),
                     sb.toString());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.testFilePath(), configJsonPath));
         }
     }

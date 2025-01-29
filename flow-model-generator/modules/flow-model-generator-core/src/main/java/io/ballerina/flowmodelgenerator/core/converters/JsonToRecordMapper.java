@@ -90,7 +90,7 @@ import static io.ballerina.flowmodelgenerator.core.converters.utils.ListOperatio
 /**
  * APIs for direct conversion from JSON strings to Ballerina records.
  *
- * @since 2201.2.0
+ * @since 2.0.0
  */
 public final class JsonToRecordMapper {
 
