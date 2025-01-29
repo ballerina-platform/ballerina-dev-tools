@@ -153,6 +153,16 @@ public class TypesManager {
         return gson.toJsonTree(new TypeDataWithRefs(type, refs.values().stream().toList()));
     }
 
+    public TypeDataWithRefs getTypeDataWithRefs(TypeDefinitionSymbol typeDefSymbol) {
+        Object type = getTypeData(typeDefSymbol);
+        Map<String, Object> refs = new HashMap<>();
+        TypeSymbol typeDescriptor = getTypeDescriptor(typeDefSymbol);
+        if (typeDescriptor != null) {
+            addDependencyTypes(typeDescriptor, refs);
+        }
+        return new TypeDataWithRefs(type, refs.values().stream().toList());
+    }
+
     public JsonElement updateType(Path filePath, TypeData typeData) {
         List<TextEdit> textEdits = new ArrayList<>();
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
@@ -448,6 +458,6 @@ public class TypesManager {
         return recordBuilder.toString();
     }
 
-    record TypeDataWithRefs(Object type, List<Object> refs) {
+    public record TypeDataWithRefs(Object type, List<Object> refs) {
     }
 }

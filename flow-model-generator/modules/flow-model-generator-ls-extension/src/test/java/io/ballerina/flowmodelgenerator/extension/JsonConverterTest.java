@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
@@ -57,7 +58,8 @@ public class JsonConverterTest extends AbstractLSTest {
 
         StringBuilder sb = new StringBuilder();
         for (JsonElement record : records) {
-            TypeUpdateRequest updateRequest = new TypeUpdateRequest(sourceFile, record);
+            TypeUpdateRequest updateRequest =
+                    new TypeUpdateRequest(sourceFile, ((JsonObject) record).getAsJsonObject("type"));
             JsonElement response = getResponse(updateRequest, "typesManager/updateType").getAsJsonObject("textEdits");
             Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(response, textEditListType);
             for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {

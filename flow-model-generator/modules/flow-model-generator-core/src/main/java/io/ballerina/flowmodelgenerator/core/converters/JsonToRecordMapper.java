@@ -195,12 +195,12 @@ public final class JsonToRecordMapper {
                         .document(document.documentId()).modify().withContent(str).apply();
         SemanticModel semanticModel = modifiedDoc.module().getCompilation().getSemanticModel();
 
-        List<TypeData> typeDataList = new ArrayList<>();
+        List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
         for (Symbol symbol : semanticModel.moduleSymbols()) {
             if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 TypeDefinitionSymbol typeDefSymbol = (TypeDefinitionSymbol) symbol;
                 if (typeNames.contains(typeDefSymbol.getName().get())) {
-                    typeDataList.add(typesManager.genRecordTypeData(typeDefSymbol));
+                    typeDataList.add(typesManager.getTypeDataWithRefs(typeDefSymbol));
                 }
             }
         }
