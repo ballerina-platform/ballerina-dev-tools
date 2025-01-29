@@ -65,19 +65,19 @@
       {
         "kind": "NAME",
         "refs": [],
-        "type": "RED",
+        "type": "\"RED\"",
         "name": "RED"
       },
       {
         "kind": "NAME",
         "refs": [],
-        "type": "YELLOW",
+        "type": "\"YELLOW\"",
         "name": "YELLOW"
       },
       {
         "kind": "NAME",
         "refs": [],
-        "type": "GREEN",
+        "type": "\"GREEN\"",
         "name": "GREEN"
       }
     ]
