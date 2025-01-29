@@ -909,24 +909,23 @@ public class DataMapManager {
                     ListConstructorExpressionNode listCtrExpr = (ListConstructorExpressionNode) currentExpr;
                     SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
                     int size = expressions.size();
-                    if (Integer.parseInt(split) >= size) {
+                    int index = Integer.parseInt(split);
+                    if (index >= size) {
                         return null;
                     }
-                    currentExpr = (ExpressionNode) expressions.get(Integer.parseInt(split));
+                    currentExpr = (ExpressionNode) expressions.get(index);
                 }
-            } else {
-                if (currentExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
-                    MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) currentExpr;
-                    for (MappingFieldNode field : mappingCtrExpr.fields()) {
-                        if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
-                            SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
-                            if (specificFieldNode.fieldName().toSourceCode().trim().equals(split)) {
-                                Optional<ExpressionNode> optFieldExpr = specificFieldNode.valueExpr();
-                                if (optFieldExpr.isEmpty()) {
-                                    return null;
-                                }
-                                currentExpr = optFieldExpr.get();
+            } else if (currentExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) currentExpr;
+                for (MappingFieldNode field : mappingCtrExpr.fields()) {
+                    if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
+                        SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                        if (specificFieldNode.fieldName().toSourceCode().trim().equals(split)) {
+                            Optional<ExpressionNode> optFieldExpr = specificFieldNode.valueExpr();
+                            if (optFieldExpr.isEmpty()) {
+                                return null;
                             }
+                            currentExpr = optFieldExpr.get();
                         }
                     }
                 }
