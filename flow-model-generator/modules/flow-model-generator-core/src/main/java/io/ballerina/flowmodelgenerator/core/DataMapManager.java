@@ -108,18 +108,16 @@ import java.util.Optional;
 public class DataMapManager {
 
     private final WorkspaceManager workspaceManager;
-    private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
 
-    public DataMapManager(WorkspaceManager workspaceManager, SemanticModel semanticModel, Document document) {
+    public DataMapManager(WorkspaceManager workspaceManager, Document document) {
         this.workspaceManager = workspaceManager;
-        this.semanticModel = semanticModel;
         this.document = document;
         this.gson = new Gson();
     }
 
-    public JsonElement getTypes(JsonElement node, String propertyKey) {
+    public JsonElement getTypes(JsonElement node, String propertyKey, SemanticModel semanticModel) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         Codedata codedata = flowNode.codedata();
         NodeKind nodeKind = codedata.node();
