@@ -16,23 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.servicemodelgenerator.extension.response;
+package io.ballerina.servicemodelgenerator.extension.request;
 
-import io.ballerina.servicemodelgenerator.extension.model.Function;
-
-import java.util.Arrays;
-
-public record ResourceModelResponse(Function resource, String errorMsg, String stacktrace) {
-
-    public ResourceModelResponse() {
-        this(null, null, null);
-    }
-
-    public ResourceModelResponse(Function resource) {
-        this(resource, null, null);
-    }
-
-    public ResourceModelResponse(Throwable e) {
-        this(null, e.toString(), Arrays.toString(e.getStackTrace()));
-    }
+/**
+ * FunctionModelRequest class to hold the
+ *
+ * @param type type of the service
+ * @param functionName name of the function
+ *
+ * @since 2.0.0
+ */
+public record FunctionModelRequest(String type, String functionName) {
 }

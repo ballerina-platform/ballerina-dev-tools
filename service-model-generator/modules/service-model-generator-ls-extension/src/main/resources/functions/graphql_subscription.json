@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "label": "Graphql Subscription",
+    "description": "Graphql Subscription"
+  },
+  "qualifiers": [],
+  "kind": "SUBSCRIPTION",
+  "accessor": {
+    "metadata": {
+      "label": "Resource Accessor",
+      "description": "The resource accessor"
+    },
+    "enabled": false,
+    "editable": false,
+    "value": "subscribe",
+    "valueType": "IDENTIFIER",
+    "isType": false,
+    "optional": false,
+    "advanced": false,
+    "addNewButton": false
+  },
+  "name": {
+    "metadata": {
+      "label": "Subscription path",
+      "description": "Subscription path"
+    },
+    "enabled": true,
+    "editable": true,
+    "value": "names",
+    "valueType": "IDENTIFIER",
+    "isType": false,
+    "optional": false,
+    "advanced": false,
+    "addNewButton": false
+  },
+  "parameters": [],
+  "schema" : {
+    "parameter": {
+      "metadata": {
+        "label": "Parameter Name",
+        "description": "Name of the parameter"
+      },
+      "kind": "REQUIRED",
+      "type": {
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "TYPE",
+        "isType": true,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "name": {
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "IDENTIFIER",
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "defaultValue": {
+        "metadata": {
+          "label": "Default Value",
+          "description": "The default value"
+        },
+        "value": "",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "anydata",
+        "enabled": false,
+        "editable": true,
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "editable": false,
+      "optional": false,
+      "advanced": false
+    }
+  },
+  "returnType": {
+    "enabled": true,
+    "editable": false,
+    "value": "stream<string, error?>",
+    "valueType": "TYPE",
+    "isType": false,
+    "optional": false,
+    "advanced": false,
+    "addNewButton": false
+  },
+  "enabled": true,
+  "optional": false,
+  "editable": false
+}

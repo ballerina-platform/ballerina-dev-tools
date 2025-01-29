@@ -39,7 +39,7 @@ import io.ballerina.servicemodelgenerator.extension.response.CommonSourceRespons
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -250,7 +250,7 @@ public class ServiceModelAPITests {
     @Test
     public void testAddHttpResource() throws ExecutionException, InterruptedException {
         CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getHttpResourceModel", null);
-        ResourceModelResponse modelResponse = (ResourceModelResponse) modelResult.get();
+        FunctionModelResponse modelResponse = (FunctionModelResponse) modelResult.get();
 
         Function resource = modelResponse.resource();
         resource.getAccessor().setValue("POST");

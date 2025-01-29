@@ -879,6 +879,22 @@ public final class Utils {
         }
     }
 
+    public static Optional<Function> getFunctionModel(String serviceType, String functionNameOrType) {
+        String resourcePath =  String.format("functions/%s_%s.json", serviceType.toLowerCase(),
+                functionNameOrType.toLowerCase());
+        InputStream resourceStream = Utils.class.getClassLoader()
+                .getResourceAsStream(resourcePath);
+        if (resourceStream == null) {
+            return Optional.empty();
+        }
+
+        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
+            return Optional.of(new Gson().fromJson(reader, Function.class));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
+
     private static void updateFunctionInfo(Function functionModel, Function commonFunction) {
         functionModel.setEnabled(true);
         functionModel.setKind(commonFunction.getKind());

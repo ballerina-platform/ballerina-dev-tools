@@ -57,6 +57,7 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
@@ -72,7 +73,7 @@ import io.ballerina.servicemodelgenerator.extension.response.CommonSourceRespons
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -388,17 +389,36 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     /**
      * Get the http service model template.
      *
-     * @return {@link ResourceModelResponse} of the resource model response
+     * @return {@link FunctionModelResponse} of the resource model response
      */
+    @Deprecated
     @JsonRequest
-    public CompletableFuture<ResourceModelResponse> getHttpResourceModel() {
+    public CompletableFuture<FunctionModelResponse> getHttpResourceModel() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return getResourceFunctionModel()
-                        .map(ResourceModelResponse::new)
-                        .orElseGet(ResourceModelResponse::new);
+                        .map(FunctionModelResponse::new)
+                        .orElseGet(FunctionModelResponse::new);
             } catch (Throwable e) {
-                return new ResourceModelResponse(e);
+                return new FunctionModelResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the function model template for a given function in a service type
+     *
+     * @return {@link FunctionModelResponse} of the resource model response
+     */
+    @JsonRequest
+    public CompletableFuture<FunctionModelResponse> getFunctionModel(FunctionModelRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return Utils.getFunctionModel(request.type(), request.functionName())
+                        .map(FunctionModelResponse::new)
+                        .orElseGet(FunctionModelResponse::new);
+            } catch (Throwable e) {
+                return new FunctionModelResponse(e);
             }
         });
     }
