@@ -499,7 +499,7 @@ public class TypeTransformer {
 
             functionBuilder
                     .kind(Function.FunctionKind.FUNCTION)
-                    .accessor(methodSymbol.getName().orElse(""));
+                    .name(methodSymbol.getName().orElse(""));
 
             // return type
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
@@ -556,7 +556,9 @@ public class TypeTransformer {
             // resource path
             // TODO: Need a structured schema for resourcePath
             if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder.name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
+                functionBuilder
+                        .name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature())
+                        .accessor(methodSymbol.getName().orElse(""));
             }
 
             functions.add(functionBuilder.build());
