@@ -232,7 +232,7 @@ public class TypeTransformer {
         enumSymbol.members().forEach(enumMember -> {
             String name = enumMember.getName().get();
             ConstantValue constValue = (ConstantValue) enumMember.constValue();
-            String constValueAsString = "\"" + constValue.value() +"\"";
+            String constValueAsString = "\"" + constValue.value() + "\"";
             memberBuilder
                     .name(name)
                     .kind(Member.MemberKind.NAME)
