@@ -73,9 +73,9 @@ public class DataMapperService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(),
-                        document.get());
-                response.setType(dataMapManager.getTypes(request.flowNode(), request.propertyKey()));
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, document.get());
+                response.setType(dataMapManager.getTypes(request.flowNode(), request.propertyKey(),
+                        semanticModel.get()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -90,14 +90,12 @@ public class DataMapperService implements ExtendedLanguageServerService {
             try {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (semanticModel.isEmpty() || document.isEmpty()) {
+                if (document.isEmpty()) {
                     return response;
                 }
 
-                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(),
-                        document.get());
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, document.get());
                 response.setMappingsModel(dataMapManager.getMappings(request.flowNode(), request.position(),
                         request.propertyKey(), Path.of(request.filePath()), request.targetField(), project));
             } catch (Throwable e) {
@@ -112,7 +110,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             DataMapperSourceResponse response = new DataMapperSourceResponse();
             try {
-                DataMapManager dataMapManager = new DataMapManager(null, null, null);
+                DataMapManager dataMapManager = new DataMapManager(null, null);
                 response.setSource(dataMapManager.getSource(request.mappings(), request.flowNode(),
                         request.targetField()));
             } catch (Throwable e) {
@@ -134,7 +132,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                DataMapManager dataMapManager = new DataMapManager(null, null, document.get());
+                DataMapManager dataMapManager = new DataMapManager(null, document.get());
                 response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(),
                         Path.of(request.filePath()), request.position(), project));
             } catch (Throwable e) {
@@ -151,13 +149,11 @@ public class DataMapperService implements ExtendedLanguageServerService {
             try {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (semanticModel.isEmpty() || document.isEmpty()) {
+                if (document.isEmpty()) {
                     return response;
                 }
-                DataMapManager dataMapManager = new DataMapManager(workspaceManager, semanticModel.get(),
-                        document.get());
+                DataMapManager dataMapManager = new DataMapManager(workspaceManager, document.get());
                 response.setVisualizableProperties(dataMapManager.getVisualizableProperties(request.flowNode(),
                         project, filePath, request.position()));
             } catch (Throwable e) {
@@ -179,8 +175,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                DataMapManager dataMapManager = new DataMapManager(workspaceManager, semanticModel.get(),
-                        document.get());
+                DataMapManager dataMapManager = new DataMapManager(workspaceManager, document.get());
                 response.setSource(dataMapManager.addElement(request.flowNode(), request.propertyKey(),
                         Path.of(request.filePath()), request.targetField(), project, request.position()));
             } catch (Throwable e) {
