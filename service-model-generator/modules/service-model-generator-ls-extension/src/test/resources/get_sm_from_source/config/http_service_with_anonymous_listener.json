@@ -88,9 +88,17 @@
     },
     "functions": [
       {
+        "metadata": {
+          "label": "",
+          "description": ""
+        },
         "qualifiers": [],
         "kind": "DEFAULT",
         "accessor": {
+          "metadata": {
+            "label": "Accessor",
+            "description": "The accessor of the function"
+          },
           "enabled": false,
           "editable": true,
           "isType": false,
@@ -99,6 +107,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "Function Name",
+            "description": "The name of the function"
+          },
           "enabled": true,
           "editable": true,
           "value": "init",
@@ -110,6 +122,10 @@
         },
         "parameters": [],
         "returnType": {
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
           "enabled": true,
           "editable": false,
           "value": "error?",
@@ -194,6 +210,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": false,
               "value": "",
@@ -206,6 +226,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -229,6 +253,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": false,
               "value": "",
@@ -241,6 +269,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -264,6 +296,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": false,
               "value": "",
@@ -276,6 +312,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -299,6 +339,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
+              },
               "enabled": true,
               "editable": true,
               "value": "string",
@@ -309,6 +353,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
+              },
               "enabled": true,
               "editable": true,
               "value": "header",
@@ -319,6 +367,10 @@
               "addNewButton": false
             },
             "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
               "enabled": false,
               "editable": true,
               "isType": false,
@@ -339,6 +391,10 @@
             },
             "kind": "DEFAULTABLE",
             "type": {
+              "metadata": {
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
+              },
               "enabled": true,
               "editable": true,
               "value": "int",
@@ -349,6 +405,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
+              },
               "enabled": true,
               "editable": true,
               "value": "id",
@@ -359,6 +419,10 @@
               "addNewButton": false
             },
             "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
               "enabled": true,
               "editable": true,
               "value": "45",
@@ -382,6 +446,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -394,6 +462,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -434,6 +506,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -446,6 +522,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -486,6 +566,10 @@
             },
             "kind": "REQUIRED",
             "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -498,6 +582,10 @@
               "addNewButton": false
             },
             "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
               "enabled": true,
               "editable": true,
               "value": "",
@@ -520,6 +608,10 @@
           "responses": [
             {
               "statusCode": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
                 "enabled": true,
                 "editable": true,
                 "value": "200",
@@ -530,6 +622,10 @@
                 "addNewButton": false
               },
               "body": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
                 "enabled": true,
                 "editable": true,
                 "value": "json",
@@ -540,6 +636,10 @@
                 "addNewButton": false
               },
               "name": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
                 "enabled": true,
                 "editable": true,
                 "value": "OkResponse",
@@ -550,6 +650,10 @@
                 "addNewButton": false
               },
               "type": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
                 "enabled": true,
                 "editable": true,
                 "value": "OkResponse",

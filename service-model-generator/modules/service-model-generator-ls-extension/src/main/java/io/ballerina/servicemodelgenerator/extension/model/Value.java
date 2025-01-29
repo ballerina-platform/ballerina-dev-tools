@@ -40,8 +40,16 @@ public class Value {
     private List<Value> choices;
     private boolean addNewButton = false;
 
+    public Value(MetaData metadata) {
+        this(metadata, false, true, null, null,
+                null, false, null, false, false,
+                null, null, null);
+    }
+
     public Value() {
-        this(null, false, true, null, null, null, false, null, false, false, null, null, null);
+        this(new MetaData("", ""), false, true, null, null,
+                null, false, null, false, false,
+                null, null, null);
     }
 
     public Value(String value, String valueType, boolean isEnabled) {

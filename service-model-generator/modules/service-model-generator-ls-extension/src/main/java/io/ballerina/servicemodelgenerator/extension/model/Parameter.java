@@ -18,6 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+
 import java.util.Locale;
 import java.util.Objects;
 
@@ -52,7 +54,11 @@ public class Parameter {
     }
 
     public static Parameter getNewParameter() {
-        return new Parameter(null, null, new Value(), new Value(), new Value(), false, false, false, false, null);
+        return new Parameter(null, null,
+                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
+                false, false, false, false, null);
     }
 
     public MetaData getMetadata() {
