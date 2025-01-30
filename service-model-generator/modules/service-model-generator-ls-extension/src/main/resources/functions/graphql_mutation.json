@@ -7,8 +7,8 @@
   "kind": "MUTATION",
   "accessor": {
     "metadata": {
-      "label": "",
-      "description": ""
+      "label": "Accessor",
+      "description": "The accessor of the function"
     },
     "enabled": false,
     "editable": false,
@@ -34,12 +34,11 @@
   "parameters": [],
   "schema" : {
     "parameter": {
-      "metadata": {
-        "label": "Parameter Name",
-        "description": "Name of the parameter"
-      },
-      "kind": "REQUIRED",
       "type": {
+        "metadata": {
+          "label": "Parameter Type",
+          "description": "The type of the parameter"
+        },
         "enabled": true,
         "editable": true,
         "value": "",
@@ -50,6 +49,10 @@
         "addNewButton": false
       },
       "name": {
+        "metadata": {
+          "label": "Parameter Name",
+          "description": "The name of the parameter"
+        },
         "enabled": true,
         "editable": true,
         "value": "",
@@ -62,15 +65,12 @@
       "defaultValue": {
         "metadata": {
           "label": "Default Value",
-          "description": "The default value"
+          "description": "The default value of the parameter"
         },
-        "value": "",
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "anydata",
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "isType": false,
-        "optional": false,
+        "optional": true,
         "advanced": false,
         "addNewButton": false
       },
@@ -83,7 +83,7 @@
   "returnType": {
     "metadata": {
       "label": "Return type",
-      "description": "Query return type"
+      "description": "The return type of the function"
     },
     "enabled": true,
     "editable": true,

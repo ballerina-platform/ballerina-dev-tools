@@ -7,8 +7,8 @@
   "kind": "SUBSCRIPTION",
   "accessor": {
     "metadata": {
-      "label": "Resource Accessor",
-      "description": "The resource accessor"
+      "label": "Accessor",
+      "description": "The accessor of the function"
     },
     "enabled": false,
     "editable": false,
@@ -26,7 +26,7 @@
     },
     "enabled": true,
     "editable": true,
-    "value": "names",
+    "value": "",
     "valueType": "IDENTIFIER",
     "isType": false,
     "optional": false,
@@ -36,12 +36,11 @@
   "parameters": [],
   "schema" : {
     "parameter": {
-      "metadata": {
-        "label": "Parameter Name",
-        "description": "Name of the parameter"
-      },
-      "kind": "REQUIRED",
       "type": {
+        "metadata": {
+          "label": "Parameter Type",
+          "description": "The type of the parameter"
+        },
         "enabled": true,
         "editable": true,
         "value": "",
@@ -52,6 +51,10 @@
         "addNewButton": false
       },
       "name": {
+        "metadata": {
+          "label": "Parameter Name",
+          "description": "The name of the parameter"
+        },
         "enabled": true,
         "editable": true,
         "value": "",
@@ -64,15 +67,12 @@
       "defaultValue": {
         "metadata": {
           "label": "Default Value",
-          "description": "The default value"
+          "description": "The default value of the parameter"
         },
-        "value": "",
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "anydata",
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "isType": false,
-        "optional": false,
+        "optional": true,
         "advanced": false,
         "addNewButton": false
       },
@@ -85,7 +85,7 @@
   "returnType": {
     "enabled": true,
     "editable": false,
-    "value": "stream<string, error?>",
+    "value": "",
     "valueType": "TYPE",
     "isType": false,
     "optional": false,
