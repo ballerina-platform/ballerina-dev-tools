@@ -38,6 +38,7 @@ public enum NodeKind {
     STOP,
     FOREACH,
     DATA_MAPPER,
+    FUNCTION_DEFINITION,
     COMMENT,
     MATCH,
     FUNCTION,

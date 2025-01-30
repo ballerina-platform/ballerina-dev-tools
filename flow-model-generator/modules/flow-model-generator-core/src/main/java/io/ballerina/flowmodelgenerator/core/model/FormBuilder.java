@@ -810,21 +810,25 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc) {
-        if (!nodeProperties.isEmpty()) {
-            propertyBuilder
-                    .metadata()
-                        .label(label)
-                        .description(doc)
-                        .stepOut()
-                    .value(nodeProperties)
-                    .type(valueType);
-            if (!nodePropertiesStack.isEmpty()) {
-                nodeProperties = nodePropertiesStack.pop();
-            }
-            addProperty(key);
+    public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc,
+                                            Object typeConstraint) {
+        propertyBuilder
+                .metadata()
+                    .label(label)
+                    .description(doc)
+                    .stepOut()
+                .value(nodeProperties)
+                .typeConstraint(typeConstraint)
+                .type(valueType);
+        if (!nodePropertiesStack.isEmpty()) {
+            nodeProperties = nodePropertiesStack.pop();
         }
+        addProperty(key);
         return this;
+    }
+
+    public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc) {
+        return endNestedProperty(valueType, key, label, doc, null);
     }
 
     public final void addProperty(String key, Node node) {
