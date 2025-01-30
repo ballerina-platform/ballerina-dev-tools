@@ -994,34 +994,57 @@ public class DataMapManager {
         if (source.equals("[]")) {
             return "[" + defaultVal + "]";
         }
-        String fieldsPattern = getFieldsPattern(targetField);
-        if (source.matches("(?s).*" + fieldsPattern + "\\s*:\\s*\\[.*$")) {
-            String[] splits = source.split(".*" + fieldsPattern + "\\s*:\\s*\\[");
-            String lastSplit = splits[1];
-            if (!lastSplit.trim().startsWith("]")) {
-                defaultVal = ", " + defaultVal;
-            }
-            String firstSplit = source.substring(0, source.length() - lastSplit.length());
-            StringBuilder sb = new StringBuilder(firstSplit);
-            int openBraceCount = 0;
-            for (int i = 0; i < lastSplit.length(); i++) {
-                char c = lastSplit.charAt(i);
-                if (c == '[') {
-                    openBraceCount = openBraceCount + 1;
-                } else if (c == ']') {
-                    if (openBraceCount == 0) {
-                        sb.append(defaultVal);
-                        sb.append(lastSplit.substring(i));
-                        break;
-                    } else {
-                        openBraceCount = openBraceCount - 1;
+        VariableDeclarationNode varDeclNode = (VariableDeclarationNode) stNode;
+        if (varDeclNode.initializer().isEmpty()) {
+            return source;
+        }
+        ExpressionNode initializer = varDeclNode.initializer().get();
+        ExpressionNode expr = getArrayExpr(targetField, initializer);
+        if (expr == null || expr.kind() != SyntaxKind.LIST_CONSTRUCTOR) {
+            return source;
+        }
+        ListConstructorExpressionNode listCtrExpr = (ListConstructorExpressionNode) expr;
+        if (!listCtrExpr.expressions().isEmpty()) {
+            defaultVal = ", " + defaultVal;
+        }
+        int pos = listCtrExpr.closeBracket().position() - initializer.position();
+        source = initializer.toSourceCode();
+        return source.substring(0, pos) + defaultVal + source.substring(pos);
+    }
+
+    private ExpressionNode getArrayExpr(String targetField, ExpressionNode expr) {
+        String[] splits = targetField.split("\\.");
+        ExpressionNode currentExpr = expr;
+        for (int i = 1; i < splits.length; i++) {
+            String split = splits[i];
+            if (split.matches("\\d+")) {
+                if (currentExpr.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+                    ListConstructorExpressionNode listCtrExpr = (ListConstructorExpressionNode) currentExpr;
+                    SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
+                    int size = expressions.size();
+                    int index = Integer.parseInt(split);
+                    if (index >= size) {
+                        return null;
+                    }
+                    currentExpr = (ExpressionNode) expressions.get(index);
+                }
+            } else if (currentExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) currentExpr;
+                for (MappingFieldNode field : mappingCtrExpr.fields()) {
+                    if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
+                        SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                        if (specificFieldNode.fieldName().toSourceCode().trim().equals(split)) {
+                            Optional<ExpressionNode> optFieldExpr = specificFieldNode.valueExpr();
+                            if (optFieldExpr.isEmpty()) {
+                                return null;
+                            }
+                            currentExpr = optFieldExpr.get();
+                        }
                     }
                 }
-                sb.append(c);
             }
-            return sb.toString();
         }
-        return "";
+        return currentExpr;
     }
 
     private TypeSymbol getTargetType(TypeSymbol typeSymbol, String targetField) {

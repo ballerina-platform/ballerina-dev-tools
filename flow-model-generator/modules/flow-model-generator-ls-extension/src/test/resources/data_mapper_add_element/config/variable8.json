@@ -1,0 +1,69 @@
+{
+  "source": "variable5.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Variable",
+      "description": "New variable with type"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "startLine": {
+          "line": 11,
+          "offset": 12
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 12
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "var1",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Studentsss",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{names: [[[\"1\", \"2\", \"\"]], [[\"3\"]]]}",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 11,
+    "offset": 12
+  },
+  "output": "{names: [[[\"1\", \"2\", \"\", \"\"]], [[\"3\"]]]}",
+  "targetField": "var1.names.0.0"
+}
