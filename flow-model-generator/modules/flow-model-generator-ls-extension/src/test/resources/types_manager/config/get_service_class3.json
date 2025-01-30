@@ -103,7 +103,6 @@
         ]
       },
       {
-        "accessor": "updateName",
         "qualifiers": [
           "ISOLATED",
           "REMOTE"
@@ -119,6 +118,7 @@
           }
         ],
         "kind": "REMOTE",
+        "name": "updateName",
         "returnType": "UserProfile",
         "refs": [
           "UserProfile"

@@ -231,12 +231,17 @@ public class TypeTransformer {
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         enumSymbol.members().forEach(enumMember -> {
             String name = enumMember.getName().get();
-            Member member = memberBuilder
+            ConstantValue constValue = (ConstantValue) enumMember.constValue();
+            String constValueAsString = "\"" + constValue.value() + "\"";
+            memberBuilder
                     .name(name)
                     .kind(Member.MemberKind.NAME)
-                    .type(((ConstantValue) enumMember.constValue()).value().toString())
-                    .refs(List.of())
-                    .build();
+                    .type(constValueAsString)
+                    .refs(List.of());
+            if (!constValue.value().equals(enumMember.getName().get())) {
+                memberBuilder.defaultValue(constValueAsString);
+            }
+            Member member = memberBuilder.build();
             members.putIfAbsent(name, member);
         });
         typeDataBuilder.members(members);
@@ -499,7 +504,7 @@ public class TypeTransformer {
 
             functionBuilder
                     .kind(Function.FunctionKind.FUNCTION)
-                    .accessor(methodSymbol.getName().orElse(""));
+                    .name(methodSymbol.getName().orElse(""));
 
             // return type
             functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
@@ -556,7 +561,9 @@ public class TypeTransformer {
             // resource path
             // TODO: Need a structured schema for resourcePath
             if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder.name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature());
+                functionBuilder
+                        .name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature())
+                        .accessor(methodSymbol.getName().orElse(""));
             }
 
             functions.add(functionBuilder.build());

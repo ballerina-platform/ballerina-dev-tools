@@ -65,14 +65,16 @@
       {
         "kind": "NAME",
         "refs": [],
-        "type": "male",
-        "name": "MALE"
+        "type": "\"male\"",
+        "name": "MALE",
+        "defaultValue": "\"male\""
       },
       {
         "kind": "NAME",
         "refs": [],
-        "type": "female",
-        "name": "FEMALE"
+        "type": "\"female\"",
+        "name": "FEMALE",
+        "defaultValue": "\"female\""
       }
     ]
   },

@@ -42,17 +42,19 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.SourceCodeGenerator;
 import io.ballerina.flowmodelgenerator.core.utils.TypeTransformer;
 import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -168,17 +170,19 @@ public class TypesManager {
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(filePath, textEdits);
 
-        if (NodeKind.RECORD.equals(typeData.codedata().node())) {
-            String recordTypeDef = createRecordTypeDefCodeSnippet(typeData);
-            LineRange lineRange = typeData.codedata().lineRange();
-            if (lineRange == null) {
-                SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-                textEdits.add(new TextEdit(CommonUtils.toRange(startPos), recordTypeDef));
-            } else {
-                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), recordTypeDef));
-            }
+        // Regenerate code snippet for the type
+        SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
+        String codeSnippet = sourceCodeGenerator.generateCodeSnippetForType(typeData);
+
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        LineRange lineRange = typeData.codedata().lineRange();
+        if (lineRange == null) {
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
+        } else {
+            NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(lineRange), syntaxTree);
+            textEdits.add(new TextEdit(CommonUtils.toRange(node.lineRange()), codeSnippet));
         }
 
         return gson.toJsonTree(textEditsMap);
@@ -411,53 +415,6 @@ public class TypesManager {
         }
     }
 
-    private String createRecordTypeDefCodeSnippet(TypeData typeData) {
-        StringBuilder recordBuilder = new StringBuilder();
-
-        // Add documentation if present
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            recordBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
-        }
-
-        // Add type name
-        recordBuilder.append("type ")
-                .append(typeData.name())
-                .append(" record {|\n");
-
-        // Add includes
-        for (String include : typeData.includes()) {
-            recordBuilder.append("*").append(include).append(";\n");
-        }
-
-        // Add members
-
-        typeData.members().forEach(member -> {
-            if (member.docs() != null && !member.docs().isEmpty()) {
-                recordBuilder.append(CommonUtils.convertToBalDocs(member.docs()));
-            }
-
-            recordBuilder
-                    .append(member.type())
-                    .append(" ")
-                    .append(member.name())
-                    .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
-                            " = " + member.defaultValue() : "")
-                    .append(";\n");
-        });
-
-        // Add rest member if present
-        Optional.ofNullable(typeData.restMember()).ifPresent(restMember -> {
-            recordBuilder
-                    .append(restMember.type())
-                    .append("...;\n");
-        });
-
-        // Close the record
-        recordBuilder.append("|};\n");
-
-        return recordBuilder.toString();
-    }
-
-    public record TypeDataWithRefs(Object type, List<Object> refs) {
+    record TypeDataWithRefs(Object type, List<Object> refs) {
     }
 }

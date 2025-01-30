@@ -1,26 +1,15 @@
 {
-  "filePath": "test_pack2/types.bal",
-  "description": "Create a new record type",
+  "filePath": "test_pack1/types.bal",
+  "description": "Create a new union type",
   "type": {
-    "name": "Employee",
+    "name": "Misc",
     "editable": true,
     "metadata": {
-      "label": "Employee",
+      "label": "Misc",
       "description": ""
     },
     "codedata": {
-      "node": "RECORD",
-      "lineRange": {
-        "fileName": "types.bal",
-        "startLine": {
-          "line": 0,
-          "offset": 5
-        },
-        "endLine": {
-          "line": 0,
-          "offset": 13
-        }
-      }
+      "node": "UNION"
     },
     "properties": {
       "name": {
@@ -29,7 +18,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "Employee",
+        "value": "Misc",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -63,48 +52,52 @@
         },
         "valueType": "STRING",
         "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": true
+        "optional": false,
+        "editable": false,
+        "advanced": false
       }
     },
     "members": [
       {
-        "kind": "FIELD",
+        "kind": "TYPE",
+        "refs": [
+          "Color"
+        ],
+        "type": "Color",
+        "name": "Color"
+      },
+      {
+        "kind": "TYPE",
+        "refs": [
+          "Employees"
+        ],
+        "type": "Employees",
+        "name": "Employees"
+      },
+      {
+        "kind": "TYPE",
         "refs": [
           "Person"
         ],
         "type": "Person",
-        "name": "user",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
-        "docs": ""
+        "name": "Person"
       }
-    ],
-    "includes": [
-      "Person",
-      "User"
     ]
   },
   "output": {
-    "test_pack2/types.bal": [
+    "test_pack1/types.bal": [
       {
         "range": {
           "start": {
-            "line": 0,
+            "line": 68,
             "character": 0
           },
           "end": {
-            "line": 3,
-            "character": 3
+            "line": 68,
+            "character": 0
           }
         },
-        "newText": "type Employee record {|\n\t*Person;\n\t*User;\n\tPerson user;\n\tint id;\n|};\n"
+        "newText": "type Misc Color|Employees|Person;\n"
       }
     ]
   }
