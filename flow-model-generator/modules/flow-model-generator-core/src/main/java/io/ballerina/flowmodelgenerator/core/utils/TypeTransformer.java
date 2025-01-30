@@ -231,12 +231,17 @@ public class TypeTransformer {
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         enumSymbol.members().forEach(enumMember -> {
             String name = enumMember.getName().get();
-            Member member = memberBuilder
+            ConstantValue constValue = (ConstantValue) enumMember.constValue();
+            String constValueAsString = "\"" + constValue.value() + "\"";
+            memberBuilder
                     .name(name)
                     .kind(Member.MemberKind.NAME)
-                    .type(((ConstantValue) enumMember.constValue()).value().toString())
-                    .refs(List.of())
-                    .build();
+                    .type(constValueAsString)
+                    .refs(List.of());
+            if (!constValue.value().equals(enumMember.getName().get())) {
+                memberBuilder.defaultValue(constValueAsString);
+            }
+            Member member = memberBuilder.build();
             members.putIfAbsent(name, member);
         });
         typeDataBuilder.members(members);

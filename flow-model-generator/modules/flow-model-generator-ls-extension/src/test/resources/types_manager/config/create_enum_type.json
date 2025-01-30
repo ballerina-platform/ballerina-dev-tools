@@ -1,30 +1,15 @@
 {
   "filePath": "test_pack1/types.bal",
-  "position": {
-    "line": 42,
-    "offset": 5
-  },
-  "description": "Get a record type data",
+  "description": "Create a new union type",
   "type": {
-    "name": "Color",
+    "name": "Gender",
     "editable": true,
     "metadata": {
-      "label": "Color",
+      "label": "Gender",
       "description": ""
     },
     "codedata": {
-      "node": "ENUM",
-      "lineRange": {
-        "fileName": "types.bal",
-        "startLine": {
-          "line": 42,
-          "offset": 5
-        },
-        "endLine": {
-          "line": 42,
-          "offset": 10
-        }
-      }
+      "node": "ENUM"
     },
     "properties": {
       "isArray": {
@@ -65,22 +50,34 @@
       {
         "kind": "NAME",
         "refs": [],
-        "type": "\"RED\"",
-        "name": "RED"
+        "type": "\"male\"",
+        "name": "MALE",
+        "defaultValue": "\"male\""
       },
       {
         "kind": "NAME",
         "refs": [],
-        "type": "\"YELLOW\"",
-        "name": "YELLOW"
-      },
-      {
-        "kind": "NAME",
-        "refs": [],
-        "type": "\"GREEN\"",
-        "name": "GREEN"
+        "type": "\"female\"",
+        "name": "FEMALE",
+        "defaultValue": "\"female\""
       }
     ]
   },
-  "refs": []
+  "output": {
+    "test_pack1/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 68,
+            "character": 0
+          },
+          "end": {
+            "line": 68,
+            "character": 0
+          }
+        },
+        "newText": "enum Gender {\n\tMALE = \"male\",\n\tFEMALE = \"female\"\n}\n"
+      }
+    ]
+  }
 }

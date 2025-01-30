@@ -47,6 +47,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.utils.SourceCodeGenerator;
 import io.ballerina.flowmodelgenerator.core.utils.TypeTransformer;
 import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
 import io.ballerina.projects.Document;
@@ -160,7 +161,8 @@ public class TypesManager {
         textEditsMap.put(filePath, textEdits);
 
         // Regenerate code snippet for the type
-        String codeSnippet = createCodeSnippet(typeData);
+        SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
+        String codeSnippet = sourceCodeGenerator.generateCodeSnippetForType(typeData);
 
         SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
         LineRange lineRange = typeData.codedata().lineRange();
@@ -174,14 +176,6 @@ public class TypesManager {
         }
 
         return gson.toJsonTree(textEditsMap);
-    }
-
-    private String createCodeSnippet(TypeData typeData) {
-        return switch (typeData.codedata().node()) {
-            case RECORD -> createRecordTypeDefCodeSnippet(typeData);
-            // TODO: Handle other kinds of type: service-decl, array, union, error, future, map, stream, intersection
-            default -> "";
-        };
     }
 
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
@@ -409,53 +403,6 @@ public class TypesManager {
             default -> {
             }
         }
-    }
-
-    private String createRecordTypeDefCodeSnippet(TypeData typeData) {
-        StringBuilder recordBuilder = new StringBuilder();
-
-        // Add documentation if present
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            recordBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
-        }
-
-        // Add type name
-        recordBuilder.append("type ")
-                .append(typeData.name())
-                .append(" record {|\n");
-
-        // Add includes
-        for (String include : typeData.includes()) {
-            recordBuilder.append("*").append(include).append(";\n");
-        }
-
-        // Add members
-
-        typeData.members().forEach(member -> {
-            if (member.docs() != null && !member.docs().isEmpty()) {
-                recordBuilder.append(CommonUtils.convertToBalDocs(member.docs()));
-            }
-
-            recordBuilder
-                    .append(member.type())
-                    .append(" ")
-                    .append(member.name())
-                    .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
-                            " = " + member.defaultValue() : "")
-                    .append(";\n");
-        });
-
-        // Add rest member if present
-        Optional.ofNullable(typeData.restMember()).ifPresent(restMember -> {
-            recordBuilder
-                    .append(restMember.type())
-                    .append("...;\n");
-        });
-
-        // Close the record
-        recordBuilder.append("|};\n");
-
-        return recordBuilder.toString();
     }
 
     record TypeDataWithRefs(Object type, List<Object> refs) {
