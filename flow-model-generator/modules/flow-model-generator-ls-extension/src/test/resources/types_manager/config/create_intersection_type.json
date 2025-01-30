@@ -1,15 +1,15 @@
 {
   "filePath": "test_pack1/types.bal",
-  "description": "Create a new table type",
+  "description": "Create a new intersection type",
   "type": {
-    "name": "AddressTable",
+    "name": "PersonIntersection",
     "editable": true,
     "metadata": {
-      "label": "AddressTable",
+      "label": "PersonIntersection",
       "description": ""
     },
     "codedata": {
-      "node": "TABLE"
+      "node": "INTERSECTION"
     },
     "properties": {
       "name": {
@@ -18,7 +18,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "AddressTable",
+        "value": "PersonIntersection",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -60,60 +60,17 @@
     "members": [
       {
         "kind": "TYPE",
-        "refs": [
-          "Address"
-        ],
-        "type": "Address",
-        "name": "rowType"
+        "refs": [],
+        "type": "int",
+        "name": "int"
       },
       {
         "kind": "TYPE",
-        "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "UNION"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "false",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [],
-              "type": "string",
-              "name": "string"
-            },
-            {
-              "kind": "TYPE",
-              "refs": [],
-              "type": "int",
-              "name": "int"
-            }
-          ]
-        },
-        "name": "keyConstraintType"
+        "refs": [
+          "Person"
+        ],
+        "type": "Person",
+        "name": "Person"
       }
     ]
   },
@@ -130,7 +87,7 @@
             "character": 0
           }
         },
-        "newText": "type AddressTable table<Address> key<string|int>;\n"
+        "newText": "type PersonIntersection int & Person;\n"
       }
     ]
   }

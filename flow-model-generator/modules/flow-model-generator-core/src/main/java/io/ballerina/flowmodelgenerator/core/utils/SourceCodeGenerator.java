@@ -115,6 +115,7 @@ public class SourceCodeGenerator {
             case INTERSECTION -> generateIntersectionTypeDescriptor(typeData, stringBuilder);
             case OBJECT -> generateObjectTypeDescriptor(typeData, stringBuilder);
             case TABLE -> generateTableTypeDescriptor(typeData, stringBuilder);
+            case TUPLE -> generateTupleTypeDescriptor(typeData, stringBuilder);
             default -> throw new UnsupportedOperationException("Unsupported type descriptor: " + typeDescriptor);
         }
     }
@@ -191,7 +192,8 @@ public class SourceCodeGenerator {
         if (typeData.members().size() <= 1) {
             return;
         }
-        for (Member member : typeData.members()) {
+        for (int i = 0; i < typeData.members().size(); i++) {
+            Member member = typeData.members().get(i);
             if (member.type() instanceof TypeData) {
                 if (((TypeData) member.type()).codedata().node() == NodeKind.INTERSECTION) {
                     stringBuilder.append("(");
@@ -203,8 +205,26 @@ public class SourceCodeGenerator {
             } else {
                 generateTypeDescriptor(member.type(), stringBuilder);
             }
-            stringBuilder.append(" & ");
+            if (i < typeData.members().size() - 1) {
+                stringBuilder.append(" & ");
+            }
         }
+    }
+
+    private void generateTupleTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
+        stringBuilder.append("[");
+        if (typeData.members().size() <= 1) {
+            stringBuilder.append("]");
+            return;
+        }
+        for (int i = 0; i < typeData.members().size(); i++) {
+            Member member = typeData.members().get(i);
+            generateTypeDescriptor(member.type(), stringBuilder);
+            if (i < typeData.members().size() - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+        stringBuilder.append("]");
     }
 
     private void generateUnionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
