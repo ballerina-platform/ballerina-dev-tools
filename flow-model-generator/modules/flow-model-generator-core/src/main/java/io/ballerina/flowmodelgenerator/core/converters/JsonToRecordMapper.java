@@ -51,7 +51,6 @@ import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.converters.exception.JsonToRecordConverterException;
-import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import org.apache.commons.lang3.StringUtils;
@@ -189,7 +188,7 @@ public final class JsonToRecordMapper {
         FormattingOptions formattingOptions = FormattingOptions.builder()
                 .setForceFormattingOptions(forceFormattingOptions).build();
         String str = Formatter.format(modulePartNode.syntaxTree(), formattingOptions).toSourceCode();
-        // TODO: Check this
+
         Document modifiedDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(str).apply();

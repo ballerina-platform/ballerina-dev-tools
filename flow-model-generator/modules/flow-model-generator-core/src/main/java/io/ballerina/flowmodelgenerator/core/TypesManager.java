@@ -415,6 +415,6 @@ public class TypesManager {
         }
     }
 
-    record TypeDataWithRefs(Object type, List<Object> refs) {
+    public record TypeDataWithRefs(Object type, List<Object> refs) {
     }
 }

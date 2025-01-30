@@ -20,8 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -58,8 +58,16 @@ public class JsonConverterTest extends AbstractLSTest {
 
         StringBuilder sb = new StringBuilder();
         for (JsonElement record : records) {
+            String typeStr = record.getAsJsonObject().get("type").toString();
+            String[] splits = typeStr.split("properties");
+            StringBuilder rest = new StringBuilder();
+            for (int i = 1; i < splits.length; i++) {
+                rest.append(splits[i]);
+            }
+            String newType = typeStr.split("codedata")[0] + "codedata\": {\"node\":\"RECORD\"}," +
+                    "\"properties" + rest;
             TypeUpdateRequest updateRequest =
-                    new TypeUpdateRequest(sourceFile, ((JsonObject) record).getAsJsonObject("type"));
+                    new TypeUpdateRequest(sourceFile, gson.toJsonTree(gson.fromJson(newType, TypeData.class)));
             JsonElement response = getResponse(updateRequest, "typesManager/updateType").getAsJsonObject("textEdits");
             Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(response, textEditListType);
             for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
