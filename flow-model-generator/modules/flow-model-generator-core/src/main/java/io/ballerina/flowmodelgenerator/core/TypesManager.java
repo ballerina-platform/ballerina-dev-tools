@@ -75,7 +75,9 @@ public class TypesManager {
     private final Module module;
     private final Document typeDocument;
     private static final List<SymbolKind> supportedSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.ENUM,
-            SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS, SymbolKind.TYPE);
+            SymbolKind.CLASS, SymbolKind.TYPE);
+    private static final List<SymbolKind> supportedGraphqlSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION,
+            SymbolKind.ENUM, SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS, SymbolKind.TYPE);
 
     public TypesManager(Document typeDocument) {
         this.typeDocument = typeDocument;
@@ -86,7 +88,7 @@ public class TypesManager {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
                 .filter(s -> supportedSymbolKinds.contains(s.kind()))
-                .collect(Collectors.toMap(symbol -> symbol.getName().get(), symbol -> symbol));
+                .collect(Collectors.toMap(symbol -> symbol.getName().orElse(""), symbol -> symbol));
 
         // Now we have all the defined types in the module scope
         // Now we need to get foreign types that we have defined members of the types
@@ -107,7 +109,7 @@ public class TypesManager {
     public JsonElement getType(Document document, LinePosition linePosition) {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
-        if (symbol.isEmpty() || !supportedSymbolKinds.contains(symbol.get().kind())) {
+        if (symbol.isEmpty() || !supportedGraphqlSymbolKinds.contains(symbol.get().kind())) {
             return null;
         }
 
