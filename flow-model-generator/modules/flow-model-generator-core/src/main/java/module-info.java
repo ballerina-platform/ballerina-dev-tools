@@ -38,6 +38,7 @@ module io.ballerina.flow.model.generator {
     requires swagger.parser.v3;
     requires swagger.parser.core;
     requires org.apache.commons.lang3;
+    requires java.xml;
 
     exports io.ballerina.flowmodelgenerator.core;
     exports io.ballerina.flowmodelgenerator.core.utils;

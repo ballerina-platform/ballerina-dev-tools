@@ -1,0 +1,8 @@
+{
+  "filePath": "proj/main.bal",
+  "xmlString": "<bookstore status=\"online\" xmlns:ns0=\"http://sample.com/test\">\n    <storeName>foo</storeName>\n    <postalCode>94</postalCode>\n    <isOpen>true</isOpen>\n    <codes>\n        <item>4</item>\n        <item>8.15</item>\n        <item>String Item</item>\n        <item>\n            <ItemCode>23</ItemCode>\n        </item>\n        <item>\n            <ItemCode>23Str</ItemCode>\n        </item>\n        <otherItem>\n            <ItemCode>23Str</ItemCode>\n        </otherItem>\n    </codes>\n</bookstore>\n",
+  "prefix": "",
+  "isClosed": false,
+  "isRecordTypeDesc": false,
+  "records": "type Item record {|\n\tstring|int ItemCode;\n\tanydata ...;\n|};\n\ntype OtherItem record {|\n\tstring ItemCode;\n\tanydata ...;\n|};\n\ntype Codes record {|\n\tItem|string|decimal|int[] item;\n\tOtherItem otherItem;\n\tanydata ...;\n|};\n\ntype Bookstore record {|\n\tCodes codes;\n\tboolean isOpen;\n\tint postalCode;\n\tstring storeName;\n\tstring status;\n\tanydata ...;\n|};\n\n"
+}

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -18,45 +18,34 @@
 
 package io.ballerina.flowmodelgenerator.core.converters.utils;
 
-import com.google.gson.JsonPrimitive;
-import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.AbstractNodeFactory;
 import io.ballerina.compiler.syntax.tree.ArrayTypeDescriptorNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.ParenthesisedTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SyntaxInfo;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
-import io.ballerina.projects.Project;
-import io.ballerina.projects.ProjectException;
-import io.ballerina.projects.directory.BuildProject;
-import io.ballerina.projects.directory.SingleFileProject;
-import io.ballerina.projects.util.ProjectUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static io.ballerina.flowmodelgenerator.core.converters.utils.Utils.escapeSpecialCharacters;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.Utils.unescapeUnicodeCodepoints;
 
 /**
- * Util methods for JSON to record direct converter.
+ * Util methods for XML to record converter.
  *
- * @since 2.0.0
+ * @since 2201.7.2
  */
-public final class JsonToRecordMapperConverterUtils {
+public final class XMLToRecordConverterUtils {
 
-    private JsonToRecordMapperConverterUtils() {}
+    private XMLToRecordConverterUtils() {}
 
-    private static final String ARRAY_RECORD_SUFFIX = "Item";
     private static final String QUOTED_IDENTIFIER_PREFIX = "'";
     private static final String ESCAPE_NUMERIC_PATTERN = "\\b\\d.*";
     private static final List<String> KEYWORDS = SyntaxInfo.keywords();
@@ -84,98 +73,20 @@ public final class JsonToRecordMapperConverterUtils {
     }
 
     /**
-     * This method returns existing Types on a module/file(for single file projects).
-     *
-     * @param workspaceManager Workspace manager instance
-     * @param filePath FilePath URI of the/a file in a singleFileProject or module
-     * @return {@link List<String>} List of already existing Types
-     */
-    public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath) {
-        List<String> existingTypeNames = new ArrayList<>();
-        if (filePath == null) {
-            return existingTypeNames;
-        }
-
-        if (workspaceManager != null && workspaceManager.semanticModel(filePath).isPresent()) {
-            List<Symbol> moduleSymbols = workspaceManager.semanticModel(filePath).get().moduleSymbols();
-            moduleSymbols.forEach(symbol -> {
-                if (symbol.getName().isPresent()) {
-                    existingTypeNames.add(symbol.getName().get());
-                }
-            });
-            return existingTypeNames;
-        }
-
-        try {
-            Project project;
-            List<Symbol> moduleSymbols;
-            Path projectRoot = ProjectUtils.findProjectRoot(filePath);
-            if (projectRoot == null) {
-                // Since the project-root cannot be found, the provided file is considered as SingleFileProject.
-                project = SingleFileProject.load(filePath);
-                moduleSymbols =
-                        project.currentPackage().getDefaultModule().getCompilation().getSemanticModel().moduleSymbols();
-                moduleSymbols.forEach(symbol -> {
-                    if (symbol.getName().isPresent()) {
-                        existingTypeNames.add(symbol.getName().get());
-                    }
-                });
-            } else {
-                project = BuildProject.load(projectRoot);
-                moduleSymbols = project.currentPackage()
-                        .module(project.documentId(filePath).moduleId())
-                        .getCompilation().getSemanticModel().moduleSymbols();
-                moduleSymbols.forEach(symbol -> {
-                    if (symbol.getName().isPresent()) {
-                        existingTypeNames.add(symbol.getName().get());
-                    }
-                });
-            }
-        } catch (ProjectException pe) {
-            return existingTypeNames;
-        }
-        return existingTypeNames;
-    }
-
-    /**
-     * This method returns an alternative fieldName if the given filedName is already exist.
-     *
-     * @param fieldName Field name of the JSON Object/Array
-     * @param isArrayField To denote whether given field is an array or not
-     * @param existingFieldNames The list of already existing field names
-     * @param updatedFieldNames The list of updated field names
-     * @return {@link List<String>} List of already existing Types
-     */
-    public static String getAndUpdateFieldNames(String fieldName, boolean isArrayField, List<String> existingFieldNames,
-                                                Map<String, String> updatedFieldNames) {
-        String updatedFieldName = getUpdatedFieldName(fieldName, isArrayField, existingFieldNames, updatedFieldNames);
-        if (!fieldName.equals(updatedFieldName)) {
-            updatedFieldNames.put(fieldName, updatedFieldName);
-            return updatedFieldName;
-        }
-        return fieldName;
-    }
-
-    /**
      * This method returns the SyntaxToken corresponding to the JsonPrimitive.
      *
      * @param value JsonPrimitive that has to be classified.
      * @return {@link Token} Classified Syntax Token.
      */
-    public static Token getPrimitiveTypeName(JsonPrimitive value) {
-        if (value.isString()) {
-            return AbstractNodeFactory.createToken(SyntaxKind.STRING_KEYWORD);
-        } else if (value.isBoolean()) {
+    public static Token getPrimitiveTypeName(String value) {
+        if (isBoolean(value)) {
             return AbstractNodeFactory.createToken(SyntaxKind.BOOLEAN_KEYWORD);
-        } else if (value.isNumber()) {
-            String strValue = value.getAsNumber().toString();
-            if (strValue.contains(".")) {
-                return AbstractNodeFactory.createToken(SyntaxKind.DECIMAL_KEYWORD);
-            } else {
-                return AbstractNodeFactory.createToken(SyntaxKind.INT_KEYWORD);
-            }
+        } else if (isInteger(value)) {
+            return AbstractNodeFactory.createToken(SyntaxKind.INT_KEYWORD);
+        } else if (isDouble(value)) {
+            return AbstractNodeFactory.createToken(SyntaxKind.DECIMAL_KEYWORD);
         }
-        return AbstractNodeFactory.createToken(SyntaxKind.ANYDATA_KEYWORD);
+        return AbstractNodeFactory.createToken(SyntaxKind.STRING_KEYWORD);
     }
 
     /**
@@ -207,11 +118,16 @@ public final class JsonToRecordMapperConverterUtils {
      * @return {@link List<TypeDescriptorNode>} The sorted TypeDescriptorNode list.
      */
     public static List<TypeDescriptorNode> sortTypeDescriptorNodes(List<TypeDescriptorNode> typeDescriptorNodes) {
-        Stream<TypeDescriptorNode> nonArrayNodes = typeDescriptorNodes.stream()
-                .filter(node -> !(node instanceof ArrayTypeDescriptorNode))
-                .sorted(Comparator.comparing(TypeDescriptorNode::toSourceCode));
-        Stream<TypeDescriptorNode> arrayNodes = typeDescriptorNodes.stream()
-                .filter(node -> (node instanceof ArrayTypeDescriptorNode)).sorted((node1, node2) -> {
+        List<TypeDescriptorNode> nonArrayNodes = typeDescriptorNodes.stream()
+                .filter(node -> !(node instanceof ArrayTypeDescriptorNode)).collect(Collectors.toList());
+        List<TypeDescriptorNode> arrayNodes = typeDescriptorNodes.stream()
+                .filter(node -> (node instanceof ArrayTypeDescriptorNode)).collect(Collectors.toList());
+        List<TypeDescriptorNode> membersOfArrayNodes = arrayNodes.stream()
+                .map(node -> extractArrayTypeDescNode((ArrayTypeDescriptorNode) node)).toList();
+        nonArrayNodes.removeIf(node ->
+                membersOfArrayNodes.stream().map(Node::toSourceCode).toList().contains(node.toSourceCode()));
+        nonArrayNodes.sort(Comparator.comparing(TypeDescriptorNode::toSourceCode));
+        arrayNodes.sort((node1, node2) -> {
             ArrayTypeDescriptorNode arrayNode1 = (ArrayTypeDescriptorNode) node1;
             ArrayTypeDescriptorNode arrayNode2 = (ArrayTypeDescriptorNode) node2;
             return getNumberOfDimensions(arrayNode1).equals(getNumberOfDimensions(arrayNode2)) ?
@@ -219,22 +135,7 @@ public final class JsonToRecordMapperConverterUtils {
                             .compareTo((arrayNode2).memberTypeDesc().toSourceCode()) :
                     getNumberOfDimensions(arrayNode1) - getNumberOfDimensions(arrayNode2);
         });
-        return Stream.concat(nonArrayNodes, arrayNodes).toList();
-    }
-
-    /**
-     * This method returns the memberTypeDesc node of an ArrayTypeDescriptorNode.
-     *
-     * @param typeDescNode ArrayTypeDescriptorNode for which it has to be extracted.
-     * @return {@link TypeDescriptorNode} The memberTypeDesc node of the ArrayTypeDescriptor node.
-     */
-    public static TypeDescriptorNode extractArrayTypeDescNode(TypeDescriptorNode typeDescNode) {
-        if (typeDescNode.kind().equals(SyntaxKind.ARRAY_TYPE_DESC)) {
-            ArrayTypeDescriptorNode arrayTypeDescNode = (ArrayTypeDescriptorNode) typeDescNode;
-            return extractArrayTypeDescNode(arrayTypeDescNode.memberTypeDesc());
-        } else {
-            return typeDescNode;
-        }
+        return Stream.concat(nonArrayNodes.stream(), arrayNodes.stream()).toList();
     }
 
     /**
@@ -275,12 +176,18 @@ public final class JsonToRecordMapperConverterUtils {
         return totalDimensions;
     }
 
+    private static TypeDescriptorNode extractArrayTypeDescNode(ArrayTypeDescriptorNode arrayTypeDescNode) {
+        if (arrayTypeDescNode.memberTypeDesc() instanceof ArrayTypeDescriptorNode arrayTypeDescriptorNode) {
+            return extractArrayTypeDescNode(arrayTypeDescriptorNode);
+        }
+        return arrayTypeDescNode.memberTypeDesc();
+    }
+
     private static TypeDescriptorNode extractParenthesisedTypeDescNode(TypeDescriptorNode typeDescNode) {
         if (typeDescNode instanceof ParenthesisedTypeDescriptorNode parenthesisedTypeDescriptorNode) {
             return extractParenthesisedTypeDescNode(parenthesisedTypeDescriptorNode.typedesc());
-        } else {
-            return typeDescNode;
         }
+        return typeDescNode;
     }
 
     private static void addIfNotExist(List<TypeDescriptorNode> typeDescNodes,
@@ -293,26 +200,25 @@ public final class JsonToRecordMapperConverterUtils {
         }
     }
 
-    private static String getUpdatedFieldName(String fieldName, boolean isArrayField, List<String> existingFieldNames,
-                                              Map<String, String> updatedFieldNames) {
-        if (updatedFieldNames.containsKey(fieldName)) {
-            return updatedFieldNames.get(fieldName);
-        }
-        if (!existingFieldNames.contains(fieldName) && !updatedFieldNames.containsValue(fieldName)) {
-            return fieldName;
-        } else {
-            String[] fieldNameSplit = fieldName.split("_");
-            String numericSuffix = fieldNameSplit[fieldNameSplit.length - 1];
+    private static boolean isBoolean(String value) {
+        return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
+    }
 
-            if (NumberUtils.isParsable(numericSuffix)) {
-                return getUpdatedFieldName(String.join("_",
-                                Arrays.copyOfRange(fieldNameSplit, 0, fieldNameSplit.length - 1)) + "_" +
-                                String.format("%02d", Integer.parseInt(numericSuffix) + 1), isArrayField,
-                        existingFieldNames, updatedFieldNames);
-            } else {
-                return getUpdatedFieldName(fieldName + "_01", isArrayField, existingFieldNames,
-                        updatedFieldNames);
-            }
+    private static boolean isInteger(String value) {
+        try {
+            Long.parseLong(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean isDouble(String value) {
+        try {
+            Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
