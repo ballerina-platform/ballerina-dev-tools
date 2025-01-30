@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.servicemodelgenerator.extension;
+package io.ballerina.servicemodelgenerator.extension.util;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -60,6 +60,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
@@ -479,6 +480,10 @@ public final class Utils {
         functionName.setValue(functionDefinitionNode.functionName().text().trim());
         functionName.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         functionName.setEnabled(true);
+        if (isGraphQL) {
+            accessor.setEditable(false);
+            functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.parameterSchema()));
+        }
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
                 if (isGraphQL) {
@@ -715,15 +720,13 @@ public final class Utils {
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
-            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
-                    ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations());
+            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER,
+                    parameter.typeName().toString().trim(), parameter.annotations());
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
-            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
-                    ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
-                    parameter.annotations());
+            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION,
+                    parameter.typeName().toString().trim(), parameter.annotations());
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -733,11 +736,9 @@ public final class Utils {
         return Optional.empty();
     }
 
-    private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
+    private static Parameter createParameter(String paramName, String valueType, String typeName,
                                              NodeList<AnnotationNode> annotationNodes) {
         Parameter parameterModel = Parameter.getNewParameter();
-        parameterModel.setMetadata(new MetaData(paramName, paramName));
-        parameterModel.setKind(paramKind);
         getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
         Value type = parameterModel.getType();
         type.setValue(typeName);

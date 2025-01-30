@@ -78,6 +78,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceRe
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -104,21 +105,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static io.ballerina.servicemodelgenerator.extension.Utils.expectsTriggerByName;
-import static io.ballerina.servicemodelgenerator.extension.Utils.filterTriggers;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getFunction;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSignature;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getImportStmt;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getPath;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getResourceFunctionModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
-import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
-import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpServiceContractType;
-import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceContractModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionSignature;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateListenerModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.

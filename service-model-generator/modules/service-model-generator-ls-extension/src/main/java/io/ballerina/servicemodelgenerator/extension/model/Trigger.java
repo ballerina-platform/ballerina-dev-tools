@@ -18,7 +18,7 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-import io.ballerina.servicemodelgenerator.extension.Utils;
+import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static io.ballerina.servicemodelgenerator.extension.Utils.getValueString;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getValueString;
 
 public class Trigger {
     private int id;
