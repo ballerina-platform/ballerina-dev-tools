@@ -47,58 +47,6 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETER_LABEL = "Parameter";
     public static final String PARAMETER_DOC = "Function parameter";
 
-    private static Property parameterSchema;
-
-    private static Property getParameterSchema() {
-        if (parameterSchema != null) {
-            return parameterSchema;
-        }
-        Property.Builder<?> propertyBuilder = new Property.Builder<>(null);
-
-        // Build the type property
-        propertyBuilder
-                .metadata()
-                    .label(Property.TYPE_LABEL)
-                    .description(Property.TYPE_DOC)
-                    .stepOut()
-                .type(Property.ValueType.TYPE)
-                .typeConstraint(TypeKind.ANYDATA.typeName())
-                .value("")
-                .editable();
-        Property typeProperty = propertyBuilder.build();
-
-        // Build the data property
-        propertyBuilder = new Property.Builder<>(null);
-        propertyBuilder
-                .metadata()
-                    .label(Property.VARIABLE_NAME)
-                    .description(Property.VARIABLE_DOC)
-                    .stepOut()
-                .type(Property.ValueType.IDENTIFIER)
-                .value("")
-                .editable();
-        Property dataProperty = propertyBuilder.build();
-
-        // Build the node properties
-        Map<String, Property> nodeProperties = new HashMap<>();
-        nodeProperties.put(Property.TYPE_KEY, typeProperty);
-        nodeProperties.put(Property.VARIABLE_KEY, dataProperty);
-
-        // Build the property schema
-        propertyBuilder = new Property.Builder<>(null);
-        propertyBuilder
-                .metadata()
-                    .label(PARAMETER_LABEL)
-                    .description(PARAMETER_DOC)
-                    .stepOut()
-                .type(Property.ValueType.FIXED_PROPERTY)
-                .editable()
-                .value(nodeProperties);
-
-        parameterSchema = propertyBuilder.build();
-        return parameterSchema;
-    }
-
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
@@ -112,11 +60,62 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 .returnType(null)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY,
-                        PARAMETERS_LABEL, PARAMETERS_DOC, getParameterSchema());
+                        PARAMETERS_LABEL, PARAMETERS_DOC, ParameterSchemaHolder.PARAMETER_SCHEMA);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         return null;
+    }
+
+    private static class ParameterSchemaHolder {
+
+        private static final Property PARAMETER_SCHEMA = initParameterSchema();
+
+        private static Property initParameterSchema() {
+            Property.Builder<?> propertyBuilder = new Property.Builder<>(null);
+
+            // Build the type property
+            propertyBuilder
+                    .metadata()
+                        .label(Property.TYPE_LABEL)
+                        .description(Property.TYPE_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.TYPE)
+                    .typeConstraint(TypeKind.ANYDATA.typeName())
+                    .value("")
+                    .editable();
+            Property typeProperty = propertyBuilder.build();
+
+            // Build the data property
+            propertyBuilder = new Property.Builder<>(null);
+            propertyBuilder
+                    .metadata()
+                        .label(Property.VARIABLE_NAME)
+                        .description(Property.VARIABLE_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.IDENTIFIER)
+                    .value("")
+                    .editable();
+            Property dataProperty = propertyBuilder.build();
+
+            // Build the node properties
+            Map<String, Property> nodeProperties = new HashMap<>();
+            nodeProperties.put(Property.TYPE_KEY, typeProperty);
+            nodeProperties.put(Property.VARIABLE_KEY, dataProperty);
+
+            // Build the property schema
+            propertyBuilder = new Property.Builder<>(null);
+            propertyBuilder
+                    .metadata()
+                        .label(PARAMETER_LABEL)
+                        .description(PARAMETER_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.FIXED_PROPERTY)
+                    .editable()
+                    .value(nodeProperties);
+
+            return propertyBuilder.build();
+        }
     }
 }
