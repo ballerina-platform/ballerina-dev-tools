@@ -1405,7 +1405,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .nestedProperty()
                     .waitField(waitField)
                     .expression(expressionNode)
-                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, "future" + i++,
+                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, WaitBuilder.FUTURE_KEY + i++,
                             WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC);
         }
 
