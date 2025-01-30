@@ -155,8 +155,7 @@ public class DesignModelGenerator {
                     if (objectTypeSymbol.qualifiers().contains(Qualifier.CLIENT)) {
                         LineRange lineRange = variableSymbol.getLocation().get().lineRange();
                         String sortText = lineRange.fileName() + lineRange.startLine().line();
-                        String icon =  CommonUtils.generateIcon(
-                                variableSymbol.typeDescriptor().getModule().get().id());
+                        String icon =  CommonUtils.generateIcon(variableSymbol.typeDescriptor());
                         Connection connection = new Connection(variableSymbol.getName().get(), sortText,
                                 getLocation(lineRange), Connection.Scope.GLOBAL, icon, true);
                         intermediateModel.connectionMap.put(
