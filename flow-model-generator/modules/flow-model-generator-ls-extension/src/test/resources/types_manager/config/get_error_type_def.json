@@ -260,18 +260,57 @@
       "members": [
         {
           "kind": "TYPE",
-          "refs": [
-            "readonly"
-          ],
+          "refs": [],
           "type": "readonly",
           "name": "readonly"
         },
         {
           "kind": "TYPE",
-          "refs": [
-            "[int, decimal]"
-          ],
-          "type": "[int, decimal]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "TUPLE"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "decimal",
+                "name": "decimal"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
           "name": "[int, decimal]"
         }
       ]

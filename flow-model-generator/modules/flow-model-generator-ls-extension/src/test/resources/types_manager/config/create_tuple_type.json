@@ -1,15 +1,15 @@
 {
   "filePath": "test_pack1/types.bal",
-  "description": "Create a new table type",
+  "description": "Create a new tuple type",
   "type": {
-    "name": "AddressTable",
+    "name": "PersonWithId",
     "editable": true,
     "metadata": {
-      "label": "AddressTable",
+      "label": "PersonWithId",
       "description": ""
     },
     "codedata": {
-      "node": "TABLE"
+      "node": "TUPLE"
     },
     "properties": {
       "name": {
@@ -18,7 +18,7 @@
           "description": "Unique name to identify the type"
         },
         "valueType": "IDENTIFIER",
-        "value": "AddressTable",
+        "value": "PersonWithId",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -61,59 +61,16 @@
       {
         "kind": "TYPE",
         "refs": [
-          "Address"
+          "Person"
         ],
-        "type": "Address",
-        "name": "rowType"
+        "type": "Person",
+        "name": "Person"
       },
       {
         "kind": "TYPE",
         "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "UNION"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "false",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [],
-              "type": "string",
-              "name": "string"
-            },
-            {
-              "kind": "TYPE",
-              "refs": [],
-              "type": "int",
-              "name": "int"
-            }
-          ]
-        },
-        "name": "keyConstraintType"
+        "type": "int",
+        "name": "int"
       }
     ]
   },
@@ -130,7 +87,7 @@
             "character": 0
           }
         },
-        "newText": "type AddressTable table<Address> key<string|int>;\n"
+        "newText": "type PersonWithId [Person, int];\n"
       }
     ]
   }

@@ -63,7 +63,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -76,26 +75,7 @@ public class TypesManager {
     private final Module module;
     private final Document typeDocument;
     private static final List<SymbolKind> supportedSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.ENUM,
-            SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS);
-
-    private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
-        if (symbol.getName().isEmpty()) {
-            return false;
-        }
-
-        if (symbol.kind() == SymbolKind.ENUM) {
-            return true;
-        }
-
-        if (symbol.kind() != SymbolKind.TYPE_DEFINITION) {
-            return false;
-        }
-
-        return switch (((TypeDefinitionSymbol) symbol).typeDescriptor().typeKind()) {
-            case RECORD, ARRAY, UNION, ERROR -> true;
-            default -> false;
-        };
-    };
+            SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS, SymbolKind.TYPE);
 
     public TypesManager(Document typeDocument) {
         this.typeDocument = typeDocument;
@@ -105,7 +85,7 @@ public class TypesManager {
     public JsonElement getAllTypes() {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
-                .filter(supportedTypesPredicate)
+                .filter(s -> supportedSymbolKinds.contains(s.kind()))
                 .collect(Collectors.toMap(symbol -> symbol.getName().get(), symbol -> symbol));
 
         // Now we have all the defined types in the module scope
@@ -119,16 +99,7 @@ public class TypesManager {
             addMemberTypes(typeSymbol, symbolMap);
         });
 
-        List<Object> allTypes = new ArrayList<>();
-        TypeTransformer typeTransformer = new TypeTransformer(this.module);
-        symbolMap.values().forEach(symbol -> {
-            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol;
-                if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-                    allTypes.add(typeTransformer.transform(typeDef));
-                }
-            }
-        });
+        List<Object> allTypes = symbolMap.values().stream().map(this::getTypeData).toList();
 
         return gson.toJsonTree(allTypes);
     }
@@ -251,6 +222,7 @@ public class TypesManager {
             case CLASS -> typeTransformer.transform((ClassSymbol) symbol);
             case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
             case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
+            case TYPE -> getTypeData(((TypeReferenceTypeSymbol) symbol).definition());
             default ->  null;
         };
     }

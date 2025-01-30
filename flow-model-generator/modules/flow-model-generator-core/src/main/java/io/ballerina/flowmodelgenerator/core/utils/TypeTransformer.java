@@ -42,6 +42,7 @@ import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TableTypeSymbol;
+import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -410,6 +411,27 @@ public class TypeTransformer {
         return transformTypesWithConstraintType(errorTypeSymbol, NodeKind.ERROR, typeDataBuilder);
     }
 
+    public Object transform(TupleTypeSymbol tupleTypeSymbol, TypeData.TypeDataBuilder typeBuilder) {
+        typeBuilder
+                .codedata()
+                    .node(NodeKind.TUPLE)
+                    .stepOut()
+                .properties()
+                    .isArray("false", true, true, true)
+                    .arraySize("", false, false, false);
+
+        Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
+        Map<String, Member> memberTypes = new HashMap<>();
+        tupleTypeSymbol.memberTypeDescriptors().forEach(memberTypeSymbol -> {
+            String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
+            Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
+            memberTypes.putIfAbsent(name, member);
+        });
+        typeBuilder.members(memberTypes);
+
+        return typeBuilder.build();
+    }
+
     public Object transform(TypeSymbol typeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
         return switch (typeSymbol.typeKind()) {
             case RECORD -> transform((RecordTypeSymbol) typeSymbol, typeDataBuilder);
@@ -423,6 +445,7 @@ public class TypeTransformer {
             case INTERSECTION -> transform((IntersectionTypeSymbol) typeSymbol, typeDataBuilder);
             case OBJECT -> transform((ObjectTypeSymbol) typeSymbol, typeDataBuilder);
             case TABLE -> transform((TableTypeSymbol) typeSymbol, typeDataBuilder);
+            case TUPLE -> transform((TupleTypeSymbol) typeSymbol, typeDataBuilder);
             default -> CommonUtils.getTypeSignature(typeSymbol, this.moduleInfo);
         };
     }
