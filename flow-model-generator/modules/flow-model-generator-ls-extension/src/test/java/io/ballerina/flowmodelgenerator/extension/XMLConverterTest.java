@@ -63,7 +63,7 @@ public class XMLConverterTest extends AbstractLSTest {
 
         String sourceFile = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
         XMLToRecordRequest request = new XMLToRecordRequest(testConfig.xmlString(), testConfig.isRecordTypeDesc(),
-                testConfig.isClosed(), true, "text", false, false, false, sourceFile);
+                testConfig.isClosed(), true, "text", false, false, false, sourceFile, testConfig.prefix());
         JsonArray records = getResponse(request).getAsJsonArray("types");
 
         StringBuilder sb = new StringBuilder();

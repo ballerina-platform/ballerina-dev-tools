@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -40,7 +40,7 @@ import static io.ballerina.flowmodelgenerator.core.converters.utils.Utils.unesca
 /**
  * Util methods for XML to record converter.
  *
- * @since 2201.7.2
+ * @since 2.0.0
  */
 public final class XMLToRecordConverterUtils {
 

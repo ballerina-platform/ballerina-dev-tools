@@ -1,7 +1,7 @@
 {
   "filePath": "proj/main.bal",
   "xmlString": "<?xml version=\"1.0\"?>\n<book>\n    <author>Gambardella, Matthew</author>\n    <title>XML Developer's Guide</title>\n    <genre>Computer</genre>\n    <price>44.95</price>\n    <publish_date>2000-10-01</publish_date>\n    <description>An in-depth look at creating applications\n        with XML.</description>\n</book>\n",
-  "prefix": "new",
+  "prefix": "",
   "isClosed": false,
   "isRecordTypeDesc": true,
   "records": "type Book record {|\n\tstring author;\n\tdecimal price;\n\tstring genre;\n\tstring description;\n\tstring title;\n\tstring publish_date;\n\tanydata ...;\n|};\n\n"

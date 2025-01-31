@@ -34,10 +34,12 @@ public class XMLToRecordRequest {
     private final boolean withoutAttributes;
     private final boolean withoutAttributeAnnot;
     private final String filePath;
+    private String prefix;
 
     public XMLToRecordRequest(String xmlValue, boolean isRecordTypeDesc, boolean isClosed,
                               boolean forceFormatRecordFields, String textFieldName, boolean withNameSpace,
-                              boolean withoutAttributes, boolean withoutAttributeAnnot, String filePath) {
+                              boolean withoutAttributes, boolean withoutAttributeAnnot, String filePath,
+                              String prefix) {
         this.xmlValue = xmlValue;
         this.isRecordTypeDesc = isRecordTypeDesc;
         this.isClosed = isClosed;
@@ -47,6 +49,7 @@ public class XMLToRecordRequest {
         this.withoutAttributes = withoutAttributes;
         this.withoutAttributeAnnot = withoutAttributeAnnot;
         this.filePath = filePath;
+        this.prefix = prefix;
     }
 
     public String getXmlValue() {
@@ -83,5 +86,9 @@ public class XMLToRecordRequest {
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 }

@@ -69,6 +69,7 @@ public class XMLToRecordConverterService implements ExtendedLanguageServerServic
             boolean withNameSpace = request.getIsWithNameSpace();
             boolean withoutAttributes = request.getWithoutAttributes();
             boolean withoutAttributeAnnot = request.getWithoutAttributeAnnot();
+            String prefix = request.getPrefix();
 
             try {
                 Path filePath = Path.of(request.getFilePath());
@@ -81,7 +82,7 @@ public class XMLToRecordConverterService implements ExtendedLanguageServerServic
 
                 XMLToRecordConverter converter = new XMLToRecordConverter(project, document.get(), typesManager);
                 response.setTypes(converter.convert(xmlValue, isRecordTypeDesc, isClosed, forceFormatRecordFields,
-                        textFieldName, withNameSpace, withoutAttributes, withoutAttributeAnnot));
+                        textFieldName, withNameSpace, withoutAttributes, withoutAttributeAnnot, prefix));
             } catch (Throwable e) {
                 response.setError(e);
             }
