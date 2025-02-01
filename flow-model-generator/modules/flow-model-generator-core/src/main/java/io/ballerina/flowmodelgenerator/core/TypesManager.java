@@ -44,6 +44,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
@@ -135,7 +136,7 @@ public class TypesManager {
         if (typeDescriptor != null) {
             addDependencyTypes(typeDescriptor, refs);
         }
-        return new TypeDataWithRefs(type, refs.values().stream().toList());
+        return genTypeDataRefWithoutPosition(type, refs.values().stream().toList());
     }
 
     public JsonElement updateType(Path filePath, TypeData typeData) {
@@ -389,6 +390,58 @@ public class TypesManager {
         }
     }
 
+    private TypeDataWithRefs genTypeDataRefWithoutPosition(Object type, List<Object> refs) {
+        List<Object> newRefs = new ArrayList<>();
+        for (Object ref : refs) {
+            if (ref instanceof TypeData) {
+                newRefs.add(getTypeDataWithoutPosition((TypeData) ref));
+            } else {
+                newRefs.add(ref);
+            }
+        }
+
+        if (type instanceof TypeData) {
+            return new TypeDataWithRefs(getTypeDataWithoutPosition((TypeData) type), newRefs);
+        }
+        return new TypeDataWithRefs(type, newRefs);
+    }
+
+    private TypeData getTypeDataWithoutPosition(TypeData typeData) {
+        Codedata codedata = typeData.codedata();
+        Codedata newCodedata = getCodedataWithoutPosition(codedata);
+        return new TypeData(
+                typeData.name(),
+                typeData.editable(),
+                typeData.metadata(),
+                newCodedata,
+                typeData.properties(),
+                typeData.members(),
+                typeData.restMember(),
+                typeData.includes(),
+                typeData.functions(),
+                typeData.annotations()
+        );
+    }
+
+    private Codedata getCodedataWithoutPosition(Codedata codedata) {
+        return new Codedata(
+                codedata.node(),
+                codedata.org(),
+                codedata.module(),
+                codedata.object(),
+                codedata.symbol(),
+                codedata.version(),
+                null,
+                codedata.sourceCode(),
+                codedata.parentSymbol(),
+                codedata.resourcePath(),
+                codedata.id(),
+                codedata.isNew(),
+                codedata.isGenerated()
+        );
+    }
+
     public record TypeDataWithRefs(Object type, List<Object> refs) {
+
     }
 }
