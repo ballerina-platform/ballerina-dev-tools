@@ -18,15 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +42,6 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_KEY = "parameters";
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
-
-    public static final String PARAMETER_LABEL = "Parameter";
-    public static final String PARAMETER_DOC = "Function parameter";
 
     @Override
     public void setConcreteConstData() {
@@ -73,49 +69,10 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
         private static final Property PARAMETER_SCHEMA = initParameterSchema();
 
         private static Property initParameterSchema() {
-            Property.Builder<?> propertyBuilder = new Property.Builder<>(null);
-
-            // Build the type property
-            propertyBuilder
-                    .metadata()
-                        .label(Property.TYPE_LABEL)
-                        .description(Property.TYPE_DOC)
-                        .stepOut()
-                    .type(Property.ValueType.TYPE)
-                    .typeConstraint(TypeKind.ANYDATA.typeName())
-                    .value("")
-                    .editable();
-            Property typeProperty = propertyBuilder.build();
-
-            // Build the data property
-            propertyBuilder = new Property.Builder<>(null);
-            propertyBuilder
-                    .metadata()
-                        .label(Property.VARIABLE_NAME)
-                        .description(Property.VARIABLE_DOC)
-                        .stepOut()
-                    .type(Property.ValueType.IDENTIFIER)
-                    .value("")
-                    .editable();
-            Property dataProperty = propertyBuilder.build();
-
-            // Build the node properties
-            Map<String, Property> nodeProperties = new HashMap<>();
-            nodeProperties.put(Property.TYPE_KEY, typeProperty);
-            nodeProperties.put(Property.VARIABLE_KEY, dataProperty);
-
-            // Build the property schema
-            propertyBuilder = new Property.Builder<>(null);
-            propertyBuilder
-                    .metadata()
-                        .label(PARAMETER_LABEL)
-                        .description(PARAMETER_DOC)
-                        .stepOut()
-                    .type(Property.ValueType.FIXED_PROPERTY)
-                    .editable()
-                    .value(nodeProperties);
-
-            return propertyBuilder.build();
+            FormBuilder<?> formBuilder = new FormBuilder<>(null, null, null, null);
+            formBuilder.parameter("", "");
+            Map<String, Property> nodeProperties = formBuilder.build();
+            return nodeProperties.get("");
         }
     }
 }
