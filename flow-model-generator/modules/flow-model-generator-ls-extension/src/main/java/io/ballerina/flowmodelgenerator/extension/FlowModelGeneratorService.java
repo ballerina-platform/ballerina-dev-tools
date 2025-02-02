@@ -68,6 +68,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
+import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -501,10 +502,12 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             try {
                 // Load the project
                 Path projectPath = Path.of(request.projectPath());
-                this.workspaceManager.loadProject(projectPath);
+                Project project = this.workspaceManager.loadProject(projectPath);
 
                 // Find the document containing the function definition
-                Optional<Document> optDocument = this.workspaceManager.document(projectPath);
+                Path documentPath = project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? projectPath :
+                        projectPath.resolve(request.fileName());
+                Optional<Document> optDocument = this.workspaceManager.document(documentPath);
                 if (optDocument.isEmpty()) {
                     return response;
                 }
