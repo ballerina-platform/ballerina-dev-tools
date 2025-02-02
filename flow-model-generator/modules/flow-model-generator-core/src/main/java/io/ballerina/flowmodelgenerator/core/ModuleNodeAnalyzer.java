@@ -35,6 +35,8 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 
 import java.util.Optional;
 
@@ -76,7 +78,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         nodeBuilder.properties()
                 .functionName(functionDefinitionNode.functionName().text())
                 .returnType(functionDefinitionNode.functionSignature().returnTypeDesc()
-                        .map(type -> type.type().toSourceCode().strip()).orElse(""));
+                        .map(type -> type.type().toSourceCode().strip()).orElse(""))
+                .nestedProperty();
 
         // Set the function parameters
         SeparatedNodeList<ParameterNode> parameters = functionDefinitionNode.functionSignature().parameters();
@@ -105,7 +108,9 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             }
             nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""));
         }
-
+        nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY,
+                FunctionDefinitionBuilder.PARAMETERS_KEY, FunctionDefinitionBuilder.PARAMETERS_LABEL,
+                FunctionDefinitionBuilder.PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());
         this.node = gson.toJsonTree(nodeBuilder.build());
     }
 

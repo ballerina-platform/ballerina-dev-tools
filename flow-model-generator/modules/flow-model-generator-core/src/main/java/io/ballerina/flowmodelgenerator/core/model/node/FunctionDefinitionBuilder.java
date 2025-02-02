@@ -39,9 +39,16 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String LABEL = "Function Definition";
     public static final String DESCRIPTION = "Define a function";
 
+    public static final String FUNCTION_NAME_LABEL = "Function Name";
+    public static final String FUNCTION_NAME_DOC = "Name of the function";
+
     public static final String PARAMETERS_KEY = "parameters";
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
+
+    public static Property getParameterSchema() {
+        return ParameterSchemaHolder.PARAMETER_SCHEMA;
+    }
 
     @Override
     public void setConcreteConstData() {
@@ -55,8 +62,8 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 .functionName(null)
                 .returnType(null)
                 .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY,
-                        PARAMETERS_LABEL, PARAMETERS_DOC, ParameterSchemaHolder.PARAMETER_SCHEMA);
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY, PARAMETERS_LABEL,
+                        PARAMETERS_DOC, getParameterSchema());
     }
 
     @Override

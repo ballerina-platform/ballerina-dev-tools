@@ -35,6 +35,7 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
@@ -55,9 +56,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_KEY;
-import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.FUNCTION_NAME_LABEL;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_KEY;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_LABEL;
@@ -664,14 +662,14 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> functionName(String functionName) {
         propertyBuilder
                 .metadata()
-                    .label(FUNCTION_NAME_LABEL)
-                    .description(FUNCTION_NAME_DOC)
+                    .label(FunctionDefinitionBuilder.FUNCTION_NAME_LABEL)
+                    .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
                 .value(functionName)
                 .editable();
 
-        addProperty(FUNCTION_NAME_KEY);
+        addProperty(Property.FUNCTION_NAME_KEY);
         return this;
     }
 
