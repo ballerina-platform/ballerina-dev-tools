@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
@@ -30,11 +31,13 @@ import io.ballerina.flowmodelgenerator.core.EnclosedNodeFinder;
 import io.ballerina.flowmodelgenerator.core.ErrorHandlerGenerator;
 import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
+import io.ballerina.flowmodelgenerator.core.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
@@ -47,6 +50,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRe
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ComponentDeleteResponse;
@@ -58,6 +62,7 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectors
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
+import io.ballerina.flowmodelgenerator.extension.response.FunctionDefinitionResponse;
 import io.ballerina.flowmodelgenerator.extension.response.OpenApiServiceGenerationResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
@@ -482,6 +487,35 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 response.setFilePath(project.sourceRoot().resolve(enclosedRange.fileName()).toString());
                 response.setStartLine(enclosedRange.startLine());
                 response.setEndLine(enclosedRange.endLine());
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FunctionDefinitionResponse> functionDefinition(FunctionDefinitionRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FunctionDefinitionResponse response = new FunctionDefinitionResponse();
+            try {
+                // Load the project
+                Path projectPath = Path.of(request.projectPath());
+                this.workspaceManager.loadProject(projectPath);
+
+                // Find the document containing the function definition
+                Optional<Document> optDocument = this.workspaceManager.document(projectPath);
+                if (optDocument.isEmpty()) {
+                    return response;
+                }
+                Document document = optDocument.get();
+
+                // Analyze the module part nodes to find the respective function definition
+                ModuleNodeAnalyzer moduleNodeAnalyzer =
+                        new ModuleNodeAnalyzer(ModuleInfo.from(document.module().descriptor()));
+                ModulePartNode rootNode = document.syntaxTree().rootNode();
+                Optional<JsonElement> function = moduleNodeAnalyzer.findFunction(rootNode, request.functionName());
+                function.ifPresent(response::setFunctionDefinition);
             } catch (Throwable e) {
                 response.setError(e);
             }

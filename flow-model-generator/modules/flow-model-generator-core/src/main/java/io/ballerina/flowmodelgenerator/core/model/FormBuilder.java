@@ -41,6 +41,7 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
+import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -801,6 +802,36 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .editable();
         addProperty(WaitBuilder.WAIT_ALL_KEY);
         return this;
+    }
+
+    public FormBuilder<T> parameter(String type, String name) {
+        nestedProperty();
+
+        // Build the parameter type property
+        propertyBuilder
+                .metadata()
+                    .label(Property.TYPE_LABEL)
+                    .description(Property.TYPE_DOC)
+                    .stepOut()
+                .type(Property.ValueType.TYPE)
+                .typeConstraint(TypeKind.ANYDATA.typeName())
+                .value(type)
+                .editable();
+        addProperty(Property.TYPE_KEY);
+
+        // Build the parameter name property
+        propertyBuilder
+                .metadata()
+                    .label(Property.VARIABLE_NAME)
+                    .description(Property.VARIABLE_DOC)
+                    .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .value(name)
+                .editable();
+        addProperty(Property.VARIABLE_KEY);
+
+        return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,
+                Property.PARAMETER_DOC);
     }
 
     public FormBuilder<T> nestedProperty() {

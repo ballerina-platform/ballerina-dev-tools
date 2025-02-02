@@ -157,6 +157,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String DEFAULT_VALUE_DOC = "Default value for the config, if empty your need to " +
             "provide a value at runtime";
 
+    public static final String PARAMETER_LABEL = "Parameter";
+    public static final String PARAMETER_DOC = "Function parameter";
+
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {
             return placeholder == null ? "" : placeholder;
