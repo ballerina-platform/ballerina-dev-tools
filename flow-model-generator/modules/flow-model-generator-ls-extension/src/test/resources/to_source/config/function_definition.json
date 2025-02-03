@@ -1,9 +1,7 @@
 {
+  "source": "function_definition/main.bal",
   "description": "Sample diagram node",
-  "codedata": {
-    "node": "FUNCTION_DEFINITION"
-  },
-  "output": {
+  "diagram": {
     "id": "31",
     "metadata": {
       "label": "Function Definition",
@@ -20,7 +18,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
+        "value": "fn",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -84,5 +82,22 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "function_definition/functions.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 1
+          },
+          "end": {
+            "line": 3,
+            "character": 1
+          }
+        },
+        "newText": "function fn() {\n}"
+      }
+    ]
   }
 }

@@ -666,7 +666,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .value(functionName)
+                .value(functionName == null ? "" : functionName)
                 .editable();
 
         addProperty(Property.FUNCTION_NAME_KEY);

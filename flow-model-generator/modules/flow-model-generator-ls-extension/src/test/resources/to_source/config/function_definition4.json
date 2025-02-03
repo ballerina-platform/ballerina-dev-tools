@@ -1,16 +1,25 @@
 {
+  "source": "empty.bal",
   "description": "Sample diagram node",
-  "codedata": {
-    "node": "FUNCTION_DEFINITION"
-  },
-  "output": {
-    "id": "31",
+  "diagram": {
+    "id": "32986",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 33
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -20,7 +29,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
+        "value": "simpleFunction",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -84,5 +93,22 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 7
+          },
+          "end": {
+            "line": 1,
+            "character": 33
+          }
+        },
+        "newText": "function simpleFunction( ) "
+      }
+    ]
   }
 }

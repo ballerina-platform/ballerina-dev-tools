@@ -1,16 +1,25 @@
 {
+  "source": "empty.bal",
   "description": "Sample diagram node",
-  "codedata": {
-    "node": "FUNCTION_DEFINITION"
-  },
-  "output": {
-    "id": "31",
+  "diagram": {
+    "id": "73730",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 42,
+          "offset": 9
+        },
+        "endLine": {
+          "line": 42,
+          "offset": 43
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -20,7 +29,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
+        "value": "getCounter",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -31,7 +40,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "",
+        "value": "int",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -84,5 +93,22 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 42,
+            "character": 9
+          },
+          "end": {
+            "line": 42,
+            "character": 43
+          }
+        },
+        "newText": "function getCounter( ) returns int"
+      }
+    ]
   }
 }
