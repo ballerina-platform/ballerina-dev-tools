@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
@@ -44,6 +45,7 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.model.types.TypeKind;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,11 +75,12 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
     private Map<String, Property> nodeProperties;
     private final Stack<Map<String, Property>> nodePropertiesStack;
-
     private final SemanticModel semanticModel;
     private final DiagnosticHandler diagnosticHandler;
     protected Property.Builder<FormBuilder<T>> propertyBuilder;
     private final ModuleInfo moduleInfo;
+
+    public static final Type NODE_PROPERTIES_TYPE =  new TypeToken<Map<String, Property>>() { }.getType();
 
     public FormBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
                        ModuleInfo moduleInfo, T parentBuilder) {

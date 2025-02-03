@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -99,7 +98,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                     continue;
                 }
                 Map<String, Property> paramProperties = gson.fromJson(gson.toJsonTree(paramData),
-                        new TypeToken<Map<String, Property>>() { }.getType());
+                        FormBuilder.NODE_PROPERTIES_TYPE);
 
                 String paramType = paramProperties.get(Property.TYPE_KEY).value().toString();
                 String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
