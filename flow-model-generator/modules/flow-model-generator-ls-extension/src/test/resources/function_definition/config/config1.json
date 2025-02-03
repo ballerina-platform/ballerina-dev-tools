@@ -4,13 +4,24 @@
   "functionName": "main",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "33979",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 34
+        }
+      }
     },
     "returning": false,
     "properties": {

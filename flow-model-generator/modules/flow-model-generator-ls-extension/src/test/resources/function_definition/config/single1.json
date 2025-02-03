@@ -4,13 +4,24 @@
   "functionName": "simpleFunction",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "32986",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 33
+        }
+      }
     },
     "returning": false,
     "properties": {

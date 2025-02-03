@@ -4,13 +4,24 @@
   "functionName": "divide",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "65744",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 34,
+          "offset": 55
+        }
+      }
     },
     "returning": false,
     "properties": {

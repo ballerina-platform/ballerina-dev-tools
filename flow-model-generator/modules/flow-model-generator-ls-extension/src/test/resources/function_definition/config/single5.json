@@ -4,13 +4,24 @@
   "functionName": "complexFunction",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "56882",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 25,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 25,
+          "offset": 121
+        }
+      }
     },
     "returning": false,
     "properties": {

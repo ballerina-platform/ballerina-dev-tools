@@ -4,13 +4,24 @@
   "functionName": "greet",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "42945",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 11,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 72
+        }
+      }
     },
     "returning": false,
     "properties": {

@@ -4,13 +4,24 @@
   "functionName": "getCounter",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "73730",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 42,
+          "offset": 9
+        },
+        "endLine": {
+          "line": 42,
+          "offset": 43
+        }
+      }
     },
     "returning": false,
     "properties": {

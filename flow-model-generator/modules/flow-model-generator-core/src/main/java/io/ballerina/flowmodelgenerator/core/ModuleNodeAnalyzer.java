@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.Optional;
 
@@ -73,6 +74,11 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_DEFINITION)
                 .defaultModuleName(this.moduleInfo);
+
+        // Set the line range
+        LineRange functionKeywordLineRange = functionDefinitionNode.functionKeyword().lineRange();
+        nodeBuilder.codedata().lineRange(LineRange.from(functionKeywordLineRange.fileName(),
+                functionKeywordLineRange.startLine(), functionDefinitionNode.functionBody().lineRange().startLine()));
 
         // Set the function name and return type
         nodeBuilder.properties()

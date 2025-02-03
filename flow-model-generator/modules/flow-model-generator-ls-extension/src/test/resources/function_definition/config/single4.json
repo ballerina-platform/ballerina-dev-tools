@@ -4,13 +4,24 @@
   "functionName": "sum",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "47881",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 16,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 16,
+          "offset": 48
+        }
+      }
     },
     "returning": false,
     "properties": {

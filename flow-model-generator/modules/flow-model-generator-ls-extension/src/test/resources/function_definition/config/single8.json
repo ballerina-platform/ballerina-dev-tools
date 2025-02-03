@@ -4,13 +4,24 @@
   "functionName": "processUser",
   "description": "",
   "output": {
-    "id": "31",
+    "id": "78667",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 47,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 47,
+          "offset": 82
+        }
+      }
     },
     "returning": false,
     "properties": {
