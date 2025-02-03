@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -28,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
-import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
