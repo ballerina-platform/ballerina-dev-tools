@@ -197,7 +197,7 @@
             "character": 55
           }
         },
-        "newText": "wait {a: WA, b: WB, c: WC};"
+        "newText": "MixedResult mapResult = wait {a: WA, b: WB, c: WC};"
       }
     ]
   }
