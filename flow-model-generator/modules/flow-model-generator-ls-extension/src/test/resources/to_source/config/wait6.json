@@ -197,7 +197,7 @@
             "character": 60
           }
         },
-        "newText": "wait {wa: WA, WB, wC: WC};"
+        "newText": "map<string|error> mapResult = wait {wa: WA, WB, wC: WC};"
       }
     ]
   }

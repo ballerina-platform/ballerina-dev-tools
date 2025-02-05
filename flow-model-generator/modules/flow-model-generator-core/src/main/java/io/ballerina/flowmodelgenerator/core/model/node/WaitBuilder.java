@@ -80,6 +80,7 @@ public class WaitBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
         sourceBuilder.token().keyword(SyntaxKind.WAIT_KEYWORD);
 
         boolean waitAll = sourceBuilder.flowNode.properties().containsKey(WAIT_ALL_KEY) &&
