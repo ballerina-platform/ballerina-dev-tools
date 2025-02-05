@@ -1,0 +1,8 @@
+[package]
+org = "nipunaf"
+name = "proj"
+version = "0.1.0"
+distribution = "2201.11.0-20241209-162400-0c015833"
+
+[build-options]
+observabilityIncluded = true

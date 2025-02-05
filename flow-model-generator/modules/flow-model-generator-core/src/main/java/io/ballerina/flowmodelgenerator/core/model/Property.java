@@ -90,7 +90,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String TYPE_QUALIFIERS_DOC = "Qualifiers of the type";
 
     public static final String RETURN_TYPE_LABEL = "Return Type";
-    public static final String RETURN_TYPE_DOC = "Return type of the function/worker";
+    public static final String RETURN_TYPE_DOC = "Type of the return value";
 
     public static final String EXPRESSION_KEY = "expression";
     public static final String EXPRESSION_LABEL = "Expression";
@@ -156,6 +156,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String DEFAULT_VALUE_LABEL = "Default value";
     public static final String DEFAULT_VALUE_DOC = "Default value for the config, if empty your need to " +
             "provide a value at runtime";
+
+    public static final String PARAMETER_LABEL = "Parameter";
+    public static final String PARAMETER_DOC = "Function parameter";
+
+    public static final String FUNCTION_NAME_KEY = "functionName";
 
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {
