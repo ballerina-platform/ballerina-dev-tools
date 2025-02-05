@@ -18,6 +18,7 @@
 
 package io.ballerina.testmanagerservice.extension.response;
 
+import io.ballerina.testmanagerservice.extension.model.FunctionTreeNode;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 
 import java.util.Arrays;
@@ -33,9 +34,9 @@ import java.util.Map;
  *
  * @since 2.0.0
  */
-public record TestsDiscoveryResponse(Map<String, List<TestFunction>> result, String errorMsg, String stacktrace) {
+public record TestsDiscoveryResponse(Map<String, List<FunctionTreeNode>> result, String errorMsg, String stacktrace) {
 
-    public static TestsDiscoveryResponse from(Map<String, List<TestFunction>> result) {
+    public static TestsDiscoveryResponse from(Map<String, List<FunctionTreeNode>> result) {
         return new TestsDiscoveryResponse(result, null, null);
     }
 

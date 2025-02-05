@@ -17,13 +17,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         },
         {
           "functionName": "testFunction3",
@@ -38,12 +36,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g2\""
+          ]
         }
       ],
       "\"g1\"": [
@@ -60,12 +56,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\""
+          ]
         },
         {
           "functionName": "testFunction2",
@@ -80,13 +74,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         }
       ]
     }

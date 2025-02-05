@@ -16,15 +16,9 @@
  *  under the License.
  */
 
-package io.ballerina.testmanagerservice.extension.request;
+package io.ballerina.testmanagerservice.extension.model;
 
-import io.ballerina.testmanagerservice.extension.model.TestFunction;
+import io.ballerina.tools.text.LineRange;
 
-/**
- * Represents a request to update a test function.
- *
- * @param fileName path for the source test
- * @param function test function
- */
-public record UpdateTestFunctionRequest(String filePath, TestFunction function) {
+public record Codedata(LineRange lineRange) {
 }

@@ -35,6 +35,10 @@ import java.util.Map;
  */
 public record GetTestFunctionResponse(TestFunction function, String errorMsg, String stacktrace) {
 
+    public static GetTestFunctionResponse get() {
+        return new GetTestFunctionResponse(null, null, null);
+    }
+
     public static GetTestFunctionResponse from(TestFunction function) {
         return new GetTestFunctionResponse(function, null, null);
     }

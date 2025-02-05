@@ -30,5 +30,5 @@ import io.ballerina.tools.text.LineRange;
  *
  * @since 2.0.0
  */
-public record AddTestFunctionRequest(String filePath, TestFunction function, LineRange lineRange) {
+public record AddTestFunctionRequest(String filePath, TestFunction function) {
 }

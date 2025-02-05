@@ -18,6 +18,12 @@
 
 package io.ballerina.testmanagerservice.extension;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -30,16 +36,26 @@ import io.ballerina.testmanagerservice.extension.request.UpdateTestFunctionReque
 import io.ballerina.testmanagerservice.extension.response.CommonSourceResponse;
 import io.ballerina.testmanagerservice.extension.response.GetTestFunctionResponse;
 import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * Represents the extended language server service for the test manager service.
@@ -127,8 +143,28 @@ public class TestManagerService implements ExtendedLanguageServerService {
     public CompletableFuture<GetTestFunctionResponse> getTestFunction(GetTestFunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                TestFunction testFunction = new TestFunction(null, null, null);
-                return GetTestFunctionResponse.from(testFunction);
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return GetTestFunctionResponse.get();
+                }
+                ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
+                Optional<FunctionDefinitionNode> matchingFunc = modulePartNode.members().stream()
+                        .filter(mem -> mem instanceof FunctionDefinitionNode)
+                        .map(mem -> (FunctionDefinitionNode) mem)
+                        .filter(mem -> mem.functionName().text().trim().equals(request.functionName()))
+                        .findFirst();
+
+                if (matchingFunc.isEmpty()) {
+                    return GetTestFunctionResponse.get();
+                }
+
+                SemanticModel semanticModel = project.currentPackage()
+                        .module(document.get().module().moduleId())
+                        .getCompilation()
+                        .getSemanticModel();
+                return GetTestFunctionResponse.from(Utils.getTestFunctionModel(matchingFunc.get(), semanticModel));
             } catch (Throwable e) {
                 return GetTestFunctionResponse.from(e);
             }
@@ -145,7 +181,21 @@ public class TestManagerService implements ExtendedLanguageServerService {
     public CompletableFuture<CommonSourceResponse> addTestFunction(AddTestFunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return new CommonSourceResponse();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
+                LineRange lineRange = modulePartNode.lineRange();
+                List<TextEdit> edits = new ArrayList<>();
+                if (!Utils.isTestModuleImportExists(modulePartNode)) {
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), Constants.IMPORT_TEST_STMT));
+                }
+                String function = Utils.getTestFunctionTemplate(request.function());
+                edits.add(new TextEdit(Utils.toRange(lineRange.endLine()), function));
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
             }
@@ -162,7 +212,26 @@ public class TestManagerService implements ExtendedLanguageServerService {
     public CompletableFuture<CommonSourceResponse> updateTestFunction(UpdateTestFunctionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return new CommonSourceResponse();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                TextDocument textDocument = document.get().syntaxTree().textDocument();
+                ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
+                LineRange lineRange = request.function().codedata().lineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node instanceof FunctionDefinitionNode functionDefinitionNode)) {
+                    return new CommonSourceResponse();
+                }
+
+                LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
+                String functionSignature = Utils.buildFunctionSignature(request.function());
+                List<TextEdit> edits = List.of(new TextEdit(Utils.toRange(signatureRange), functionSignature));
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
             }

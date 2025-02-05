@@ -17,12 +17,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "GROUP_NOT_SPECIFIED"
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "GROUP_NOT_SPECIFIED"
+          ]
         },
         {
           "functionName": "testFunction6",
@@ -37,12 +35,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "GROUP_NOT_SPECIFIED"
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "GROUP_NOT_SPECIFIED"
+          ]
         }
       ],
       "\"g2\"": [
@@ -59,13 +55,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         },
         {
           "functionName": "testFunction3",
@@ -80,12 +74,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g2\""
+          ]
         },
         {
           "functionName": "testFunction5",
@@ -100,13 +92,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         }
       ],
       "\"g1\"": [
@@ -123,12 +113,10 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\""
+          ]
         },
         {
           "functionName": "testFunction2",
@@ -143,13 +131,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         },
         {
           "functionName": "testFunction5",
@@ -164,13 +150,11 @@
               "offset": 1
             }
           },
-          "config": {
-            "groups": [
-              "\"g1\"",
-              "\"g2\""
-            ],
-            "enabled": true
-          }
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
         }
       ]
     }

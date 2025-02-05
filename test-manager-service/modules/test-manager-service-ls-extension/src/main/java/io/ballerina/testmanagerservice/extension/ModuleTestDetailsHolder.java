@@ -18,6 +18,7 @@
 
 package io.ballerina.testmanagerservice.extension;
 
+import io.ballerina.testmanagerservice.extension.model.FunctionTreeNode;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 
 import java.util.ArrayList;
@@ -32,14 +33,14 @@ import java.util.Map;
  */
 public class ModuleTestDetailsHolder {
 
-    private final Map<String, List<TestFunction>> groupsToFunctions;
+    private final Map<String, List<FunctionTreeNode>> groupsToFunctions;
 
     public ModuleTestDetailsHolder() {
         this.groupsToFunctions = new HashMap<>();
     }
 
-    public void addTestFunction(String group, TestFunction testFunction) {
-        List<TestFunction> testFunctions = this.groupsToFunctions.get(group);
+    public void addTestFunction(String group, FunctionTreeNode testFunction) {
+        List<FunctionTreeNode> testFunctions = this.groupsToFunctions.get(group);
         if (testFunctions == null) {
             testFunctions = new ArrayList<>();
             testFunctions.add(testFunction);
@@ -49,13 +50,13 @@ public class ModuleTestDetailsHolder {
         }
     }
 
-    public void addTestFunctions(List<String> groups, TestFunction testFunction) {
+    public void addTestFunctions(List<String> groups, FunctionTreeNode testFunction) {
         for (String group : groups) {
             addTestFunction(group, testFunction);
         }
     }
 
-    public Map<String, List<TestFunction>> getGroupsToFunctions() {
+    public Map<String, List<FunctionTreeNode>> getGroupsToFunctions() {
         return groupsToFunctions;
     }
 }

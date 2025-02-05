@@ -16,18 +16,7 @@
  *  under the License.
  */
 
-
 package io.ballerina.testmanagerservice.extension.model;
 
-import java.util.List;
-
-/**
- * Represent the values of the test function configs.
- *
- * @param groups  groups of the test function
- * @param enabled whether the test function is enabled
- *
- * @since 2.0.0
- */
-public record TestFunctionConfig(List<String> groups, boolean enabled) {
+public record Metadata(String label, String description) {
 }

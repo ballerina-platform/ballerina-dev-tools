@@ -16,15 +16,9 @@
  *  under the License.
  */
 
-package io.ballerina.testmanagerservice.extension.request;
+package io.ballerina.testmanagerservice.extension.model;
 
-import io.ballerina.testmanagerservice.extension.model.TestFunction;
+public record AnnotationField(Property value, boolean optional, boolean editable, boolean advanced) {
 
-/**
- * Represents a request to update a test function.
- *
- * @param fileName path for the source test
- * @param function test function
- */
-public record UpdateTestFunctionRequest(String filePath, TestFunction function) {
+
 }

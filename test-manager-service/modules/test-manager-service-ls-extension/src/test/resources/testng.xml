@@ -22,6 +22,9 @@ under the License.
 <suite name="test-manager-service-test-suite">
     <test name="test-manager-service-test" parallel="false">
         <classes>
+            <class name="io.ballerina.testmanagerservice.extension.GetFunctionModelTest"/>
+            <class name="io.ballerina.testmanagerservice.extension.TestAddTestFunction"/>
+            <class name="io.ballerina.testmanagerservice.extension.TestUpdateTestFunction"/>
             <class name="io.ballerina.testmanagerservice.extension.TestProjectTestDiscovery"/>
             <class name="io.ballerina.testmanagerservice.extension.TestFileTestDiscovery"/>
         </classes>

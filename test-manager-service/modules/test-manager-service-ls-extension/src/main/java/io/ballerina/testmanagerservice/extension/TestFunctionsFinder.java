@@ -32,8 +32,7 @@ import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.projects.Document;
-import io.ballerina.testmanagerservice.extension.model.TestFunction;
-import io.ballerina.testmanagerservice.extension.model.TestFunctionConfig;
+import io.ballerina.testmanagerservice.extension.model.FunctionTreeNode;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
@@ -48,8 +47,6 @@ public class TestFunctionsFinder {
 
     private static final String TEST_CONFIG_ANNOTATION = "test:Config";
     private static final String FIELD_GROUPS = "groups";
-    private static final String FIELD_ENABLED = "enabled";
-    private static final String VALUE_TRUE = "true";
     private static final String GROUP_NOT_SPECIFIED = "GROUP_NOT_SPECIFIED";
 
     private final Document document;
@@ -76,61 +73,49 @@ public class TestFunctionsFinder {
                 NodeList<AnnotationNode> annotations = metadata.get().annotations();
                 for (AnnotationNode annotation : annotations) {
                     if (annotation.annotReference().toSourceCode().trim().equals(TEST_CONFIG_ANNOTATION)) {
-                        TestFunctionConfig config = processTestAnnotation(annotation);
+                        List<String> groups = findSpecifiedGroups(annotation);
                         String functionName = functionDefinitionNode.functionName().text().trim();
                         LineRange lineRange = functionDefinitionNode.lineRange();
-                        TestFunction testFunction = new TestFunction(functionName, lineRange, config);
-                        this.moduleTestDetailsHolder.addTestFunctions(config.groups(), testFunction);
+                        FunctionTreeNode functionTreeNode = new FunctionTreeNode(functionName, lineRange, "Config", groups);
+                        this.moduleTestDetailsHolder.addTestFunctions(groups, functionTreeNode);
                     }
                 }
             }
         }
     }
 
-    private TestFunctionConfig processTestAnnotation(AnnotationNode annotationNode) {
+    private List<String> findSpecifiedGroups(AnnotationNode annotationNode) {
         if (annotationNode.annotValue().isEmpty()) {
-            return new TestFunctionConfig(List.of(GROUP_NOT_SPECIFIED), true);
+            return List.of(GROUP_NOT_SPECIFIED);
         }
         MappingConstructorExpressionNode annotValue = annotationNode.annotValue().get();
 
         SeparatedNodeList<MappingFieldNode> fields = annotValue.fields();
         List<String> groups = new ArrayList<>();
-        boolean enabled = true;
         for (MappingFieldNode field : fields) {
             if (!(field instanceof SpecificFieldNode specificFieldNode)) {
                 continue;
             }
             String fieldName = specificFieldNode.fieldName().toSourceCode().trim();
-            switch (fieldName) {
-                case FIELD_GROUPS:
-                    if (specificFieldNode.valueExpr().isEmpty() || !(specificFieldNode.valueExpr().get() instanceof
-                                    ListConstructorExpressionNode listConstructorExpressionNode)) {
-                        break;
+            if (fieldName.equals(FIELD_GROUPS)) {
+                if (specificFieldNode.valueExpr().isEmpty() || !(specificFieldNode.valueExpr().get() instanceof
+                        ListConstructorExpressionNode listConstructorExpressionNode)) {
+                    continue;
+                }
+                SeparatedNodeList<Node> expressions = listConstructorExpressionNode.expressions();
+                if (expressions.isEmpty()) {
+                    continue;
+                }
+                for (Node expression : expressions) {
+                    if (expression instanceof BasicLiteralNode basicLiteralNode) {
+                        groups.add(basicLiteralNode.toSourceCode().trim());
                     }
-                    SeparatedNodeList<Node> expressions = listConstructorExpressionNode.expressions();
-                    if (expressions.isEmpty()) {
-                        break;
-                    }
-                    for (Node expression : expressions) {
-                        if (expression instanceof BasicLiteralNode basicLiteralNode) {
-                            groups.add(basicLiteralNode.toSourceCode().trim());
-                        }
-                    }
-                    break;
-                case FIELD_ENABLED:
-                    // process the enabled field
-                    if (specificFieldNode.valueExpr().isEmpty()) {
-                        break;
-                    }
-                    enabled = specificFieldNode.valueExpr().get().toSourceCode().trim().equals(VALUE_TRUE);
-                    break;
-                default:
-                    // ignore
+                }
             }
         }
         if (groups.isEmpty()) {
             groups.add(GROUP_NOT_SPECIFIED);
         }
-        return new TestFunctionConfig(Collections.unmodifiableList(groups), enabled);
+        return Collections.unmodifiableList(groups);
     }
 }
