@@ -160,7 +160,7 @@
             "character": 37
           }
         },
-        "newText": "wait A | B;"
+        "newText": "string result = wait A | B;"
       }
     ]
   }

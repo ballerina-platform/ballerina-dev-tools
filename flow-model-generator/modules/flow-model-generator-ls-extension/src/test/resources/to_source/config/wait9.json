@@ -160,7 +160,7 @@
             "character": 76
           }
         },
-        "newText": "wait {val3: futures[0], val4: futures[2]};"
+        "newText": "map<string|error> mapResult = wait {val3: futures[0], val4: futures[2]};"
       }
     ]
   }
