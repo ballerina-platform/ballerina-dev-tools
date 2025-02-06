@@ -1272,7 +1272,7 @@ public final class Utils {
         );
         Value nameValue = new Value();
         nameValue.setEnabled(true);
-        nameValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
+        nameValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         nameValue.setValue(listenerDeclarationNode.variableName().text().trim());
         properties.put(ServiceModelGeneratorConstants.PROPERTY_NAME, nameValue);
         Codedata codedata = new Codedata(listenerDeclarationNode.lineRange());
