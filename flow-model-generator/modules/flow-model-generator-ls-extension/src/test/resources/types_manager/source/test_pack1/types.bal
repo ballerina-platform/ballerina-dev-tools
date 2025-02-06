@@ -66,3 +66,8 @@ type Misc Person|Employees|Color;
 type PersonError error<Person>;
 
 type AddressTable table<Address> key<string|int>;
+
+type PartTimeStudent record {|
+    *Student;
+    string:Char code;
+|};
