@@ -1,5 +1,7 @@
 {
-  "description": "Test the service model template getting for the http service",
+  "type": "http",
+  "functionName": "resource",
+  "description": "Test subscription function model",
   "response": {
     "function": {
       "metadata": {

@@ -1,0 +1,109 @@
+{
+  "description": "Test subscription function model",
+  "type": "graphql",
+  "functionName": "subscription",
+  "response": {
+    "function": {
+      "metadata": {
+        "label": "Graphql Subscription",
+        "description": "Graphql Subscription"
+      },
+      "qualifiers": [],
+      "kind": "SUBSCRIPTION",
+      "accessor": {
+        "metadata": {
+          "label": "Accessor",
+          "description": "The accessor of the function"
+        },
+        "enabled": false,
+        "editable": false,
+        "value": "subscribe",
+        "valueType": "IDENTIFIER",
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "name": {
+        "metadata": {
+          "label": "Subscription path",
+          "description": "Subscription path"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "IDENTIFIER",
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "parameters": [],
+      "schema": {
+        "parameter": {
+          "type": {
+            "metadata": {
+              "label": "Parameter Type",
+              "description": "The type of the parameter"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "TYPE",
+            "isType": true,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "name": {
+            "metadata": {
+              "label": "Parameter Name",
+              "description": "The name of the parameter"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "IDENTIFIER",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "defaultValue": {
+            "metadata": {
+              "label": "Default Value",
+              "description": "The default value of the parameter"
+            },
+            "enabled": true,
+            "editable": true,
+            "isType": false,
+            "optional": true,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "enabled": true,
+          "editable": false,
+          "optional": false,
+          "advanced": false
+        }
+      },
+      "returnType": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "The return type of the function"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "",
+        "valueType": "TYPE",
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": false
+    }
+  }
+}

@@ -18,6 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +61,10 @@ public class Function {
     }
 
     public static Function getNewFunction() {
-        return new Function(null, new ArrayList<>(), "DEFAULT", new Value(), new Value(), new ArrayList<>(),
+        return new Function(new MetaData("", ""), new ArrayList<>(),
+                ServiceModelGeneratorConstants.KIND_DEFAULT,
+                new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
+                new Value(ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA), new ArrayList<>(),
                 null, new FunctionReturnType(), false, false, false, null);
     }
 

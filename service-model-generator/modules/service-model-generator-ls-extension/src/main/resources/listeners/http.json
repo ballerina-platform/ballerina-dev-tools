@@ -23,7 +23,7 @@
       "enabled": true,
       "editable": true,
       "value": "",
-      "valueType": "EXPRESSION",
+      "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
       "placeholder": "",
@@ -126,6 +126,7 @@
       "optional": true,
       "advanced": true,
       "items": [
+        "",
         "\"1.0\"",
         "\"1.1\"",
         "\"2.0\""
