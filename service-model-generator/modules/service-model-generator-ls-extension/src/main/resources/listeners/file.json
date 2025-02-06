@@ -55,7 +55,7 @@
     "recursive": {
       "metadata": {
         "label": "Recursive",
-        "description": "Recursively monitor all sub folders or not in the given direcotry path"
+        "description": "Recursively monitor all sub folders or not in the given directory path"
       },
       "enabled": false,
       "editable": true,
