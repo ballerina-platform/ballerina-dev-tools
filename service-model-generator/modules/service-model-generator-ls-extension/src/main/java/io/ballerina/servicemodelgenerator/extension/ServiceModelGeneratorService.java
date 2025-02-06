@@ -732,11 +732,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse();
                 }
                 NonTerminalNode parentService = functionDefinitionNode.parent();
-                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        parentService.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
                     return new CommonSourceResponse();
                 }
-                ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;
-                LineRange serviceEnd = serviceDeclarationNode.closeBraceToken().lineRange();
 
                 String functionName = functionDefinitionNode.functionName().text().trim();
                 LineRange nameRange = functionDefinitionNode.functionName().lineRange();
@@ -770,9 +769,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
                                 + ServiceModelGeneratorConstants.LINE_SEPARATOR));
-                if (!statusCodeResEdits.isEmpty()) {
-                    edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
-                            ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
+
+                if (parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION)) {
+                    ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;
+                    LineRange serviceEnd = serviceDeclarationNode.closeBraceToken().lineRange();
+
+                    if (!statusCodeResEdits.isEmpty()) {
+                        edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
+                                ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
+                    }
                 }
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
