@@ -19,9 +19,7 @@
 package io.ballerina.testmanagerservice.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.AnnotationSymbol;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -31,17 +29,14 @@ import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.testmanagerservice.extension.model.Annotation;
-import io.ballerina.testmanagerservice.extension.model.AnnotationField;
 import io.ballerina.testmanagerservice.extension.model.Codedata;
 import io.ballerina.testmanagerservice.extension.model.FunctionParameter;
 import io.ballerina.testmanagerservice.extension.model.Metadata;
 import io.ballerina.testmanagerservice.extension.model.Property;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
-import io.ballerina.testmanagerservice.extension.model.TestFunctionConfig;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.Position;
@@ -162,6 +157,7 @@ public class Utils {
 
         builder.append(Constants.KEYWORD_FUNCTION)
                 .append(Constants.SPACE)
+                .append(function.functionName().value())
                 .append(buildFunctionSignature(function));
 
         builder.append(Constants.SPACE)
@@ -187,8 +183,7 @@ public class Utils {
     }
 
     public static String buildFunctionSignature(TestFunction function) {
-        return function.functionName().value() +
-                buildFunctionParams(function.parameters()) +
+        return buildFunctionParams(function.parameters()) +
                 buildReturnType(function.returnType());
     }
 

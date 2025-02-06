@@ -34,9 +34,8 @@ public record Annotation(Metadata metadata, Codedata codedata, String org, Strin
         private Property groups;
         private Property enabled;
 
-        public ConfigAnnotationBuilder metadata(Metadata metadata) {
+        public void metadata(Metadata metadata) {
             this.metadata = metadata;
-            return this;
         }
 
         public ConfigAnnotationBuilder groups(List<String> groupList) {
@@ -45,10 +44,9 @@ public record Annotation(Metadata metadata, Codedata codedata, String org, Strin
             return this;
         }
 
-        public ConfigAnnotationBuilder enabled(boolean enabled) {
+        public void enabled(boolean enabled) {
             this.enabled = value("Enabled", "Enable/Disable the test", enabled,
-                    "EXPRESSION", "enabled");
-            return this;
+                    "FLAG", "enabled");
         }
 
         private static Property value(String label, String description, Object value, String valueType,
@@ -71,7 +69,7 @@ public record Annotation(Metadata metadata, Codedata codedata, String org, Strin
             }
             if (enabled == null) {
                 enabled = value("Enabled", "Enable/Disable the test", true,
-                        "EXPRESSION", "enabled");
+                        "FLAG", "enabled");
             }
             return new Annotation(metadata, codedata, org, module, name, List.of(groups, enabled));
         }

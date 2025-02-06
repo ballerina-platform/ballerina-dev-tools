@@ -228,9 +228,17 @@ public class TestManagerService implements ExtendedLanguageServerService {
                     return new CommonSourceResponse();
                 }
 
+                List<TextEdit> edits = new ArrayList<>();
+                String functionName = functionDefinitionNode.functionName().text().trim();
+                LineRange nameRange = functionDefinitionNode.functionName().lineRange();
+                if (!functionName.equals(request.function().functionName().value())) {
+                    edits.add(new TextEdit(Utils.toRange(nameRange),
+                            request.function().functionName().value().toString()));
+                }
+
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 String functionSignature = Utils.buildFunctionSignature(request.function());
-                List<TextEdit> edits = List.of(new TextEdit(Utils.toRange(signatureRange), functionSignature));
+                edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
