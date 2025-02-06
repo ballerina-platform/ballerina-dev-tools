@@ -37,6 +37,10 @@ import java.util.Map;
 public record ServiceClass(String id, String name, String type, Map<String, Value> properties,
                           Codedata codedata, List<Function> functions, List<Field> fields) {
 
+    public Value className() {
+        return properties.get("name");
+    }
+
     public static class ServiceClassBuilder {
         private String name;
         private String type;
