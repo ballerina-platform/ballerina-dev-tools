@@ -20,11 +20,9 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
-import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
@@ -45,8 +43,8 @@ public class GetServiceClassModelFromSourceTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        GetServiceClassModelFromSourceTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
-                GetServiceClassModelFromSourceTest.TestConfig.class);
+        GetServiceClassModelFromSourceTest.TestConfig testConfig = gson.fromJson(
+                Files.newBufferedReader(configJsonPath), GetServiceClassModelFromSourceTest.TestConfig.class);
 
         String sourcePath = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from(sourcePath, testConfig.start(), testConfig.end()));

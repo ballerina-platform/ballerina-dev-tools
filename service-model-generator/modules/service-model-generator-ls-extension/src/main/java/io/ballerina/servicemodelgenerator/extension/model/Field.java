@@ -18,9 +18,6 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Field class to hold the object field information.
  *

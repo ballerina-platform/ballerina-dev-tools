@@ -24,13 +24,20 @@ import java.util.Map;
 /**
  * ServiceClass class to hold the service class model.
  *
+ * @param id service class id
+ * @param name service class name
+ * @param type service class type
+ * @param properties service class properties
+ * @param codedata service class codedata
+ * @param functions service class functions
+ * @param fields service class fields
+ *
  * @since 2.0.0
  */
 public record ServiceClass(String id, String name, String type, Map<String, Value> properties,
                           Codedata codedata, List<Function> functions, List<Field> fields) {
 
     public static class ServiceClassBuilder {
-        private final String id = "0";
         private String name;
         private String type;
         private Map<String, Value> properties;
@@ -69,6 +76,7 @@ public record ServiceClass(String id, String name, String type, Map<String, Valu
         }
 
         public ServiceClass build() {
+            String id = "0";
             return new ServiceClass(id, name, type, properties, codedata, functions, fields);
         }
     }

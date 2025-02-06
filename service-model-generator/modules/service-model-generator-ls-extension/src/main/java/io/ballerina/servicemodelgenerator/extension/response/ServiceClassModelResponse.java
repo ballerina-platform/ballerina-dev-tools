@@ -18,7 +18,6 @@
 
 package io.ballerina.servicemodelgenerator.extension.response;
 
-import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 
 import java.util.Arrays;
