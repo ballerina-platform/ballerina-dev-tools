@@ -51,7 +51,7 @@ public class SourceCodeGenerator {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("service class ")
+        stringBuilder.append("\nservice class ")
                 .append(typeData.name())
                 .append(" {");
 
