@@ -1,0 +1,356 @@
+{
+  "filePath": "test_pack2/types.bal",
+  "description": "Create a new record type",
+  "type": {
+    "name": "Person",
+    "editable": true,
+    "metadata": {
+      "label": "Person",
+      "description": ""
+    },
+    "codedata": {
+      "node": "CLASS",
+      "lineRange": {
+        "fileName": "graphql_types.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 14
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 20
+        }
+      }
+    },
+    "properties": {
+      "qualifiers": {
+        "metadata": {
+          "label": "Type Qualifiers",
+          "description": "Qualifiers of the type"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "value": [
+          "service"
+        ],
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "ARRAY"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [
+                "Person"
+              ],
+              "type": "Person",
+              "name": "Person"
+            }
+          ]
+        },
+        "name": "children",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "age",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "boolean",
+        "name": "isAdult",
+        "docs": ""
+      }
+    ],
+    "includes": [],
+    "functions": [
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "name",
+        "returnType": "string",
+        "refs": []
+      },
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "age",
+        "returnType": "int",
+        "refs": []
+      },
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "isAdult",
+        "returnType": "boolean",
+        "refs": []
+      },
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [
+          {
+            "kind": "FIELD",
+            "refs": [],
+            "type": {
+              "editable": false,
+              "codedata": {
+                "node": "UNION"
+              },
+              "properties": {
+                "isArray": {
+                  "metadata": {
+                    "label": "Is array type",
+                    "description": "Is this type an array or list value"
+                  },
+                  "valueType": "FLAG",
+                  "value": "false",
+                  "optional": true,
+                  "editable": true,
+                  "advanced": true
+                },
+                "arraySize": {
+                  "metadata": {
+                    "label": "Size of the array",
+                    "description": "Array dimensions"
+                  },
+                  "valueType": "STRING",
+                  "value": "",
+                  "optional": false,
+                  "editable": false,
+                  "advanced": false
+                }
+              },
+              "members": [
+                {
+                  "kind": "TYPE",
+                  "refs": [],
+                  "type": "string",
+                  "name": "string"
+                },
+                {
+                  "kind": "TYPE",
+                  "refs": [],
+                  "type": "int",
+                  "name": "int"
+                }
+              ]
+            },
+            "name": "count"
+          }
+        ],
+        "kind": "RESOURCE",
+        "name": "children",
+        "returnType": {
+          "editable": false,
+          "codedata": {
+            "node": "ARRAY"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [
+                "Person"
+              ],
+              "type": "Person",
+              "name": "Person"
+            }
+          ]
+        },
+        "refs": []
+      },
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [
+          {
+            "kind": "FIELD",
+            "refs": [],
+            "type": {
+              "editable": false,
+              "codedata": {
+                "node": "RECORD"
+              },
+              "properties": {
+                "isArray": {
+                  "metadata": {
+                    "label": "Is array type",
+                    "description": "Is this type an array or list value"
+                  },
+                  "valueType": "FLAG",
+                  "value": "false",
+                  "optional": true,
+                  "editable": true,
+                  "advanced": true
+                },
+                "arraySize": {
+                  "metadata": {
+                    "label": "Size of the array",
+                    "description": "Array dimensions"
+                  },
+                  "valueType": "STRING",
+                  "value": "",
+                  "optional": true,
+                  "editable": true,
+                  "advanced": true
+                }
+              },
+              "members": [
+                {
+                  "kind": "FIELD",
+                  "refs": [],
+                  "type": "string",
+                  "name": "name",
+                  "docs": ""
+                },
+                {
+                  "kind": "FIELD",
+                  "refs": [],
+                  "type": "int",
+                  "name": "age",
+                  "docs": ""
+                }
+              ],
+              "includes": []
+            },
+            "name": "filter"
+          }
+        ],
+        "kind": "RESOURCE",
+        "name": "child",
+        "returnType": "Person",
+        "refs": [
+          "Person"
+        ]
+      }
+    ]
+  },
+  "output": {
+    "test_pack2/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 0
+          },
+          "end": {
+            "line": 4,
+            "character": 0
+          }
+        },
+        "newText": "service class Person {\n\tprivate final string name;\n\tprivate final int age;\n\tprivate final boolean isAdult;\n\tprivate final Person[] children;\n\tprivate final Person child;\n\tfunction init(string name, int age, boolean isAdult, Person[] children, Person child) {\n\t\tself.name = name;\n\t\tself.age = age;\n\t\tself.isAdult = isAdult;\n\t\tself.children = children;\n\t\tself.child = child;\n\t}\n\tresource function get name() returns string {\n\t\treturn self.name;\n\t}\n\tresource function get age() returns int {\n\t\treturn self.age;\n\t}\n\tresource function get isAdult() returns boolean {\n\t\treturn self.isAdult;\n\t}\n\tresource function get children(string|int count) returns Person[] {\n\t\treturn self.children;\n\t}\n\tresource function get child(record {|\n\tstring name;\n\tint age;\n|} filter) returns Person {\n\t\treturn self.child;\n\t}\n}\n"
+      }
+    ]
+  }
+}
