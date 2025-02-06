@@ -1279,16 +1279,4 @@ public final class Utils {
         return URI.create(exprUriString).toString();
     }
 
-    /**
-     * Check if the `default:httpListener` is attached to the service.
-     *
-     * @param value the Listener value
-     * @return true if the `default:httpListener` is attached, false otherwise
-     */
-    public static boolean isHttpDefaultListenerAttached(Value value) {
-        if (value.getValues().isEmpty()) {
-            return ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF.equals(value.getValue().trim());
-        }
-        return value.getValues().contains(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
-    }
 }

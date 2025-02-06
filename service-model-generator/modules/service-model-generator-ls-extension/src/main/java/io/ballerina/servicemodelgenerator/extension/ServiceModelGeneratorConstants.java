@@ -37,8 +37,7 @@ public class ServiceModelGeneratorConstants {
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
 
-    public static final String HTTP_DEFAULT_LISTENER_REF = "default:httpListener";
-    public static final String HTTP_DEFAULT_MODULE = "http.default";
+    public static final String HTTP_DEFAULT_LISTENER_REF = "http:getDefaultListener()";
 
     public static final String KAFKA = "kafka";
     public static final String HTTP = "http";
