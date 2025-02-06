@@ -1,6 +1,6 @@
 {
   "filePath": "test_pack3/graphql_types.bal",
-  "description": "Create a new record type",
+  "description": "Create a new class type",
   "type": {
     "name": "Person",
     "editable": true,

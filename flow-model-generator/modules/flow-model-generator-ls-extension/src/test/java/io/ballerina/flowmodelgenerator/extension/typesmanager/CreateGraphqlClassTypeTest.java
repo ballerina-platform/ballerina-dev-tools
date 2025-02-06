@@ -66,7 +66,8 @@ public class CreateGraphqlClassTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("create_graphql_class_type1.json")}
+                {Path.of("create_graphql_class_type1.json")},
+                {Path.of("create_graphql_class_type2.json")}
         };
     }
 

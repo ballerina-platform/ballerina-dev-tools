@@ -61,23 +61,26 @@ public class SourceCodeGenerator {
         }
 
         // init functions
-        stringBuilder.append("\n\t")
-                .append("function init(");
-        for (int i = 0; i < typeData.functions().size(); i++) {
-            Function function = typeData.functions().get(i);
-            generateTypeDescriptor(function.returnType(), stringBuilder);
-            stringBuilder.append(" ").append(function.name());
-            if (i < typeData.functions().size() - 1) {
-                stringBuilder.append(", ");
+        stringBuilder.append("\n\t").append("function init(");
+        if (!typeData.functions().isEmpty()) {
+            for (int i = 0; i < typeData.functions().size(); i++) {
+                Function function = typeData.functions().get(i);
+                generateTypeDescriptor(function.returnType(), stringBuilder);
+                stringBuilder.append(" ").append(function.name());
+                if (i < typeData.functions().size() - 1) {
+                    stringBuilder.append(", ");
+                }
             }
         }
+
         stringBuilder.append(") {");
-        for (int i = 0; i < typeData.functions().size(); i++) {
-            Function function = typeData.functions().get(i);
-            stringBuilder.append("\n\t\tself.")
-                    .append(function.name())
-                    .append(" = ")
-                    .append(function.name()).append(";");
+        if (!typeData.functions().isEmpty()) {
+            for (Function function : typeData.functions()) {
+                stringBuilder.append("\n\t\tself.")
+                        .append(function.name())
+                        .append(" = ")
+                        .append(function.name()).append(";");
+            }
         }
         stringBuilder.append("\n\t}");
 

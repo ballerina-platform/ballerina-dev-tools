@@ -1,0 +1,72 @@
+{
+  "filePath": "test_pack3/graphql_types.bal",
+  "description": "Create a new class type",
+  "type": {
+    "name": "Person",
+    "editable": true,
+    "metadata": {
+      "label": "Person",
+      "description": ""
+    },
+    "codedata": {
+      "node": "CLASS"
+    },
+    "properties": {
+      "qualifiers": {
+        "metadata": {
+          "label": "Type Qualifiers",
+          "description": "Qualifiers of the type"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "value": [
+          "service"
+        ],
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [],
+    "includes": [],
+    "functions": []
+  },
+  "output": {
+    "test_pack3/graphql_types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 39,
+            "character": 0
+          },
+          "end": {
+            "line": 39,
+            "character": 0
+          }
+        },
+        "newText": "service class Person {\n\tfunction init() {\n\t}\n}\n"
+      }
+    ]
+  }
+}
