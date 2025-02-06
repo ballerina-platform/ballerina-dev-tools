@@ -1,5 +1,5 @@
 {
-  "filePath": "test_pack2/types.bal",
+  "filePath": "test_pack3/graphql_types.bal",
   "description": "Create a new record type",
   "type": {
     "name": "Person",
@@ -9,18 +9,7 @@
       "description": ""
     },
     "codedata": {
-      "node": "CLASS",
-      "lineRange": {
-        "fileName": "graphql_types.bal",
-        "startLine": {
-          "line": 1,
-          "offset": 14
-        },
-        "endLine": {
-          "line": 1,
-          "offset": 20
-        }
-      }
+      "node": "CLASS"
     },
     "properties": {
       "qualifiers": {
@@ -59,83 +48,12 @@
         "advanced": false
       }
     },
-    "members": [
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "ARRAY"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "true",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [
-                "Person"
-              ],
-              "type": "Person",
-              "name": "Person"
-            }
-          ]
-        },
-        "name": "children",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "age",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "boolean",
-        "name": "isAdult",
-        "docs": ""
-      }
-    ],
+    "members": [],
     "includes": [],
     "functions": [
       {
         "accessor": "get",
-        "qualifiers": [
-          "ISOLATED",
-          "RESOURCE"
-        ],
+        "qualifiers": [],
         "parameters": [],
         "kind": "RESOURCE",
         "name": "name",
@@ -144,10 +62,7 @@
       },
       {
         "accessor": "get",
-        "qualifiers": [
-          "ISOLATED",
-          "RESOURCE"
-        ],
+        "qualifiers": [],
         "parameters": [],
         "kind": "RESOURCE",
         "name": "age",
@@ -156,10 +71,7 @@
       },
       {
         "accessor": "get",
-        "qualifiers": [
-          "ISOLATED",
-          "RESOURCE"
-        ],
+        "qualifiers": [],
         "parameters": [],
         "kind": "RESOURCE",
         "name": "isAdult",
@@ -168,10 +80,7 @@
       },
       {
         "accessor": "get",
-        "qualifiers": [
-          "ISOLATED",
-          "RESOURCE"
-        ],
+        "qualifiers": [],
         "parameters": [
           {
             "kind": "FIELD",
@@ -269,10 +178,7 @@
       },
       {
         "accessor": "get",
-        "qualifiers": [
-          "ISOLATED",
-          "RESOURCE"
-        ],
+        "qualifiers": [],
         "parameters": [
           {
             "kind": "FIELD",
@@ -337,15 +243,15 @@
     ]
   },
   "output": {
-    "test_pack2/types.bal": [
+    "test_pack3/graphql_types.bal": [
       {
         "range": {
           "start": {
-            "line": 4,
+            "line": 39,
             "character": 0
           },
           "end": {
-            "line": 4,
+            "line": 39,
             "character": 0
           }
         },
