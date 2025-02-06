@@ -881,6 +881,34 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the JSON model for a service class from the source.
+     *
+     * @param request Service lass model request
+     * @return Service class model response
+     */
+    @JsonRequest
+    public CompletableFuture<ServiceModelResponse> getServiceClassFromSource(ServiceModelRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return null;
+            } catch (Throwable e) {
+                return new ServiceModelResponse(e);
+            }
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateServiceClass(ServiceSourceRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return null;
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
     public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
         if (expressions.isEmpty()) {
