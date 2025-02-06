@@ -98,10 +98,12 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -115,6 +117,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpDefaultListenerAttached;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateListenerModel;
@@ -175,7 +178,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                List<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
@@ -183,15 +186,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
-    private static List<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        return semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol instanceof VariableSymbol)
-                .map(symbol -> (VariableSymbol) symbol)
-                .filter(variableSymbol -> variableSymbol.qualifiers().contains(Qualifier.LISTENER))
-                .filter(variableSymbol -> variableSymbol.typeDescriptor().getModule().isPresent() && variableSymbol
-                        .typeDescriptor().getModule().get().id().moduleName().equals(moduleName))
-                .map(variableSymbol -> variableSymbol.getName().orElse(""))
-                .toList();
+    private static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
+        Set<String> listeners = new LinkedHashSet<>();
+        if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
+            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
+        }
+
+        for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
+            if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
+                    || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
+                continue;
+            }
+            Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
+            if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName)) {
+                continue;
+            }
+            variableSymbol.getName().ifPresent(listeners::add);
+        }
+        return listeners;
     }
 
     /**
@@ -276,7 +288,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
-                List<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -287,7 +299,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                     }
-                    listener.setItems(listenersList);
+                    listener.setItems(listenersList.stream().toList());
                 }
                 return new ServiceModelResponse(serviceModel);
             } catch (Throwable e) {
@@ -360,6 +372,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
+                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName())
+                        && isHttpDefaultListenerAttached(service.getListener()) &&
+                        !importExists(node, service.getOrgName(), ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
+                    String importText = Utils.getImportStmt(service.getOrgName(),
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
+                }
+
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -544,15 +564,21 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            List<String> listenersList = getCompatibleListeners(serviceName.get(), semanticModel);
+            Set<String> listeners = getCompatibleListeners(serviceName.get(), semanticModel);
+            List<String> allValues = serviceModel.getListener().getValues();
+            if (allValues.isEmpty()) {
+                listeners.add(serviceModel.getListener().getValue());
+            } else {
+                listeners.addAll(allValues);
+            }
             Value listener = serviceModel.getListener();
-            if (!listenersList.isEmpty()) {
+            if (!listeners.isEmpty()) {
                 if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
                     listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
                 } else {
                     listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
                 }
-                listener.setItems(listenersList);
+                listener.setItems(listeners.stream().toList());
             }
             return new ServiceFromSourceResponse(serviceModel);
         });
@@ -801,6 +827,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         TextEdit listenerEdit = new TextEdit(Utils.toRange(listenerLineRange), listenerName);
                         edits.add(listenerEdit);
                     }
+                }
+                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName()) &&
+                        isHttpDefaultListenerAttached(service.getListener()) &&
+                        !importExists(modulePartNode, service.getOrgName(),
+                                ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
+                    String importText = Utils.getImportStmt(service.getOrgName(),
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {

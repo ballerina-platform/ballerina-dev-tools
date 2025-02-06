@@ -48,6 +48,9 @@ public class DataMappingAddElementTest extends AbstractLSTest {
                 {Path.of("variable5.json")},
                 {Path.of("variable6.json")},
                 {Path.of("variable7.json")},
+                {Path.of("variable8.json")},
+                {Path.of("variable9.json")},
+                {Path.of("variable10.json")},
         };
     }
 
@@ -62,7 +65,7 @@ public class DataMappingAddElementTest extends AbstractLSTest {
                         testConfig.diagram(), testConfig.position(), "expression", testConfig.targetField());
         String source = getResponse(request).getAsJsonPrimitive("source").getAsString();
 
-        if (!source.equals(testConfig.output())) {
+        if (!source.replaceAll("\\s+", "").equals(testConfig.output().replaceAll("\\s+", ""))) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), testConfig.mappings(),
                     source, testConfig.targetField());

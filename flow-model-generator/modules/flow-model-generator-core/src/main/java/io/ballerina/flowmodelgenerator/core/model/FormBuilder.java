@@ -581,6 +581,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
                 .type(Property.ValueType.EXPRESSION)
+                .optional(true)
                 .editable();
         addProperty(Property.DEFAULTABLE_KEY, expr);
         return this;
@@ -771,6 +772,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(value)
                 .type(Property.ValueType.STRING);
         addProperty(Property.ARRAY_SIZE);
+        return this;
+    }
+
+    public FormBuilder<T> qualifiers(List<String> value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                .label(Property.TYPE_QUALIFIERS_LABEL)
+                .description(Property.TYPE_QUALIFIERS_DOC)
+                .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .type(Property.ValueType.MULTIPLE_SELECT);
+        addProperty(Property.QUALIFIERS_KEY);
         return this;
     }
 

@@ -72,43 +72,44 @@
         "advanced": true
       }
     },
-    "members": {
-      "country": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "country",
         "docs": ""
       },
-      "city": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "city",
         "docs": ""
       },
-      "houseNo": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "houseNo",
         "docs": ""
       },
-      "line2": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "line2",
         "docs": ""
       },
-      "line1": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
         "name": "line1",
         "docs": ""
       }
-    },
+    ],
     "includes": []
-  }
+  },
+  "refs": []
 }

@@ -40,6 +40,7 @@
         "optional": false,
         "advanced": false,
         "items": [
+          "default:httpListener",
           "httpListener",
           "githubListener"
         ],
@@ -429,7 +430,8 @@
             "enabled": true,
             "editable": false,
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "httpParamType": "QUERY"
           }
         ],
         "schema": {

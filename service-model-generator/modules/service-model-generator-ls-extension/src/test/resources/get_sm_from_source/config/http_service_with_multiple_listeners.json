@@ -44,7 +44,9 @@
         "optional": false,
         "advanced": false,
         "items": [
+          "default:httpListener",
           "httpListener",
+          "new http:Listener(port = 8080)",
           "githubListener"
         ],
         "codedata": {

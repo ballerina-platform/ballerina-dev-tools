@@ -463,7 +463,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
@@ -525,7 +525,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
@@ -717,7 +717,7 @@ public final class Utils {
         return Optional.empty();
     }
 
-    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode) {
+    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER,
@@ -727,10 +727,6 @@ public final class Utils {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION,
                     parameter.typeName().toString().trim(), parameter.annotations());
-            Value defaultValue = parameterModel.getDefaultValue();
-            defaultValue.setValue(parameter.expression().toString().trim());
-            defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
-            defaultValue.setEnabled(true);
             return Optional.of(parameterModel);
         }
         return Optional.empty();
@@ -1281,5 +1277,18 @@ public final class Utils {
     public static String getExprUri(String sourcePath) {
         String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
         return URI.create(exprUriString).toString();
+    }
+
+    /**
+     * Check if the `default:httpListener` is attached to the service.
+     *
+     * @param value the Listener value
+     * @return true if the `default:httpListener` is attached, false otherwise
+     */
+    public static boolean isHttpDefaultListenerAttached(Value value) {
+        if (value.getValues().isEmpty()) {
+            return ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF.equals(value.getValue().trim());
+        }
+        return value.getValues().contains(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
     }
 }

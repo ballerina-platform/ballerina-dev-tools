@@ -160,7 +160,7 @@
             "character": 53
           }
         },
-        "newText": "wait futures[0] | futures[2];"
+        "newText": "string val1 = wait futures[0] | futures[2];"
       }
     ]
   }

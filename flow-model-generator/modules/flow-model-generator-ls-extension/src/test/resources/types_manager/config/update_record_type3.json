@@ -68,8 +68,8 @@
         "advanced": true
       }
     },
-    "members": {
-      "user": {
+    "members": [
+      {
         "kind": "FIELD",
         "refs": [
           "Person"
@@ -78,7 +78,7 @@
         "name": "user",
         "docs": ""
       },
-      "id": {
+      {
         "kind": "FIELD",
         "refs": [],
         "type": "int",
@@ -86,7 +86,7 @@
         "docs": "",
         "defaultValue": "23"
       }
-    },
+    ],
     "includes": [
       "Person"
     ]
@@ -97,14 +97,14 @@
         "range": {
           "start": {
             "line": 0,
-            "character": 5
+            "character": 0
           },
           "end": {
-            "line": 0,
-            "character": 13
+            "line": 3,
+            "character": 3
           }
         },
-        "newText": "type Employee record {|\n*Person;\nPerson user;\nint id = 23;\n|};\n"
+        "newText": "type Employee record {|\n\t*Person;\n\tPerson user;\n\tint id = 23;\n|};\n"
       }
     ]
   }

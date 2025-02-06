@@ -1,0 +1,486 @@
+{
+  "filePath": "test_pack2/records.bal",
+  "position": {
+    "line": 4,
+    "offset": 5
+  },
+  "description": "Get a record type data",
+  "type": {
+    "name": "User",
+    "editable": true,
+    "metadata": {
+      "label": "User",
+      "description": "User record type\nSimple record type with docs, anonymous field types (union, record)"
+    },
+    "codedata": {
+      "node": "RECORD",
+      "lineRange": {
+        "fileName": "records.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 4,
+          "offset": 9
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "User",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "User record type\nSimple record type with docs, anonymous field types (union, record)",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "RECORD"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            }
+          },
+          "members": [
+            {
+              "kind": "FIELD",
+              "refs": [],
+              "type": "int",
+              "name": "iA",
+              "docs": ""
+            },
+            {
+              "kind": "FIELD",
+              "refs": [],
+              "type": {
+                "editable": false,
+                "codedata": {
+                  "node": "RECORD"
+                },
+                "properties": {
+                  "isArray": {
+                    "metadata": {
+                      "label": "Is array type",
+                      "description": "Is this type an array or list value"
+                    },
+                    "valueType": "FLAG",
+                    "value": "false",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "arraySize": {
+                    "metadata": {
+                      "label": "Size of the array",
+                      "description": "Array dimensions"
+                    },
+                    "valueType": "STRING",
+                    "value": "",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true
+                  }
+                },
+                "members": [
+                  {
+                    "kind": "FIELD",
+                    "refs": [],
+                    "type": "int",
+                    "name": "iiA",
+                    "docs": ""
+                  }
+                ],
+                "includes": []
+              },
+              "name": "iB",
+              "docs": ""
+            }
+          ],
+          "includes": []
+        },
+        "name": "field1",
+        "docs": "Anonymous nested record type"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "xml",
+              "name": "xml"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "UserAddress"
+              ],
+              "type": "UserAddress",
+              "name": "UserAddress"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "City"
+              ],
+              "type": "City",
+              "name": "City"
+            }
+          ]
+        },
+        "name": "address",
+        "docs": "Union of of type-refs and a built-in type"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": "Name of the employee"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "age",
+        "docs": "Age of the employee"
+      }
+    ],
+    "restMember": {
+      "kind": "FIELD",
+      "refs": [],
+      "type": "anydata"
+    },
+    "includes": []
+  },
+  "refs": [
+    {
+      "name": "UserAddress",
+      "editable": true,
+      "metadata": {
+        "label": "UserAddress",
+        "description": "Record type with a rest field"
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "records.bal",
+          "startLine": {
+            "line": 23,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 23,
+            "offset": 16
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "UserAddress",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "Record type with a rest field",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "string",
+                "name": "string"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
+          "name": "no",
+          "docs": "Union of built-in types"
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "country",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "street",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string"
+      },
+      "includes": [
+        "City"
+      ]
+    },
+    {
+      "name": "City",
+      "editable": true,
+      "metadata": {
+        "label": "City",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "records.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 9
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "City",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "country",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        }
+      ],
+      "includes": []
+    }
+  ]
+}

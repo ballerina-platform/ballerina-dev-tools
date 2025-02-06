@@ -85,6 +85,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String TYPE_ARRAY_SIZE_LABEL = "Size of the array";
     public static final String TYPE_ARRAY_SIZE_DOC = "Array dimensions";
 
+    public static final String QUALIFIERS_KEY = "qualifiers";
+    public static final String TYPE_QUALIFIERS_LABEL = "Type Qualifiers";
+    public static final String TYPE_QUALIFIERS_DOC = "Qualifiers of the type";
+
     public static final String RETURN_TYPE_LABEL = "Return Type";
     public static final String RETURN_TYPE_DOC = "Return type of the function/worker";
 

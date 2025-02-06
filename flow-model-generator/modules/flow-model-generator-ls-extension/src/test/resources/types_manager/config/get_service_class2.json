@@ -1,0 +1,158 @@
+{
+  "filePath": "test_pack2/graphql_class.bal",
+  "position": {
+    "line": 30,
+    "offset": 23
+  },
+  "description": "Get a record type data",
+  "type": {
+    "name": "Student",
+    "editable": true,
+    "metadata": {
+      "label": "Student",
+      "description": ""
+    },
+    "codedata": {
+      "node": "CLASS",
+      "lineRange": {
+        "fileName": "graphql_class.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 30
+        }
+      }
+    },
+    "properties": {
+      "qualifiers": {
+        "metadata": {
+          "label": "Type Qualifiers",
+          "description": "Qualifiers of the type"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "value": [
+          "distinct",
+          "isolated",
+          "service"
+        ],
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": ""
+      }
+    ],
+    "includes": [
+      "Profile"
+    ],
+    "functions": [
+      {
+        "accessor": "get",
+        "qualifiers": [
+          "ISOLATED",
+          "RESOURCE"
+        ],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "name",
+        "returnType": "string",
+        "refs": []
+      }
+    ]
+  },
+  "refs": [
+    {
+      "name": "Profile",
+      "editable": true,
+      "metadata": {
+        "label": "Profile",
+        "description": ""
+      },
+      "codedata": {
+        "node": "OBJECT",
+        "lineRange": {
+          "fileName": "graphql_class.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 12
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Profile",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "members": [],
+      "includes": [],
+      "functions": [
+        {
+          "accessor": "get",
+          "qualifiers": [
+            "RESOURCE"
+          ],
+          "parameters": [],
+          "kind": "RESOURCE",
+          "name": "name",
+          "returnType": "string",
+          "refs": []
+        }
+      ]
+    }
+  ]
+}

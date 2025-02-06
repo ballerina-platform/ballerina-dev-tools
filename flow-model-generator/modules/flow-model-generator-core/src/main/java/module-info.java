@@ -34,9 +34,14 @@ module io.ballerina.flow.model.generator {
     requires org.xerial.sqlitejdbc;
     requires io.ballerina.toml;
     requires org.slf4j; // TODO: Remove this once the windows build issue is fixed
+    requires com.fasterxml.jackson.databind;
+    requires swagger.parser.v3;
+    requires swagger.parser.core;
+    requires org.apache.commons.lang3;
 
     exports io.ballerina.flowmodelgenerator.core;
     exports io.ballerina.flowmodelgenerator.core.utils;
     exports io.ballerina.flowmodelgenerator.core.model;
     exports io.ballerina.flowmodelgenerator.core.db.model;
+    exports io.ballerina.flowmodelgenerator.core.converters;
 }

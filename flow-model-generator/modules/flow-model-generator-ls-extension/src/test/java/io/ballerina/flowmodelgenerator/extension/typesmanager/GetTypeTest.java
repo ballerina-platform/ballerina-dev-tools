@@ -1,6 +1,7 @@
 package io.ballerina.flowmodelgenerator.extension.typesmanager;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.tools.text.LinePosition;
@@ -27,12 +28,14 @@ public class GetTypeTest extends AbstractLSTest {
         GetTypeRequest request = new GetTypeRequest(
                 sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(),
                 testConfig.position());
-        JsonElement response = getResponse(request).getAsJsonObject("type");
-        if (!response.equals(testConfig.type())) {
+        JsonObject response = getResponse(request);
+        JsonElement typeResponse = response.get("type");
+        JsonElement refsResponse = response.get("refs");
+        if (!typeResponse.equals(testConfig.type()) || !refsResponse.equals(testConfig.refs())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.position(),
-                    testConfig.description(), response);
+                    testConfig.description(), typeResponse, refsResponse);
 //            updateConfig(configJsonPath, updateConfig);
-            compareJsonElements(response, testConfig.type());
+            compareJsonElements(typeResponse, testConfig.type());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -44,6 +47,17 @@ public class GetTypeTest extends AbstractLSTest {
                 {Path.of("get_record_type1.json")},
                 {Path.of("get_record_type2.json")},
                 {Path.of("get_record_type3.json")},
+                {Path.of("get_record_type4.json")},
+                {Path.of("get_record_type5.json")},
+                {Path.of("get_union_type1.json")},
+                {Path.of("get_service_class1.json")},
+                {Path.of("get_service_class2.json")},
+                {Path.of("get_service_class3.json")},
+                {Path.of("get_enum_type1.json")},
+                {Path.of("get_enum_type2.json")},
+                {Path.of("get_array_type_def.json")},
+                {Path.of("get_table_type_def.json")},
+                {Path.of("get_error_type_def.json")},
         };
     }
 
@@ -67,6 +81,10 @@ public class GetTypeTest extends AbstractLSTest {
         return "typesManager";
     }
 
-    private record TestConfig(String filePath, LinePosition position, String description, JsonElement type) {
+    private record TestConfig(String filePath,
+                              LinePosition position,
+                              String description,
+                              JsonElement type,
+                              JsonElement refs) {
     }
 }
