@@ -860,15 +860,7 @@ public final class Utils {
                             () -> serviceModel.addFunction(functionModel)
                     );
                 } else if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
-                    switch (functionModel.getKind()) {
-                        case ServiceModelGeneratorConstants.KIND_QUERY ->
-                                functionModel.setMetadata(graphqlQueryMetaData());
-                        case ServiceModelGeneratorConstants.KIND_MUTATION ->
-                                functionModel.setMetadata(graphqlMutationMetaData());
-                        case ServiceModelGeneratorConstants.KIND_SUBSCRIPTION ->
-                                functionModel.setMetadata(graphqlSubscriptionMetaData());
-                        default -> { }
-                    }
+                    GraphqlUtil.updateGraphqlFunctionMetaData(functionModel);
                     serviceModel.addFunction(functionModel);
                 } else {
                     serviceModel.addFunction(functionModel);
@@ -1289,17 +1281,5 @@ public final class Utils {
     public static String getExprUri(String sourcePath) {
         String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
         return URI.create(exprUriString).toString();
-    }
-
-    private static MetaData graphqlSubscriptionMetaData() {
-        return new MetaData("Graphql Subscription", "Graphql Subscription");
-    }
-
-    private static MetaData graphqlQueryMetaData() {
-        return new MetaData("Graphql Query", "Graphql Query");
-    }
-
-    private static MetaData graphqlMutationMetaData() {
-        return new MetaData("Graphql Mutation", "Graphql Mutation");
     }
 }
