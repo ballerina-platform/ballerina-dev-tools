@@ -16,34 +16,17 @@
  *  under the License.
  */
 
-package io.ballerina.servicemodelgenerator.extension.model;
+package io.ballerina.servicemodelgenerator.extension.request;
+
+import io.ballerina.servicemodelgenerator.extension.model.Field;
 
 /**
- * Field class to hold the object field information.
+ * ClassFieldModifierRequest class to hold the class field modifier request.
+ *
+ * @param filePath file path
+ * @param field object level field model
  *
  * @since 2.0.0
  */
-public class Field extends Parameter {
-    private final boolean isPrivate;
-    private final boolean isFinal;
-    private final Codedata codedata;
-
-    public Field(Parameter parameter, boolean isPrivate, boolean isFinal, Codedata codedata) {
-        super(parameter);
-        this.isPrivate = isPrivate;
-        this.isFinal = isFinal;
-        this.codedata = codedata;
-    }
-
-    public boolean isPrivate() {
-        return isPrivate;
-    }
-
-    public boolean isFinal() {
-        return isFinal;
-    }
-
-    public Codedata codedata() {
-        return codedata;
-    }
+public record ClassFieldModifierRequest(String filePath, Field field) {
 }

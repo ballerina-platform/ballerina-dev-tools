@@ -1,0 +1,85 @@
+{
+  "filePath": "update_service_class.bal",
+  "description": "Update the name of the service class",
+  "field": {
+    "isPrivate": true,
+    "isFinal": true,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 30
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "type": {
+      "metadata": {
+        "label": "Parameter Type",
+        "description": "The type of the parameter"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "int",
+      "valueType": "TYPE",
+      "isType": true,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "metadata": {
+        "label": "Parameter Name",
+        "description": "The name of the parameter"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "intValue",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "defaultValue": {
+      "metadata": {
+        "label": "Default Value",
+        "description": "The default value of the parameter"
+      },
+      "enabled": false,
+      "editable": true,
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "editable": false,
+    "optional": false,
+    "advanced": false
+  },
+  "output": {
+    "update_service_class.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 4
+          },
+          "end": {
+            "line": 2,
+            "character": 30
+          }
+        },
+        "newText": "private final int intValue;"
+      }
+    ]
+  }
+}

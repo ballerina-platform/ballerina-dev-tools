@@ -49,6 +49,22 @@ import java.util.Optional;
  */
 public class ServiceClassUtil {
 
+    public static String buildObjectFiledString(Field field) {
+        StringBuilder builder = new StringBuilder();
+        if (field.isPrivate()) {
+            builder.append("private ");
+        }
+        if (field.isFinal()) {
+            builder.append("final ");
+        }
+        builder.append(field.getType().getValue()).append(" ").append(field.getName().getValue());
+        if (Objects.nonNull(field.getDefaultValue().getValue())) {
+            builder.append(" = ").append(field.getDefaultValue().getValue());
+        }
+        builder.append(";");
+        return builder.toString();
+    }
+
     public static ServiceClass getServiceClass(ClassDefinitionNode classDef) {
         ServiceClass.ServiceClassBuilder builder = new ServiceClass.ServiceClassBuilder();
 
@@ -162,7 +178,7 @@ public class ServiceClassUtil {
         boolean isFinal = objectField.qualifierList().stream()
                 .anyMatch(qualifier -> qualifier.text().trim().equals("final"));
 
-        return new Field(parameterModel, isPrivate, isFinal);
+        return new Field(parameterModel, isPrivate, isFinal, new Codedata(objectField.lineRange()));
     }
 
     private static FunctionKind getFunctionKind(FunctionDefinitionNode functionDefinitionNode) {

@@ -489,6 +489,22 @@
       {
         "isPrivate": true,
         "isFinal": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 28
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
         "type": {
           "metadata": {
             "label": "Parameter Type",
@@ -537,6 +553,22 @@
       {
         "isPrivate": true,
         "isFinal": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 30
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
         "type": {
           "metadata": {
             "label": "Parameter Type",
@@ -585,6 +617,22 @@
       {
         "isPrivate": true,
         "isFinal": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 34
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
         "type": {
           "metadata": {
             "label": "Parameter Type",

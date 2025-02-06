@@ -37,6 +37,7 @@ import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
@@ -58,6 +59,7 @@ import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.servicemodelgenerator.extension.request.ClassFieldModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
@@ -931,6 +933,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the list of text edits to modify a service class.
+     *
+     * @param request Service class source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
     @JsonRequest
     public CompletableFuture<CommonSourceResponse> updateServiceClass(ServiceClassSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
@@ -966,6 +974,44 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
         });
     }
+
+    /**
+     * Get the list of text edits to add a class field to the given class.
+     *
+     * @param request Class field source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateClassField(ClassFieldModifierRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.field().codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node instanceof ObjectFieldNode)) {
+                    return new CommonSourceResponse();
+                }
+                TextEdit fieldEdit = new TextEdit(Utils.toRange(lineRange),
+                        ServiceClassUtil.buildObjectFiledString(request.field()));
+                edits.add(fieldEdit);
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
 
     public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();

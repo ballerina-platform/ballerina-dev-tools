@@ -27,6 +27,7 @@ under the License.
             <class name="io.ballerina.servicemodelgenerator.extension.ServiceModelAPITests"/>
             <class name="io.ballerina.servicemodelgenerator.extension.UpdateFunctionTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.UpdateServiceClassTest"/>
+            <class name="io.ballerina.servicemodelgenerator.extension.UpdateClassFieldTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.AddFunctionTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.GetHttpResourceModelTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.GetFunctionModelTest"/>
