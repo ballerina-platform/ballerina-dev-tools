@@ -163,6 +163,22 @@ public class TypesManager {
         return gson.toJsonTree(textEditsMap);
     }
 
+    public JsonElement createGraphqlClassType(Path filePath, TypeData typeData) {
+        List<TextEdit> textEdits = new ArrayList<>();
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(filePath, textEdits);
+
+        // Generate code snippet for the type
+        SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
+        String codeSnippet = sourceCodeGenerator.generateGraphqlClassType(typeData);
+
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        ModulePartNode modulePartNode = syntaxTree.rootNode();
+        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+        textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
+        return gson.toJsonTree(textEditsMap);
+    }
+
     private void addMemberTypes(TypeSymbol typeSymbol, Map<String, Symbol> symbolMap) {
         // Record
         switch (typeSymbol.typeKind()) {
@@ -383,6 +399,9 @@ public class TypesManager {
                 Symbol definition = ((TypeReferenceTypeSymbol) typeSymbol).definition();
                 ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
                 String typeName = TypeUtils.generateReferencedTypeId(typeSymbol, moduleInfo);
+                if (references.containsKey(typeName)) {
+                    return;
+                }
                 references.putIfAbsent(typeName, getTypeData(definition));
                 if (CommonUtils.isWithinPackage(definition, moduleInfo)) {
                     addDependencyTypes(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor(), references);
