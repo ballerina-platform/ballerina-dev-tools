@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
@@ -249,7 +250,9 @@ public class TypesManager {
         String name = type.getName().get();
 
         ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
-        if (CommonUtils.isWithinPackage(type, moduleInfo)) {
+        ModuleID typeModuleId = type.getModule().get().id();
+        if (CommonUtils.isWithinPackage(type, moduleInfo) ||
+                CommonUtils.isPredefinedLangLib(typeModuleId.orgName(), typeModuleId.packageName())) {
             return;
         }
 
