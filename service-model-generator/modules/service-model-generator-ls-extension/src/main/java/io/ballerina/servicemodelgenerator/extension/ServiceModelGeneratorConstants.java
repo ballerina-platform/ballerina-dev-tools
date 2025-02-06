@@ -53,6 +53,8 @@ public class ServiceModelGeneratorConstants {
     public static final String KIND_RESOURCE = "RESOURCE";
     public static final String KIND_REMOTE = "REMOTE";
     public static final String KIND_DEFAULT = "DEFAULT";
+    public static final String KIND_REQUIRED = "REQUIRED";
+    public static final String KIND_DEFAULTABLE = "DEFAULTABLE";
 
     public static final String PARAMETER = "parameter";
     public static final String SERVICE = "service";
