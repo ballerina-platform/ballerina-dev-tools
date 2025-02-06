@@ -19,8 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -103,7 +103,7 @@ public class WaitBuilder extends NodeBuilder {
             }
 
             Map<String, Property> futureChildProperties = gson.fromJson(gson.toJsonTree(futureChildMap),
-                    new TypeToken<Map<String, Property>>() { }.getType());
+                    FormBuilder.NODE_PROPERTIES_TYPE);
 
             String waitField;
             Property variableProperty = futureChildProperties.get(Property.VARIABLE_KEY);
