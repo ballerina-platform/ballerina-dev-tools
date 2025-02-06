@@ -1108,9 +1108,11 @@ public final class Utils {
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
                 String paramDef;
-                if (Objects.nonNull(param.getDefaultValue()) && param.getDefaultValue().isEnabled()) {
+                Value defaultValue = param.getDefaultValue();
+                if (Objects.nonNull(defaultValue) && defaultValue.isEnabled()
+                        && defaultValue.getValue() != null && !defaultValue.getValue().isEmpty()) {
                     paramDef = String.format("%s %s = %s", getValueString(param.getType()),
-                            getValueString(param.getName()), getValueString(param.getDefaultValue()));
+                            getValueString(param.getName()), getValueString(defaultValue));
                 } else {
                     paramDef = String.format("%s %s", getValueString(param.getType()),
                             getValueString(param.getName()));
