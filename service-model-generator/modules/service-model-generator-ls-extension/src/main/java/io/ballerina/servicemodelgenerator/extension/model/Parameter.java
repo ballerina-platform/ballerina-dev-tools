@@ -53,6 +53,19 @@ public class Parameter {
         this.httpParamType = httpParamType;
     }
 
+    public Parameter(Parameter parameter) {
+        this.metadata = parameter.metadata;
+        this.kind = parameter.kind;
+        this.type = parameter.type;
+        this.name = parameter.name;
+        this.defaultValue = parameter.defaultValue;
+        this.enabled = parameter.enabled;
+        this.editable = parameter.editable;
+        this.optional = parameter.optional;
+        this.advanced = parameter.advanced;
+        this.httpParamType = parameter.httpParamType;
+    }
+
     public static Parameter getNewParameter() {
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),

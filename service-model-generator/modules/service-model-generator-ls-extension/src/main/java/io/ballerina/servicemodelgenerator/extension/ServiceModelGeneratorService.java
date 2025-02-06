@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -53,6 +54,7 @@ import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
+import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
@@ -74,10 +76,12 @@ import io.ballerina.servicemodelgenerator.extension.response.FunctionModelRespon
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -888,12 +892,35 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
      * @return Service class model response
      */
     @JsonRequest
-    public CompletableFuture<ServiceModelResponse> getServiceClassFromSource(ServiceModelRequest request) {
+    public CompletableFuture<ServiceClassModelResponse> getServiceClassModelFromSource(
+            CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return null;
+                Path filePath = Path.of(request.filePath());
+                try {
+                    this.workspaceManager.loadProject(filePath);
+                } catch (Exception e) {
+                    return new ServiceClassModelResponse(e);
+                }
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new ServiceClassModelResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (node.kind() != SyntaxKind.CLASS_DEFINITION) {
+                    return new ServiceClassModelResponse();
+                }
+                ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                ServiceClass serviceClass = ServiceClassUtil.getServiceClass(classDefinitionNode);
+                return new ServiceClassModelResponse(serviceClass);
             } catch (Throwable e) {
-                return new ServiceModelResponse(e);
+                return new ServiceClassModelResponse(e);
             }
         });
     }
