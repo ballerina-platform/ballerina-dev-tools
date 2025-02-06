@@ -53,7 +53,7 @@ public class FunctionDefinitionTest extends AbstractLSTest {
                     testConfig.functionName(),
                     testConfig.description(),
                     functionDefinition);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             compareJsonElements(functionDefinition, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }

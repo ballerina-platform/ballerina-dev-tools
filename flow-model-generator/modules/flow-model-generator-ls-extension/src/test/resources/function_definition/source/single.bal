@@ -48,3 +48,13 @@ isolated function getCounter() returns int {
 public function processUser(record {|string name; int age;|} user) returns string {
     return string `${user.name} is ${user.age} years old`;
 }
+
+// Function name with special characters
+public function 'from() {
+}
+
+public function \$dollar\#hash() {
+}
+
+public function ව() {
+}
