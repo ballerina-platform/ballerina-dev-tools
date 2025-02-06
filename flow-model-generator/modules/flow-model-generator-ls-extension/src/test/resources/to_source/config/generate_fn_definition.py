@@ -19,6 +19,7 @@ under the License.
 import os
 import json
 import glob
+import re
 
 
 def write_json_file(json_file, output_file_name):
@@ -38,6 +39,17 @@ def write_json_file(json_file, output_file_name):
         json.dump(output_data, out, indent=4)
 
 
+def sort_key(filepath):
+    filename = os.path.basename(filepath)
+    name, _ = os.path.splitext(filename)
+    match = re.match(r"([^\d]+)(\d+)?", name)
+    if match:
+        prefix = match.group(1)
+        number = int(match.group(2)) if match.group(2) else 0
+        return (prefix, number)
+    return (name, 0)
+
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 fn_def_dir = os.path.normpath(os.path.join(
     current_dir, "..", "..", "function_definition", "config"))
@@ -46,6 +58,8 @@ node_template_dir = os.path.normpath(os.path.join(
 
 # Generate the configs for the function definitions
 json_files = glob.glob(os.path.join(fn_def_dir, "*.json"))
+json_files.sort(key=sort_key)
+print("\n".join(json_files))
 for idx, json_file in enumerate(json_files, 1):
     write_json_file(json_file, f"function_definition{idx}.json")
 
