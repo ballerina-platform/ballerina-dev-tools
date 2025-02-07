@@ -21,11 +21,11 @@ package io.ballerina.flowmodelgenerator.extension.response;
 import com.google.gson.JsonElement;
 
 /**
- * Response format for JsonToBalRecord endpoint.
+ * Response format for xml to record conversion endpoint.
  *
  * @since 2.0.0
  */
-public class JsonToRecordResponse extends AbstractFlowModelResponse {
+public class XMLToRecordResponse extends AbstractFlowModelResponse {
 
     private JsonElement types;
 

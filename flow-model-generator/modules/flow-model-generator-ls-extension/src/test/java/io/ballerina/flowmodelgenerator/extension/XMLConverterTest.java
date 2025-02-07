@@ -22,10 +22,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.XMLToRecordRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -36,14 +37,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Test cases for the record conversion from json.
+ * Test cases for the record conversion from xml.
  *
  * @since 2.0.0
  */
-public class JsonConverterTest extends AbstractLSTest {
+public class XMLConverterTest extends AbstractLSTest {
 
     private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[][]{
+                {Path.of("config1.json")},
+                {Path.of("config2.json")},
+        };
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -52,8 +62,8 @@ public class JsonConverterTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         String sourceFile = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
-        JsonToRecordRequest request = new JsonToRecordRequest(testConfig.jsonString(), testConfig.recordName(),
-                testConfig.prefix(), testConfig.isRecordTypeDesc(), testConfig.isClosed(), true, sourceFile, false);
+        XMLToRecordRequest request = new XMLToRecordRequest(testConfig.xmlString(), testConfig.isRecordTypeDesc(),
+                testConfig.isClosed(), true, "text", false, false, false, sourceFile, testConfig.prefix());
         JsonArray records = getResponse(request).getAsJsonArray("types");
 
         StringBuilder sb = new StringBuilder();
@@ -73,23 +83,21 @@ public class JsonConverterTest extends AbstractLSTest {
         String expectedRecords = testConfig.records().replaceAll("\\s+", "");
 
         if (!generatedRecords.equals(expectedRecords)) {
-            TestConfig updatedConfig = new TestConfig(testConfig.filePath(), testConfig.testFilePath(),
-                    testConfig.jsonString(), testConfig.recordName(), testConfig.prefix(), testConfig.isClosed(),
-                    testConfig.isRecordTypeDesc(),
-                    sb.toString());
+            TestConfig updatedConfig = new TestConfig(testConfig.filePath(), testConfig.xmlString(),
+                    testConfig.prefix(), testConfig.isClosed(), testConfig.isRecordTypeDesc(), sb.toString());
 //            updateConfig(configJsonPath, updatedConfig);
-            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.testFilePath(), configJsonPath));
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.filePath(), configJsonPath));
         }
     }
 
     @Override
     protected String getResourceDir() {
-        return "json_converter";
+        return "xml_converter";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return JsonConverterTest.class;
+        return XMLConverterTest.class;
     }
 
     @Override
@@ -99,10 +107,10 @@ public class JsonConverterTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "jsonToRecord";
+        return "xmlToRecord";
     }
 
-    private record TestConfig(String filePath, String testFilePath, String jsonString, String recordName,
-                              String prefix, boolean isClosed, boolean isRecordTypeDesc, String records) {
+    private record TestConfig(String filePath, String xmlString, String prefix, boolean isClosed,
+                              boolean isRecordTypeDesc, String records) {
     }
 }
