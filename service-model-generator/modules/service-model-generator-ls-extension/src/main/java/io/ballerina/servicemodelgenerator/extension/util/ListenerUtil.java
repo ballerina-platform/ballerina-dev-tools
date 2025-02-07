@@ -56,7 +56,6 @@ public class ListenerUtil {
             String listenerName = variableSymbol.getName().get();
             if (isHttp && listenerName.equals(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME)) {
                 isHttpDefaultListenerDefined = true;
-                continue;
             }
             listeners.add(listenerName);
         }
