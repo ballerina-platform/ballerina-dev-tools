@@ -113,7 +113,6 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctio
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
@@ -385,25 +384,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     .flatMap(Optional::stream)
                     .toList();
             return new TriggerListResponse(triggerBasicInfoList);
-        });
-    }
-
-    /**
-     * Get the http service model template.
-     *
-     * @return {@link FunctionModelResponse} of the resource model response
-     */
-    @Deprecated
-    @JsonRequest
-    public CompletableFuture<FunctionModelResponse> getHttpResourceModel() {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                return getResourceFunctionModel()
-                        .map(FunctionModelResponse::new)
-                        .orElseGet(FunctionModelResponse::new);
-            } catch (Throwable e) {
-                return new FunctionModelResponse(e);
-            }
         });
     }
 
