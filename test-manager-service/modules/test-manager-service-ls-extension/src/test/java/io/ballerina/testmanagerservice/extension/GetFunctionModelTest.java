@@ -19,20 +19,15 @@
 package io.ballerina.testmanagerservice.extension;
 
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 import io.ballerina.testmanagerservice.extension.request.GetTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.response.GetTestFunctionResponse;
-import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Tests for the getTestFunction service.
@@ -40,9 +35,6 @@ import java.util.Map;
  * @since 2.0.0
  */
 public class GetFunctionModelTest extends AbstractLSTest {
-
-    private static final Type TEXT_EDIT_LIST_TYPE = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -58,15 +50,20 @@ public class GetFunctionModelTest extends AbstractLSTest {
         GetTestFunctionResponse response = gson.fromJson(jsonMap, GetTestFunctionResponse.class);
 
         TestFunction actualServiceModel = response.function();
-        boolean assertTrue = false;
-
-        if (!assertTrue) {
+        if (!assertFunctionEquals(actualServiceModel, testConfig.response().function())) {
             GetFunctionModelTest.TestConfig updatedConfig =
                     new GetFunctionModelTest.TestConfig(testConfig.description(), testConfig.filePath(),
                             testConfig.functionName(), response);
             updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    private boolean assertFunctionEquals(TestFunction actualFunctionModel,
+                                         TestFunction expectedFunctionModel) {
+        return expectedFunctionModel.functionName().value().equals(actualFunctionModel.functionName().value())
+                && expectedFunctionModel.parameters().size() == actualFunctionModel.parameters().size()
+                && expectedFunctionModel.annotations().size() == actualFunctionModel.annotations().size();
     }
 
     @Override

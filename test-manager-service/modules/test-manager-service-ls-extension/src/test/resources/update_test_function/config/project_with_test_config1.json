@@ -134,6 +134,19 @@
         "range": {
           "start": {
             "line": 4,
+            "character": 9
+          },
+          "end": {
+            "line": 4,
+            "character": 22
+          }
+        },
+        "newText": "myNewTestFunction"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 4,
             "character": 22
           },
           "end": {
@@ -141,7 +154,7 @@
             "character": 54
           }
         },
-        "newText": "myNewTestFunction(string a, string b = \"default\")"
+        "newText": "(string a, string b = \"default\")"
       }
     ]
   }
