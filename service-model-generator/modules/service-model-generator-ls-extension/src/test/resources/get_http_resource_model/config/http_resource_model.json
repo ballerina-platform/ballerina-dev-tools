@@ -1,7 +1,7 @@
 {
   "description": "Test the service model template getting for the http service",
   "response": {
-    "resource": {
+    "function": {
       "metadata": {
         "label": "Get Path",
         "description": "The path resource"

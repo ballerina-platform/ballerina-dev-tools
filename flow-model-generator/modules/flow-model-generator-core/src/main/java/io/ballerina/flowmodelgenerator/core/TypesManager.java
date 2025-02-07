@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
@@ -44,6 +45,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
@@ -63,7 +65,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -76,26 +77,9 @@ public class TypesManager {
     private final Module module;
     private final Document typeDocument;
     private static final List<SymbolKind> supportedSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.ENUM,
-            SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS);
-
-    private static final Predicate<Symbol> supportedTypesPredicate = symbol -> {
-        if (symbol.getName().isEmpty()) {
-            return false;
-        }
-
-        if (symbol.kind() == SymbolKind.ENUM) {
-            return true;
-        }
-
-        if (symbol.kind() != SymbolKind.TYPE_DEFINITION) {
-            return false;
-        }
-
-        return switch (((TypeDefinitionSymbol) symbol).typeDescriptor().typeKind()) {
-            case RECORD, ARRAY, UNION, ERROR -> true;
-            default -> false;
-        };
-    };
+            SymbolKind.CLASS, SymbolKind.TYPE);
+    private static final List<SymbolKind> supportedGraphqlSymbolKinds = List.of(SymbolKind.TYPE_DEFINITION,
+            SymbolKind.ENUM, SymbolKind.SERVICE_DECLARATION, SymbolKind.CLASS, SymbolKind.TYPE);
 
     public TypesManager(Document typeDocument) {
         this.typeDocument = typeDocument;
@@ -105,8 +89,8 @@ public class TypesManager {
     public JsonElement getAllTypes() {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
-                .filter(supportedTypesPredicate)
-                .collect(Collectors.toMap(symbol -> symbol.getName().get(), symbol -> symbol));
+                .filter(s -> supportedSymbolKinds.contains(s.kind()))
+                .collect(Collectors.toMap(symbol -> symbol.getName().orElse(""), symbol -> symbol));
 
         // Now we have all the defined types in the module scope
         // Now we need to get foreign types that we have defined members of the types
@@ -119,16 +103,7 @@ public class TypesManager {
             addMemberTypes(typeSymbol, symbolMap);
         });
 
-        List<Object> allTypes = new ArrayList<>();
-        TypeTransformer typeTransformer = new TypeTransformer(this.module);
-        symbolMap.values().forEach(symbol -> {
-            if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                TypeDefinitionSymbol typeDef = (TypeDefinitionSymbol) symbol;
-                if (typeDef.typeDescriptor().typeKind() == TypeDescKind.RECORD) {
-                    allTypes.add(typeTransformer.transform(typeDef));
-                }
-            }
-        });
+        List<Object> allTypes = symbolMap.values().stream().map(this::getTypeData).toList();
 
         return gson.toJsonTree(allTypes);
     }
@@ -136,7 +111,7 @@ public class TypesManager {
     public JsonElement getType(Document document, LinePosition linePosition) {
         SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
         Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
-        if (symbol.isEmpty() || !supportedSymbolKinds.contains(symbol.get().kind())) {
+        if (symbol.isEmpty() || !supportedGraphqlSymbolKinds.contains(symbol.get().kind())) {
             return null;
         }
 
@@ -162,7 +137,7 @@ public class TypesManager {
         if (typeDescriptor != null) {
             addDependencyTypes(typeDescriptor, refs);
         }
-        return new TypeDataWithRefs(type, refs.values().stream().toList());
+        return genTypeDataRefWithoutPosition(type, refs.values().stream().toList());
     }
 
     public JsonElement updateType(Path filePath, TypeData typeData) {
@@ -185,6 +160,22 @@ public class TypesManager {
             textEdits.add(new TextEdit(CommonUtils.toRange(node.lineRange()), codeSnippet));
         }
 
+        return gson.toJsonTree(textEditsMap);
+    }
+
+    public JsonElement createGraphqlClassType(Path filePath, TypeData typeData) {
+        List<TextEdit> textEdits = new ArrayList<>();
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(filePath, textEdits);
+
+        // Generate code snippet for the type
+        SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
+        String codeSnippet = sourceCodeGenerator.generateGraphqlClassType(typeData);
+
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        ModulePartNode modulePartNode = syntaxTree.rootNode();
+        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+        textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
         return gson.toJsonTree(textEditsMap);
     }
 
@@ -251,6 +242,7 @@ public class TypesManager {
             case CLASS -> typeTransformer.transform((ClassSymbol) symbol);
             case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
             case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
+            case TYPE -> getTypeData(((TypeReferenceTypeSymbol) symbol).definition());
             default ->  null;
         };
     }
@@ -274,7 +266,9 @@ public class TypesManager {
         String name = type.getName().get();
 
         ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
-        if (CommonUtils.isWithinPackage(type, moduleInfo)) {
+        ModuleID typeModuleId = type.getModule().get().id();
+        if (CommonUtils.isWithinPackage(type, moduleInfo) ||
+                CommonUtils.isPredefinedLangLib(typeModuleId.orgName(), typeModuleId.packageName())) {
             return;
         }
 
@@ -405,6 +399,9 @@ public class TypesManager {
                 Symbol definition = ((TypeReferenceTypeSymbol) typeSymbol).definition();
                 ModuleInfo moduleInfo = ModuleInfo.from(this.module.descriptor());
                 String typeName = TypeUtils.generateReferencedTypeId(typeSymbol, moduleInfo);
+                if (references.containsKey(typeName)) {
+                    return;
+                }
                 references.putIfAbsent(typeName, getTypeData(definition));
                 if (CommonUtils.isWithinPackage(definition, moduleInfo)) {
                     addDependencyTypes(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor(), references);
@@ -415,6 +412,58 @@ public class TypesManager {
         }
     }
 
+    private TypeDataWithRefs genTypeDataRefWithoutPosition(Object type, List<Object> refs) {
+        List<Object> newRefs = new ArrayList<>();
+        for (Object ref : refs) {
+            if (ref instanceof TypeData) {
+                newRefs.add(getTypeDataWithoutPosition((TypeData) ref));
+            } else {
+                newRefs.add(ref);
+            }
+        }
+
+        if (type instanceof TypeData) {
+            return new TypeDataWithRefs(getTypeDataWithoutPosition((TypeData) type), newRefs);
+        }
+        return new TypeDataWithRefs(type, newRefs);
+    }
+
+    private TypeData getTypeDataWithoutPosition(TypeData typeData) {
+        Codedata codedata = typeData.codedata();
+        Codedata newCodedata = getCodedataWithoutPosition(codedata);
+        return new TypeData(
+                typeData.name(),
+                typeData.editable(),
+                typeData.metadata(),
+                newCodedata,
+                typeData.properties(),
+                typeData.members(),
+                typeData.restMember(),
+                typeData.includes(),
+                typeData.functions(),
+                typeData.annotations()
+        );
+    }
+
+    private Codedata getCodedataWithoutPosition(Codedata codedata) {
+        return new Codedata(
+                codedata.node(),
+                codedata.org(),
+                codedata.module(),
+                codedata.object(),
+                codedata.symbol(),
+                codedata.version(),
+                null,
+                codedata.sourceCode(),
+                codedata.parentSymbol(),
+                codedata.resourcePath(),
+                codedata.id(),
+                codedata.isNew(),
+                codedata.isGenerated()
+        );
+    }
+
     public record TypeDataWithRefs(Object type, List<Object> refs) {
+
     }
 }

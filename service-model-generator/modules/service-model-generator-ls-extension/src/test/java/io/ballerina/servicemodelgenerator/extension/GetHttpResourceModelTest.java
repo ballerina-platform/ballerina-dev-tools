@@ -20,7 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
-import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -44,20 +44,20 @@ public class GetHttpResourceModelTest extends AbstractLSTest {
 
         JsonObject jsonMap = getResponse(null);
 
-        ResourceModelResponse resourceModelResponse = gson.fromJson(jsonMap, ResourceModelResponse.class);
-        Function actualResourceModel = resourceModelResponse.resource();
+        FunctionModelResponse functionModelResponse = gson.fromJson(jsonMap, FunctionModelResponse.class);
+        Function actualResourceModel = functionModelResponse.function();
         boolean assertTrue = isAssertTrue(testConfig, actualResourceModel);
 
         if (!assertTrue) {
             GetHttpResourceModelTest.TestConfig updatedConfig =
-                    new GetHttpResourceModelTest.TestConfig(testConfig.description(), resourceModelResponse);
+                    new GetHttpResourceModelTest.TestConfig(testConfig.description(), functionModelResponse);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
     private static boolean isAssertTrue(TestConfig testConfig, Function actual) {
-        Function expectedResponse = testConfig.response().resource();
+        Function expectedResponse = testConfig.response().function();
         return expectedResponse.getMetadata().equals(actual.getMetadata()) &&
                 expectedResponse.getKind().equals(actual.getKind()) &&
                 expectedResponse.getAccessor().equals(actual.getAccessor()) &&
@@ -91,7 +91,7 @@ public class GetHttpResourceModelTest extends AbstractLSTest {
      * @param description The description of the test
      * @param response    The expected response
      */
-    private record TestConfig(String description, ResourceModelResponse response) {
+    private record TestConfig(String description, FunctionModelResponse response) {
         public String description() {
             return description == null ? "" : description;
         }

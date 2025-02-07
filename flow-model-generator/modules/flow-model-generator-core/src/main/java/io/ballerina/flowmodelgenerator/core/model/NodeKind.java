@@ -38,6 +38,7 @@ public enum NodeKind {
     STOP,
     FOREACH,
     DATA_MAPPER,
+    FUNCTION_DEFINITION,
     COMMENT,
     MATCH,
     FUNCTION,
@@ -67,5 +68,6 @@ public enum NodeKind {
     OBJECT,
     INTERSECTION,
     SERVICE_DECLARATION,
-    TABLE
+    TABLE,
+    TUPLE
 }

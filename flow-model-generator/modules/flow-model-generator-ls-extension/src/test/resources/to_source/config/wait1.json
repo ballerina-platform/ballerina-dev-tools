@@ -123,7 +123,7 @@
             "character": 49
           }
         },
-        "newText": "wait futureResult;"
+        "newText": "MultiResult result = wait futureResult;"
       }
     ]
   }

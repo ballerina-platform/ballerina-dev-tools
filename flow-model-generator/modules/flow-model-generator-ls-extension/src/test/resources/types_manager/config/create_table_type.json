@@ -9,18 +9,7 @@
       "description": ""
     },
     "codedata": {
-      "node": "TABLE",
-      "lineRange": {
-        "fileName": "types.bal",
-        "startLine": {
-          "line": 67,
-          "offset": 5
-        },
-        "endLine": {
-          "line": 67,
-          "offset": 17
-        }
-      }
+      "node": "TABLE"
     },
     "properties": {
       "name": {
@@ -133,12 +122,12 @@
       {
         "range": {
           "start": {
-            "line": 67,
+            "line": 73,
             "character": 0
           },
           "end": {
-            "line": 67,
-            "character": 49
+            "line": 73,
+            "character": 0
           }
         },
         "newText": "type AddressTable table<Address> key<string|int>;\n"

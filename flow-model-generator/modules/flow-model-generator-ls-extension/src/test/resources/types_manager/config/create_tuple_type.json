@@ -1,0 +1,94 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "description": "Create a new tuple type",
+  "type": {
+    "name": "PersonWithId",
+    "editable": true,
+    "metadata": {
+      "label": "PersonWithId",
+      "description": ""
+    },
+    "codedata": {
+      "node": "TUPLE"
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "PersonWithId",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [
+      {
+        "kind": "TYPE",
+        "refs": [
+          "Person"
+        ],
+        "type": "Person",
+        "name": "Person"
+      },
+      {
+        "kind": "TYPE",
+        "refs": [],
+        "type": "int",
+        "name": "int"
+      }
+    ]
+  },
+  "output": {
+    "test_pack1/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 73,
+            "character": 0
+          },
+          "end": {
+            "line": 73,
+            "character": 0
+          }
+        },
+        "newText": "type PersonWithId [Person, int];\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "filePath": "update_graphql.bal",
+  "description": "Update graphql Subscription",
+  "function": {
+    "qualifiers": [],
+    "kind": "SUBSCRIPTION",
+    "accessor": {
+      "enabled": true,
+      "editable": true,
+      "value": "subscribe",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "enabled": true,
+      "editable": true,
+      "value": "allNames",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [],
+    "returnType": {
+      "enabled": true,
+      "editable": false,
+      "value": "stream<string, error?>",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 49,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 55,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    }
+  },
+  "output": {
+    "update_graphql.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 49,
+            "character": 32
+          },
+          "end": {
+            "line": 49,
+            "character": 37
+          }
+        },
+        "newText": "allNames"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 49,
+            "character": 37
+          },
+          "end": {
+            "line": 49,
+            "character": 70
+          }
+        },
+        "newText": "() returns stream<string, error?> "
+      }
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "filePath": "single.bal",
+  "fileName": "single.bal",
+  "functionName": "complexFunction",
+  "description": "",
+  "output": {
+    "id": "56882",
+    "metadata": {
+      "label": "Function Definition",
+      "description": "Define a function"
+    },
+    "codedata": {
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "single.bal",
+        "startLine": {
+          "line": 25,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 25,
+          "offset": 121
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Function Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "complexFunction",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "Type of the return value"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Function parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "value": {
+          "required": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "int",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "required",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "name": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "string",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "name",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "flag": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "boolean",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "flag",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "rest": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "int...",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "rest",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  }
+}

@@ -75,6 +75,17 @@ public class CommonUtils {
         return String.format(CENTRAL_ICON_URL, moduleID.orgName(), moduleID.moduleName(), moduleID.version());
     }
 
+    /**
+     * Generates the icon URL for the given type symbol. If the module symbol is not present, the icon will not be
+     * generated.
+     *
+     * @param typeSymbol the type symbol
+     * @return the icon URL or null if the module symbol is not present
+     */
+    public static String generateIcon(TypeSymbol typeSymbol) {
+        return typeSymbol.getModule().map(moduleSymbol -> generateIcon(moduleSymbol.id())).orElse(null);
+    }
+
     public static String generateUUID() {
         return new UUID(random.nextLong(), random.nextLong()).toString();
     }

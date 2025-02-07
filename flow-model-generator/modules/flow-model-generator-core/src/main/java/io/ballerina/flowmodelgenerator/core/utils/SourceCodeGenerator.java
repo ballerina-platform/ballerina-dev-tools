@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.utils;
 
 import com.google.gson.Gson;
+import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
@@ -41,6 +42,87 @@ public class SourceCodeGenerator {
             case ENUM -> generateEnumCodeSnippet(typeData);
             default -> generateTypeDefCodeSnippet(typeData);
         };
+    }
+
+    public String generateGraphqlClassType(TypeData typeData) {
+        NodeKind nodeKind = typeData.codedata().node();
+        if (nodeKind != NodeKind.CLASS) {
+            return "";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\nservice class ")
+                .append(typeData.name())
+                .append(" {");
+
+        // Add inferred fields from functions
+        for (Function function : typeData.functions()) {
+            generateInferredGraphqlClassField(function, stringBuilder);
+        }
+
+        // init functions
+        stringBuilder.append("\n\t").append("function init(");
+        if (!typeData.functions().isEmpty()) {
+            for (int i = 0; i < typeData.functions().size(); i++) {
+                Function function = typeData.functions().get(i);
+                generateTypeDescriptor(function.returnType(), stringBuilder);
+                stringBuilder.append(" ").append(function.name());
+                if (i < typeData.functions().size() - 1) {
+                    stringBuilder.append(", ");
+                }
+            }
+        }
+
+        stringBuilder.append(") {");
+        if (!typeData.functions().isEmpty()) {
+            for (Function function : typeData.functions()) {
+                stringBuilder.append("\n\t\tself.")
+                        .append(function.name())
+                        .append(" = ")
+                        .append(function.name()).append(";");
+            }
+        }
+        stringBuilder.append("\n\t}");
+
+        // Add resource functions
+        for (Function function : typeData.functions()) {
+            if (function.description() != null && !function.description().isEmpty()) {
+                stringBuilder
+                        .append("\n\t")
+                        .append(CommonUtils.convertToBalDocs(function.description()));
+            } else {
+                stringBuilder.append("\n");
+            }
+            stringBuilder.append("\t")
+                    .append("resource function ")
+                    .append(function.accessor())
+                    .append(" ")
+                    .append(function.name())
+                    .append("(");
+
+            // Function params
+            for (Member param: function.parameters()) {
+                generateTypeDescriptor(param.type(), stringBuilder);
+                stringBuilder.append(" ").append(param.name());
+                if (param.defaultValue() != null && !param.defaultValue().isEmpty()) {
+                    stringBuilder.append(" = ").append(param.defaultValue());
+                }
+                if (function.parameters().indexOf(param) < function.parameters().size() - 1) {
+                    stringBuilder.append(", ");
+                }
+            }
+
+            stringBuilder.append(") returns ");
+            generateTypeDescriptor(function.returnType(), stringBuilder);
+            stringBuilder.append(" {");
+
+            // Function body: "return self.<function-name>;"
+            stringBuilder.append("\n\t\treturn self.").append(function.name()).append(";");
+
+            stringBuilder.append("\n\t}");
+        }
+
+        return stringBuilder.append("\n}\n").toString();
     }
 
     private String generateEnumCodeSnippet(TypeData typeData) {
@@ -115,6 +197,7 @@ public class SourceCodeGenerator {
             case INTERSECTION -> generateIntersectionTypeDescriptor(typeData, stringBuilder);
             case OBJECT -> generateObjectTypeDescriptor(typeData, stringBuilder);
             case TABLE -> generateTableTypeDescriptor(typeData, stringBuilder);
+            case TUPLE -> generateTupleTypeDescriptor(typeData, stringBuilder);
             default -> throw new UnsupportedOperationException("Unsupported type descriptor: " + typeDescriptor);
         }
     }
@@ -191,7 +274,8 @@ public class SourceCodeGenerator {
         if (typeData.members().size() <= 1) {
             return;
         }
-        for (Member member : typeData.members()) {
+        for (int i = 0; i < typeData.members().size(); i++) {
+            Member member = typeData.members().get(i);
             if (member.type() instanceof TypeData) {
                 if (((TypeData) member.type()).codedata().node() == NodeKind.INTERSECTION) {
                     stringBuilder.append("(");
@@ -203,8 +287,26 @@ public class SourceCodeGenerator {
             } else {
                 generateTypeDescriptor(member.type(), stringBuilder);
             }
-            stringBuilder.append(" & ");
+            if (i < typeData.members().size() - 1) {
+                stringBuilder.append(" & ");
+            }
         }
+    }
+
+    private void generateTupleTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
+        stringBuilder.append("[");
+        if (typeData.members().size() <= 1) {
+            stringBuilder.append("]");
+            return;
+        }
+        for (int i = 0; i < typeData.members().size(); i++) {
+            Member member = typeData.members().get(i);
+            generateTypeDescriptor(member.type(), stringBuilder);
+            if (i < typeData.members().size() - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+        stringBuilder.append("]");
     }
 
     private void generateUnionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
@@ -275,5 +377,12 @@ public class SourceCodeGenerator {
             generateTypeDescriptor(typeData.members().getFirst().type(), stringBuilder);
         }
         stringBuilder.append("[]");
+    }
+
+    private void generateInferredGraphqlClassField(Function function, StringBuilder stringBuilder) {
+        stringBuilder.append("\n\t").append("private final ");
+        generateTypeDescriptor(function.returnType(), stringBuilder);
+        stringBuilder.append(" ").append(function.name());
+        stringBuilder.append(";");
     }
 }

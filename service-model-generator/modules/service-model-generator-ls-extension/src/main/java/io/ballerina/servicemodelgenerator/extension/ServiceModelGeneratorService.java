@@ -23,7 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
@@ -50,12 +49,14 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
@@ -68,14 +69,16 @@ import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
+import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
-import io.ballerina.servicemodelgenerator.extension.response.ResourceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
+import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -95,7 +98,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -104,22 +106,21 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static io.ballerina.servicemodelgenerator.extension.Utils.expectsTriggerByName;
-import static io.ballerina.servicemodelgenerator.extension.Utils.filterTriggers;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getFunction;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getFunctionSignature;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getImportStmt;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getListenerExpression;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getPath;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getResourceFunctionModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.getServiceDeclarationNode;
-import static io.ballerina.servicemodelgenerator.extension.Utils.importExists;
-import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpDefaultListenerAttached;
-import static io.ballerina.servicemodelgenerator.extension.Utils.isHttpServiceContractType;
-import static io.ballerina.servicemodelgenerator.extension.Utils.populateProperties;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateListenerModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceContractModel;
-import static io.ballerina.servicemodelgenerator.extension.Utils.updateServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionSignature;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateListenerModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.
@@ -175,32 +176,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                Set<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listeners = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel);
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
             }
         });
-    }
-
-    private static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        Set<String> listeners = new LinkedHashSet<>();
-        if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
-            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
-        }
-
-        for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
-            if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
-                    || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
-                continue;
-            }
-            Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
-            if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName)) {
-                continue;
-            }
-            variableSymbol.getName().ifPresent(listeners::add);
-        }
-        return listeners;
     }
 
     /**
@@ -285,7 +266,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
-                Set<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listenersList = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -364,21 +345,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                             service.getListener().getValue()));
                 }
 
-                String serviceDeclaration = getServiceDeclarationNode(service);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
-                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName())
-                        && isHttpDefaultListenerAttached(service.getListener()) &&
-                        !importExists(node, service.getOrgName(), ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
-                    String importText = Utils.getImportStmt(service.getOrgName(),
-                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
-                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
-                }
 
+                boolean isDefaultListenerCreationRequired =
+                        ListenerUtil.checkForDefaultListenerExistence(service.getListener());
+
+                String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
+
+                if (isDefaultListenerCreationRequired) {
+                    edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR +
+                                    ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
+                }
+
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -407,17 +391,36 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     /**
      * Get the http service model template.
      *
-     * @return {@link ResourceModelResponse} of the resource model response
+     * @return {@link FunctionModelResponse} of the resource model response
      */
+    @Deprecated
     @JsonRequest
-    public CompletableFuture<ResourceModelResponse> getHttpResourceModel() {
+    public CompletableFuture<FunctionModelResponse> getHttpResourceModel() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return getResourceFunctionModel()
-                        .map(ResourceModelResponse::new)
-                        .orElseGet(ResourceModelResponse::new);
+                        .map(FunctionModelResponse::new)
+                        .orElseGet(FunctionModelResponse::new);
             } catch (Throwable e) {
-                return new ResourceModelResponse(e);
+                return new FunctionModelResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the function model template for a given function in a service type.
+     *
+     * @return {@link FunctionModelResponse} of the resource model response
+     */
+    @JsonRequest
+    public CompletableFuture<FunctionModelResponse> getFunctionModel(FunctionModelRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return Utils.getFunctionModel(request.type(), request.functionName())
+                        .map(FunctionModelResponse::new)
+                        .orElseGet(FunctionModelResponse::new);
+            } catch (Throwable e) {
+                return new FunctionModelResponse(e);
             }
         });
     }
@@ -542,7 +545,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            Set<String> listeners = getCompatibleListeners(serviceName.get(), semanticModel);
+            Set<String> listeners = ListenerUtil.getCompatibleListeners(serviceName.get(), semanticModel);
             List<String> allValues = serviceModel.getListener().getValues();
             if (allValues.isEmpty()) {
                 listeners.add(serviceModel.getListener().getValue());
@@ -696,7 +699,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
                 TextDocument textDocument = syntaxTree.textDocument();
-                LineRange lineRange = request.function().getCodedata().getLineRange();
+                Function function = request.function();
+                LineRange lineRange = function.getCodedata().getLineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
@@ -712,23 +716,32 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 String functionName = functionDefinitionNode.functionName().text().trim();
                 LineRange nameRange = functionDefinitionNode.functionName().lineRange();
-                if (!functionName.equals(request.function().getAccessor().getValue())) {
-                    edits.add(new TextEdit(Utils.toRange(nameRange), request.function().getAccessor().getValue()));
+                String functionKind = function.getKind();
+                boolean isRemoteFunction = functionKind.equals(ServiceModelGeneratorConstants.KIND_REMOTE)
+                        || functionKind.equals(ServiceModelGeneratorConstants.KIND_MUTATION);
+                if (isRemoteFunction && !functionName.equals(function.getName().getValue())) {
+                    edits.add(new TextEdit(Utils.toRange(nameRange), function.getName().getValue()));
+                } else {
+                    if (!isRemoteFunction && !functionName.equals(function.getAccessor().getValue())) {
+                        edits.add(new TextEdit(Utils.toRange(nameRange), function.getAccessor().getValue()));
+                    }
                 }
 
-                NodeList<Node> path = functionDefinitionNode.relativeResourcePath();
-                if (Objects.nonNull(path) && !request.function().getName().getValue().equals(getPath(path))) {
-                    LinePosition startPos = path.get(0).lineRange().startLine();
-                    LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
-                    LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
-                    TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange),
-                            request.function().getName().getValue());
-                    edits.add(pathEdit);
+                if (!isRemoteFunction) {
+                    NodeList<Node> path = functionDefinitionNode.relativeResourcePath();
+                    if (Objects.nonNull(path) && !function.getName().getValue().equals(getPath(path))) {
+                        LinePosition startPos = path.get(0).lineRange().startLine();
+                        LinePosition endPos = path.get(path.size() - 1).lineRange().endLine();
+                        LineRange pathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
+                        TextEdit pathEdit = new TextEdit(Utils.toRange(pathLineRange),
+                                function.getName().getValue());
+                        edits.add(pathEdit);
+                    }
                 }
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
-                String functionSignature = getFunctionSignature(request.function(), statusCodeResponses);
+                String functionSignature = getFunctionSignature(function, statusCodeResponses);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
@@ -773,6 +786,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new CommonSourceResponse();
                 }
+
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 Value basePathValue = service.getBasePath();
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
@@ -787,7 +801,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     }
                 }
                 Value listener = service.getListener();
+                boolean isDefaultListenerCreationRequired = false;
                 if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
+                    isDefaultListenerCreationRequired = ListenerUtil
+                            .checkForDefaultListenerExistence(service.getListener());
+
                     String listenerName = listener.getValue();
                     Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
                     if (listenerExpression.isPresent()) {
@@ -796,14 +814,13 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         edits.add(listenerEdit);
                     }
                 }
-                if (ServiceModelGeneratorConstants.HTTP.equals(service.getModuleName()) &&
-                        isHttpDefaultListenerAttached(service.getListener()) &&
-                        !importExists(modulePartNode, service.getOrgName(),
-                                ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE)) {
-                    String importText = Utils.getImportStmt(service.getOrgName(),
-                            ServiceModelGeneratorConstants.HTTP_DEFAULT_MODULE);
-                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
+
+                if (isDefaultListenerCreationRequired) {
+                    edits.add(new TextEdit(Utils.toRange(node.lineRange().endLine()),
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR +
+                                    ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
                 }
+
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
