@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 import io.ballerina.testmanagerservice.extension.request.AddTestFunctionRequest;
-import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;

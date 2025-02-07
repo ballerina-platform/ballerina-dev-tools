@@ -21,7 +21,6 @@ package io.ballerina.testmanagerservice.extension;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
-import io.ballerina.testmanagerservice.extension.request.AddTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.request.UpdateTestFunctionRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
@@ -52,8 +51,8 @@ public class TestUpdateTestFunction extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        UpdateTestFunctionRequest request = new UpdateTestFunctionRequest(sourceDir.resolve(testConfig.filePath()).toString(),
-                testConfig.function());
+        UpdateTestFunctionRequest request = new UpdateTestFunctionRequest(
+                sourceDir.resolve(testConfig.filePath()).toString(), testConfig.function());
         JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, TEXT_EDIT_LIST_TYPE);

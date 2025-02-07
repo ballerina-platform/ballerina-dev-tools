@@ -23,7 +23,7 @@ import io.ballerina.testmanagerservice.extension.model.TestFunction;
 /**
  * Represents a request to update a test function.
  *
- * @param fileName path for the source test
+ * @param filePath path for the source test
  * @param function test function
  */
 public record UpdateTestFunctionRequest(String filePath, TestFunction function) {

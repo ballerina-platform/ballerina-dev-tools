@@ -19,7 +19,6 @@
 package io.ballerina.testmanagerservice.extension.response;
 
 import io.ballerina.testmanagerservice.extension.model.FunctionTreeNode;
-import io.ballerina.testmanagerservice.extension.model.TestFunction;
 
 import java.util.Arrays;
 import java.util.List;

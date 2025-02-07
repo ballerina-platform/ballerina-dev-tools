@@ -142,6 +142,7 @@ public class Utils {
                             builder.groups(groupList);
                         }
                     }
+                    default -> { }
                 }
             }
         }
@@ -268,6 +269,7 @@ public class Utils {
                         fieldStrings.add(Constants.FILED_TEMPLATE.formatted(fieldName, groupStr));
                     }
                 }
+                default -> { }
             }
         }
         if (fieldStrings.isEmpty()) {

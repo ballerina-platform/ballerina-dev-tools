@@ -118,7 +118,7 @@
                 "label": "Enabled",
                 "description": "Enable/Disable the test"
               },
-              "valueType": "EXPRESSION",
+              "valueType": "FLAG",
               "originalName": "enabled",
               "value": true,
               "optional": true,

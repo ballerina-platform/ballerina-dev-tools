@@ -47,7 +47,7 @@ public class TestFunctionsFinder {
 
     private static final String TEST_CONFIG_ANNOTATION = "test:Config";
     private static final String FIELD_GROUPS = "groups";
-    private static final String GROUP_NOT_SPECIFIED = "GROUP_NOT_SPECIFIED";
+    private static final String GROUP_NOT_SPECIFIED = "DEFAULT_GROUP";
 
     private final Document document;
     private final ModuleTestDetailsHolder moduleTestDetailsHolder;
@@ -76,7 +76,8 @@ public class TestFunctionsFinder {
                         List<String> groups = findSpecifiedGroups(annotation);
                         String functionName = functionDefinitionNode.functionName().text().trim();
                         LineRange lineRange = functionDefinitionNode.lineRange();
-                        FunctionTreeNode functionTreeNode = new FunctionTreeNode(functionName, lineRange, "Config", groups);
+                        FunctionTreeNode functionTreeNode = new FunctionTreeNode(
+                                functionName, lineRange, "Config", groups);
                         this.moduleTestDetailsHolder.addTestFunctions(groups, functionTreeNode);
                     }
                 }

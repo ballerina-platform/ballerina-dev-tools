@@ -21,6 +21,13 @@ package io.ballerina.testmanagerservice.extension.model;
 /**
  * Represents a function parameter.
  *
+ * @param type parameter type
+ * @param variable parameter variable
+ * @param defaultValue parameter default value
+ * @param optional optional parameter
+ * @param editable editable parameter
+ * @param advanced advanced parameter
+ *
  * @since 2.0.0
  */
 public record FunctionParameter(Property type, Property variable, Property defaultValue,

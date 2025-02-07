@@ -23,7 +23,6 @@ import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,14 @@ import java.util.Optional;
 
 /**
  * Represents a test function.
+ *
+ * @param metadata metadata
+ * @param codedata code data
+ * @param functionName function name
+ * @param returnType return type
+ * @param parameters parameters
+ * @param annotations annotations
+ * @param editable editable
  *
  * @since 2.0.0
  */

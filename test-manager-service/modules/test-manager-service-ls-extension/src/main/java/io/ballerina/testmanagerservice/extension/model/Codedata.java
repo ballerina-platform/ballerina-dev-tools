@@ -20,5 +20,12 @@ package io.ballerina.testmanagerservice.extension.model;
 
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents a code data.
+ *
+ * @param lineRange line range of the code data
+ *
+ * @since 2.0.0
+ */
 public record Codedata(LineRange lineRange) {
 }

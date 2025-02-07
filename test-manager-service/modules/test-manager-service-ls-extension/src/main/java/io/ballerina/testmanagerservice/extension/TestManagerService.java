@@ -21,14 +21,11 @@ package io.ballerina.testmanagerservice.extension;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
-import io.ballerina.testmanagerservice.extension.model.TestFunction;
 import io.ballerina.testmanagerservice.extension.request.AddTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.request.GetTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.request.TestsDiscoveryRequest;
@@ -36,7 +33,6 @@ import io.ballerina.testmanagerservice.extension.request.UpdateTestFunctionReque
 import io.ballerina.testmanagerservice.extension.response.CommonSourceResponse;
 import io.ballerina.testmanagerservice.extension.response.GetTestFunctionResponse;
 import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
-import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
@@ -52,10 +48,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 /**
  * Represents the extended language server service for the test manager service.

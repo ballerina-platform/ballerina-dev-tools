@@ -27,10 +27,6 @@ public record Annotation(Metadata metadata, Codedata codedata, String org, Strin
 
     public static class ConfigAnnotationBuilder {
         private Metadata metadata;
-        private Codedata codedata;
-        private final String org = Constants.ORG_BALLERINA;
-        private final String module = Constants.MODULE_TEST;
-        private final String name = "Config";
         private Property groups;
         private Property enabled;
 
@@ -71,7 +67,10 @@ public record Annotation(Metadata metadata, Codedata codedata, String org, Strin
                 enabled = value("Enabled", "Enable/Disable the test", true,
                         "FLAG", "enabled");
             }
-            return new Annotation(metadata, codedata, org, module, name, List.of(groups, enabled));
+            String org = Constants.ORG_BALLERINA;
+            String module = Constants.MODULE_TEST;
+            String name = "Config";
+            return new Annotation(metadata, null, org, module, name, List.of(groups, enabled));
         }
     }
 }

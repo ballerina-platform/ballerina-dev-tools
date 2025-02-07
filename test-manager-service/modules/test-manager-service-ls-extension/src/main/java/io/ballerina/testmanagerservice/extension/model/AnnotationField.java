@@ -18,7 +18,15 @@
 
 package io.ballerina.testmanagerservice.extension.model;
 
+/**
+ * Represents an annotation field.
+ *
+ * @param value field information
+ * @param optional optional field
+ * @param editable editable field
+ * @param advanced advanced field
+ *
+ * @since 2.0.0
+ */
 public record AnnotationField(Property value, boolean optional, boolean editable, boolean advanced) {
-
-
 }

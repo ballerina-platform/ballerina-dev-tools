@@ -18,6 +18,22 @@
 
 package io.ballerina.testmanagerservice.extension.model;
 
+/**
+ * Represents a property.
+ *
+ * @param metadata metadata
+ * @param codedata codedata
+ * @param valueType value type
+ * @param valueTypeConstraint value type constraint
+ * @param originalName original name
+ * @param value value
+ * @param placeholder placeholder
+ * @param optional optional
+ * @param editable editable
+ * @param advanced advanced
+ *
+ * @since 2.0.0
+ */
 public record Property(Metadata metadata, Codedata codedata, String valueType, Object valueTypeConstraint,
                        String originalName, Object value, String placeholder, boolean optional, boolean editable,
                        boolean advanced) {

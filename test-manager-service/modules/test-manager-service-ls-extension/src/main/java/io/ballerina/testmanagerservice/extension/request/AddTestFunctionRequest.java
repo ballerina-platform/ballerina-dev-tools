@@ -19,14 +19,12 @@
 package io.ballerina.testmanagerservice.extension.request;
 
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
-import io.ballerina.tools.text.LineRange;
 
 /**
  * Represents a request to add a test function.
  *
  * @param filePath  path for the source test
  * @param function  test function
- * @param lineRange line range of the test function
  *
  * @since 2.0.0
  */
