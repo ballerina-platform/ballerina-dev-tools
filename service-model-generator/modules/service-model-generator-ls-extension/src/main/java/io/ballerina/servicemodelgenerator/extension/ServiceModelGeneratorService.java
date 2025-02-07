@@ -336,22 +336,22 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Service service = request.service();
                 populateProperties(service);
 
+                boolean isDefaultListenerCreationRequired =
+                        ListenerUtil.checkForDefaultListenerExistence(service.getListener());
+
                 if (Objects.nonNull(service.getOpenAPISpec())) {
                     Path contractPath = Path.of(service.getOpenAPISpec().getValue());
                     String serviceContractTypeName = service.getServiceContractTypeName();
                     OpenApiServiceGenerator oasSvcGenerator = new OpenApiServiceGenerator(contractPath,
                             project.sourceRoot(), workspaceManager);
                     return new CommonSourceResponse(oasSvcGenerator.generateService(serviceContractTypeName,
-                            service.getListener().getValue()));
+                            service.getListener().getValue(), isDefaultListenerCreationRequired));
                 }
 
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
-
-                boolean isDefaultListenerCreationRequired =
-                        ListenerUtil.checkForDefaultListenerExistence(service.getListener());
 
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
