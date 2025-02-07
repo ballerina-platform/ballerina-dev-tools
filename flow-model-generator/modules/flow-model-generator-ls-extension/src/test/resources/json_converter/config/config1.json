@@ -1,0 +1,10 @@
+{
+  "filePath": "proj/main.bal",
+  "testFilePath": "test1.bal",
+  "jsonString": "{\n      \"variable\": {\n        \"metadata\": {\n          \"label\": \"Name\",\n          \"description\": \"Name of the variable\"\n        },\n        \"valueType\": \"IDENTIFIER\",\n        \"value\": \"var1\",\n        \"optional\": false,\n        \"editable\": true,\n        \"advanced\": false\n      },\n      \"type\": {\n        \"metadata\": {\n          \"label\": \"Type\",\n          \"description\": \"Type of the variable\"\n        },\n        \"valueType\": \"TYPE\",\n        \"value\": \"Studentsss\",\n        \"placeholder\": \"var\",\n        \"optional\": false,\n        \"editable\": true,\n        \"advanced\": false\n      },\n      \"expression\": {\n        \"metadata\": {\n          \"label\": \"Expression\",\n          \"description\": \"Initialize with value\"\n        },\n        \"valueType\": \"EXPRESSION\",\n        \"value\": \"{names: [[[\\\"1\\\", \\\"2\\\", \\\"\\\"]], [[\\\"3\\\"]]]}\",\n        \"optional\": true,\n        \"editable\": true,\n        \"advanced\": false\n      }\n    }",
+  "recordName": "Rec",
+  "prefix": "new",
+  "isClosed": false,
+  "isRecordTypeDesc": true,
+  "records": "type Rec record {|\n\trecord {|\n\trecord {|\n\tstring description;\n\tstring label;\n\tjson ...;\n|} metadata;\n\tboolean advanced;\n\tboolean editable;\n\tstring valueType;\n\tboolean optional;\n\tstring value;\n\tjson ...;\n|} expression;\n\trecord {|\n\trecord {|\n\tstring description;\n\tstring label;\n\tjson ...;\n|} metadata;\n\tboolean advanced;\n\tboolean editable;\n\tstring valueType;\n\tboolean optional;\n\tstring value;\n\tjson ...;\n|} variable;\n\trecord {|\n\trecord {|\n\tstring description;\n\tstring label;\n\tjson ...;\n|} metadata;\n\tboolean advanced;\n\tboolean editable;\n\tstring valueType;\n\tboolean optional;\n\tstring placeholder;\n\tstring value;\n\tjson ...;\n|} type;\n\tjson ...;\n|};\n\n"
+}

@@ -23,7 +23,7 @@
       "enabled": true,
       "editable": true,
       "value": "",
-      "valueType": "EXPRESSION",
+      "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
       "placeholder": "",
@@ -109,6 +109,7 @@
       "optional": true,
       "advanced": true,
       "items": [
+        "",
         "\"earliest\"",
         "\"latest\"",
         "\"none\""
@@ -223,6 +224,7 @@
       "optional": true,
       "advanced": true,
       "items": [
+        "",
         "\"read_committed\"",
         "\"read_uncommitted\""
       ]
@@ -814,6 +816,7 @@
       "enabled": false,
       "advanced": true,
       "items": [
+        "",
         "\"PLAINTEXT\"",
         "\"SASL_PLAINTEXT\"",
         "\"SASL_SSL\"",

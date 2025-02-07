@@ -1,0 +1,165 @@
+{
+  "filePath": "update_graphql.bal",
+  "description": "Update graphql Mutation",
+  "function": {
+    "qualifiers": [],
+    "kind": "MUTATION",
+    "accessor": {
+      "enabled": false,
+      "editable": true,
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "enabled": true,
+      "editable": true,
+      "value": "updateUserId",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [
+      {
+        "metadata": {
+          "label": "id",
+          "description": "id"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "id",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      },
+      {
+        "metadata": {
+          "label": "name",
+          "description": "name"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "enabled": true,
+          "editable": true,
+          "value": "name",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
+    ],
+    "returnType": {
+      "enabled": true,
+      "editable": false,
+      "value": "Profile|error",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 46,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    }
+  },
+  "output": {
+    "update_graphql.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 20
+          },
+          "end": {
+            "line": 34,
+            "character": 30
+          }
+        },
+        "newText": "updateUserId"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 30
+          },
+          "end": {
+            "line": 34,
+            "character": 73
+          }
+        },
+        "newText": "(string id, string name) returns Profile|error "
+      }
+    ]
+  }
+}

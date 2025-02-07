@@ -57,8 +57,24 @@
         "advanced": true
       }
     },
-    "members": {
-      "address": {
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "id",
+        "docs": "id of the person",
+        "defaultValue": "12"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": "name of the person",
+        "defaultValue": "\"John Doe\""
+      },
+      {
         "kind": "FIELD",
         "refs": [
           "Address"
@@ -68,7 +84,7 @@
         "docs": "addresses of the person",
         "defaultValue": "[]"
       },
-      "dob": {
+      {
         "kind": "FIELD",
         "refs": [
           "ballerina/time:Utc"
@@ -77,24 +93,8 @@
         "name": "dob",
         "docs": "date of birth",
         "defaultValue": "getDefaultDob()"
-      },
-      "name": {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": "name of the person",
-        "defaultValue": "\"John Doe\""
-      },
-      "id": {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
-        "docs": "id of the person",
-        "defaultValue": "12"
       }
-    },
+    ],
     "includes": [
       "Employee",
       "User"
@@ -113,7 +113,7 @@
             "character": 0
           }
         },
-        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n*Employee;\n*User;\n# addresses of the person\nAddress[] address = [];\n# date of birth\ntime:Utc dob = getDefaultDob();\n# name of the person\nstring name = \"John Doe\";\n# id of the person\nint id = 12;\n|};\n"
+        "newText": "# Person record\n# Used to represent person object\ntype Person record {|\n\t*Employee;\n\t*User;\n\t# id of the person\n\tint id = 12;\n\t# name of the person\n\tstring name = \"John Doe\";\n\t# addresses of the person\n\tAddress[] addresses = [];\n\t# date of birth\n\ttime:Utc dob = getDefaultDob();\n|};\n"
       }
     ]
   }

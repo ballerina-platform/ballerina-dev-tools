@@ -69,44 +69,555 @@
           "advanced": true
         }
       },
-      "members": {
-        "country": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "country",
           "docs": ""
         },
-        "city": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "city",
           "docs": ""
         },
-        "houseNo": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "houseNo",
           "docs": ""
         },
-        "line2": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line2",
           "docs": ""
         },
-        "line1": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "line1",
           "docs": ""
         }
-      },
+      ],
       "includes": []
+    },
+    {
+      "name": "PersonWithId",
+      "editable": true,
+      "metadata": {
+        "label": "PersonWithId",
+        "description": ""
+      },
+      "codedata": {
+        "node": "TUPLE",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 61,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 61,
+            "offset": 17
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "PersonWithId",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Person"
+          ],
+          "type": "Person",
+          "name": "Person"
+        },
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": "int",
+          "name": "int"
+        }
+      ]
+    },
+    {
+      "name": "Color",
+      "editable": true,
+      "metadata": {
+        "label": "Color",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ENUM",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 42,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 42,
+            "offset": 10
+          }
+        }
+      },
+      "properties": {
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"RED\"",
+          "name": "RED"
+        },
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"YELLOW\"",
+          "name": "YELLOW"
+        },
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"GREEN\"",
+          "name": "GREEN"
+        }
+      ]
+    },
+    {
+      "name": "ballerina/time:Utc",
+      "editable": true,
+      "metadata": {
+        "label": "ballerina/time:Utc",
+        "description": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second)."
+      },
+      "codedata": {
+        "node": "INTERSECTION",
+        "lineRange": {
+          "fileName": "time_types.bal",
+          "startLine": {
+            "line": 41,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 15
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "ballerina/time:Utc",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second).",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": "readonly",
+          "name": "readonly"
+        },
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "TUPLE"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "decimal",
+                "name": "decimal"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
+          "name": "[int, decimal]"
+        }
+      ]
+    },
+    {
+      "name": "Misc",
+      "editable": true,
+      "metadata": {
+        "label": "Misc",
+        "description": ""
+      },
+      "codedata": {
+        "node": "UNION",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 63,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 63,
+            "offset": 9
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Misc",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Color"
+          ],
+          "type": "Color",
+          "name": "Color"
+        },
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Employees"
+          ],
+          "type": "Employees",
+          "name": "Employees"
+        },
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Person"
+          ],
+          "type": "Person",
+          "name": "Person"
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "editable": true,
+      "metadata": {
+        "label": "Employees",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ARRAY",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 53,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 53,
+            "offset": 14
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Employees",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "RECORD"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              }
+            },
+            "members": [
+              {
+                "kind": "FIELD",
+                "refs": [
+                  "Names"
+                ],
+                "type": "Names",
+                "name": "otherNames",
+                "docs": ""
+              },
+              {
+                "kind": "FIELD",
+                "refs": [],
+                "type": "string",
+                "name": "name",
+                "docs": ""
+              },
+              {
+                "kind": "FIELD",
+                "refs": [],
+                "type": "int",
+                "name": "id",
+                "docs": ""
+              }
+            ],
+            "includes": []
+          },
+          "name": "record {|int id; string name; Names otherNames;|}"
+        }
+      ]
     },
     {
       "name": "MixRecord",
@@ -175,39 +686,250 @@
           "advanced": true
         }
       },
-      "members": {
-        "mixField2": {
+      "members": [
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address",
-            "Person"
-          ],
-          "type": "Address|Person|int",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
           "name": "mixField2",
           "docs": ""
         },
-        "mixField3": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "map<Address>",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "MAP"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "mixField3",
           "docs": ""
         },
-        "mixField1": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "ballerina/time:Utc",
-            "Person",
-            "Address"
-          ],
-          "type": "time:Utc|Person|Address",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "ballerina/time:Utc"
+                ],
+                "type": "time:Utc",
+                "name": "time:Utc"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              }
+            ]
+          },
           "name": "mixField1",
           "docs": ""
         }
-      },
+      ],
       "includes": []
+    },
+    {
+      "name": "Gender",
+      "editable": true,
+      "metadata": {
+        "label": "Gender",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ENUM",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 48,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 48,
+            "offset": 11
+          }
+        }
+      },
+      "properties": {
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"male\"",
+          "name": "MALE",
+          "defaultValue": "\"male\""
+        },
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"female\"",
+          "name": "FEMALE",
+          "defaultValue": "\"female\""
+        }
+      ]
     },
     {
       "name": "Student",
@@ -276,8 +998,8 @@
           "advanced": true
         }
       },
-      "members": {
-        "studentId": {
+      "members": [
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
@@ -285,16 +1007,53 @@
           "defaultValue": "22",
           "docs": ""
         },
-        "addresses": {
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "addresses",
           "docs": ""
         },
-        "dob": {
+        {
           "kind": "FIELD",
           "refs": [
             "ballerina/time:Utc"
@@ -303,23 +1062,462 @@
           "name": "dob",
           "docs": ""
         },
-        "name": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
           "docs": ""
         },
-        "id": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "id",
           "docs": ""
         }
-      },
+      ],
       "includes": [
         "Person"
+      ]
+    },
+    {
+      "name": "PersonError",
+      "editable": true,
+      "metadata": {
+        "label": "PersonError",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ERROR",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 65,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 65,
+            "offset": 16
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "PersonError",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Person"
+          ],
+          "type": "Person",
+          "name": "Person"
+        }
+      ]
+    },
+    {
+      "name": "Names",
+      "editable": true,
+      "metadata": {
+        "label": "Names",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ARRAY",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 59,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 59,
+            "offset": 10
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Names",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": "string",
+          "name": "string"
+        }
+      ]
+    },
+    {
+      "name": "AddressTable",
+      "editable": true,
+      "metadata": {
+        "label": "AddressTable",
+        "description": ""
+      },
+      "codedata": {
+        "node": "TABLE",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 67,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 67,
+            "offset": 17
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "AddressTable",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        }
+      },
+      "members": [
+        {
+          "kind": "TYPE",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address",
+          "name": "rowType"
+        },
+        {
+          "kind": "TYPE",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "string",
+                "name": "string"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [],
+                "type": "int",
+                "name": "int"
+              }
+            ]
+          },
+          "name": "keyConstraintType"
+        }
+      ]
+    },
+    {
+      "name": "PartTimeStudent",
+      "editable": true,
+      "metadata": {
+        "label": "PartTimeStudent",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 69,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 69,
+            "offset": 20
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "PartTimeStudent",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "studentId",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
+          "name": "addresses",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "ballerina/lang.string:Char"
+          ],
+          "type": "string:Char",
+          "name": "code",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "ballerina/time:Utc"
+          ],
+          "type": "time:Utc",
+          "name": "dob",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "id",
+          "docs": ""
+        }
+      ],
+      "includes": [
+        "Student"
       ]
     },
     {
@@ -389,18 +1587,55 @@
           "advanced": true
         }
       },
-      "members": {
-        "addresses": {
+      "members": [
+        {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address[]",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
           "name": "addresses",
           "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
           "docs": "addresses of the person"
         },
-        "dob": {
+        {
           "kind": "FIELD",
           "refs": [
             "ballerina/time:Utc"
@@ -410,7 +1645,7 @@
           "defaultValue": "getDefaultDob()",
           "docs": "date of birth"
         },
-        "name": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
@@ -418,7 +1653,7 @@
           "defaultValue": "\"John\"",
           "docs": "name of the person"
         },
-        "id": {
+        {
           "kind": "FIELD",
           "refs": [],
           "type": "int",
@@ -426,7 +1661,7 @@
           "defaultValue": "12",
           "docs": "id of the person"
         }
-      },
+      ],
       "includes": []
     }
   ]

@@ -38,12 +38,14 @@ public enum NodeKind {
     STOP,
     FOREACH,
     DATA_MAPPER,
+    FUNCTION_DEFINITION,
     COMMENT,
     MATCH,
     FUNCTION,
     FORK,
     PARALLEL_FLOW,
     WAIT,
+    DATA_MAPPER_CALL,
 
     // Branches
     CONDITIONAL,
@@ -58,5 +60,14 @@ public enum NodeKind {
     ARRAY,
     UNION,
     ERROR,
-    DATA_MAPPER_CALL
+    MAP,
+    STREAM,
+    FUTURE,
+    TYPEDESC,
+    CLASS,
+    OBJECT,
+    INTERSECTION,
+    SERVICE_DECLARATION,
+    TABLE,
+    TUPLE
 }

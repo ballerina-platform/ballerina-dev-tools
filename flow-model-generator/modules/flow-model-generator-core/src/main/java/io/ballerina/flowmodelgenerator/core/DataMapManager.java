@@ -108,18 +108,16 @@ import java.util.Optional;
 public class DataMapManager {
 
     private final WorkspaceManager workspaceManager;
-    private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
 
-    public DataMapManager(WorkspaceManager workspaceManager, SemanticModel semanticModel, Document document) {
+    public DataMapManager(WorkspaceManager workspaceManager, Document document) {
         this.workspaceManager = workspaceManager;
-        this.semanticModel = semanticModel;
         this.document = document;
         this.gson = new Gson();
     }
 
-    public JsonElement getTypes(JsonElement node, String propertyKey) {
+    public JsonElement getTypes(JsonElement node, String propertyKey, SemanticModel semanticModel) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         Codedata codedata = flowNode.codedata();
         NodeKind nodeKind = codedata.node();
@@ -633,9 +631,9 @@ public class DataMapManager {
             String[] splits = substring.split("\\.");
             int length = splits.length;
             String lastSplit = splits[length - 1];
-            if (length == 1 && lastSplit.matches("^-?\\d+$")) {
+            if (length == 1 && lastSplit.matches("\\d+")) {
                 elements.add(mapping.expression());
-                return;
+                continue;
             }
             Map<String, Object> currentMapping = m;
             String key = splits[0];
@@ -643,7 +641,7 @@ public class DataMapManager {
                 String split = splits[i];
                 Object o = currentMapping.get(key);
                 if (o == null) {
-                    if (!split.matches("^-?\\d+$")) {
+                    if (!split.matches("\\d+")) {
                         if (i == length - 1) {
                             Object o1 = genExprFromMapping(mapping);
                             currentMapping.put(split, o1);
@@ -659,7 +657,9 @@ public class DataMapManager {
                 }
             }
         }
-        elements.add(m);
+        if (!m.isEmpty()) {
+            elements.add(m);
+        }
     }
 
     public String getSource(JsonElement mp, JsonElement fNode, String targetField) {
@@ -994,34 +994,57 @@ public class DataMapManager {
         if (source.equals("[]")) {
             return "[" + defaultVal + "]";
         }
-        String fieldsPattern = getFieldsPattern(targetField);
-        if (source.matches("(?s).*" + fieldsPattern + "\\s*:\\s*\\[.*$")) {
-            String[] splits = source.split(".*" + fieldsPattern + "\\s*:\\s*\\[");
-            String lastSplit = splits[1];
-            if (!lastSplit.trim().startsWith("]")) {
-                defaultVal = ", " + defaultVal;
-            }
-            String firstSplit = source.substring(0, source.length() - lastSplit.length());
-            StringBuilder sb = new StringBuilder(firstSplit);
-            int openBraceCount = 0;
-            for (int i = 0; i < lastSplit.length(); i++) {
-                char c = lastSplit.charAt(i);
-                if (c == '[') {
-                    openBraceCount = openBraceCount + 1;
-                } else if (c == ']') {
-                    if (openBraceCount == 0) {
-                        sb.append(defaultVal);
-                        sb.append(lastSplit.substring(i));
-                        break;
-                    } else {
-                        openBraceCount = openBraceCount - 1;
+        VariableDeclarationNode varDeclNode = (VariableDeclarationNode) stNode;
+        if (varDeclNode.initializer().isEmpty()) {
+            return source;
+        }
+        ExpressionNode initializer = varDeclNode.initializer().get();
+        ExpressionNode expr = getArrayExpr(targetField, initializer);
+        if (expr == null || expr.kind() != SyntaxKind.LIST_CONSTRUCTOR) {
+            return source;
+        }
+        ListConstructorExpressionNode listCtrExpr = (ListConstructorExpressionNode) expr;
+        if (!listCtrExpr.expressions().isEmpty()) {
+            defaultVal = ", " + defaultVal;
+        }
+        int pos = listCtrExpr.closeBracket().position() - initializer.position();
+        source = initializer.toSourceCode();
+        return source.substring(0, pos) + defaultVal + source.substring(pos);
+    }
+
+    private ExpressionNode getArrayExpr(String targetField, ExpressionNode expr) {
+        String[] splits = targetField.split("\\.");
+        ExpressionNode currentExpr = expr;
+        for (int i = 1; i < splits.length; i++) {
+            String split = splits[i];
+            if (split.matches("\\d+")) {
+                if (currentExpr.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+                    ListConstructorExpressionNode listCtrExpr = (ListConstructorExpressionNode) currentExpr;
+                    SeparatedNodeList<Node> expressions = listCtrExpr.expressions();
+                    int size = expressions.size();
+                    int index = Integer.parseInt(split);
+                    if (index >= size) {
+                        return null;
+                    }
+                    currentExpr = (ExpressionNode) expressions.get(index);
+                }
+            } else if (currentExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) currentExpr;
+                for (MappingFieldNode field : mappingCtrExpr.fields()) {
+                    if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
+                        SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                        if (specificFieldNode.fieldName().toSourceCode().trim().equals(split)) {
+                            Optional<ExpressionNode> optFieldExpr = specificFieldNode.valueExpr();
+                            if (optFieldExpr.isEmpty()) {
+                                return null;
+                            }
+                            currentExpr = optFieldExpr.get();
+                        }
                     }
                 }
-                sb.append(c);
             }
-            return sb.toString();
         }
-        return "";
+        return currentExpr;
     }
 
     private TypeSymbol getTargetType(TypeSymbol typeSymbol, String targetField) {

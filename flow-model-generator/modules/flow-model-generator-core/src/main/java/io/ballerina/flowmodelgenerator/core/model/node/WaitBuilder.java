@@ -19,8 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -65,12 +65,14 @@ public class WaitBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().waitAll(false)
+        properties()
+                .dataVariable(null, context.getAllVisibleSymbolNames())
+                .waitAll(false)
                 .nestedProperty()
                     .nestedProperty()
                         .waitField(null)
                         .expression(null)
-                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, WaitBuilder.FUTURE_KEY,
+                    .endNestedProperty(Property.ValueType.FIXED_PROPERTY, WaitBuilder.FUTURE_KEY + 1,
                         WaitBuilder.FUTURE_LABEL, WaitBuilder.FUTURE_DOC)
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, WaitBuilder.FUTURES_KEY,
                         WaitBuilder.FUTURES_LABEL, WaitBuilder.FUTURES_DOC);
@@ -78,6 +80,7 @@ public class WaitBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
         sourceBuilder.token().keyword(SyntaxKind.WAIT_KEYWORD);
 
         boolean waitAll = sourceBuilder.flowNode.properties().containsKey(WAIT_ALL_KEY) &&
@@ -100,7 +103,7 @@ public class WaitBuilder extends NodeBuilder {
             }
 
             Map<String, Property> futureChildProperties = gson.fromJson(gson.toJsonTree(futureChildMap),
-                    new TypeToken<Map<String, Property>>() { }.getType());
+                    FormBuilder.NODE_PROPERTIES_TYPE);
 
             String waitField;
             Property variableProperty = futureChildProperties.get(Property.VARIABLE_KEY);

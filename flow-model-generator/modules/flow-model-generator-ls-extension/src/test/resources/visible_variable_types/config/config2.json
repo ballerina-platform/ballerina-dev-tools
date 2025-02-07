@@ -288,6 +288,29 @@
           }
         }
       ]
+    },
+    {
+      "name": "Parameters",
+      "types": [
+        {
+          "name": "i",
+          "type": {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "value",
+          "type": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        }
+      ]
     }
   ]
 }

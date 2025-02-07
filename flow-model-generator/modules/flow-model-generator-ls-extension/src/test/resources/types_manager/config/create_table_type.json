@@ -1,0 +1,137 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "description": "Create a new table type",
+  "type": {
+    "name": "AddressTable",
+    "editable": true,
+    "metadata": {
+      "label": "AddressTable",
+      "description": ""
+    },
+    "codedata": {
+      "node": "TABLE"
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "AddressTable",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [
+      {
+        "kind": "TYPE",
+        "refs": [
+          "Address"
+        ],
+        "type": "Address",
+        "name": "rowType"
+      },
+      {
+        "kind": "TYPE",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "string",
+              "name": "string"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "int",
+              "name": "int"
+            }
+          ]
+        },
+        "name": "keyConstraintType"
+      }
+    ]
+  },
+  "output": {
+    "test_pack1/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 73,
+            "character": 0
+          },
+          "end": {
+            "line": 73,
+            "character": 0
+          }
+        },
+        "newText": "type AddressTable table<Address> key<string|int>;\n"
+      }
+    ]
+  }
+}

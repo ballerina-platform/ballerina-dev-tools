@@ -52,10 +52,15 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingQueryConvertTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingVisualizeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMappingAddElementTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.OpenApiClientGeneratorTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.JsonConverterTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.FunctionDefinitionTest"/>
             <!--types manager-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateAndUpdateTypeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetGraphqlTypeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateGraphqlClassTypeTest"/>
         </classes>
     </test>
 </suite>

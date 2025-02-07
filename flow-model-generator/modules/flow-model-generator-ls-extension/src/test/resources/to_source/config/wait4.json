@@ -197,7 +197,7 @@
             "character": 41
           }
         },
-        "newText": "wait A | B | C;"
+        "newText": "string result = wait A | B | C;"
       }
     ]
   }

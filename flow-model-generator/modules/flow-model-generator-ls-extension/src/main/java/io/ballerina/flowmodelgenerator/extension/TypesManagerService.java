@@ -88,8 +88,37 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
-                JsonElement type = typesManager.getType(document.get(), request.linePosition());
-                response.setType(type);
+                JsonElement result = typesManager.getType(document.get(), request.linePosition());
+                response.setType(result.getAsJsonObject().get("type").getAsJsonObject());
+                response.setRefs(result.getAsJsonObject().get("refs").getAsJsonArray());
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<TypeResponse> getGraphqlType(GetTypeRequest request) {
+        // TODO: Different implementation may be needed with future requirements
+        return getType(request);
+    }
+
+    @JsonRequest
+    public CompletableFuture<TypeUpdateResponse> createGraphqlClassType(TypeUpdateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            TypeUpdateResponse response = new TypeUpdateResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                TypeData typeData = (new Gson()).fromJson(request.type(), TypeData.class);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                TypesManager typesManager = new TypesManager(document.get());
+                response.setName(typeData.name());
+                response.setTextEdits(typesManager.createGraphqlClassType(filePath, typeData));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
