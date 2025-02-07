@@ -23,7 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
@@ -78,6 +77,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceRe
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
+import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -98,7 +98,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -177,32 +176,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-                Set<String> listeners = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listeners = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel);
                 return new ListenerDiscoveryResponse(listeners);
             } catch (Throwable e) {
                 return new ListenerDiscoveryResponse(e);
             }
         });
-    }
-
-    private static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
-        Set<String> listeners = new LinkedHashSet<>();
-        if (ServiceModelGeneratorConstants.HTTP.equals(moduleName)) {
-            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
-        }
-
-        for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
-            if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
-                    || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
-                continue;
-            }
-            Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
-            if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName)) {
-                continue;
-            }
-            variableSymbol.getName().ifPresent(listeners::add);
-        }
-        return listeners;
     }
 
     /**
@@ -287,7 +266,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 SyntaxTree syntaxTree = document.get().syntaxTree();
                 ModulePartNode modulePartNode = syntaxTree.rootNode();
-                Set<String> listenersList = getCompatibleListeners(request.moduleName(), semanticModel);
+                Set<String> listenersList = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel);
                 if (Objects.nonNull(request.listenerName())) {
                     listener.addValue(request.listenerName());
                     removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
@@ -366,14 +345,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                             service.getListener().getValue()));
                 }
 
-                String serviceDeclaration = getServiceDeclarationNode(service);
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
                     String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
 
+                boolean isDefaultListenerCreationRequired =
+                        ListenerUtil.checkForDefaultListenerExistence(service.getListener());
+
+                String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
+
+                if (isDefaultListenerCreationRequired) {
+                    edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR +
+                                    ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
+                }
+
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
@@ -556,7 +545,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             } else {
                 updateServiceModel(serviceModel, serviceNode, semanticModel);
             }
-            Set<String> listeners = getCompatibleListeners(serviceName.get(), semanticModel);
+            Set<String> listeners = ListenerUtil.getCompatibleListeners(serviceName.get(), semanticModel);
             List<String> allValues = serviceModel.getListener().getValues();
             if (allValues.isEmpty()) {
                 listeners.add(serviceModel.getListener().getValue());
@@ -797,6 +786,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
                     return new CommonSourceResponse();
                 }
+
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 Value basePathValue = service.getBasePath();
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
@@ -811,7 +801,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     }
                 }
                 Value listener = service.getListener();
+                boolean isDefaultListenerCreationRequired = false;
                 if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
+                    isDefaultListenerCreationRequired = ListenerUtil
+                            .checkForDefaultListenerExistence(service.getListener());
+
                     String listenerName = listener.getValue();
                     Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
                     if (listenerExpression.isPresent()) {
@@ -820,6 +814,13 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         edits.add(listenerEdit);
                     }
                 }
+
+                if (isDefaultListenerCreationRequired) {
+                    edits.add(new TextEdit(Utils.toRange(node.lineRange().endLine()),
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR +
+                                    ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
+                }
+
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
