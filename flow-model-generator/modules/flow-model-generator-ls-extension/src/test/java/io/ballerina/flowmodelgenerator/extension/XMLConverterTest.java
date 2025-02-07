@@ -20,8 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.XMLToRecordRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Test cases for the flow model generator service.
+ * Test cases for the record conversion from xml.
  *
  * @since 2.0.0
  */
@@ -68,16 +68,8 @@ public class XMLConverterTest extends AbstractLSTest {
 
         StringBuilder sb = new StringBuilder();
         for (JsonElement record : records) {
-            String typeStr = record.getAsJsonObject().get("type").toString();
-            String[] splits = typeStr.split("properties");
-            StringBuilder rest = new StringBuilder();
-            for (int i = 1; i < splits.length; i++) {
-                rest.append(splits[i]);
-            }
-            String newType = typeStr.split("codedata")[0] + "codedata\": {\"node\":\"RECORD\"}," +
-                    "\"properties" + rest;
             TypeUpdateRequest updateRequest =
-                    new TypeUpdateRequest(sourceFile, gson.toJsonTree(gson.fromJson(newType, TypeData.class)));
+                    new TypeUpdateRequest(sourceFile, ((JsonObject) record).get("type"));
             JsonElement response = getResponse(updateRequest, "typesManager/updateType").getAsJsonObject("textEdits");
             Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(response, textEditListType);
             for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
@@ -93,7 +85,7 @@ public class XMLConverterTest extends AbstractLSTest {
         if (!generatedRecords.equals(expectedRecords)) {
             TestConfig updatedConfig = new TestConfig(testConfig.filePath(), testConfig.xmlString(),
                     testConfig.prefix(), testConfig.isClosed(), testConfig.isRecordTypeDesc(), sb.toString());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.filePath(), configJsonPath));
         }
     }

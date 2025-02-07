@@ -21,6 +21,11 @@ package io.ballerina.flowmodelgenerator.core.converters.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utility functions for record conversion.
+ *
+ * @since 2.0.0
+ */
 public class Utils {
 
     private static final String UNICODE_REGEX = "\\\\(\\\\*)u\\{([a-fA-F0-9]+)\\}";
