@@ -39,6 +39,7 @@ module io.ballerina.flow.model.generator {
     requires swagger.parser.core;
     requires org.apache.commons.lang3;
     requires java.xml;
+    requires org.eclipse.lsp4j.jsonrpc;
 
     exports io.ballerina.flowmodelgenerator.core;
     exports io.ballerina.flowmodelgenerator.core.utils;
@@ -46,4 +47,5 @@ module io.ballerina.flow.model.generator {
     exports io.ballerina.flowmodelgenerator.core.db.model;
     exports io.ballerina.flowmodelgenerator.core.converters;
     exports io.ballerina.flowmodelgenerator.core.expressioneditor;
+    exports io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 }
