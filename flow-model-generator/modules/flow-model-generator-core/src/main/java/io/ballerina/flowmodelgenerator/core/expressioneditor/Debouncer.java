@@ -19,38 +19,41 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DebouncedExpressionEditorRequest;
+
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.CancellationException;
 
 /**
- * Debouncing ensures that a task is only executed after a specified delay has
- * passed
- * since its last invocation, cancelling any pending executions in between.
- * This class follows the Singleton pattern, ensuring only one instance exists
- * across the application.
- * 
+ * Debouncing ensures that a task is only executed after a specified delay has passed since its last invocation,
+ * cancelling any pending executions in between. This class follows the Singleton pattern, ensuring only one instance
+ * exists across the application.
+ *
  * @since 2.0.0
  */
 public class Debouncer {
 
-    // Map to hold scheduled tasks
-    private final ConcurrentHashMap<String, ScheduledTaskHolder<?>> delayedMap = new ConcurrentHashMap<>();
-
-    // Single-thread scheduler to debounce tasks.
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-
     // Time unit for the delay
     private static final TimeUnit TIME_UNIT = TimeUnit.MILLISECONDS;
 
+    // Map to hold scheduled tasks
+    private final ConcurrentHashMap<String, ScheduledTaskHolder<?>> delayedMap;
+
+    // Single-thread scheduler to debounce tasks.
+    private final ScheduledExecutorService scheduler;
+
+    private Debouncer() {
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        delayedMap = new ConcurrentHashMap<>();
+    }
+
     /**
-     * Debounce the given DebouncedExpressionEditorApi request by scheduling it to
-     * execute after the provided delay Any previously scheduled task with the same
-     * key is cancelled.
+     * Debounce the given DebouncedExpressionEditorApi request by scheduling it to execute after the provided delay.
+     * Any previously scheduled task with the same key is cancelled.
      */
     public <T> CompletableFuture<T> debounce(DebouncedExpressionEditorRequest<T> request) {
         long delay = request.getDelay();
@@ -84,10 +87,8 @@ public class Debouncer {
         return Holder.INSTANCE;
     }
 
-    private Debouncer() {
-    }
-
     private static class Holder {
+
         private static final Debouncer INSTANCE = new Debouncer();
     }
 
@@ -95,10 +96,8 @@ public class Debouncer {
      * Holder for scheduled task information.
      *
      * @param <T>     the type of result promised by the CompletableFuture.
-     * @param promise the CompletableFuture that will eventually complete with the
-     *                result of the scheduled task.
-     * @param future  the Future representing the scheduled task, allowing for
-     *                control over task execution.
+     * @param promise the CompletableFuture that will eventually complete with the result of the scheduled task.
+     * @param future  the Future representing the scheduled task, allowing for control over task execution.
      */
     private record ScheduledTaskHolder<T>(CompletableFuture<T> promise, Future<?> future) {
     }
