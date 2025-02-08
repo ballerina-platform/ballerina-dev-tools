@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import org.eclipse.lsp4j.SignatureHelpContext;
 
 /**

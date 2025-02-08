@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core;
+package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
