@@ -75,6 +75,6 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
 
     @Override
     public long getDelay() {
-        return 100;
+        return 150;
     }
 }

@@ -71,6 +71,6 @@ public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<Signa
 
     @Override
     public long getDelay() {
-        return 100;
+        return 150;
     }
 }

@@ -83,7 +83,7 @@ public class DiagnosticsRequest extends DebouncedExpressionEditorRequest<Diagnos
 
     @Override
     public long getDelay() {
-        return 100;
+        return 350;
     }
 
     public record Diagnostics(Set<Diagnostic> diagnostics) {
