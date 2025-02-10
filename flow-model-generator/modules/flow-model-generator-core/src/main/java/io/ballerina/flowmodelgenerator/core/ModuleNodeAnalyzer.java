@@ -48,6 +48,8 @@ import java.util.Optional;
  */
 public class ModuleNodeAnalyzer extends NodeVisitor {
 
+    private static final String MAIN_FUNCTION_NAME = "main";
+
     private final ModuleInfo moduleInfo;
     private final Gson gson;
     private JsonElement node;
@@ -81,8 +83,9 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 functionKeywordLineRange.startLine(), functionDefinitionNode.functionBody().lineRange().startLine()));
 
         // Set the function name and return type
+        String functionNameText = functionDefinitionNode.functionName().text();
         nodeBuilder.properties()
-                .functionName(functionDefinitionNode.functionName().text())
+                .functionName(functionNameText, !functionNameText.equals(MAIN_FUNCTION_NAME))
                 .returnType(functionDefinitionNode.functionSignature().returnTypeDesc()
                         .map(type -> type.type().toSourceCode().strip()).orElse(""))
                 .nestedProperty();
