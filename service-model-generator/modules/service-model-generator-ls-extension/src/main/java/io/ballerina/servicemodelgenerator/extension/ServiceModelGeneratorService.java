@@ -29,6 +29,7 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
@@ -352,15 +353,22 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
 
-                String serviceDeclaration = getServiceDeclarationNode(service);
-                edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
-                        ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
-
                 if (isDefaultListenerCreationRequired) {
-                    edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                    List<ImportDeclarationNode> importsList = node.imports().stream().toList();
+                    LinePosition listenerDeclaringLoc;
+                    if (!importsList.isEmpty()) {
+                        listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
+                    } else {
+                        listenerDeclaringLoc = lineRange.endLine();
+                    }
+                    edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc),
                             ServiceModelGeneratorConstants.LINE_SEPARATOR +
                                     ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
                 }
+
+                String serviceDeclaration = getServiceDeclarationNode(service);
+                edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                        ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {

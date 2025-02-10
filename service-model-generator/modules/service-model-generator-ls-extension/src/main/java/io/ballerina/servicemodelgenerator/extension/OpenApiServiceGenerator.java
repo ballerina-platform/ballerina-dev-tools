@@ -33,6 +33,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
@@ -147,7 +148,14 @@ public class OpenApiServiceGenerator {
             }
 
             if (isDefaultListenerCreationRequired) {
-                textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().endLine()),
+                List<ImportDeclarationNode> importsList = modulePartNode.imports().stream().toList();
+                LinePosition listenerDeclaringLoc;
+                if (!importsList.isEmpty()) {
+                    listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
+                } else {
+                    listenerDeclaringLoc = modulePartNode.lineRange().endLine();
+                }
+                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR +
                                 ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
             }
