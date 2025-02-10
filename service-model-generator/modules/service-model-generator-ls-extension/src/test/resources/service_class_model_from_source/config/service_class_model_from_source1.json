@@ -181,11 +181,11 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -297,11 +297,11 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "string|error?",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
