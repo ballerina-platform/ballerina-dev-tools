@@ -1,0 +1,162 @@
+{
+  "filePath": "sample1",
+  "description": "Test to discover tests in a project",
+  "response": {
+    "result": {
+      "\"g2\"": [
+        {
+          "functionName": "testFunction2",
+          "lineRange": {
+            "fileName": "tests/test1.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
+        },
+        {
+          "functionName": "testFunction3",
+          "lineRange": {
+            "fileName": "tests/test1.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g2\""
+          ]
+        },
+        {
+          "functionName": "testFunction5",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
+        }
+      ],
+      "\"g1\"": [
+        {
+          "functionName": "testFunction1",
+          "lineRange": {
+            "fileName": "tests/test1.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g1\""
+          ]
+        },
+        {
+          "functionName": "testFunction2",
+          "lineRange": {
+            "fileName": "tests/test1.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
+        },
+        {
+          "functionName": "testFunction5",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "\"g1\"",
+            "\"g2\""
+          ]
+        }
+      ],
+      "DEFAULT_GROUP": [
+        {
+          "functionName": "testFunction4",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "DEFAULT_GROUP"
+          ]
+        },
+        {
+          "functionName": "testFunction6",
+          "lineRange": {
+            "fileName": "tests/test2.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 1
+            }
+          },
+          "kind": "Config",
+          "groups": [
+            "DEFAULT_GROUP"
+          ]
+        }
+      ]
+    }
+  }
+}

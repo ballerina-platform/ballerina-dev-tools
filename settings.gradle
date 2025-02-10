@@ -35,6 +35,7 @@ include(':flow-model-generator:flow-model-generator-ls-extension')
 include(':flow-model-generator:flow-model-index-generator')
 include(':flow-model-generator:flow-model-central-client')
 include(':service-model-generator:service-model-generator-ls-extension')
+include(':test-manager-service:test-manager-service-ls-extension')
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(':testerina-report-tools').projectDir = file('testerina-report-tools')
@@ -50,6 +51,7 @@ project(':flow-model-generator:flow-model-generator-ls-extension').projectDir = 
 project(':flow-model-generator:flow-model-index-generator').projectDir = file('flow-model-generator/modules/flow-model-index-generator')
 project(':flow-model-generator:flow-model-central-client').projectDir = file('flow-model-generator/modules/flow-model-central-client')
 project(':service-model-generator:service-model-generator-ls-extension').projectDir = file('service-model-generator/modules/service-model-generator-ls-extension')
+project(':test-manager-service:test-manager-service-ls-extension').projectDir = file('test-manager-service/modules/test-manager-service-ls-extension')
 
 gradleEnterprise {
     buildScan {
