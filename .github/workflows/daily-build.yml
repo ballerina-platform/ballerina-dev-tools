@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: '10.22.1'
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.7
+          java-version: 21.0.3
       - name: Build with Gradle
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
@@ -40,11 +40,11 @@ jobs:
         with:
           node-version: '10.22.1'
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.7
+          java-version: 21.0.3
       - name: Build with Gradle
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}

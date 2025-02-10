@@ -93,11 +93,11 @@
       "location": {
         "fileName": "http_client_endpoint.bal",
         "startLine": {
-          "line": 30,
+          "line": 31,
           "offset": 29
         },
         "endLine": {
-          "line": 30,
+          "line": 31,
           "offset": 35
         }
       }
@@ -114,11 +114,11 @@
       "location": {
         "fileName": "http_client_endpoint.bal",
         "startLine": {
-          "line": 30,
+          "line": 31,
           "offset": 29
         },
         "endLine": {
-          "line": 30,
+          "line": 31,
           "offset": 35
         }
       }
