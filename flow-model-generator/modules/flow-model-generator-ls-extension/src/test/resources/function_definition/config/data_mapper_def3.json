@@ -1,10 +1,10 @@
 {
   "filePath": "data_mappings.bal",
   "fileName": "data_mappings.bal",
-  "functionName": "mapPersonToEmployee",
+  "functionName": "mapNames",
   "description": "",
   "output": {
-    "id": "55613",
+    "id": "69496",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -14,12 +14,12 @@
       "lineRange": {
         "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 24,
+          "line": 38,
           "offset": 0
         },
         "endLine": {
-          "line": 24,
-          "offset": 61
+          "line": 38,
+          "offset": 56
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "mapPersonToEmployee",
+        "value": "mapNames",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -43,7 +43,7 @@
         },
         "valueType": "TYPE",
         "valueTypeConstraint": "record",
-        "value": "Employee",
+        "value": "Summary",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -90,7 +90,7 @@
           "advanced": false
         },
         "value": {
-          "person": {
+          "employees": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -104,7 +104,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "Person",
+                "value": "Employee[]",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -115,7 +115,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "person",
+                "value": "employees",
                 "optional": false,
                 "editable": true,
                 "advanced": false

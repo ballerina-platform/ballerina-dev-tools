@@ -29,7 +29,6 @@ import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.RestParameterNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
@@ -75,38 +74,43 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
-        if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
-            buildDataMapperDefinition(functionDefinitionNode);
-        } else {
-            buildFunctionDefinition(functionDefinitionNode);
-        }
-    }
-
-    private void buildDataMapperDefinition(FunctionDefinitionNode functionDefinitionNode) {
-        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.DATA_MAPPER_DEFINITION)
+        // Build the metadata based on the function body kind
+        FunctionMetadata metadata = functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
+                ? new FunctionMetadata(
+                    NodeKind.DATA_MAPPER_DEFINITION,
+                    DataMapperDefinitionBuilder.PARAMETERS_KEY,
+                    DataMapperDefinitionBuilder.PARAMETERS_LABEL,
+                    DataMapperDefinitionBuilder.PARAMETERS_DOC,
+                    DataMapperDefinitionBuilder.RECORD_TYPE)
+                : new FunctionMetadata(
+                    NodeKind.FUNCTION_DEFINITION,
+                    FunctionDefinitionBuilder.PARAMETERS_KEY,
+                    FunctionDefinitionBuilder.PARAMETERS_LABEL,
+                    FunctionDefinitionBuilder.PARAMETERS_DOC,
+                    null);
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(metadata.nodeKind)
                 .defaultModuleName(this.moduleInfo);
 
+        // Set the line range of the function definition node
         LineRange functionKeywordLineRange = functionDefinitionNode.functionKeyword().lineRange();
         nodeBuilder.codedata().lineRange(LineRange.from(
                 functionKeywordLineRange.fileName(),
                 functionKeywordLineRange.startLine(),
-                functionDefinitionNode.functionBody().lineRange().startLine())
-        );
+                functionDefinitionNode.functionBody().lineRange().startLine()));
 
-        String dataMapperNameText = functionDefinitionNode.functionName().text();
+        // Set the function name, return type and nested properties
+        String functionNameText = functionDefinitionNode.functionName().text();
         nodeBuilder.properties()
-                .functionName(dataMapperNameText, true, DataMapperDefinitionBuilder.DATA_MAPPER_NAME_LABEL,
-                        DataMapperDefinitionBuilder.DATA_MAPPER_NAME_DOC)
+                .functionName(functionNameText, !functionNameText.equals(MAIN_FUNCTION_NAME))
                 .returnType(
                         functionDefinitionNode.functionSignature().returnTypeDesc()
                                 .map(type -> type.type().toSourceCode().strip())
                                 .orElse(""),
-                        DataMapperDefinitionBuilder.RECORD_TYPE
-                )
+                        metadata.returnTypeConstraint)
                 .nestedProperty();
 
-        SeparatedNodeList<ParameterNode> parameters = functionDefinitionNode.functionSignature().parameters();
-        for (ParameterNode parameter : parameters) {
+        // Set the function parameters
+        for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
             String paramType;
             Optional<Token> paramName;
             switch (parameter.kind()) {
@@ -131,65 +135,14 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             }
             nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""));
         }
-
         nodeBuilder.properties().endNestedProperty(
                 Property.ValueType.REPEATABLE_PROPERTY,
-                DataMapperDefinitionBuilder.PARAMETERS_KEY,
-                DataMapperDefinitionBuilder.PARAMETERS_LABEL,
-                DataMapperDefinitionBuilder.PARAMETERS_DOC,
-                FunctionDefinitionBuilder.getParameterSchema()
-        );
+                metadata.parametersKey,
+                metadata.parametersLabel,
+                metadata.parametersDoc,
+                FunctionDefinitionBuilder.getParameterSchema());
 
-        this.node = gson.toJsonTree(nodeBuilder.build());
-    }
-
-    private void buildFunctionDefinition(FunctionDefinitionNode functionDefinitionNode) {
-        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_DEFINITION)
-                .defaultModuleName(this.moduleInfo);
-
-        // Set the line range
-        LineRange functionKeywordLineRange = functionDefinitionNode.functionKeyword().lineRange();
-        nodeBuilder.codedata().lineRange(LineRange.from(functionKeywordLineRange.fileName(),
-                functionKeywordLineRange.startLine(), functionDefinitionNode.functionBody().lineRange().startLine()));
-
-        // Set the function name and return type
-        String functionNameText = functionDefinitionNode.functionName().text();
-        nodeBuilder.properties()
-                .functionName(functionNameText, !functionNameText.equals(MAIN_FUNCTION_NAME))
-                .returnType(functionDefinitionNode.functionSignature().returnTypeDesc()
-                        .map(type -> type.type().toSourceCode().strip()).orElse(""))
-                .nestedProperty();
-
-        // Set the function parameters
-        SeparatedNodeList<ParameterNode> parameters = functionDefinitionNode.functionSignature().parameters();
-        for (ParameterNode parameter : parameters) {
-            String paramType;
-            Optional<Token> paramName;
-            switch (parameter.kind()) {
-                case REQUIRED_PARAM -> {
-                    RequiredParameterNode requiredParameter = (RequiredParameterNode) parameter;
-                    paramType = getNodeValue(requiredParameter.typeName());
-                    paramName = requiredParameter.paramName();
-                }
-                case DEFAULTABLE_PARAM -> {
-                    DefaultableParameterNode defaultableParameter = (DefaultableParameterNode) parameter;
-                    paramType = getNodeValue(defaultableParameter.typeName());
-                    paramName = defaultableParameter.paramName();
-                }
-                case REST_PARAM -> {
-                    RestParameterNode restParameter = (RestParameterNode) parameter;
-                    paramType = getNodeValue(restParameter.typeName()) + restParameter.ellipsisToken().text();
-                    paramName = restParameter.paramName();
-                }
-                default -> {
-                    continue;
-                }
-            }
-            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""));
-        }
-        nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY,
-                FunctionDefinitionBuilder.PARAMETERS_KEY, FunctionDefinitionBuilder.PARAMETERS_LABEL,
-                FunctionDefinitionBuilder.PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());
+        // Build the definition node
         this.node = gson.toJsonTree(nodeBuilder.build());
     }
 
@@ -199,5 +152,13 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     public JsonElement getNode() {
         return this.node;
+    }
+
+    private record FunctionMetadata(
+            NodeKind nodeKind,
+            String parametersKey,
+            String parametersLabel,
+            String parametersDoc,
+            String returnTypeConstraint) {
     }
 }
