@@ -78,13 +78,11 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         FunctionMetadata metadata = functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
                 ? new FunctionMetadata(
                     NodeKind.DATA_MAPPER_DEFINITION,
-                    DataMapperDefinitionBuilder.PARAMETERS_KEY,
                     DataMapperDefinitionBuilder.PARAMETERS_LABEL,
                     DataMapperDefinitionBuilder.PARAMETERS_DOC,
                     DataMapperDefinitionBuilder.RECORD_TYPE)
                 : new FunctionMetadata(
                     NodeKind.FUNCTION_DEFINITION,
-                    FunctionDefinitionBuilder.PARAMETERS_KEY,
                     FunctionDefinitionBuilder.PARAMETERS_LABEL,
                     FunctionDefinitionBuilder.PARAMETERS_DOC,
                     null);
@@ -137,7 +135,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         }
         nodeBuilder.properties().endNestedProperty(
                 Property.ValueType.REPEATABLE_PROPERTY,
-                metadata.parametersKey,
+                Property.PARAMETERS_KEY,
                 metadata.parametersLabel,
                 metadata.parametersDoc,
                 FunctionDefinitionBuilder.getParameterSchema());
@@ -156,7 +154,6 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     private record FunctionMetadata(
             NodeKind nodeKind,
-            String parametersKey,
             String parametersLabel,
             String parametersDoc,
             String returnTypeConstraint) {

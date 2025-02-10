@@ -47,7 +47,6 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String FUNCTION_NAME_LABEL = "Function Name";
     public static final String FUNCTION_NAME_DOC = "Name of the function";
 
-    public static final String PARAMETERS_KEY = "parameters";
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
@@ -71,7 +70,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 .functionName(null, true)
                 .returnType(null)
                 .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY, PARAMETERS_LABEL,
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, getParameterSchema());
     }
 
@@ -89,7 +88,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         // WRite the function parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {

@@ -53,7 +53,6 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     public static final String DATA_MAPPER_NAME_LABEL = "Data Mapper Name";
     public static final String DATA_MAPPER_NAME_DOC = "Name of the data mapper";
 
-    public static final String PARAMETERS_KEY = "parameters";
     public static final String PARAMETERS_LABEL = "Inputs";
     public static final String PARAMETERS_DOC = "Input variables of the data mapper function";
 
@@ -75,7 +74,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                         DATA_MAPPER_NAME_LABEL, DATA_MAPPER_NAME_DOC)
                 .returnType(null, RECORD_TYPE)
                 .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY, PARAMETERS_LABEL,
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());
     }
 
@@ -93,7 +92,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         // Write the data mapper parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
