@@ -58,6 +58,8 @@ import java.util.TreeSet;
  * Represents the properties of a data mapper node in the flow model.
  *
  * @since 2.0.0
+ * @deprecated Use {@link DataMapperDefinitionBuilder} instead. The implementation is kept in case this feature is
+ * needed in the future.
  */
 public class DataMapperBuilder extends NodeBuilder {
 
@@ -215,7 +217,8 @@ public class DataMapperBuilder extends NodeBuilder {
         }
 
         String bodyText = "";
-        Optional<TypeDefinitionSymbol> recordSymbol = sourceBuilder.getTypeDefinitionSymbol(output.get().value().toString());
+        Optional<TypeDefinitionSymbol> recordSymbol =
+                sourceBuilder.getTypeDefinitionSymbol(output.get().value().toString());
         if (recordSymbol.isPresent()) {
             TypeSymbol typeSymbol = recordSymbol.get().typeDescriptor();
             if (typeSymbol.typeKind() == TypeDescKind.RECORD) {

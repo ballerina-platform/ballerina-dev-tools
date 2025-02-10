@@ -11,7 +11,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Data Mapper Definition",
+      "label": "Data Mapper",
       "description": "Define a data mapper"
     },
     "codedata": {
@@ -21,8 +21,8 @@
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Function Name",
-          "description": "Name of the function"
+          "label": "Data Mapper Name",
+          "description": "Name of the data mapper"
         },
         "valueType": "IDENTIFIER",
         "value": "transform1",
