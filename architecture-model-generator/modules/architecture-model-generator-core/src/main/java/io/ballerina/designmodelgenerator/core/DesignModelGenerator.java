@@ -109,7 +109,7 @@ public class DesignModelGenerator {
             serviceModel.remoteFunctions.forEach(remoteFunction -> {
                 buildConnectionGraph(intermediateModel, remoteFunction);
                 remoteFunctions.add(new Function(remoteFunction.name, remoteFunction.location,
-                        remoteFunction.connections));
+                        remoteFunction.allDependentConnections));
                 connections.addAll(remoteFunction.allDependentConnections);
             });
 
@@ -117,7 +117,7 @@ public class DesignModelGenerator {
             serviceModel.resourceFunctions.forEach(resourceFunction -> {
                 buildConnectionGraph(intermediateModel, resourceFunction);
                 resourceFunctions.add(new ResourceFunction(resourceFunction.name, resourceFunction.path,
-                        resourceFunction.location, resourceFunction.connections));
+                        resourceFunction.location, resourceFunction.allDependentConnections));
                 connections.addAll(resourceFunction.allDependentConnections);
             });
             List<Listener> allAttachedListeners = serviceModel.anonListeners;
