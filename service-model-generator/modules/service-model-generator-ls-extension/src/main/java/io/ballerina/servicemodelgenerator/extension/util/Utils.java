@@ -48,7 +48,6 @@ import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
-import io.ballerina.compiler.syntax.tree.ObjectTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
@@ -344,10 +343,10 @@ public final class Utils {
         return Optional.of(expressionNode);
     }
 
-    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode, SemanticModel semanticModel,
-                                          boolean isHttp) {
+    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode,
+                                          ServiceDeclarationNode serviceDeclarationNode,
+                                          SemanticModel semanticModel, boolean isHttp) {
         Service serviceModel = Service.getNewService();
-        ObjectTypeDescriptorNode serviceNode = (ObjectTypeDescriptorNode) serviceTypeNode.typeDescriptor();
         Optional<String> basePath = getPath(serviceTypeNode);
         if (basePath.isPresent() && !basePath.get().isEmpty()) {
             MetaData metaData = new MetaData("Service Base Path", "The base path for the service");
@@ -364,9 +363,10 @@ public final class Utils {
         serviceType.setEnabled(true);
         serviceModel.setServiceContractTypeName(serviceType);
         List<Function> functionModels = new ArrayList<>();
-        serviceNode.members().forEach(member -> {
-            if (member instanceof MethodDeclarationNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp);
+        serviceDeclarationNode.members().forEach(member -> {
+            if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp,
+                        false);
                 functionModels.add(functionModel);
             }
         });
@@ -779,7 +779,7 @@ public final class Utils {
                                                   ServiceDeclarationNode serviceDeclaration,
                                                   SemanticModel semanticModel) {
         serviceModel.setFunctions(new ArrayList<>());
-        Service commonSvcModel = getServiceModel(serviceTypeNode, semanticModel, true);
+        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);

@@ -23,14 +23,26 @@ import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 
+import java.nio.file.Path;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Util class for Listener related operations.
@@ -39,7 +51,7 @@ import java.util.Set;
  */
 public class ListenerUtil {
 
-    public static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel) {
+    public static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel, Project project) {
         Set<String> listeners = new LinkedHashSet<>();
         boolean isHttpDefaultListenerDefined = false;
         boolean isHttp = ServiceModelGeneratorConstants.HTTP.equals(moduleName);
@@ -54,15 +66,35 @@ public class ListenerUtil {
                 continue;
             }
             String listenerName = variableSymbol.getName().get();
-            if (isHttp && listenerName.equals(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME)) {
-                isHttpDefaultListenerDefined = true;
-                continue;
+            if (isHttp && listenerName.startsWith(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME)) {
+                if (variableSymbol.getLocation().isPresent()) {
+                    Location location = variableSymbol.getLocation().get();
+                    Path path = project.sourceRoot().resolve(location.lineRange().fileName());
+                    DocumentId documentId = project.documentId(path);
+                    Document document = project.currentPackage().getDefaultModule().document(documentId);
+                    if (document != null) {
+                        ModulePartNode node = document.syntaxTree().rootNode();
+                        TextRange range = TextRange.from(location.textRange().startOffset(),
+                                location.textRange().length());
+                        NonTerminalNode foundNode = node.findNode(range);
+                        if (foundNode != null) {
+                            while (foundNode != null && !(foundNode instanceof ListenerDeclarationNode)) {
+                                foundNode = foundNode.parent();
+                            }
+                            if (foundNode != null) {
+                                ListenerDeclarationNode listenerDeclarationNode = (ListenerDeclarationNode) foundNode;
+                                isHttpDefaultListenerDefined = listenerDeclarationNode.initializer().toSourceCode()
+                                        .trim().contains("http:getDefaultListener()");
+                            }
+                        }
+                    }
+                }
             }
             listeners.add(listenerName);
         }
 
         if (isHttp && !isHttpDefaultListenerDefined) {
-            listeners.add(ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER);
+            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER);
         }
 
         return listeners;
@@ -74,14 +106,14 @@ public class ListenerUtil {
             if (Objects.nonNull(values) && !values.isEmpty()) {
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
-                            ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER)) {
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
                         values.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                         return true;
                     }
                 }
             } else {
                 if (listener.getValue().equals(
-                        ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER)) {
+                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
                     listener.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                     return true;
                 }
@@ -90,4 +122,14 @@ public class ListenerUtil {
         return false;
     }
 
+    public static String getListenerDeclarationStmt(SemanticModel semanticModel, Document document,
+                                                    LinePosition linePosition) {
+        Set<String> names = semanticModel.visibleSymbols(document, linePosition).parallelStream()
+                .filter(s -> s.getName().isPresent())
+                .map(s -> s.getName().get())
+                .collect(Collectors.toSet());
+        String variableName = NameUtil.generateVariableName(
+                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME, names);
+        return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
+    }
 }

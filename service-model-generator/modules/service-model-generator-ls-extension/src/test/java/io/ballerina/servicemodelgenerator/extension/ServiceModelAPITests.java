@@ -26,6 +26,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
@@ -82,7 +83,20 @@ public class ServiceModelAPITests {
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
         Assert.assertEquals(response.listeners().size(), 1);
-        Assert.assertTrue(response.listeners().contains("Create and use http default listener"));
+        Assert.assertTrue(response.listeners().contains("Default Listener"));
+    }
+
+    @Test
+    public void testListenerDiscoveryWithOneListener() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample8/main.bal");
+        ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
+                "ballerina", "http");
+        CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/getListeners", request);
+        ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
+        Assert.assertTrue(response.hasListeners());
+        Assert.assertEquals(response.listeners().size(), 2);
+        Assert.assertTrue(response.listeners().contains("Default Listener"));
+        Assert.assertTrue(response.listeners().contains("httpDefaultListener"));
     }
 
     @Test(enabled = false)
@@ -250,7 +264,8 @@ public class ServiceModelAPITests {
     
     @Test
     public void testAddHttpResource() throws ExecutionException, InterruptedException {
-        CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getHttpResourceModel", null);
+        FunctionModelRequest request = new FunctionModelRequest("http", "resource");
+        CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getFunctionModel", request);
         FunctionModelResponse modelResponse = (FunctionModelResponse) modelResult.get();
 
         Function resource = modelResponse.function();

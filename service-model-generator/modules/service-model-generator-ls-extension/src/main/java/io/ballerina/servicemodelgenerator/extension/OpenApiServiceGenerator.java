@@ -33,6 +33,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
@@ -51,6 +52,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
@@ -68,7 +70,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -77,6 +79,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static io.ballerina.openapi.core.generators.common.GeneratorConstants.DEFAULT_FILE_HEADER;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 
 /**
  * Generates service from the OpenAPI contract.
@@ -109,7 +112,8 @@ public class OpenApiServiceGenerator {
         this.workspaceManager = workspaceManager;
     }
 
-    public Map<String, List<TextEdit>> generateService(String typeName, String listeners) throws IOException,
+    public Map<String, List<TextEdit>> generateService(String typeName, String listeners,
+                                                       boolean isDefaultListenerCreationRequired) throws IOException,
             BallerinaOpenApiException, FormatterException, WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
 
@@ -132,16 +136,37 @@ public class OpenApiServiceGenerator {
         }
 
         Path mainFile = projectPath.resolve(MAIN_BAL);
-        Map<String, List<TextEdit>> textEditsMap = new HashMap<>();
+        Map<String, List<TextEdit>> textEditsMap = new LinkedHashMap<>();
         Project project = this.workspaceManager.loadProject(mainFile);
         Optional<Document> document = this.workspaceManager.document(mainFile);
         if (document.isPresent()) {
+            List<TextEdit> textEdits = new ArrayList<>();
+            ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
+
+            if (!importExists(modulePartNode, "ballerina", "http")) {
+                String importText = Utils.getImportStmt("ballerina", "http");
+                textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().startLine()), importText));
+            }
+
+            if (isDefaultListenerCreationRequired) {
+                List<ImportDeclarationNode> importsList = modulePartNode.imports().stream().toList();
+                LinePosition listenerDeclaringLoc;
+                if (!importsList.isEmpty()) {
+                    listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
+                } else {
+                    listenerDeclaringLoc = modulePartNode.lineRange().endLine();
+                }
+                SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
+                String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
+                        semanticModel, document.get(), listenerDeclaringLoc);
+                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+            }
+
             String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
                     mainFile);
-            ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
-            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-            textEditsMap.put(mainFile.toAbsolutePath().toString(),
-                    List.of(new TextEdit(Utils.toRange(startPos), serviceImplContent)));
+            textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().endLine()), serviceImplContent));
+
+            textEditsMap.put(mainFile.toAbsolutePath().toString(), textEdits);
         }
         textEditsMap.put(projectPath.resolve(serviceTypeFile.getFileName()).toAbsolutePath().toString(),
                 List.of(new TextEdit(Utils.toRange(LinePosition.from(0, 0)), serviceTypeFile.getContent())));
