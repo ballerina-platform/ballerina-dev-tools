@@ -124,46 +124,38 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     @JsonRequest
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
-        return Debouncer.getInstance().debounce(
-                new SignatureHelpRequest(
-                        workspaceManagerProxy.get(fileUri),
-                        Path.of(request.filePath()),
-                        request.context(),
-                        fileUri,
-                        request.signatureHelpContext(),
-                        langServer.getTextDocumentService()
-                )
-        );
+        return Debouncer.getInstance().debounce(new SignatureHelpRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                request.signatureHelpContext(),
+                langServer.getTextDocumentService()));
     }
 
     @JsonRequest
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(
             ExpressionEditorCompletionRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
-        CompletionRequest completionApi =
-                new CompletionRequest(
-                        workspaceManagerProxy.get(fileUri),
-                        Path.of(request.filePath()),
-                        request.context(),
-                        fileUri,
-                        request.completionContext(),
-                        langServer.getTextDocumentService());
-        return Debouncer.getInstance().debounce(completionApi);
+        return Debouncer.getInstance().debounce(new CompletionRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                request.completionContext(),
+                langServer.getTextDocumentService()));
     }
 
     @JsonRequest
     public CompletableFuture<DiagnosticsRequest.Diagnostics> diagnostics(
             ExpressionEditorDiagnosticsRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
-        return Debouncer.getInstance().debounce(
-                new DiagnosticsRequest(
-                        workspaceManagerProxy.get(fileUri),
-                        Path.of(request.filePath()),
-                        request.context(),
-                        fileUri,
-                        workspaceManagerProxy
-                )
-        );
+        return Debouncer.getInstance().debounce(new DiagnosticsRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                workspaceManagerProxy));
     }
 
     @JsonRequest
