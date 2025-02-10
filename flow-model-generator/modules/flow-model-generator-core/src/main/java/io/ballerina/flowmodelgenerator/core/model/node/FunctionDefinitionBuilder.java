@@ -68,7 +68,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties()
-                .functionName(null)
+                .functionName(null, true)
                 .returnType(null)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, PARAMETERS_KEY, PARAMETERS_LABEL,

@@ -33,7 +33,7 @@
         "valueType": "IDENTIFIER",
         "value": "main",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "type": {
