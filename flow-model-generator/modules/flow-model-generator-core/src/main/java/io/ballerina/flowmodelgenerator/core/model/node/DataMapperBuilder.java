@@ -215,9 +215,9 @@ public class DataMapperBuilder extends NodeBuilder {
         }
 
         String bodyText = "";
-        Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
+        Optional<TypeDefinitionSymbol> recordSymbol = sourceBuilder.getTypeDefinitionSymbol(output.get().value().toString());
         if (recordSymbol.isPresent()) {
-            TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
+            TypeSymbol typeSymbol = recordSymbol.get().typeDescriptor();
             if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
                 bodyText =
                         RecordUtil.getFillAllRecordFieldInsertText(

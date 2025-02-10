@@ -80,7 +80,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     protected Property.Builder<FormBuilder<T>> propertyBuilder;
     private final ModuleInfo moduleInfo;
 
-    public static final Type NODE_PROPERTIES_TYPE =  new TypeToken<Map<String, Property>>() { }.getType();
+    public static final Type NODE_PROPERTIES_TYPE = new TypeToken<Map<String, Property>>() { }.getType();
 
     public FormBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
                        ModuleInfo moduleInfo, T parentBuilder) {
@@ -176,7 +176,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> returnType(String value) {
+    public FormBuilder<T> returnType(String value, String typeConstraint) {
         propertyBuilder
                 .metadata()
                     .label(Property.RETURN_TYPE_LABEL)
@@ -184,10 +184,16 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(value == null ? "" : value)
                 .type(Property.ValueType.TYPE)
+                .typeConstraint(typeConstraint)
                 .optional(true)
                 .editable();
+
         addProperty(Property.TYPE_KEY);
         return this;
+    }
+
+    public FormBuilder<T> returnType(String value) {
+        return returnType(value, null);
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
@@ -672,6 +678,26 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(functionName == null ? "" : functionName)
                 .editable(editable);
 
+        addProperty(Property.FUNCTION_NAME_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> functionNameTemplate(String templatePrefix, Set<String> visibleSymbols) {
+        return functionNameTemplate(templatePrefix, visibleSymbols, FunctionDefinitionBuilder.FUNCTION_NAME_LABEL,
+                FunctionDefinitionBuilder.FUNCTION_NAME_DOC);
+    }
+
+    public FormBuilder<T> functionNameTemplate(String templatePrefix, Set<String> visibleSymbols, String label,
+                                               String description) {
+        String generatedName = NameUtil.generateTypeName(templatePrefix, visibleSymbols);
+        propertyBuilder
+                .metadata()
+                    .label(label)
+                    .description(description)
+                    .stepOut()
+                .value(generatedName)
+                .type(Property.ValueType.IDENTIFIER)
+                .editable();
         addProperty(Property.FUNCTION_NAME_KEY);
         return this;
     }
