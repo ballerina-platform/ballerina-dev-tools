@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "label": "Resource Method",
+    "description": "Resource Method"
+  },
+  "qualifiers": [],
+  "kind": "RESOURCE",
+  "accessor": {
+    "metadata": {
+      "label": "Accessor",
+      "description": "The accessor of the function"
+    },
+    "enabled": true,
+    "editable": true,
+    "value": "",
+    "valueType": "SINGLE_SELECT",
+    "isType": false,
+    "optional": false,
+    "advanced": false,
+    "addNewButton": false,
+    "items": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "PATCH",
+      "OPTIONS",
+      "HEAD"
+    ]
+  },
+  "name": {
+    "metadata": {
+      "label": "Function Name",
+      "description": "The name of the function"
+    },
+    "enabled": true,
+    "editable": true,
+    "value": "",
+    "valueType": "IDENTIFIER",
+    "valueTypeConstraint": "string",
+    "isType": false,
+    "placeholder": "",
+    "optional": false,
+    "advanced": false,
+    "addNewButton": false
+  },
+  "parameters": [],
+  "schema": {
+    "parameter": {
+      "type": {
+        "metadata": {
+          "label": "Parameter Type",
+          "description": "The type of the parameter"
+        },
+        "enabled": false,
+        "editable": true,
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "name": {
+        "metadata": {
+          "label": "Parameter Name",
+          "description": "The name of the parameter"
+        },
+        "enabled": false,
+        "editable": true,
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "defaultValue": {
+        "metadata": {
+          "label": "Default Value",
+          "description": "The default value of the parameter"
+        },
+        "enabled": false,
+        "editable": true,
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": false,
+      "editable": false,
+      "optional": false,
+      "advanced": false
+    }
+  },
+  "returnType": {
+    "metadata": {
+      "label": "Return Type",
+      "description": "The return type of the function"
+    },
+    "enabled": true,
+    "editable": true,
+    "value": "",
+    "valueType": "TYPE",
+    "isType": false,
+    "optional": true,
+    "advanced": false,
+    "addNewButton": false
+  },
+  "enabled": true,
+  "optional": false,
+  "editable": true
+}

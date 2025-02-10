@@ -1,15 +1,15 @@
 {
-  "filePath": "add_functions_for_graphql.bal",
-  "description": "Add graphql Query",
+  "filePath": "add_function_for_class.bal",
+  "description": "Add remote function for a service class",
   "codedata": {
     "lineRange": {
-      "fileName": "add_functions_for_graphql.bal",
+      "fileName": "add_function_for_class.bal.bal",
       "startLine": {
-        "line": 17,
+        "line": 0,
         "offset": 0
       },
       "endLine": {
-        "line": 28,
+        "line": 5,
         "offset": 0
       }
     },
@@ -18,12 +18,16 @@
     "inDisplayAnnotation": false
   },
   "function": {
+    "metadata": {
+      "label": "Resource Method",
+      "description": "Resource Method"
+    },
     "qualifiers": [],
-    "kind": "QUERY",
+    "kind": "RESOURCE",
     "accessor": {
       "metadata": {
-        "label": "",
-        "description": ""
+        "label": "Accessor",
+        "description": "The accessor of the function"
       },
       "enabled": true,
       "editable": true,
@@ -36,57 +40,27 @@
     },
     "name": {
       "metadata": {
-        "label": "",
-        "description": ""
+        "label": "Function Name",
+        "description": "The name of the function"
       },
       "enabled": true,
       "editable": true,
-      "value": "greeting",
+      "value": "author/[int id]",
       "valueType": "IDENTIFIER",
+      "valueTypeConstraint": "string",
       "isType": false,
+      "placeholder": "",
       "optional": false,
       "advanced": false,
       "addNewButton": false
     },
-    "parameters": [
-      {
-        "metadata": {
-          "label": "name",
-          "description": "name"
-        },
-        "kind": "REQUIRED",
+    "parameters": [],
+    "schema": {
+      "parameter": {
         "type": {
           "metadata": {
-            "label": "",
-            "description": ""
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "string",
-          "valueType": "TYPE",
-          "isType": true,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "name": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "name",
-          "valueType": "IDENTIFIER",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "defaultValue": {
-          "metadata": {
-            "label": "",
-            "description": ""
+            "label": "Parameter Type",
+            "description": "The type of the parameter"
           },
           "enabled": false,
           "editable": true,
@@ -95,12 +69,36 @@
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": true,
+        "name": {
+          "metadata": {
+            "label": "Parameter Name",
+            "description": "The name of the parameter"
+          },
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "The default value of the parameter"
+          },
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": false,
         "editable": false,
         "optional": false,
         "advanced": false
       }
-    ],
+    },
     "returnType": {
       "metadata": {
         "label": "Return Type",
@@ -108,7 +106,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "string",
+      "value": "string|error?",
       "valueType": "TYPE",
       "isType": false,
       "optional": false,
@@ -117,16 +115,16 @@
     },
     "enabled": true,
     "optional": false,
-    "editable": false,
+    "editable": true,
     "codedata": {
       "lineRange": {
         "fileName": "main.bal",
         "startLine": {
-          "line": 29,
+          "line": 14,
           "offset": 4
         },
         "endLine": {
-          "line": 31,
+          "line": 28,
           "offset": 5
         }
       },
@@ -136,19 +134,19 @@
     }
   },
   "output": {
-    "add_functions_for_graphql.bal": [
+    "add_function_for_class.bal": [
       {
         "range": {
           "start": {
-            "line": 26,
-            "character": 5
+            "line": 3,
+            "character": 34
           },
           "end": {
-            "line": 26,
-            "character": 5
+            "line": 3,
+            "character": 34
           }
         },
-        "newText": "\n\tresource function get greeting(string name) returns string {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
+        "newText": "\n\tresource function get author/[int id]() returns string|error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
       }
     ]
   }

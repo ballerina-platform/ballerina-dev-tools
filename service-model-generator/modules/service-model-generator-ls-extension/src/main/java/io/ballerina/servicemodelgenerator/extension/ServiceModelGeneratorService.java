@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -36,6 +37,7 @@ import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
@@ -53,9 +55,12 @@ import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
+import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.servicemodelgenerator.extension.request.AddFieldRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ClassFieldModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
@@ -64,6 +69,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryReq
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceClassSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -74,11 +80,13 @@ import io.ballerina.servicemodelgenerator.extension.response.FunctionModelRespon
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
 import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -649,12 +657,21 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
+                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        node.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
                     return new CommonSourceResponse();
                 }
-                ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-                LineRange functionLineRange = serviceNode.openBraceToken().lineRange();
-                NodeList<Node> members = serviceNode.members();
+                LineRange functionLineRange;
+                NodeList<Node> members;
+                if (node instanceof ServiceDeclarationNode serviceDeclarationNode) {
+                    functionLineRange = serviceDeclarationNode.openBraceToken().lineRange();
+                    members = serviceDeclarationNode.members();
+                } else {
+                    ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                    functionLineRange = classDefinitionNode.openBrace().lineRange();
+                    members = classDefinitionNode.members();
+                }
+
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
@@ -699,11 +716,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse();
                 }
                 NonTerminalNode parentService = functionDefinitionNode.parent();
-                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION))) {
+                if (!(parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        parentService.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
                     return new CommonSourceResponse();
                 }
-                ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;
-                LineRange serviceEnd = serviceDeclarationNode.closeBraceToken().lineRange();
 
                 String functionName = functionDefinitionNode.functionName().text().trim();
                 LineRange nameRange = functionDefinitionNode.functionName().lineRange();
@@ -737,9 +753,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
                                 + ServiceModelGeneratorConstants.LINE_SEPARATOR));
-                if (!statusCodeResEdits.isEmpty()) {
-                    edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
-                            ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
+
+                if (parentService.kind().equals(SyntaxKind.SERVICE_DECLARATION)) {
+                    ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) parentService;
+                    LineRange serviceEnd = serviceDeclarationNode.closeBraceToken().lineRange();
+
+                    if (!statusCodeResEdits.isEmpty()) {
+                        edits.add(new TextEdit(Utils.toRange(serviceEnd.endLine()),
+                                ServiceModelGeneratorConstants.LINE_SEPARATOR + statusCodeResEdits));
+                    }
                 }
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
@@ -864,6 +886,173 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
         });
     }
+
+    /**
+     * Get the JSON model for a service class from the source.
+     *
+     * @param request Service lass model request
+     * @return Service class model response
+     */
+    @JsonRequest
+    public CompletableFuture<ServiceClassModelResponse> getServiceClassModelFromSource(
+            CommonModelFromSourceRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Path filePath = Path.of(request.filePath());
+                try {
+                    this.workspaceManager.loadProject(filePath);
+                } catch (Exception e) {
+                    return new ServiceClassModelResponse(e);
+                }
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new ServiceClassModelResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (node.kind() != SyntaxKind.CLASS_DEFINITION) {
+                    return new ServiceClassModelResponse();
+                }
+                ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                ServiceClass serviceClass = ServiceClassUtil.getServiceClass(classDefinitionNode);
+                return new ServiceClassModelResponse(serviceClass);
+            } catch (Throwable e) {
+                return new ServiceClassModelResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the list of text edits to modify a service class.
+     *
+     * @param request Service class source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateServiceClass(ServiceClassSourceRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                ServiceClass serviceClass = request.serviceClass();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = serviceClass.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (node.kind() != SyntaxKind.CLASS_DEFINITION) {
+                    return new CommonSourceResponse();
+                }
+                ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                Value className = serviceClass.className();
+                if (Objects.nonNull(className) && className.isEnabledWithValue()
+                        && !className.getValue().equals(classDefinitionNode.className().text().trim())) {
+                    LineRange nameRange = classDefinitionNode.className().lineRange();
+                    edits.add(new TextEdit(Utils.toRange(nameRange), className.getValue()));
+                }
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+
+    /**
+     * Get the list of text edits to add a function skeleton to the given service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> addField(AddFieldRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        node.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
+                    return new CommonSourceResponse();
+                }
+                LineRange functionLineRange;
+                if (node instanceof ServiceDeclarationNode serviceDeclarationNode) {
+                    functionLineRange = serviceDeclarationNode.openBraceToken().lineRange();
+                } else {
+                    ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                    functionLineRange = classDefinitionNode.openBrace().lineRange();
+                }
+
+                String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
+                        + ServiceClassUtil.buildObjectFiledString(request.field());
+                edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the list of text edits to add a class field to the given class.
+     *
+     * @param request Class field source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> updateClassField(ClassFieldModifierRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.field().codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node instanceof ObjectFieldNode)) {
+                    return new CommonSourceResponse();
+                }
+                TextEdit fieldEdit = new TextEdit(Utils.toRange(lineRange),
+                        ServiceClassUtil.buildObjectFiledString(request.field()));
+                edits.add(fieldEdit);
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
 
     public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
