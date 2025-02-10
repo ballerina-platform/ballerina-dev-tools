@@ -20,7 +20,6 @@ package io.ballerina.servicemodelgenerator.extension.request;
 
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Field;
-import io.ballerina.servicemodelgenerator.extension.model.Function;
 
 /**
  * Request to add a field to a class or a service declaration.
