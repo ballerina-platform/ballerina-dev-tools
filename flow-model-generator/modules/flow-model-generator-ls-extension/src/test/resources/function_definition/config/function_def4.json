@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "processUser",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "sum",
   "description": "",
   "output": {
-    "id": "78667",
+    "id": "47881",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 47,
+          "line": 16,
           "offset": 7
         },
         "endLine": {
-          "line": 47,
-          "offset": 82
+          "line": 16,
+          "offset": 48
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "processUser",
+        "value": "sum",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,7 +42,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "string",
+        "value": "int",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -89,7 +89,7 @@
           "advanced": false
         },
         "value": {
-          "user": {
+          "numbers": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -103,7 +103,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "record {|string name; int age;|}",
+                "value": "int...",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -114,7 +114,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "user",
+                "value": "numbers",
                 "optional": false,
                 "editable": true,
                 "advanced": false

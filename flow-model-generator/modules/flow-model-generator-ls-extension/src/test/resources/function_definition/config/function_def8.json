@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "divide",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "processUser",
   "description": "",
   "output": {
-    "id": "65744",
+    "id": "78667",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 34,
+          "line": 47,
           "offset": 7
         },
         "endLine": {
-          "line": 34,
-          "offset": 55
+          "line": 47,
+          "offset": 82
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "divide",
+        "value": "processUser",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,7 +42,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "int|error",
+        "value": "string",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -89,7 +89,7 @@
           "advanced": false
         },
         "value": {
-          "a": {
+          "user": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -103,7 +103,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "int",
+                "value": "record {|string name; int age;|}",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -114,42 +114,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "a",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
-          "b": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "int",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "b",
+                "value": "user",
                 "optional": false,
                 "editable": true,
                 "advanced": false

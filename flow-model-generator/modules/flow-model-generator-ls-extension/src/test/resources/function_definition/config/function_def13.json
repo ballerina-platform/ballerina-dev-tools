@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "complexFunction",
+  "filePath": "function_def",
+  "fileName": "functions.bal",
+  "functionName": "foo",
   "description": "",
   "output": {
-    "id": "56882",
+    "id": "31796",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "functions.bal",
         "startLine": {
-          "line": 25,
-          "offset": 7
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 25,
-          "offset": 121
+          "line": 0,
+          "offset": 52
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "complexFunction",
+        "value": "foo",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -89,42 +89,7 @@
           "advanced": false
         },
         "value": {
-          "required": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "int",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "required",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
-          "name": {
+          "foo": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -149,7 +114,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "name",
+                "value": "foo",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -159,42 +124,7 @@
             "editable": false,
             "advanced": false
           },
-          "flag": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "boolean",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "flag",
-                "optional": false,
-                "editable": true,
-                "advanced": false
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
-          "rest": {
+          "bar": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -219,7 +149,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "rest",
+                "value": "bar",
                 "optional": false,
                 "editable": true,
                 "advanced": false

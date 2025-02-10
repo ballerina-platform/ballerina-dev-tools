@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "'from",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "ව",
   "description": "",
   "output": {
-    "id": "83569",
+    "id": "89517",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 52,
+          "line": 58,
           "offset": 7
         },
         "endLine": {
-          "line": 52,
-          "offset": 24
+          "line": 58,
+          "offset": 20
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "'from",
+        "value": "ව",
         "optional": false,
         "editable": true,
         "advanced": false
