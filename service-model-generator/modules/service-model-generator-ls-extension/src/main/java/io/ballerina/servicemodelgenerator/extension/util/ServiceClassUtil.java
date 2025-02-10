@@ -138,6 +138,8 @@ public class ServiceClassUtil {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
                 returnType.setEnabled(true);
+                returnType.setEditable(true);
+                returnType.setOptional(true);
             }
         }
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
