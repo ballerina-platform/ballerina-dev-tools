@@ -1,0 +1,6 @@
+[package]
+org = "ballerina"
+name = "test_manager_service"
+version = "0.1.0"
+
+bi = true

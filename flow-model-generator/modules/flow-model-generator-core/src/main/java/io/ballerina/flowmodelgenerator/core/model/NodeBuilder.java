@@ -39,6 +39,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ForeachBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ForkBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.LockBuilder;
@@ -124,6 +125,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.METHOD_CALL, MethodCall::new);
         put(NodeKind.FOREACH, ForeachBuilder::new);
         put(NodeKind.DATA_MAPPER, DataMapperBuilder::new);
+        put(NodeKind.FUNCTION_DEFINITION, FunctionDefinitionBuilder::new);
         put(NodeKind.VARIABLE, VariableBuilder::new);
         put(NodeKind.ASSIGN, AssignBuilder::new);
         put(NodeKind.COMMENT, CommentBuilder::new);

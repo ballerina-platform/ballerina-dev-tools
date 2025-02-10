@@ -37,8 +37,10 @@ public class ServiceModelGeneratorConstants {
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
 
-    public static final String HTTP_DEFAULT_LISTENER_REF = "default:httpListener";
-    public static final String HTTP_DEFAULT_MODULE = "http.default";
+    public static final String HTTP_DEFAULT_LISTENER_STMT = LINE_SEPARATOR +
+            "listener http:Listener %s = http:getDefaultListener();" + LINE_SEPARATOR;
+    public static final String HTTP_DEFAULT_LISTENER = "Default Listener";
+    public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";
 
     public static final String KAFKA = "kafka";
     public static final String HTTP = "http";
@@ -54,6 +56,8 @@ public class ServiceModelGeneratorConstants {
     public static final String KIND_RESOURCE = "RESOURCE";
     public static final String KIND_REMOTE = "REMOTE";
     public static final String KIND_DEFAULT = "DEFAULT";
+    public static final String KIND_REQUIRED = "REQUIRED";
+    public static final String KIND_DEFAULTABLE = "DEFAULTABLE";
 
     public static final String PARAMETER = "parameter";
     public static final String SERVICE = "service";

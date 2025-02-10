@@ -92,7 +92,7 @@
               "type": {
                 "metadata": {
                   "label": "Return Type",
-                  "description": "Return type of the function/worker"
+                  "description": "Type of the return value"
                 },
                 "valueType": "TYPE",
                 "value": "string|error",
@@ -175,7 +175,7 @@
               "type": {
                 "metadata": {
                   "label": "Return Type",
-                  "description": "Return type of the function/worker"
+                  "description": "Type of the return value"
                 },
                 "valueType": "TYPE",
                 "value": "string|error",
@@ -283,7 +283,7 @@
               "type": {
                 "metadata": {
                   "label": "Return Type",
-                  "description": "Return type of the function/worker"
+                  "description": "Type of the return value"
                 },
                 "valueType": "TYPE",
                 "value": "string|error",

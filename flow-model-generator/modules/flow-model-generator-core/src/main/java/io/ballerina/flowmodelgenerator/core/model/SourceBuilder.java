@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.ProjectException;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -101,18 +102,22 @@ public class SourceBuilder {
                 return this;
             }
         }
+
+        LinePosition linePosition;
         try {
+            // If the file exists, get the end line of the file
             workspaceManager.loadProject(filePath);
+            Document document = workspaceManager.document(resolvedPath).orElseThrow();
+            linePosition = document.syntaxTree().rootNode().lineRange().endLine();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
+        } catch (ProjectException e) {
+            // If the file does not exist, set the line range to (0,0)
+            linePosition = LinePosition.from(0, 0);
         }
-        Document document = workspaceManager.document(resolvedPath).orElseThrow();
-        SyntaxTree syntaxTree = document.syntaxTree();
-        LineRange lineRange = syntaxTree.rootNode().lineRange();
 
         // Add the current source to the end of the file
-        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange.endLine()));
-
+        textEdit(isExpression, resolvedPath, CommonUtils.toRange(linePosition));
         acceptImport(resolvedPath);
         return this;
     }
@@ -452,7 +457,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder comment() {
-        String comment = token().buildComment();
+        String comment = token().skipFormatting().build(false);
         tokenBuilder = new TokenBuilder(this);
 
         List<TextEdit> textEdits = textEditsMap.get(filePath);
@@ -471,6 +476,7 @@ public class SourceBuilder {
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {
 
+        private boolean skipFormatting;
         private static final String WHITE_SPACE = " ";
 
         private static final FormattingTreeModifier
@@ -562,15 +568,19 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder skipFormatting() {
+            this.skipFormatting = true;
+            return this;
+        }
+
         public String build(boolean isExpression) {
             String outputStr = sb.toString();
+            if (skipFormatting) {
+                return outputStr;
+            }
             Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
                     NodeParser.parseStatement(outputStr).apply(treeModifier);
             return modifiedNode.toSourceCode().strip();
-        }
-
-        public String buildComment() {
-            return sb.toString();
         }
     }
 }

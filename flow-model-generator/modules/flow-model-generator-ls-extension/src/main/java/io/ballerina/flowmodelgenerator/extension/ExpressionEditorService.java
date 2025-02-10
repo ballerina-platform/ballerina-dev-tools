@@ -20,9 +20,13 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.Debouncer;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.services.CompletionRequest;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DiagnosticsRequest;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.services.SignatureHelpRequest;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
@@ -31,29 +35,20 @@ import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatu
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
-import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorDiagnosticsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
-import io.ballerina.tools.text.LineRange;
-import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
-import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
-import org.eclipse.lsp4j.CompletionParams;
-import org.eclipse.lsp4j.Diagnostic;
-import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
-import org.eclipse.lsp4j.SignatureHelpParams;
-import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
@@ -62,11 +57,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("expressionEditor")
@@ -132,84 +123,39 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
     @JsonRequest
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                // Load the original project
-                Path filePath = Path.of(request.filePath());
-                String fileUri = CommonUtils.getExprUri(request.filePath());
-
-                // Get the document
-                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (document.isEmpty()) {
-                    return new SignatureHelp();
-                }
-                TextDocument oldTextDocument = document.get().textDocument();
-
-                // Generate signature help using context
-                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
-                        request.context(), filePath, document.get());
-                context.generateStatement();
-
-                // Generate the signature help params
-                Position position = context.getCursorPosition();
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
-                SignatureHelpParams params =
-                        new SignatureHelpParams(identifier, position, request.signatureHelpContext());
-
-                // Get signature help from language server
-                CompletableFuture<SignatureHelp> completableFuture =
-                        langServer.getTextDocumentService().signatureHelp(params);
-                SignatureHelp signatureHelp = completableFuture.join();
-
-                // Restore original content
-                context.applyContent(oldTextDocument);
-
-                return signatureHelp;
-            } catch (Throwable e) {
-                return new SignatureHelp();
-            }
-        });
+        String fileUri = CommonUtils.getExprUri(request.filePath());
+        return Debouncer.getInstance().debounce(new SignatureHelpRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                request.signatureHelpContext(),
+                langServer.getTextDocumentService()));
     }
 
     @JsonRequest
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(
             ExpressionEditorCompletionRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                // Load the original project
-                Path filePath = Path.of(request.filePath());
-                String fileUri = CommonUtils.getExprUri(request.filePath());
+        String fileUri = CommonUtils.getExprUri(request.filePath());
+        return Debouncer.getInstance().debounce(new CompletionRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                request.completionContext(),
+                langServer.getTextDocumentService()));
+    }
 
-                // Get the document
-                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (document.isEmpty()) {
-                    return Either.forLeft(List.of());
-                }
-                TextDocument oldTextDocument = document.get().textDocument();
-
-                // Generate completions using context
-                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
-                        request.context(), filePath, document.get());
-                context.generateStatement();
-
-                // Generate the completion params
-                Position position = context.getCursorPosition();
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
-                CompletionParams params = new CompletionParams(identifier, position, request.completionContext());
-
-                // Get completions from language server
-                CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
-                        langServer.getTextDocumentService().completion(params);
-                Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
-
-                // Restore original content
-                context.applyContent(oldTextDocument);
-
-                return completions;
-            } catch (Throwable e) {
-                return Either.forLeft(List.of());
-            }
-        });
+    @JsonRequest
+    public CompletableFuture<DiagnosticsRequest.Diagnostics> diagnostics(
+            ExpressionEditorDiagnosticsRequest request) {
+        String fileUri = CommonUtils.getExprUri(request.filePath());
+        return Debouncer.getInstance().debounce(new DiagnosticsRequest(
+                workspaceManagerProxy.get(fileUri),
+                Path.of(request.filePath()),
+                request.context(),
+                fileUri,
+                workspaceManagerProxy));
     }
 
     @JsonRequest
@@ -277,49 +223,6 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             } catch (Exception e) {
                 response.setError(e);
                 response.setSuccess(false);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
-    public CompletableFuture<ExpressionEditorDiagnosticsResponse> diagnostics(
-            ExpressionEditorDiagnosticsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            ExpressionEditorDiagnosticsResponse response = new ExpressionEditorDiagnosticsResponse();
-            try {
-                // Load the original project
-                Path filePath = Path.of(request.filePath());
-                String fileUri = CommonUtils.getExprUri(request.filePath());
-
-                // Get the document
-                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-                TextDocument oldTextDocument = document.get().textDocument();
-
-                // Generate the diagnostics
-                ExpressionEditorContext context = new ExpressionEditorContext(workspaceManagerProxy.get(fileUri),
-                        request.context(), filePath, document.get());
-                LineRange lineRange = context.generateStatement();
-
-                // TODO: Use the module once the issue is resolved: #446
-                Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
-                    return response;
-                }
-                Set<Diagnostic> diagnostics = Stream.concat(semanticModel.get().diagnostics().stream(),
-                                StreamSupport.stream(context.syntaxDiagnostics().spliterator(), false))
-                        .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
-                                lineRange))
-                        .map(CommonUtils::transformBallerinaDiagnostic)
-                        .collect(Collectors.toSet());
-
-                context.applyContent(oldTextDocument);
-                response.setDiagnostics(diagnostics);
-            } catch (Throwable e) {
-                response.setError(e);
             }
             return response;
         });

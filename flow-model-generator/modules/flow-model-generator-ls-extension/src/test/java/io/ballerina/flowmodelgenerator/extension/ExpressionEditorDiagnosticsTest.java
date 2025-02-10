@@ -20,13 +20,14 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -37,6 +38,8 @@ import java.util.List;
  * @since 1.4.0
  */
 public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
+
+    private static final Type diagnosticsType = new TypeToken<List<Diagnostic>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -50,15 +53,54 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
                 new ExpressionEditorDiagnosticsRequest(sourcePath, testConfig.context());
         JsonObject response = getResponse(request);
         List<Diagnostic> actualDiagnostics = gson.fromJson(response.get("diagnostics").getAsJsonArray(),
-                new TypeToken<List<Diagnostic>>() { }.getType());
+                diagnosticsType);
         notifyDidClose(sourcePath);
 
         if (!assertArray("diagnostics", actualDiagnostics, testConfig.diagnostics())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.context(), actualDiagnostics);
-//            updateConfig(configJsonPath, updatedConfig);
+            // updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @Test
+    public void testMultipleRequests() throws IOException, InterruptedException {
+        // Load the template test config
+        Path configJsonPath = configDir.resolve("variable1.json");
+        TestConfig templateTestConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        ExpressionEditorContext.Info templateContext = templateTestConfig.context();
+        String sourcePath = getSourcePath(templateTestConfig.filePath());
+        String method = getServiceName() + "/" + getApiName();
+        notifyDidOpen(sourcePath);
+
+        // Fire multiple requests to gradually build the expression "fn({id: 0})"
+        String[] expressionSteps = {
+                "f",
+                "fn",
+                "fn(",
+                "fn({",
+                "fn({id:",
+                "fn({id: 0",
+        };
+        for (int i = 0; i < expressionSteps.length - 1; i++) {
+            ExpressionEditorContext.Info context = new ExpressionEditorContext.Info(expressionSteps[i],
+                    templateContext.startLine(), templateContext.offset(), templateContext.node(),
+                    templateContext.branch(), templateContext.property());
+            ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
+            serviceEndpoint.request(method, req);
+            Thread.sleep(400);
+        }
+
+        // In the final complete expression, assert that no diagnostics are returned
+        ExpressionEditorContext.Info context =
+                new ExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(), templateContext.offset(),
+                        templateContext.node(), templateContext.branch(), templateContext.property());
+        ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
+        JsonObject resp = getResponse(req);
+        List<Diagnostic> diagnostics = gson.fromJson(resp.get("diagnostics").getAsJsonArray(), diagnosticsType);
+        notifyDidClose(sourcePath);
+        Assert.assertTrue(diagnostics.isEmpty(), "Expected no diagnostics for complete expression");
     }
 
     @Override

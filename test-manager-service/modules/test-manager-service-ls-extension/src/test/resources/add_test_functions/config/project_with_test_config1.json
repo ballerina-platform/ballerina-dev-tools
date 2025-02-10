@@ -1,0 +1,148 @@
+{
+  "filePath": "sample1/tests/test1.bal",
+  "description": "Test to add test function to a file",
+  "function": {
+    "metadata": {
+      "label": "Test Function",
+      "description": "Test Function"
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "tests/test1.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 6,
+          "offset": 1
+        }
+      }
+    },
+    "functionName": {
+      "metadata": {
+        "label": "Test Function",
+        "description": "Test function"
+      },
+      "valueType": "IDENTIFIER",
+      "value": "testFunction1",
+      "optional": false,
+      "editable": true,
+      "advanced": false
+    },
+    "returnType": {
+      "metadata": {
+        "label": "Return Type",
+        "description": "Return type of the function"
+      },
+      "valueType": "TYPE",
+      "optional": true,
+      "editable": true,
+      "advanced": true
+    },
+    "parameters": [
+      {
+        "type": {
+          "valueType": "TYPE",
+          "value": "string",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "variable": {
+          "valueType": "IDENTIFIER",
+          "value": "a",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      {
+        "type": {
+          "valueType": "TYPE",
+          "value": "string",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "variable": {
+          "valueType": "IDENTIFIER",
+          "value": "b",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "defaultValue": {
+          "valueType": "EXPRESSION",
+          "value": "\"default\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    ],
+    "annotations": [
+      {
+        "metadata": {
+          "label": "Config",
+          "description": "Test Function Configurations"
+        },
+        "org": "ballerina",
+        "module": "test",
+        "name": "Config",
+        "fields": [
+          {
+            "metadata": {
+              "label": "Groups",
+              "description": "Groups to run"
+            },
+            "valueType": "EXPRESSION_SET",
+            "originalName": "groups",
+            "value": [
+              "\"g1\""
+            ],
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          {
+            "metadata": {
+              "label": "Enabled",
+              "description": "Enable/Disable the test"
+            },
+            "valueType": "EXPRESSION",
+            "originalName": "enabled",
+            "value": true,
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        ]
+      }
+    ],
+    "editable": true
+  },
+  "output": {
+    "sample1/tests/test1.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 1
+          },
+          "end": {
+            "line": 16,
+            "character": 1
+          }
+        },
+        "newText": "@test:Config{\ngroups: [\"g1\"]\n}\nfunction testFunction1(string a, string b = \"default\") {\n\tdo {\n\t} on fail error err {\n\t}\n}"
+      }
+    ]
+  }
+}

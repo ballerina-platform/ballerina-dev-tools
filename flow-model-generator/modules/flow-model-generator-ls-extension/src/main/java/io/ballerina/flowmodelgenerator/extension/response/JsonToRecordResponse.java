@@ -27,16 +27,7 @@ import com.google.gson.JsonElement;
  */
 public class JsonToRecordResponse extends AbstractFlowModelResponse {
 
-    private String codeBlock;
     private JsonElement types;
-
-    public String getCodeBlock() {
-        return codeBlock;
-    }
-
-    public void setCodeBlock(String codeBlock) {
-        this.codeBlock = codeBlock;
-    }
 
     public JsonElement getTypes() {
         return types;

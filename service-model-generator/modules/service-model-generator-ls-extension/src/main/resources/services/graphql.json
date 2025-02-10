@@ -42,7 +42,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "",
+      "value": "/graphql",
       "valueType": "EXPRESSION",
       "valueTypeConstraint": "string",
       "isType": false,

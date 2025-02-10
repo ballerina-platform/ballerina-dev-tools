@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Test cases for the flow model generator service.
+ * Test cases for the record conversion from json.
  *
  * @since 2.0.0
  */
