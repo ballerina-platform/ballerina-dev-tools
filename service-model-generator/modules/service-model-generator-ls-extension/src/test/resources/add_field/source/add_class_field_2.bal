@@ -1,0 +1,2 @@
+public service class Book {
+}

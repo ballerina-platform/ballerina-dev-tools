@@ -59,6 +59,7 @@ import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerBasicInfo;
 import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.servicemodelgenerator.extension.request.AddFieldRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ClassFieldModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
@@ -977,6 +978,53 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     LineRange nameRange = classDefinitionNode.className().lineRange();
                     edits.add(new TextEdit(Utils.toRange(nameRange), className.getValue()));
                 }
+                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+            } catch (Throwable e) {
+                return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+
+    /**
+     * Get the list of text edits to add a function skeleton to the given service.
+     *
+     * @param request Function source request
+     * @return {@link CommonSourceResponse} of the common source response
+     */
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> addField(AddFieldRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<TextEdit> edits = new ArrayList<>();
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return new CommonSourceResponse();
+                }
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                TextDocument textDocument = syntaxTree.textDocument();
+                LineRange lineRange = request.codedata().getLineRange();
+                int start = textDocument.textPositionFrom(lineRange.startLine());
+                int end = textDocument.textPositionFrom(lineRange.endLine());
+                NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
+                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        node.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
+                    return new CommonSourceResponse();
+                }
+                LineRange functionLineRange;
+                if (node instanceof ServiceDeclarationNode serviceDeclarationNode) {
+                    functionLineRange = serviceDeclarationNode.openBraceToken().lineRange();
+                } else {
+                    ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                    functionLineRange = classDefinitionNode.openBrace().lineRange();
+                }
+
+                String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
+                        + ServiceClassUtil.buildObjectFiledString(request.field());
+                edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
