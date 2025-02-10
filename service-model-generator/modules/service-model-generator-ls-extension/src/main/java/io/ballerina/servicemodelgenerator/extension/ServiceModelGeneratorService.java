@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.ObjectFieldSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -106,6 +107,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -1042,9 +1044,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<CommonSourceResponse> updateClassField(ClassFieldModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                List<TextEdit> edits = new ArrayList<>();
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
@@ -1056,13 +1057,22 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (!(node instanceof ObjectFieldNode)) {
+                SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
+                Optional<Symbol> symbol = semanticModel.symbol(node);
+                if (!(node instanceof ObjectFieldNode) || symbol.isEmpty()
+                        || !(symbol.get() instanceof ObjectFieldSymbol objectFieldSymbol)) {
                     return new CommonSourceResponse();
                 }
-                TextEdit fieldEdit = new TextEdit(Utils.toRange(lineRange),
-                        ServiceClassUtil.buildObjectFiledString(request.field()));
-                edits.add(fieldEdit);
-                return new CommonSourceResponse(Map.of(request.filePath(), edits));
+                List<TextEdit> edits = new ArrayList<>();
+                edits.add(new TextEdit(Utils.toRange(lineRange),
+                        ServiceClassUtil.buildObjectFiledString(request.field())));
+                Map<String, List<TextEdit>> editMap = new HashMap<>();
+                editMap.put(request.filePath(), edits);
+                if (!objectFieldSymbol.signature().trim().equals(request.field().getName().getValue().trim())) {
+                    Utils.updateRenameEdits(semanticModel, objectFieldSymbol, editMap,
+                            request.field().getName().getValue().trim(), project.kind(), project.sourceRoot());
+                }
+                return new CommonSourceResponse(editMap);
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
             }

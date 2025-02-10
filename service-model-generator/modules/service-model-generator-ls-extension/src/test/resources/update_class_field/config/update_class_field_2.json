@@ -1,19 +1,19 @@
 {
-  "filePath": "update_service_class.bal",
+  "filePath": "sample1/update_service_class.bal",
   "description": "Update the name of the service class",
   "field": {
     "isPrivate": true,
-    "isFinal": true,
+    "isFinal": false,
     "codedata": {
       "lineRange": {
         "fileName": "main.bal",
         "startLine": {
-          "line": 2,
+          "line": 3,
           "offset": 4
         },
         "endLine": {
-          "line": 2,
-          "offset": 30
+          "line": 3,
+          "offset": 34
         }
       },
       "inListenerInit": false,
@@ -27,7 +27,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "int",
+      "value": "Author[]",
       "valueType": "TYPE",
       "isType": true,
       "optional": false,
@@ -41,7 +41,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "intValue",
+      "value": "authorList",
       "valueType": "IDENTIFIER",
       "isType": false,
       "optional": false,
@@ -53,8 +53,10 @@
         "label": "Default Value",
         "description": "The default value of the parameter"
       },
-      "enabled": false,
+      "enabled": true,
       "editable": true,
+      "value": "[]",
+      "valueType": "EXPRESSION",
       "isType": false,
       "optional": false,
       "advanced": false,
@@ -66,32 +68,45 @@
     "advanced": false
   },
   "output": {
-    "update_service_class.bal": [
+    "sample1/update_service_class.bal": [
       {
         "range": {
           "start": {
-            "line": 2,
+            "line": 3,
             "character": 4
           },
           "end": {
-            "line": 2,
-            "character": 30
+            "line": 3,
+            "character": 34
           }
         },
-        "newText": "private final int intValue;"
+        "newText": "private Author[] authorList = [];"
       },
       {
         "range": {
           "start": {
-            "line": 8,
+            "line": 16,
+            "character": 57
+          },
+          "end": {
+            "line": 16,
+            "character": 64
+          }
+        },
+        "newText": "authorList"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 32,
             "character": 17
           },
           "end": {
-            "line": 8,
-            "character": 21
+            "line": 32,
+            "character": 24
           }
         },
-        "newText": "intValue"
+        "newText": "authorList"
       }
     ]
   }

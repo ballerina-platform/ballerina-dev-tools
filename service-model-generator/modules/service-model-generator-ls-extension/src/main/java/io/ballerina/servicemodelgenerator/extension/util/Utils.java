@@ -60,6 +60,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.projects.ProjectKind;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
@@ -73,16 +74,19 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1290,5 +1294,30 @@ public final class Utils {
             return ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF.equals(value.getValue().trim());
         }
         return value.getValues().contains(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_REF);
+    }
+
+    public static void updateRenameEdits(SemanticModel semanticModel, Symbol symbol,
+                                         Map<String, List<TextEdit>> edits, String newName,
+                                         ProjectKind kind, Path sourceRoot) {
+        List<Location> references = semanticModel.references(symbol);
+        LineRange originalLocation = Objects.requireNonNull(symbol.getLocation().orElse(null)).lineRange();
+        for (Location location : references) {
+            if (location.lineRange().equals(originalLocation)) {
+                continue;
+            }
+            String filePath;
+            if (kind == ProjectKind.SINGLE_FILE_PROJECT) {
+                filePath = sourceRoot.toString();
+            } else {
+                filePath = sourceRoot.resolve(location.lineRange().fileName()).toString();
+            }
+            if (edits.containsKey(filePath)) {
+                edits.get(filePath).add(new TextEdit(Utils.toRange(location.lineRange()), newName));
+            } else {
+                List<TextEdit> textEdits = new ArrayList<>();
+                textEdits.add(new TextEdit(Utils.toRange(location.lineRange()), newName));
+                edits.put(filePath, textEdits);
+            }
+        }
     }
 }
