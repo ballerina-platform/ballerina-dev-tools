@@ -87,7 +87,7 @@
             "character": 0
           }
         },
-        "newText": "type PersonIntersection int & Person;\n"
+        "newText": "type PersonIntersection int & Person;"
       }
     ]
   }

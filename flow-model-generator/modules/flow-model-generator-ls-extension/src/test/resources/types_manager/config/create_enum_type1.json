@@ -1,6 +1,6 @@
 {
   "filePath": "test_pack1/types.bal",
-  "description": "Create a new union type",
+  "description": "Create a new enum type",
   "type": {
     "name": "Gender",
     "editable": true,

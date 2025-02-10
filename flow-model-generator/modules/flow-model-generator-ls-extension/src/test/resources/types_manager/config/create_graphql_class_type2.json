@@ -65,7 +65,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice class Person {\n\tfunction init() {\n\t}\n}\n"
+        "newText": "service class Person {\n\tfunction init() {\n\t}\n}"
       }
     ]
   }
