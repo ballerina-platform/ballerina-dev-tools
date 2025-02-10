@@ -684,12 +684,21 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);
-                if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
+                if (!(node.kind().equals(SyntaxKind.SERVICE_DECLARATION) ||
+                        node.kind().equals(SyntaxKind.CLASS_DEFINITION))) {
                     return new CommonSourceResponse();
                 }
-                ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-                LineRange functionLineRange = serviceNode.openBraceToken().lineRange();
-                NodeList<Node> members = serviceNode.members();
+                LineRange functionLineRange;
+                NodeList<Node> members;
+                if (node instanceof ServiceDeclarationNode serviceDeclarationNode) {
+                    functionLineRange = serviceDeclarationNode.openBraceToken().lineRange();
+                    members = serviceDeclarationNode.members();
+                } else {
+                    ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
+                    functionLineRange = classDefinitionNode.openBrace().lineRange();
+                    members = classDefinitionNode.members();
+                }
+
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }

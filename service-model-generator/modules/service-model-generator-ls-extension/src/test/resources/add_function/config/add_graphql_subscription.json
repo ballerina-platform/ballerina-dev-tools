@@ -21,6 +21,10 @@
     "qualifiers": [],
     "kind": "SUBSCRIPTION",
     "accessor": {
+      "metadata": {
+        "label": "",
+        "description": ""
+      },
       "enabled": true,
       "editable": true,
       "value": "subscribe",
@@ -31,6 +35,10 @@
       "addNewButton": false
     },
     "name": {
+      "metadata": {
+        "label": "",
+        "description": ""
+      },
       "enabled": true,
       "editable": true,
       "value": "names",
@@ -42,6 +50,10 @@
     },
     "parameters": [],
     "returnType": {
+      "metadata": {
+        "label": "Return Type",
+        "description": "The return type of the function"
+      },
       "enabled": true,
       "editable": false,
       "value": "stream<string, error?>",
