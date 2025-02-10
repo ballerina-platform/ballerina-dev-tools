@@ -83,7 +83,7 @@ public class ServiceModelAPITests {
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
         Assert.assertEquals(response.listeners().size(), 1);
-        Assert.assertTrue(response.listeners().contains("Create and use http default listener"));
+        Assert.assertTrue(response.listeners().contains("Default Listener"));
     }
 
     @Test(enabled = false)
