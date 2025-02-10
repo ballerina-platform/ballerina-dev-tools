@@ -130,7 +130,7 @@
             "character": 0
           }
         },
-        "newText": "type AddressTable table<Address> key<string|int>;\n"
+        "newText": "type AddressTable table<Address> key<string|int>;"
       }
     ]
   }

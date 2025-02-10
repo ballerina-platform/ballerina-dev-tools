@@ -87,7 +87,7 @@
             "character": 0
           }
         },
-        "newText": "type PersonWithId [Person, int];\n"
+        "newText": "type PersonWithId [Person, int];"
       }
     ]
   }

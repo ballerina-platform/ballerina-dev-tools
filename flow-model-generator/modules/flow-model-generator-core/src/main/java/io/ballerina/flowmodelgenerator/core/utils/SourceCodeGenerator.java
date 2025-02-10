@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.TypeData;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 /**
  * Code snippet generator.
@@ -34,6 +35,8 @@ import java.util.Optional;
  */
 public class SourceCodeGenerator {
     private final Gson gson = new Gson();
+
+    private static final String LS = System.lineSeparator();
 
     public String generateCodeSnippetForType(TypeData typeData) {
         NodeKind nodeKind = typeData.codedata().node();
@@ -50,129 +53,123 @@ public class SourceCodeGenerator {
             return "";
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\nservice class ")
-                .append(typeData.name())
-                .append(" {");
-
-        // Add inferred fields from functions
+        // Build inferred fields (from functions)
+        StringBuilder inferredFields = new StringBuilder();
         for (Function function : typeData.functions()) {
-            generateInferredGraphqlClassField(function, stringBuilder);
+            generateInferredGraphqlClassField(function, inferredFields);
         }
 
-        // init functions
-        stringBuilder.append("\n\t").append("function init(");
-        if (!typeData.functions().isEmpty()) {
-            for (int i = 0; i < typeData.functions().size(); i++) {
-                Function function = typeData.functions().get(i);
-                generateTypeDescriptor(function.returnType(), stringBuilder);
-                stringBuilder.append(" ").append(function.name());
-                if (i < typeData.functions().size() - 1) {
-                    stringBuilder.append(", ");
-                }
+        // Build the "init" function parameters and body.
+        // Infer the parameters and body from the functions.
+        StringBuilder initParams = new StringBuilder();
+        StringBuilder initBody = new StringBuilder();
+        for (int i = 0; i < typeData.functions().size(); i++) {
+            Function function = typeData.functions().get(i);
+            // Append the return type and function name as a parameter.
+            generateTypeDescriptor(function.returnType(), initParams);
+            initParams.append(" ").append(function.name());
+            if (i < typeData.functions().size() - 1) {
+                initParams.append(", ");
             }
+            // Build the init function body: "self.<function-name> = <function-name>;"
+            initBody.append(LS).append("\t\tself.")
+                    .append(function.name())
+                    .append(" = ")
+                    .append(function.name())
+                    .append(";");
         }
 
-        stringBuilder.append(") {");
-        if (!typeData.functions().isEmpty()) {
-            for (Function function : typeData.functions()) {
-                stringBuilder.append("\n\t\tself.")
-                        .append(function.name())
-                        .append(" = ")
-                        .append(function.name()).append(";");
-            }
-        }
-        stringBuilder.append("\n\t}");
-
-        // Add resource functions
+        // Build resource functions.
+        StringBuilder resourceFunctions = new StringBuilder();
         for (Function function : typeData.functions()) {
             if (function.description() != null && !function.description().isEmpty()) {
-                stringBuilder
-                        .append("\n\t")
+                resourceFunctions.append(LS).append("\t")
                         .append(CommonUtils.convertToBalDocs(function.description()));
             } else {
-                stringBuilder.append("\n");
+                resourceFunctions.append(LS);
             }
-            stringBuilder.append("\t")
-                    .append("resource function ")
+            resourceFunctions.append("\tresource function ")
                     .append(function.accessor())
                     .append(" ")
                     .append(function.name())
                     .append("(");
 
-            // Function params
-            for (Member param: function.parameters()) {
-                generateTypeDescriptor(param.type(), stringBuilder);
-                stringBuilder.append(" ").append(param.name());
+            // Build the parameters for the resource function.
+            for (int i = 0; i < function.parameters().size(); i++) {
+                Member param = function.parameters().get(i);
+                generateTypeDescriptor(param.type(), resourceFunctions);
+                resourceFunctions.append(" ").append(param.name());
                 if (param.defaultValue() != null && !param.defaultValue().isEmpty()) {
-                    stringBuilder.append(" = ").append(param.defaultValue());
+                    resourceFunctions.append(" = ").append(param.defaultValue());
                 }
-                if (function.parameters().indexOf(param) < function.parameters().size() - 1) {
-                    stringBuilder.append(", ");
+                if (i < function.parameters().size() - 1) {
+                    resourceFunctions.append(", ");
                 }
             }
-
-            stringBuilder.append(") returns ");
-            generateTypeDescriptor(function.returnType(), stringBuilder);
-            stringBuilder.append(" {");
-
-            // Function body: "return self.<function-name>;"
-            stringBuilder.append("\n\t\treturn self.").append(function.name()).append(";");
-
-            stringBuilder.append("\n\t}");
+            resourceFunctions.append(") returns ");
+            generateTypeDescriptor(function.returnType(), resourceFunctions);
+            resourceFunctions.append(" {")
+                    .append(LS)
+                    .append("\t\treturn self.")
+                    .append(function.name())
+                    .append(";")
+                    .append(LS)
+                    .append("\t}");
         }
 
-        return stringBuilder.append("\n}\n").toString();
+        String template = "service class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
+
+        return template.formatted(
+                typeData.name(),
+                inferredFields.toString(),
+                initParams.toString(),
+                initBody.toString(),
+                resourceFunctions.toString()
+        );
     }
 
-    private String generateEnumCodeSnippet(TypeData typeData) {
-        StringBuilder stringBuilder = new StringBuilder();
 
-        // Add documentation if present
+    private String generateEnumCodeSnippet(TypeData typeData) {
+        String docs = "";
         if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            stringBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
+            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
         }
 
-        // Add enum names
-        stringBuilder.append("enum ")
-                .append(typeData.name())
-                .append(" {");
-
-        // Add enum values
+        // Build the enum values.
+        StringBuilder enumValues = new StringBuilder();
         for (int i = 0; i < typeData.members().size(); i++) {
             Member member = typeData.members().get(i);
-            stringBuilder.append("\n\t")
-                    .append(member.name())
-                    .append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
-                            " = " + member.defaultValue() : "");
+            enumValues.append(LS).append("\t").append(member.name());
+            if (member.defaultValue() != null && !member.defaultValue().isEmpty()) {
+                enumValues.append(" = ").append(member.defaultValue());
+            }
             if (i < typeData.members().size() - 1) {
-                stringBuilder.append(",");
+                enumValues.append(",");
             }
         }
 
-        return stringBuilder.append("\n}\n").toString();
+        String template = "%senum %s {%s%n}%n";
+
+        return template.formatted(docs, typeData.name(), enumValues.toString());
     }
 
     private String generateTypeDefCodeSnippet(TypeData typeData) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        // Add documentation if present
+        String docs = "";
         if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            stringBuilder.append(CommonUtils.convertToBalDocs(typeData.metadata().description()));
+            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
         }
 
-        // Add type name
-        stringBuilder.append("type ")
-                .append(typeData.name())
-                .append(" ");
+        // Generate the type descriptor into a StringBuilder.
+        StringBuilder typeDescriptorBuilder = new StringBuilder();
+        generateTypeDescriptor(typeData, typeDescriptorBuilder);
 
-        generateTypeDescriptor(typeData, stringBuilder);
+        String template = "%stype %s %s;";
 
-        return stringBuilder.append(";\n").toString();
+        return template.formatted(docs, typeData.name(), typeDescriptorBuilder.toString());
     }
 
     private void generateTypeDescriptor(Object typeDescriptor, StringBuilder stringBuilder) {
-        if (typeDescriptor instanceof String) { // Type reference
+        if (typeDescriptor instanceof String) { // Type reference or in-line type as string
             stringBuilder.append((String) typeDescriptor);
             return;
         }
@@ -203,72 +200,108 @@ public class SourceCodeGenerator {
     }
 
     private void generateObjectTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
-        stringBuilder.append("object {");
-
-        // Add fields
+        StringBuilder fieldsBuilder = new StringBuilder();
         for (Member member : typeData.members()) {
-            generateMember(member, stringBuilder, false);
+            generateMember(member, fieldsBuilder, false);
         }
 
-        // TODO: Add functions
-        stringBuilder.append("\n}");
+        // TODO: Generate functions if needed.
+
+        String objectTemplate = "object {%s%n}";
+
+        stringBuilder.append(objectTemplate.formatted(fieldsBuilder.toString()));
     }
+
 
     private void generateRecordTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
-        // Assumption: a record is always a closed records
-        stringBuilder.append("record {|");
+        // Build the inclusions.
+        StringBuilder inclusionsBuilder = new StringBuilder();
+        typeData.includes().forEach(include -> inclusionsBuilder
+                .append(LS)
+                .append("\t*")
+                .append(include)
+                .append(";"));
 
-        // Add inclusions
-        typeData.includes().forEach(include -> stringBuilder.append("\n\t*").append(include).append(";"));
-
-        // Add fields
+        // Build the fields.
+        StringBuilder fieldsBuilder = new StringBuilder();
         for (Member member : typeData.members()) {
-            generateMember(member, stringBuilder, true);
+            generateMember(member, fieldsBuilder, true);
         }
 
-        // Add rest field
+        // Build the rest field (if present).
+        StringBuilder restBuilder = new StringBuilder();
         Optional.ofNullable(typeData.restMember()).ifPresent(restMember -> {
-            stringBuilder.append("\n\t");
-            generateTypeDescriptor(restMember.type(), stringBuilder);
-            stringBuilder.append(" ...;");
+            restBuilder.append(LS).append("\t");
+            generateTypeDescriptor(restMember.type(), restBuilder);
+            restBuilder.append(" ...;");
         });
-        stringBuilder.append("\n|}");
+
+        // The template assumes that the dynamic parts already include their needed newlines and indentation.
+        String recordTemplate = "record {|%s%s%s%n|}";
+
+        stringBuilder.append(recordTemplate.formatted(
+                inclusionsBuilder.toString(),
+                fieldsBuilder.toString(),
+                restBuilder.toString()
+        ));
     }
+
 
     private void generateMember(Member member, StringBuilder stringBuilder, boolean withDefaultValue) {
-        if (member.docs() != null && !member.docs().isEmpty()) {
-            stringBuilder
-                    .append("\n\t")
-                    .append(CommonUtils.convertToBalDocs(member.docs()));
-        } else {
-            stringBuilder.append("\n");
-        }
-        stringBuilder.append("\t");
-        generateTypeDescriptor(member.type(), stringBuilder);
-        stringBuilder.append(" ").append(member.name());
+        // The documentation string.
+        String docs = (member.docs() != null && !member.docs().isEmpty())
+                ? LS + "\t" + CommonUtils.convertToBalDocs(member.docs())
+                : LS;
 
-        if (withDefaultValue) {
-            stringBuilder.append((member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
-                    " = " + member.defaultValue() : "");
+        // The default value string (if exist).
+        String defaultValue = "";
+        if (withDefaultValue && member.defaultValue() != null && !member.defaultValue().isEmpty()) {
+            defaultValue = " = " + member.defaultValue();
         }
-        stringBuilder.append(";");
+
+        // Generate the type descriptor using a temporary StringBuilder.
+        StringBuilder typeDescriptorBuilder = new StringBuilder();
+        generateTypeDescriptor(member.type(), typeDescriptorBuilder);
+        String typeDescriptor = typeDescriptorBuilder.toString();
+
+        // The member template:
+        // %s -> documentation (including leading newline and indent)
+        // \t -> fixed indent for the member declaration
+        // %s -> type descriptor
+        // %s -> member name
+        // %s -> default value (if any)
+        // ; -> terminator
+        String memberTemplate = "%s\t%s %s%s;";
+
+        // Append the formatted member to the main string builder.
+        stringBuilder.append(memberTemplate.formatted(docs, typeDescriptor, member.name(), defaultValue));
     }
+
 
     private void generateTableTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
-        if (!typeData.members().isEmpty()) {
-            stringBuilder.append("table<");
-            generateTypeDescriptor(typeData.members().getFirst().type(), stringBuilder);
-            stringBuilder.append(">");
-
-            if (typeData.members().size() > 1) {
-                stringBuilder.append(" key<");
-                generateTypeDescriptor(typeData.members().get(1).type(), stringBuilder);
-                stringBuilder.append(">");
-            }
-
-            // TODO: key specifier is not yet supported
+        if (typeData.members().isEmpty()) {
+            return;
         }
+
+        // Build the base table type descriptor.
+        StringBuilder baseTypeBuilder = new StringBuilder();
+        generateTypeDescriptor(typeData.members().getFirst().type(), baseTypeBuilder);
+        String baseType = baseTypeBuilder.toString();
+
+        // Build the key type constraint if available.
+        String keyInformation = "";
+        if (typeData.members().size() > 1) {
+            StringBuilder keyTypeBuilder = new StringBuilder();
+            generateTypeDescriptor(typeData.members().get(1).type(), keyTypeBuilder);
+            keyInformation = " key<" + keyTypeBuilder + ">";
+        }
+
+        // TODO: key specifier is not yet supported
+
+        String template = "table<%s>%s";
+        stringBuilder.append(template.formatted(baseType, keyInformation));
     }
+
 
     private void generateIntersectionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         if (typeData.members().size() <= 1) {
@@ -294,20 +327,24 @@ public class SourceCodeGenerator {
     }
 
     private void generateTupleTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
-        stringBuilder.append("[");
-        if (typeData.members().size() <= 1) {
-            stringBuilder.append("]");
+        // If there are no members, output an empty tuple.
+        if (typeData.members().isEmpty()) {
+            stringBuilder.append("[]");
             return;
         }
-        for (int i = 0; i < typeData.members().size(); i++) {
-            Member member = typeData.members().get(i);
-            generateTypeDescriptor(member.type(), stringBuilder);
-            if (i < typeData.members().size() - 1) {
-                stringBuilder.append(", ");
-            }
+
+        // Build the dynamic list of tuple elements.
+        StringJoiner joiner = new StringJoiner(", ");
+        for (Member member : typeData.members()) {
+            StringBuilder memberDescriptor = new StringBuilder();
+            generateTypeDescriptor(member.type(), memberDescriptor);
+            joiner.add(memberDescriptor.toString());
         }
-        stringBuilder.append("]");
+
+        String template = "[%s]";
+        stringBuilder.append(template.formatted(joiner.toString()));
     }
+
 
     private void generateUnionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         if (typeData.members().size() <= 1) {
@@ -380,7 +417,7 @@ public class SourceCodeGenerator {
     }
 
     private void generateInferredGraphqlClassField(Function function, StringBuilder stringBuilder) {
-        stringBuilder.append("\n\t").append("private final ");
+        stringBuilder.append(LS).append("\tprivate final ");
         generateTypeDescriptor(function.returnType(), stringBuilder);
         stringBuilder.append(" ").append(function.name());
         stringBuilder.append(";");
