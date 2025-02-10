@@ -79,19 +79,6 @@
           }
         },
         "newText": "private final int intValue;"
-      },
-      {
-        "range": {
-          "start": {
-            "line": 8,
-            "character": 17
-          },
-          "end": {
-            "line": 8,
-            "character": 21
-          }
-        },
-        "newText": "intValue"
       }
     ]
   }
