@@ -1,8 +1,8 @@
 {
   "participants": [
     {
-      "id": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
-      "name": "greeting/test/[string title]",
+      "id": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
+      "name": "greeting/test/[stringtitle]",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
       "hasInteractions": true,
@@ -13,7 +13,7 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -35,7 +35,7 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -57,7 +57,7 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -79,7 +79,7 @@
             "actionPath": "/users/test1/test2",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -101,7 +101,7 @@
             "actionPath": "/users/[name]",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -123,7 +123,7 @@
             "actionPath": "/",
             "methodName": "post",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -145,7 +145,7 @@
             "actionPath": "/",
             "methodName": "put",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[stringtitle]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
@@ -203,11 +203,11 @@
       "location": {
         "fileName": "http_client_endpoint.bal",
         "startLine": {
-          "line": 30,
+          "line": 31,
           "offset": 29
         },
         "endLine": {
-          "line": 30,
+          "line": 31,
           "offset": 35
         }
       }
