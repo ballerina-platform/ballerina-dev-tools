@@ -20,7 +20,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "",
+        "value": "function1",
         "optional": false,
         "editable": true,
         "advanced": false
