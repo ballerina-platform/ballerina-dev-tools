@@ -669,15 +669,19 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> functionName(String functionName, boolean editable) {
+        return functionName(functionName, editable, FunctionDefinitionBuilder.FUNCTION_NAME_LABEL,
+                FunctionDefinitionBuilder.FUNCTION_NAME_DOC);
+    }
+
+    public FormBuilder<T> functionName(String functionName, boolean editable, String label, String description) {
         propertyBuilder
                 .metadata()
-                    .label(FunctionDefinitionBuilder.FUNCTION_NAME_LABEL)
-                    .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
+                    .label(label)
+                    .description(description)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
                 .value(functionName == null ? "" : functionName)
                 .editable(editable);
-
         addProperty(Property.FUNCTION_NAME_KEY);
         return this;
     }

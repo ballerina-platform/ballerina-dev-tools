@@ -36,6 +36,7 @@ import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapperDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.tools.text.LineRange;
 
@@ -74,6 +75,75 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
+        if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
+            buildDataMapperDefinition(functionDefinitionNode);
+        } else {
+            buildFunctionDefinition(functionDefinitionNode);
+        }
+    }
+
+    private void buildDataMapperDefinition(FunctionDefinitionNode functionDefinitionNode) {
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.DATA_MAPPER_DEFINITION)
+                .defaultModuleName(this.moduleInfo);
+
+        LineRange functionKeywordLineRange = functionDefinitionNode.functionKeyword().lineRange();
+        nodeBuilder.codedata().lineRange(LineRange.from(
+                functionKeywordLineRange.fileName(),
+                functionKeywordLineRange.startLine(),
+                functionDefinitionNode.functionBody().lineRange().startLine())
+        );
+
+        String dataMapperNameText = functionDefinitionNode.functionName().text();
+        nodeBuilder.properties()
+                .functionName(dataMapperNameText, true, DataMapperDefinitionBuilder.DATA_MAPPER_NAME_LABEL,
+                        DataMapperDefinitionBuilder.DATA_MAPPER_NAME_DOC)
+                .returnType(
+                        functionDefinitionNode.functionSignature().returnTypeDesc()
+                                .map(type -> type.type().toSourceCode().strip())
+                                .orElse(""),
+                        DataMapperDefinitionBuilder.RECORD_TYPE
+                )
+                .nestedProperty();
+
+        SeparatedNodeList<ParameterNode> parameters = functionDefinitionNode.functionSignature().parameters();
+        for (ParameterNode parameter : parameters) {
+            String paramType;
+            Optional<Token> paramName;
+            switch (parameter.kind()) {
+                case REQUIRED_PARAM -> {
+                    RequiredParameterNode reqParam = (RequiredParameterNode) parameter;
+                    paramType = getNodeValue(reqParam.typeName());
+                    paramName = reqParam.paramName();
+                }
+                case DEFAULTABLE_PARAM -> {
+                    DefaultableParameterNode defParam = (DefaultableParameterNode) parameter;
+                    paramType = getNodeValue(defParam.typeName());
+                    paramName = defParam.paramName();
+                }
+                case REST_PARAM -> {
+                    RestParameterNode restParam = (RestParameterNode) parameter;
+                    paramType = getNodeValue(restParam.typeName()) + restParam.ellipsisToken().text();
+                    paramName = restParam.paramName();
+                }
+                default -> {
+                    continue;
+                }
+            }
+            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""));
+        }
+
+        nodeBuilder.properties().endNestedProperty(
+                Property.ValueType.REPEATABLE_PROPERTY,
+                DataMapperDefinitionBuilder.PARAMETERS_KEY,
+                DataMapperDefinitionBuilder.PARAMETERS_LABEL,
+                DataMapperDefinitionBuilder.PARAMETERS_DOC,
+                FunctionDefinitionBuilder.getParameterSchema()
+        );
+
+        this.node = gson.toJsonTree(nodeBuilder.build());
+    }
+
+    private void buildFunctionDefinition(FunctionDefinitionNode functionDefinitionNode) {
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_DEFINITION)
                 .defaultModuleName(this.moduleInfo);
 

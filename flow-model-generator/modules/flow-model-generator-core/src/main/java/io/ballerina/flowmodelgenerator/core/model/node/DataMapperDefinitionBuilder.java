@@ -60,7 +60,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final Gson gson = new Gson();
 
-    private static final String RECORD_TYPE = TypeKind.RECORD.typeName();
+    public static final String RECORD_TYPE = TypeKind.RECORD.typeName();
 
     @Override
     public void setConcreteConstData() {
