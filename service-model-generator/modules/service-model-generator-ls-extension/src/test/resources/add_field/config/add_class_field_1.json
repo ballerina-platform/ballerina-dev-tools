@@ -71,6 +71,7 @@
       },
       "enabled": false,
       "editable": true,
+      "value": "",
       "isType": false,
       "optional": false,
       "advanced": false,

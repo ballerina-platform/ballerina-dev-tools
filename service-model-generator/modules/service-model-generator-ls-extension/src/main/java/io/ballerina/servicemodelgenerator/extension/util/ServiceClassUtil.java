@@ -58,7 +58,7 @@ public class ServiceClassUtil {
             builder.append("final ");
         }
         builder.append(field.getType().getValue()).append(" ").append(field.getName().getValue());
-        if (Objects.nonNull(field.getDefaultValue().getValue())) {
+        if (Objects.nonNull(field.getDefaultValue().getValue()) && !field.getDefaultValue().getValue().isEmpty()) {
             builder.append(" = ").append(field.getDefaultValue().getValue());
         }
         builder.append(";");
