@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.flowmodelgenerator.core.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 
 /**
  * Represents a request for diagnostics in the expression editor.
