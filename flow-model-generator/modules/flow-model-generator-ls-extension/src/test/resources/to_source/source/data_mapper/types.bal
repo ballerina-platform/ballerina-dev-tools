@@ -28,3 +28,14 @@ type Admission record {
     string empId;
     string admissionDate;
 };
+
+type Student record {
+    string firstName;
+    string lastName;
+    int grade;
+};
+
+type Summary record {|
+    decimal? averageAge;
+    decimal totalSalary;
+|};

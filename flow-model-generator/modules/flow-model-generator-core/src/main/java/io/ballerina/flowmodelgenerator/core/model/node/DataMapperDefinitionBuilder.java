@@ -143,7 +143,10 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                     ((RecordTypeSymbol) recordTypeSymbol).fieldDescriptors());
             sourceBuilder
                     .token()
+                        .openBrace()
                         .name(bodyText)
+                        .closeBrace()
+                        .endOfStatement()
                         .stepOut()
                     .textEdit(false, DATA_MAPPINGS_BAL, false);
         } else {
