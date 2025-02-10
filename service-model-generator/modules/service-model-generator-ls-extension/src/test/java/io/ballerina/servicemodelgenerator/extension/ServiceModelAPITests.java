@@ -86,6 +86,19 @@ public class ServiceModelAPITests {
         Assert.assertTrue(response.listeners().contains("Default Listener"));
     }
 
+    @Test
+    public void testListenerDiscoveryWithOneListener() throws ExecutionException, InterruptedException {
+        Path filePath = resDir.resolve("sample8/main.bal");
+        ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(filePath.toAbsolutePath().toString(),
+                "ballerina", "http");
+        CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/getListeners", request);
+        ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
+        Assert.assertTrue(response.hasListeners());
+        Assert.assertEquals(response.listeners().size(), 2);
+        Assert.assertTrue(response.listeners().contains("Default Listener"));
+        Assert.assertTrue(response.listeners().contains("httpDefaultListener"));
+    }
+
     @Test(enabled = false)
     public void testListenerDiscovery() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample2/main.bal");

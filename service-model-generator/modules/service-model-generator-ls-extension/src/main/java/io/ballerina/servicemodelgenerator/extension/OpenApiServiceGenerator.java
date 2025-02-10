@@ -52,6 +52,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
@@ -155,9 +156,10 @@ public class OpenApiServiceGenerator {
                 } else {
                     listenerDeclaringLoc = modulePartNode.lineRange().endLine();
                 }
-                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc),
-                        ServiceModelGeneratorConstants.LINE_SEPARATOR +
-                                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT));
+                SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
+                String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
+                        semanticModel, document.get(), listenerDeclaringLoc);
+                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
             }
 
             String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
