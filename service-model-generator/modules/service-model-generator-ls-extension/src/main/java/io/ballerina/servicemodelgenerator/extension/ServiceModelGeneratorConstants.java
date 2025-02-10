@@ -82,6 +82,12 @@ public class ServiceModelGeneratorConstants {
             "The name of the parameter");
     public static final MetaData PARAMETER_DEFAULT_VALUE_METADATA = new MetaData("Default Value",
             "The default value of the parameter");
+    public static final MetaData FIELD_TYPE_METADATA = new MetaData("Field Type",
+            "The type of the field");
+    public static final MetaData FIELD_NAME_METADATA = new MetaData("Field Name",
+            "The name of the field");
+    public static final MetaData FIELD_DEFAULT_VALUE_METADATA = new MetaData("Initial Value",
+            "The initial value of the filed");
     public static final MetaData FUNCTION_RETURN_TYPE_METADATA = new MetaData("Return Type",
             "The return type of the function");
     public static final MetaData FUNCTION_NAME_METADATA = new MetaData("Function Name",

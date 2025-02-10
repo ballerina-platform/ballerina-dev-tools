@@ -507,8 +507,8 @@
         },
         "type": {
           "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
@@ -521,8 +521,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
           "editable": true,
@@ -535,8 +535,8 @@
         },
         "defaultValue": {
           "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
           },
           "enabled": false,
           "editable": true,
@@ -571,8 +571,8 @@
         },
         "type": {
           "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
@@ -585,8 +585,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
           "editable": true,
@@ -599,8 +599,8 @@
         },
         "defaultValue": {
           "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
           },
           "enabled": false,
           "editable": true,
@@ -635,8 +635,8 @@
         },
         "type": {
           "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
@@ -649,8 +649,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
           "editable": true,
@@ -663,8 +663,8 @@
         },
         "defaultValue": {
           "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
           },
           "enabled": true,
           "editable": true,

@@ -74,6 +74,14 @@ public class Parameter {
                 false, false, false, false, null);
     }
 
+    public static Parameter getNewField() {
+        return new Parameter(null, null,
+                new Value(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
+                new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.FIELD_DEFAULT_VALUE_METADATA),
+                false, false, false, false, null);
+    }
+
     public MetaData getMetadata() {
         return metadata;
     }
