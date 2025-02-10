@@ -61,7 +61,7 @@ public class ListenerUtil {
         }
 
         if (isHttp && !isHttpDefaultListenerDefined) {
-            listeners.add(ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER);
+            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER);
         }
 
         return listeners;
@@ -73,14 +73,14 @@ public class ListenerUtil {
             if (Objects.nonNull(values) && !values.isEmpty()) {
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
-                            ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER)) {
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
                         values.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                         return true;
                     }
                 }
             } else {
                 if (listener.getValue().equals(
-                        ServiceModelGeneratorConstants.CREATE_AND_USE_HTTP_DEFAULT_LISTENER)) {
+                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
                     listener.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                     return true;
                 }
