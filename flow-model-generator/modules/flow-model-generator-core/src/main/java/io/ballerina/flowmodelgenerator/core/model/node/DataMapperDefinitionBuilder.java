@@ -72,7 +72,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         properties()
                 .functionNameTemplate("transform", context.getAllVisibleSymbolNames(),
                         DATA_MAPPER_NAME_LABEL, DATA_MAPPER_NAME_DOC)
-                .returnType(null, RECORD_TYPE)
+                .returnType(null, RECORD_TYPE, false)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());

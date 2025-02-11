@@ -104,7 +104,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                         functionDefinitionNode.functionSignature().returnTypeDesc()
                                 .map(type -> type.type().toSourceCode().strip())
                                 .orElse(""),
-                        metadata.returnTypeConstraint)
+                        metadata.returnTypeConstraint,
+                        metadata.returnTypeConstraint == null)
                 .nestedProperty();
 
         // Set the function parameters
