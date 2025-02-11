@@ -39,8 +39,9 @@ public class ServiceModelGeneratorConstants {
 
     public static final String HTTP_DEFAULT_LISTENER_STMT = LINE_SEPARATOR +
             "listener http:Listener %s = http:getDefaultListener();" + LINE_SEPARATOR;
-    public static final String HTTP_DEFAULT_LISTENER = "Default Listener";
+    public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener";
     public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";
+    public static final String HTTP_DEFAULT_LISTENER_EXPR = "http:getDefaultListener()";
 
     public static final String KAFKA = "kafka";
     public static final String HTTP = "http";

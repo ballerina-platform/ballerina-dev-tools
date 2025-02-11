@@ -30,6 +30,8 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+import io.ballerina.servicemodelgenerator.extension.model.Listener;
+import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -37,8 +39,10 @@ import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -94,7 +98,7 @@ public class ListenerUtil {
         }
 
         if (isHttp && !isHttpDefaultListenerDefined) {
-            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER);
+            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL);
         }
 
         return listeners;
@@ -106,14 +110,14 @@ public class ListenerUtil {
             if (Objects.nonNull(values) && !values.isEmpty()) {
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
-                            ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
+                            ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
                         values.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                         return true;
                     }
                 }
             } else {
                 if (listener.getValue().equals(
-                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER)) {
+                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
                     listener.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                     return true;
                 }
@@ -131,5 +135,29 @@ public class ListenerUtil {
         String variableName = NameUtil.generateVariableName(
                 ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME, names);
         return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
+    }
+
+    public static void updateDefaultListenerDetails(Listener listenerModel, ListenerDeclarationNode listenerNode) {
+        Map<String, Value> properties = new LinkedHashMap<>();
+        Value nameProperty = listenerModel.getProperty("name");
+        if (Objects.nonNull(nameProperty)) {
+            nameProperty.setValue(listenerNode.variableName().text().trim());
+            properties.put("name", nameProperty);
+        }
+        properties.put("defaultListener", ListenerUtil.getHttpDefaultListenerValue());
+        listenerModel.setProperties(properties);
+    }
+
+    public static Value getHttpDefaultListenerValue() {
+        Value value = new Value();
+        value.setMetadata(new MetaData("HTTP Default Listener",
+                "The default HTTP listener"));
+        value.setEnabled(true);
+        value.setEditable(false);
+        value.setAdvanced(false);
+        value.setOptional(false);
+        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
+        value.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR);
+        return value;
     }
 }

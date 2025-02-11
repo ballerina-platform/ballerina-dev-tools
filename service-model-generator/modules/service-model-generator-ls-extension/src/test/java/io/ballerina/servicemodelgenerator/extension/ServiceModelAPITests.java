@@ -83,7 +83,8 @@ public class ServiceModelAPITests {
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
         Assert.assertEquals(response.listeners().size(), 1);
-        Assert.assertTrue(response.listeners().contains("Default Listener"));
+        Assert.assertTrue(response.listeners().contains(
+                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL));
     }
 
     @Test
@@ -95,7 +96,8 @@ public class ServiceModelAPITests {
         ListenerDiscoveryResponse response = (ListenerDiscoveryResponse) result.get();
         Assert.assertTrue(response.hasListeners());
         Assert.assertEquals(response.listeners().size(), 2);
-        Assert.assertTrue(response.listeners().contains("Default Listener"));
+        Assert.assertTrue(response.listeners().contains(
+                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL));
         Assert.assertTrue(response.listeners().contains("httpDefaultListener"));
     }
 
