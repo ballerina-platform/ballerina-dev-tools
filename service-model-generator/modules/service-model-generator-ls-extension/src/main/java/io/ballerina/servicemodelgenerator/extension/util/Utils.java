@@ -1028,7 +1028,15 @@ public final class Utils {
         } else if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
             builder.append(getValueString(service.getBasePath()));
             builder.append(ServiceModelGeneratorConstants.SPACE);
+        } else if (service.getModuleName().equals("rabbitmq")) {
+            Value queueName = service.getProperty("queueName");
+            if (Objects.nonNull(queueName) && queueName.isEnabledWithValue()) {
+                builder.append(queueName.getValue());
+                builder.append(ServiceModelGeneratorConstants.SPACE);
+            }
         }
+
+
         builder.append(ServiceModelGeneratorConstants.ON).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getListener()) && service.getListener().isEnabledWithValue()) {
             builder.append(service.getListener().getValue());
