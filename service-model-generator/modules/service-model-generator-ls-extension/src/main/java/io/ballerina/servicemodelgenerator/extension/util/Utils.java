@@ -939,7 +939,15 @@ public final class Utils {
         }
         NodeList<Node> paths = serviceNode.absoluteResourcePath();
         if (!paths.isEmpty()) {
-            serviceModel.getBasePath().setValue(getPath(paths));
+            String path = getPath(paths);
+            if (serviceModel.getPackageName().equals("rabbitmq")) {
+                Value queueName = serviceModel.getProperty("queueName");
+                if (Objects.nonNull(queueName)) {
+                    queueName.setValue(path);
+                }
+            } else {
+                serviceModel.getBasePath().setValue(path);
+            }
         }
     }
 
