@@ -149,12 +149,14 @@
         "label": "Return Type",
         "description": "The return type of the function"
       },
-      "enabled": false,
+      "enabled": true,
       "editable": false,
       "isType": false,
       "optional": false,
       "advanced": false,
-      "addNewButton": false
+      "addNewButton": false,
+      "value": "int",
+      "valueType": "TYPE"
     },
     "enabled": true,
     "optional": false,
@@ -189,7 +191,7 @@
             "character": 34
           }
         },
-        "newText": "\n\tremote function addAuthor(Author author) {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
+        "newText": "\n\tremote function addAuthor(Author author) returns int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
       }
     ]
   }

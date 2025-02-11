@@ -88,7 +88,8 @@
     "isType": false,
     "optional": false,
     "advanced": false,
-    "addNewButton": false
+    "addNewButton": false,
+    "valueType": "TYPE"
   },
   "enabled": true,
   "optional": false,
