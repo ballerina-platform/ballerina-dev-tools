@@ -159,4 +159,8 @@ public class Listener {
     public void setCodedata(Codedata codedata) {
         this.codedata = codedata;
     }
+
+    public void setProperties(Map<String, Value> properties) {
+        this.properties = properties;
+    }
 }
