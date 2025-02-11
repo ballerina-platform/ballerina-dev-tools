@@ -20,6 +20,7 @@ import os
 import json
 import glob
 import re
+import sys
 
 
 def write_json_file(json_file, output_file_name):
@@ -50,19 +51,28 @@ def sort_key(filepath):
     return (name, 0)
 
 
+# Define the paths to the function definition configurations
 current_dir = os.path.dirname(os.path.abspath(__file__))
 fn_def_dir = os.path.normpath(os.path.join(
     current_dir, "..", "..", "function_definition", "config"))
 node_template_dir = os.path.normpath(os.path.join(
     current_dir, "..", "..", "node_template", "config"))
 
+# Capture user input for the function type
+if len(sys.argv) < 2:
+    raise ValueError("Need to provide the function form type as an argument")
+user_input = sys.argv[1]
+input_file = user_input + "_def"
+output_file = user_input + "_definition"
+
 # Generate the configs for the function definitions
-json_files = glob.glob(os.path.join(fn_def_dir, "*.json"))
+json_files = glob.glob(os.path.join(fn_def_dir, f"{input_file}*.json"))
 json_files.sort(key=sort_key)
 print("\n".join(json_files))
 for idx, json_file in enumerate(json_files, 1):
-    write_json_file(json_file, f"function_definition{idx}.json")
+    write_json_file(json_file, f"{output_file}{idx}.json")
 
 # Generate the config for the node template
-template_file = os.path.join(node_template_dir, "function_definition.json")
-write_json_file(template_file, "function_definition.json")
+node_template_file = f"{output_file}.json"
+template_file = os.path.join(node_template_dir, output_file)
+write_json_file(template_file, node_template_file)

@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "\\$dollar\\#hash",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "getCounter",
   "description": "",
   "output": {
-    "id": "86554",
+    "id": "73730",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 55,
-          "offset": 7
+          "line": 42,
+          "offset": 9
         },
         "endLine": {
-          "line": 55,
-          "offset": 33
+          "line": 42,
+          "offset": 43
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "\\$dollar\\#hash",
+        "value": "getCounter",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,7 +42,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "",
+        "value": "int",
         "optional": true,
         "editable": true,
         "advanced": false

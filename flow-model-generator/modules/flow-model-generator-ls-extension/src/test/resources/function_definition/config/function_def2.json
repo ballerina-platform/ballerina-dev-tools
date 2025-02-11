@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "greet",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "add",
   "description": "",
   "output": {
-    "id": "42945",
+    "id": "37959",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 11,
+          "line": 6,
           "offset": 7
         },
         "endLine": {
-          "line": 11,
-          "offset": 72
+          "line": 6,
+          "offset": 46
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "greet",
+        "value": "add",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,7 +42,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "string",
+        "value": "int",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -89,7 +89,7 @@
           "advanced": false
         },
         "value": {
-          "name": {
+          "a": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -103,7 +103,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "string",
+                "value": "int",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -114,7 +114,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "name",
+                "value": "a",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -124,7 +124,7 @@
             "editable": false,
             "advanced": false
           },
-          "title": {
+          "b": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -138,7 +138,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "string",
+                "value": "int",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -149,7 +149,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "title",
+                "value": "b",
                 "optional": false,
                 "editable": true,
                 "advanced": false

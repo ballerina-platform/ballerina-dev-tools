@@ -1,31 +1,37 @@
 {
-  "source": "data_mapper/service.bal",
-  "position": {
-    "line": 7,
-    "offset": 0
-  },
-  "description": "Sample diagram node",
-  "codedata": {
-    "node": "DATA_MAPPER_DEFINITION"
-  },
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "simpleFunction",
+  "description": "",
   "output": {
-    "id": "31",
+    "id": "32986",
     "metadata": {
-      "label": "Data Mapper",
-      "description": "Define a data mapper"
+      "label": "Function Definition",
+      "description": "Define a function"
     },
     "codedata": {
-      "node": "DATA_MAPPER_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "function_def.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 33
+        }
+      }
     },
     "returning": false,
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Data Mapper Name",
-          "description": "Name of the data mapper"
+          "label": "Function Name",
+          "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "transform1",
+        "value": "simpleFunction",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -36,7 +42,6 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "record",
         "value": "",
         "optional": true,
         "editable": true,
@@ -44,8 +49,8 @@
       },
       "parameters": {
         "metadata": {
-          "label": "Inputs",
-          "description": "Input variables of the data mapper function"
+          "label": "Parameters",
+          "description": "Function parameters"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {

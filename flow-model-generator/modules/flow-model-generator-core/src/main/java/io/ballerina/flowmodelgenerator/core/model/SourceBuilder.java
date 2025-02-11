@@ -19,8 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -204,16 +204,18 @@ public class SourceBuilder {
         return acceptImport(filePath);
     }
 
-    public Optional<Symbol> getTypeSymbol(String typeName) {
+    public Optional<TypeDefinitionSymbol> getTypeDefinitionSymbol(String typeName) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
         SemanticModel semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
-        return semanticModel.moduleSymbols().stream().filter(
-                symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
-                        symbol.getName().get().equals(typeName)).findFirst();
+        return semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
+                        symbol.getName().get().equals(typeName))
+                .map(symbol -> (TypeDefinitionSymbol) symbol)
+                .findFirst();
     }
 
     public SourceBuilder typedBindingPattern() {
