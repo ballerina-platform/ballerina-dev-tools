@@ -59,7 +59,6 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
-import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
@@ -778,12 +777,12 @@ public final class Utils {
 
     public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
                                                   ServiceDeclarationNode serviceDeclaration,
-                                                  SemanticModel semanticModel, Project project) {
+                                                  SemanticModel semanticModel) {
         serviceModel.setFunctions(new ArrayList<>());
         Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
-        populateListenerInfo(serviceModel, serviceDeclaration, semanticModel, project);
+        populateListenerInfo(serviceModel, serviceDeclaration);
     }
 
     public static Optional<String> getPath(TypeDefinitionNode serviceTypeNode) {
@@ -820,7 +819,7 @@ public final class Utils {
     }
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
-                                          SemanticModel semanticModel, Project project) {
+                                          SemanticModel semanticModel) {
         String moduleName = serviceModel.getModuleName();
         boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
         boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
@@ -830,7 +829,7 @@ public final class Utils {
         Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
-        populateListenerInfo(serviceModel, serviceNode, semanticModel, project);
+        populateListenerInfo(serviceModel, serviceNode);
     }
 
     private static void updateServiceInfo(Service serviceModel, Service commonSvcModel) {
@@ -927,34 +926,15 @@ public final class Utils {
         commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
-    private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode,
-                                             SemanticModel semanticModel, Project project) {
+    private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
         int size = expressions.size();
         if (size == 1) {
-            Optional<Symbol> symbol = semanticModel.symbol(expressions.get(0));
-            if (symbol.isPresent()) {
-                if (ListenerUtil.isDefaultListenerRef(symbol.get(), project)) {
-                    serviceModel.getListener().setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER);
-                } else {
-                    serviceModel.getListener().setValue(getListenerExprName(expressions.get(0)));
-                }
-            } else {
-                serviceModel.getListener().setValue(getListenerExprName(expressions.get(0)));
-            }
+            serviceModel.getListener().setValue(getListenerExprName(expressions.get(0)));
         } else if (size > 1) {
             for (int i = 0; i < size; i++) {
                 ExpressionNode expressionNode = expressions.get(i);
-                Optional<Symbol> symbol = semanticModel.symbol(expressionNode);
-                if (symbol.isPresent()) {
-                    if (ListenerUtil.isDefaultListenerRef(symbol.get(), project)) {
-                        serviceModel.getListener().addValue((ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER));
-                    } else {
-                        serviceModel.getListener().addValue(getListenerExprName(expressionNode));
-                    }
-                } else {
-                    serviceModel.getListener().addValue(getListenerExprName(expressionNode));
-                }
+                serviceModel.getListener().addValue(getListenerExprName(expressionNode));
             }
         }
         NodeList<Node> paths = serviceNode.absoluteResourcePath();
