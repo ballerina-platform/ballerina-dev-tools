@@ -1049,11 +1049,12 @@ public final class Utils {
             return "";
         }
         if (!value.getValue().trim().isEmpty()) {
-            return value.getValueType().equals("STRING") ? String.format("\"%s\"", value.getValue()) : value.getValue();
+            return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
+                    String.format("\"%s\"", value.getValue()) : value.getValue();
         }
         if (!value.getPlaceholder().trim().isEmpty()) {
-            return value.getValueType().equals("STRING") ? String.format("\"%s\"", value.getPlaceholder()) :
-                    value.getPlaceholder();
+            return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
+                    String.format("\"%s\"", value.getPlaceholder()) : value.getPlaceholder();
         }
         Map<String, Value> properties = value.getProperties();
         if (Objects.isNull(properties)) {
