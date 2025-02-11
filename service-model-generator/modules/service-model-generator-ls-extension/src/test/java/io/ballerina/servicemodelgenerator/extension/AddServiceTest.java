@@ -20,10 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.servicemodelgenerator.extension.model.Codedata;
-import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
-import io.ballerina.servicemodelgenerator.extension.request.AddFieldRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
