@@ -525,7 +525,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         .resolve(String.format("service_contract_%s.bal", serviceContractName));
                 Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
                 if (contractDoc.isEmpty()) {
-                    updateServiceModel(serviceModel, serviceNode, semanticModel);
+                    updateServiceModel(serviceModel, serviceNode, semanticModel, project);
                 } else {
                     SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
                     ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
@@ -535,14 +535,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                             .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
                             .findFirst();
                     if (serviceContractType.isEmpty()) {
-                        updateServiceModel(serviceModel, serviceNode, semanticModel);
+                        updateServiceModel(serviceModel, serviceNode, semanticModel, project);
                     } else {
                         updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
-                                semanticModel);
+                                semanticModel, project);
                     }
                 }
             } else {
-                updateServiceModel(serviceModel, serviceNode, semanticModel);
+                updateServiceModel(serviceModel, serviceNode, semanticModel, project);
             }
             Set<String> listeners = ListenerUtil.getCompatibleListeners(serviceName.get(), semanticModel, project);
             List<String> allValues = serviceModel.getListener().getValues();

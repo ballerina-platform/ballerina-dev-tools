@@ -68,25 +68,9 @@ public class ListenerUtil {
             String listenerName = variableSymbol.getName().get();
             if (isHttp) {
                 if (variableSymbol.getLocation().isPresent()) {
-                    Location location = variableSymbol.getLocation().get();
-                    Path path = project.sourceRoot().resolve(location.lineRange().fileName());
-                    DocumentId documentId = project.documentId(path);
-                    Document document = project.currentPackage().getDefaultModule().document(documentId);
-                    if (document != null) {
-                        ModulePartNode node = document.syntaxTree().rootNode();
-                        TextRange range = TextRange.from(location.textRange().startOffset(),
-                                location.textRange().length());
-                        NonTerminalNode foundNode = node.findNode(range);
-                        if (foundNode != null) {
-                            while (foundNode != null && !(foundNode instanceof ListenerDeclarationNode)) {
-                                foundNode = foundNode.parent();
-                            }
-                            if (foundNode != null) {
-                                ListenerDeclarationNode listenerDeclarationNode = (ListenerDeclarationNode) foundNode;
-                                isHttpDefaultListenerDefined = listenerDeclarationNode.initializer().toSourceCode()
-                                        .trim().contains("http:getDefaultListener()");
-                            }
-                        }
+                    if (isDefaultListenerRef(variableSymbol, project)) {
+                        isHttpDefaultListenerDefined = true;
+                        listenerName = ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER;
                     }
                 }
             }
@@ -98,6 +82,30 @@ public class ListenerUtil {
         }
 
         return listeners;
+    }
+
+    public static boolean isDefaultListenerRef(Symbol symbol, Project project) {
+        Location location = symbol.getLocation().get();
+        Path path = project.sourceRoot().resolve(location.lineRange().fileName());
+        DocumentId documentId = project.documentId(path);
+        Document document = project.currentPackage().getDefaultModule().document(documentId);
+        if (document != null) {
+            ModulePartNode node = document.syntaxTree().rootNode();
+            TextRange range = TextRange.from(location.textRange().startOffset(),
+                    location.textRange().length());
+            NonTerminalNode foundNode = node.findNode(range);
+            if (foundNode != null) {
+                while (foundNode != null && !(foundNode instanceof ListenerDeclarationNode)) {
+                    foundNode = foundNode.parent();
+                }
+                if (foundNode != null) {
+                    ListenerDeclarationNode listenerDeclarationNode = (ListenerDeclarationNode) foundNode;
+                    return listenerDeclarationNode.initializer().toSourceCode()
+                            .trim().contains("http:getDefaultListener()");
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean checkForDefaultListenerExistence(Value listener) {
