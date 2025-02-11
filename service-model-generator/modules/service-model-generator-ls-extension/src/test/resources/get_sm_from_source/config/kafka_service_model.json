@@ -1,0 +1,306 @@
+{
+  "filePath": "sample6/main.bal",
+  "description": "Test the generation of service model for a Kafka service",
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 11,
+    "offset": 0
+  },
+  "response": {
+    "id": "1",
+    "name": "Kafka Service",
+    "type": "event",
+    "displayName": "Kafka",
+    "displayAnnotation": {
+      "label": "Kafka",
+      "iconPath": "docs/icon.png"
+    },
+    "moduleName": "kafka",
+    "orgName": "ballerinax",
+    "version": "4.2.0",
+    "packageName": "kafka",
+    "listenerProtocol": "kafka",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listener",
+          "description": "The Listener to be used"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "kafkaListener",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "kafka:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "kafkaListener"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": [
+      {
+        "metadata": {
+          "label": "onConsumerRecord",
+          "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onConsumerRecord",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onConsumerRecord",
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Consumer records",
+              "description": "The records received for Kafka topic(s)"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:AnydataConsumerRecord[]|anydata[]",
+              "isType": true,
+              "placeholder": "kafka:AnydataConsumerRecord[]",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "records",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          },
+          {
+            "metadata": {
+              "label": "Caller",
+              "description": "The Kafka caller object to commit the offsets"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "kafka:Caller",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:Caller",
+              "isType": true,
+              "placeholder": "kafka:Caller",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": true,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function. The function can return an error or nil"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "error?",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onError",
+          "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onError",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onError",
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Kafka Error",
+              "description": "The error occurred during the message processing"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "kafka:Error",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "kafka:Error",
+              "isType": true,
+              "placeholder": "kafka:Error",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "kafkaError",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function. The function can return an error or nil"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "error?",
+          "isType": true,
+          "placeholder": "error?",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": false,
+        "optional": true,
+        "editable": true
+      }
+    ]
+  }
+}

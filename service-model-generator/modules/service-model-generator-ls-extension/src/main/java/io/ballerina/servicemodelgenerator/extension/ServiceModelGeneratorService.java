@@ -546,7 +546,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
             Set<String> listeners = ListenerUtil.getCompatibleListeners(serviceName.get(), semanticModel, project);
             List<String> allValues = serviceModel.getListener().getValues();
-            if (allValues.isEmpty()) {
+            if (Objects.isNull(allValues) || allValues.isEmpty()) {
                 listeners.add(serviceModel.getListener().getValue());
             } else {
                 listeners.addAll(allValues);
