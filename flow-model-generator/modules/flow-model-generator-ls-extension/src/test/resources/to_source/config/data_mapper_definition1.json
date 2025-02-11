@@ -144,7 +144,7 @@
             "character": 61
           }
         },
-        "newText": "function mapPersonToEmployee( Person person) returns Employee=> "
+        "newText": "function mapPersonToEmployee( Person person) returns Employee"
       }
     ]
   }

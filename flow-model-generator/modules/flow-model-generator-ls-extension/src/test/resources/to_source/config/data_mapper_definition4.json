@@ -214,7 +214,7 @@
             "character": 86
           }
         },
-        "newText": "function transformToPerson( string name, string email, Address address) returns Person=> "
+        "newText": "function transformToPerson( string name, string email, Address address) returns Person"
       }
     ]
   }
