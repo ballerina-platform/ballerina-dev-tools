@@ -66,7 +66,7 @@ public class ListenerUtil {
                 continue;
             }
             String listenerName = variableSymbol.getName().get();
-            if (isHttp && listenerName.startsWith(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME)) {
+            if (isHttp) {
                 if (variableSymbol.getLocation().isPresent()) {
                     Location location = variableSymbol.getLocation().get();
                     Path path = project.sourceRoot().resolve(location.lineRange().fileName());
