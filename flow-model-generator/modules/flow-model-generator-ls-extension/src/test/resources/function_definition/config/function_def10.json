@@ -1,10 +1,10 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "simpleFunction",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
+  "functionName": "'from",
   "description": "",
   "output": {
-    "id": "32986",
+    "id": "83569",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
-          "line": 1,
+          "line": 52,
           "offset": 7
         },
         "endLine": {
-          "line": 1,
-          "offset": 33
+          "line": 52,
+          "offset": 24
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "simpleFunction",
+        "value": "'from",
         "optional": false,
         "editable": true,
         "advanced": false

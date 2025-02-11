@@ -1,25 +1,23 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "add",
-  "description": "",
-  "output": {
-    "id": "37959",
+  "source": "data_mapper/data_mappings.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31830",
     "metadata": {
-      "label": "Function Definition",
-      "description": "Define a function"
+      "label": "Data Mapper",
+      "description": "Define a data mapper"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION",
+      "node": "DATA_MAPPER_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 6,
-          "offset": 7
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 6,
-          "offset": 46
+          "line": 0,
+          "offset": 86
         }
       }
     },
@@ -31,7 +29,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "add",
+        "value": "transformToPerson",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,15 +40,16 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "valueTypeConstraint": "record",
+        "value": "Person",
         "optional": true,
         "editable": true,
         "advanced": false
       },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Function parameters"
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -89,7 +88,7 @@
           "advanced": false
         },
         "value": {
-          "a": {
+          "name": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -103,7 +102,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "int",
+                "value": "string",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -114,7 +113,7 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "a",
+                "value": "name",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -124,7 +123,7 @@
             "editable": false,
             "advanced": false
           },
-          "b": {
+          "email": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -138,7 +137,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "int",
+                "value": "string",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -149,7 +148,42 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "b",
+                "value": "email",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "address": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "Address",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "address",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -166,5 +200,22 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "data_mapper/data_mappings.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 86
+          }
+        },
+        "newText": "function transformToPerson( string name, string email, Address address) returns Person=> "
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
+  "filePath": "function_def.bal",
+  "fileName": "function_def.bal",
   "functionName": "processUser",
   "description": "",
   "output": {
@@ -12,7 +12,7 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "function_def.bal",
         "startLine": {
           "line": 47,
           "offset": 7

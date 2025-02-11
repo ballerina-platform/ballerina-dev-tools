@@ -1,25 +1,25 @@
 {
-  "filePath": "single.bal",
-  "fileName": "single.bal",
-  "functionName": "sum",
+  "filePath": "data_mapper",
+  "fileName": "data_mappings.bal",
+  "functionName": "transformToPerson",
   "description": "",
   "output": {
-    "id": "47881",
+    "id": "31830",
     "metadata": {
-      "label": "Function Definition",
-      "description": "Define a function"
+      "label": "Data Mapper",
+      "description": "Define a data mapper"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION",
+      "node": "DATA_MAPPER_DEFINITION",
       "lineRange": {
-        "fileName": "single.bal",
+        "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 16,
-          "offset": 7
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 16,
-          "offset": 48
+          "line": 0,
+          "offset": 86
         }
       }
     },
@@ -31,7 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "sum",
+        "value": "transformToPerson",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -42,15 +42,16 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "valueTypeConstraint": "record",
+        "value": "Person",
         "optional": true,
         "editable": true,
         "advanced": false
       },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Function parameters"
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -89,7 +90,7 @@
           "advanced": false
         },
         "value": {
-          "numbers": {
+          "name": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -103,7 +104,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "int...",
+                "value": "string",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -114,7 +115,77 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "numbers",
+                "value": "name",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "email": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "string",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "email",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "address": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "Address",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "address",
                 "optional": false,
                 "editable": true,
                 "advanced": false

@@ -161,6 +161,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String PARAMETER_DOC = "Function parameter";
 
     public static final String FUNCTION_NAME_KEY = "functionName";
+    public static final String PARAMETERS_KEY = "parameters";
 
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {
