@@ -230,7 +230,7 @@
             "advanced": false
           }
         },
-        "optional": false,
+        "optional": true,
         "editable": false,
         "advanced": false
       }

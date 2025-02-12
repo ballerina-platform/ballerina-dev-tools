@@ -80,11 +80,13 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     NodeKind.DATA_MAPPER_DEFINITION,
                     DataMapperDefinitionBuilder.PARAMETERS_LABEL,
                     DataMapperDefinitionBuilder.PARAMETERS_DOC,
+                    false,
                     DataMapperDefinitionBuilder.RECORD_TYPE)
                 : new FunctionMetadata(
                     NodeKind.FUNCTION_DEFINITION,
                     FunctionDefinitionBuilder.PARAMETERS_LABEL,
                     FunctionDefinitionBuilder.PARAMETERS_DOC,
+                    true,
                     null);
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(metadata.nodeKind)
                 .defaultModuleName(this.moduleInfo);
@@ -139,7 +141,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 Property.PARAMETERS_KEY,
                 metadata.parametersLabel,
                 metadata.parametersDoc,
-                FunctionDefinitionBuilder.getParameterSchema());
+                FunctionDefinitionBuilder.getParameterSchema(),
+                metadata.optionalParameters);
 
         // Build the definition node
         this.node = gson.toJsonTree(nodeBuilder.build());
@@ -157,6 +160,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             NodeKind nodeKind,
             String parametersLabel,
             String parametersDoc,
+            boolean optionalParameters,
             String returnTypeConstraint) {
     }
 }

@@ -75,7 +75,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                 .returnType(null, RECORD_TYPE, false)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());
+                        PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema(), false);
     }
 
     @Override

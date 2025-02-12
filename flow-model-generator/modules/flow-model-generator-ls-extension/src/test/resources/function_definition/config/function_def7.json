@@ -89,7 +89,7 @@
           "advanced": false
         },
         "value": {},
-        "optional": false,
+        "optional": true,
         "editable": false,
         "advanced": false
       }
