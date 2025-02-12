@@ -72,10 +72,10 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         properties()
                 .functionNameTemplate("transform", context.getAllVisibleSymbolNames(),
                         DATA_MAPPER_NAME_LABEL, DATA_MAPPER_NAME_DOC)
-                .returnType(null, RECORD_TYPE)
+                .returnType(null, RECORD_TYPE, false)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema());
+                        PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema(), false);
     }
 
     @Override
@@ -118,8 +118,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         String returnTypeString = returnType.get().value().toString();
         sourceBuilder.token()
                 .keyword(SyntaxKind.RETURNS_KEYWORD)
-                .name(returnTypeString)
-                .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN);
+                .name(returnTypeString);
 
         // Generate text edits based on the line range. If a line range exists, update the signature of the existing
         // function. Otherwise, create a new function definition in "data_mappings.bal".
@@ -142,6 +141,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                     ((RecordTypeSymbol) recordTypeSymbol).fieldDescriptors());
             sourceBuilder
                     .token()
+                        .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
                         .openBrace()
                         .name(bodyText)
                         .closeBrace()

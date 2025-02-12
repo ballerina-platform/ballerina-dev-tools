@@ -44,7 +44,7 @@
         "valueType": "TYPE",
         "valueTypeConstraint": "record",
         "value": "Summary",
-        "optional": true,
+        "optional": false,
         "editable": true,
         "advanced": false
       },

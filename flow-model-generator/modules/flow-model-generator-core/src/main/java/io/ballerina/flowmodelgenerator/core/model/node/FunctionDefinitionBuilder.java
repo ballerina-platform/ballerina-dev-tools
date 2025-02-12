@@ -71,7 +71,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 .returnType(null)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema());
+                        PARAMETERS_DOC, getParameterSchema(), true);
     }
 
     @Override

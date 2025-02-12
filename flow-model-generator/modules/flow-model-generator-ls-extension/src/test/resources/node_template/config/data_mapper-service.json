@@ -38,7 +38,7 @@
         "valueType": "TYPE",
         "valueTypeConstraint": "record",
         "value": "",
-        "optional": true,
+        "optional": false,
         "editable": true,
         "advanced": false
       },

@@ -176,7 +176,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> returnType(String value, String typeConstraint) {
+    public FormBuilder<T> returnType(String value, String typeConstraint, boolean optional) {
         propertyBuilder
                 .metadata()
                     .label(Property.RETURN_TYPE_LABEL)
@@ -185,7 +185,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(value == null ? "" : value)
                 .type(Property.ValueType.TYPE)
                 .typeConstraint(typeConstraint)
-                .optional(true)
+                .optional(optional)
                 .editable();
 
         addProperty(Property.TYPE_KEY);
@@ -193,7 +193,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> returnType(String value) {
-        return returnType(value, null);
+        return returnType(value, null, true);
     }
 
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, boolean implicit, Set<String> names) {
@@ -873,7 +873,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc,
-                                            Object typeConstraint) {
+                                            Object typeConstraint, boolean optional) {
         propertyBuilder
                 .metadata()
                     .label(label)
@@ -881,7 +881,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(nodeProperties)
                 .typeConstraint(typeConstraint)
-                .type(valueType);
+                .type(valueType)
+                .optional(optional);
         if (!nodePropertiesStack.isEmpty()) {
             nodeProperties = nodePropertiesStack.pop();
         }
@@ -890,7 +891,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc) {
-        return endNestedProperty(valueType, key, label, doc, null);
+        return endNestedProperty(valueType, key, label, doc, null, false);
     }
 
     public final void addProperty(String key, Node node) {
