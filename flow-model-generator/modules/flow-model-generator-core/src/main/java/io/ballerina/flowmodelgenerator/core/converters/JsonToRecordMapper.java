@@ -135,9 +135,6 @@ public final class JsonToRecordMapper {
         Map<String, NonTerminalNode> recordToTypeDescNodes = new LinkedHashMap<>();
         Map<String, JsonElement> jsonFieldToElements = new LinkedHashMap<>();
 
-        if (existingFieldNames.contains(this.recordName)) {
-            throw new JsonToRecordConverterException("Given record name already exists in the module");
-        }
         JsonElement parsedJson = JsonParser.parseString(jsonString);
         if (parsedJson.isJsonObject()) {
             generateRecords(parsedJson.getAsJsonObject(), null, isClosed, recordToTypeDescNodes, null,

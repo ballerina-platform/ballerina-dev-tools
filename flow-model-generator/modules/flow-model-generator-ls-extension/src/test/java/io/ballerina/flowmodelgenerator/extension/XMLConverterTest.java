@@ -107,7 +107,7 @@ public class XMLConverterTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "xmlToRecord";
+        return "xmlToRecordTypes";
     }
 
     private record TestConfig(String filePath, String xmlString, String prefix, boolean isClosed,
