@@ -25,7 +25,6 @@ import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorCon
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Diagnostic;
 
 import java.util.Optional;
@@ -40,9 +39,8 @@ import java.util.stream.Collectors;
  */
 public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
-    public ExpressionDiagnosticsRequest(ExpressionEditorContext context,
-                                        WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, workspaceManagerProxy);
+    public ExpressionDiagnosticsRequest(ExpressionEditorContext context) {
+        super(context);
     }
 
     @Override
@@ -54,7 +52,7 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         LineRange lineRange = context.generateStatement();
         Optional<SemanticModel> semanticModel =
-                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
+                context.workspaceManager().semanticModel(context.filePath());
         return semanticModel.map(model -> model.diagnostics().stream()
                 .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                         lineRange))

@@ -22,7 +22,6 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Diagnostic;
 
 import java.util.Set;
@@ -40,25 +39,20 @@ import java.util.stream.StreamSupport;
  */
 public abstract class DiagnosticsRequest extends DebouncedExpressionEditorRequest<DiagnosticsRequest.Diagnostics> {
 
-    protected final WorkspaceManagerProxy workspaceManagerProxy;
-
-    public DiagnosticsRequest(ExpressionEditorContext context,
-                              WorkspaceManagerProxy workspaceManagerProxy) {
+    public DiagnosticsRequest(ExpressionEditorContext context) {
         super(context);
-        this.workspaceManagerProxy = workspaceManagerProxy;
     }
 
-    public static DiagnosticsRequest from(ExpressionEditorContext context,
-                                          WorkspaceManagerProxy workspaceManagerProxy) {
+    public static DiagnosticsRequest from(ExpressionEditorContext context) {
         Property property = context.getProperty();
         if (property == null) {
             throw new IllegalArgumentException("Property cannot be null");
         }
 
         return switch (Property.ValueType.valueOf(property.valueType())) {
-            case EXPRESSION -> new ExpressionDiagnosticsRequest(context, workspaceManagerProxy);
-            case IDENTIFIER -> new IdentifierDiagnosticsRequest(context, workspaceManagerProxy);
-            case TYPE -> new TypeDiagnosticRequest(context, workspaceManagerProxy);
+            case EXPRESSION -> new ExpressionDiagnosticsRequest(context);
+            case IDENTIFIER -> new IdentifierDiagnosticsRequest(context);
+            case TYPE -> new TypeDiagnosticRequest(context);
             default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
         };
     }

@@ -27,7 +27,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +40,13 @@ import java.util.stream.Collectors;
  */
 public class TypesGenerator {
 
-    private final Gson gson = new Gson();
-    private final Map<String, TypeSymbol> builtinTypeSymbols = new LinkedHashMap<>();
+    private final Gson gson;
+    private final Map<String, TypeSymbol> builtinTypeSymbols;
+
+    private TypesGenerator() {
+        this.gson = new Gson();
+        this.builtinTypeSymbols = new LinkedHashMap<>();
+    }
 
     public JsonArray getTypes(SemanticModel semanticModel) {
         List<String> visibleTypes = semanticModel.moduleSymbols().parallelStream()

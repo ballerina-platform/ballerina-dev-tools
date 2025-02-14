@@ -22,8 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -42,17 +40,14 @@ import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
-import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Represents the context for the expression editor.
@@ -253,47 +248,11 @@ public class ExpressionEditorContext {
         return statementLineRange;
     }
 
-    public Set<Diagnostic> parseStatement() {
-        Property property = getProperty();
-        if (property == null) {
-            return Set.of();
-        }
-
-        // Parse the property text based on the value type
-        Node parsedNode;
-        String text = info.expression();
-        String valueType = property.valueType();
-        switch (Property.ValueType.valueOf(valueType)) {
-            case TYPE -> {
-                parsedNode = NodeParser.parseTypeDescriptor(text);
-            }
-            case IDENTIFIER -> {
-                parsedNode = NodeParser.parseBindingPattern(text);
-            }
-            case EXPRESSION -> {
-                parsedNode = NodeParser.parseExpression(text);
-            }
-            default -> {
-                throw new IllegalArgumentException("Unsupported value type: " + valueType);
-            }
-        }
-        return StreamSupport.stream(parsedNode.diagnostics().spliterator(), true)
-                .map(CommonUtils::transformBallerinaDiagnostic)
-                .collect(Collectors.toSet());
-    }
-
-    public TextDocument textDocument() {
-        return document.textDocument();
-    }
-
-    public Path filePath() {
-        return filePath;
-    }
-
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
         LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
-        return LineRange.from(filePath.getFileName().toString(), startLine, endLine);
+        Path fileName = filePath.getFileName();
+        return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
     }
 
     /**
@@ -344,5 +303,17 @@ public class ExpressionEditorContext {
 
     public String fileUri() {
         return fileUri;
+    }
+
+    public TextDocument textDocument() {
+        return document.textDocument();
+    }
+
+    public Path filePath() {
+        return filePath;
+    }
+
+    public WorkspaceManager workspaceManager() {
+        return workspaceManagerProxy.get(fileUri);
     }
 }

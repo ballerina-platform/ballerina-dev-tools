@@ -25,7 +25,6 @@ import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.Diagnostic;
 
@@ -44,9 +43,8 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
     private static final String REDECLARED_SYMBOL = "redeclared symbol '%s'";
     private static final DiagnosticErrorCode REDECLARED_SYMBOL_ERROR_CODE = DiagnosticErrorCode.REDECLARED_SYMBOL;
 
-    public IdentifierDiagnosticsRequest(ExpressionEditorContext context,
-                                        WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, workspaceManagerProxy);
+    public IdentifierDiagnosticsRequest(ExpressionEditorContext context) {
+        super(context);
     }
 
     @Override
@@ -57,8 +55,9 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         Optional<SemanticModel> semanticModel =
-                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
-        Optional<Document> document = workspaceManagerProxy.get(context.fileUri()).document(context.filePath());
+                context.workspaceManager().semanticModel(context.filePath());
+        Optional<Document> document =
+                context.workspaceManager().document(context.filePath());
         if (semanticModel.isEmpty() || document.isEmpty()) {
             return Set.of();
         }

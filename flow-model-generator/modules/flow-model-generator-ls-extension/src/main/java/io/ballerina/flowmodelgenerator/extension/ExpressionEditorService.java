@@ -158,8 +158,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         fileUri,
                         request.context(),
                         Path.of(request.filePath())
-                ),
-                workspaceManagerProxy));
+                )));
     }
 
     @JsonRequest

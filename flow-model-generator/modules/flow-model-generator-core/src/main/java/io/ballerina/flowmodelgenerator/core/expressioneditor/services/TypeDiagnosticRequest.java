@@ -29,7 +29,6 @@ import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorCon
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.Diagnostic;
 
@@ -49,9 +48,8 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
     private static final String INVALID_SUBTYPE = "expected a subtype of '%s', but found '%s'";
     private static final DiagnosticErrorCode UNKNOWN_TYPE_ERROR_CODE = DiagnosticErrorCode.UNKNOWN_TYPE;
 
-    public TypeDiagnosticRequest(ExpressionEditorContext context,
-                                 WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, workspaceManagerProxy);
+    public TypeDiagnosticRequest(ExpressionEditorContext context) {
+        super(context);
     }
 
     @Override
@@ -62,8 +60,8 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         Optional<SemanticModel> semanticModel =
-                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
-        Optional<Document> document = workspaceManagerProxy.get(context.fileUri()).document(context.filePath());
+                context.workspaceManager().semanticModel(context.filePath());
+        Optional<Document> document = context.workspaceManager().document(context.filePath());
         if (semanticModel.isEmpty() || document.isEmpty()) {
             return Set.of();
         }
