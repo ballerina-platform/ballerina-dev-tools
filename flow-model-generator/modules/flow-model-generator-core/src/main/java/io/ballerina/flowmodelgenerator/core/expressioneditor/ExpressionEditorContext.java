@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -294,6 +295,16 @@ public class ExpressionEditorContext {
 
     public Path filePath() {
         return filePath;
+    }
+
+    public SemanticModel semanticModel() {
+        return workspaceManager.semanticModel(filePath).orElseThrow();
+    }
+
+    public LineRange getExpressionLineRange() {
+        LinePosition startLine = info().startLine();
+        LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
+        return LineRange.from(filePath.getFileName().toString(), startLine, endLine);
     }
 
     /**

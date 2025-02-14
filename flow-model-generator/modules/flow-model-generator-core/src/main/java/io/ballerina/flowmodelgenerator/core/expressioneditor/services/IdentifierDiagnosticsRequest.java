@@ -19,28 +19,32 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
-import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.common.utils.PositionUtil;
+import io.ballerina.projects.Document;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
+import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.Diagnostic;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
- * Handles diagnostic requests for expression validation in the expression editor.
+ * Handles diagnostic requests for identifier validation in the expression editor.
  *
  * @see DiagnosticsRequest
  * @since 2.0.0
  */
-public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
+public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
 
-    public ExpressionDiagnosticsRequest(ExpressionEditorContext context,
+    private static final String REDECLARED_SYMBOL = "redeclared symbol '%s'";
+    private static final DiagnosticErrorCode REDECLARED_SYMBOL_ERROR_CODE = DiagnosticErrorCode.REDECLARED_SYMBOL;
+
+    public IdentifierDiagnosticsRequest(ExpressionEditorContext context,
                                         String fileUri,
                                         WorkspaceManagerProxy workspaceManagerProxy) {
         super(context, fileUri, workspaceManagerProxy);
@@ -48,17 +52,29 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
     @Override
     protected Node getParsedNode(String expression) {
-        return NodeParser.parseExpression(expression);
+        return NodeParser.parseBindingPattern(expression);
     }
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        LineRange lineRange = context.generateStatement();
         Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(context.filePath());
-        return semanticModel.map(model -> model.diagnostics().stream()
-                .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
-                        lineRange))
-                .map(CommonUtils::transformBallerinaDiagnostic)
-                .collect(Collectors.toSet())).orElseGet(Set::of);
+        Optional<Document> document = workspaceManagerProxy.get(fileUri).document(context.filePath());
+        if (semanticModel.isEmpty() || document.isEmpty()) {
+            return Set.of();
+        }
+        Set<Diagnostic> diagnostics = new HashSet<>();
+
+        // Check for redeclared symbols
+        boolean redeclaredSymbol =
+                semanticModel.get().visibleSymbols(document.get(), context.info().startLine()).parallelStream()
+                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
+                        .flatMap(symbol -> symbol.getName().stream())
+                        .anyMatch(name -> name.equals(context.info().expression()));
+        if (redeclaredSymbol) {
+            String message = String.format(REDECLARED_SYMBOL, context.info().expression());
+            diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
+                    REDECLARED_SYMBOL_ERROR_CODE));
+        }
+        return diagnostics;
     }
 }
