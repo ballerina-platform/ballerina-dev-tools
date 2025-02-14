@@ -9,130 +9,64 @@
     },
     "offset": 4,
     "node": {
-      "id": "37865",
+      "id": "32874",
       "metadata": {
-        "label": "get",
-        "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+        "label": "Variable",
+        "description": "Assign a value to a variable"
       },
       "codedata": {
-        "node": "REMOTE_ACTION_CALL",
-        "org": "ballerina",
-        "module": "http",
-        "object": "Client",
-        "symbol": "get",
-        "version": "2.13.2",
+        "node": "VARIABLE",
         "lineRange": {
-          "fileName": "sample.bal",
+          "fileName": "new_data.bal",
           "startLine": {
-            "line": 6,
+            "line": 1,
             "offset": 4
           },
           "endLine": {
-            "line": 6,
-            "offset": 45
+            "line": 1,
+            "offset": 14
           }
         },
-        "sourceCode": "json val = check httpClient->get(\"/foo\");"
+        "sourceCode": "int i = 12;"
       },
       "returning": false,
       "properties": {
-        "connection": {
+        "expression": {
           "metadata": {
-            "label": "Connection",
-            "description": "Connection to use"
+            "label": "Expression",
+            "description": "Initialize with value"
           },
           "valueType": "EXPRESSION",
-          "value": "httpClient",
-          "optional": false,
-          "editable": false,
+          "value": "12",
+          "optional": true,
+          "editable": true,
           "advanced": false
-        },
-        "path": {
-          "metadata": {
-            "label": "path",
-            "description": "Request path"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "string",
-          "value": "\"/foo\"",
-          "placeholder": "\"\"",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "codedata": {
-            "kind": "REQUIRED",
-            "originalName": "path"
-          }
-        },
-        "headers": {
-          "metadata": {
-            "label": "headers",
-            "description": "The entity headers"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "map<string|string[]>|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "codedata": {
-            "kind": "DEFAULTABLE",
-            "originalName": "headers"
-          }
-        },
-        "targetType": {
-          "metadata": {
-            "label": "targetType",
-            "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-          },
-          "valueType": "TYPE",
-          "valueTypeConstraint": "anydata",
-          "placeholder": "json",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "codedata": {
-            "kind": "PARAM_FOR_TYPE_INFER",
-            "originalName": "targetType"
-          }
-        },
-        "checkError": {
-          "metadata": {
-            "label": "Check Error",
-            "description": "Trigger error flow"
-          },
-          "valueType": "FLAG",
-          "value": true,
-          "optional": false,
-          "editable": true,
-          "advanced": true
         },
         "variable": {
           "metadata": {
-            "label": "Variable Name",
+            "label": "Name",
             "description": "Name of the variable"
           },
           "valueType": "IDENTIFIER",
-          "value": "val",
+          "value": "i",
           "optional": false,
           "editable": true,
           "advanced": false
         },
         "type": {
           "metadata": {
-            "label": "Variable Type",
+            "label": "Type",
             "description": "Type of the variable"
           },
           "valueType": "TYPE",
-          "value": "json",
+          "value": "",
           "placeholder": "var",
           "optional": false,
           "editable": true,
           "advanced": false
         }
       },
-      "flags": 1
+      "flags": 0
     },
     "property": "type"
   },

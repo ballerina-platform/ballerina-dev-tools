@@ -111,9 +111,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Project project = this.workspaceManagerProxy.get().loadProject(filePath);
                 SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
                         () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
-
-                TypesGenerator typesGenerator = new TypesGenerator(semanticModel);
-                response.setTypes(typesGenerator.getTypes());
+                response.setTypes(TypesGenerator.getInstance().getTypes(semanticModel));
             } catch (Throwable e) {
                 response.setError(e);
             }
