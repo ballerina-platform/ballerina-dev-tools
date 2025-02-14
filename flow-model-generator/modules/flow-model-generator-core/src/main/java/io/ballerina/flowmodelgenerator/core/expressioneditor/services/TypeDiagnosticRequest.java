@@ -92,12 +92,16 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
         }
 
         // Check if the type is a subtype of the type constraint
-        String typeConstraint = context.getProperty().valueTypeConstraint().toString();
+        Object typeConstraint = context.getProperty().valueTypeConstraint();
+        if (typeConstraint == null) {
+            return diagnostics;
+        }
+        String typeConstraintString = typeConstraint.toString();
         Optional<TypeSymbol> typeConstraintTypeSymbol =
-                typesGenerator.getTypeSymbol(semanticModel.get(), typeConstraint);
+                typesGenerator.getTypeSymbol(semanticModel.get(), typeConstraintString);
         if (typeConstraintTypeSymbol.isPresent()) {
             if (!typeSymbol.get().subtypeOf(typeConstraintTypeSymbol.get())) {
-                String message = String.format(INVALID_SUBTYPE, typeConstraint, context.info().expression());
+                String message = String.format(INVALID_SUBTYPE, typeConstraintString, context.info().expression());
                 diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
                         "", DiagnosticSeverity.ERROR));
             }

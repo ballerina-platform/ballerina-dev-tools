@@ -34,9 +34,4 @@ function serviceCall() {
     json val = check httpClient->get("/foo");
 }
 
-enum MyEnum {
-    FIRST, 
-    SECOND
-}
-
 type MyError distinct error;
