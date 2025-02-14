@@ -41,9 +41,8 @@ import java.util.stream.Collectors;
 public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
     public ExpressionDiagnosticsRequest(ExpressionEditorContext context,
-                                        String fileUri,
                                         WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, fileUri, workspaceManagerProxy);
+        super(context, workspaceManagerProxy);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         LineRange lineRange = context.generateStatement();
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(context.filePath());
+        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
         return semanticModel.map(model -> model.diagnostics().stream()
                 .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                         lineRange))

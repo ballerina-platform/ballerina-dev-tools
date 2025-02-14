@@ -49,9 +49,9 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
     private static final String INVALID_SUBTYPE = "expected a subtype of '%s', but found '%s'";
     private static final DiagnosticErrorCode UNKNOWN_TYPE_ERROR_CODE = DiagnosticErrorCode.UNKNOWN_TYPE;
 
-    public TypeDiagnosticRequest(ExpressionEditorContext context, String fileUri,
+    public TypeDiagnosticRequest(ExpressionEditorContext context,
                                  WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, fileUri, workspaceManagerProxy);
+        super(context, workspaceManagerProxy);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(context.filePath());
-        Optional<Document> document = workspaceManagerProxy.get(fileUri).document(context.filePath());
+        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
+        Optional<Document> document = workspaceManagerProxy.get(context.fileUri()).document(context.filePath());
         if (semanticModel.isEmpty() || document.isEmpty()) {
             return Set.of();
         }

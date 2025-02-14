@@ -39,14 +39,12 @@ import java.util.concurrent.CompletableFuture;
  */
 public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<List<CompletionItem>, CompletionList>> {
 
-    private final String fileUri;
     private final CompletionContext completionContext;
     private final TextDocumentService textDocumentService;
 
-    public CompletionRequest(ExpressionEditorContext context, String fileUri, CompletionContext completionContext,
+    public CompletionRequest(ExpressionEditorContext context, CompletionContext completionContext,
                              TextDocumentService textDocumentService) {
         super(context);
-        this.fileUri = fileUri;
         this.completionContext = completionContext;
         this.textDocumentService = textDocumentService;
     }
@@ -55,7 +53,7 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
     public Either<List<CompletionItem>, CompletionList> getResponse(ExpressionEditorContext context) {
         context.generateStatement();
         Position position = context.getCursorPosition();
-        TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+        TextDocumentIdentifier identifier = new TextDocumentIdentifier(context.fileUri());
         CompletionParams params = new CompletionParams(identifier, position, completionContext);
 
         // Get completions from language server

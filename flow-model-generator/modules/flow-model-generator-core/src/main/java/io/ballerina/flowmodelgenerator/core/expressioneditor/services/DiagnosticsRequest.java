@@ -38,18 +38,15 @@ import java.util.stream.StreamSupport;
  */
 public abstract class DiagnosticsRequest extends DebouncedExpressionEditorRequest<DiagnosticsRequest.Diagnostics> {
 
-    protected final String fileUri;
     protected final WorkspaceManagerProxy workspaceManagerProxy;
 
-    public DiagnosticsRequest(ExpressionEditorContext context, String fileUri,
+    public DiagnosticsRequest(ExpressionEditorContext context,
                               WorkspaceManagerProxy workspaceManagerProxy) {
         super(context);
-        this.fileUri = fileUri;
         this.workspaceManagerProxy = workspaceManagerProxy;
     }
 
     public static DiagnosticsRequest from(ExpressionEditorContext context,
-                                          String fileUri,
                                           WorkspaceManagerProxy workspaceManagerProxy) {
         Property property = context.getProperty();
         if (property == null) {
@@ -57,9 +54,9 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
         }
 
         return switch (Property.ValueType.valueOf(property.valueType())) {
-            case EXPRESSION -> new ExpressionDiagnosticsRequest(context, fileUri, workspaceManagerProxy);
-            case IDENTIFIER -> new IdentifierDiagnosticsRequest(context, fileUri, workspaceManagerProxy);
-            case TYPE -> new TypeDiagnosticRequest(context, fileUri, workspaceManagerProxy);
+            case EXPRESSION -> new ExpressionDiagnosticsRequest(context, workspaceManagerProxy);
+            case IDENTIFIER -> new IdentifierDiagnosticsRequest(context, workspaceManagerProxy);
+            case TYPE -> new TypeDiagnosticRequest(context, workspaceManagerProxy);
             default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
         };
     }

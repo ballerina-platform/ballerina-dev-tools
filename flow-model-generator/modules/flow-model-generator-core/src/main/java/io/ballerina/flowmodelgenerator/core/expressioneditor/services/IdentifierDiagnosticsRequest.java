@@ -45,9 +45,8 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
     private static final DiagnosticErrorCode REDECLARED_SYMBOL_ERROR_CODE = DiagnosticErrorCode.REDECLARED_SYMBOL;
 
     public IdentifierDiagnosticsRequest(ExpressionEditorContext context,
-                                        String fileUri,
                                         WorkspaceManagerProxy workspaceManagerProxy) {
-        super(context, fileUri, workspaceManagerProxy);
+        super(context, workspaceManagerProxy);
     }
 
     @Override
@@ -57,8 +56,9 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(context.filePath());
-        Optional<Document> document = workspaceManagerProxy.get(fileUri).document(context.filePath());
+        Optional<SemanticModel> semanticModel =
+                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
+        Optional<Document> document = workspaceManagerProxy.get(context.fileUri()).document(context.filePath());
         if (semanticModel.isEmpty() || document.isEmpty()) {
             return Set.of();
         }

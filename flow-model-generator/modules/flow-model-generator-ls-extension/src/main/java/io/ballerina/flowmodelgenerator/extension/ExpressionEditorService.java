@@ -124,11 +124,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new SignatureHelpRequest(
                 new ExpressionEditorContext(
-                        workspaceManagerProxy.get(fileUri),
+                        workspaceManagerProxy,
+                        fileUri,
                         request.context(),
                         Path.of(request.filePath())
                 ),
-                fileUri,
                 request.signatureHelpContext(),
                 langServer.getTextDocumentService()));
     }
@@ -139,11 +139,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new CompletionRequest(
                 new ExpressionEditorContext(
-                        workspaceManagerProxy.get(fileUri),
+                        workspaceManagerProxy,
+                        fileUri,
                         request.context(),
                         Path.of(request.filePath())
                 ),
-                fileUri,
                 request.completionContext(),
                 langServer.getTextDocumentService()));
     }
@@ -154,13 +154,12 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(DiagnosticsRequest.from(
                 new ExpressionEditorContext(
-                        workspaceManagerProxy.get(fileUri),
+                        workspaceManagerProxy,
+                        fileUri,
                         request.context(),
                         Path.of(request.filePath())
                 ),
-                fileUri,
-                workspaceManagerProxy
-        ));
+                workspaceManagerProxy));
     }
 
     @JsonRequest
@@ -186,7 +185,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                             String importStatement = codedata.getImportSignature();
                             Document doc = document.get();
                             ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                                    workspaceManagerProxy.get(fileUri), Path.of(request.filePath()), doc);
+                                    workspaceManagerProxy,
+                                    fileUri,
+                                    Path.of(request.filePath()),
+                                    doc);
                             Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
                             importTextEdit.ifPresent(
                                     textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
@@ -215,8 +217,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
                 if (document.isPresent()) {
                     ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                            workspaceManagerProxy.get(fileUri),
-                            Path.of(request.filePath()), document.get());
+                            workspaceManagerProxy,
+                            fileUri,
+                            Path.of(request.filePath()),
+                            document.get());
                     String importStatement = request.importStatement()
                             .replaceFirst("^import\\s+", "")
                             .replaceAll(";\\n$", "");

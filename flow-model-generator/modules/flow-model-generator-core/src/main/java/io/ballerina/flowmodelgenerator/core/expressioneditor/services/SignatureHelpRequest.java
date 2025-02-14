@@ -38,16 +38,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<SignatureHelp> {
 
-    private final String fileUri;
     private final SignatureHelpContext signatureHelpContext;
     private final TextDocumentService textDocumentService;
 
     public SignatureHelpRequest(ExpressionEditorContext context,
-                                String fileUri,
                                 SignatureHelpContext signatureHelpContext,
                                 TextDocumentService textDocumentService) {
         super(context);
-        this.fileUri = fileUri;
         this.signatureHelpContext = signatureHelpContext;
         this.textDocumentService = textDocumentService;
     }
@@ -56,7 +53,7 @@ public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<Signa
     public SignatureHelp getResponse(ExpressionEditorContext context) {
         context.generateStatement();
         Position position = context.getCursorPosition();
-        TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+        TextDocumentIdentifier identifier = new TextDocumentIdentifier(context.fileUri());
         SignatureHelpParams params = new SignatureHelpParams(identifier, position, signatureHelpContext);
         CompletableFuture<SignatureHelp> future = textDocumentService.signatureHelp(params);
         return future.join();
