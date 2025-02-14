@@ -48,21 +48,21 @@ public class TypesGenerator {
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
                 .flatMap(symbol -> symbol.getName().stream())
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (builtinTypeSymbols.isEmpty()) {
-            initializeTypeSymbolMap(semanticModel);
-        }
+        initializeTypeSymbolMap(semanticModel);
         visibleTypes.addAll(builtinTypeSymbols.keySet());
         return gson.toJsonTree(visibleTypes).getAsJsonArray();
     }
 
     public Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, String typeName) {
-        if (builtinTypeSymbols.isEmpty()) {
-            initializeTypeSymbolMap(semanticModel);
-        }
+        initializeTypeSymbolMap(semanticModel);
         return Optional.ofNullable(builtinTypeSymbols.get(typeName));
     }
 
     private void initializeTypeSymbolMap(SemanticModel semanticModel) {
+        if (!builtinTypeSymbols.isEmpty()) {
+            return;
+        }
+
         Types types = semanticModel.types();
         builtinTypeSymbols.put(TypeKind.INT.typeName(), types.INT);
         builtinTypeSymbols.put(TypeKind.STRING.typeName(), types.STRING);
