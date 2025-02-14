@@ -125,9 +125,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new SignatureHelpRequest(
-                workspaceManagerProxy.get(fileUri),
-                Path.of(request.filePath()),
-                request.context(),
+                new ExpressionEditorContext(
+                        workspaceManagerProxy.get(fileUri),
+                        request.context(),
+                        Path.of(request.filePath())
+                ),
                 fileUri,
                 request.signatureHelpContext(),
                 langServer.getTextDocumentService()));
@@ -138,9 +140,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorCompletionRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new CompletionRequest(
-                workspaceManagerProxy.get(fileUri),
-                Path.of(request.filePath()),
-                request.context(),
+                new ExpressionEditorContext(
+                        workspaceManagerProxy.get(fileUri),
+                        request.context(),
+                        Path.of(request.filePath())
+                ),
                 fileUri,
                 request.completionContext(),
                 langServer.getTextDocumentService()));
@@ -151,9 +155,11 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorDiagnosticsRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(DiagnosticsRequest.from(
-                workspaceManagerProxy.get(fileUri),
-                Path.of(request.filePath()),
-                request.context(),
+                new ExpressionEditorContext(
+                        workspaceManagerProxy.get(fileUri),
+                        request.context(),
+                        Path.of(request.filePath())
+                ),
                 fileUri,
                 workspaceManagerProxy
         ));

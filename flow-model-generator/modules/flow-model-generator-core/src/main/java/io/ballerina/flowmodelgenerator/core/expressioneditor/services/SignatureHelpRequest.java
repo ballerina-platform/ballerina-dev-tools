@@ -42,13 +42,11 @@ public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<Signa
     private final SignatureHelpContext signatureHelpContext;
     private final TextDocumentService textDocumentService;
 
-    public SignatureHelpRequest(WorkspaceManager workspaceManager,
-                                Path filePath,
-                                ExpressionEditorContext.Info context,
+    public SignatureHelpRequest(ExpressionEditorContext context,
                                 String fileUri,
                                 SignatureHelpContext signatureHelpContext,
                                 TextDocumentService textDocumentService) {
-        super(workspaceManager, filePath, context);
+        super(context);
         this.fileUri = fileUri;
         this.signatureHelpContext = signatureHelpContext;
         this.textDocumentService = textDocumentService;

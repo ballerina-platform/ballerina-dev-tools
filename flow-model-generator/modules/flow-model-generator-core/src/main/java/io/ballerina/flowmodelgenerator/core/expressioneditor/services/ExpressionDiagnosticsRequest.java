@@ -25,16 +25,13 @@ import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorCon
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Diagnostic;
 
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 
 /**
  * Handles diagnostic requests for expression validation in the expression editor.
@@ -46,17 +43,13 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
     private final String fileUri;
     private final WorkspaceManagerProxy workspaceManagerProxy;
-    private final Path filePath;
 
-    public ExpressionDiagnosticsRequest(WorkspaceManager workspaceManager,
-                                        Path filePath,
-                                        ExpressionEditorContext.Info context,
+    public ExpressionDiagnosticsRequest(ExpressionEditorContext context,
                                         String fileUri,
                                         WorkspaceManagerProxy workspaceManagerProxy) {
-        super(workspaceManager, filePath, context);
+        super(context);
         this.fileUri = fileUri;
         this.workspaceManagerProxy = workspaceManagerProxy;
-        this.filePath = filePath;
     }
 
     @Override
@@ -70,7 +63,7 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         LineRange lineRange = context.generateStatement();
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(filePath);
+        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(fileUri).semanticModel(context.filePath());
         return semanticModel.map(model -> model.diagnostics().stream()
                 .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                         lineRange))

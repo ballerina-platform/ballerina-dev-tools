@@ -19,33 +19,37 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Diagnostic;
 
-import java.nio.file.Path;
 import java.util.Set;
 
 /**
- * Represents a request to retrieve diagnostics for a given file and context.
- * This class extends DebouncedExpressionEditorRequest to handle diagnostic information
- * for Ballerina expressions with debouncing capability.
- * 
+ * Represents a request to retrieve diagnostics for a given file and context. This class extends
+ * DebouncedExpressionEditorRequest to handle diagnostic information for Ballerina expressions with debouncing
+ * capability.
+ *
+ * @since 2.0.0
  */
 public abstract class DiagnosticsRequest extends DebouncedExpressionEditorRequest<DiagnosticsRequest.Diagnostics> {
 
-    public DiagnosticsRequest(WorkspaceManager workspaceManager,
-                              Path filePath,
-                              ExpressionEditorContext.Info context) {
-        super(workspaceManager, filePath, context);
+    public DiagnosticsRequest(ExpressionEditorContext context) {
+        super(context);
     }
 
-    public static DiagnosticsRequest from(WorkspaceManager workspaceManager,
-                                          Path filePath,
-                                          ExpressionEditorContext.Info context,
+    public static DiagnosticsRequest from(ExpressionEditorContext context,
                                           String fileUri,
                                           WorkspaceManagerProxy workspaceManagerProxy) {
-        return new ExpressionDiagnosticsRequest(workspaceManager, filePath, context, fileUri, workspaceManagerProxy);
+        Property property = context.getProperty();
+        if (property == null) {
+            throw new IllegalArgumentException("Property cannot be null");
+        }
+
+        return switch (Property.ValueType.valueOf(property.valueType())) {
+            case EXPRESSION -> new ExpressionDiagnosticsRequest(context, fileUri, workspaceManagerProxy);
+            default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
+        };
     }
 
     protected abstract Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context);

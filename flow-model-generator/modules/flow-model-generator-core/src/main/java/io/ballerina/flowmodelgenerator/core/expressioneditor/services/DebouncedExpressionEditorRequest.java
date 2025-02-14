@@ -19,12 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 
 /**
@@ -38,15 +34,10 @@ import java.util.concurrent.Callable;
  */
 public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T> {
 
-    private final WorkspaceManager workspaceManager;
-    private final Path filePath;
-    private final ExpressionEditorContext.Info contextInfo;
+    private final ExpressionEditorContext context;
 
-    public DebouncedExpressionEditorRequest(WorkspaceManager workspaceManager, Path filePath,
-                                            ExpressionEditorContext.Info context) {
-        this.workspaceManager = workspaceManager;
-        this.filePath = filePath;
-        this.contextInfo = context;
+    public DebouncedExpressionEditorRequest(ExpressionEditorContext context) {
+        this.context = context;
     }
 
     /**
@@ -76,15 +67,9 @@ public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T>
     @Override
     public T call() throws Exception {
         // Capture the first state of the document
-        Optional<Document> document = workspaceManager.document(filePath);
-        if (document.isEmpty()) {
-            throw new IllegalStateException("Document not found: " + filePath);
-        }
-        TextDocument oldTextDocument = document.get().textDocument();
+        TextDocument oldTextDocument = context.textDocument();
 
         // Write the statement and generate the response
-        ExpressionEditorContext context = new ExpressionEditorContext(workspaceManager,
-                contextInfo, filePath, document.get());
         T response = getResponse(context);
 
         // Revert the document to the previous state

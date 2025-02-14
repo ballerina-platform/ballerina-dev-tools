@@ -75,6 +75,22 @@ public class ExpressionEditorContext {
     private Property property;
     private boolean propertyInitialized;
 
+
+    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath) {
+        this.workspaceManager = workspaceManager;
+        this.info = info;
+        this.filePath = filePath;
+        this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+        this.propertyInitialized = false;
+
+        Optional<Document> optionalDocument = workspaceManager.document(filePath);
+        if (optionalDocument.isEmpty()) {
+            throw new IllegalStateException("Document not found for the given path: " + filePath);
+        }
+        this.document = optionalDocument.get();
+        imports = getImportDeclarationNodes(document);
+    }
+
     public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
         this.info = info;
@@ -241,6 +257,43 @@ public class ExpressionEditorContext {
                 startLine.offset() + statement.length());
         this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
         return statementLineRange;
+    }
+
+    public Set<Diagnostic> parseStatement() {
+        Property property = getProperty();
+        if (property == null) {
+            return Set.of();
+        }
+
+        // Parse the property text based on the value type
+        Node parsedNode;
+        String text = info.expression();
+        String valueType = property.valueType();
+        switch (Property.ValueType.valueOf(valueType)) {
+            case TYPE -> {
+                parsedNode = NodeParser.parseTypeDescriptor(text);
+            }
+            case IDENTIFIER -> {
+                parsedNode = NodeParser.parseBindingPattern(text);
+            }
+            case EXPRESSION -> {
+                parsedNode = NodeParser.parseExpression(text);
+            }
+            default -> {
+                throw new IllegalArgumentException("Unsupported value type: " + valueType);
+            }
+        }
+        return StreamSupport.stream(parsedNode.diagnostics().spliterator(), true)
+                .map(CommonUtils::transformBallerinaDiagnostic)
+                .collect(Collectors.toSet());
+    }
+
+    public TextDocument textDocument() {
+        return document.textDocument();
+    }
+
+    public Path filePath() {
+        return filePath;
     }
 
     /**

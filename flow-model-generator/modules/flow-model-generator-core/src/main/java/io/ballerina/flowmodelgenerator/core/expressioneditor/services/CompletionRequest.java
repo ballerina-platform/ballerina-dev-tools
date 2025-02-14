@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
@@ -29,7 +28,6 @@ import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -45,10 +43,9 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
     private final CompletionContext completionContext;
     private final TextDocumentService textDocumentService;
 
-    public CompletionRequest(WorkspaceManager workspaceManager,
-                             Path filePath, ExpressionEditorContext.Info context, String fileUri,
-                             CompletionContext completionContext, TextDocumentService textDocumentService) {
-        super(workspaceManager, filePath, context);
+    public CompletionRequest(ExpressionEditorContext context, String fileUri, CompletionContext completionContext,
+                             TextDocumentService textDocumentService) {
+        super(context);
         this.fileUri = fileUri;
         this.completionContext = completionContext;
         this.textDocumentService = textDocumentService;
