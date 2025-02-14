@@ -68,15 +68,15 @@
       {
         "range": {
           "start": {
-            "line": 73,
+            "line": 72,
             "character": 0
           },
           "end": {
-            "line": 73,
+            "line": 72,
             "character": 0
           }
         },
-        "newText": "enum Gender {\n\tMALE = \"male\",\n\tFEMALE = \"female\"\n}\n"
+        "newText": "\nenum Gender {\n\tMALE = \"male\",\n\tFEMALE = \"female\"\n}\n"
       }
     ]
   }

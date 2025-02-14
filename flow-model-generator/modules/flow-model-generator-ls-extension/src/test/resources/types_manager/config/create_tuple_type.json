@@ -79,15 +79,15 @@
       {
         "range": {
           "start": {
-            "line": 73,
+            "line": 72,
             "character": 0
           },
           "end": {
-            "line": 73,
+            "line": 72,
             "character": 0
           }
         },
-        "newText": "type PersonWithId [Person, int];"
+        "newText": "\ntype PersonWithId [Person, int];"
       }
     ]
   }

@@ -247,15 +247,15 @@
       {
         "range": {
           "start": {
-            "line": 39,
+            "line": 38,
             "character": 0
           },
           "end": {
-            "line": 39,
+            "line": 38,
             "character": 0
           }
         },
-        "newText": "service class Person {\n\tprivate final string name;\n\tprivate final int age;\n\tprivate final boolean isAdult;\n\tprivate final Person[] children;\n\tprivate final Person child;\n\tfunction init(string name, int age, boolean isAdult, Person[] children, Person child) {\n\t\tself.name = name;\n\t\tself.age = age;\n\t\tself.isAdult = isAdult;\n\t\tself.children = children;\n\t\tself.child = child;\n\t}\n\tresource function get name() returns string {\n\t\treturn self.name;\n\t}\n\tresource function get age() returns int {\n\t\treturn self.age;\n\t}\n\tresource function get isAdult() returns boolean {\n\t\treturn self.isAdult;\n\t}\n\tresource function get children(string|int count) returns Person[] {\n\t\treturn self.children;\n\t}\n\tresource function get child(record {|\n\tstring name;\n\tint age;\n|} filter) returns Person {\n\t\treturn self.child;\n\t}\n}"
+        "newText": "\nservice class Person {\n\tprivate final string name;\n\tprivate final int age;\n\tprivate final boolean isAdult;\n\tprivate final Person[] children;\n\tprivate final Person child;\n\tfunction init(string name, int age, boolean isAdult, Person[] children, Person child) {\n\t\tself.name = name;\n\t\tself.age = age;\n\t\tself.isAdult = isAdult;\n\t\tself.children = children;\n\t\tself.child = child;\n\t}\n\tresource function get name() returns string {\n\t\tdo {\n\t\t\treturn self.name;\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic err;\n\t\t}\n\t}\n\tresource function get age() returns int {\n\t\tdo {\n\t\t\treturn self.age;\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic err;\n\t\t}\n\t}\n\tresource function get isAdult() returns boolean {\n\t\tdo {\n\t\t\treturn self.isAdult;\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic err;\n\t\t}\n\t}\n\tresource function get children(string|int count) returns Person[] {\n\t\tdo {\n\t\t\treturn self.children;\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic err;\n\t\t}\n\t}\n\tresource function get child(record {|\n\tstring name;\n\tint age;\n|} filter) returns Person {\n\t\tdo {\n\t\t\treturn self.child;\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic err;\n\t\t}\n\t}\n}"
       }
     ]
   }

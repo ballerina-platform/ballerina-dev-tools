@@ -237,15 +237,15 @@
       {
         "range": {
           "start": {
-            "line": 4,
+            "line": 3,
             "character": 0
           },
           "end": {
-            "line": 4,
+            "line": 3,
             "character": 0
           }
         },
-        "newText": "# User record type\n# Simple record type with docs, anonymous field types (union, record)\ntype User record {|\n\t# Anonymous nested record type\n\trecord {|\n\tint iA;\n\trecord {|\n\tint iiA;\n|} iB;\n|} field1;\n\t# Union of of type-refs and a built-in type\n\txml|UserAddress|City address;\n\t# Name of the employee\n\tstring name;\n\t# Age of the employee\n\tint age;\n\tanydata ...;\n|};"
+        "newText": "\n# User record type\n# Simple record type with docs, anonymous field types (union, record)\ntype User record {|\n\t# Anonymous nested record type\n\trecord {|\n\tint iA;\n\trecord {|\n\tint iiA;\n|} iB;\n|} field1;\n\t# Union of of type-refs and a built-in type\n\txml|UserAddress|City address;\n\t# Name of the employee\n\tstring name;\n\t# Age of the employee\n\tint age;\n\tanydata ...;\n|};"
       }
     ]
   }

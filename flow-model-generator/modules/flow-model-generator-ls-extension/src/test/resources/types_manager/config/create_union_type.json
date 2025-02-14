@@ -89,15 +89,15 @@
       {
         "range": {
           "start": {
-            "line": 73,
+            "line": 72,
             "character": 0
           },
           "end": {
-            "line": 73,
+            "line": 72,
             "character": 0
           }
         },
-        "newText": "type Misc Color|Employees|Person;"
+        "newText": "\ntype Misc Color|Employees|Person;"
       }
     ]
   }
