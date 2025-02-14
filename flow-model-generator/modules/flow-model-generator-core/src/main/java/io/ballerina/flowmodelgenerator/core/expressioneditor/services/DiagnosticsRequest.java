@@ -32,7 +32,9 @@ import java.util.stream.StreamSupport;
 /**
  * Represents a request to retrieve diagnostics for a given file and context. This class extends
  * DebouncedExpressionEditorRequest to handle diagnostic information for Ballerina expressions with debouncing
- * capability.
+ * capability. This is an abstract class that sets the common functionality to handle syntax and semantic errors for an
+ * expression editor. It provides the basic processing workflow to parse the input expression, extract syntax errors,
+ * and then, if no syntax issues are found, retrieve semantic diagnostics.
  *
  * @since 2.0.0
  */
@@ -61,8 +63,20 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
         };
     }
 
-    protected abstract Node getParsedNode(String expression);
+    /**
+     * Parses the provided text and returns the corresponding ST node.
+     *
+     * @param text the text to be parsed
+     * @return the parsed ST node
+     */
+    protected abstract Node getParsedNode(String text);
 
+    /**
+     * Retrieves the set of semantic diagnostics for the given text.
+     *
+     * @param context the expression editor context to analyze for semantic issues
+     * @return a set of diagnostics representing semantic errors
+     */
     protected abstract Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context);
 
     private Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context) {

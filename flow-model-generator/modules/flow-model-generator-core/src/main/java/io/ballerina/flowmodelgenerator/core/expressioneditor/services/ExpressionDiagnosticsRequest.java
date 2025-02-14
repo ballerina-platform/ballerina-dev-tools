@@ -46,14 +46,15 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
     }
 
     @Override
-    protected Node getParsedNode(String expression) {
-        return NodeParser.parseExpression(expression);
+    protected Node getParsedNode(String text) {
+        return NodeParser.parseExpression(text);
     }
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
         LineRange lineRange = context.generateStatement();
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
+        Optional<SemanticModel> semanticModel =
+                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
         return semanticModel.map(model -> model.diagnostics().stream()
                 .filter(diagnostic -> PositionUtil.isWithinLineRange(diagnostic.location().lineRange(),
                         lineRange))

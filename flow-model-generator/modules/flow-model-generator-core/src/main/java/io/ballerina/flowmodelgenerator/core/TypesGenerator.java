@@ -28,6 +28,7 @@ import org.ballerinalang.model.types.TypeKind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,7 +42,7 @@ import java.util.stream.Collectors;
 public class TypesGenerator {
 
     private final Gson gson = new Gson();
-    private final Map<String, TypeSymbol> builtinTypeSymbols = new HashMap<>();
+    private final Map<String, TypeSymbol> builtinTypeSymbols = new LinkedHashMap<>();
 
     public JsonArray getTypes(SemanticModel semanticModel) {
         List<String> visibleTypes = semanticModel.moduleSymbols().parallelStream()
@@ -64,24 +65,24 @@ public class TypesGenerator {
         }
 
         Types types = semanticModel.types();
-        builtinTypeSymbols.put(TypeKind.INT.typeName(), types.INT);
         builtinTypeSymbols.put(TypeKind.STRING.typeName(), types.STRING);
-        builtinTypeSymbols.put(TypeKind.FLOAT.typeName(), types.FLOAT);
         builtinTypeSymbols.put(TypeKind.BOOLEAN.typeName(), types.BOOLEAN);
+        builtinTypeSymbols.put(TypeKind.INT.typeName(), types.INT);
+        builtinTypeSymbols.put(TypeKind.FLOAT.typeName(), types.FLOAT);
         builtinTypeSymbols.put(TypeKind.DECIMAL.typeName(), types.DECIMAL);
         builtinTypeSymbols.put(TypeKind.XML.typeName(), types.XML);
+        builtinTypeSymbols.put(TypeKind.BYTE.typeName(), types.BYTE);
         builtinTypeSymbols.put(TypeKind.ERROR.typeName(), types.ERROR);
+        builtinTypeSymbols.put(TypeKind.JSON.typeName(), types.JSON);
+        builtinTypeSymbols.put(TypeKind.ANY.typeName(), types.ANY);
+        builtinTypeSymbols.put(TypeKind.ANYDATA.typeName(), types.ANYDATA);
         builtinTypeSymbols.put(TypeKind.FUNCTION.typeName(), types.FUNCTION);
         builtinTypeSymbols.put(TypeKind.FUTURE.typeName(), types.FUTURE);
         builtinTypeSymbols.put(TypeKind.TYPEDESC.typeName(), types.TYPEDESC);
         builtinTypeSymbols.put(TypeKind.HANDLE.typeName(), types.HANDLE);
         builtinTypeSymbols.put(TypeKind.STREAM.typeName(), types.STREAM);
-        builtinTypeSymbols.put(TypeKind.ANY.typeName(), types.ANY);
-        builtinTypeSymbols.put(TypeKind.ANYDATA.typeName(), types.ANYDATA);
         builtinTypeSymbols.put(TypeKind.NEVER.typeName(), types.NEVER);
         builtinTypeSymbols.put(TypeKind.READONLY.typeName(), types.READONLY);
-        builtinTypeSymbols.put(TypeKind.JSON.typeName(), types.JSON);
-        builtinTypeSymbols.put(TypeKind.BYTE.typeName(), types.BYTE);
     }
 
     public static TypesGenerator getInstance() {
@@ -90,6 +91,6 @@ public class TypesGenerator {
 
     private static class Holder {
 
-        private static TypesGenerator INSTANCE = new TypesGenerator();
+        private static final TypesGenerator INSTANCE = new TypesGenerator();
     }
 }

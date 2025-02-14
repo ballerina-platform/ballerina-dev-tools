@@ -50,8 +50,8 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
     }
 
     @Override
-    protected Node getParsedNode(String expression) {
-        return NodeParser.parseBindingPattern(expression);
+    protected Node getParsedNode(String text) {
+        return NodeParser.parseBindingPattern(text);
     }
 
     @Override

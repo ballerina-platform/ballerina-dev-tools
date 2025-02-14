@@ -55,13 +55,14 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
     }
 
     @Override
-    protected Node getParsedNode(String expression) {
-        return NodeParser.parseTypeDescriptor(expression);
+    protected Node getParsedNode(String text) {
+        return NodeParser.parseTypeDescriptor(text);
     }
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        Optional<SemanticModel> semanticModel = workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
+        Optional<SemanticModel> semanticModel =
+                workspaceManagerProxy.get(context.fileUri()).semanticModel(context.filePath());
         Optional<Document> document = workspaceManagerProxy.get(context.fileUri()).document(context.filePath());
         if (semanticModel.isEmpty() || document.isEmpty()) {
             return Set.of();
