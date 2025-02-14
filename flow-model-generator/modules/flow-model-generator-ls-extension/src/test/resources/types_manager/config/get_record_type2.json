@@ -77,21 +77,14 @@
         "kind": "FIELD",
         "refs": [],
         "type": "string",
-        "name": "country",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "city",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
         "name": "houseNo",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "line1",
         "docs": ""
       },
       {
@@ -105,7 +98,14 @@
         "kind": "FIELD",
         "refs": [],
         "type": "string",
-        "name": "line1",
+        "name": "city",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "country",
         "docs": ""
       }
     ],

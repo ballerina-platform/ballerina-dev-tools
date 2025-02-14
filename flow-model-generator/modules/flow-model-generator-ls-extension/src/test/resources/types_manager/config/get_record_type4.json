@@ -76,6 +76,80 @@
       {
         "kind": "FIELD",
         "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": "Name of the employee"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "age",
+        "docs": "Age of the employee"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "xml",
+              "name": "xml"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "City"
+              ],
+              "type": "City",
+              "name": "City"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "UserAddress"
+              ],
+              "type": "UserAddress",
+              "name": "UserAddress"
+            }
+          ]
+        },
+        "name": "address",
+        "docs": "Union of of type-refs and a built-in type"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
         "type": {
           "editable": false,
           "codedata": {
@@ -164,80 +238,6 @@
         },
         "name": "field1",
         "docs": "Anonymous nested record type"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": {
-          "editable": false,
-          "codedata": {
-            "node": "UNION"
-          },
-          "properties": {
-            "isArray": {
-              "metadata": {
-                "label": "Is array type",
-                "description": "Is this type an array or list value"
-              },
-              "valueType": "FLAG",
-              "value": "false",
-              "optional": true,
-              "editable": true,
-              "advanced": true
-            },
-            "arraySize": {
-              "metadata": {
-                "label": "Size of the array",
-                "description": "Array dimensions"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": false,
-              "editable": false,
-              "advanced": false
-            }
-          },
-          "members": [
-            {
-              "kind": "TYPE",
-              "refs": [],
-              "type": "xml",
-              "name": "xml"
-            },
-            {
-              "kind": "TYPE",
-              "refs": [
-                "UserAddress"
-              ],
-              "type": "UserAddress",
-              "name": "UserAddress"
-            },
-            {
-              "kind": "TYPE",
-              "refs": [
-                "City"
-              ],
-              "type": "City",
-              "name": "City"
-            }
-          ]
-        },
-        "name": "address",
-        "docs": "Union of of type-refs and a built-in type"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": "Name of the employee"
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "age",
-        "docs": "Age of the employee"
       }
     ],
     "restMember": {
@@ -370,7 +370,7 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "country",
+          "name": "street",
           "docs": ""
         },
         {
@@ -384,7 +384,7 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "street",
+          "name": "country",
           "docs": ""
         }
       ],
@@ -469,14 +469,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "country",
+          "name": "city",
           "docs": ""
         },
         {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "city",
+          "name": "country",
           "docs": ""
         }
       ],

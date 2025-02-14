@@ -74,21 +74,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "country",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "city",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
           "name": "houseNo",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "line1",
           "docs": ""
         },
         {
@@ -102,7 +95,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "line1",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "country",
           "docs": ""
         }
       ],
@@ -178,17 +178,17 @@
       "members": [
         {
           "kind": "TYPE",
+          "refs": [],
+          "type": "int",
+          "name": "int"
+        },
+        {
+          "kind": "TYPE",
           "refs": [
             "Person"
           ],
           "type": "Person",
           "name": "Person"
-        },
-        {
-          "kind": "TYPE",
-          "refs": [],
-          "type": "int",
-          "name": "int"
         }
       ]
     },
@@ -379,14 +379,14 @@
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "decimal",
-                "name": "decimal"
+                "type": "int",
+                "name": "int"
               },
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "int",
-                "name": "int"
+                "type": "decimal",
+                "name": "decimal"
               }
             ]
           },
@@ -465,10 +465,10 @@
         {
           "kind": "TYPE",
           "refs": [
-            "Color"
+            "Person"
           ],
-          "type": "Color",
-          "name": "Color"
+          "type": "Person",
+          "name": "Person"
         },
         {
           "kind": "TYPE",
@@ -481,10 +481,10 @@
         {
           "kind": "TYPE",
           "refs": [
-            "Person"
+            "Color"
           ],
-          "type": "Person",
-          "name": "Person"
+          "type": "Color",
+          "name": "Color"
         }
       ]
     },
@@ -591,11 +591,9 @@
             "members": [
               {
                 "kind": "FIELD",
-                "refs": [
-                  "Names"
-                ],
-                "type": "Names",
-                "name": "otherNames",
+                "refs": [],
+                "type": "int",
+                "name": "id",
                 "docs": ""
               },
               {
@@ -607,9 +605,11 @@
               },
               {
                 "kind": "FIELD",
-                "refs": [],
-                "type": "int",
-                "name": "id",
+                "refs": [
+                  "Names"
+                ],
+                "type": "Names",
+                "name": "otherNames",
                 "docs": ""
               }
             ],
@@ -723,6 +723,68 @@
               {
                 "kind": "TYPE",
                 "refs": [
+                  "ballerina/time:Utc"
+                ],
+                "type": "time:Utc",
+                "name": "time:Utc"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Person"
+                ],
+                "type": "Person",
+                "name": "Person"
+              },
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "Address"
+                ],
+                "type": "Address",
+                "name": "Address"
+              }
+            ]
+          },
+          "name": "mixField1",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "UNION"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "false",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
                   "Address"
                 ],
                 "type": "Address",
@@ -791,68 +853,6 @@
             ]
           },
           "name": "mixField3",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": {
-            "editable": false,
-            "codedata": {
-              "node": "UNION"
-            },
-            "properties": {
-              "isArray": {
-                "metadata": {
-                  "label": "Is array type",
-                  "description": "Is this type an array or list value"
-                },
-                "valueType": "FLAG",
-                "value": "false",
-                "optional": true,
-                "editable": true,
-                "advanced": true
-              },
-              "arraySize": {
-                "metadata": {
-                  "label": "Size of the array",
-                  "description": "Array dimensions"
-                },
-                "valueType": "STRING",
-                "value": "",
-                "optional": false,
-                "editable": false,
-                "advanced": false
-              }
-            },
-            "members": [
-              {
-                "kind": "TYPE",
-                "refs": [
-                  "Address"
-                ],
-                "type": "Address",
-                "name": "Address"
-              },
-              {
-                "kind": "TYPE",
-                "refs": [
-                  "ballerina/time:Utc"
-                ],
-                "type": "time:Utc",
-                "name": "time:Utc"
-              },
-              {
-                "kind": "TYPE",
-                "refs": [
-                  "Person"
-                ],
-                "type": "Person",
-                "name": "Person"
-              }
-            ]
-          },
-          "name": "mixField1",
           "docs": ""
         }
       ],
@@ -1010,6 +1010,20 @@
         {
           "kind": "FIELD",
           "refs": [],
+          "type": "int",
+          "name": "id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
           "type": {
             "editable": false,
             "codedata": {
@@ -1060,20 +1074,6 @@
           ],
           "type": "time:Utc",
           "name": "dob",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "name",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "int",
-          "name": "id",
           "docs": ""
         }
       ],
@@ -1432,9 +1432,32 @@
       "members": [
         {
           "kind": "FIELD",
+          "refs": [
+            "ballerina/lang.string:Char"
+          ],
+          "type": "string:Char",
+          "name": "code",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
           "refs": [],
           "type": "int",
           "name": "studentId",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
           "docs": ""
         },
         {
@@ -1486,33 +1509,10 @@
         {
           "kind": "FIELD",
           "refs": [
-            "ballerina/lang.string:Char"
-          ],
-          "type": "string:Char",
-          "name": "code",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [
             "ballerina/time:Utc"
           ],
           "type": "time:Utc",
           "name": "dob",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "name",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "int",
-          "name": "id",
           "docs": ""
         }
       ],
@@ -1591,6 +1591,22 @@
         {
           "kind": "FIELD",
           "refs": [],
+          "type": "int",
+          "name": "id",
+          "defaultValue": "12",
+          "docs": "id of the person"
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "defaultValue": "\"John\"",
+          "docs": "name of the person"
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
           "type": {
             "editable": false,
             "codedata": {
@@ -1644,22 +1660,6 @@
           "name": "dob",
           "defaultValue": "getDefaultDob()",
           "docs": "date of birth"
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "name",
-          "defaultValue": "\"John\"",
-          "docs": "name of the person"
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "int",
-          "name": "id",
-          "defaultValue": "12",
-          "docs": "id of the person"
         }
       ],
       "includes": []
