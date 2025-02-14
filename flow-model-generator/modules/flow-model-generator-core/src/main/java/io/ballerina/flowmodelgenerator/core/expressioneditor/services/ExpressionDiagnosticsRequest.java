@@ -31,7 +31,6 @@ import org.eclipse.lsp4j.Diagnostic;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Handles diagnostic requests for expression validation in the expression editor.
@@ -53,11 +52,8 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
     }
 
     @Override
-    protected Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context) {
-        Node parsedNode = NodeParser.parseExpression(context.info().expression());
-        return StreamSupport.stream(parsedNode.diagnostics().spliterator(), true)
-                .map(CommonUtils::transformBallerinaDiagnostic)
-                .collect(Collectors.toSet());
+    protected Node getParsedNode(String expression) {
+        return NodeParser.parseExpression(expression);
     }
 
     @Override

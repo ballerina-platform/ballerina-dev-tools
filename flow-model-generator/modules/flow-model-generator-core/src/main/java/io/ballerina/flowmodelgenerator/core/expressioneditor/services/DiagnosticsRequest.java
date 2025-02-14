@@ -18,12 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Diagnostic;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Represents a request to retrieve diagnostics for a given file and context. This class extends
@@ -52,9 +56,16 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
         };
     }
 
-    protected abstract Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context);
+    protected abstract Node getParsedNode(String expression);
 
     protected abstract Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context);
+
+    private Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context) {
+        Node parsedNode = getParsedNode(context.info().expression());
+        return StreamSupport.stream(parsedNode.diagnostics().spliterator(), true)
+                .map(CommonUtils::transformBallerinaDiagnostic)
+                .collect(Collectors.toSet());
+    }
 
     @Override
     public Diagnostics getResponse(ExpressionEditorContext context) {
