@@ -58,11 +58,11 @@
         "range": {
           "start": {
             "line": 38,
-            "character": 0
+            "character": 1
           },
           "end": {
             "line": 38,
-            "character": 0
+            "character": 1
           }
         },
         "newText": "\nservice class Person {\n\tfunction init() {\n\t}\n}"

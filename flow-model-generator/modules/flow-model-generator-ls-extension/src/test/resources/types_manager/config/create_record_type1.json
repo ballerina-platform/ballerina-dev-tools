@@ -103,11 +103,11 @@
         "range": {
           "start": {
             "line": 3,
-            "character": 0
+            "character": 3
           },
           "end": {
             "line": 3,
-            "character": 0
+            "character": 3
           }
         },
         "newText": "\n# Person record\n# Used to represent person object\ntype Person record {|\n\t# id of the person\n\tint id = 12;\n\t# name of the person\n\tstring name = \"John Doe\";\n\t# addresses of the person\n\tAddress[] addresses = [];\n\t# date of birth\n\ttime:Utc dob = getDefaultDob();\n|};"

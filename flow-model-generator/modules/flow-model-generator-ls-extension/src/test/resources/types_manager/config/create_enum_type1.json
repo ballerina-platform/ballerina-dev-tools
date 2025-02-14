@@ -69,11 +69,11 @@
         "range": {
           "start": {
             "line": 72,
-            "character": 0
+            "character": 3
           },
           "end": {
             "line": 72,
-            "character": 0
+            "character": 3
           }
         },
         "newText": "\nenum Gender {\n\tMALE = \"male\",\n\tFEMALE = \"female\"\n}\n"
