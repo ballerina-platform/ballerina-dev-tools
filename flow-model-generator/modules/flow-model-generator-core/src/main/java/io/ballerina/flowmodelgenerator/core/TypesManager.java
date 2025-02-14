@@ -153,7 +153,7 @@ public class TypesManager {
         LineRange lineRange = typeData.codedata().lineRange();
         if (lineRange == null) {
             ModulePartNode modulePartNode = syntaxTree.rootNode();
-            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line(), 0);
             textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
         } else {
             NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(lineRange), syntaxTree);
@@ -174,7 +174,7 @@ public class TypesManager {
 
         SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
-        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line(), 0);
         textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
         return gson.toJsonTree(textEditsMap);
     }
