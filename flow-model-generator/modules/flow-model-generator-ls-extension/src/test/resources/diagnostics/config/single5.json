@@ -113,23 +113,6 @@
       "range": {
         "start": {
           "line": 13,
-          "character": 20
-        },
-        "end": {
-          "line": 13,
-          "character": 21
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2010"
-      },
-      "message": "undefined symbol 'x'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
           "character": 25
         },
         "end": {
@@ -142,6 +125,23 @@
         "left": "BCE2010"
       },
       "message": "undefined symbol 'y'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 20
+        },
+        "end": {
+          "line": 13,
+          "character": 21
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2010"
+      },
+      "message": "undefined symbol 'x'"
     }
   ]
 }

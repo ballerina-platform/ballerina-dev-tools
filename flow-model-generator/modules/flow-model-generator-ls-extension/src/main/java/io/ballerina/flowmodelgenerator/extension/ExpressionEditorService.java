@@ -150,12 +150,13 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     public CompletableFuture<DiagnosticsRequest.Diagnostics> diagnostics(
             ExpressionEditorDiagnosticsRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
-        return Debouncer.getInstance().debounce(new DiagnosticsRequest(
+        return Debouncer.getInstance().debounce(DiagnosticsRequest.from(
                 workspaceManagerProxy.get(fileUri),
                 Path.of(request.filePath()),
                 request.context(),
                 fileUri,
-                workspaceManagerProxy));
+                workspaceManagerProxy
+        ));
     }
 
     @JsonRequest

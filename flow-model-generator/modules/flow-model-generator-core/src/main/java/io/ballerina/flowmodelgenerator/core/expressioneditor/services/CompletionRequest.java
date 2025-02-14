@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
@@ -56,8 +55,8 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
     }
 
     @Override
-    public Either<List<CompletionItem>, CompletionList> getResponse(ExpressionEditorContext context,
-                                                                    LineRange lineRange) {
+    public Either<List<CompletionItem>, CompletionList> getResponse(ExpressionEditorContext context) {
+        context.generateStatement();
         Position position = context.getCursorPosition();
         TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
         CompletionParams params = new CompletionParams(identifier, position, completionContext);

@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
@@ -32,8 +31,8 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Represents a request for signature help in the expression editor.
- * This class extends DebouncedExpressionEditorRequest to handle signature help requests with debouncing functionality.
+ * Represents a request for signature help in the expression editor. This class extends DebouncedExpressionEditorRequest
+ * to handle signature help requests with debouncing functionality.
  *
  * @since 2.0.0
  */
@@ -56,7 +55,8 @@ public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<Signa
     }
 
     @Override
-    public SignatureHelp getResponse(ExpressionEditorContext context, LineRange lineRange) {
+    public SignatureHelp getResponse(ExpressionEditorContext context) {
+        context.generateStatement();
         Position position = context.getCursorPosition();
         TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
         SignatureHelpParams params = new SignatureHelpParams(identifier, position, signatureHelpContext);

@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.projects.Document;
-import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
@@ -54,11 +53,10 @@ public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T>
      * Returns the response based on the provided expression editor context and line range. This method is implemented
      * by each expression editor API to determine how to generate the appropriate response for the current context.
      *
-     * @param context   The expression editor context containing relevant information for processing
-     * @param lineRange The affected line range from the template statement
+     * @param context The expression editor context containing relevant information for processing
      * @return The response of type T specific to the expression editor API
      */
-    public abstract T getResponse(ExpressionEditorContext context, LineRange lineRange);
+    public abstract T getResponse(ExpressionEditorContext context);
 
     /**
      * Returns the unique key associated with the expression editor API request. This key is utilized by the debouncer
@@ -87,8 +85,7 @@ public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T>
         // Write the statement and generate the response
         ExpressionEditorContext context = new ExpressionEditorContext(workspaceManager,
                 contextInfo, filePath, document.get());
-        LineRange lineRange = context.generateStatement();
-        T response = getResponse(context, lineRange);
+        T response = getResponse(context);
 
         // Revert the document to the previous state
         context.applyContent(oldTextDocument);

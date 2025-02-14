@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -32,7 +34,6 @@ import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -42,12 +43,16 @@ import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Represents the context for the expression editor.
@@ -67,6 +72,8 @@ public class ExpressionEditorContext {
     private final Document document;
     private int expressionOffset;
     private LineRange statementLineRange;
+    private Property property;
+    private boolean propertyInitialized;
 
     public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
         this.workspaceManager = workspaceManager;
@@ -74,6 +81,7 @@ public class ExpressionEditorContext {
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
         this.document = document;
+        this.propertyInitialized = false;
         imports = getImportDeclarationNodes(document);
     }
 
@@ -83,6 +91,7 @@ public class ExpressionEditorContext {
         this.document = document;
         this.info = null;
         this.flowNode = null;
+        this.propertyInitialized = false;
         imports = getImportDeclarationNodes(document);
     }
 
@@ -93,14 +102,21 @@ public class ExpressionEditorContext {
                 : List.of();
     }
 
-    public Optional<Property> getProperty() {
+    public Property getProperty() {
+        if (propertyInitialized) {
+            return property;
+        }
         if (info.property() == null || info.property().isEmpty()) {
-            return Optional.empty();
+            this.property = null;
+        } else if (info.branch() == null || info.branch().isEmpty()) {
+            this.property = flowNode.getProperty(info.property()).orElse(null);
+        } else {
+            this.property = flowNode.getBranch(info.branch())
+                    .flatMap(branch -> branch.getProperty(info.property()))
+                    .orElse(null);
         }
-        if (info.branch() == null || info.branch().isEmpty()) {
-            return flowNode.getProperty(info.property());
-        }
-        return flowNode.getBranch(info.branch()).flatMap(branch -> branch.getProperty(info.property()));
+        propertyInitialized = true;
+        return property;
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
@@ -116,7 +132,7 @@ public class ExpressionEditorContext {
         }
 
         // Obtain the line position of the latest import statement
-        LinePosition importEndLine = imports.get(imports.size() - 1).lineRange().endLine();
+        LinePosition importEndLine = imports.getLast().lineRange().endLine();
 
         if (CommonUtils.isLinePositionAfter(info.startLine(), importEndLine)) {
             return info.startLine();
@@ -183,12 +199,11 @@ public class ExpressionEditorContext {
      */
     public LineRange generateStatement() {
         String prefix = "var _ = ";
-        Optional<Property> optionalProperty = getProperty();
+        Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 
-        if (optionalProperty.isPresent()) {
+        if (property != null) {
             // Append the type if exists
-            Property property = optionalProperty.get();
             if (property.valueTypeConstraint() != null) {
                 prefix = String.format("%s _ = ", property.valueTypeConstraint());
             }
@@ -258,10 +273,6 @@ public class ExpressionEditorContext {
         document.modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
-    }
-
-    public Iterable<Diagnostic> syntaxDiagnostics() {
-        return document.syntaxTree().diagnostics();
     }
 
     /**
