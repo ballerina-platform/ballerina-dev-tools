@@ -143,7 +143,7 @@
                 "metadata": {
                   "label": "get",
                   "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
                 },
                 "codedata": {
                   "node": "REMOTE_ACTION_CALL",
@@ -151,7 +151,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
-                  "version": "2.13.0",
+                  "version": "2.13.2",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -424,7 +424,7 @@
                         "metadata": {
                           "label": "post",
                           "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
                         },
                         "codedata": {
                           "node": "REMOTE_ACTION_CALL",
@@ -432,7 +432,7 @@
                           "module": "http",
                           "object": "Client",
                           "symbol": "post",
-                          "version": "2.13.0",
+                          "version": "2.13.2",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -707,7 +707,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -715,7 +715,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.0",
+          "version": "2.13.2",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
