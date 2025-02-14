@@ -59,6 +59,7 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
         return switch (Property.ValueType.valueOf(property.valueType())) {
             case EXPRESSION -> new ExpressionDiagnosticsRequest(context, fileUri, workspaceManagerProxy);
             case IDENTIFIER -> new IdentifierDiagnosticsRequest(context, fileUri, workspaceManagerProxy);
+            case TYPE -> new TypeDiagnosticRequest(context, fileUri, workspaceManagerProxy);
             default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
         };
     }
