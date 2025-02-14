@@ -19,12 +19,6 @@
 package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.Project;
@@ -35,10 +29,7 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Represents the model generator for the sequence diagram.
@@ -74,51 +65,6 @@ public class ModelGenerator {
         participantManager.generateParticipant(semanticModel, rootNode, moduleName);
         List<Participant> participants = participantManager.getParticipants();
 
-        // Calculate the other participants
-        List<String> includedParticipants = participants.stream()
-                .map(Participant::name)
-                .collect(Collectors.toCollection(ArrayList::new));
-        List<Participant> allParticipants = semanticModel.moduleSymbols().stream()
-                .flatMap(symbol -> getParticipant(symbol, includedParticipants).stream())
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        return new Diagram(participants, allParticipants, lineRange);
-    }
-
-    private static Optional<Participant> getParticipant(Symbol symbol, List<String> includedParticipants) {
-        // Check if the symbol has a name
-        if (symbol.getName().isEmpty()) {
-            return Optional.empty();
-        }
-        String name = symbol.getName().get();
-
-        if (symbol.kind() == SymbolKind.FUNCTION) {
-            if (includedParticipants.remove(name)) {
-                return Optional.empty();
-            }
-            return Optional.of(
-                    new Participant("0", symbol.getName().orElse(""), Participant.ParticipantKind.FUNCTION,
-                            symbol.getModule().flatMap(Symbol::getName).orElse(""), null,
-                            null));
-        }
-
-        try {
-            VariableSymbol variableSymbol = (VariableSymbol) symbol;
-            TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) variableSymbol.typeDescriptor();
-            ClassSymbol classSymbol = (ClassSymbol) typeReferenceTypeSymbol.definition();
-            if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                if (includedParticipants.remove(name)) {
-                    return Optional.empty();
-                }
-                return Optional.of(
-                        new Participant("0", variableSymbol.getName().orElse(""), Participant.ParticipantKind.ENDPOINT,
-                                variableSymbol.getModule().flatMap(Symbol::getName).orElse(""), null,
-                                null));
-            }
-        } catch (ClassCastException e) {
-            return Optional.empty();
-        }
-
-        return Optional.empty();
+        return new Diagram(participants, lineRange);
     }
 }
