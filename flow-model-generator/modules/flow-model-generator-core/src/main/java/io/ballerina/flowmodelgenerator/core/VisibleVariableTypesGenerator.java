@@ -21,10 +21,12 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.util.PathSegment;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -66,11 +68,13 @@ public class VisibleVariableTypesGenerator {
         List<Category.Variable> configurableVariables = new ArrayList<>();
         List<Category.Variable> localVariables = new ArrayList<>();
         List<Category.Variable> parameters = new ArrayList<>();
+        List<Category.Variable> pathParameters = new ArrayList<>();
         List<Category> categories = Arrays.asList(
                 new Category(Category.MODULE_CATEGORY, moduleVariables),
                 new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
                 new Category(Category.LOCAL_CATEGORY, localVariables),
-                new Category(Category.PARAMETER_CATEGORY, parameters)
+                new Category(Category.PARAMETER_CATEGORY, parameters),
+                new Category(Category.PATH_PARAMETER_CATEGORY, pathParameters)
         );
 
         List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
@@ -92,6 +96,12 @@ public class VisibleVariableTypesGenerator {
                 String name = symbol.getName().orElse("");
                 Type type = Type.fromSemanticSymbol(symbol);
                 parameters.add(new Category.Variable(name, type));
+            } else if (symbol.kind() == SymbolKind.PATH_PARAMETER) {
+                String name = symbol.getName().orElse("");
+                PathParameterSymbol pathParameterSymbol = (PathParameterSymbol) symbol;
+                Type type = Type.fromSemanticSymbol(pathParameterSymbol.typeDescriptor());
+                type.isRestType = pathParameterSymbol.pathSegmentKind() == PathSegment.Kind.PATH_REST_PARAMETER;
+                pathParameters.add(new Category.Variable(name, type));
             }
         }
 
@@ -131,6 +141,7 @@ public class VisibleVariableTypesGenerator {
         public static final String CONFIGURABLE_CATEGORY = "Configurable Variables";
         public static final String LOCAL_CATEGORY = "Local Variables";
         public static final String PARAMETER_CATEGORY = "Parameters";
+        public static final String PATH_PARAMETER_CATEGORY = "Path Parameters";
 
         public record Variable(String name, Type type) implements Comparable<Variable> {
 
