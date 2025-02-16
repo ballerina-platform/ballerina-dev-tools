@@ -311,6 +311,29 @@
           }
         }
       ]
+    },
+    {
+      "name": "Path Parameters",
+      "types": [
+        {
+          "name": "user",
+          "type": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "val",
+          "type": {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": true
+          }
+        }
+      ]
     }
   ]
 }
