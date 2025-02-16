@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.modelgenerator.commons;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,6 +44,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -174,7 +175,7 @@ public abstract class AbstractLSTest {
         TextDocumentItem textDocumentItem = new TextDocumentItem();
         String text;
         try (FileInputStream fis = new FileInputStream(sourcePath)) {
-            text = new String(fis.readAllBytes());
+            text = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
         }
         textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
         textDocumentItem.setText(text);

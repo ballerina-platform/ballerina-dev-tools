@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperSourceRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -38,7 +39,7 @@ public class DataMappingSourceTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override
-    protected Object[] getConfigsList() { 
+    protected Object[] getConfigsList() {
         return new Object[][]{
                 {Path.of("variable1.json")},
                 {Path.of("variable2.json")},

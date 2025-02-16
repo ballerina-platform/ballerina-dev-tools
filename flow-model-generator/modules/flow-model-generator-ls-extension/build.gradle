@@ -35,6 +35,7 @@ configurations {
 
 dependencies {
     implementation project(':flow-model-generator:flow-model-generator-core')
+    implementation project(":model-generator-commons")
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"

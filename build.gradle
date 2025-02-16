@@ -126,6 +126,7 @@ def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-
 def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
+    dependsOn(":model-generator-commons:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-plugin:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
@@ -266,6 +267,10 @@ task buildSequence {
 
 task buildTestService {
     dependsOn(":test-manager-service:test-manager-service-ls-extension:build")
+}
+
+task buildCommons {
+    dependsOn(":model-generator-commons:build")
 }
 
 build.doNotTrackState("build needs to run every time")

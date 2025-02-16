@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
