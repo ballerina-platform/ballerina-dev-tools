@@ -125,6 +125,40 @@ def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-g
 def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
 def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
+// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
+def pullBallerinaModule(String packageName) {
+    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
+        doLast {
+            def errOutput = new ByteArrayOutputStream()
+            def result = exec {
+                ignoreExitValue = true
+
+                // Check if the package exists in the ballerina user 
+                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/ballerinax")
+                if (centralRepoDir.exists()) {
+                    def pkgDir = new File(centralRepoDir, packageName)
+                    if (pkgDir.exists()) {
+                        commandLine 'echo', "Package ${packageName} exists"
+                        return
+                    }
+                }
+
+                def ballPullCommand = "bal pull ballerinax/${packageName}"
+                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+                    commandLine 'cmd', '/c', ballPullCommand
+                } else {
+                    commandLine '/bin/sh', '-c', ballPullCommand
+                }
+                errorOutput = errOutput
+            }
+            if (result.exitValue != 0) {
+                println errOutput
+                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
+            }
+        }
+    }
+}
+
 task copyArtifactZip {
     dependsOn(":model-generator-commons:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")

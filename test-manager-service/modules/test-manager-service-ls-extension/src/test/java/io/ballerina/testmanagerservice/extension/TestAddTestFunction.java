@@ -20,6 +20,7 @@ package io.ballerina.testmanagerservice.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 import io.ballerina.testmanagerservice.extension.request.AddTestFunctionRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -100,6 +101,11 @@ public class TestAddTestFunction extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "testManagerService";
+    }
+
+    @Override
     protected String getApiName() {
         return "addTestFunction";
     }
@@ -114,6 +120,7 @@ public class TestAddTestFunction extends AbstractLSTest {
      */
     private record TestConfig(String filePath, String description, TestFunction function,
                               Map<String, List<TextEdit>> output) {
+
         public String description() {
             return description == null ? "" : description;
         }

@@ -19,6 +19,7 @@
 package io.ballerina.testmanagerservice.extension;
 
 import com.google.gson.JsonObject;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.testmanagerservice.extension.request.TestsDiscoveryRequest;
 import io.ballerina.testmanagerservice.extension.response.TestsDiscoveryResponse;
 import org.testng.Assert;
@@ -69,6 +70,11 @@ public class TestFileTestDiscovery extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "testManagerService";
+    }
+
+    @Override
     protected String getApiName() {
         return "discoverInFile";
     }
@@ -81,6 +87,7 @@ public class TestFileTestDiscovery extends AbstractLSTest {
      * @param response    The expected response
      */
     private record TestConfig(String filePath, String description, TestsDiscoveryResponse response) {
+
         public String description() {
             return description == null ? "" : description;
         }
