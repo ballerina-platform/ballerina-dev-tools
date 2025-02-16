@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.Map;
 import java.util.Optional;

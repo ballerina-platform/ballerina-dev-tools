@@ -16,12 +16,17 @@
  *  under the License.
  */
 
-module ballerina.dev.tools.model.generator.commons.main {
-    requires io.ballerina.flow.model.generator;
+module io.ballerina.model.generator.commons {
     requires io.ballerina.language.server.core;
+    requires io.ballerina.language.server.commons;
     requires org.eclipse.lsp4j;
     requires org.eclipse.lsp4j.jsonrpc;
     requires org.slf4j;
     requires org.testng;
     requires com.google.gson;
+    requires io.ballerina.tools.api;
+    requires io.ballerina.parser;
+    requires io.ballerina.lang;
+
+    exports io.ballerina.modelgenerator.commons;
 }

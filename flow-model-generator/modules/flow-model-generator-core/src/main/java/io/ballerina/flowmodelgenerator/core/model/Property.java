@@ -23,7 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.List;
 

@@ -23,6 +23,7 @@ module io.ballerina.flow.model.generator {
     requires io.ballerina.formatter.core;
     requires io.ballerina.language.server.commons;
     requires io.ballerina.language.server.core;
+    requires io.ballerina.model.generator.commons;
     requires org.eclipse.lsp4j;
     requires io.ballerina.diagram.util;
     requires io.ballerina.central.client;

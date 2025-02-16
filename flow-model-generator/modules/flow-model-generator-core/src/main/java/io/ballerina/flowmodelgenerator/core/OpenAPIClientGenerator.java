@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.openapi.core.generators.client.BallerinaClientGenerator;
 import io.ballerina.openapi.core.generators.client.diagnostic.ClientDiagnostic;
 import io.ballerina.openapi.core.generators.client.exception.ClientException;

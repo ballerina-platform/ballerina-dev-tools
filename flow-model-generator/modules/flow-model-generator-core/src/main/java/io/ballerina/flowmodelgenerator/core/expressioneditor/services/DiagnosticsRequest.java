@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;

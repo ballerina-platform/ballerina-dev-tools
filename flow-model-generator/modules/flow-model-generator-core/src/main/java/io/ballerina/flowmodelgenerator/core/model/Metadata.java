@@ -20,7 +20,7 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.List;
 import java.util.Map;
