@@ -73,7 +73,13 @@ public abstract class AbstractLSTest {
     public final void init() {
         resDir = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
         configDir = resDir.resolve("config");
+        if (!Files.isDirectory(configDir)) {
+            configDir = resDir;
+        }
         sourceDir = resDir.resolve("source");
+        if (!Files.isDirectory(sourceDir)) {
+            sourceDir = resDir;
+        }
         log = LoggerFactory.getLogger(clazz());
         this.languageServer = new BallerinaLanguageServer();
         TestUtil.LanguageServerBuilder builder = TestUtil.newLanguageServer().withLanguageServer(languageServer);
@@ -97,7 +103,7 @@ public abstract class AbstractLSTest {
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try (Stream<Path> stream = Files.walk(resDir)) {
+        try (Stream<Path> stream = Files.walk(configDir)) {
             return stream
                     .filter(path -> {
                         File file = path.toFile();

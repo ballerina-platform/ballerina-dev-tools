@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateReq
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -40,6 +41,14 @@ import java.util.List;
  * @since 2.0.0
  */
 public class FunctionCallTemplateTest extends AbstractLSTest {
+
+    private static JsonObject variableNode;
+
+    @BeforeClass
+    public void loadVariables() throws IOException {
+        Path variablesPath = sourceDir.resolve("variable.json");
+        variableNode = gson.fromJson(Files.newBufferedReader(variablesPath), JsonObject.class);
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -82,7 +91,7 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
             template = template.replace("${1}", " ");
         }
         ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
-                new JsonObject(), null, null);
+                variableNode, null, "expression");
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);
         JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");
