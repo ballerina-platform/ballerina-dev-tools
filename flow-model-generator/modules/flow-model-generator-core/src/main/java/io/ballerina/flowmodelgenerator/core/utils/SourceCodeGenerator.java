@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.Map;
 import java.util.Optional;
@@ -72,6 +73,7 @@ public class SourceCodeGenerator {
                 initParams.append(", ");
             }
             // Build the init function body: "self.<function-name> = <function-name>;"
+            // TODO: Add do-on-fail block after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43817
             initBody.append(LS).append("\t\tself.")
                     .append(function.name())
                     .append(" = ")
@@ -79,45 +81,13 @@ public class SourceCodeGenerator {
                     .append(";");
         }
 
-        // Build resource functions.
+        // Build the resource functions.
         StringBuilder resourceFunctions = new StringBuilder();
         for (Function function : typeData.functions()) {
-            if (function.description() != null && !function.description().isEmpty()) {
-                resourceFunctions.append(LS).append("\t")
-                        .append(CommonUtils.convertToBalDocs(function.description()));
-            } else {
-                resourceFunctions.append(LS);
-            }
-            resourceFunctions.append("\tresource function ")
-                    .append(function.accessor())
-                    .append(" ")
-                    .append(function.name())
-                    .append("(");
-
-            // Build the parameters for the resource function.
-            for (int i = 0; i < function.parameters().size(); i++) {
-                Member param = function.parameters().get(i);
-                generateTypeDescriptor(param.type(), resourceFunctions);
-                resourceFunctions.append(" ").append(param.name());
-                if (param.defaultValue() != null && !param.defaultValue().isEmpty()) {
-                    resourceFunctions.append(" = ").append(param.defaultValue());
-                }
-                if (i < function.parameters().size() - 1) {
-                    resourceFunctions.append(", ");
-                }
-            }
-            resourceFunctions.append(") returns ");
-            generateTypeDescriptor(function.returnType(), resourceFunctions);
-            resourceFunctions.append(" {")
-                    .append(LS)
-                    .append("\t\treturn self.")
-                    .append(function.name())
-                    .append(";")
-                    .append(LS)
-                    .append("\t}");
+            generateResourceFunction(function, resourceFunctions);
         }
 
-        String template = "service class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
+        String template = "%nservice class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
 
         return template.formatted(
                 typeData.name(),
@@ -127,7 +97,6 @@ public class SourceCodeGenerator {
                 resourceFunctions.toString()
         );
     }
-
 
     private String generateEnumCodeSnippet(TypeData typeData) {
         String docs = "";
@@ -148,7 +117,7 @@ public class SourceCodeGenerator {
             }
         }
 
-        String template = "%senum %s {%s%n}%n";
+        String template = "%n%senum %s {%s%n}%n";
 
         return template.formatted(docs, typeData.name(), enumValues.toString());
     }
@@ -163,9 +132,15 @@ public class SourceCodeGenerator {
         StringBuilder typeDescriptorBuilder = new StringBuilder();
         generateTypeDescriptor(typeData, typeDescriptorBuilder);
 
-        String template = "%stype %s %s;";
+        String template = "%n%stype %s %s;";
 
         return template.formatted(docs, typeData.name(), typeDescriptorBuilder.toString());
+    }
+
+    private String generateTypeDescriptor(Object typeDescriptor) {
+        StringBuilder stringBuilder = new StringBuilder();
+        generateTypeDescriptor(typeDescriptor, stringBuilder);
+        return stringBuilder.toString();
     }
 
     private void generateTypeDescriptor(Object typeDescriptor, StringBuilder stringBuilder) {
@@ -274,7 +249,8 @@ public class SourceCodeGenerator {
         String memberTemplate = "%s\t%s %s%s;";
 
         // Append the formatted member to the main string builder.
-        stringBuilder.append(memberTemplate.formatted(docs, typeDescriptor, member.name(), defaultValue));
+        stringBuilder.append(memberTemplate.formatted(docs,
+                typeDescriptor, CommonUtil.escapeReservedKeyword(member.name()), defaultValue));
     }
 
 
@@ -417,9 +393,50 @@ public class SourceCodeGenerator {
     }
 
     private void generateInferredGraphqlClassField(Function function, StringBuilder stringBuilder) {
-        stringBuilder.append(LS).append("\tprivate final ");
-        generateTypeDescriptor(function.returnType(), stringBuilder);
-        stringBuilder.append(" ").append(function.name());
-        stringBuilder.append(";");
+        String template = "%n\tprivate final %s %s;";
+        String classField = template.formatted(generateTypeDescriptor(function.returnType()),
+                CommonUtil.escapeReservedKeyword(function.name()));
+        stringBuilder.append(classField);
+    }
+
+    private void generateResourceFunction(Function function, StringBuilder stringBuilder) {
+        String docs = (function.description() != null && !function.description().isEmpty())
+                ? LS + "\t" + CommonUtils.convertToBalDocs(function.description())
+                : LS;
+
+        StringBuilder paramsBuilder = new StringBuilder();
+        for (int i = 0; i < function.parameters().size(); i++) {
+            Member param = function.parameters().get(i);
+            paramsBuilder
+                    .append(generateTypeDescriptor(param.type()))
+                    .append(" ")
+                    .append(param.name());
+            if (param.defaultValue() != null && !param.defaultValue().isEmpty()) {
+                paramsBuilder
+                        .append(" = ")
+                        .append(param.defaultValue());
+            }
+            if (i < function.parameters().size() - 1) {
+                paramsBuilder.append(", ");
+            }
+        }
+
+        String template = "%s\tresource function %s %s(%s) returns %s {" +
+                "%n\t\tdo {" +
+                "%n\t\t\treturn self.%s;" +
+                "%n\t\t} on fail error err {" +
+                "%n\t\t\t//handle error" +
+                "%n\t\t\tpanic err;" +
+                "%n\t\t}" +
+                "%n\t}";
+
+        stringBuilder.append(template.formatted(
+                docs,
+                function.accessor(),
+                function.name(),
+                paramsBuilder.toString(),
+                generateTypeDescriptor(function.returnType()),
+                function.name()
+        ));
     }
 }

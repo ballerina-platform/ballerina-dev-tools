@@ -4,5 +4,5 @@
   "prefix": "",
   "isClosed": false,
   "isRecordTypeDesc": true,
-  "records": "type Book record {|\n\tstring author;\n\tdecimal price;\n\tstring genre;\n\tstring description;\n\tstring title;\n\tstring publish_date;\n\tanydata ...;\n|};\n\n"
+  "records": "\ntype Book record {|\n\tstring author;\n\tstring title;\n\tstring genre;\n\tdecimal price;\n\tstring publish_date;\n\tstring description;\n\tanydata ...;\n|};\n"
 }

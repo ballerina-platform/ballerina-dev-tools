@@ -84,6 +84,20 @@
       {
         "kind": "FIELD",
         "refs": [],
+        "type": "int",
+        "name": "id",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
         "type": {
           "editable": false,
           "codedata": {
@@ -134,20 +148,6 @@
         ],
         "type": "time:Utc",
         "name": "dob",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "string",
-        "name": "name",
-        "docs": ""
-      },
-      {
-        "kind": "FIELD",
-        "refs": [],
-        "type": "int",
-        "name": "id",
         "docs": ""
       }
     ],
@@ -228,21 +228,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "country",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "city",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
           "name": "houseNo",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "line1",
           "docs": ""
         },
         {
@@ -256,7 +249,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "line1",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "country",
           "docs": ""
         }
       ],
@@ -372,14 +372,14 @@
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "decimal",
-                "name": "decimal"
+                "type": "int",
+                "name": "int"
               },
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "int",
-                "name": "int"
+                "type": "decimal",
+                "name": "decimal"
               }
             ]
           },
@@ -458,6 +458,22 @@
         {
           "kind": "FIELD",
           "refs": [],
+          "type": "int",
+          "name": "id",
+          "defaultValue": "12",
+          "docs": "id of the person"
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "defaultValue": "\"John\"",
+          "docs": "name of the person"
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
           "type": {
             "editable": false,
             "codedata": {
@@ -511,22 +527,6 @@
           "name": "dob",
           "defaultValue": "getDefaultDob()",
           "docs": "date of birth"
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "string",
-          "name": "name",
-          "defaultValue": "\"John\"",
-          "docs": "name of the person"
-        },
-        {
-          "kind": "FIELD",
-          "refs": [],
-          "type": "int",
-          "name": "id",
-          "defaultValue": "12",
-          "docs": "id of the person"
         }
       ],
       "includes": []

@@ -231,14 +231,14 @@
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "decimal",
-                "name": "decimal"
+                "type": "int",
+                "name": "int"
               },
               {
                 "kind": "TYPE",
                 "refs": [],
-                "type": "int",
-                "name": "int"
+                "type": "decimal",
+                "name": "decimal"
               }
             ]
           },

@@ -103,8 +103,8 @@ public record TypeData(
             return this.formBuilder;
         }
 
-        public TypeDataBuilder members(Map<String, Member> members) {
-            this.members = members.values().stream().toList();
+        public TypeDataBuilder members(List<Member> members) {
+            this.members = members;
             return this;
         }
 

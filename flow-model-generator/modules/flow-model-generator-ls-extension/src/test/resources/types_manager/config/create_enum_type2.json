@@ -91,7 +91,7 @@
             "character": 2
           }
         },
-        "newText": "# Color enum for colors\nenum Color {\n\tRED,\n\tYELLOW,\n\tGREEN\n}\n"
+        "newText": "\n# Color enum for colors\nenum Color {\n\tRED,\n\tYELLOW,\n\tGREEN\n}\n"
       }
     ]
   }
