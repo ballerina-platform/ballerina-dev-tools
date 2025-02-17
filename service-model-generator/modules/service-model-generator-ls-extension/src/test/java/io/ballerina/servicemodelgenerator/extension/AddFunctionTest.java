@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
@@ -102,6 +103,11 @@ public class AddFunctionTest extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "serviceDesign";
+    }
+    
+    @Override
     protected String getApiName() {
         return "addFunction";
     }
@@ -117,6 +123,7 @@ public class AddFunctionTest extends AbstractLSTest {
      */
     private record TestConfig(String filePath, String description, Codedata codedata, Function function,
                               Map<String, List<TextEdit>> output) {
+
         public String description() {
             return description == null ? "" : description;
         }

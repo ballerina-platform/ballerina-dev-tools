@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.request.ClassFieldModifierRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -99,6 +100,11 @@ public class UpdateClassFieldTest extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "serviceDesign";
+    }
+
+    @Override
     protected String getApiName() {
         return "updateClassField";
     }
@@ -106,13 +112,14 @@ public class UpdateClassFieldTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the source generator test.
      *
-     * @param filePath      The path to the source file.
-     * @param description   The description of the test.
-     * @param field         The field to be updated.
-     * @param output        The expected output.
+     * @param filePath    The path to the source file.
+     * @param description The description of the test.
+     * @param field       The field to be updated.
+     * @param output      The expected output.
      */
     private record TestConfig(String filePath, String description, Field field,
                               Map<String, List<TextEdit>> output) {
+
         public String description() {
             return description == null ? "" : description;
         }

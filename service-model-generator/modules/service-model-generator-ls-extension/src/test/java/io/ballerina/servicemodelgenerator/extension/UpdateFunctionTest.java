@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -96,6 +97,11 @@ public class UpdateFunctionTest extends AbstractLSTest {
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
         return UpdateFunctionTest.class;
+    }
+
+    @Override
+    protected String getServiceName() {
+        return "serviceDesign";
     }
 
     @Override

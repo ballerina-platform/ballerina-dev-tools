@@ -168,7 +168,7 @@
               "description": "Options to be used for filtering in the projection"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "data.jsondata:Options",
+            "valueTypeConstraint": "jsondata:Options",
             "placeholder": "{}",
             "optional": true,
             "editable": true,

@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.eclipse.lsp4j.Diagnostic;
 
 import java.util.Set;

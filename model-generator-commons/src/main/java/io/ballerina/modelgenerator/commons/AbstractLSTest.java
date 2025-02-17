@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.testmanagerservice.extension;
+package io.ballerina.modelgenerator.commons;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,6 +43,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,9 +55,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 /**
- * Abstract class for testing Test Manager Service.
+ * Represents the abstract test class for the flow model generator service.
  *
- * @since 2.0.0
+ * @since 1.4.0
  */
 public abstract class AbstractLSTest {
 
@@ -66,12 +67,19 @@ public abstract class AbstractLSTest {
 
     protected Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
+    protected static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @BeforeClass
     public final void init() {
         resDir = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
         configDir = resDir.resolve("config");
+        if (!Files.isDirectory(configDir)) {
+            configDir = resDir;
+        }
         sourceDir = resDir.resolve("source");
+        if (!Files.isDirectory(sourceDir)) {
+            sourceDir = resDir;
+        }
         log = LoggerFactory.getLogger(clazz());
         this.languageServer = new BallerinaLanguageServer();
         TestUtil.LanguageServerBuilder builder = TestUtil.newLanguageServer().withLanguageServer(languageServer);
@@ -95,7 +103,7 @@ public abstract class AbstractLSTest {
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try (Stream<Path> stream = Files.walk(resDir)) {
+        try (Stream<Path> stream = Files.walk(configDir)) {
             return stream
                     .filter(path -> {
                         File file = path.toFile();
@@ -172,9 +180,9 @@ public abstract class AbstractLSTest {
         TextDocumentItem textDocumentItem = new TextDocumentItem();
         String text;
         try (FileInputStream fis = new FileInputStream(sourcePath)) {
-            text = new String(fis.readAllBytes());
+            text = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
         }
-        textDocumentItem.setUri(Utils.getExprUri(sourcePath));
+        textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
         textDocumentItem.setText(text);
         textDocumentItem.setLanguageId("ballerina");
         textDocumentItem.setVersion(1);
@@ -183,7 +191,7 @@ public abstract class AbstractLSTest {
 
     protected void notifyDidClose(String sourcePath) {
         TextDocumentIdentifier textDocumentIdentifier = new TextDocumentIdentifier();
-        textDocumentIdentifier.setUri(Utils.getExprUri(sourcePath));
+        textDocumentIdentifier.setUri(CommonUtils.getExprUri(sourcePath));
         sendNotification("textDocument/didClose", new DidCloseTextDocumentParams(textDocumentIdentifier));
     }
 
@@ -322,7 +330,7 @@ public abstract class AbstractLSTest {
     protected abstract String getApiName();
 
     protected String getServiceName() {
-        return "testManagerService";
+        return "flowDesignService";
     }
 
     @AfterClass

@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.utils;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 
 /**
  * Utility class for flow node and properties related operations.

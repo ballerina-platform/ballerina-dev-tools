@@ -159,7 +159,7 @@
                       "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+                    "valueTypeConstraint": "error:StackFrame[]|()",
                     "placeholder": "()",
                     "optional": true,
                     "editable": true,
@@ -261,7 +261,7 @@
               "description": "The error stack trace to be logged"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+            "valueTypeConstraint": "error:StackFrame[]|()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
@@ -537,7 +537,7 @@
                       "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+                    "valueTypeConstraint": "error:StackFrame[]|()",
                     "placeholder": "()",
                     "optional": true,
                     "editable": true,
@@ -656,7 +656,7 @@
                       "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
+                    "valueTypeConstraint": "error:StackFrame[]|()",
                     "placeholder": "()",
                     "optional": true,
                     "editable": true,

@@ -26,7 +26,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "id": 2286
+      "id": 1271
     },
     "returning": false,
     "properties": {

@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.utils;
+package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
@@ -48,7 +48,6 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
@@ -115,15 +114,25 @@ public class CommonUtils {
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
                                           ModuleInfo moduleInfo) {
-        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            return unionTypeSymbol.memberTypeDescriptors().stream()
-                    .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
-                    .reduce((s1, s2) -> s1 + "|" + s2)
-                    .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
-        }
-        return getTypeSignature(typeSymbol, moduleInfo);
+        return switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                yield unionTypeSymbol.memberTypeDescriptors().stream()
+                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
+                        .reduce((s1, s2) -> s1 + "|" + s2)
+                        .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
+            }
+            // TODO: This only address how type descriptors work with dependent types. Need to extend this to improve
+            //  on handling cases where functions take type descriptors as parameters.
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                yield typeDescTypeSymbol.typeParameter()
+                        .map(typeParameter -> getTypeSignature(semanticModel, typeParameter, ignoreError, null))
+                        .orElse(getTypeSignature(typeDescTypeSymbol, moduleInfo));
+            }
+            default -> getTypeSignature(typeSymbol, moduleInfo);
+        };
     }
 
     /**

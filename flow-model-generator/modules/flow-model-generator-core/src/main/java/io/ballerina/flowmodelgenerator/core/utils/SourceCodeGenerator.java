@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.StringJoiner;
  * @since 2.0.0
  */
 public class SourceCodeGenerator {
+
     private final Gson gson = new Gson();
 
     private static final String LS = System.lineSeparator();
@@ -187,7 +189,6 @@ public class SourceCodeGenerator {
         stringBuilder.append(objectTemplate.formatted(fieldsBuilder.toString()));
     }
 
-
     private void generateRecordTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         // Build the inclusions.
         StringBuilder inclusionsBuilder = new StringBuilder();
@@ -221,7 +222,6 @@ public class SourceCodeGenerator {
         ));
     }
 
-
     private void generateMember(Member member, StringBuilder stringBuilder, boolean withDefaultValue) {
         // The documentation string.
         String docs = (member.docs() != null && !member.docs().isEmpty())
@@ -253,7 +253,6 @@ public class SourceCodeGenerator {
                 typeDescriptor, CommonUtil.escapeReservedKeyword(member.name()), defaultValue));
     }
 
-
     private void generateTableTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         if (typeData.members().isEmpty()) {
             return;
@@ -277,7 +276,6 @@ public class SourceCodeGenerator {
         String template = "table<%s>%s";
         stringBuilder.append(template.formatted(baseType, keyInformation));
     }
-
 
     private void generateIntersectionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         if (typeData.members().size() <= 1) {
@@ -320,7 +318,6 @@ public class SourceCodeGenerator {
         String template = "[%s]";
         stringBuilder.append(template.formatted(joiner.toString()));
     }
-
 
     private void generateUnionTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         if (typeData.members().size() <= 1) {

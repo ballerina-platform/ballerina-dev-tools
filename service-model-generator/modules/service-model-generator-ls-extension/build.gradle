@@ -34,6 +34,8 @@ configurations {
 }
 
 dependencies {
+    implementation project(":model-generator-commons")
+
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:formatter-core:${ballerinaLangVersion}"
@@ -103,29 +105,9 @@ task copyStdlibs() {
     }
 }
 
-def pullBallerinaModule(String packageName) {
-    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
-        doLast {
-            def errOutput = new ByteArrayOutputStream()
-            def result = exec {
-                ignoreExitValue = true
-                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
-                } else {
-                    commandLine 'bal', 'pull', packageName
-                }
-                errorOutput = errOutput
-            }
-            if (result.exitValue != 0 && !errOutput.toString().contains("package already exists in the home repository")) {
-                println errOutput
-                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
-            }
-        }
-    }
-}
 
-test.dependsOn pullBallerinaModule('ballerinax/kafka')
-test.dependsOn pullBallerinaModule('ballerinax/rabbitmq')
+test.dependsOn rootProject.pullBallerinaModule('kafka')
+test.dependsOn rootProject.pullBallerinaModule('rabbitmq')
 
 test {
     dependsOn {

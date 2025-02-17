@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -99,6 +100,11 @@ public class AddServiceTest extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "serviceDesign";
+    }
+
+    @Override
     protected String getApiName() {
         return "addService";
     }
@@ -108,11 +114,12 @@ public class AddServiceTest extends AbstractLSTest {
      *
      * @param filePath    The path to the source file.
      * @param description The description of the test.
-     * @param service    The service to be added.
+     * @param service     The service to be added.
      * @param output      The expected output.
      */
     private record TestConfig(String filePath, String description, Service service,
                               Map<String, List<TextEdit>> output) {
+
         public String description() {
             return description == null ? "" : description;
         }
