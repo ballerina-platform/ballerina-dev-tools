@@ -538,7 +538,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional, String typeConstraint) {
+    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional,
+                                     String typeConstraint) {
         propertyBuilder
                 .metadata()
                     .label(Property.EXPRESSION_DOC)
