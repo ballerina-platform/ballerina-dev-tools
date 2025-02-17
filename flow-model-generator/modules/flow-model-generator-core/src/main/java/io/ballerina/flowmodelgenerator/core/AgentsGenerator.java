@@ -20,21 +20,23 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is responsible for generating types from the semantic model.
  */
 public class AgentsGenerator {
 
-    private static final List<String> DEFAULT_TYPES =
-            List.of("int", "string", "float", "boolean", "decimal", "xml", "error", "function", "future", "typedesc",
-                    "handle", "stream", "any", "anydata", "stream", "never", "readonly", "json", "byte");
     private final Gson gson;
+    private final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel", "AzureChatGptModel"), "ReActAgent", Set.of("ChatGptModel", "AzureChatGptModel"));
 
     public AgentsGenerator() {
         this.gson = new Gson();
@@ -58,7 +60,7 @@ public class AgentsGenerator {
         return gson.toJsonTree(agents).getAsJsonArray();
     }
 
-    public JsonArray getModels() {
+    public JsonArray getAllModels(String agent) {
         Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null);
         Codedata chatGptModel = codedataBuilder.node(NodeKind.CLASS)
                 .org("wso2")
@@ -72,7 +74,45 @@ public class AgentsGenerator {
                 .object("class")
                 .symbol("AzureChatGptModel")
                 .build();
-        List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
-        return gson.toJsonTree(models).getAsJsonArray();
+        if (agent.equals("FunctionCallAgent")) {
+            List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
+            return gson.toJsonTree(models).getAsJsonArray();
+        } else if (agent.equals("ReActAgent")) {
+            List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
+            return gson.toJsonTree(models).getAsJsonArray();
+        }
+        throw new IllegalStateException(String.format("Agent %s is not supported", agent));
+    }
+
+    public JsonArray getModels(SemanticModel semanticModel, String agent) {
+        List<Symbol> moduleSymbols = semanticModel.moduleSymbols();
+        Set<String> models = modelsForAgent.get(agent);
+        if (models == null) {
+            throw new IllegalStateException(String.format("Cannot find models for agent %s", agent));
+        }
+        List<String> availableModels = new ArrayList<>();
+        for (Symbol moduleSymbol : moduleSymbols) {
+            if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
+                continue;
+            }
+            VariableSymbol variableSymbol = (VariableSymbol) moduleSymbol;
+            TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
+            String signature = typeSymbol.signature();
+            if (models.contains(signature)) {
+                availableModels.add(signature);
+            }
+        }
+        return gson.toJsonTree(availableModels).getAsJsonArray();
+    }
+
+    public JsonArray getTools(SemanticModel semanticModel) {
+        List<Symbol> moduleSymbols = semanticModel.moduleSymbols();
+        List<String> functionNames = new ArrayList<>();
+        for (Symbol moduleSymbol : moduleSymbols) {
+            if (moduleSymbol.kind() == SymbolKind.FUNCTION) {
+                functionNames.add((moduleSymbol).getName().orElse(""));
+            }
+        }
+        return gson.toJsonTree(functionNames).getAsJsonArray();
     }
 }

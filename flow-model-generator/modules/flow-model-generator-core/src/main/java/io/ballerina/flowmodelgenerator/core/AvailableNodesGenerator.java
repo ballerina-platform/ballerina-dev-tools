@@ -72,6 +72,8 @@ public class AvailableNodesGenerator {
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
 
+    private static final List<String> agents = List.of("FunctionCallAgent", "ReActAgent");
+
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
@@ -90,6 +92,7 @@ public class AvailableNodesGenerator {
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
         items.addAll(LocalIndexCentral.getInstance().getFunctions());
+        items.addAll(getAvailableAgents());
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -114,6 +117,41 @@ public class AvailableNodesGenerator {
             }
         }
         setDefaultNodes();
+        return this.rootBuilder.build().items();
+    }
+
+    private List<Item> getAvailableAgents() {
+        List<Symbol> symbols = semanticModel.moduleSymbols();
+        List<String> availableAgents = new ArrayList<>();
+        for (Symbol symbol : symbols) {
+            if (symbol.kind() != SymbolKind.VARIABLE) {
+                continue;
+            }
+            VariableSymbol variableSymbol = (VariableSymbol) symbol;
+            String signature = variableSymbol.typeDescriptor().signature();
+            if (agents.contains(signature)) {
+                availableAgents.add(signature);
+            }
+        }
+
+        if (availableAgents.isEmpty()) {
+            return List.of();
+        }
+        Category.Builder catagoryBuilder = this.rootBuilder.stepIn(Category.Name.AGENTS);
+        for (String availableAgent : availableAgents) {
+            catagoryBuilder.node(new AvailableNode(
+                    new Metadata.Builder<>(null)
+                            .label("Agent")
+                            .build(),
+                    new Codedata.Builder<>(null)
+                            .org("wso2")
+                            .module("agent")
+                            .symbol(availableAgent)
+                            .node(NodeKind.AGENT)
+                            .build(),
+                    true
+            ));
+        }
         return this.rootBuilder.build().items();
     }
 

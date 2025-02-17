@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,16 +16,13 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.tools.text.LinePosition;
-
 /**
- * A request to retrieve components of a module such as connections, types..
+ * A request to retrieve agent models.
  *
- * @param filePath a file path of the project
- * @param linePosition line position of a type
+ * @param agent    name of the agent
+ * @param filePath path of the file
  */
-public record GetAgentsRequest(String filePath, LinePosition linePosition) {
+public record GetModelsRequest(String agent, String filePath) {
 }

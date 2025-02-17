@@ -16,26 +16,12 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.response;
-
-import com.google.gson.JsonArray;
+package io.ballerina.flowmodelgenerator.extension.request;
 
 /**
- * Represents the response for available agents.
+ * A request to retrieve tools of the agent.
  *
- * @since 2.0.0
+ * @param filePath path of the file
  */
-public class GetModelsResponse extends AbstractFlowModelResponse {
-    private JsonArray models;
-
-    public GetModelsResponse() {
-    }
-
-    public JsonArray getModels() {
-        return models;
-    }
-
-    public void setModels(JsonArray models) {
-        this.models = models;
-    }
+public record GetToolsRequest(String filePath) {
 }

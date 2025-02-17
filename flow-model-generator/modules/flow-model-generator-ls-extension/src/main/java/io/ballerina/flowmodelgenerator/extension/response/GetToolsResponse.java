@@ -21,21 +21,21 @@ package io.ballerina.flowmodelgenerator.extension.response;
 import com.google.gson.JsonArray;
 
 /**
- * Represents the response for available agents.
+ * Represents the response for available tools.
  *
  * @since 2.0.0
  */
-public class GetModelsResponse extends AbstractFlowModelResponse {
-    private JsonArray models;
+public class GetToolsResponse extends AbstractFlowModelResponse {
+    private JsonArray tools;
 
-    public GetModelsResponse() {
+    public GetToolsResponse() {
     }
 
-    public JsonArray getModels() {
-        return models;
+    public JsonArray getTools() {
+        return tools;
     }
 
-    public void setModels(JsonArray models) {
-        this.models = models;
+    public void setTools(JsonArray tools) {
+        this.tools = tools;
     }
 }

@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
@@ -31,27 +31,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents agent node in the flow model.
  *
  * @since 2.0.0
  */
-public class AgentBuilder extends NodeBuilder {
+public class ClassBuilder extends NodeBuilder {
     // TODO: Combine this with class
 
-    private static final String AGENT_LABEL = "Agent";
+    private static final String CLASS_LABEL = "Class";
 
     public static final String INIT_SYMBOL = "init";
     public static final String CHECK_ERROR_DOC = "Terminate on error";
-    public static final String CONNECTION_NAME_LABEL = "Agent Name";
-    protected static final Logger LOG = LoggerFactory.getLogger(AgentBuilder.class);
+    public static final String CLASS_NAME_LABEL = "Class Name";
+    protected static final Logger LOG = LoggerFactory.getLogger(ClassBuilder.class);
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(AGENT_LABEL);
-        codedata().node(NodeKind.AGENT).symbol("init");
+        metadata().label(CLASS_LABEL);
+        codedata().node(NodeKind.CLASS).symbol("init");
     }
 
     @Override
@@ -75,14 +77,14 @@ public class AgentBuilder extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
         FunctionResult function = getInitFunctionResult(codedata.object());
-        List<ParameterResult> functionParameters = getInitFunctionParameterResults(codedata.object());
+        List<ParameterResult> functionParameters = getInitFunctionParameters(codedata.object());
 
         metadata()
                 .label(function.packageName())
                 .description(function.description())
                 .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
         codedata()
-                .node(NodeKind.AGENT)
+                .node(NodeKind.CLASS)
                 .org(function.org())
                 .module(function.packageName())
                 .object(codedata.object())
@@ -138,40 +140,46 @@ public class AgentBuilder extends NodeBuilder {
         if (CommonUtils.hasReturn(function.returnType())) {
             properties()
                     .type(function.returnType(), false)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CLASS_NAME_LABEL);
         }
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
     }
 
-    private FunctionResult getInitFunctionResult(String agentName) {
-        if (agentName.equals("ReActAgent")) {
-            return new FunctionResult(-1, "ReActAgent", "React agent", "error?", "ballerina", "agent", "1.0.0", "",
+    private FunctionResult getInitFunctionResult(String name) {
+        if (name.equals("ChatGptModel")) {
+            return new FunctionResult(-1, "ChatGptModel", "ChatGPT model", "error?", "ballerina", "agent", "1.0.0", "",
                     Function.Kind.FUNCTION, true, false);
-        } else if (agentName.equals("FunctionCallAgent")) {
-            return new FunctionResult(-1, "FunctionCallAgent", "Function call agent", "error?", "ballerina", "agent",
+        } else if (name.equals("AzureChatGptModel")) {
+            return new FunctionResult(-1, "AzureChatGptModel", "ChatGPT model", "error?", "ballerina", "agent",
                     "1.0.0", "", Function.Kind.FUNCTION, true, false);
         }
-        throw new IllegalStateException(String.format("Agent %s is not supported", agentName));
+        throw new IllegalStateException(String.format("Agent %s is not supported", name));
     }
 
-    private List<ParameterResult> getInitFunctionParameterResults(String agentName) {
-        if (agentName.equals("ReActAgent")) {
+    private List<ParameterResult> getInitFunctionParameters(String name) {
+        if (name.equals("ChatGptModel")) {
             return List.of(
-                    new ParameterResult(-1, "model", "CompletionLlmModel|ChatLlmModel", Parameter.Kind.REQUIRED, "",
+                    new ParameterResult(-1, "connectionConfig", "chat:ConnectionConfig", Parameter.Kind.REQUIRED, "",
                             "", false, ""),
-                    new ParameterResult(-2, "tools", "BaseToolKit|Tool", Parameter.Kind.REST_PARAMETER, "", "", false
+                    new ParameterResult(-2, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "", false
                             , "")
             );
-        } else if (agentName.equals("FunctionCallAgent")) {
+        } else if (name.equals("AzureChatGptModel")) {
             return List.of(
-                    new ParameterResult(-1, "model", "FunctionCallLlmModel", Parameter.Kind.REQUIRED, "", "", false,
+                    new ParameterResult(-1, "connectionConfig", "azure_chat:ConnectionConfig", Parameter.Kind.REQUIRED, "", "", false,
                             ""),
-                    new ParameterResult(-2, "tools", "BaseToolKit|Tool", Parameter.Kind.REST_PARAMETER, "", "", false
+                    new ParameterResult(-2, "serviceUrl", "string", Parameter.Kind.REQUIRED, "", "", false,
+                            ""),
+                    new ParameterResult(-3, "deploymentId", "string", Parameter.Kind.REQUIRED, "", "", false,
+                            ""),
+                    new ParameterResult(-4, "apiVersion", "string", Parameter.Kind.REQUIRED, "", "", false,
+                            ""),
+                    new ParameterResult(-5, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "", false
                             , "")
             );
         }
-        throw new IllegalStateException(String.format("Agent %s is not supported", agentName));
+        throw new IllegalStateException(String.format("Class %s is not supported", name));
     }
 }
