@@ -124,7 +124,7 @@ public class PackageUtil {
      * Load the project from the given file path.
      *
      * @param workspaceManager the workspace manager
-     * @param filePath the file path
+     * @param filePath         the file path
      * @return the loaded project
      */
     public static Project loadProject(WorkspaceManager workspaceManager, Path filePath) {

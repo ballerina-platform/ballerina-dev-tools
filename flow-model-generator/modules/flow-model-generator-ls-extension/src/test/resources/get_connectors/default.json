@@ -14,23 +14,7 @@
         "module": "grpc",
         "object": "Client",
         "symbol": "init",
-        "id": 167
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "ldap",
-        "description": "Consists of APIs to integrate with LDAP.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "ldap",
-        "object": "Client",
-        "symbol": "init",
-        "id": 259
+        "id": 196
       },
       "enabled": true
     },
@@ -46,39 +30,23 @@
         "module": "ftp",
         "object": "Client",
         "symbol": "init",
-        "id": 320
+        "id": 226
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mqtt",
-        "description": "Represents the client that is used to publish messages to the server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
+        "label": "ldap",
+        "description": "Consists of APIs to integrate with LDAP.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ldap_1.1.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerina",
-        "module": "mqtt",
+        "module": "ldap",
         "object": "Client",
         "symbol": "init",
-        "id": 420
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "tcp",
-        "description": "Initializes the TCP connection client based on the provided configurations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "tcp",
-        "object": "Client",
-        "symbol": "init",
-        "id": 507
+        "id": 251
       },
       "enabled": true
     },
@@ -94,7 +62,39 @@
         "module": "udp",
         "object": "Client",
         "symbol": "init",
-        "id": 536
+        "id": 279
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mqtt",
+        "description": "Represents the client that is used to publish messages to the server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.2.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "mqtt",
+        "object": "Client",
+        "symbol": "init",
+        "id": 291
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "tcp",
+        "description": "Initializes the TCP connection client based on the provided configurations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "tcp",
+        "object": "Client",
+        "symbol": "init",
+        "id": 541
       },
       "enabled": true
     },
@@ -110,7 +110,7 @@
         "module": "http",
         "object": "Client",
         "symbol": "init",
-        "id": 556
+        "id": 551
       },
       "enabled": true
     },
@@ -126,7 +126,7 @@
         "module": "graphql",
         "object": "Client",
         "symbol": "init",
-        "id": 559
+        "id": 564
       },
       "enabled": true
     },
@@ -142,7 +142,7 @@
         "module": "websocket",
         "object": "Client",
         "symbol": "init",
-        "id": 616
+        "id": 611
       },
       "enabled": true
     },
@@ -158,71 +158,23 @@
         "module": "aws.marketplace.mpm",
         "object": "Client",
         "symbol": "init",
-        "id": 637
+        "id": 632
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "mysql",
-        "description": "Represents a MySQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+        "label": "snowflake",
+        "description": "Represents a Snowflake database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "mysql",
+        "module": "snowflake",
         "object": "Client",
         "symbol": "init",
-        "id": 641
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "oracledb",
-        "description": "Represents a OracleDB client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "oracledb",
-        "object": "Client",
-        "symbol": "init",
-        "id": 642
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "mssql",
-        "description": "Represents an MSSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "mssql",
-        "object": "Client",
-        "symbol": "init",
-        "id": 643
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "java.jdbc",
-        "description": "Represents a JDBC client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "java.jdbc",
-        "object": "Client",
-        "symbol": "init",
-        "id": 655
+        "id": 636
       },
       "enabled": true
     },
@@ -238,7 +190,7 @@
         "module": "aws.redshift",
         "object": "Client",
         "symbol": "init",
-        "id": 656
+        "id": 643
       },
       "enabled": true
     },
@@ -254,55 +206,7 @@
         "module": "mongodb",
         "object": "Client",
         "symbol": "init",
-        "id": 659
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "rabbitmq",
-        "description": "The Ballerina interface to provide AMQP Channel related functionality.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "rabbitmq",
-        "object": "Client",
-        "symbol": "init",
-        "id": 668
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "nats",
-        "description": "The client provides the capability to publish messages to the NATS server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_nats_3.1.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "nats",
-        "object": "Client",
-        "symbol": "init",
-        "id": 669
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "confluent.cregistry",
-        "description": "Consists of APIs to integrate with Avro Schema Registry.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_confluent.cregistry_0.2.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "confluent.cregistry",
-        "object": "Client",
-        "symbol": "init",
-        "id": 676
+        "id": 645
       },
       "enabled": true
     },
@@ -318,71 +222,39 @@
         "module": "aws.marketplace.mpe",
         "object": "Client",
         "symbol": "init",
-        "id": 687
+        "id": 654
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "postgresql",
-        "description": "Represents a PostgreSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+        "label": "docusign.dsclick",
+        "description": "DocuSign Click lets you capture consent to standard agreement terms with a single click: terms and conditions, terms of service, terms of use, privacy policies, and more. The Click API lets you include this customizable clickwrap solution in your DocuSign integrations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsclick_2.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "postgresql",
+        "module": "docusign.dsclick",
         "object": "Client",
         "symbol": "init",
-        "id": 706
+        "id": 660
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "microsoft.onedrive",
-        "description": "This is connecting to the Microsoft Graph RESTful web API that enables you to access Microsoft Cloud service resources.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_microsoft.onedrive_2.4.0.png"
+        "label": "java.jdbc",
+        "description": "Represents a JDBC client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "microsoft.onedrive",
+        "module": "java.jdbc",
         "object": "Client",
         "symbol": "init",
-        "id": 716
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "covid19",
-        "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "covid19",
-        "object": "Client",
-        "symbol": "init",
-        "id": 722
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "googleapis.sheets",
-        "description": "Ballerina Google Sheets connector provides the capability to access Google Sheets API.\nThe connector let you perform spreadsheet management operations, worksheet management operations and \nthe capability to handle Google Sheets data level operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.sheets",
-        "object": "Client",
-        "symbol": "init",
-        "id": 787
+        "id": 661
       },
       "enabled": true
     },
@@ -398,23 +270,71 @@
         "module": "openai.audio",
         "object": "Client",
         "symbol": "init",
-        "id": 800
+        "id": 679
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "aws.sns",
-        "description": "Ballerina Amazon SNS API connector provides the capability to access Amazon's Simple Notification Service.\nThis connector allows you to create and manage SNS topics and subscriptions.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sns_3.0.0.png"
+        "label": "confluent.cregistry",
+        "description": "Consists of APIs to integrate with Avro Schema Registry.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_confluent.cregistry_0.2.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "aws.sns",
+        "module": "confluent.cregistry",
         "object": "Client",
         "symbol": "init",
-        "id": 813
+        "id": 683
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "covid19",
+        "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "covid19",
+        "object": "Client",
+        "symbol": "init",
+        "id": 693
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "oracledb",
+        "description": "Represents a OracleDB client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "oracledb",
+        "object": "Client",
+        "symbol": "init",
+        "id": 697
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "rabbitmq",
+        "description": "The Ballerina interface to provide AMQP Channel related functionality.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "rabbitmq",
+        "object": "Client",
+        "symbol": "init",
+        "id": 725
       },
       "enabled": true
     },
@@ -430,55 +350,135 @@
         "module": "slack",
         "object": "Client",
         "symbol": "init",
-        "id": 830
+        "id": 748
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "googleapis.gmail",
-        "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
+        "label": "openai.finetunes",
+        "description": "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_openai.finetunes_2.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "googleapis.gmail",
+        "module": "openai.finetunes",
         "object": "Client",
         "symbol": "init",
-        "id": 836
+        "id": 758
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "aws.dynamodbstreams",
-        "description": "The Ballerina AWS DynamoDB Streams connector provides the capability to access AWS DynamoDB Streams related operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodbstreams_1.0.0.png"
+        "label": "postgresql",
+        "description": "Represents a PostgreSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "aws.dynamodbstreams",
+        "module": "postgresql",
         "object": "Client",
         "symbol": "init",
-        "id": 844
+        "id": 778
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "twitter",
-        "description": "Twitter API v2 available endpoints",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twitter_4.0.0.png"
+        "label": "docusign.dsesign",
+        "description": "The DocuSign REST API provides you with a powerful, convenient, and simple Web services API for interacting with DocuSign.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsesign_1.0.0.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "twitter",
+        "module": "docusign.dsesign",
         "object": "Client",
         "symbol": "init",
-        "id": 848
+        "id": 788
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mysql",
+        "description": "Represents a MySQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mysql",
+        "object": "Client",
+        "symbol": "init",
+        "id": 792
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "openai.chat",
+        "description": "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_openai.chat_3.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "openai.chat",
+        "object": "Client",
+        "symbol": "init",
+        "id": 800
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "salesforce",
+        "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "id": 802
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "aws.sns",
+        "description": "Ballerina Amazon SNS API connector provides the capability to access Amazon's Simple Notification Service.\nThis connector allows you to create and manage SNS topics and subscriptions.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sns_3.0.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "aws.sns",
+        "object": "Client",
+        "symbol": "init",
+        "id": 815
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "nats",
+        "description": "The client provides the capability to publish messages to the NATS server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_nats_3.1.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "nats",
+        "object": "Client",
+        "symbol": "init",
+        "id": 819
       },
       "enabled": true
     }

@@ -112,15 +112,25 @@ public class CommonUtils {
      */
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
                                           ModuleInfo moduleInfo) {
-        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            return unionTypeSymbol.memberTypeDescriptors().stream()
-                    .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                    .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
-                    .reduce((s1, s2) -> s1 + "|" + s2)
-                    .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
-        }
-        return getTypeSignature(typeSymbol, moduleInfo);
+        return switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                yield unionTypeSymbol.memberTypeDescriptors().stream()
+                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, moduleInfo))
+                        .reduce((s1, s2) -> s1 + "|" + s2)
+                        .orElse(getTypeSignature(unionTypeSymbol, moduleInfo));
+            }
+            // TODO: This only address how type descriptors work with dependent types. Need to extend this to improve
+            //  on handling cases where functions take type descriptors as parameters.
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                yield typeDescTypeSymbol.typeParameter()
+                        .map(typeParameter -> getTypeSignature(semanticModel, typeParameter, ignoreError, null))
+                        .orElse(getTypeSignature(typeDescTypeSymbol, moduleInfo));
+            }
+            default -> getTypeSignature(typeSymbol, moduleInfo);
+        };
     }
 
     /**
@@ -697,8 +707,7 @@ public class CommonUtils {
     }
 
     /**
-     * Converts a multi-line string into a formatted Ballerina documentation.
-     * Each line starts with a "#".
+     * Converts a multi-line string into a formatted Ballerina documentation. Each line starts with a "#".
      *
      * @param text The input string.
      * @return The formatted Ballerina documentation string.
