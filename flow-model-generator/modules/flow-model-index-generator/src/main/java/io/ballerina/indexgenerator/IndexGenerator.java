@@ -219,8 +219,7 @@ class IndexGenerator {
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> functionSymbol.nameEquals("init") ? getClientType(packageName)
-                        : CommonUtils.getTypeSignature(semanticModel, returnTypeDesc, true,
-                        ModuleInfo.from(resolvedPackage.getDefaultModule().descriptor())))
+                        : CommonUtils.getTypeSignature(semanticModel, returnTypeDesc, true))
                 .orElse("");
 
         ParamForTypeInfer paramForTypeInfer = null;
@@ -314,16 +313,15 @@ class IndexGenerator {
         if (parameterKind == FunctionParameterKind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
-            paramType =
-                    CommonUtils.getTypeSignature(semanticModel, ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(),
-                            true, defaultModuleInfo);
+            paramType = CommonUtils.getTypeSignature(semanticModel,
+                    ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), false);
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleInfo);
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
                     functionId, resolvedPackage, defaultModuleInfo, semanticModel);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleInfo);
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             optional = 0;
         } else {
@@ -344,7 +342,7 @@ class IndexGenerator {
                 defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
                         symbolLocation, resolvedPackage.packageName().value());
             }
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleInfo);
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
         }
         DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
                 parameterKind, optional, importStatements);
@@ -379,7 +377,7 @@ class IndexGenerator {
             }
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
-            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleInfo);
+            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
@@ -389,7 +387,7 @@ class IndexGenerator {
                     CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleInfo);
+            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             DatabaseManager.insertFunctionParameter(functionId, "Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
