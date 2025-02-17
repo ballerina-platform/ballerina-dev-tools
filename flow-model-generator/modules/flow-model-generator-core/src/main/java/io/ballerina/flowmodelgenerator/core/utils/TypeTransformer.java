@@ -62,7 +62,6 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -103,9 +102,9 @@ public class TypeTransformer {
                     .arraySize("", false, false, false);
 
         // class fields
-        Map<String, Member> fieldMembers = new HashMap<>();
+        List<Member> fieldMembers = new ArrayList<>();
         serviceDeclarationSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
+            fieldMembers.add(transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -143,9 +142,9 @@ public class TypeTransformer {
         typeDataBuilder.includes(includes);
 
         // class fields
-        Map<String, Member> fieldMembers = new HashMap<>();
+        List<Member> fieldMembers = new ArrayList<>();
         classSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
+            fieldMembers.add(transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -167,9 +166,9 @@ public class TypeTransformer {
         typeDataBuilder.includes(includes);
 
         // object fields
-        Map<String, Member> fieldMembers = new HashMap<>();
+        List<Member> fieldMembers = new ArrayList<>();
         objectTypeSymbol.fieldDescriptors().forEach((name, symbol) -> {
-            fieldMembers.putIfAbsent(name, transformObjectFieldAsMember(name, symbol));
+            fieldMembers.add(transformObjectFieldAsMember(name, symbol));
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -229,9 +228,9 @@ public class TypeTransformer {
                     .properties().description(doc, false, true, false);
         }
 
-        Map<String, Member> members = new HashMap<>();
+        List<Member> members = new ArrayList<>();
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        enumSymbol.members().forEach(enumMember -> {
+        enumSymbol.members().reversed().forEach(enumMember -> { // reverse to maintain the order
             String name = enumMember.getName().get();
             ConstantValue constValue = (ConstantValue) enumMember.constValue();
             String constValueAsString = "\"" + constValue.value() + "\"";
@@ -240,11 +239,11 @@ public class TypeTransformer {
                     .kind(Member.MemberKind.NAME)
                     .type(constValueAsString)
                     .refs(List.of());
-            if (!constValue.value().equals(enumMember.getName().get())) {
+            if (!constValue.value().equals(name)) {
                 memberBuilder.defaultValue(constValueAsString);
             }
             Member member = memberBuilder.build();
-            members.putIfAbsent(name, member);
+            members.add(member);
         });
         typeDataBuilder.members(members);
 
@@ -284,7 +283,7 @@ public class TypeTransformer {
         }
 
         // members
-        Map<String, Member> fieldMembers = new HashMap<>();
+        List<Member> fieldMembers = new ArrayList<>();
         recordTypeSymbol.fieldDescriptors().forEach((fieldName, fieldSymbol) -> {
             TypeData.TypeDataBuilder memberTypeDataBuilder = new TypeData.TypeDataBuilder();
             Object transformedFieldType = transform(fieldSymbol.typeDescriptor(), memberTypeDataBuilder);
@@ -297,7 +296,7 @@ public class TypeTransformer {
                     .docs(getDocumentString(fieldSymbol))
                     .defaultValue(getDefaultValueOfField(typeDataBuilder.name(), fieldName).orElse(null))
                     .build();
-            fieldMembers.put(fieldName, member);
+            fieldMembers.add(member);
         });
         typeDataBuilder.members(fieldMembers);
 
@@ -314,11 +313,11 @@ public class TypeTransformer {
                     .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        Map<String, Member> memberTypes = new HashMap<>();
+       List<Member> memberTypes = new ArrayList<>();
         unionTypeSymbol.userSpecifiedMemberTypes().forEach(memberTypeSymbol -> {
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
             Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
-            memberTypes.putIfAbsent(name, member);
+            memberTypes.add(member);
         });
         typeDataBuilder.members(memberTypes);
 
@@ -335,11 +334,11 @@ public class TypeTransformer {
                     .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        Map<String, Member> memberTypes = new HashMap<>();
+        List<Member> memberTypes = new ArrayList<>();
         intersectionTypeSymbol.memberTypeDescriptors().forEach(memberTypeSymbol -> {
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
             Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
-            memberTypes.putIfAbsent(name, member);
+            memberTypes.add(member);
         });
         typeDataBuilder.members(memberTypes);
 
@@ -357,7 +356,7 @@ public class TypeTransformer {
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
 
-        Map<String, Member> memberTypes = new HashMap<>();
+        List<Member> memberTypes = new ArrayList<>();
 
         // row type
         TypeSymbol rowTypeSymbol = tableTypeSymbol.rowTypeParameter();
@@ -369,7 +368,7 @@ public class TypeTransformer {
                 .refs(transformedRowType instanceof String ?
                         TypeUtils.getTypeRefIds(rowTypeSymbol, moduleInfo) : List.of())
                 .build();
-        memberTypes.putIfAbsent(rowTypeMember.name(), rowTypeMember);
+        memberTypes.add(rowTypeMember);
 
         // key constraint type
         tableTypeSymbol.keyConstraintTypeParameter().ifPresent(typeSymbol -> {
@@ -381,7 +380,7 @@ public class TypeTransformer {
                     .refs(transformedKeyConstraintType instanceof String ?
                             TypeUtils.getTypeRefIds(typeSymbol, moduleInfo) : List.of())
                     .build();
-            memberTypes.putIfAbsent(keyConstraintTypeMember.name(), keyConstraintTypeMember);
+            memberTypes.add(keyConstraintTypeMember);
         });
         typeDataBuilder.members(memberTypes);
 
@@ -422,11 +421,11 @@ public class TypeTransformer {
                     .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        Map<String, Member> memberTypes = new HashMap<>();
+        List<Member> memberTypes = new ArrayList<>();
         tupleTypeSymbol.memberTypeDescriptors().forEach(memberTypeSymbol -> {
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
             Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
-            memberTypes.putIfAbsent(name, member);
+            memberTypes.add(member);
         });
         typeBuilder.members(memberTypes);
 
@@ -514,7 +513,7 @@ public class TypeTransformer {
 
         String memberTypeName = CommonUtils.getTypeSignature(memberTypeDesc, moduleInfo);
         Member memberType = transformTypeAsMember(memberTypeName, memberTypeDesc, memberBuilder);
-        typeDataBuilder.members(Map.of(memberTypeName, memberType));
+        typeDataBuilder.members(List.of(memberType));
 
         return typeDataBuilder.build();
     }

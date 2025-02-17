@@ -284,14 +284,14 @@
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "city",
+          "name": "street",
           "docs": ""
         },
         {
           "kind": "FIELD",
           "refs": [],
           "type": "string",
-          "name": "street",
+          "name": "city",
           "docs": ""
         }
       ],
@@ -482,15 +482,6 @@
       "members": [
         {
           "kind": "FIELD",
-          "refs": [
-            "Address"
-          ],
-          "type": "Address",
-          "name": "address",
-          "docs": ""
-        },
-        {
-          "kind": "FIELD",
           "refs": [],
           "type": "string",
           "name": "name",
@@ -501,6 +492,15 @@
           "refs": [],
           "type": "int",
           "name": "age",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address",
+          "name": "address",
           "docs": ""
         }
       ],

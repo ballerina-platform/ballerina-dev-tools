@@ -69,14 +69,14 @@
         "kind": "FIELD",
         "refs": [],
         "type": "string",
-        "name": "subject",
+        "name": "name",
         "docs": ""
       },
       {
         "kind": "FIELD",
         "refs": [],
         "type": "string",
-        "name": "name",
+        "name": "subject",
         "docs": ""
       }
     ],
