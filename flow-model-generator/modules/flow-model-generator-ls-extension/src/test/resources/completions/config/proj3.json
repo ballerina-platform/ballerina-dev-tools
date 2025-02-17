@@ -409,6 +409,14 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "__reserved__",
+      "kind": "Variable",
+      "detail": "[]",
+      "sortText": "D",
+      "insertText": "__reserved__",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "add(int a, int b)",
       "kind": "Function",
       "detail": "int",
