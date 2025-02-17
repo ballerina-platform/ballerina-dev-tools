@@ -64,6 +64,11 @@ public class DiagnosticHandler {
         LinePosition nodeStartLine = nodeLineRange.startLine();
 
         while (currentDiagnostic != null) {
+            // Check if the diagnostic is in the same file as the node
+            if (!nodeLineRange.fileName().equals(currentDiagnostic.location().lineRange().fileName())) {
+                next();
+                continue;
+            }
 
             // Checks if the diagnostic has passed the node
             LineRange diagnosticLineRange = currentDiagnostic.location().lineRange();

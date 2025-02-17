@@ -41,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
  * @since 2.0.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
-@JsonSegment("jsonToRecord")
+@JsonSegment("jsonToRecordTypes")
 public class JsonToRecordConverterService implements ExtendedLanguageServerService {
     private WorkspaceManager workspaceManager;
 
@@ -90,6 +90,6 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
 
     @Override
     public String getName() {
-        return "jsonToRecord";
+        return "jsonToRecordTypes";
     }
 }

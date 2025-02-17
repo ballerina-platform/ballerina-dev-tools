@@ -23,7 +23,7 @@
                     "name": "ClientObject",
                     "orgName": "ballerina",
                     "moduleName": "http",
-                    "version": "2.13.0"
+                    "version": "2.13.2"
                   },
                   "defaultable": false,
                   "isRestType": false
@@ -41,7 +41,7 @@
               "name": "Client",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.13.0"
+              "version": "2.13.2"
             },
             "defaultable": false,
             "isRestType": false
@@ -314,6 +314,10 @@
     },
     {
       "name": "Parameters",
+      "types": []
+    },
+    {
+      "name": "Path Parameters",
       "types": []
     }
   ]

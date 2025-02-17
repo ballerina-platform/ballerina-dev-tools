@@ -99,7 +99,7 @@ public class JsonConverterTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "jsonToRecord";
+        return "jsonToRecordTypes";
     }
 
     private record TestConfig(String filePath, String testFilePath, String jsonString, String recordName,

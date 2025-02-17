@@ -107,14 +107,26 @@ def pullBallerinaModule(String packageName) {
             def errOutput = new ByteArrayOutputStream()
             def result = exec {
                 ignoreExitValue = true
+
+                // Check if the package exists in the ballerina user 
+                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/ballerinax")
+                if (centralRepoDir.exists()) {
+                    def pkgDir = new File(centralRepoDir, packageName)
+                    if (pkgDir.exists()) {
+                        commandLine 'echo', "Package ${packageName} exists"
+                        return
+                    }
+                }
+
+                def ballPullCommand = "bal pull ballerinax/${packageName}"
                 if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
+                    commandLine 'cmd', '/c', ballPullCommand
                 } else {
-                    commandLine 'bal', 'pull', packageName
+                    commandLine '/bin/sh', '-c', ballPullCommand
                 }
                 errorOutput = errOutput
             }
-            if (result.exitValue != 0 && !errOutput.toString().contains("package already exists in the home repository")) {
+            if (result.exitValue != 0) {
                 println errOutput
                 throw new GradleException("Failed to pull Ballerina module: ${packageName}")
             }
@@ -122,11 +134,11 @@ def pullBallerinaModule(String packageName) {
     }
 }
 
-test.dependsOn pullBallerinaModule('ballerinax/redis')
-test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
-test.dependsOn pullBallerinaModule('ballerinax/github')
-test.dependsOn pullBallerinaModule('ballerinax/snowflake')
-test.dependsOn pullBallerinaModule('ballerinax/docusign.dsadmin')
+test.dependsOn pullBallerinaModule('redis')
+test.dependsOn pullBallerinaModule('trigger.salesforce')
+test.dependsOn pullBallerinaModule('github')
+test.dependsOn pullBallerinaModule('snowflake')
+test.dependsOn pullBallerinaModule('docusign.dsadmin')
 
 test {
     dependsOn {
