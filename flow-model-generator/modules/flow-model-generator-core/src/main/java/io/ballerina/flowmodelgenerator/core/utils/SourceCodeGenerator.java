@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.Map;
 import java.util.Optional;
@@ -81,9 +82,10 @@ public class SourceCodeGenerator {
         }
 
         // Build the resource functions.
-        String resourceFunctions = typeData.functions().stream()
-                .map(this::generateResourceFunction)
-                .reduce("", String::concat);
+        StringBuilder resourceFunctions = new StringBuilder();
+        for (Function function : typeData.functions()) {
+            generateResourceFunction(function, resourceFunctions);
+        }
 
         String template = "%nservice class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
 
@@ -92,7 +94,7 @@ public class SourceCodeGenerator {
                 inferredFields.toString(),
                 initParams.toString(),
                 initBody.toString(),
-                resourceFunctions
+                resourceFunctions.toString()
         );
     }
 
@@ -247,7 +249,8 @@ public class SourceCodeGenerator {
         String memberTemplate = "%s\t%s %s%s;";
 
         // Append the formatted member to the main string builder.
-        stringBuilder.append(memberTemplate.formatted(docs, typeDescriptor, member.name(), defaultValue));
+        stringBuilder.append(memberTemplate.formatted(docs,
+                typeDescriptor, CommonUtil.escapeReservedKeyword(member.name()), defaultValue));
     }
 
 
@@ -390,13 +393,13 @@ public class SourceCodeGenerator {
     }
 
     private void generateInferredGraphqlClassField(Function function, StringBuilder stringBuilder) {
-        stringBuilder.append(LS).append("\tprivate final ");
-        generateTypeDescriptor(function.returnType(), stringBuilder);
-        stringBuilder.append(" ").append(function.name());
-        stringBuilder.append(";");
+        String template = "%n\tprivate final %s %s;";
+        String classField = template.formatted(generateTypeDescriptor(function.returnType()),
+                CommonUtil.escapeReservedKeyword(function.name()));
+        stringBuilder.append(classField);
     }
 
-    private String generateResourceFunction(Function function) {
+    private void generateResourceFunction(Function function, StringBuilder stringBuilder) {
         String docs = (function.description() != null && !function.description().isEmpty())
                 ? LS + "\t" + CommonUtils.convertToBalDocs(function.description())
                 : LS;
@@ -418,24 +421,22 @@ public class SourceCodeGenerator {
             }
         }
 
-        String doOnFailCodeBlock = "%n\t\tdo {" +
+        String template = "%s\tresource function %s %s(%s) returns %s {" +
+                "%n\t\tdo {" +
                 "%n\t\t\treturn self.%s;" +
                 "%n\t\t} on fail error err {" +
                 "%n\t\t\t//handle error" +
                 "%n\t\t\tpanic err;" +
-                "%n\t\t}";
-
-        String template = "%s\tresource function %s %s(%s) returns %s {" +
-                doOnFailCodeBlock +
+                "%n\t\t}" +
                 "%n\t}";
 
-        return template.formatted(
+        stringBuilder.append(template.formatted(
                 docs,
                 function.accessor(),
                 function.name(),
                 paramsBuilder.toString(),
                 generateTypeDescriptor(function.returnType()),
                 function.name()
-        );
+        ));
     }
 }
