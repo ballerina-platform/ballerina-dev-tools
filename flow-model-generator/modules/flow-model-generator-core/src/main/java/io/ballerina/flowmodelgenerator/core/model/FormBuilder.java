@@ -507,10 +507,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> expression(String expr, String expressionDoc) {
-        return expression(expr, expressionDoc, false);
+        return expression(expr, expressionDoc, false, null);
     }
 
-    public FormBuilder<T> expression(String expr, String expressionDoc, boolean optional) {
+    public FormBuilder<T> expression(String expr, String expressionDoc, boolean optional, String typeConstraint) {
         propertyBuilder
                 .metadata()
                     .label(Property.EXPRESSION_DOC)
@@ -518,6 +518,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(expr)
                 .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(typeConstraint)
                 .optional(optional)
                 .editable();
         addProperty(Property.EXPRESSION_KEY);
@@ -532,6 +533,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                 .type(Property.ValueType.EXPRESSION)
+                .editable();
+        addProperty(Property.EXPRESSION_KEY, expressionNode);
+        return this;
+    }
+
+    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional, String typeConstraint) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(typeConstraint)
+                .optional(optional)
                 .editable();
         addProperty(Property.EXPRESSION_KEY, expressionNode);
         return this;

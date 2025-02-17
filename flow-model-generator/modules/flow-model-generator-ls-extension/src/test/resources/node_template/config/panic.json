@@ -20,6 +20,7 @@
           "description": "Panic value"
         },
         "valueType": "EXPRESSION",
+        "valueTypeConstraint": "error",
         "value": "",
         "optional": false,
         "editable": true,

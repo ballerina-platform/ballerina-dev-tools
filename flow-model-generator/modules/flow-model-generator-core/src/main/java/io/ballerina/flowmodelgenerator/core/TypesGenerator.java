@@ -42,6 +42,7 @@ public class TypesGenerator {
 
     private final Gson gson;
     private final Map<String, TypeSymbol> builtinTypeSymbols;
+    public static final String ERROR_TYPE_NAME = TypeKind.ERROR.typeName();
 
     private TypesGenerator() {
         this.gson = new Gson();

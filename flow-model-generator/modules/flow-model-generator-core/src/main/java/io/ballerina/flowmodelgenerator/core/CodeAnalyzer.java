@@ -1095,7 +1095,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FailStatementNode failStatementNode) {
         startNode(NodeKind.FAIL, failStatementNode)
-                .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC);
+                .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC, false,
+                        TypesGenerator.ERROR_TYPE_NAME);
         endNode(failStatementNode);
     }
 
@@ -1273,7 +1274,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
         startNode(NodeKind.PANIC, panicStatementNode)
-                .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC);
+                .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC, false,
+                        TypesGenerator.ERROR_TYPE_NAME);
         endNode(panicStatementNode);
     }
 

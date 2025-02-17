@@ -64,6 +64,7 @@
               "description": "Panic value"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "error",
             "value": "error(\"AssertionError\")",
             "optional": false,
             "editable": true,
