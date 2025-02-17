@@ -19,8 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
@@ -30,7 +28,6 @@ import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -42,24 +39,21 @@ import java.util.concurrent.CompletableFuture;
  */
 public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<List<CompletionItem>, CompletionList>> {
 
-    private final String fileUri;
     private final CompletionContext completionContext;
     private final TextDocumentService textDocumentService;
 
-    public CompletionRequest(WorkspaceManager workspaceManager,
-                             Path filePath, ExpressionEditorContext.Info context, String fileUri,
-                             CompletionContext completionContext, TextDocumentService textDocumentService) {
-        super(workspaceManager, filePath, context);
-        this.fileUri = fileUri;
+    public CompletionRequest(ExpressionEditorContext context, CompletionContext completionContext,
+                             TextDocumentService textDocumentService) {
+        super(context);
         this.completionContext = completionContext;
         this.textDocumentService = textDocumentService;
     }
 
     @Override
-    public Either<List<CompletionItem>, CompletionList> getResponse(ExpressionEditorContext context,
-                                                                    LineRange lineRange) {
+    public Either<List<CompletionItem>, CompletionList> getResponse(ExpressionEditorContext context) {
+        context.generateStatement();
         Position position = context.getCursorPosition();
-        TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+        TextDocumentIdentifier identifier = new TextDocumentIdentifier(context.fileUri());
         CompletionParams params = new CompletionParams(identifier, position, completionContext);
 
         // Get completions from language server

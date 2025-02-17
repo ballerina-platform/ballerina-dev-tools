@@ -315,6 +315,10 @@
     {
       "name": "Parameters",
       "types": []
+    },
+    {
+      "name": "Path Parameters",
+      "types": []
     }
   ]
 }

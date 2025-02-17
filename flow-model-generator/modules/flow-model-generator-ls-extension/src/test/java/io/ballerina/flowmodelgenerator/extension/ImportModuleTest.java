@@ -27,6 +27,7 @@ import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -40,6 +41,14 @@ import java.util.List;
  * @since 2.0.0
  */
 public class ImportModuleTest extends AbstractLSTest {
+
+    private static JsonObject variableNode;
+
+    @BeforeClass
+    public void loadVariables() throws IOException {
+        Path variablesPath = sourceDir.resolve("variable.json");
+        variableNode = gson.fromJson(Files.newBufferedReader(variablesPath), JsonObject.class);
+    }
 
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
@@ -57,7 +66,7 @@ public class ImportModuleTest extends AbstractLSTest {
         // Send diagnostics request
         ExpressionEditorContext.Info info =
                 new ExpressionEditorContext.Info(testConfig.expression(), LinePosition.from(1, 0),
-                        0, new JsonObject(), null, null);
+                        0, variableNode, null, "expression");
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);
         JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");

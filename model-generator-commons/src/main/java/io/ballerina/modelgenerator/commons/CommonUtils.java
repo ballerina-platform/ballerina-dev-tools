@@ -52,12 +52,14 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
+import io.ballerina.tools.diagnostics.DiagnosticInfo;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.Position;
@@ -457,7 +459,17 @@ public class CommonUtils {
 
     //TODO: Remove this once the diagnostic helper is exposed to LS extensions
     public static Diagnostic transformBallerinaDiagnostic(io.ballerina.tools.diagnostics.Diagnostic diag) {
-        LineRange lineRange = diag.location().lineRange();
+        DiagnosticInfo diagnosticInfo = diag.diagnosticInfo();
+        return createDiagnostic(diag.message(), diag.location().lineRange(), diagnosticInfo.code(),
+                diagnosticInfo.severity());
+    }
+
+    public static Diagnostic createDiagnostic(String message, LineRange lineRange, DiagnosticErrorCode errorCode) {
+        return createDiagnostic(message, lineRange, errorCode.diagnosticId(), errorCode.severity());
+    }
+
+    public static Diagnostic createDiagnostic(String message, LineRange lineRange, String code,
+                                              io.ballerina.tools.diagnostics.DiagnosticSeverity severity) {
         int startLine = lineRange.startLine().line();
         int startChar = lineRange.startLine().offset();
         int endLine = lineRange.endLine().line();
@@ -467,23 +479,16 @@ public class CommonUtils {
         endChar = (endChar <= 0) ? startChar + 1 : endChar;
 
         Range range = new Range(new Position(startLine, startChar), new Position(endLine, endChar));
-        Diagnostic diagnostic = new Diagnostic(range, diag.message(), null, null, diag.diagnosticInfo().code());
+        Diagnostic diagnostic = new Diagnostic(range, message, null, null, code);
 
-        switch (diag.diagnosticInfo().severity()) {
-            case ERROR:
-                diagnostic.setSeverity(DiagnosticSeverity.Error);
-                break;
-            case WARNING:
-                diagnostic.setSeverity(DiagnosticSeverity.Warning);
-                break;
-            case HINT:
-                diagnostic.setSeverity(DiagnosticSeverity.Hint);
-                break;
-            case INFO:
-                diagnostic.setSeverity(DiagnosticSeverity.Information);
-                break;
-            default:
-                break;
+        switch (severity) {
+            case ERROR -> diagnostic.setSeverity(DiagnosticSeverity.Error);
+            case WARNING -> diagnostic.setSeverity(DiagnosticSeverity.Warning);
+            case HINT -> diagnostic.setSeverity(DiagnosticSeverity.Hint);
+            case INFO -> diagnostic.setSeverity(DiagnosticSeverity.Information);
+            default -> {
+                // Ignored
+            }
         }
         return diagnostic;
     }
@@ -680,7 +685,8 @@ public class CommonUtils {
      * @return true if the module is a predefined language library, false otherwise
      */
     public static boolean isPredefinedLangLib(String orgName, String packageName) {
-        return orgName.equals(CommonUtil.BALLERINA_ORG_NAME) && CommonUtil.PRE_DECLARED_LANG_LIBS.contains(packageName);
+        return orgName.equals(CommonUtil.BALLERINA_ORG_NAME) &&
+                CommonUtil.PRE_DECLARED_LANG_LIBS.contains(packageName);
     }
 
     private static boolean isWithinCurrentModule(ModuleInfo defaultModuleInfo, String orgName, String packageName,

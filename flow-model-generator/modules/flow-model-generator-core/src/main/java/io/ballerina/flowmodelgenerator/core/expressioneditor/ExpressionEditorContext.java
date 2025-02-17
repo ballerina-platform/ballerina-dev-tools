@@ -32,7 +32,6 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -42,6 +41,7 @@ import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
@@ -57,9 +57,10 @@ import java.util.Optional;
 public class ExpressionEditorContext {
 
     private static final Gson gson = new Gson();
+    private final WorkspaceManagerProxy workspaceManagerProxy;
+    private final String fileUri;
     private final Info info;
     private final FlowNode flowNode;
-    private final WorkspaceManager workspaceManager;
     private final Path filePath;
     private final List<ImportDeclarationNode> imports;
 
@@ -67,22 +68,35 @@ public class ExpressionEditorContext {
     private final Document document;
     private int expressionOffset;
     private LineRange statementLineRange;
+    private Property property;
+    private boolean propertyInitialized;
 
-    public ExpressionEditorContext(WorkspaceManager workspaceManager, Info info, Path filePath, Document document) {
-        this.workspaceManager = workspaceManager;
+    public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
+                                   Path filePath) {
+        this.workspaceManagerProxy = workspaceManagerProxy;
+        this.fileUri = fileUri;
         this.info = info;
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
-        this.document = document;
+        this.propertyInitialized = false;
+
+        Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
+        if (optionalDocument.isEmpty()) {
+            throw new IllegalStateException("Document not found for the given path: " + filePath);
+        }
+        this.document = optionalDocument.get();
         imports = getImportDeclarationNodes(document);
     }
 
-    public ExpressionEditorContext(WorkspaceManager workspaceManager, Path filePath, Document document) {
-        this.workspaceManager = workspaceManager;
+    public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
+                                   Document document) {
+        this.workspaceManagerProxy = workspaceManagerProxy;
+        this.fileUri = fileUri;
         this.filePath = filePath;
         this.document = document;
         this.info = null;
         this.flowNode = null;
+        this.propertyInitialized = false;
         imports = getImportDeclarationNodes(document);
     }
 
@@ -93,14 +107,21 @@ public class ExpressionEditorContext {
                 : List.of();
     }
 
-    public Optional<Property> getProperty() {
+    public Property getProperty() {
+        if (propertyInitialized) {
+            return property;
+        }
         if (info.property() == null || info.property().isEmpty()) {
-            return Optional.empty();
+            this.property = null;
+        } else if (info.branch() == null || info.branch().isEmpty()) {
+            this.property = flowNode.getProperty(info.property()).orElse(null);
+        } else {
+            this.property = flowNode.getBranch(info.branch())
+                    .flatMap(branch -> branch.getProperty(info.property()))
+                    .orElse(null);
         }
-        if (info.branch() == null || info.branch().isEmpty()) {
-            return flowNode.getProperty(info.property());
-        }
-        return flowNode.getBranch(info.branch()).flatMap(branch -> branch.getProperty(info.property()));
+        propertyInitialized = true;
+        return property;
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
@@ -116,7 +137,7 @@ public class ExpressionEditorContext {
         }
 
         // Obtain the line position of the latest import statement
-        LinePosition importEndLine = imports.get(imports.size() - 1).lineRange().endLine();
+        LinePosition importEndLine = imports.getLast().lineRange().endLine();
 
         if (CommonUtils.isLinePositionAfter(info.startLine(), importEndLine)) {
             return info.startLine();
@@ -141,13 +162,13 @@ public class ExpressionEditorContext {
 
     public Optional<TextEdit> getImport(String importStatement) {
         try {
-            this.workspaceManager.loadProject(filePath);
+            this.workspaceManagerProxy.get(fileUri).loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return Optional.empty();
         }
 
         // Check if the import statement represents the current module
-        Optional<Module> currentModule = this.workspaceManager.module(filePath);
+        Optional<Module> currentModule = this.workspaceManagerProxy.get(fileUri).module(filePath);
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
             if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
@@ -183,12 +204,11 @@ public class ExpressionEditorContext {
      */
     public LineRange generateStatement() {
         String prefix = "var _ = ";
-        Optional<Property> optionalProperty = getProperty();
+        Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 
-        if (optionalProperty.isPresent()) {
+        if (property != null) {
             // Append the type if exists
-            Property property = optionalProperty.get();
             if (property.valueTypeConstraint() != null) {
                 prefix = String.format("%s _ = ", property.valueTypeConstraint());
             }
@@ -228,6 +248,13 @@ public class ExpressionEditorContext {
         return statementLineRange;
     }
 
+    public LineRange getExpressionLineRange() {
+        LinePosition startLine = info().startLine();
+        LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
+        Path fileName = filePath.getFileName();
+        return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
+    }
+
     /**
      * Gets the cursor position within the generated statement.
      *
@@ -260,10 +287,6 @@ public class ExpressionEditorContext {
                 .apply();
     }
 
-    public Iterable<Diagnostic> syntaxDiagnostics() {
-        return document.syntaxTree().diagnostics();
-    }
-
     /**
      * Represents the json format of the expression editor context.
      *
@@ -276,5 +299,21 @@ public class ExpressionEditorContext {
      */
     public record Info(String expression, LinePosition startLine, int offset, JsonObject node,
                        String branch, String property) {
+    }
+
+    public String fileUri() {
+        return fileUri;
+    }
+
+    public TextDocument textDocument() {
+        return document.textDocument();
+    }
+
+    public Path filePath() {
+        return filePath;
+    }
+
+    public WorkspaceManager workspaceManager() {
+        return workspaceManagerProxy.get(fileUri);
     }
 }

@@ -131,97 +131,12 @@
     {
       "range": {
         "start": {
-          "line": 13,
-          "character": 55
+          "line": 0,
+          "character": 11
         },
         "end": {
-          "line": 13,
-          "character": 56
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2010"
-      },
-      "message": "undefined symbol 'i'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 57
-        },
-        "end": {
-          "line": 13,
-          "character": 57
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE0002"
-      },
-      "message": "missing semicolon token"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 57
-        },
-        "end": {
-          "line": 13,
-          "character": 59
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2069"
-      },
-      "message": "unknown type 'am'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 64
-        },
-        "end": {
-          "line": 13,
-          "character": 64
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE0010"
-      },
-      "message": "missing equal token"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 64
-        },
-        "end": {
-          "line": 13,
-          "character": 65
-        }
-      },
-      "severity": "Error",
-      "code": {
-        "left": "BCE2010"
-      },
-      "message": "undefined symbol 'a'"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 66
-        },
-        "end": {
-          "line": 13,
-          "character": 72
+          "line": 0,
+          "character": 17
         }
       },
       "severity": "Error",
@@ -229,6 +144,57 @@
         "left": "BCE0600"
       },
       "message": "invalid token 'string'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 9
+        },
+        "end": {
+          "line": 0,
+          "character": 10
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0600"
+      },
+      "message": "invalid token 'a'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 5
+        },
+        "end": {
+          "line": 0,
+          "character": 8
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0600"
+      },
+      "message": "invalid token 'not'"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 2
+        },
+        "end": {
+          "line": 0,
+          "character": 4
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0600"
+      },
+      "message": "invalid token 'am'"
     }
   ]
 }
