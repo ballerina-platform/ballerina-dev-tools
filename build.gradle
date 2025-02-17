@@ -108,11 +108,10 @@ def moduleVersion = project.version
 if (moduleVersion.indexOf('-') != -1) {
     moduleVersion = moduleVersion.substring(0, moduleVersion.indexOf('-'))
 }
+def artifactBreLib = file("$project.rootDir/build/ls-extensions/bre-libs")
+def artifactLsLib = file("$project.rootDir/build/ls-extensions/ls-libs")
 def artifactLibParent = file("$project.rootDir/build/architecture-model-generator/")
-def artifactGraphqlLibParent = file("$project.rootDir/build/graphql-model-generator/")
-def artifactSequenceLibParent = file("$project.rootDir/build/sequence-model-generator/")
-def artifactFlowLibParent = file("$project.rootDir/build/flow-model-generator/")
-def artifactServiceLibParent = file("$project.rootDir/build/service-model-generator/")
+def targetModelGeneratorCommons = file("$project.rootDir/model-generator-commons/build/libs/model-generator-commons-${project.version}.jar")
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
@@ -176,49 +175,36 @@ task copyArtifactZip {
     dependsOn(":test-manager-service:test-manager-service-ls-extension:build")
     inputs.dir file(project.rootDir)
     doLast {
-        copy {
-            from targetArchModelGeneratorCore
-            into file("$artifactLibParent/libs")
+        def breLibArtifacts = [
+            targetModelGeneratorCommons,
+            targetArchModelGeneratorCore,
+            targetArchModelGeneratorPlugin,
+            targetGraphqlModelGeneratorCore,
+            targetSequenceDiagramGeneratorCore,
+            targetFlowModelGeneratorCore
+        ]
+
+        def lsLibArtifacts = [
+            targetArchModelGeneratorLSExt,
+            targetGraphqlModelGeneratorLSExt,
+            targetSequenceDiagramGeneratorLSExt,
+            targetFlowModelGeneratorLSExt,
+            targetServiceModelGeneratorLSExt,
+            targetTestManagerServiceLSExt
+        ]
+
+        breLibArtifacts.each { artifact ->
+            copy {
+                from artifact
+                into file(artifactBreLib)
+            }
         }
-        copy {
-            from targetArchModelGeneratorPlugin
-            into file("$artifactLibParent/libs")
-        }
-        copy {
-            from targetArchModelGeneratorLSExt
-            into file("$artifactLibParent/ls-libs")
-        }
-        copy {
-            from targetGraphqlModelGeneratorCore
-            into file("$artifactGraphqlLibParent/libs")
-        }
-        copy {
-            from targetGraphqlModelGeneratorLSExt
-            into file("$artifactGraphqlLibParent/ls-libs")
-        }
-        copy {
-            from targetSequenceDiagramGeneratorCore
-            into file("$artifactSequenceLibParent/libs")
-        }
-        copy {
-            from targetSequenceDiagramGeneratorLSExt
-            into file("$artifactSequenceLibParent/ls-libs")
-        }
-        copy {
-            from targetFlowModelGeneratorCore
-            into file("$artifactFlowLibParent/libs")
-        }
-        copy {
-            from targetFlowModelGeneratorLSExt
-            into file("$artifactFlowLibParent/ls-libs")
-        }
-        copy {
-            from targetServiceModelGeneratorLSExt
-            into file("$artifactServiceLibParent/ls-libs")
-        }
-        copy {
-            from targetTestManagerServiceLSExt
-            into file("$artifactServiceLibParent/ls-libs")
+
+        lsLibArtifacts.each { artifact ->
+            copy {
+                from artifact
+                into file(artifactLsLib)
+            }
         }
     }
     outputs.dir artifactLibParent
