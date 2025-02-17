@@ -82,7 +82,7 @@ public class SourceCodeGenerator {
 
         // Build the resource functions.
         String resourceFunctions = typeData.functions().stream()
-                .map(this::generateGraphqlClassResourceFunction)
+                .map(this::generateResourceFunction)
                 .reduce("", String::concat);
 
         String template = "%nservice class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
@@ -396,7 +396,7 @@ public class SourceCodeGenerator {
         stringBuilder.append(";");
     }
 
-    private String generateGraphqlClassResourceFunction(Function function) {
+    private String generateResourceFunction(Function function) {
         String docs = (function.description() != null && !function.description().isEmpty())
                 ? LS + "\t" + CommonUtils.convertToBalDocs(function.description())
                 : LS;
