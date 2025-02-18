@@ -47,14 +47,14 @@ public class AgentsGenerator {
         Codedata functionCallAgent = codedataBuilder.node(NodeKind.AGENT)
                 .org("wso2")
                 .module("ai.agent")
-                .object("class")
-                .symbol("FunctionCallAgent")
+                .object("FunctionCallAgent")
+                .symbol("init")
                 .build();
         Codedata reactCallAgent = codedataBuilder.node(NodeKind.AGENT)
                 .org("wso2")
                 .module("ai.agent")
-                .object("class")
-                .symbol("ReActAgent")
+                .object("ReActAgent")
+                .symbol("init")
                 .build();
         List<Codedata> agents = List.of(functionCallAgent, reactCallAgent);
         return gson.toJsonTree(agents).getAsJsonArray();
@@ -65,14 +65,14 @@ public class AgentsGenerator {
         Codedata chatGptModel = codedataBuilder.node(NodeKind.CLASS)
                 .org("wso2")
                 .module("ai.model")
-                .object("class")
-                .symbol("ChatGptModel")
+                .object("ChatGptModel")
+                .symbol("init")
                 .build();
         Codedata azureChatGptModel = codedataBuilder.node(NodeKind.CLASS)
                 .org("wso2")
                 .module("ai.model")
-                .object("class")
-                .symbol("AzureChatGptModel")
+                .object("AzureChatGptModel")
+                .symbol("init")
                 .build();
         if (agent.equals("FunctionCallAgent")) {
             List<Codedata> models = List.of(chatGptModel, azureChatGptModel);

@@ -39,13 +39,12 @@ import java.util.*;
  * @since 2.0.0
  */
 public class AgentBuilder extends NodeBuilder {
-    // TODO: Combine this with class
 
     private static final String AGENT_LABEL = "Agent";
 
     public static final String INIT_SYMBOL = "init";
     public static final String CHECK_ERROR_DOC = "Terminate on error";
-    public static final String CONNECTION_NAME_LABEL = "Agent Name";
+    public static final String AGENT_NAME_LABEL = "Agent Name";
     protected static final Logger LOG = LoggerFactory.getLogger(AgentBuilder.class);
 
     @Override
@@ -90,67 +89,52 @@ public class AgentBuilder extends NodeBuilder {
                 .id(function.functionId())
                 .isGenerated(codedata.isGenerated());
 
-        boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
-                continue;
-            }
-
-            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
-            customPropBuilder
-                    .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
-                    .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
-                    .placeholder(paramResult.defaultValue())
-                    .typeConstraint(paramResult.type())
-                    .editable()
-                    .defaultable(paramResult.optional());
-
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                unescapedParamName = "additionalValues";
-                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
-            } else {
-                customPropBuilder.type(Property.ValueType.EXPRESSION);
-            }
-            customPropBuilder
-                    .stepOut()
-                    .addProperty(unescapedParamName);
+        if (functionParameters.size() != 2) {
+            throw new IllegalStateException(String.format("Invalid number of parameters in agent %s", function.name()));
         }
+
+        createParameterProperty(functionParameters.getFirst(), Property.ValueType.EXPRESSION);
+        createParameterProperty(functionParameters.get(1), Property.ValueType.EXPRESSION_SET);
 
         if (CommonUtils.hasReturn(function.returnType())) {
             properties()
                     .type(function.returnType(), false)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
+                    .data(function.returnType(), context.getAllVisibleSymbolNames(), AGENT_NAME_LABEL);
         }
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
     }
 
+    private void createParameterProperty(ParameterResult paramResult, Property.ValueType valueType) {
+        String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+        Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+        customPropBuilder
+                .metadata()
+                    .label(unescapedParamName)
+                    .description(paramResult.description())
+                .stepOut()
+                .codedata()
+                    .kind(paramResult.kind().name())
+                    .originalName(paramResult.name())
+                    .importStatements(paramResult.importStatements())
+                .stepOut()
+                .placeholder(paramResult.defaultValue())
+                .typeConstraint(paramResult.type())
+                .editable()
+                .defaultable(paramResult.optional())
+                .type(valueType)
+                .value(paramResult.defaultValue())
+                .stepOut()
+                .addProperty(unescapedParamName);
+    }
+
     private FunctionResult getInitFunctionResult(String agentName) {
         if (agentName.equals("ReActAgent")) {
-            return new FunctionResult(-1, "ReActAgent", "React agent", "error?", "ballerina", "agent", "1.0.0", "",
+            return new FunctionResult(-1, "ReActAgent", "React agent", "error?", "ai.agent", "wso2", "1.0.0", "",
                     Function.Kind.FUNCTION, true, false);
         } else if (agentName.equals("FunctionCallAgent")) {
-            return new FunctionResult(-1, "FunctionCallAgent", "Function call agent", "error?", "ballerina", "agent",
+            return new FunctionResult(-1, "FunctionCallAgent", "Function call agent", "error?", "ai.agent", "wso2",
                     "1.0.0", "", Function.Kind.FUNCTION, true, false);
         }
         throw new IllegalStateException(String.format("Agent %s is not supported", agentName));
