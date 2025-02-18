@@ -598,7 +598,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -606,7 +606,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.1.0",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "connections.bal",
             "startLine": {
