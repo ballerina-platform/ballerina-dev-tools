@@ -99,10 +99,7 @@ public class SourceCodeGenerator {
     }
 
     private String generateEnumCodeSnippet(TypeData typeData) {
-        String docs = "";
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
-        }
+        String docs = generateDocs(typeData.metadata().description(), "");
 
         // Build the enum values.
         StringBuilder enumValues = new StringBuilder();
@@ -117,22 +114,19 @@ public class SourceCodeGenerator {
             }
         }
 
-        String template = "%n%senum %s {%s%n}%n";
+        String template = "%senum %s {%s%n}%n";
 
         return template.formatted(docs, typeData.name(), enumValues.toString());
     }
 
     private String generateTypeDefCodeSnippet(TypeData typeData) {
-        String docs = "";
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
-        }
+        String docs = generateDocs(typeData.metadata().description(), "");
 
         // Generate the type descriptor into a StringBuilder.
         StringBuilder typeDescriptorBuilder = new StringBuilder();
         generateTypeDescriptor(typeData, typeDescriptorBuilder);
 
-        String template = "%n%stype %s %s;";
+        String template = "%stype %s %s;";
 
         return template.formatted(docs, typeData.name(), typeDescriptorBuilder.toString());
     }
@@ -223,10 +217,7 @@ public class SourceCodeGenerator {
 
 
     private void generateFieldMember(Member member, StringBuilder stringBuilder, boolean withDefaultValue) {
-        String docs = (member.docs() != null && !member.docs().isEmpty())
-                ? LS + "\t" + CommonUtils.convertToBalDocs(member.docs())
-                : LS;
-
+        String docs = generateDocs(member.docs(), "\t");
         stringBuilder.append(docs).append("\t").append(generateMember(member, withDefaultValue)).append(";");
     }
 
@@ -369,6 +360,12 @@ public class SourceCodeGenerator {
         stringBuilder.append("[]");
     }
 
+    private String generateDocs(String docs, String indent) {
+        return (docs != null && !docs.isEmpty())
+                ? LS + indent + CommonUtils.convertToBalDocs(docs)
+                : LS;
+    }
+
     private String generateMember(Member member, boolean withDefaultValue) {
         StringBuilder typeDescriptorBuilder = new StringBuilder();
         generateTypeDescriptor(member.type(), typeDescriptorBuilder);
@@ -393,10 +390,10 @@ public class SourceCodeGenerator {
                 ? LS + "\t" + CommonUtils.convertToBalDocs(function.description())
                 : LS;
 
-        StringJoiner joiner = new StringJoiner(", ");
+        StringJoiner paramJoiner = new StringJoiner(", ");
         for (Member param : function.parameters()) {
             String genParam = generateMember(param, true);
-            joiner.add(genParam);
+            paramJoiner.add(genParam);
         }
 
         String template = "%s\tresource function %s %s(%s) returns %s {" +
@@ -412,7 +409,7 @@ public class SourceCodeGenerator {
                 docs,
                 function.accessor(),
                 function.name(),
-                joiner.toString(),
+                paramJoiner.toString(),
                 generateTypeDescriptor(function.returnType()),
                 function.name()
         ));
