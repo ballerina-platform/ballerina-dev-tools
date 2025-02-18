@@ -112,7 +112,7 @@ class IndexGenerator {
         Package resolvedPackage;
         try {
             resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
-                    packageMetadataInfo.name(), packageMetadataInfo.version()));
+                    packageMetadataInfo.name(), packageMetadataInfo.version())).orElseThrow();
         } catch (Throwable e) {
             LOGGER.severe("Error resolving package: " + packageMetadataInfo.name() + e.getMessage());
             return;

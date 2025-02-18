@@ -18,6 +18,7 @@
 
 package io.ballerina.modelgenerator.commons;
 
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
@@ -57,7 +58,6 @@ public class PackageUtil {
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
-        System.setProperty(BALLERINA_HOME_PROPERTY, "/Library/Ballerina/distributions/ballerina-2201.11.0");
         String ballerinaHome = System.getProperty(BALLERINA_HOME_PROPERTY);
         if (ballerinaHome == null || ballerinaHome.isEmpty()) {
             Path currentPath = getPath(Paths.get(
@@ -88,11 +88,31 @@ public class PackageUtil {
         }
     }
 
-    public static Package getModulePackage(String org, String name, String version) {
-        return getModulePackage(getSampleProject(), org, name, version);
+    /**
+     * Retrieves the semantic model for a given package identified by organization, name, and version.
+     *
+     * @param org     The organization name of the package
+     * @param name    The name of the package
+     * @param version The version of the package
+     * @return An Optional containing the semantic model.
+     */
+    public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
+        return getModulePackage(getSampleProject(), org, name, version).map(
+                pkg -> pkg.getDefaultModule().getCompilation().getSemanticModel());
     }
 
-    public static Package getModulePackage(BuildProject buildProject, String org, String name, String version) {
+    /**
+     * Retrieves a package matching the specified organization, name, and version. If the package is not found in the
+     * local cache, it attempts to fetch it from the remote repository.
+     *
+     * @param buildProject The build project context
+     * @param org          The organization name of the package
+     * @param name         The name of the package
+     * @param version      The version of the package
+     * @return An Optional containing the matching Package if found, empty Optional otherwise
+     */
+    public static Optional<Package> getModulePackage(BuildProject buildProject, String org, String name,
+                                                     String version) {
         ResolutionRequest resolutionRequest = ResolutionRequest.from(
                 PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
 
@@ -102,14 +122,14 @@ public class PackageUtil {
                                 ResolutionOptions.builder().setOffline(false).build());
         Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
         if (resolutionResponse.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
 
         Path balaPath = resolutionResponse.get().resolvedPackage().project().sourceRoot();
         ProjectEnvironmentBuilder defaultBuilder = ProjectEnvironmentBuilder.getDefaultBuilder();
         defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
         BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
-        return balaProject.currentPackage();
+        return Optional.ofNullable(balaProject.currentPackage());
     }
 
     private static Path getPath(Path path) {
@@ -133,5 +153,35 @@ public class PackageUtil {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException("Error loading project: " + e.getMessage());
         }
+    }
+
+    /**
+     * Retrieves the semantic model of the default module of a package if the package details match the provided
+     * organization, package name, and version.
+     *
+     * @param workspaceManager the workspace manager used to load the project
+     * @param filePath         the path to the file from which the project should be loaded
+     * @param orgName          the organization name that must match the package descriptor's organization value
+     * @param packageName      the package name that must match the package descriptor's name value
+     * @param version          the version that must match the package descriptor's version value
+     * @return an Optional containing the semantic model
+     */
+    public static Optional<SemanticModel> getSemanticModelIfMatched(WorkspaceManager workspaceManager, Path filePath,
+                                                                    String orgName, String packageName,
+                                                                    String version) {
+        try {
+            Project project = workspaceManager.loadProject(filePath);
+            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            if (descriptor.org().value().equals(orgName) &&
+                    descriptor.name().value().equals(packageName) &&
+                    descriptor.version().value().toString().equals(version)) {
+                return Optional.of(project.currentPackage()
+                        .getDefaultModule()
+                        .getCompilation()
+                        .getSemanticModel());
+            }
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+        }
+        return Optional.empty();
     }
 }
