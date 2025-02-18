@@ -318,7 +318,7 @@ class IndexGenerator {
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
-                    functionId, resolvedPackage, defaultModuleInfo, semanticModel);
+                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, new HashMap<>());
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
@@ -349,12 +349,13 @@ class IndexGenerator {
     }
 
     protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId,
-                                                      Package resolvedPackage,
-                                                      ModuleInfo defaultModuleInfo, SemanticModel semanticModel) {
-        recordTypeSymbol.typeInclusions().forEach(includedType -> {
-            addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId,
-                    resolvedPackage, defaultModuleInfo, semanticModel);
-        });
+                                                      Package resolvedPackage, ModuleInfo defaultModuleInfo,
+                                                      SemanticModel semanticModel, boolean insert,
+                                                      Map<String, String> documentationMap) {
+        recordTypeSymbol.typeInclusions().forEach(includedType -> addIncludedRecordParamsToDb(
+                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId, resolvedPackage,
+                defaultModuleInfo, semanticModel, false, documentationMap)
+        );
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
@@ -363,6 +364,17 @@ class IndexGenerator {
                 continue;
             }
             String paramName = entry.getKey();
+            String paramDescription = entry.getValue().documentation()
+                    .flatMap(Documentation::description).orElse("");
+            if (documentationMap.containsKey(paramName) && !paramDescription.isEmpty()) {
+               documentationMap.put(paramName, paramDescription);
+            } else if (!documentationMap.containsKey(paramName)) {
+                documentationMap.put(paramName, paramDescription);
+            }
+            if (!insert) {
+                continue;
+            }
+
             Location symbolLocation = recordFieldSymbol.getLocation().get();
             Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
             String defaultValue;
@@ -375,15 +387,13 @@ class IndexGenerator {
             } else {
                 defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
             }
-            String paramDescription = entry.getValue().documentation()
-                    .flatMap(Documentation::description).orElse("");
             String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             int optional = 0;
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
             }
-            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                    FunctionParameterKind.INCLUDED_FIELD, optional,
+            DatabaseManager.insertFunctionParameter(functionId, paramName, documentationMap.get(paramName),
+                    paramType, defaultValue, FunctionParameterKind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
