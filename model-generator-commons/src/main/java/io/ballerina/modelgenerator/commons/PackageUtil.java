@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.utils;
+package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
