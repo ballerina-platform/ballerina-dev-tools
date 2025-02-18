@@ -102,7 +102,7 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), newMap, testConfig.name(),
                     testConfig.listeners());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
     }
