@@ -645,6 +645,7 @@
                       "description": "Fail value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "error(\"failed retry\")",
                     "optional": false,
                     "editable": true,
@@ -839,6 +840,7 @@
                       "description": "Fail value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "error(\"failed retry\")",
                     "optional": false,
                     "editable": true,

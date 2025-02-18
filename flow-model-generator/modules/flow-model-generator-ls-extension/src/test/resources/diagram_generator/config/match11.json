@@ -200,6 +200,7 @@
                               "description": "Panic value"
                             },
                             "valueType": "EXPRESSION",
+                            "valueTypeConstraint": "error",
                             "value": "error(\"Invalid input values\")",
                             "optional": false,
                             "editable": true,
@@ -326,6 +327,7 @@
                       "description": "Panic value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
                     "editable": true,

@@ -124,6 +124,7 @@
               "description": "Panic value"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "error",
             "value": "e",
             "optional": false,
             "editable": true,

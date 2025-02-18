@@ -81,11 +81,11 @@
       "range": {
         "start": {
           "line": 13,
-          "character": 23
+          "character": 34
         },
         "end": {
           "line": 13,
-          "character": 25
+          "character": 36
         }
       },
       "severity": "Error",

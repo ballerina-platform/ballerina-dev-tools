@@ -203,14 +203,14 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = "var _ = ";
+        String prefix = "var __reserved__ = ";
         Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 
         if (property != null) {
             // Append the type if exists
             if (property.valueTypeConstraint() != null) {
-                prefix = String.format("%s _ = ", property.valueTypeConstraint());
+                prefix = String.format("%s __reserved__ = ", property.valueTypeConstraint());
             }
 
             // Add the import statements of the dependent types

@@ -167,6 +167,7 @@
                       "description": "Fail value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "e",
                     "optional": false,
                     "editable": true,
