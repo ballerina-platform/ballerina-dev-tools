@@ -35,6 +35,7 @@ import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,8 @@ public class ServiceClassUtil {
 
         builder.name(classDef.className().text().trim())
                 .type(getClassType(classDef))
-                .properties(Map.of("name", buildClassNameProperty(classDef.className().text().trim())))
+                .properties(Map.of("name", buildClassNameProperty(classDef.className().text().trim(),
+                        classDef.className().lineRange())))
                 .codedata(new Codedata(classDef.lineRange()))
                 .functions(functions)
                 .fields(fields);
@@ -89,10 +91,12 @@ public class ServiceClassUtil {
         return classDef.classTypeQualifiers().get(0).text().trim();
     }
 
-    private static Value buildClassNameProperty(String className) {
+    private static Value buildClassNameProperty(String className, LineRange lineRange) {
         Value value = new Value();
         value.setMetadata(new MetaData("Class Name", "The name of the class definition"));
+        value.setCodedata(new Codedata(lineRange));
         value.setEnabled(true);
+        value.setEditable(false);
         value.setValue(className);
         value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         value.setValueTypeConstraint("string");
