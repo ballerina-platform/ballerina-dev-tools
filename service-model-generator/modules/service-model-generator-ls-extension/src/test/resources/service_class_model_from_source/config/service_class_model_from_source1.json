@@ -20,7 +20,7 @@
           "description": "The name of the class definition"
         },
         "enabled": true,
-        "editable": true,
+        "editable": false,
         "value": "Book",
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
@@ -28,6 +28,22 @@
         "placeholder": "",
         "optional": false,
         "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 21
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 25
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
         "addNewButton": false
       }
     },
@@ -85,6 +101,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -362,6 +383,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "author",
+              "description": "author"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
