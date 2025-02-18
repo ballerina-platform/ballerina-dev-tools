@@ -50,7 +50,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,

@@ -226,8 +226,6 @@ public class MethodCall extends NodeBuilder {
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
                 }
-                case REQUIRED -> customPropBuilder.type(Property.ValueType.EXPRESSION)
-                        .value(paramResult.defaultValue());
                 default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
 

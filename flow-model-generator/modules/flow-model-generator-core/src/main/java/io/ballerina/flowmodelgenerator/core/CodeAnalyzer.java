@@ -450,8 +450,6 @@ class CodeAnalyzer extends NodeVisitor {
                     customPropBuilder.defaultable(false);
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
@@ -535,8 +533,6 @@ class CodeAnalyzer extends NodeVisitor {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                } else if (paramKind == Parameter.Kind.REQUIRED) {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
                 } else {
                     customPropBuilder.type(Property.ValueType.EXPRESSION);
                 }

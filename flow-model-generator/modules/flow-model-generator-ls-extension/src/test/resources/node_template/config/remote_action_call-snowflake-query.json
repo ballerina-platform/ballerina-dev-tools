@@ -49,7 +49,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "sql:ParameterizedQuery",
-        "value": "object {}",
         "placeholder": "object {}",
         "optional": false,
         "editable": true,

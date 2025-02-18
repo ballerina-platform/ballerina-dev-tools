@@ -34,7 +34,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "time:Civil",
-        "value": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
         "placeholder": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
         "optional": false,
         "editable": true,
