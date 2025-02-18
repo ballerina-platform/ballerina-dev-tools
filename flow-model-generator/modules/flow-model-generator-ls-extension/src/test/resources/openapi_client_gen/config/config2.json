@@ -41,7 +41,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "mod1:ConnectionConfig",
-        "value": "",
         "placeholder": "",
         "optional": false,
         "editable": true,

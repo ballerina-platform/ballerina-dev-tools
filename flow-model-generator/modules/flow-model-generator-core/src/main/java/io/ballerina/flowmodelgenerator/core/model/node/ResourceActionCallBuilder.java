@@ -196,8 +196,6 @@ public class ResourceActionCallBuilder extends NodeBuilder {
                     customPropBuilder.defaultable(false);
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
             }

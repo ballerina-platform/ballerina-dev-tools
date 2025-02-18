@@ -224,8 +224,6 @@ public class NewConnectionBuilder extends NodeBuilder {
                     customPropBuilder.defaultable(false);
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
@@ -286,7 +284,7 @@ public class NewConnectionBuilder extends NodeBuilder {
     }
 
     private Map<String, String> getDefaultValues(WorkspaceManager workspaceManager, Path file,
-                                  TextRange functionLocation) {
+                                                 TextRange functionLocation) {
         Optional<Document> document = workspaceManager.document(file);
         Map<String, String> defaultValues = new HashMap<>();
         if (document.isEmpty()) {
