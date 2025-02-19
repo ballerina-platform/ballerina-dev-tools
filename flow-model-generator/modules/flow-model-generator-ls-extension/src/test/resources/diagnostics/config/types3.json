@@ -1,0 +1,158 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "error",
+    "startLine": {
+      "line": 30,
+      "offset": 0
+    },
+    "offset": 2,
+    "node": {
+      "id": "37865",
+      "metadata": {
+        "label": "get",
+        "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+      },
+      "codedata": {
+        "node": "REMOTE_ACTION_CALL",
+        "org": "ballerina",
+        "module": "http",
+        "object": "Client",
+        "symbol": "get",
+        "version": "2.13.2",
+        "lineRange": {
+          "fileName": "sample.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 45
+          }
+        },
+        "sourceCode": "json val = check httpClient->get(\"/foo\");"
+      },
+      "returning": false,
+      "properties": {
+        "connection": {
+          "metadata": {
+            "label": "Connection",
+            "description": "Connection to use"
+          },
+          "valueType": "EXPRESSION",
+          "value": "httpClient",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "path": {
+          "metadata": {
+            "label": "path",
+            "description": "Request path"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "value": "\"/foo\"",
+          "placeholder": "\"\"",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "codedata": {
+            "kind": "REQUIRED",
+            "originalName": "path"
+          }
+        },
+        "headers": {
+          "metadata": {
+            "label": "headers",
+            "description": "The entity headers"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "map<string|string[]>|()",
+          "placeholder": "()",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "DEFAULTABLE",
+            "originalName": "headers"
+          }
+        },
+        "targetType": {
+          "metadata": {
+            "label": "targetType",
+            "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+          },
+          "valueType": "TYPE",
+          "valueTypeConstraint": "anydata",
+          "placeholder": "json",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "codedata": {
+            "kind": "PARAM_FOR_TYPE_INFER",
+            "originalName": "targetType"
+          }
+        },
+        "checkError": {
+          "metadata": {
+            "label": "Check Error",
+            "description": "Trigger error flow"
+          },
+          "valueType": "FLAG",
+          "value": true,
+          "optional": false,
+          "editable": true,
+          "advanced": true
+        },
+        "variable": {
+          "metadata": {
+            "label": "Variable Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "val",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Variable Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "json",
+          "placeholder": "var",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "flags": 1
+    },
+    "property": "targetType"
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 30,
+          "character": 0
+        },
+        "end": {
+          "line": 30,
+          "character": 5
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": ""
+      },
+      "message": "expected a subtype of 'anydata', but found 'error'"
+    }
+  ]
+}

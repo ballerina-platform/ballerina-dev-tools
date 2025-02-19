@@ -39,8 +39,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.model.types.TypeKind;
@@ -506,10 +507,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> expression(String expr, String expressionDoc) {
-        return expression(expr, expressionDoc, false);
+        return expression(expr, expressionDoc, false, null);
     }
 
-    public FormBuilder<T> expression(String expr, String expressionDoc, boolean optional) {
+    public FormBuilder<T> expression(String expr, String expressionDoc, boolean optional, String typeConstraint) {
         propertyBuilder
                 .metadata()
                     .label(Property.EXPRESSION_DOC)
@@ -517,6 +518,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(expr)
                 .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(typeConstraint)
                 .optional(optional)
                 .editable();
         addProperty(Property.EXPRESSION_KEY);
@@ -531,6 +533,22 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                 .type(Property.ValueType.EXPRESSION)
+                .editable();
+        addProperty(Property.EXPRESSION_KEY, expressionNode);
+        return this;
+    }
+
+    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional,
+                                     String typeConstraint) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                .type(Property.ValueType.EXPRESSION)
+                .typeConstraint(typeConstraint)
+                .optional(optional)
                 .editable();
         addProperty(Property.EXPRESSION_KEY, expressionNode);
         return this;

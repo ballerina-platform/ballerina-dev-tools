@@ -356,20 +356,6 @@
           }
         }
       }
-    ],
-    "others": [
-      {
-        "id": "0",
-        "name": "foo",
-        "kind": "FUNCTION",
-        "moduleName": "."
-      },
-      {
-        "id": "0",
-        "name": "drinkClient",
-        "kind": "ENDPOINT",
-        "moduleName": "."
-      }
     ]
   }
 }

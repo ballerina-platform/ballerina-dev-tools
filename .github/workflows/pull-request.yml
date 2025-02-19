@@ -24,7 +24,7 @@ jobs:
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: latest
+          version: 2201.10.3
 
       - name: Build with Gradle
         env:
@@ -54,7 +54,7 @@ jobs:
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: latest
+          version: 2201.10.3
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}
@@ -84,7 +84,7 @@ jobs:
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: latest
+          version: 2201.10.3
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}

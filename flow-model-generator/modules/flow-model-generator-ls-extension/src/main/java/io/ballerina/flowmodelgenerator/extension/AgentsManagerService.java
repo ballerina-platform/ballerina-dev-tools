@@ -58,7 +58,7 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
             GetAgentsResponse response = new GetAgentsResponse();
             try {
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setAgents(agentsGenerator.getAgents());
+                response.setAgents(agentsGenerator.getAllAgents());
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

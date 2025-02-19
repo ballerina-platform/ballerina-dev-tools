@@ -19,8 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
-import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
 import org.eclipse.lsp4j.SignatureHelpContext;
@@ -28,37 +26,32 @@ import org.eclipse.lsp4j.SignatureHelpParams;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
-import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Represents a request for signature help in the expression editor.
- * This class extends DebouncedExpressionEditorRequest to handle signature help requests with debouncing functionality.
+ * Represents a request for signature help in the expression editor. This class extends DebouncedExpressionEditorRequest
+ * to handle signature help requests with debouncing functionality.
  *
  * @since 2.0.0
  */
 public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<SignatureHelp> {
 
-    private final String fileUri;
     private final SignatureHelpContext signatureHelpContext;
     private final TextDocumentService textDocumentService;
 
-    public SignatureHelpRequest(WorkspaceManager workspaceManager,
-                                Path filePath,
-                                ExpressionEditorContext.Info context,
-                                String fileUri,
+    public SignatureHelpRequest(ExpressionEditorContext context,
                                 SignatureHelpContext signatureHelpContext,
                                 TextDocumentService textDocumentService) {
-        super(workspaceManager, filePath, context);
-        this.fileUri = fileUri;
+        super(context);
         this.signatureHelpContext = signatureHelpContext;
         this.textDocumentService = textDocumentService;
     }
 
     @Override
-    public SignatureHelp getResponse(ExpressionEditorContext context, LineRange lineRange) {
+    public SignatureHelp getResponse(ExpressionEditorContext context) {
+        context.generateStatement();
         Position position = context.getCursorPosition();
-        TextDocumentIdentifier identifier = new TextDocumentIdentifier(fileUri);
+        TextDocumentIdentifier identifier = new TextDocumentIdentifier(context.fileUri());
         SignatureHelpParams params = new SignatureHelpParams(identifier, position, signatureHelpContext);
         CompletableFuture<SignatureHelp> future = textDocumentService.signatureHelp(params);
         return future.join();

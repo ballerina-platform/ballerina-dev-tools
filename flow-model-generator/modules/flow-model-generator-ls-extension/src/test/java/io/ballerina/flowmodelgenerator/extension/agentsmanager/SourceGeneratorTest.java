@@ -21,8 +21,8 @@ package io.ballerina.flowmodelgenerator.extension.agentsmanager;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -42,7 +42,7 @@ import java.util.Map;
  *
  * @since 2.0.0
  */
-public class AgentsSourceGeneratorTest extends AbstractLSTest {
+public class SourceGeneratorTest extends AbstractLSTest {
 
     private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
@@ -106,7 +106,7 @@ public class AgentsSourceGeneratorTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return AgentsSourceGeneratorTest.class;
+        return SourceGeneratorTest.class;
     }
 
     @Override

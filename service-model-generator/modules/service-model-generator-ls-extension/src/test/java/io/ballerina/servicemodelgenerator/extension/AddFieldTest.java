@@ -20,6 +20,7 @@ package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Field;
 import io.ballerina.servicemodelgenerator.extension.request.AddFieldRequest;
@@ -99,6 +100,11 @@ public class AddFieldTest extends AbstractLSTest {
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
         return AddFieldTest.class;
+    }
+
+    @Override
+    protected String getServiceName() {
+        return "serviceDesign";
     }
 
     @Override

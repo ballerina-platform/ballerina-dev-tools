@@ -35,6 +35,7 @@ configurations {
 
 dependencies {
     implementation project(':flow-model-generator:flow-model-generator-core')
+    implementation project(":model-generator-commons")
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
@@ -100,33 +101,11 @@ task copyStdlibs() {
     }
 }
 
-// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
-    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
-        doLast {
-            def errOutput = new ByteArrayOutputStream()
-            def result = exec {
-                ignoreExitValue = true
-                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
-                } else {
-                    commandLine 'bal', 'pull', packageName
-                }
-                errorOutput = errOutput
-            }
-            if (result.exitValue != 0 && !errOutput.toString().contains("package already exists in the home repository")) {
-                println errOutput
-                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
-            }
-        }
-    }
-}
-
-test.dependsOn pullBallerinaModule('ballerinax/redis')
-test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
-test.dependsOn pullBallerinaModule('ballerinax/github')
-test.dependsOn pullBallerinaModule('ballerinax/snowflake')
-test.dependsOn pullBallerinaModule('ballerinax/docusign.dsadmin')
+test.dependsOn rootProject.pullBallerinaModule('redis')
+test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce')
+test.dependsOn rootProject.pullBallerinaModule('github')
+test.dependsOn rootProject.pullBallerinaModule('snowflake')
+test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin')
 
 test {
     dependsOn {

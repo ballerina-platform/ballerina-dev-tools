@@ -20,7 +20,7 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "init",
-      "id": 2594
+      "id": 2359
     },
     "returning": false,
     "properties": {
@@ -31,7 +31,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,
@@ -47,7 +46,7 @@
           "description": "Configurations related to client authentication"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:BearerTokenConfig|docusign.dsadmin:OAuth2RefreshTokenGrantConfig",
+        "valueTypeConstraint": "http:BearerTokenConfig|dsadmin:OAuth2RefreshTokenGrantConfig",
         "placeholder": "{token: \"\"}",
         "optional": false,
         "editable": true,
@@ -81,7 +80,7 @@
           "description": "Configurations related to HTTP/1.x protocol"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "docusign.dsadmin:ClientHttp1Settings",
+        "valueTypeConstraint": "dsadmin:ClientHttp1Settings",
         "placeholder": "{}",
         "optional": true,
         "editable": true,

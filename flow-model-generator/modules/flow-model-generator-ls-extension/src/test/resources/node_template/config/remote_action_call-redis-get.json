@@ -26,7 +26,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
-      "id": 2271
+      "id": 1439
     },
     "returning": false,
     "properties": {
@@ -49,7 +49,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,

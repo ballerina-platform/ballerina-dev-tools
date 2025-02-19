@@ -57,15 +57,15 @@
       {
         "range": {
           "start": {
-            "line": 39,
-            "character": 0
+            "line": 38,
+            "character": 1
           },
           "end": {
-            "line": 39,
-            "character": 0
+            "line": 38,
+            "character": 1
           }
         },
-        "newText": "service class Person {\n\tfunction init() {\n\t}\n}"
+        "newText": "\nservice class Person {\n\tfunction init() {\n\t}\n}"
       }
     ]
   }

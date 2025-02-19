@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

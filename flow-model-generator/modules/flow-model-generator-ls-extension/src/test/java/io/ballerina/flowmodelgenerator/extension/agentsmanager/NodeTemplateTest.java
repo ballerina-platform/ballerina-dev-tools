@@ -20,9 +20,8 @@ package io.ballerina.flowmodelgenerator.extension.agentsmanager;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.extension.AbstractLSTest;
-import io.ballerina.flowmodelgenerator.extension.NodeTemplateTest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -37,7 +36,7 @@ import java.nio.file.Path;
  *
  * @since 2.0.0
  */
-public class AgentNodeTemplateTest extends AbstractLSTest {
+public class NodeTemplateTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override

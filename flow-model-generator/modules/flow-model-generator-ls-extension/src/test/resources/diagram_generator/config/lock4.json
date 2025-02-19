@@ -107,6 +107,7 @@
                       "description": "Fail value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "error(\"Error Message\")",
                     "optional": false,
                     "editable": true,

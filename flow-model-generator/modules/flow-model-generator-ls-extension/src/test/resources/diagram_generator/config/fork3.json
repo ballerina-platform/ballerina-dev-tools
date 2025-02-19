@@ -255,7 +255,7 @@
                       "description": "the array"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "valueTypeConstraint": "array:Type[]",
                     "value": "\"WA\"",
                     "placeholder": "[]",
                     "optional": false,
@@ -272,7 +272,7 @@
                       "description": "values to add to the end of the array"
                     },
                     "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "lang.array:Type",
+                    "valueTypeConstraint": "array:Type",
                     "value": [],
                     "placeholder": "()",
                     "optional": true,
@@ -425,7 +425,7 @@
                       "description": "the array"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "valueTypeConstraint": "array:Type[]",
                     "value": "\"WB\"",
                     "placeholder": "[]",
                     "optional": false,
@@ -442,7 +442,7 @@
                       "description": "values to add to the end of the array"
                     },
                     "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "lang.array:Type",
+                    "valueTypeConstraint": "array:Type",
                     "value": [],
                     "placeholder": "()",
                     "optional": true,

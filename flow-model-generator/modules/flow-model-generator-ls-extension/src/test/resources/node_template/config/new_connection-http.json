@@ -25,7 +25,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "id": 556
+      "id": 563
     },
     "returning": false,
     "properties": {
@@ -36,7 +36,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,
@@ -44,278 +43,6 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "url"
-        }
-      },
-      "httpVersion": {
-        "metadata": {
-          "label": "httpVersion",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:HttpVersion",
-        "placeholder": "\"2.0\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "httpVersion"
-        }
-      },
-      "http1Settings": {
-        "metadata": {
-          "label": "http1Settings",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ClientHttp1Settings",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "http1Settings"
-        }
-      },
-      "http2Settings": {
-        "metadata": {
-          "label": "http2Settings",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ClientHttp2Settings",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "http2Settings"
-        }
-      },
-      "timeout": {
-        "metadata": {
-          "label": "timeout",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "decimal",
-        "placeholder": "0.0d",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "timeout"
-        }
-      },
-      "forwarded": {
-        "metadata": {
-          "label": "forwarded",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "forwarded"
-        }
-      },
-      "followRedirects": {
-        "metadata": {
-          "label": "followRedirects",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:FollowRedirects|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "followRedirects"
-        }
-      },
-      "poolConfig": {
-        "metadata": {
-          "label": "poolConfig",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:PoolConfiguration|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "poolConfig"
-        }
-      },
-      "cache": {
-        "metadata": {
-          "label": "cache",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CacheConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "cache"
-        }
-      },
-      "compression": {
-        "metadata": {
-          "label": "compression",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:Compression",
-        "placeholder": "\"AUTO\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "compression"
-        }
-      },
-      "auth": {
-        "metadata": {
-          "label": "auth",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "auth"
-        }
-      },
-      "circuitBreaker": {
-        "metadata": {
-          "label": "circuitBreaker",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CircuitBreakerConfig|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "circuitBreaker"
-        }
-      },
-      "retryConfig": {
-        "metadata": {
-          "label": "retryConfig",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RetryConfig|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "retryConfig"
-        }
-      },
-      "cookieConfig": {
-        "metadata": {
-          "label": "cookieConfig",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CookieConfig|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "cookieConfig"
-        }
-      },
-      "responseLimits": {
-        "metadata": {
-          "label": "responseLimits",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ResponseLimitConfigs",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "responseLimits"
-        }
-      },
-      "proxy": {
-        "metadata": {
-          "label": "proxy",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ProxyConfig|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "proxy"
-        }
-      },
-      "validation": {
-        "metadata": {
-          "label": "validation",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "boolean",
-        "placeholder": "false",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "validation"
-        }
-      },
-      "socketConfig": {
-        "metadata": {
-          "label": "socketConfig",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ClientSocketConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "socketConfig"
         }
       },
       "secureSocket": {
@@ -332,6 +59,278 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "secureSocket"
+        }
+      },
+      "httpVersion": {
+        "metadata": {
+          "label": "httpVersion",
+          "description": "The HTTP version understood by the client"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpVersion",
+        "placeholder": "\"2.0\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "httpVersion"
+        }
+      },
+      "http1Settings": {
+        "metadata": {
+          "label": "http1Settings",
+          "description": "Configurations related to HTTP/1.x protocol"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientHttp1Settings",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "http1Settings"
+        }
+      },
+      "http2Settings": {
+        "metadata": {
+          "label": "http2Settings",
+          "description": "Configurations related to HTTP/2 protocol"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientHttp2Settings",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "http2Settings"
+        }
+      },
+      "timeout": {
+        "metadata": {
+          "label": "timeout",
+          "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "timeout"
+        }
+      },
+      "forwarded": {
+        "metadata": {
+          "label": "forwarded",
+          "description": "The choice of setting `forwarded`/`x-forwarded` header"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "forwarded"
+        }
+      },
+      "followRedirects": {
+        "metadata": {
+          "label": "followRedirects",
+          "description": "Configurations associated with Redirection"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:FollowRedirects|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "followRedirects"
+        }
+      },
+      "poolConfig": {
+        "metadata": {
+          "label": "poolConfig",
+          "description": "Configurations associated with request pooling"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:PoolConfiguration|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "poolConfig"
+        }
+      },
+      "cache": {
+        "metadata": {
+          "label": "cache",
+          "description": "HTTP caching related configurations"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CacheConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "cache"
+        }
+      },
+      "compression": {
+        "metadata": {
+          "label": "compression",
+          "description": "Specifies the way of handling compression (`accept-encoding`) header"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:Compression",
+        "placeholder": "\"AUTO\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "compression"
+        }
+      },
+      "auth": {
+        "metadata": {
+          "label": "auth",
+          "description": "Configurations related to client authentication"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "auth"
+        }
+      },
+      "circuitBreaker": {
+        "metadata": {
+          "label": "circuitBreaker",
+          "description": "Configurations associated with the behaviour of the Circuit Breaker"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "circuitBreaker"
+        }
+      },
+      "retryConfig": {
+        "metadata": {
+          "label": "retryConfig",
+          "description": "Configurations associated with retrying"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RetryConfig|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "retryConfig"
+        }
+      },
+      "cookieConfig": {
+        "metadata": {
+          "label": "cookieConfig",
+          "description": "Configurations associated with cookies"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CookieConfig|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "cookieConfig"
+        }
+      },
+      "responseLimits": {
+        "metadata": {
+          "label": "responseLimits",
+          "description": "Configurations associated with inbound response size limits"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ResponseLimitConfigs",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "responseLimits"
+        }
+      },
+      "proxy": {
+        "metadata": {
+          "label": "proxy",
+          "description": "Proxy server related options"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ProxyConfig|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "proxy"
+        }
+      },
+      "validation": {
+        "metadata": {
+          "label": "validation",
+          "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "validation"
+        }
+      },
+      "socketConfig": {
+        "metadata": {
+          "label": "socketConfig",
+          "description": "Provides settings related to client socket configuration"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientSocketConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "socketConfig"
         }
       },
       "type": {

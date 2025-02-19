@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 
 import java.util.ArrayList;

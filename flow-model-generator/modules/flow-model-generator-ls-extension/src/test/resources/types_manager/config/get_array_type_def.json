@@ -108,11 +108,9 @@
           "members": [
             {
               "kind": "FIELD",
-              "refs": [
-                "Names"
-              ],
-              "type": "Names",
-              "name": "otherNames",
+              "refs": [],
+              "type": "int",
+              "name": "id",
               "docs": ""
             },
             {
@@ -124,9 +122,11 @@
             },
             {
               "kind": "FIELD",
-              "refs": [],
-              "type": "int",
-              "name": "id",
+              "refs": [
+                "Names"
+              ],
+              "type": "Names",
+              "name": "otherNames",
               "docs": ""
             }
           ],

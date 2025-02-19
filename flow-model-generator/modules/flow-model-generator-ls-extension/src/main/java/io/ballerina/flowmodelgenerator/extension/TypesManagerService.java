@@ -20,16 +20,26 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.response.RecordConfigResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -43,6 +53,7 @@ import java.util.concurrent.CompletableFuture;
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("typesManager")
 public class TypesManagerService implements ExtendedLanguageServerService {
+
     private WorkspaceManager workspaceManager;
 
     @Override
@@ -147,4 +158,52 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             return response;
         });
     }
+
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> recordConfig(RecordConfigRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                Codedata codedata = request.codedata();
+                String orgName = codedata.org();
+                String packageName = codedata.module();
+                String versionName = codedata.version();
+                Path filePath = Path.of(request.filePath());
+
+                // Find the semantic model
+                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
+                        filePath, orgName, packageName, versionName);
+                if (semanticModel.isEmpty()) {
+                    semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
+                }
+                if (semanticModel.isEmpty()) {
+                    throw new IllegalArgumentException(
+                            String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
+                }
+
+                // Get the type symbol
+                Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
+                        .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
+                                symbol.nameEquals(request.typeConstraint()))
+                        .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
+                        .findFirst();
+                if (typeSymbol.isEmpty()) {
+                    throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
+                            request.typeConstraint(),
+                            orgName,
+                            packageName,
+                            versionName));
+                }
+                if (typeSymbol.get().typeKind() != TypeDescKind.RECORD) {
+                    throw new IllegalArgumentException(
+                            String.format("Type '%s' is not a record", request.typeConstraint()));
+                }
+                response.setRecordConfig(Type.fromSemanticSymbol(typeSymbol.get()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
 }

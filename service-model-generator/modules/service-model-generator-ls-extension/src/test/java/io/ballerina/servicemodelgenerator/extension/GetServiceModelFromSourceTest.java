@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
@@ -86,6 +87,11 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "serviceDesign";
+    }
+
+    @Override
     protected String getApiName() {
         return "getServiceFromSource";
     }
@@ -95,12 +101,13 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
      *
      * @param filePath    The path to the source file
      * @param description The description of the test
-     * @param start      The start position of the service declaration node
-     * @param end       The end position of the service declaration node
+     * @param start       The start position of the service declaration node
+     * @param end         The end position of the service declaration node
      * @param response    The expected response
      */
     private record TestConfig(String filePath, String description, LinePosition start, LinePosition end,
                               Service response) {
+
         public String description() {
             return description == null ? "" : description;
         }

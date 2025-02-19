@@ -30,4 +30,12 @@
     <Match>
         <Bug pattern="CT_CONSTRUCTOR_THROW"/>
     </Match>
+    <Match>
+        <Class name="io.ballerina.modelgenerator.commons.AbstractLSTest"/>
+        <Or>
+            <Bug pattern="MS_PKGPROTECT"/>
+            <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+            <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+        </Or>
+    </Match>
 </FindBugsFilter>

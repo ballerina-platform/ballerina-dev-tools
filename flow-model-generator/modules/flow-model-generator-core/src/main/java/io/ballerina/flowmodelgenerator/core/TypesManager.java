@@ -46,12 +46,12 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.SourceCodeGenerator;
 import io.ballerina.flowmodelgenerator.core.utils.TypeTransformer;
 import io.ballerina.flowmodelgenerator.core.utils.TypeUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
@@ -153,8 +153,7 @@ public class TypesManager {
         LineRange lineRange = typeData.codedata().lineRange();
         if (lineRange == null) {
             ModulePartNode modulePartNode = syntaxTree.rootNode();
-            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
+            textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()), codeSnippet));
         } else {
             NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(lineRange), syntaxTree);
             textEdits.add(new TextEdit(CommonUtils.toRange(node.lineRange()), codeSnippet));
@@ -174,8 +173,7 @@ public class TypesManager {
 
         SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
-        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-        textEdits.add(new TextEdit(CommonUtils.toRange(startPos), codeSnippet));
+        textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()), codeSnippet));
         return gson.toJsonTree(textEditsMap);
     }
 

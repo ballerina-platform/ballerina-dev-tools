@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.modelgenerator.commons;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +25,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.DidCloseTextDocumentParams;
@@ -44,6 +43,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -73,7 +73,13 @@ public abstract class AbstractLSTest {
     public final void init() {
         resDir = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
         configDir = resDir.resolve("config");
+        if (!Files.isDirectory(configDir)) {
+            configDir = resDir;
+        }
         sourceDir = resDir.resolve("source");
+        if (!Files.isDirectory(sourceDir)) {
+            sourceDir = resDir;
+        }
         log = LoggerFactory.getLogger(clazz());
         this.languageServer = new BallerinaLanguageServer();
         TestUtil.LanguageServerBuilder builder = TestUtil.newLanguageServer().withLanguageServer(languageServer);
@@ -97,7 +103,7 @@ public abstract class AbstractLSTest {
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try (Stream<Path> stream = Files.walk(resDir)) {
+        try (Stream<Path> stream = Files.walk(configDir)) {
             return stream
                     .filter(path -> {
                         File file = path.toFile();
@@ -174,7 +180,7 @@ public abstract class AbstractLSTest {
         TextDocumentItem textDocumentItem = new TextDocumentItem();
         String text;
         try (FileInputStream fis = new FileInputStream(sourcePath)) {
-            text = new String(fis.readAllBytes());
+            text = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
         }
         textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
         textDocumentItem.setText(text);

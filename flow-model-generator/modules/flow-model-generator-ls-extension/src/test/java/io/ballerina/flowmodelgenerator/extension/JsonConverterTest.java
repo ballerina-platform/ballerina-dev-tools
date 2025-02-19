@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -99,7 +100,7 @@ public class JsonConverterTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "jsonToRecord";
+        return "jsonToRecordTypes";
     }
 
     private record TestConfig(String filePath, String testFilePath, String jsonString, String recordName,

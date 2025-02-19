@@ -23,6 +23,7 @@ rootProject.name = 'ballerina-dev-tools'
 
 include(':checkstyle')
 include(':testerina-report-tools')
+include(':model-generator-commons')
 include(':architecture-model-generator:architecture-model-generator-core')
 include(':architecture-model-generator:architecture-model-generator-plugin')
 include(':architecture-model-generator:architecture-model-generator-ls-extension')
@@ -39,6 +40,7 @@ include(':test-manager-service:test-manager-service-ls-extension')
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(':testerina-report-tools').projectDir = file('testerina-report-tools')
+project(':model-generator-commons').projectDir = file('model-generator-commons')
 project(':architecture-model-generator:architecture-model-generator-core').projectDir = file('architecture-model-generator/modules/architecture-model-generator-core')
 project(':architecture-model-generator:architecture-model-generator-plugin').projectDir = file('architecture-model-generator/modules/architecture-model-generator-plugin')
 project(':architecture-model-generator:architecture-model-generator-ls-extension').projectDir = file('architecture-model-generator/modules/architecture-model-generator-ls-extension')
