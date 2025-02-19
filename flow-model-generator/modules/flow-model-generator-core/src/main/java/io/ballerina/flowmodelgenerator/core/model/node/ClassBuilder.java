@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -23,7 +23,12 @@ import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
-import io.ballerina.flowmodelgenerator.core.model.*;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import org.eclipse.lsp4j.TextEdit;
@@ -36,12 +41,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Represents agent node in the flow model.
+ * Represents class initialization node in the flow model.
  *
  * @since 2.0.0
  */
 public class ClassBuilder extends NodeBuilder {
-    // TODO: Combine this with class
 
     private static final String CLASS_LABEL = "Class";
 
@@ -163,12 +167,14 @@ public class ClassBuilder extends NodeBuilder {
             return List.of(
                     new ParameterResult(-1, "connectionConfig", "chat:ConnectionConfig", Parameter.Kind.REQUIRED, "",
                             "", false, ""),
-                    new ParameterResult(-2, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "", false
+                    new ParameterResult(-2, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "",
+                            false
                             , "")
             );
         } else if (name.equals("AzureChatGptModel")) {
             return List.of(
-                    new ParameterResult(-1, "connectionConfig", "azure_chat:ConnectionConfig", Parameter.Kind.REQUIRED, "", "", false,
+                    new ParameterResult(-1, "connectionConfig", "azure_chat:ConnectionConfig",
+                            Parameter.Kind.REQUIRED, "", "", false,
                             ""),
                     new ParameterResult(-2, "serviceUrl", "string", Parameter.Kind.REQUIRED, "", "", false,
                             ""),
@@ -176,7 +182,8 @@ public class ClassBuilder extends NodeBuilder {
                             ""),
                     new ParameterResult(-4, "apiVersion", "string", Parameter.Kind.REQUIRED, "", "", false,
                             ""),
-                    new ParameterResult(-5, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "", false
+                    new ParameterResult(-5, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "",
+                            false
                             , "")
             );
         }

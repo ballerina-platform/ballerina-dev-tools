@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
@@ -31,7 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents agent node in the flow model.
@@ -63,9 +64,7 @@ public class AgentBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
-                .functionParameters(sourceBuilder.flowNode,
-                        Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
-                                Property.CHECK_ERROR_KEY));
+                .agentParameters(sourceBuilder.flowNode);
 
         return sourceBuilder.textEdit(false, "agents.bal", true).build();
     }
