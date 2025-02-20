@@ -100,140 +100,6 @@ import java.util.stream.Collectors;
  */
 public final class Utils {
 
-    public static final Map<String, String> HTTP_CODES;
-    static {
-        Map<String, String> httpCodeMap = new HashMap<>();
-        httpCodeMap.put("Continue", "100");
-        httpCodeMap.put("SwitchingProtocols", "101");
-        httpCodeMap.put("Processing", "102");
-        httpCodeMap.put("EarlyHints", "103");
-        httpCodeMap.put("Ok", "200");
-        httpCodeMap.put("Created", "201");
-        httpCodeMap.put("Accepted", "202");
-        httpCodeMap.put("NonAuthoritativeInformation", "203");
-        httpCodeMap.put("NoContent", "204");
-        httpCodeMap.put("ResetContent", "205");
-        httpCodeMap.put("PartialContent", "206");
-        httpCodeMap.put("MultiStatus", "207");
-        httpCodeMap.put("AlreadyReported", "208");
-        httpCodeMap.put("IMUsed", "226");
-        httpCodeMap.put("MultipleChoices", "300");
-        httpCodeMap.put("MovedPermanently", "301");
-        httpCodeMap.put("Found", "302");
-        httpCodeMap.put("SeeOther", "303");
-        httpCodeMap.put("NotModified", "304");
-        httpCodeMap.put("UseProxy", "305");
-        httpCodeMap.put("TemporaryRedirect", "307");
-        httpCodeMap.put("PermanentRedirect", "308");
-        httpCodeMap.put("BadRequest", "400");
-        httpCodeMap.put("Unauthorized", "401");
-        httpCodeMap.put("PaymentRequired", "402");
-        httpCodeMap.put("Forbidden", "403");
-        httpCodeMap.put("NotFound", "404");
-        httpCodeMap.put("MethodNotAllowed", "405");
-        httpCodeMap.put("NotAcceptable", "406");
-        httpCodeMap.put("ProxyAuthenticationRequired", "407");
-        httpCodeMap.put("RequestTimeout", "408");
-        httpCodeMap.put("Conflict", "409");
-        httpCodeMap.put("Gone", "410");
-        httpCodeMap.put("LengthRequired", "411");
-        httpCodeMap.put("PreconditionFailed", "412");
-        httpCodeMap.put("PayloadTooLarge", "413");
-        httpCodeMap.put("UriTooLong", "414");
-        httpCodeMap.put("UnsupportedMediaType", "415");
-        httpCodeMap.put("RangeNotSatisfiable", "416");
-        httpCodeMap.put("ExpectationFailed", "417");
-        httpCodeMap.put("MisdirectedRequest", "421");
-        httpCodeMap.put("UnprocessableEntity", "422");
-        httpCodeMap.put("Locked", "423");
-        httpCodeMap.put("FailedDependency", "424");
-        httpCodeMap.put("TooEarly", "425");
-        httpCodeMap.put("UpgradeRequired", "426");
-        httpCodeMap.put("PreconditionRequired", "428");
-        httpCodeMap.put("TooManyRequests", "429");
-        httpCodeMap.put("RequestHeaderFieldsTooLarge", "431");
-        httpCodeMap.put("UnavailableDueToLegalReasons", "451");
-        httpCodeMap.put("InternalServerError", "500");
-        httpCodeMap.put("NotImplemented", "501");
-        httpCodeMap.put("BadGateway", "502");
-        httpCodeMap.put("ServiceUnavailable", "503");
-        httpCodeMap.put("GatewayTimeout", "504");
-        httpCodeMap.put("HttpVersionNotSupported", "505");
-        httpCodeMap.put("VariantAlsoNegotiates", "506");
-        httpCodeMap.put("InsufficientStorage", "507");
-        httpCodeMap.put("LoopDetected", "508");
-        httpCodeMap.put("NotExtended", "510");
-        httpCodeMap.put("NetworkAuthenticationRequired", "511");
-        HTTP_CODES = Collections.unmodifiableMap(httpCodeMap);
-    }
-
-    public static final Map<String, String> HTTP_CODES_DES;
-    static {
-        Map<String, String> httpCodeMap = new HashMap<>();
-        httpCodeMap.put("100", "Continue");
-        httpCodeMap.put("101", "SwitchingProtocols");
-        httpCodeMap.put("102", "Processing");
-        httpCodeMap.put("103", "EarlyHints");
-        httpCodeMap.put("200", "Ok");
-        httpCodeMap.put("201", "Created");
-        httpCodeMap.put("202", "Accepted");
-        httpCodeMap.put("203", "NonAuthoritativeInformation");
-        httpCodeMap.put("204", "NoContent");
-        httpCodeMap.put("205", "ResetContent");
-        httpCodeMap.put("206", "PartialContent");
-        httpCodeMap.put("207", "MultiStatus");
-        httpCodeMap.put("208", "AlreadyReported");
-        httpCodeMap.put("226", "IMUsed");
-        httpCodeMap.put("300", "MultipleChoices");
-        httpCodeMap.put("301", "MovedPermanently");
-        httpCodeMap.put("302", "Found");
-        httpCodeMap.put("303", "SeeOther");
-        httpCodeMap.put("304", "NotModified");
-        httpCodeMap.put("305", "UseProxy");
-        httpCodeMap.put("307", "TemporaryRedirect");
-        httpCodeMap.put("308", "PermanentRedirect");
-        httpCodeMap.put("400", "BadRequest");
-        httpCodeMap.put("401", "Unauthorized");
-        httpCodeMap.put("402", "PaymentRequired");
-        httpCodeMap.put("403", "Forbidden");
-        httpCodeMap.put("404", "NotFound");
-        httpCodeMap.put("405", "MethodNotAllowed");
-        httpCodeMap.put("406", "NotAcceptable");
-        httpCodeMap.put("407", "ProxyAuthenticationRequired");
-        httpCodeMap.put("408", "RequestTimeOut");
-        httpCodeMap.put("409", "Conflict");
-        httpCodeMap.put("410", "Gone");
-        httpCodeMap.put("411", "LengthRequired");
-        httpCodeMap.put("412", "PreconditionFailed");
-        httpCodeMap.put("413", "PayloadTooLarge");
-        httpCodeMap.put("414", "UriTooLong");
-        httpCodeMap.put("415", "UnsupportedMediaType");
-        httpCodeMap.put("416", "RangeNotSatisfiable");
-        httpCodeMap.put("417", "ExpectationFailed");
-        httpCodeMap.put("421", "MisdirectedRequest");
-        httpCodeMap.put("422", "UnprocessableEntity");
-        httpCodeMap.put("423", "Locked");
-        httpCodeMap.put("424", "FailedDependency");
-        httpCodeMap.put("425", "TooEarly");
-        httpCodeMap.put("426", "UpgradeRequired");
-        httpCodeMap.put("428", "PreconditionRequired");
-        httpCodeMap.put("429", "TooManyRequests");
-        httpCodeMap.put("431", "RequestHeaderFieldsTooLarge");
-        httpCodeMap.put("451", "UnavailableDueToLegalReasons");
-        httpCodeMap.put("500", "InternalServerError");
-        httpCodeMap.put("501", "NotImplemented");
-        httpCodeMap.put("502", "BadGateway");
-        httpCodeMap.put("503", "ServiceUnavailable");
-        httpCodeMap.put("504", "GatewayTimeout");
-        httpCodeMap.put("505", "HttpVersionNotSupported");
-        httpCodeMap.put("506", "VariantAlsoNegotiates");
-        httpCodeMap.put("507", "InsufficientStorage");
-        httpCodeMap.put("508", "LoopDetected");
-        httpCodeMap.put("510", "NotExtended");
-        httpCodeMap.put("511", "NetworkAuthenticationRequired");
-        HTTP_CODES_DES = Collections.unmodifiableMap(httpCodeMap);
-    }
-
     private Utils() {
     }
 
@@ -539,7 +405,7 @@ public final class Utils {
         if (functionDefSymbol.isEmpty() || !(functionDefSymbol.get() instanceof ResourceMethodSymbol resource)) {
             return;
         }
-        populateHttpResponses(returnType, semanticModel, resource);
+        HttpUtil.populateHttpResponses(returnType, semanticModel, resource);
     }
 
     private static void populateHttpResponses(FunctionDefinitionNode functionDefinitionNode,
@@ -548,157 +414,7 @@ public final class Utils {
         if (functionDefSymbol.isEmpty() || !(functionDefSymbol.get() instanceof ResourceMethodSymbol resource)) {
             return;
         }
-        populateHttpResponses(returnType, semanticModel, resource);
-    }
-
-    private static void populateHttpResponses(FunctionReturnType returnType, SemanticModel semanticModel,
-                                              ResourceMethodSymbol resource) {
-        Optional<TypeSymbol> returnTypeSymbol = resource.typeDescriptor().returnTypeDescriptor();
-        if (returnTypeSymbol.isEmpty()) {
-            return;
-        }
-        Optional<ModuleSymbol> module = resource.getModule();
-        String currentModuleName = "";
-        if (module.isPresent()) {
-            currentModuleName = module.get().getName().orElse("");
-        }
-        Optional<String> method = resource.getName();
-        if (method.isEmpty()) {
-            return;
-        }
-        int defaultStatusCode = method.get().trim().equalsIgnoreCase("post") ? 201 : 200;
-        List<HttpResponse> httpResponses = getHttpResponses(returnTypeSymbol.get(), defaultStatusCode, semanticModel,
-                currentModuleName);
-        returnType.setResponses(httpResponses);
-    }
-
-    private static List<HttpResponse> getHttpResponses(TypeSymbol returnTypeSymbol, int defaultStatusCode,
-                                                       SemanticModel semanticModel, String currentModuleName) {
-        List<TypeSymbol> statusCodeResponses = new ArrayList<>();
-        List<TypeSymbol> anydataResponses = new ArrayList<>();
-        Optional<UnionTypeSymbol> unionType = getUnionType(returnTypeSymbol);
-        unionType.ifPresentOrElse(
-                unionTypeSymbol -> unionTypeSymbol.memberTypeDescriptors().forEach(member -> {
-                    if (isSubTypeOfHttpStatusCodeResponse(member, semanticModel)) {
-                        statusCodeResponses.add(member);
-                    } else {
-                        anydataResponses.add(member);
-                    }
-                }),
-                () -> {
-                    if (isSubTypeOfHttpStatusCodeResponse(returnTypeSymbol, semanticModel)) {
-                        statusCodeResponses.add(returnTypeSymbol);
-                    } else {
-                        anydataResponses.add(returnTypeSymbol);
-                    }
-                });
-        List<HttpResponse> responses = new ArrayList<>(statusCodeResponses.stream()
-                .map(statusCodeResponse -> getHttpResponse(statusCodeResponse, String.valueOf(defaultStatusCode),
-                        semanticModel, currentModuleName))
-                .toList());
-        String normalResponseBody = anydataResponses.stream()
-                .map(type -> getTypeName(type, currentModuleName))
-                .collect(Collectors.joining("|"));
-        if (!normalResponseBody.isEmpty()) {
-            HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), normalResponseBody,
-                    normalResponseBody, normalResponseBody);
-            responses.add(normalResponse);
-        }
-        return responses;
-    }
-
-    public static boolean isSubTypeOfHttpStatusCodeResponse(TypeSymbol typeSymbol, SemanticModel semanticModel) {
-        return isSubTypeOfBallerinaModuleType("StatusCodeResponse", "http", typeSymbol, semanticModel);
-    }
-
-    static boolean isSubTypeOfBallerinaModuleType(String type, String moduleName, TypeSymbol typeSymbol,
-                                                  SemanticModel semanticModel) {
-        Optional<Symbol> optionalRecordSymbol = semanticModel.types().getTypeByName("ballerina", moduleName,
-                "", type);
-        if (optionalRecordSymbol.isPresent() &&
-                optionalRecordSymbol.get() instanceof TypeDefinitionSymbol recordSymbol) {
-            return typeSymbol.subtypeOf(recordSymbol.typeDescriptor());
-        }
-        return false;
-    }
-
-    private static String getResponseCode(TypeSymbol typeSymbol, String defaultCode, SemanticModel semanticModel) {
-        for (Map.Entry<String, String> entry : HTTP_CODES.entrySet()) {
-            if (isSubTypeOfBallerinaModuleType(entry.getKey(), "http", typeSymbol, semanticModel)) {
-                return entry.getValue();
-            }
-        }
-        if (isSubTypeOfBallerinaModuleType("DefaultStatusCodeResponse", "http", typeSymbol,
-                semanticModel)) {
-            return "default";
-        }
-        return defaultCode;
-    }
-
-    public static HttpResponse getHttpResponse(TypeSymbol statusCodeResponseType, String defaultStatusCode,
-                                               SemanticModel semanticModel, String currentModuleName) {
-        Optional<RecordTypeSymbol> statusCodeRecordType = getRecordTypeSymbol(statusCodeResponseType);
-        String statusCode = getResponseCode(statusCodeResponseType, defaultStatusCode, semanticModel);
-        TypeSymbol bodyType = semanticModel.types().ANYDATA;
-        String name = null;
-        if (statusCodeRecordType.isPresent()) {
-            bodyType = getBodyType(statusCodeRecordType.get(), semanticModel);
-            name = getTypeName(statusCodeResponseType, currentModuleName);
-        }
-        if (Objects.isNull(name)) {
-            return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName));
-        }
-        return new HttpResponse(statusCode, getTypeName(bodyType, currentModuleName), name, name);
-    }
-
-    static String getTypeName(TypeSymbol typeSymbol, String currentModuleName) {
-        String signature = typeSymbol.signature().trim();
-        String[] parts = signature.split("[:/]");
-        if (parts.length == 4) {
-            return parts[1].equals(currentModuleName) ? parts[3] : parts[1] + ":" + parts[3];
-        }
-        return signature;
-    }
-
-    static TypeSymbol getBodyType(RecordTypeSymbol responseRecordType, SemanticModel semanticModel) {
-        if (Objects.nonNull(responseRecordType) && responseRecordType.fieldDescriptors().containsKey("body")) {
-            return responseRecordType.fieldDescriptors().get("body").typeDescriptor();
-        }
-        return semanticModel.types().ANYDATA;
-    }
-
-    static Optional<RecordTypeSymbol> getRecordTypeSymbol(TypeSymbol typeSymbol) {
-        TypeSymbol statusCodeResType = getReferredType(typeSymbol);
-        if (statusCodeResType instanceof TypeReferenceTypeSymbol statusCodeResRefType &&
-                statusCodeResRefType.typeDescriptor() instanceof RecordTypeSymbol recordTypeSymbol) {
-            return Optional.of(recordTypeSymbol);
-        } else if (statusCodeResType instanceof RecordTypeSymbol recordTypeSymbol) {
-            return Optional.of(recordTypeSymbol);
-        }
-        return Optional.empty();
-    }
-
-    public static TypeSymbol getReferredType(TypeSymbol typeSymbol) {
-        if (typeSymbol.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-            TypeSymbol referencedType = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-            if (referencedType.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-                return getReferredType(referencedType);
-            } else {
-                return typeSymbol;
-            }
-        }
-        return typeSymbol;
-    }
-
-    private static Optional<UnionTypeSymbol> getUnionType(TypeSymbol typeSymbol) {
-        if (Objects.isNull(typeSymbol)) {
-            return Optional.empty();
-        }
-        return switch (typeSymbol.typeKind()) {
-            case UNION -> Optional.of((UnionTypeSymbol) typeSymbol);
-            case TYPE_REFERENCE -> getUnionType(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor());
-            default -> Optional.empty();
-        };
+        HttpUtil.populateHttpResponses(returnType, semanticModel, resource);
     }
 
     public static Optional<String> getHttpParameterType(NodeList<AnnotationNode> annotations) {
@@ -1156,42 +872,12 @@ public final class Utils {
                     !returnType.getResponses().isEmpty()) {
                 builder.append(" returns ");
                 List<String> responses = returnType.getResponses().stream()
-                        .map(response -> getStatusCodeResponse(response, statusCodeResponses))
+                        .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
                         .toList();
                 builder.append(String.join("|", responses));
             }
         }
         builder.append(" ");
-        return builder.toString();
-    }
-
-    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
-        Value body = response.getBody();
-        if (Objects.nonNull(body) && body.isEnabledWithValue()) {
-            Value name = response.getName();
-            String statusCode = response.getStatusCode().getValue();
-            String statusCodeRes = HTTP_CODES_DES.get(statusCode);
-            if (Objects.isNull(statusCodeRes)) {
-                return body.getValue();
-            }
-            if (Objects.nonNull(name) && name.isEnabledWithValue()) {
-                statusCodeResponses.add(getStatusCodeResponseDef(statusCodeRes, body.getValue(), name.getValue()));
-                return response.getName().getValue();
-            }
-            return String.format("record {|*http:%s; %s body;|}", statusCodeRes, body.getValue());
-        }
-        return response.getType().getValue();
-    }
-
-    public static String getStatusCodeResponseDef(String statusCodeTypeName, String body, String name) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(String.format("public type %s record {|", name));
-        builder.append(System.lineSeparator());
-        builder.append(String.format("\t*http:%s;", statusCodeTypeName));
-        builder.append(System.lineSeparator());
-        builder.append(String.format("\t%s body;", body));
-        builder.append(System.lineSeparator());
-        builder.append("|};");
         return builder.toString();
     }
 

@@ -23,7 +23,7 @@ public class HttpResponse {
     private Value body = null;
     private Value name = null;
     private Value type = null;
-    private boolean enabled = false;
+    private boolean enabled = true;
     private boolean editable = false;
     private boolean advanced = false;
 
@@ -37,11 +37,6 @@ public class HttpResponse {
         this.type = type;
     }
 
-    public HttpResponse(String statusCode, String body) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value(body, "EXPRESSION", true);
-    }
-
     public HttpResponse(String type) {
         this.type = new Value(type, "EXPRESSION", true);
     }
@@ -52,11 +47,29 @@ public class HttpResponse {
         this.name = new Value(name, "EXPRESSION", true);
     }
 
-    public HttpResponse(String statusCode, String body, String name, String type) {
+    public HttpResponse(String statusCode, String type) {
         this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value(body, "EXPRESSION", true);
-        this.name = new Value(name, "EXPRESSION", true);
-        this.type = new Value(name, "EXPRESSION", true);
+        this.body = new Value("", "EXPRESSION", true);
+        this.name = new Value("", "EXPRESSION", true);
+        this.type = new Value(type, "EXPRESSION", true);
+    }
+
+    public HttpResponse(String statusCode, String type, boolean addEditButton) {
+        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.body = new Value("", "EXPRESSION", true);
+        this.name = new Value("", "EXPRESSION", true);
+        this.type = new Value(type, "EXPRESSION", true);
+        this.type.setAddNewButton(addEditButton);
+    }
+
+    public static HttpResponse getAnonResponse(String code, String typeStr) {
+        Value statusCode = new Value(code, "EXPRESSION", true);
+        statusCode.setEditable(false);
+        Value body = new Value("", "EXPRESSION", true);
+        Value name = new Value("", "EXPRESSION", true);
+        Value type = new Value(typeStr, "EXPRESSION", true);
+        type.setEditable(false);
+        return new HttpResponse(statusCode, body, name, type);
     }
 
     public Value getStatusCode() {
@@ -89,5 +102,17 @@ public class HttpResponse {
 
     public void setType(Value type) {
         this.type = type;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public void setAdvanced(boolean advanced) {
+        this.advanced = advanced;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

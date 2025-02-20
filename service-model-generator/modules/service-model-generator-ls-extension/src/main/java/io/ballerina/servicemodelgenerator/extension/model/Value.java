@@ -215,6 +215,10 @@ public class Value {
         return properties.get(key);
     }
 
+    public void setAddNewButton(boolean addNewButton) {
+        this.addNewButton = addNewButton;
+    }
+
     public boolean isAddNewButton() {
         return addNewButton;
     }
