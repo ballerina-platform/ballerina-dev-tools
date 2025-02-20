@@ -20,9 +20,11 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.AgentsGenerator;
+import io.ballerina.flowmodelgenerator.extension.request.GenToolRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetAllModelsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetModelsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetToolsRequest;
+import io.ballerina.flowmodelgenerator.extension.response.GenToolResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetAgentsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetModelsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetToolsResponse;
@@ -113,6 +115,27 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 }
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
                 response.setTools(agentsGenerator.getTools(semanticModel.get()));
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<GenToolResponse> genTool(GenToolRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            GenToolResponse response = new GenToolResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+                AgentsGenerator agentsGenerator = new AgentsGenerator();
+                response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(), filePath,
+                        this.workspaceManager));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

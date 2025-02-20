@@ -20,17 +20,26 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -116,9 +125,72 @@ public class AgentsGenerator {
         List<String> functionNames = new ArrayList<>();
         for (Symbol moduleSymbol : moduleSymbols) {
             if (moduleSymbol.kind() == SymbolKind.FUNCTION) {
+                // TODO: Filter from the annotations
                 functionNames.add((moduleSymbol).getName().orElse(""));
             }
         }
         return gson.toJsonTree(functionNames).getAsJsonArray();
+    }
+
+    public JsonElement genTool(JsonElement node, String toolName, Path filePath, WorkspaceManager workspaceManager) {
+        FlowNode flowNode = gson.fromJson(node, FlowNode.class);
+        NodeKind nodeKind = flowNode.codedata().node();
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
+        List<String> args = new ArrayList<>();
+        if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
+            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+            Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
+            if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
+                List<String> paramList = new ArrayList<>();
+                for (Object obj : paramMap.values()) {
+                    Property paramProperty = gson.fromJson(gson.toJsonTree(obj), Property.class);
+                    if (!(paramProperty.value() instanceof Map<?, ?> paramData)) {
+                        continue;
+                    }
+                    Map<String, Property> paramProperties = gson.fromJson(gson.toJsonTree(paramData),
+                            FormBuilder.NODE_PROPERTIES_TYPE);
+
+                    String paramType = paramProperties.get(Property.TYPE_KEY).value().toString();
+                    String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
+                    args.add(paramName);
+                    paramList.add(paramType + " " + paramName);
+                }
+                sourceBuilder.token().name(String.join(", ", paramList));
+            }
+            sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
+
+            Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value().toString());
+            }
+
+            sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .name(returnType.get().value().toString())
+                        .whiteSpace()
+                        .name("result")
+                        .whiteSpace()
+                        .keyword(SyntaxKind.EQUAL_TOKEN);
+            }
+            Optional<Property> optFuncName = flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+            if (optFuncName.isEmpty()) {
+                throw new IllegalStateException("Function name is not present");
+            }
+            sourceBuilder.token()
+                    .name(optFuncName.get().value().toString())
+                    .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+            sourceBuilder.token()
+                    .name(String.join(", ", args))
+                    .keyword(SyntaxKind.CLOSE_PAREN_TOKEN).endOfStatement();
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
+            sourceBuilder.textEdit(false, "agents.bal", false);
+            return gson.toJsonTree(sourceBuilder.build());
+        }
+        throw new IllegalStateException("Unsupported node kind to generate tool");
     }
 }
