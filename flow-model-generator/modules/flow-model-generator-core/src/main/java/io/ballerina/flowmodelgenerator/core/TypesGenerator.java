@@ -19,12 +19,14 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.Types;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import org.ballerinalang.model.types.TypeKind;
+import org.eclipse.lsp4j.CompletionItem;
+import org.eclipse.lsp4j.CompletionList;
+import org.eclipse.lsp4j.jsonrpc.messages.Either;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -42,52 +44,81 @@ public class TypesGenerator {
 
     private final Gson gson;
     private final Map<String, TypeSymbol> builtinTypeSymbols;
-    public static final String ERROR_TYPE_NAME = TypeKind.ERROR.typeName();
+    private final Map<String, CompletionItem> builtinTypeCompletionItems;
+
+    private static final String PRIMITIVE_TYPE = "Primitive";
+    private static final String USER_DEFINED_TYPE = "User-Defined";
+
+    // Builtin type names
+    public static final String TYPE_STRING = TypeKind.STRING.typeName();
+    public static final String TYPE_BOOLEAN = TypeKind.BOOLEAN.typeName();
+    public static final String TYPE_INT = TypeKind.INT.typeName();
+    public static final String TYPE_FLOAT = TypeKind.FLOAT.typeName();
+    public static final String TYPE_DECIMAL = TypeKind.DECIMAL.typeName();
+    public static final String TYPE_XML = TypeKind.XML.typeName();
+    public static final String TYPE_BYTE = TypeKind.BYTE.typeName();
+    public static final String TYPE_ERROR = TypeKind.ERROR.typeName();
+    public static final String TYPE_JSON = TypeKind.JSON.typeName();
+    public static final String TYPE_ANY = TypeKind.ANY.typeName();
+    public static final String TYPE_ANYDATA = TypeKind.ANYDATA.typeName();
+    public static final String TYPE_FUNCTION = TypeKind.FUNCTION.typeName();
+    public static final String TYPE_FUTURE = TypeKind.FUTURE.typeName();
+    public static final String TYPE_TYPEDESC = TypeKind.TYPEDESC.typeName();
+    public static final String TYPE_HANDLE = TypeKind.HANDLE.typeName();
+    public static final String TYPE_STREAM = TypeKind.STREAM.typeName();
+    public static final String TYPE_NEVER = TypeKind.NEVER.typeName();
+    public static final String TYPE_READONLY = TypeKind.READONLY.typeName();
 
     private TypesGenerator() {
         this.gson = new Gson();
         this.builtinTypeSymbols = new LinkedHashMap<>();
+        this.builtinTypeCompletionItems = new LinkedHashMap<>();
     }
 
-    public JsonArray getTypes(SemanticModel semanticModel) {
-        List<String> visibleTypes = semanticModel.moduleSymbols().parallelStream()
+    public Either<List<CompletionItem>, CompletionList> getTypes(SemanticModel semanticModel) {
+        List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
-                .flatMap(symbol -> symbol.getName().stream())
+                .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""), USER_DEFINED_TYPE))
                 .collect(Collectors.toCollection(ArrayList::new));
-        initializeTypeSymbolMap(semanticModel);
-        visibleTypes.addAll(builtinTypeSymbols.keySet());
-        return gson.toJsonTree(visibleTypes).getAsJsonArray();
+        initializeBuiltinTypes(semanticModel);
+        completionItems.addAll(builtinTypeCompletionItems.values());
+        return Either.forLeft(completionItems);
     }
 
     public Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, String typeName) {
-        initializeTypeSymbolMap(semanticModel);
+        initializeBuiltinTypes(semanticModel);
         return Optional.ofNullable(builtinTypeSymbols.get(typeName));
     }
 
-    private void initializeTypeSymbolMap(SemanticModel semanticModel) {
+    private void initializeBuiltinTypes(SemanticModel semanticModel) {
         if (!builtinTypeSymbols.isEmpty()) {
             return;
         }
 
+        // Obtain the type symbols for the builtin types
         Types types = semanticModel.types();
-        builtinTypeSymbols.put(TypeKind.STRING.typeName(), types.STRING);
-        builtinTypeSymbols.put(TypeKind.BOOLEAN.typeName(), types.BOOLEAN);
-        builtinTypeSymbols.put(TypeKind.INT.typeName(), types.INT);
-        builtinTypeSymbols.put(TypeKind.FLOAT.typeName(), types.FLOAT);
-        builtinTypeSymbols.put(TypeKind.DECIMAL.typeName(), types.DECIMAL);
-        builtinTypeSymbols.put(TypeKind.XML.typeName(), types.XML);
-        builtinTypeSymbols.put(TypeKind.BYTE.typeName(), types.BYTE);
-        builtinTypeSymbols.put(TypeKind.ERROR.typeName(), types.ERROR);
-        builtinTypeSymbols.put(TypeKind.JSON.typeName(), types.JSON);
-        builtinTypeSymbols.put(TypeKind.ANY.typeName(), types.ANY);
-        builtinTypeSymbols.put(TypeKind.ANYDATA.typeName(), types.ANYDATA);
-        builtinTypeSymbols.put(TypeKind.FUNCTION.typeName(), types.FUNCTION);
-        builtinTypeSymbols.put(TypeKind.FUTURE.typeName(), types.FUTURE);
-        builtinTypeSymbols.put(TypeKind.TYPEDESC.typeName(), types.TYPEDESC);
-        builtinTypeSymbols.put(TypeKind.HANDLE.typeName(), types.HANDLE);
-        builtinTypeSymbols.put(TypeKind.STREAM.typeName(), types.STREAM);
-        builtinTypeSymbols.put(TypeKind.NEVER.typeName(), types.NEVER);
-        builtinTypeSymbols.put(TypeKind.READONLY.typeName(), types.READONLY);
+        builtinTypeSymbols.put(TYPE_STRING, types.STRING);
+        builtinTypeSymbols.put(TYPE_BOOLEAN, types.BOOLEAN);
+        builtinTypeSymbols.put(TYPE_INT, types.INT);
+        builtinTypeSymbols.put(TYPE_FLOAT, types.FLOAT);
+        builtinTypeSymbols.put(TYPE_DECIMAL, types.DECIMAL);
+        builtinTypeSymbols.put(TYPE_XML, types.XML);
+        builtinTypeSymbols.put(TYPE_BYTE, types.BYTE);
+        builtinTypeSymbols.put(TYPE_ERROR, types.ERROR);
+        builtinTypeSymbols.put(TYPE_JSON, types.JSON);
+        builtinTypeSymbols.put(TYPE_ANY, types.ANY);
+        builtinTypeSymbols.put(TYPE_ANYDATA, types.ANYDATA);
+        builtinTypeSymbols.put(TYPE_FUNCTION, types.FUNCTION);
+        builtinTypeSymbols.put(TYPE_FUTURE, types.FUTURE);
+        builtinTypeSymbols.put(TYPE_TYPEDESC, types.TYPEDESC);
+        builtinTypeSymbols.put(TYPE_HANDLE, types.HANDLE);
+        builtinTypeSymbols.put(TYPE_STREAM, types.STREAM);
+        builtinTypeSymbols.put(TYPE_NEVER, types.NEVER);
+        builtinTypeSymbols.put(TYPE_READONLY, types.READONLY);
+
+        // Build the completion items for the builtin types
+        builtinTypeSymbols.forEach((name, symbol) -> builtinTypeCompletionItems.put(name,
+                TypeCompletionItemBuilder.build(symbol, name, PRIMITIVE_TYPE)));
     }
 
     public static TypesGenerator getInstance() {

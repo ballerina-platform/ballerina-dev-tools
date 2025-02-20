@@ -103,19 +103,17 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<ExpressionEditorTypeResponse> types(VisibleVariableTypeRequest request) {
+    public CompletableFuture<Either<List<CompletionItem>, CompletionList>> types(VisibleVariableTypeRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
             try {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManagerProxy.get().loadProject(filePath);
                 SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
                         () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
-                response.setTypes(TypesGenerator.getInstance().getTypes(semanticModel));
+                return TypesGenerator.getInstance().getTypes(semanticModel);
             } catch (Throwable e) {
-                response.setError(e);
+                return Either.forRight(new CompletionList());
             }
-            return response;
         });
     }
 

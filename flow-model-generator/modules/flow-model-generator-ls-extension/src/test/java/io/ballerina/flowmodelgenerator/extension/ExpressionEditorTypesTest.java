@@ -18,17 +18,18 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
+import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Tests for the expression editor types service.
@@ -46,11 +47,11 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
                 new VisibleVariableTypeRequest(getSourcePath(testConfig.source()), testConfig.position());
         JsonObject response = getResponse(request);
 
-        JsonArray actualExpressionTypes = response.get("types").getAsJsonArray();
-        if (!actualExpressionTypes.equals(testConfig.types())) {
+        List<CompletionItem> actualCompletions = gson.fromJson(response.get("left").getAsJsonArray(),
+                ExpressionEditorCompletionTest.COMPLETION_RESPONSE_TYPE);
+        if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
-                    testConfig.position(), actualExpressionTypes);
-            compareJsonElements(actualExpressionTypes, testConfig.types());
+                    testConfig.position(), actualCompletions);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -76,6 +77,7 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String source, LinePosition position, JsonArray types) {
+    private record TestConfig(String description, String source, LinePosition position,
+                              List<CompletionItem> completions) {
     }
 }
