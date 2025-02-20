@@ -25,6 +25,7 @@ import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.EnumSymbol;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -117,6 +118,9 @@ public class TypeTransformer {
     public Object transform(ClassSymbol classSymbol) {
         TypeData.TypeDataBuilder typeDataBuilder = new TypeData.TypeDataBuilder();
         String typeName = getTypeName(classSymbol);
+        List<Qualifier> qualifiers = classSymbol.qualifiers();
+        String networkQualifier = qualifiers.contains(Qualifier.SERVICE) ?
+                "service" : (qualifiers.contains(Qualifier.CLIENT) ? "client" : "");
         typeDataBuilder
                 .name(typeName)
                 .editable()
@@ -129,9 +133,14 @@ public class TypeTransformer {
                     .lineRange(classSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .qualifiers(classSymbol.qualifiers().stream().map(Qualifier::getValue).toList(), true, true, true)
+                    .qualifiers(qualifiers.stream().map(Qualifier::getValue).toList(), true, true, true)
                     .isArray("false", true, true, true)
-                    .arraySize("", false, false, false);
+                    .arraySize("", false, false, false)
+                    .isPublic(qualifiers.contains(Qualifier.PUBLIC), true, true, false)
+                    .isDistinct(qualifiers.contains(Qualifier.DISTINCT), true, true, false)
+                    .isIsolated(qualifiers.contains(Qualifier.ISOLATED), true, true, false)
+                    .isReadOnly(qualifiers.contains(Qualifier.READONLY), true, true, false)
+                    .networkQualifier(networkQualifier, true, true, false);
 
         // inclusions
         List<String> includes = new ArrayList<>();
@@ -156,6 +165,13 @@ public class TypeTransformer {
 
     public Object transform(ObjectTypeSymbol objectTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
         typeDataBuilder.codedata().node(NodeKind.OBJECT);
+
+        List<Qualifier> qualifiers = objectTypeSymbol.qualifiers();
+        String networkQualifier = qualifiers.contains(Qualifier.SERVICE) ?
+                "service" : (qualifiers.contains(Qualifier.CLIENT) ? "client" : "");
+        typeDataBuilder.properties()
+                .isIsolated(qualifiers.contains(Qualifier.ISOLATED), true, true, false)
+                .networkQualifier(networkQualifier, true, true, false);
 
         // inclusions
         List<String> includes = new ArrayList<>();
@@ -191,7 +207,8 @@ public class TypeTransformer {
                     .lineRange(typeDef.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .name(typeName, false, true, false);
+                    .name(typeName, false, true, false)
+                    .isPublic(typeDef.qualifiers().contains(Qualifier.PUBLIC), true, true, false);
 
         if (typeDef.documentation().isPresent()) {
             String doc = getDocumentString(typeDef);
@@ -518,79 +535,86 @@ public class TypeTransformer {
     }
 
     private List<Function> transformMethodSymbols(Map<String, ? extends MethodSymbol> methods) {
+        return methods.values().stream().map(this::transformFunction).toList();
+    }
+
+    private Function transformFunction(FunctionSymbol functionSymbol) {
+        Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-        List<Function> functions = new ArrayList<>();
-        methods.forEach((name, methodSymbol) -> {
-            Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
-            FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
 
-            functionBuilder
-                    .kind(Function.FunctionKind.FUNCTION)
-                    .name(methodSymbol.getName().orElse(""));
+        List<Qualifier> functionQuals = functionSymbol.qualifiers();
 
-            // return type
-            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-                Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
-                        new TypeData.TypeDataBuilder());
-                functionBuilder
-                        .returnType(transformed)
-                        .refs(transformed instanceof String
-                                ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
-                                : List.of());
-            });
-
-            // params
-            functionTypeSymbol.params().ifPresent(params -> {
-                List<Member> parameters = params.stream().map(param -> {
-                    Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
-                    return memberBuilder
-                            .name(param.getName().orElse(null))
-                            .kind(Member.MemberKind.FIELD)
-                            .type(transformedParamType)
-                            .refs(transformedParamType instanceof String ?
-                                    TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
-                            .build();
-                }).toList();
-                functionBuilder.parameters(parameters);
-            });
-
-            // rest param
-            functionTypeSymbol.restParam().ifPresent(restParam -> {
-                Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
-                Member restParameter = memberBuilder
-                        .name(restParam.getName().get())
-                        .kind(Member.MemberKind.FIELD)
-                        .type(transformedRestParamType)
-                        .refs(transformedRestParamType instanceof String ?
-                                TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
-                        .build();
-                functionBuilder.restParameter(restParameter);
-            });
-
-
-            // qualifiers
-            List<String> qualifiers = new ArrayList<>();
-            methodSymbol.qualifiers().forEach(q -> {
-                qualifiers.add(q.name());
-                if (q.equals(Qualifier.REMOTE)) {
-                    functionBuilder.kind(Function.FunctionKind.REMOTE);
-                } else if (q.equals(Qualifier.RESOURCE)) {
-                    functionBuilder.kind(Function.FunctionKind.RESOURCE);
-                }
-            });
-            functionBuilder.qualifiers(qualifiers);
-
-            // resource path
-            // TODO: Need a structured schema for resourcePath
-            if (methodSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
-                functionBuilder
-                        .name(((ResourceMethodSymbol) methodSymbol).resourcePath().signature())
-                        .accessor(methodSymbol.getName().orElse(""));
+        // qualifiers
+        List<String> qualifiers = new ArrayList<>();
+        functionQuals.forEach(q -> {
+            qualifiers.add(q.name());
+            if (q.equals(Qualifier.REMOTE)) {
+                functionBuilder.kind(Function.FunctionKind.REMOTE);
+            } else if (q.equals(Qualifier.RESOURCE)) {
+                functionBuilder.kind(Function.FunctionKind.RESOURCE);
             }
-
-            functions.add(functionBuilder.build());
         });
-        return functions;
+        functionBuilder.qualifiers(qualifiers);
+
+        functionBuilder
+                .kind(Function.FunctionKind.FUNCTION)
+                .docs(getDocumentString(functionSymbol))
+                .name(functionSymbol.getName().orElse(""))
+                .properties()
+                .isPrivate(functionQuals.contains(Qualifier.PRIVATE), true, true, false)
+                .isPublic(functionQuals.contains(Qualifier.PUBLIC), true, true, false)
+                .isIsolated(functionQuals.contains(Qualifier.ISOLATED), true, true, false);
+
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+
+        // return type
+        functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
+            Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
+                    new TypeData.TypeDataBuilder());
+            functionBuilder
+                    .returnType(transformed)
+                    .refs(transformed instanceof String
+                            ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
+                            : List.of());
+        });
+
+        // params
+        functionTypeSymbol.params().ifPresent(params -> {
+            List<Member> parameters = params.stream().map(param -> {
+                Object transformedParamType = transform(param.typeDescriptor(), new TypeData.TypeDataBuilder());
+                return memberBuilder
+                        .name(param.getName().orElse(null))
+                        .kind(Member.MemberKind.FIELD)
+                        .type(transformedParamType)
+                        .refs(transformedParamType instanceof String ?
+                                TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
+                        .build();
+            }).toList();
+            functionBuilder.parameters(parameters);
+        });
+
+        // rest param
+        functionTypeSymbol.restParam().ifPresent(restParam -> {
+            Object transformedRestParamType = transform(restParam.typeDescriptor(), new TypeData.TypeDataBuilder());
+            Member restParameter = memberBuilder
+                    .name(restParam.getName().get())
+                    .kind(Member.MemberKind.FIELD)
+                    .type(transformedRestParamType)
+                    .refs(transformedRestParamType instanceof String ?
+                            TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
+                    .build();
+            functionBuilder.restParameter(restParameter);
+        });
+
+        // resource path
+        // TODO: Need a structured schema for resourcePath
+        if (functionSymbol.kind().equals(SymbolKind.RESOURCE_METHOD)) {
+            functionBuilder
+                    .name(((ResourceMethodSymbol) functionSymbol).resourcePath().signature())
+                    .accessor(functionSymbol.getName().orElse(""));
+        }
+
+        return functionBuilder.build();
     }
 
     private Member transformObjectFieldAsMember(String fieldName, ObjectFieldSymbol fieldSymbol) {
