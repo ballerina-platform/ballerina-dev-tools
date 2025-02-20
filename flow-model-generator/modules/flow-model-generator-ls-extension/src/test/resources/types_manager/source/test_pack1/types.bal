@@ -71,3 +71,42 @@ type PartTimeStudent record {|
     *Student;
     string:Char code;
 |};
+
+# Represents the type of the vehicle
+public type VehicleType isolated client object {
+    string make;
+    string model;
+
+    # Get the make of the vehicle
+    isolated remote function getMake() returns string;
+    public isolated function setYear(int year);
+};
+
+# Vehicle class.
+public isolated readonly distinct client class Vehicle {
+    *VehicleType;
+    # Year of manufacturing.
+    private int year;
+
+    function init(string make, string model, int year) {
+        self.make = make;
+        self.model = make;
+        self.year = year;
+    }
+
+    isolated resource function get [int id]/country() returns string {
+        return "Japan";
+    }
+
+    private isolated function getYear(string time) returns int {
+        return self.year;
+    }
+
+    public isolated function setYear(int year) {
+        return;
+    }
+
+    isolated remote function getMake() returns string {
+        return "";
+    }
+}
