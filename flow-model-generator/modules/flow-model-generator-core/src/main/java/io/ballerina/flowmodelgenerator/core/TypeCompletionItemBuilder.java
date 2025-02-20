@@ -101,52 +101,37 @@ public final class TypeCompletionItemBuilder {
             // Finite types
             item.setKind(CompletionItemKind.TypeParameter);
         }*/
-        switch (typeDescriptor.get().typeKind()) {
-            case UNION:
-                // Union types
-                List<TypeSymbol> memberTypes = new ArrayList<>(((UnionTypeSymbol) typeDescriptor.get())
-                        .memberTypeDescriptors());
+        CompletionItemKind itemKind = switch (typeDescriptor.get().typeKind()) {
+            case UNION -> {
+            // Union types
+            List<TypeSymbol> memberTypes = new ArrayList<>(((UnionTypeSymbol) typeDescriptor.get())
+                .memberTypeDescriptors());
 
-                // To handle cases where the source is incomplete and hence results in an empty union
-                if (memberTypes.isEmpty()) {
-                    item.setKind(CompletionItemKind.Unit);
-                    completionItemLabelDetails.setDescription("type");
-                    return;
-                }
+            // To handle cases where the source is incomplete and hence results in an empty union
+            if (memberTypes.isEmpty()) {
+                completionItemLabelDetails.setDescription("type");
+                yield CompletionItemKind.Unit;
+            }
 
-                boolean allMatch = memberTypes.stream()
-                        .allMatch(typeDesc -> typeDesc.typeKind() == memberTypes.get(0).typeKind());
-                if (allMatch) {
-                    switch (memberTypes.get(0).typeKind()) {
-                        case ERROR:
-                            item.setKind(CompletionItemKind.Event);
-                            break;
-                        case RECORD:
-                            item.setKind(CompletionItemKind.Struct);
-                            break;
-                        case OBJECT:
-                            item.setKind(CompletionItemKind.Interface);
-                            break;
-                        default:
-                            item.setKind(CompletionItemKind.TypeParameter);
-                            break;
-                    }
-                } else {
-                    item.setKind(CompletionItemKind.Enum);
-                }
-                break;
-            case RECORD:
-                item.setKind(CompletionItemKind.Struct);
-                break;
-            case OBJECT:
-                item.setKind(CompletionItemKind.Interface);
-                break;
-            case ERROR:
-                item.setKind(CompletionItemKind.Event);
-                break;
-            default:
-                item.setKind(CompletionItemKind.TypeParameter);
-        }
+            boolean allMatch = memberTypes.stream()
+                .allMatch(typeDesc -> typeDesc.typeKind() == memberTypes.get(0).typeKind());
+            if (allMatch) {
+                yield switch (memberTypes.get(0).typeKind()) {
+                case ERROR -> CompletionItemKind.Event;
+                case RECORD -> CompletionItemKind.Struct;
+                case OBJECT -> CompletionItemKind.Interface;
+                default -> CompletionItemKind.TypeParameter;
+                };
+            } else {
+                yield CompletionItemKind.Enum;
+            }
+            }
+            case RECORD -> CompletionItemKind.Struct;
+            case OBJECT -> CompletionItemKind.Interface;
+            case ERROR -> CompletionItemKind.Event;
+            default -> CompletionItemKind.TypeParameter;
+        };
+        item.setKind(itemKind);
 
         Documentable documentableSymbol = bSymbol instanceof Documentable ? (Documentable) bSymbol : null;
         if (documentableSymbol != null && documentableSymbol.documentation().isPresent()

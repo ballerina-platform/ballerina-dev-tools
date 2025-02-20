@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
-import com.google.gson.Gson;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.Types;
 import io.ballerina.compiler.api.symbols.SymbolKind;
