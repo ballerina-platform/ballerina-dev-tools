@@ -22,8 +22,11 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -38,6 +41,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Abstract base class for function-like builders (functions, methods, resource actions).
@@ -119,6 +123,23 @@ public abstract class FunctionBuilder extends NodeBuilder {
         TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
         return functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
+    }
+
+    protected DatabaseManager dbManager = DatabaseManager.getInstance();
+
+    protected Optional<FunctionResult> getFunctionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        return codedata.id() != null ? 
+                dbManager.getFunction(codedata.id()) :
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind);
+    }
+
+    protected Optional<FunctionResult> getActionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        return codedata.id() != null ? 
+                dbManager.getFunction(codedata.id()) :
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), 
+                        codedata.resourcePath(), functionKind);
     }
 
     /**

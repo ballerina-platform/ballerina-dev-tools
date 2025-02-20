@@ -58,10 +58,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), null,
-                        DatabaseManager.FunctionKind.REMOTE);
+        Optional<FunctionResult> functionResult = getActionResult(codedata, DatabaseManager.FunctionKind.REMOTE);
         if (functionResult.isEmpty()) {
             return;
         }

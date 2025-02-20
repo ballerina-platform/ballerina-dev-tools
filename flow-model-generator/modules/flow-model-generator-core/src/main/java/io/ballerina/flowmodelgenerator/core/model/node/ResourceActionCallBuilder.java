@@ -25,13 +25,10 @@ import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.eclipse.lsp4j.TextEdit;
@@ -65,10 +62,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), codedata.resourcePath(),
-                        DatabaseManager.FunctionKind.RESOURCE);
+        Optional<FunctionResult> functionResult = getActionResult(codedata, DatabaseManager.FunctionKind.RESOURCE);
         if (functionResult.isEmpty()) {
             return;
         }

@@ -27,12 +27,8 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -49,7 +45,6 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -78,10 +73,7 @@ public class FunctionCall extends FunctionBuilder {
     }
 
     private void handleImportedFunction(TemplateContext context, Codedata codedata) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                        DatabaseManager.FunctionKind.FUNCTION);
+        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
             throw new RuntimeException("Function not found: " + codedata.symbol());

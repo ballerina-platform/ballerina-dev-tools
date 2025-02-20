@@ -76,9 +76,7 @@ public class MethodCall extends FunctionBuilder {
     }
 
     private void handleImportedModuleObjMethods(TemplateContext context, Codedata codedata) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(codedata.org(), codedata.module(),
-                codedata.symbol(), DatabaseManager.FunctionKind.FUNCTION);
+        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
             throw new RuntimeException("Method not found: " + codedata.symbol());
