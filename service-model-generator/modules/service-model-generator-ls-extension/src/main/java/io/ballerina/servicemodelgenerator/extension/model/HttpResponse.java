@@ -19,21 +19,21 @@
 package io.ballerina.servicemodelgenerator.extension.model;
 
 public class HttpResponse {
-    private Value statusCode;
-    private Value body;
-    private Value name;
-    private Value createStatusCodeResponse;
-    private Value type;
+    private Value statusCode = null;
+    private Value body = null;
+    private Value name = null;
+    private Value type = null;
+    private boolean enabled = false;
+    private boolean editable = false;
+    private boolean advanced = false;
 
     public HttpResponse() {
-        this(null, null, null, null, null);
     }
 
-    public HttpResponse(Value statusCode, Value body, Value name, Value createStatusCodeResponse, Value type) {
+    public HttpResponse(Value statusCode, Value body, Value name, Value type) {
         this.statusCode = statusCode;
         this.body = body;
         this.name = name;
-        this.createStatusCodeResponse = createStatusCodeResponse;
         this.type = type;
     }
 
@@ -81,14 +81,6 @@ public class HttpResponse {
 
     public void setName(Value name) {
         this.name = name;
-    }
-
-    public Value isCreateStatusCodeResponse() {
-        return createStatusCodeResponse;
-    }
-
-    public void setCreateStatusCodeResponse(Value createStatusCodeResponse) {
-        this.createStatusCodeResponse = createStatusCodeResponse;
     }
 
     public Value getType() {

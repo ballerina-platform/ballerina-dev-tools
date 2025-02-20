@@ -1166,33 +1166,21 @@ public final class Utils {
     }
 
     public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
-        if (Objects.nonNull(response.getType()) && response.getType().isEnabledWithValue()) {
-            return response.getType().getValue();
-        }
-        if (Objects.isNull(response.getBody()) || !response.getBody().isEnabledWithValue()) {
-            if (!response.getStatusCode().isEnabledWithValue()) {
-                return "anydata";
-            }
+        Value body = response.getBody();
+        if (Objects.nonNull(body) && body.isEnabledWithValue()) {
+            Value name = response.getName();
             String statusCode = response.getStatusCode().getValue();
             String statusCodeRes = HTTP_CODES_DES.get(statusCode);
             if (Objects.isNull(statusCodeRes)) {
-                return "anydata";
+                return body.getValue();
             }
-            return String.format("http:%s", statusCodeRes);
+            if (Objects.nonNull(name) && name.isEnabledWithValue()) {
+                statusCodeResponses.add(getStatusCodeResponseDef(statusCodeRes, body.getValue(), name.getValue()));
+                return response.getName().getValue();
+            }
+            return String.format("record {|*http:%s; %s body;|}", statusCodeRes, body.getValue());
         }
-        String body = response.getBody().getValue();
-        String statusCode = response.getStatusCode().getValue();
-        String statusCodeRes = HTTP_CODES_DES.get(statusCode);
-        if (Objects.isNull(statusCodeRes)) {
-            return body;
-        }
-        if (Objects.nonNull(response.isCreateStatusCodeResponse()) &&
-                response.isCreateStatusCodeResponse().isEnabledWithValue() &&
-                response.getName().isEnabledWithValue()) {
-            statusCodeResponses.add(getStatusCodeResponseDef(statusCodeRes, body, response.getName().getValue()));
-            return response.getName().getValue();
-        }
-        return String.format("record {|*http:%s; %s body;|}", statusCodeRes, body);
+        return response.getType().getValue();
     }
 
     public static String getStatusCodeResponseDef(String statusCodeTypeName, String body, String name) {
