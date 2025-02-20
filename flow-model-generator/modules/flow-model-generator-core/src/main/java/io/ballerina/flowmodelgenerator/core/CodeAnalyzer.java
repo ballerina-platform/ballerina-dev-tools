@@ -241,12 +241,9 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.STOP, returnStatementNode);
         } else {
             ExpressionNode expr = optExpr.get();
-            expr.accept(this);
-            if (isNodeUnidentified()) {
-                startNode(NodeKind.RETURN, returnStatementNode)
-                        .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
-                        .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
-            }
+            startNode(NodeKind.RETURN, returnStatementNode)
+                    .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
+                    .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
         }
         nodeBuilder.returning();
         endNode(returnStatementNode);
