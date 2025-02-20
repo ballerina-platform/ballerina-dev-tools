@@ -170,54 +170,6 @@ public class FunctionCall extends FunctionBuilder {
                 .build();
     }
 
-    public void setCustomProperties(Collection<ParameterResult> functionParameters) {
-        boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
-                continue;
-            }
-
-            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
-            customPropBuilder
-                    .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
-                    .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
-                    .placeholder(paramResult.defaultValue())
-                    .typeConstraint(paramResult.type())
-                    .editable()
-                    .defaultable(paramResult.optional());
-
-            switch (paramResult.kind()) {
-                case INCLUDED_RECORD_REST -> {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    unescapedParamName = "additionalValues";
-                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                }
-                case REST_PARAMETER -> {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                }
-                default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
-            }
-
-            customPropBuilder
-                    .stepOut()
-                    .addProperty(unescapedParamName);
-        }
-    }
-
     protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
         if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
             return true;
