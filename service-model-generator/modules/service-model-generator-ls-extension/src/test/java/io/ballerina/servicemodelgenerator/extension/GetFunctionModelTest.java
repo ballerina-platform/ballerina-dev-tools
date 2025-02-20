@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
@@ -84,6 +85,11 @@ public class GetFunctionModelTest extends AbstractLSTest {
     }
 
     @Override
+    protected String getServiceName() {
+        return "serviceDesign";
+    }
+
+    @Override
     protected String getApiName() {
         return "getFunctionModel";
     }
@@ -92,12 +98,13 @@ public class GetFunctionModelTest extends AbstractLSTest {
      * Represents the test configuration.
      *
      * @param functionName The name of the function
-     * @param type        The type of the function
-     * @param description The description of the test
-     * @param response    The expected response
+     * @param type         The type of the function
+     * @param description  The description of the test
+     * @param response     The expected response
      */
     private record TestConfig(String description, String type, String functionName,
                               FunctionModelResponse response) {
+
         public String description() {
             return description == null ? "" : description;
         }

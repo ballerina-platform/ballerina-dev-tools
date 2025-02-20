@@ -107,6 +107,7 @@
                       "description": "Fail value"
                     },
                     "valueType": "EXPRESSION",
+                    "valueTypeConstraint": "error",
                     "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                     "optional": false,
                     "editable": true,

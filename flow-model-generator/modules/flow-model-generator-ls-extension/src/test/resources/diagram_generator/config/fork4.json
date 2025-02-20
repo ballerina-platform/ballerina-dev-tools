@@ -255,7 +255,7 @@
                       "description": "the array"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "valueTypeConstraint": "array:Type[]",
                     "value": "\"First done\"",
                     "placeholder": "[]",
                     "optional": false,
@@ -272,7 +272,7 @@
                       "description": "values to add to the end of the array"
                     },
                     "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "lang.array:Type",
+                    "valueTypeConstraint": "array:Type",
                     "value": [],
                     "placeholder": "()",
                     "optional": true,
@@ -463,7 +463,7 @@
                       "description": "the array"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "valueTypeConstraint": "array:Type[]",
                     "value": "\"Second after First\"",
                     "placeholder": "[]",
                     "optional": false,
@@ -480,7 +480,7 @@
                       "description": "values to add to the end of the array"
                     },
                     "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "lang.array:Type",
+                    "valueTypeConstraint": "array:Type",
                     "value": [],
                     "placeholder": "()",
                     "optional": true,
@@ -671,7 +671,7 @@
                       "description": "the array"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "ballerina/lang.array:0.0.0:Type[]",
+                    "valueTypeConstraint": "array:Type[]",
                     "value": "\"Third after Second\"",
                     "placeholder": "[]",
                     "optional": false,
@@ -688,7 +688,7 @@
                       "description": "values to add to the end of the array"
                     },
                     "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "lang.array:Type",
+                    "valueTypeConstraint": "array:Type",
                     "value": [],
                     "placeholder": "()",
                     "optional": true,

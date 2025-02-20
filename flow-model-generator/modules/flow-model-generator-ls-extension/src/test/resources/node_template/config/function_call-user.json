@@ -26,7 +26,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "value": "0",
         "placeholder": "0",
         "optional": false,
         "editable": true,

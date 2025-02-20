@@ -113,10 +113,6 @@
       "version": "2.12.0"
     },
     {
-      "name": "xmldata",
-      "version": "2.8.0"
-    },
-    {
       "name": "tcp",
       "version": "1.11.1"
     },

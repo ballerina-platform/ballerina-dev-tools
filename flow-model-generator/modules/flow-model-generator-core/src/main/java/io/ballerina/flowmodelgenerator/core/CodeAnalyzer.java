@@ -109,7 +109,6 @@ import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.ModuleInfo;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -127,8 +126,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -450,8 +450,6 @@ class CodeAnalyzer extends NodeVisitor {
                     customPropBuilder.defaultable(false);
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
@@ -535,8 +533,6 @@ class CodeAnalyzer extends NodeVisitor {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                } else if (paramKind == Parameter.Kind.REQUIRED) {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
                 } else {
                     customPropBuilder.type(Property.ValueType.EXPRESSION);
                 }
@@ -1095,7 +1091,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FailStatementNode failStatementNode) {
         startNode(NodeKind.FAIL, failStatementNode)
-                .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC);
+                .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC, false,
+                        TypesGenerator.ERROR_TYPE_NAME);
         endNode(failStatementNode);
     }
 
@@ -1273,7 +1270,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
         startNode(NodeKind.PANIC, panicStatementNode)
-                .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC);
+                .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC, false,
+                        TypesGenerator.ERROR_TYPE_NAME);
         endNode(panicStatementNode);
     }
 

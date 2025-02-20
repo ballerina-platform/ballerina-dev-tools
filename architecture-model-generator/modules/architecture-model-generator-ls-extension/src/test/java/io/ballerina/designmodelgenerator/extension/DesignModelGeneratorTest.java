@@ -26,6 +26,7 @@ import io.ballerina.designmodelgenerator.core.model.Listener;
 import io.ballerina.designmodelgenerator.core.model.Service;
 import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
 import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -110,6 +111,11 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
         return DesignModelGeneratorTest.class;
+    }
+
+    @Override
+    protected String getServiceName() {
+        return "designModelService";
     }
 
     @Override

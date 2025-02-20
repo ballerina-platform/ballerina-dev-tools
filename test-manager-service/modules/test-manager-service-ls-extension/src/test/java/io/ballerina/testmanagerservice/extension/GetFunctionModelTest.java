@@ -19,6 +19,7 @@
 package io.ballerina.testmanagerservice.extension;
 
 import com.google.gson.JsonObject;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.testmanagerservice.extension.model.TestFunction;
 import io.ballerina.testmanagerservice.extension.request.GetTestFunctionRequest;
 import io.ballerina.testmanagerservice.extension.response.GetTestFunctionResponse;
@@ -75,6 +76,12 @@ public class GetFunctionModelTest extends AbstractLSTest {
     protected Class<? extends AbstractLSTest> clazz() {
         return GetFunctionModelTest.class;
     }
+
+    @Override
+    protected String getServiceName() {
+        return "testManagerService";
+    }
+
 
     @Override
     protected String getApiName() {

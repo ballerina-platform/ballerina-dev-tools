@@ -35,6 +35,7 @@ configurations {
 
 dependencies {
     implementation project(':flow-model-generator:flow-model-generator-core')
+    implementation project(":model-generator-commons")
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
@@ -100,45 +101,11 @@ task copyStdlibs() {
     }
 }
 
-// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
-    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
-        doLast {
-            def errOutput = new ByteArrayOutputStream()
-            def result = exec {
-                ignoreExitValue = true
-
-                // Check if the package exists in the ballerina user 
-                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/ballerinax")
-                if (centralRepoDir.exists()) {
-                    def pkgDir = new File(centralRepoDir, packageName)
-                    if (pkgDir.exists()) {
-                        commandLine 'echo', "Package ${packageName} exists"
-                        return
-                    }
-                }
-
-                def ballPullCommand = "bal pull ballerinax/${packageName}"
-                if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', ballPullCommand
-                } else {
-                    commandLine '/bin/sh', '-c', ballPullCommand
-                }
-                errorOutput = errOutput
-            }
-            if (result.exitValue != 0) {
-                println errOutput
-                throw new GradleException("Failed to pull Ballerina module: ${packageName}")
-            }
-        }
-    }
-}
-
-test.dependsOn pullBallerinaModule('redis')
-test.dependsOn pullBallerinaModule('trigger.salesforce')
-test.dependsOn pullBallerinaModule('github')
-test.dependsOn pullBallerinaModule('snowflake')
-test.dependsOn pullBallerinaModule('docusign.dsadmin')
+test.dependsOn rootProject.pullBallerinaModule('redis')
+test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce')
+test.dependsOn rootProject.pullBallerinaModule('github')
+test.dependsOn rootProject.pullBallerinaModule('snowflake')
+test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin')
 
 test {
     dependsOn {

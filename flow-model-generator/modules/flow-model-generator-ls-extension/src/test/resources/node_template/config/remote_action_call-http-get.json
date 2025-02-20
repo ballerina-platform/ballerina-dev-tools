@@ -27,7 +27,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 580
+      "id": 575
     },
     "returning": false,
     "properties": {
@@ -50,7 +50,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,

@@ -26,3 +26,12 @@ function fn(MyRecord rec) {
 type MyRecord record {|
     int id;
 |};
+
+configurable int port = 8080;
+final http:Client httpClient = check new (string `http://localhost:${port}`);
+
+function serviceCall() {
+    json val = check httpClient->get("/foo");
+}
+
+type MyError distinct error;

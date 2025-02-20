@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -101,7 +102,7 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), newMap, testConfig.name(),
                     testConfig.listeners());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
     }

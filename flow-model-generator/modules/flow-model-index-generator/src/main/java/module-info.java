@@ -27,6 +27,7 @@ module io.ballerina.flowmodel.indexgenerator {
     requires io.ballerina.toml;
     requires io.ballerina.flow.model.generator;
     requires io.ballerina.language.server.core;
+    requires io.ballerina.model.generator.commons;
 
     exports io.ballerina.indexgenerator;
 }

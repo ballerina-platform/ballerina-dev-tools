@@ -26,7 +26,7 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "query",
-      "id": 1593
+      "id": 637
     },
     "returning": false,
     "properties": {
@@ -49,7 +49,6 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "sql:ParameterizedQuery",
-        "value": "object {}",
         "placeholder": "object {}",
         "optional": false,
         "editable": true,
@@ -82,7 +81,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "stream<rowType, ballerina/sql:1.13.0:Error?>",
+        "value": "stream<rowType, sql:Error?>",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -94,7 +93,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "streamRowtypeBallerinaSql1130Error",
+        "value": "streamRowtypeSqlError",
         "optional": false,
         "editable": true,
         "advanced": false

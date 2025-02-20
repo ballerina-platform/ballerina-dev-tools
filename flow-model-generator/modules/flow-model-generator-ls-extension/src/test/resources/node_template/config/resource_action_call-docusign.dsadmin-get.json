@@ -27,7 +27,7 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "get",
-      "id": 2655
+      "id": 2382
     },
     "returning": false,
     "properties": {
@@ -95,7 +95,7 @@
           "description": "Index of first item to include in the response. The default value is 0."
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "lang.int:Signed32|()",
+        "valueTypeConstraint": "int:Signed32|()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -111,7 +111,7 @@
           "description": "Page size of the response. The default value is 20."
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "lang.int:Signed32|()",
+        "valueTypeConstraint": "int:Signed32|()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -127,7 +127,7 @@
           "description": "Index of the last item to include in the response. Ignored if `take` parameter is specified."
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "lang.int:Signed32|()",
+        "valueTypeConstraint": "int:Signed32|()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -143,7 +143,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "docusign.dsadmin:MemberGroupsResponse",
+        "value": "dsadmin:MemberGroupsResponse",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -155,7 +155,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "docusignDsadminMembergroupsresponse",
+        "value": "dsadminMembergroupsresponse",
         "optional": false,
         "editable": true,
         "advanced": false

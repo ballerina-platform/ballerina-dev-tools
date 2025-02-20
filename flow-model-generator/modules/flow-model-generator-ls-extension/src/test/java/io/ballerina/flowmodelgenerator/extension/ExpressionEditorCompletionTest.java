@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
@@ -63,12 +64,6 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @Override
-    protected String[] skipList() {
-        // TODO: Remove after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43706
-        return new String[]{"proj6.json"};
     }
 
     @Test

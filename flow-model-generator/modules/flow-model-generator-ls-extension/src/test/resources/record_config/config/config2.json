@@ -1,0 +1,104 @@
+{
+  "filePath": "proj",
+  "codedata": {
+    "org": "org",
+    "module": "source",
+    "version": "0.3.0"
+  },
+  "typeConstraint": "Employee",
+  "output": {
+    "fields": [
+      {
+        "name": "employeeId",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "name": "department",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "name": "salary",
+        "typeName": "decimal",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "name": "street",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "name": "city",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "name": "country",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      }
+    ],
+    "hasRestType": true,
+    "restType": {
+      "fields": [
+        {
+          "name": "timestamp",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        },
+        {
+          "name": "action",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        },
+        {
+          "name": "userId",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        },
+        {
+          "name": "description",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false
+        }
+      ],
+      "hasRestType": false,
+      "name": "EmployeeLog",
+      "typeName": "record",
+      "optional": false,
+      "typeInfo": {
+        "name": "EmployeeLog",
+        "orgName": "org",
+        "moduleName": "source",
+        "version": "0.3.0"
+      },
+      "defaultable": false,
+      "isRestType": false
+    },
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false
+  }
+}
