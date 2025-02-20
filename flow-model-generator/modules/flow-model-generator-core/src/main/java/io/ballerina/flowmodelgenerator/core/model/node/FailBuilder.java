@@ -61,6 +61,6 @@ public class FailBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", FAIL_EXPRESSION_DOC, false, TypesGenerator.ERROR_TYPE_NAME);
+        properties().expression("", FAIL_EXPRESSION_DOC, false, TypesGenerator.TYPE_ERROR);
     }
 }
