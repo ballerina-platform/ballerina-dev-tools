@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -84,6 +85,11 @@ public class FunctionCall extends NodeBuilder {
                         DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
+            // TODO: Remove this check and template creation once the agent module is implemented
+            if (codedata.org().equals("wso2") && codedata.module().equals("ai.agent")) {
+                handleAgentRunFunction(context, codedata);
+                return;
+            }
             throw new RuntimeException("Function not found: " + codedata.symbol());
         }
 
@@ -100,6 +106,40 @@ public class FunctionCall extends NodeBuilder {
                 .symbol(codedata.symbol());
 
         setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+
+        String returnTypeName = function.returnType();
+        if (CommonUtils.hasReturn(function.returnType())) {
+            setReturnTypeProperties(returnTypeName, context);
+        }
+
+        if (function.returnError()) {
+            properties().checkError(true);
+        }
+    }
+
+    private void handleAgentRunFunction(TemplateContext context, Codedata codedata) {
+        FunctionResult function = new FunctionResult(-1, "run", "Run agent", "error?", "ai.agent", "wso2",
+                "1.0.0", "", Function.Kind.FUNCTION, true, false);
+        metadata()
+                .label(function.name())
+                .description(function.description());
+        codedata()
+                .node(NodeKind.FUNCTION_CALL)
+                .org(codedata.org())
+                .module(codedata.module())
+                .object(codedata.object())
+                .version(codedata.version())
+                .symbol(codedata.symbol());
+
+        List<ParameterResult> parameterResults = List.of(
+                new ParameterResult(-1, "agent", "BaseAgent", Parameter.Kind.REQUIRED, "", "", false, ""),
+                new ParameterResult(-2, "query", "string", Parameter.Kind.REQUIRED, "", "", false, ""),
+                new ParameterResult(-3, "maxIter", "int", Parameter.Kind.DEFAULTABLE, "5", "", false, ""),
+                new ParameterResult(-4, "context", "string|map<json>", Parameter.Kind.DEFAULTABLE, "{}", "", false,
+                        ""),
+                new ParameterResult(-5, "verbose", "boolean", Parameter.Kind.DEFAULTABLE, "true", "", false, "")
+        );
+        setCustomProperties(parameterResults);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {

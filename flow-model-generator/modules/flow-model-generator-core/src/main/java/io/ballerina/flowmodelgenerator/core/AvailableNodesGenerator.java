@@ -72,7 +72,7 @@ public class AvailableNodesGenerator {
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
 
-    private static final List<String> agents = List.of("FunctionCallAgent", "ReActAgent");
+    private static final List<String> agents = List.of("FunctionCallAgent", "ReActAgent", "Agent");
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -92,7 +92,7 @@ public class AvailableNodesGenerator {
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
         items.addAll(LocalIndexCentral.getInstance().getFunctions());
-        items.addAll(getAvailableAgents());
+        genAvailableAgents(items);
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -120,39 +120,42 @@ public class AvailableNodesGenerator {
         return this.rootBuilder.build().items();
     }
 
-    private List<Item> getAvailableAgents() {
+    private void genAvailableAgents(List<Item> items) {
         List<Symbol> symbols = semanticModel.moduleSymbols();
-        List<String> availableAgents = new ArrayList<>();
+        List<Item> agentItems = new ArrayList<>();
         for (Symbol symbol : symbols) {
             if (symbol.kind() != SymbolKind.VARIABLE) {
                 continue;
             }
             VariableSymbol variableSymbol = (VariableSymbol) symbol;
-            String signature = variableSymbol.typeDescriptor().signature();
-            if (agents.contains(signature)) {
-                availableAgents.add(signature);
+            String typeName = variableSymbol.typeDescriptor().getName().orElse("");
+            if (agents.contains(typeName)) {
+                Metadata metadata = new Metadata.Builder<>(null)
+                        .label(variableSymbol.getName().orElse(""))
+                        .build();
+                FunctionResult functionResult = new FunctionResult(-1, "run", "Run agent", "error?", "ai.agent", "wso2",
+                        "1.0.0", "", Function.Kind.FUNCTION, true, false);
+                NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL);
+                methodCallBuilder
+                        .metadata()
+                            .label(functionResult.name())
+                            .icon(CommonUtils.generateIcon("wso2", "ai.agent", "1.0.0"))
+                            .description(functionResult.description())
+                            .stepOut()
+                        .codedata()
+                            .node(NodeKind.FUNCTION_CALL)
+                            .org("wso2")
+                            .module("ai.agent")
+                            .version("1.0.0")
+                            .symbol(functionResult.name())
+                            .id(functionResult.functionId());
+                agentItems.add(new Category(metadata, List.of(methodCallBuilder.buildAvailableNode())));
             }
         }
 
-        if (availableAgents.isEmpty()) {
-            return List.of();
+        if (!agentItems.isEmpty()) {
+            items.add(this.rootBuilder.stepIn(Category.Name.AGENTS).items(agentItems).build());
         }
-        Category.Builder catagoryBuilder = this.rootBuilder.stepIn(Category.Name.AGENTS);
-        for (String availableAgent : availableAgents) {
-            catagoryBuilder.node(new AvailableNode(
-                    new Metadata.Builder<>(null)
-                            .label("Agent")
-                            .build(),
-                    new Codedata.Builder<>(null)
-                            .org("wso2")
-                            .module("agent")
-                            .symbol(availableAgent)
-                            .node(NodeKind.AGENT)
-                            .build(),
-                    true
-            ));
-        }
-        return this.rootBuilder.build().items();
     }
 
     private void setAvailableDefaultNodes(NonTerminalNode node, SemanticModel semanticModel) {
