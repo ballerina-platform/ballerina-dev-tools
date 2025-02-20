@@ -38,6 +38,17 @@
         "editable": true,
         "advanced": false
       },
+      "isPublic": {
+        "metadata": {
+          "label": "public",
+          "description": "Is this public"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
       "description": {
         "metadata": {
           "label": "Type description",
@@ -133,6 +144,17 @@
           "editable": true,
           "advanced": false
         },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
         "description": {
           "metadata": {
             "label": "Type description",
@@ -206,6 +228,17 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
           "editable": true,
           "advanced": false
         },
@@ -312,6 +345,17 @@
           "valueType": "IDENTIFIER",
           "value": "ballerina/time:Utc",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
           "editable": true,
           "advanced": false
         },
@@ -437,6 +481,17 @@
           "valueType": "IDENTIFIER",
           "value": "Employees",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
           "editable": true,
           "advanced": false
         },
@@ -568,6 +623,17 @@
           "valueType": "IDENTIFIER",
           "value": "Person",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
           "editable": true,
           "advanced": false
         },

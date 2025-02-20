@@ -840,6 +840,102 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> isPublic(boolean value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.IS_PUBLIC_LABEL)
+                    .description(Property.IS_PUBLIC_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(String.valueOf(value))
+                .type(Property.ValueType.FLAG)
+                .editable();
+        addProperty(Property.IS_PUBLIC_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> isPrivate(boolean value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                .label(Property.IS_PRIVATE_LABEL)
+                .description(Property.IS_PRIVATE_DOC)
+                .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(String.valueOf(value))
+                .type(Property.ValueType.FLAG)
+                .editable();
+        addProperty(Property.IS_PRIVATE_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> isIsolated(boolean value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.IS_ISOLATED_LABEL)
+                    .description(Property.IS_ISOLATED_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(String.valueOf(value))
+                .type(Property.ValueType.FLAG)
+                .editable();
+        addProperty(Property.IS_ISOLATED_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> isReadOnly(boolean value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.IS_READ_ONLY_LABEL)
+                    .description(Property.IS_READ_ONLY_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(String.valueOf(value))
+                .type(Property.ValueType.FLAG)
+                .editable();
+        addProperty(Property.IS_READ_ONLY_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> isDistinct(boolean value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.IS_DISTINCT_LABEL)
+                    .description(Property.IS_DISTINCT_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(String.valueOf(value))
+                .type(Property.ValueType.FLAG)
+                .editable();
+        addProperty(Property.IS_DISTINCT_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> networkQualifier(String value, boolean optional, boolean editable, boolean advanced) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.NETWORK_QUALIFIER_LABEL)
+                    .description(Property.NETWORK_QUALIFIER_DOC)
+                    .stepOut()
+                .editable(editable)
+                .optional(optional)
+                .advanced(advanced)
+                .value(value)
+                .typeConstraint(List.of("service", "client"))
+                .type(Property.ValueType.SINGLE_SELECT);
+        addProperty(Property.NETWORK_QUALIFIER_KEY);
+        return this;
+    }
+
     public FormBuilder<T> waitAll(boolean value) {
         propertyBuilder
                 .metadata()

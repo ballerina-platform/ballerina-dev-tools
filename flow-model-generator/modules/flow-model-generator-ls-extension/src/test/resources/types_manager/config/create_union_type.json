@@ -89,12 +89,12 @@
       {
         "range": {
           "start": {
-            "line": 72,
-            "character": 3
+            "line": 111,
+            "character": 1
           },
           "end": {
-            "line": 72,
-            "character": 3
+            "line": 111,
+            "character": 1
           }
         },
         "newText": "\ntype Misc Color|Employees|Person;"
