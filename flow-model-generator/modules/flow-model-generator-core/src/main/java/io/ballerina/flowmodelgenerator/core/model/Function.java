@@ -18,7 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a function.
@@ -32,6 +36,7 @@ import java.util.List;
  * @param description   Description of the function.
  * @param returnType    Return type of the function.
  * @param refs          Type references associated with the return type of the function.
+ * @param properties    Properties of the function.
  * @since 2.0.0
  */
 public record Function(
@@ -43,7 +48,8 @@ public record Function(
         String name,    // TODO: Need a structured schema for resource path
         String description,
         Object returnType,
-        List<String> refs
+        List<String> refs,
+        Map<String, Property> properties
 ) {
     public enum FunctionKind {
         FUNCTION,
@@ -61,8 +67,27 @@ public record Function(
         private String docs;
         private Object returnType;
         private List<String> refs;
+        private FormBuilder<FunctionBuilder> formBuilder;
+        private ModuleInfo moduleInfo;
+        private SemanticModel semanticModel;
+        private DiagnosticHandler diagnosticHandler;
 
         public FunctionBuilder() {
+        }
+
+        public FunctionBuilder semanticModel(SemanticModel semanticModel) {
+            this.semanticModel = semanticModel;
+            return this;
+        }
+
+        public FunctionBuilder diagnosticHandler(DiagnosticHandler diagnosticHandler) {
+            this.diagnosticHandler = diagnosticHandler;
+            return this;
+        }
+
+        public FunctionBuilder defaultModuleName(ModuleInfo moduleInfo) {
+            this.moduleInfo = moduleInfo;
+            return this;
         }
 
         public FunctionBuilder accessor(String accessor) {
@@ -110,9 +135,16 @@ public record Function(
             return this;
         }
 
+        public FormBuilder<FunctionBuilder> properties() {
+            if (this.formBuilder == null) {
+                this.formBuilder = new FormBuilder<>(semanticModel, diagnosticHandler, moduleInfo, this);
+            }
+            return this.formBuilder;
+        }
+
         public Function build() {
             return new Function(accessor, qualifiers, parameters, restParameter, kind, name, docs,
-                    returnType, refs);
+                    returnType, refs, formBuilder == null ? null : formBuilder.build());
         }
     }
 }

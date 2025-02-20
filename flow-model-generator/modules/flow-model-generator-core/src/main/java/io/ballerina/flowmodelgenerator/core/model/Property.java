@@ -71,6 +71,30 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String IS_ARRAY_KEY = "isArray";
     public static final String ARRAY_SIZE = "arraySize";
 
+    public static final String IS_PUBLIC_KEY = "isPublic";
+    public static final String IS_PUBLIC_LABEL = "public";
+    public static final String IS_PUBLIC_DOC = "Is this public";
+
+    public static final String IS_PRIVATE_KEY = "isPrivate";
+    public static final String IS_PRIVATE_LABEL = "private";
+    public static final String IS_PRIVATE_DOC = "Is this private";
+
+    public static final String IS_ISOLATED_KEY = "isIsolated";
+    public static final String IS_ISOLATED_LABEL = "isolated";
+    public static final String IS_ISOLATED_DOC = "Is this isolated";
+
+    public static final String IS_READ_ONLY_KEY = "isReadOnly";
+    public static final String IS_READ_ONLY_LABEL = "readonly";
+    public static final String IS_READ_ONLY_DOC = "Is this readonly";
+
+    public static final String IS_DISTINCT_KEY = "isDistinct";
+    public static final String IS_DISTINCT_LABEL = "distinct";
+    public static final String IS_DISTINCT_DOC = "Is this distinct";
+
+    public static final String NETWORK_QUALIFIER_KEY = "networkQualifier";
+    public static final String NETWORK_QUALIFIER_LABEL = "Network Qualifier";
+    public static final String NETWORK_QUALIFIER_DOC = "Network qualifier";
+
     public static final String TYPE_KEY = "type";
     public static final String TYPE_LABEL = "Variable Type";
     public static final String IMPLICIT_TYPE_LABEL = "Type";
