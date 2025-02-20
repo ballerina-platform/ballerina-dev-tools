@@ -60,7 +60,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class FunctionCall extends NodeBuilder {
+public class FunctionCall extends FunctionBuilder {
 
     @Override
     public void setConcreteConstData() {
@@ -103,7 +103,7 @@ public class FunctionCall extends NodeBuilder {
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(returnTypeName, context);
+            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
         }
 
         if (function.returnError()) {
@@ -135,7 +135,7 @@ public class FunctionCall extends NodeBuilder {
         setCustomProperties(ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values());
         functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
             String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context);
+            setReturnTypeProperties(returnTypeName, context, false);
         });
 
         if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && FlowNodeUtil.withinDoClause(context)) {
@@ -143,7 +143,34 @@ public class FunctionCall extends NodeBuilder {
         }
     }
 
-    private void setCustomProperties(Collection<ParameterResult> functionParameters) {
+    @Override
+    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+        Codedata codedata = flowNode.codedata();
+        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
+            return sourceBuilder.token()
+                    .name(codedata.symbol())
+                    .stepOut()
+                    .functionParameters(flowNode,
+                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
+                    .textEdit(false)
+                    .acceptImport()
+                    .build();
+        }
+
+        String module = flowNode.codedata().module();
+        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
+        String methodCall = methodCallPrefix + flowNode.metadata().label();
+
+        return sourceBuilder.token()
+                .name(methodCall)
+                .stepOut()
+                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
+                .textEdit(false)
+                .acceptImport(sourceBuilder.filePath)
+                .build();
+    }
+
+    public void setCustomProperties(Collection<ParameterResult> functionParameters) {
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
@@ -189,52 +216,6 @@ public class FunctionCall extends NodeBuilder {
                     .stepOut()
                     .addProperty(unescapedParamName);
         }
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
-            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
-
-        Codedata codedata = flowNode.codedata();
-        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
-            return sourceBuilder.token()
-                    .name(codedata.symbol())
-                    .stepOut()
-                    .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
-                    .textEdit(false)
-                    .acceptImport()
-                    .build();
-        }
-
-        String module = flowNode.codedata().module();
-        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
-        String methodCall = methodCallPrefix + flowNode.metadata().label();
-
-        return sourceBuilder.token()
-                .name(methodCall)
-                .stepOut()
-                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
-                .textEdit(false)
-                .acceptImport(sourceBuilder.filePath)
-                .build();
-    }
-
-    private void setReturnTypeProperties(String returnTypeName, TemplateContext context) {
-        boolean editable = false;
-        String updatedReturnType = returnTypeName;
-        if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-            updatedReturnType = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
-            editable = true;
-        }
-        properties()
-                .type(updatedReturnType, editable)
-                .data(updatedReturnType, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
     }
 
     protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {

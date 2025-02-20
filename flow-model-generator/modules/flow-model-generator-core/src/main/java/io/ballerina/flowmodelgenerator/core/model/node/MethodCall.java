@@ -28,12 +28,9 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -61,37 +58,11 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class MethodCall extends NodeBuilder {
+public class MethodCall extends FunctionBuilder {
 
     @Override
     public void setConcreteConstData() {
         codedata().node(NodeKind.METHOD_CALL);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
-            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
-
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
-        if (connection.isEmpty()) {
-            throw new IllegalStateException("Object must be defined for a method call node");
-        }
-
-        return sourceBuilder.token()
-                .name(connection.get().toSourceCode())
-                .keyword(SyntaxKind.DOT_TOKEN)
-                .name(flowNode.metadata().label())
-                .stepOut()
-                .functionParameters(flowNode, Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
-                        Property.CHECK_ERROR_KEY, "view"))
-                .textEdit(false)
-                .acceptImport(sourceBuilder.filePath)
-                .build();
     }
 
     @Override
@@ -130,7 +101,7 @@ public class MethodCall extends NodeBuilder {
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(returnTypeName, context);
+            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
         }
 
         if (function.returnError()) {
@@ -165,10 +136,10 @@ public class MethodCall extends NodeBuilder {
 
         functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
             String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context);
+            setReturnTypeProperties(returnTypeName, context, false);
         });
 
-        if (FunctionCall.containsErrorInReturnType(semanticModel, functionTypeSymbol)
+        if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
                 && FlowNodeUtil.withinDoClause(context)) {
             properties().checkError(true);
         }
@@ -187,63 +158,23 @@ public class MethodCall extends NodeBuilder {
                 .addProperty(Property.CONNECTION_KEY);
     }
 
-    private void setCustomProperties(Collection<ParameterResult> functionParameters) {
-        boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult :functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
-                continue;
-            }
-
-            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
-            customPropBuilder
-                    .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
-                    .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
-                    .placeholder(paramResult.defaultValue())
-                    .typeConstraint(paramResult.type())
-                    .editable()
-                    .defaultable(paramResult.optional());
-
-            switch (paramResult.kind()) {
-                case INCLUDED_RECORD_REST -> {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    unescapedParamName = "additionalValues";
-                    customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                }
-                case REST_PARAMETER -> {
-                    if (hasOnlyRestParams) {
-                        customPropBuilder.defaultable(false);
-                    }
-                    customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-                }
-                default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
-            }
-
-            customPropBuilder
-                    .stepOut()
-                    .addProperty(unescapedParamName);
+    @Override
+    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        if (connection.isEmpty()) {
+            throw new IllegalStateException("Object must be defined for a method call node");
         }
-    }
 
-    private void setReturnTypeProperties(String returnTypeName, TemplateContext context) {
-        boolean editable = false;
-        if (returnTypeName.contains(RemoteActionCallBuilder.TARGET_TYPE_KEY)) {
-            returnTypeName = returnTypeName.replace(RemoteActionCallBuilder.TARGET_TYPE_KEY, "json");
-            editable = true;
-        }
-        properties()
-                .type(returnTypeName, editable)
-                .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+        return sourceBuilder.token()
+                .name(connection.get().toSourceCode())
+                .keyword(SyntaxKind.DOT_TOKEN)
+                .name(flowNode.metadata().label())
+                .stepOut()
+                .functionParameters(flowNode, Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
+                        Property.CHECK_ERROR_KEY, "view"))
+                .textEdit(false)
+                .acceptImport(sourceBuilder.filePath)
+                .build();
     }
 
     private ObjectTypeSymbol getObjectTypeSymbol(VariableSymbol varSymbol) {
@@ -256,7 +187,6 @@ public class MethodCall extends NodeBuilder {
 
     private VariableSymbol findVariableSymbol(SemanticModel semanticModel, Document document,
                                               LinePosition position, String exprSymbol) {
-
         Optional<VariableSymbol> varSymbol = semanticModel.visibleSymbols(document, position)
                 .stream()
                 .filter(symbol -> symbol.getName().orElse("").equals(exprSymbol))
