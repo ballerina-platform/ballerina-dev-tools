@@ -42,12 +42,13 @@ import java.util.stream.Collectors;
  */
 public class TypesGenerator {
 
-    private final Gson gson;
     private final Map<String, TypeSymbol> builtinTypeSymbols;
     private final Map<String, CompletionItem> builtinTypeCompletionItems;
 
     private static final String PRIMITIVE_TYPE = "Primitive";
     private static final String USER_DEFINED_TYPE = "User-Defined";
+    private static final List<SymbolKind> TYPE_SYMBOL_KINDS =
+            List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS, SymbolKind.ENUM);
 
     // Builtin type names
     public static final String TYPE_STRING = TypeKind.STRING.typeName();
@@ -70,14 +71,13 @@ public class TypesGenerator {
     public static final String TYPE_READONLY = TypeKind.READONLY.typeName();
 
     private TypesGenerator() {
-        this.gson = new Gson();
         this.builtinTypeSymbols = new LinkedHashMap<>();
         this.builtinTypeCompletionItems = new LinkedHashMap<>();
     }
 
     public Either<List<CompletionItem>, CompletionList> getTypes(SemanticModel semanticModel) {
         List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
+                .filter(symbol -> TYPE_SYMBOL_KINDS.contains(symbol.kind()))
                 .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""), USER_DEFINED_TYPE))
                 .collect(Collectors.toCollection(ArrayList::new));
         initializeBuiltinTypes(semanticModel);
