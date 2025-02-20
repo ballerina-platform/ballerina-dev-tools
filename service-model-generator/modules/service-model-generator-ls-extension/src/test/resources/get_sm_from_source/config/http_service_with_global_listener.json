@@ -45,11 +45,11 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:globalListener",
-          "default:httpListener",
           "httpListener",
-          "new http:Listener(port = 8080)",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener",
+          "default:globalListener",
+          "new http:Listener(port = 8080)"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -512,7 +512,130 @@
           }
         },
         "returnType": {
-          "responses": [],
+          "responses": [
+            {
+              "statusCode": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "200",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "json",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "name": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "json",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "json",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": false,
+              "editable": true,
+              "advanced": false
+            },
+            {
+              "statusCode": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "json",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "name": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "http:Response",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": false,
+              "editable": true,
+              "advanced": false
+            }
+          ],
           "schema": {
             "statusCodeResponse": {
               "statusCode": {
@@ -575,22 +698,6 @@
                 "advanced": true,
                 "addNewButton": false
               },
-              "createStatusCodeResponse": {
-                "metadata": {
-                  "label": "Create Status Code Response Type",
-                  "description": "Create a new status code response type"
-                },
-                "enabled": false,
-                "editable": true,
-                "value": "",
-                "valueType": "BOOLEAN",
-                "valueTypeConstraint": "boolean",
-                "isType": false,
-                "placeholder": "false",
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
               "type": {
                 "metadata": {
                   "label": "Response Type",
@@ -606,7 +713,10 @@
                 "optional": true,
                 "advanced": false,
                 "addNewButton": false
-              }
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false
             }
           },
           "metadata": {

@@ -40,9 +40,9 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:httpListener",
           "httpListener",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -338,6 +338,11 @@
             "advanced": true
           },
           {
+            "metadata": {
+              "label": "header",
+              "description": "header"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -385,6 +390,11 @@
             "httpParamType": "HEADER"
           },
           {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "DEFAULTABLE",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -624,7 +634,7 @@
                 },
                 "enabled": true,
                 "editable": true,
-                "value": "json",
+                "value": "",
                 "valueType": "EXPRESSION",
                 "isType": false,
                 "optional": false,
@@ -638,7 +648,68 @@
                 },
                 "enabled": true,
                 "editable": true,
-                "value": "OkResponse",
+                "value": "",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "http:Response",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": true
+            },
+            {
+              "statusCode": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "200",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
+                "valueType": "EXPRESSION",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "name": {
+                "metadata": {
+                  "label": "",
+                  "description": ""
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
                 "valueType": "EXPRESSION",
                 "isType": false,
                 "optional": false,
@@ -658,7 +729,10 @@
                 "optional": false,
                 "advanced": false,
                 "addNewButton": false
-              }
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false
             }
           ],
           "schema": {
@@ -723,22 +797,6 @@
                 "advanced": true,
                 "addNewButton": false
               },
-              "createStatusCodeResponse": {
-                "metadata": {
-                  "label": "Create Status Code Response Type",
-                  "description": "Create a new status code response type"
-                },
-                "enabled": false,
-                "editable": true,
-                "value": "",
-                "valueType": "BOOLEAN",
-                "valueTypeConstraint": "boolean",
-                "isType": false,
-                "placeholder": "false",
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
               "type": {
                 "metadata": {
                   "label": "Response Type",
@@ -754,7 +812,10 @@
                 "optional": true,
                 "advanced": false,
                 "addNewButton": false
-              }
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false
             }
           },
           "metadata": {
