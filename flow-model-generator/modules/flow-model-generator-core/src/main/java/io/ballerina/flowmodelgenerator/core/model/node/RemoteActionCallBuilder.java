@@ -58,7 +58,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        Optional<FunctionResult> functionResult = getActionResult(codedata, DatabaseManager.FunctionKind.REMOTE);
+        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.REMOTE);
         if (functionResult.isEmpty()) {
             return;
         }

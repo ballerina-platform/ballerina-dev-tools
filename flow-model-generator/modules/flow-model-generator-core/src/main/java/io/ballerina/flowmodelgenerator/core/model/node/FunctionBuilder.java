@@ -131,15 +131,7 @@ public abstract class FunctionBuilder extends NodeBuilder {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         return codedata.id() != null ? 
                 dbManager.getFunction(codedata.id()) :
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind);
-    }
-
-    protected Optional<FunctionResult> getActionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        return codedata.id() != null ? 
-                dbManager.getFunction(codedata.id()) :
-                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol(), 
-                        codedata.resourcePath(), functionKind);
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind, codedata.resourcePath());
     }
 
     /**

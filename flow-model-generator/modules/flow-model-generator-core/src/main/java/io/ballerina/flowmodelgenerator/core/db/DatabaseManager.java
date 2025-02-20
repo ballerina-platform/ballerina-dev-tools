@@ -242,56 +242,7 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind) {
-        String sql = "SELECT " +
-                "f.function_id, " +
-                "f.name AS function_name, " +
-                "f.description AS function_description, " +
-                "f.return_type, " +
-                "f.resource_path, " +
-                "f.kind, " +
-                "f.return_error, " +
-                "f.inferred_return_type, " +
-                "p.name AS package_name, " +
-                "p.org, " +
-                "p.version " +
-                "FROM Function f " +
-                "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE f.kind = ? " +
-                "AND p.org = ? " +
-                "AND p.name = ? " +
-                "AND f.name = ?;";
-
-        try (Connection conn = DriverManager.getConnection(dbPath);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, kind.name());
-            stmt.setString(2, org);
-            stmt.setString(3, module);
-            stmt.setString(4, symbol);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return Optional.of(new FunctionResult(
-                        rs.getInt("function_id"),
-                        rs.getString("function_name"),
-                        rs.getString("function_description"),
-                        rs.getString("return_type"),
-                        rs.getString("package_name"),
-                        rs.getString("org"),
-                        rs.getString("version"),
-                        rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type")));
-            }
-            return Optional.empty();
-        } catch (SQLException e) {
-            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    public Optional<FunctionResult> getAction(String org, String module, String symbol, String resourcePath,
-                                              FunctionKind kind) {
+    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind, String resourcePath) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
         sql.append("f.name AS function_name, ");
@@ -306,14 +257,12 @@ public class DatabaseManager {
         sql.append("p.version ");
         sql.append("FROM Function f ");
         sql.append("JOIN Package p ON f.package_id = p.package_id ");
-        sql.append("AND p.org = ? ");
+        sql.append("WHERE p.org = ? ");
         sql.append("AND p.name = ? ");
         sql.append("AND f.kind = ? ");
+        sql.append("AND f.name = ? ");
         if (resourcePath != null) {
-            sql.append("AND f.name = ? ");
-            sql.append("AND f.resource_path = ?;");
-        } else {
-            sql.append("AND f.name = ?;");
+            sql.append("AND f.resource_path = ?");
         }
 
         try (Connection conn = DriverManager.getConnection(dbPath);

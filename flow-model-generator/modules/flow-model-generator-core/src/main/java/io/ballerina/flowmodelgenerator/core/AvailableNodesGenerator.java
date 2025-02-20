@@ -226,7 +226,7 @@ public class AvailableNodesGenerator {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> connectorResult =
                 dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnectionBuilder.INIT_SYMBOL,
-                        DatabaseManager.FunctionKind.CONNECTOR);
+                        DatabaseManager.FunctionKind.CONNECTOR, null);
         if (connectorResult.isEmpty()) {
             return List.of();
         }

@@ -168,7 +168,7 @@ public class NewConnectionBuilder extends NodeBuilder {
             DatabaseManager dbManager = DatabaseManager.getInstance();
             Optional<FunctionResult> optFunctionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
                     dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                            DatabaseManager.FunctionKind.CONNECTOR);
+                            DatabaseManager.FunctionKind.CONNECTOR, codedata.resourcePath());
             if (optFunctionResult.isEmpty()) {
                 return;
             }

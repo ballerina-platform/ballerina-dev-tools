@@ -279,8 +279,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), null, DatabaseManager.FunctionKind.REMOTE);
+        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
+                symbol.get().getName().get(), DatabaseManager.FunctionKind.REMOTE, null);
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -379,9 +379,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), resourcePathTemplate.resourcePathTemplate(),
-                DatabaseManager.FunctionKind.RESOURCE);
+        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
+                symbol.get().getName().get(), DatabaseManager.FunctionKind.RESOURCE, resourcePathTemplate.resourcePathTemplate());
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -928,8 +927,8 @@ class CodeAnalyzer extends NodeVisitor {
 
             DatabaseManager dbManager = DatabaseManager.getInstance();
             ModuleID id = methodSymbol.getModule().get().id();
-            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                    methodSymbol.getName().get(), null, DatabaseManager.FunctionKind.CONNECTOR);
+            Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
+                    methodSymbol.getName().get(), DatabaseManager.FunctionKind.CONNECTOR, null);
 
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
@@ -1145,8 +1144,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
+                functionSymbol.getName().get(), DatabaseManager.FunctionKind.FUNCTION, null);
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -1204,8 +1203,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
+                functionSymbol.getName().get(), DatabaseManager.FunctionKind.FUNCTION, null);
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
