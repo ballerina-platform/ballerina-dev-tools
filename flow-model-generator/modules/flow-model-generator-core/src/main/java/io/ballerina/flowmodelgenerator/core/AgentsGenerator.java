@@ -36,11 +36,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class is responsible for generating types from the semantic model.
@@ -186,6 +182,45 @@ public class AgentsGenerator {
             sourceBuilder.token()
                     .name(String.join(", ", args))
                     .keyword(SyntaxKind.CLOSE_PAREN_TOKEN).endOfStatement();
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
+            sourceBuilder.textEdit(false, "agents.bal", false);
+            return gson.toJsonTree(sourceBuilder.build());
+        } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
+            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+
+            Map<String, Property> properties = flowNode.properties();
+            Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
+            keys.removeAll(Set.of("variable", "type", "connection", "checkError"));
+            List<String> paramList = new ArrayList<>();
+            for (String key : keys) {
+                Property property = properties.get(key);
+                if (property == null) {
+                    continue;
+                }
+                String paramType = property.valueTypeConstraint().toString();
+                paramList.add(paramType + " " + key);
+            }
+            sourceBuilder.token().name(String.join(", ", paramList));
+            sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
+
+            Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value().toString());
+            }
+
+            sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
+            sourceBuilder.token()
+                    .name(flowNode.codedata().sourceCode());
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURN_KEYWORD)
+                        .name(flowNode.getProperty(Property.VARIABLE_KEY).get().value().toString())
+                        .endOfStatement();
+            }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
             sourceBuilder.textEdit(false, "agents.bal", false);
