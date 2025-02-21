@@ -117,12 +117,13 @@ public class ExpressionEditorContext {
     }
 
     public LinePosition getStartLine() {
-        if (documentContext.imports().isEmpty()) {
+        List<ImportDeclarationNode> imports = documentContext.imports();
+        if (imports.isEmpty()) {
             return info.startLine();
         }
 
         // Obtain the line position of the latest import statement
-        LinePosition importEndLine = documentContext.imports().getLast().lineRange().endLine();
+        LinePosition importEndLine = imports.getLast().lineRange().endLine();
 
         if (CommonUtils.isLinePositionAfter(info.startLine(), importEndLine)) {
             return info.startLine();
@@ -272,12 +273,6 @@ public class ExpressionEditorContext {
                 .apply();
     }
 
-    public void applyContent(String content) {
-        documentContext.document().modify()
-                .withContent(content)
-                .apply();
-    }
-
     public String fileUri() {
         return fileUri;
     }
@@ -308,6 +303,11 @@ public class ExpressionEditorContext {
                        String branch, String property) {
     }
 
+    /**
+     * Encapsulates document and import related context with lazy loading capabilities.
+     *
+     * @since 2.0.0
+     */
     private static class DocumentContext {
 
         private final WorkspaceManagerProxy workspaceManagerProxy;
