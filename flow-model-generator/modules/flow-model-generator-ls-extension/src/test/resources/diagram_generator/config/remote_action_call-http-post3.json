@@ -420,17 +420,11 @@
       {
         "id": "70742",
         "metadata": {
-          "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "label": "Return",
+          "description": "Value of 'drinkClient->post(\"/milkshake\", \"mixed fruit\")'"
         },
         "codedata": {
-          "node": "REMOTE_ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "post",
-          "version": "2.13.2",
+          "node": "RETURN",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -446,98 +440,16 @@
         },
         "returning": true,
         "properties": {
-          "connection": {
+          "expression": {
             "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
+              "label": "Expression",
+              "description": "Return value"
             },
             "valueType": "EXPRESSION",
-            "value": "drinkClient",
+            "value": "drinkClient->post(\"/milkshake\", \"mixed fruit\")",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "advanced": false
-          },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Resource path"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
-            "value": "\"/milkshake\"",
-            "placeholder": "\"\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "path"
-            }
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:RequestMessage",
-            "value": "\"mixed fruit\"",
-            "placeholder": "{}",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "message"
-            }
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "map<string|string[]>|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "DEFAULTABLE",
-              "originalName": "headers"
-            }
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "DEFAULTABLE",
-              "originalName": "mediaType"
-            }
-          },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            }
           }
         },
         "flags": 0

@@ -374,17 +374,11 @@
       {
         "id": "68739",
         "metadata": {
-          "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "label": "Return",
+          "description": "Value of 'foodClient->get(\"/bananas\")'"
         },
         "codedata": {
-          "node": "REMOTE_ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "get",
-          "version": "2.13.2",
+          "node": "RETURN",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -400,65 +394,16 @@
         },
         "returning": true,
         "properties": {
-          "connection": {
+          "expression": {
             "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
+              "label": "Expression",
+              "description": "Return value"
             },
             "valueType": "EXPRESSION",
-            "value": "foodClient",
+            "value": "foodClient->get(\"/bananas\")",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "advanced": false
-          },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Request path"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
-            "value": "\"/bananas\"",
-            "placeholder": "\"\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "path"
-            }
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "map<string|string[]>|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "DEFAULTABLE",
-              "originalName": "headers"
-            }
-          },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            }
           }
         },
         "flags": 0
