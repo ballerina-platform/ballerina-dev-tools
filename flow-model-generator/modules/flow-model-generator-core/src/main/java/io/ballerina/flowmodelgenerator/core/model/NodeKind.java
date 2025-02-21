@@ -72,5 +72,6 @@ public enum NodeKind {
     TABLE,
     TUPLE,
 
-    AGENT
+    AGENT,
+    AGENT_CALL
 }

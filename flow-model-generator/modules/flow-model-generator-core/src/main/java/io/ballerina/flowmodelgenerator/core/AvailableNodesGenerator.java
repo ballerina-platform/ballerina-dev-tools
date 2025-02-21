@@ -135,7 +135,7 @@ public class AvailableNodesGenerator {
                         .build();
                 FunctionResult functionResult = new FunctionResult(-1, "run", "Run agent", "error?", "ai.agent", "wso2",
                         "1.0.0", "", Function.Kind.FUNCTION, true, false);
-                NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL);
+                NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.AGENT_CALL);
                 methodCallBuilder
                         .metadata()
                             .label(functionResult.name())
@@ -143,7 +143,7 @@ public class AvailableNodesGenerator {
                             .description(functionResult.description())
                             .stepOut()
                         .codedata()
-                            .node(NodeKind.FUNCTION_CALL)
+                            .node(NodeKind.AGENT_CALL)
                             .org("wso2")
                             .module("ai.agent")
                             .version("1.0.0")

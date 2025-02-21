@@ -18,29 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.model.*;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -49,57 +35,48 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a function call node.
  *
  * @since 2.0.0
  */
-public class FunctionCall extends NodeBuilder {
+public class AgentCallBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(NodeKind.FUNCTION_CALL);
+        codedata().node(NodeKind.AGENT_CALL);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            handleLocalFunction(context, codedata);
-        } else {
-            handleImportedFunction(context, codedata);
-        }
+        handleAgentRunFunction(context, context.codedata());
     }
 
-    private void handleImportedFunction(TemplateContext context, Codedata codedata) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> functionResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                        DatabaseManager.FunctionKind.FUNCTION);
-
-        if (functionResult.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
-
-        FunctionResult function = functionResult.get();
+    private void handleAgentRunFunction(TemplateContext context, Codedata codedata) {
+        FunctionResult function = new FunctionResult(-1, "run", "Run agent", "error?", "ai.agent", "wso2",
+                "1.0.0", "", Function.Kind.FUNCTION, true, false);
         metadata()
                 .label(function.name())
                 .description(function.description());
         codedata()
-                .node(NodeKind.FUNCTION_CALL)
+                .node(NodeKind.AGENT_CALL)
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+        List<ParameterResult> parameterResults = List.of(
+                new ParameterResult(-1, "agent", "BaseAgent", Parameter.Kind.REQUIRED, "", "", false, ""),
+                new ParameterResult(-2, "query", "string", Parameter.Kind.REQUIRED, "", "", false, ""),
+                new ParameterResult(-3, "maxIter", "int", Parameter.Kind.DEFAULTABLE, "5", "", false, ""),
+                new ParameterResult(-4, "context", "string|map<json>", Parameter.Kind.DEFAULTABLE, "{}", "", false,
+                        ""),
+                new ParameterResult(-5, "verbose", "boolean", Parameter.Kind.DEFAULTABLE, "true", "", false, "")
+        );
+        setCustomProperties(parameterResults);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
@@ -107,38 +84,6 @@ public class FunctionCall extends NodeBuilder {
         }
 
         if (function.returnError()) {
-            properties().checkError(true);
-        }
-    }
-
-    private void handleLocalFunction(TemplateContext context, Codedata codedata) {
-        WorkspaceManager workspaceManager = context.workspaceManager();
-        Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
-        this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
-
-        SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-        Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                .findFirst();
-        if (outSymbol.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
-
-        FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-
-        metadata().label(codedata.symbol());
-        codedata()
-                .node(NodeKind.FUNCTION_CALL)
-                .symbol(codedata.symbol());
-
-        setCustomProperties(ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values());
-        functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-            String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context);
-        });
-
-        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && FlowNodeUtil.withinDoClause(context)) {
             properties().checkError(true);
         }
     }
@@ -200,18 +145,6 @@ public class FunctionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Codedata codedata = flowNode.codedata();
-        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
-            return sourceBuilder.token()
-                    .name(codedata.symbol())
-                    .stepOut()
-                    .functionParameters(flowNode,
-                            Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
-                    .textEdit(false)
-                    .acceptImport()
-                    .build();
-        }
-
         String module = flowNode.codedata().module();
         String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
         String methodCall = methodCallPrefix + flowNode.metadata().label();
@@ -254,12 +187,5 @@ public class FunctionCall extends NodeBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return false;
         }
-    }
-
-    protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
-                                                       FunctionTypeSymbol functionTypeSymbol) {
-        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
-        return functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
     }
 }
