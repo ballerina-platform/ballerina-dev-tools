@@ -38,7 +38,6 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,9 +51,9 @@ public abstract class FunctionBuilder extends NodeBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
-    protected void setCustomProperties(Collection<ParameterResult> functionParameters) {
-        boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
+    protected void setCustomProperties(FunctionResult function) {
+        boolean hasOnlyRestParams = function.parameters().size() == 1;
+        for (ParameterResult paramResult : function.parameters()) {
             if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
                 continue;
@@ -128,10 +127,16 @@ public abstract class FunctionBuilder extends NodeBuilder {
     protected DatabaseManager dbManager = DatabaseManager.getInstance();
 
     protected Optional<FunctionResult> getFunctionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        return codedata.id() != null ? 
+        Optional<FunctionResult> functionResult = codedata.id() != null ? 
                 dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind, codedata.resourcePath());
+        
+        if (functionResult.isPresent()) {
+            FunctionResult function = functionResult.get();
+            List<ParameterResult> dbParameters = dbManager.getFunctionParameters(function.functionId());
+            function.setParameters(dbParameters);
+        }
+        return functionResult;
     }
 
     /**

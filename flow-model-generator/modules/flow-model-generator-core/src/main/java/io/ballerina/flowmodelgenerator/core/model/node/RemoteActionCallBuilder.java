@@ -86,7 +86,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
 
-        setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+        setCustomProperties(function);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {

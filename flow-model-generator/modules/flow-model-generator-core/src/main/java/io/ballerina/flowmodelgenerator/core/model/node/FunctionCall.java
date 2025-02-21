@@ -19,14 +19,16 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -35,14 +37,13 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -91,7 +92,7 @@ public class FunctionCall extends FunctionBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+        setCustomProperties(function);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
@@ -104,34 +105,69 @@ public class FunctionCall extends FunctionBuilder {
     }
 
     private void handleLocalFunction(TemplateContext context, Codedata codedata) {
-        WorkspaceManager workspaceManager = context.workspaceManager();
-        Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
-        this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
+        try {
+            WorkspaceManager workspaceManager = context.workspaceManager();
+            Project project = workspaceManager.loadProject(context.filePath());
 
-        SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-        Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                .findFirst();
-        if (outSymbol.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
+            SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+            Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
+                    .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
+                    .findFirst();
+            if (outSymbol.isEmpty()) {
+                throw new RuntimeException("Function not found: " + codedata.symbol());
+            }
 
-        FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+            FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
+            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
 
-        metadata().label(codedata.symbol());
-        codedata()
-                .node(NodeKind.FUNCTION_CALL)
-                .symbol(codedata.symbol());
+            List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values()
+                    .stream().toList();
 
-        setCustomProperties(ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values());
-        functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-            String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context, false);
-        });
+            String returnTypeName;
+            Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
+            if (returnType.isPresent()) {
+                returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType.get(), true, null);
+                setReturnTypeProperties(returnTypeName, context, false);
+            } else {
+                returnTypeName = null;
+            }
 
-        if (containsErrorInReturnType(semanticModel, functionTypeSymbol) && FlowNodeUtil.withinDoClause(context)) {
-            properties().checkError(true);
+            String packageName = project.currentPackage().packageName().toString();
+            String org = project.currentPackage().packageOrg().toString();
+            String version = project.currentPackage().packageVersion().toString();
+
+            String description = functionSymbol.documentation()
+                    .flatMap(Documentation::description)
+                    .orElse("");
+
+            FunctionResult function = new FunctionResult(
+                    0, // local functions don't have an ID
+                    codedata.symbol(),
+                    description,
+                    returnTypeName,
+                    packageName,
+                    org,
+                    version,
+                    "", // no resource path for local functions
+                    Function.Kind.FUNCTION,
+                    containsErrorInReturnType(semanticModel, functionTypeSymbol),
+                    false
+            );
+            function.setParameters(parameters);
+
+            metadata().label(function.name());
+            codedata()
+                    .node(NodeKind.FUNCTION_CALL)
+                    .symbol(function.name());
+
+            setCustomProperties(function);
+
+            if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
+                && FlowNodeUtil.withinDoClause(context)) {
+                properties().checkError(true);
+            }
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException("Error loading project: " + e.getMessage(), e);
         }
     }
 

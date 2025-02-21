@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
@@ -27,6 +28,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.Function;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -95,7 +97,7 @@ public class MethodCall extends FunctionBuilder {
                 .id(function.functionId())
                 .symbol(codedata.symbol());
         setExpressionProperty(codedata);
-        setCustomProperties(dbManager.getFunctionParameters(function.functionId()));
+        setCustomProperties(function);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
@@ -124,18 +126,49 @@ public class MethodCall extends FunctionBuilder {
             throw new RuntimeException("Method not found: " + codedata.symbol());
         }
 
-        metadata().label(codedata.symbol());
+        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+        List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel).values()
+                .stream().toList();
+
+        String returnTypeName;
+        Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
+        if (returnType.isPresent()) {
+            returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType.get(), true, moduleInfo);
+            setReturnTypeProperties(returnTypeName, context, false);
+        } else {
+            returnTypeName = null;
+        }
+
+        String packageName = project.currentPackage().packageName().toString();
+        String org = project.currentPackage().packageOrg().toString();
+        String version = project.currentPackage().packageVersion().toString();
+
+        String description = methodSymbol.documentation()
+                .flatMap(Documentation::description)
+                .orElse("");
+
+        FunctionResult function = new FunctionResult(
+                0, // local methods don't have an ID
+                codedata.symbol(),
+                description,
+                returnTypeName,
+                packageName,
+                org,
+                version,
+                "", // no resource path for local methods
+                Function.Kind.FUNCTION,
+                containsErrorInReturnType(semanticModel, functionTypeSymbol),
+                false
+        );
+        function.setParameters(parameters);
+
+        metadata().label(function.name());
         codedata()
                 .node(NodeKind.METHOD_CALL)
-                .symbol(codedata.symbol());
-        setExpressionProperty(codedata);
-        setCustomProperties(ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel).values());
-        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+                .symbol(function.name());
 
-        functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-            String returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType, true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context, false);
-        });
+        setExpressionProperty(codedata);
+        setCustomProperties(function);
 
         if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
                 && FlowNodeUtil.withinDoClause(context)) {
