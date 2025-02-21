@@ -321,9 +321,7 @@ public class ExpressionEditorContext {
         private List<ImportDeclarationNode> imports;
 
         public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
-            this.workspaceManagerProxy = workspaceManagerProxy;
-            this.fileUri = fileUri;
-            this.filePath = filePath;
+             this(workspaceManagerProxy, fileUri, filePath, null);
         }
 
         public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
