@@ -247,6 +247,9 @@ public class ExpressionEditorContext {
      * @return the cursor position as a Position object
      */
     public Position getCursorPosition() {
+        if (statementLineRange == null || info == null) {
+            throw new IllegalStateException("Statement line range not initialized. Call generateStatement() first.");
+        }
         return new Position(statementLineRange.startLine().line(),
                 statementLineRange.startLine().offset() + info.offset() + expressionOffset);
     }
