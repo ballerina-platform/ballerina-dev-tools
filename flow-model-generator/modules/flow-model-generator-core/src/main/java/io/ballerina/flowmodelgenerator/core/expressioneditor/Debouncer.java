@@ -68,6 +68,9 @@ public class Debouncer {
             } catch (Exception ex) {
                 promise.completeExceptionally(ex);
             } finally {
+                if (promise.isCompletedExceptionally()) {
+                    request.revertDocument();
+                }
                 delayedMap.remove(key);
             }
         }, delay, TIME_UNIT);
