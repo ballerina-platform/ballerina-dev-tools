@@ -211,6 +211,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         MAPPING_EXPRESSION_SET,
         EXPRESSION_SET,
         FIXED_PROPERTY,
+        RAW_TEMPLATE,
         REPEATABLE_PROPERTY
     }
 

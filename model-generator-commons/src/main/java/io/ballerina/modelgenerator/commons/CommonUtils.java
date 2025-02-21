@@ -86,6 +86,7 @@ public class CommonUtils {
     private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
             Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
     public static final String BALLERINA_ORG_NAME = "ballerina";
+    public static final String BALLERINAX_ORG_NAME = "ballerinax";
     public static final String VALUE_LANG_LIB = "lang.value";
 
     /**
@@ -763,6 +764,16 @@ public class CommonUtils {
 
         ModuleID moduleId = module.get().id();
         return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
+    }
+
+    public static boolean isNpModule(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            return false;
+        }
+
+        ModuleID moduleId = module.get().id();
+        return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
     }
 
     public static String getClassType(String packageName, String clientName) {
