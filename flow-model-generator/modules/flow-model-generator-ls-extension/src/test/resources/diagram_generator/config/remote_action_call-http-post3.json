@@ -399,8 +399,21 @@
             "valueType": "IDENTIFIER",
             "value": "drinkClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 38,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 38,
+                  "offset": 31
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -908,8 +921,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

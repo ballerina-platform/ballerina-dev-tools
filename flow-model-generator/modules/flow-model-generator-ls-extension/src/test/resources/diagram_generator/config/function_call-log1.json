@@ -395,8 +395,21 @@
             "valueType": "IDENTIFIER",
             "value": "res",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 13,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1061,8 +1074,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

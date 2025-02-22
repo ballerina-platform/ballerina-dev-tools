@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 90,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 90,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -137,8 +150,21 @@
             "valueType": "IDENTIFIER",
             "value": "s",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 91,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 91,
+                  "offset": 12
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -206,8 +232,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "A",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 94,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 94,
+                      "offset": 16
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -314,8 +353,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "B",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 99,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 99,
+                      "offset": 12
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -410,8 +462,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "C",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 103,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 103,
+                      "offset": 12
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -646,8 +711,21 @@
             "valueType": "IDENTIFIER",
             "value": "value",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 107,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 107,
+                  "offset": 17
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

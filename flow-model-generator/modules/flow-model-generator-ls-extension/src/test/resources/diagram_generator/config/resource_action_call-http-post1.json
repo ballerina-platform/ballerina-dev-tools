@@ -84,8 +84,21 @@
             "valueType": "IDENTIFIER",
             "value": "res1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 14,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 14,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -258,8 +271,21 @@
             "valueType": "IDENTIFIER",
             "value": "res2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 15,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 15,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -433,8 +459,21 @@
             "valueType": "IDENTIFIER",
             "value": "res3",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -607,8 +646,21 @@
             "valueType": "IDENTIFIER",
             "value": "res4",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 16
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -782,8 +834,21 @@
             "valueType": "IDENTIFIER",
             "value": "res5",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -957,8 +1022,21 @@
             "valueType": "IDENTIFIER",
             "value": "res6",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 22,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -1131,8 +1209,21 @@
             "valueType": "IDENTIFIER",
             "value": "res7",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 23,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 17
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -1622,8 +1713,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "http_post_node.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

@@ -149,8 +149,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -212,8 +225,21 @@
             "valueType": "IDENTIFIER",
             "value": "s",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 12
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -417,8 +443,21 @@
             "valueType": "IDENTIFIER",
             "value": "j",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -486,8 +525,21 @@
             "valueType": "IDENTIFIER",
             "value": "k",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -558,8 +610,21 @@
             "valueType": "IDENTIFIER",
             "value": "l",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 12
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -821,8 +886,21 @@
             "valueType": "IDENTIFIER",
             "value": "num2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 12
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -933,7 +1011,7 @@
             "valueType": "IDENTIFIER",
             "value": "c",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -943,6 +1021,19 @@
                   "message": "cannot assign a value to function argument 'c'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 21,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 21,
+                  "offset": 5
+                }
+              }
             }
           }
         },
@@ -993,7 +1084,7 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -1003,6 +1094,19 @@
                   "message": "redeclared symbol 'i'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 22,
+                  "offset": 9
+                }
+              }
             }
           },
           "type": {
@@ -1065,8 +1169,21 @@
             "valueType": "IDENTIFIER",
             "value": "val",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics1.bal",
+                "startLine": {
+                  "line": 23,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 11
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

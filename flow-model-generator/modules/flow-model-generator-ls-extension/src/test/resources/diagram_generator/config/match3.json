@@ -156,8 +156,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 47,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 47,
+                          "offset": 29
+                        }
+                      }
+                    }
                   }
                 },
                 "flags": 0
@@ -341,8 +354,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "match.bal",
+                                "startLine": {
+                                  "line": 52,
+                                  "offset": 24
+                                },
+                                "endLine": {
+                                  "line": 52,
+                                  "offset": 37
+                                }
+                              }
+                            }
                           }
                         },
                         "flags": 0
@@ -436,8 +462,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "match.bal",
+                                "startLine": {
+                                  "line": 55,
+                                  "offset": 24
+                                },
+                                "endLine": {
+                                  "line": 55,
+                                  "offset": 37
+                                }
+                              }
+                            }
                           }
                         },
                         "flags": 0
@@ -607,8 +646,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 62,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 62,
+                          "offset": 29
+                        }
+                      }
+                    }
                   }
                 },
                 "flags": 0

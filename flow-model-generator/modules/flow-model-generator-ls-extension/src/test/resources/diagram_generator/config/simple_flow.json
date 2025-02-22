@@ -200,8 +200,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "j",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "simple_flow.bal",
+                        "startLine": {
+                          "line": 8,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 8,
+                          "offset": 18
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -385,8 +398,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "j",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "simple_flow.bal",
+                        "startLine": {
+                          "line": 11,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 11,
+                          "offset": 18
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -811,8 +837,21 @@
             "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1193,8 +1232,21 @@
             "valueType": "IDENTIFIER",
             "value": "nawaloka",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 26
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

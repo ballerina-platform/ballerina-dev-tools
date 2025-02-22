@@ -103,8 +103,21 @@
             "valueType": "IDENTIFIER",
             "value": "f1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "start.bal",
+                "startLine": {
+                  "line": 21,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 21,
+                  "offset": 11
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -163,8 +176,21 @@
             "valueType": "IDENTIFIER",
             "value": "name",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "start.bal",
+                "startLine": {
+                  "line": 23,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

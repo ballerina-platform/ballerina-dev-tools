@@ -61,8 +61,21 @@
             "valueType": "IDENTIFIER",
             "value": "manifestConversions",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 50
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -168,8 +181,21 @@
             "valueType": "IDENTIFIER",
             "value": "response",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 26
+                }
+              }
+            }
           },
           "resourcePath": {
             "metadata": {
@@ -324,8 +350,21 @@
             "valueType": "IDENTIFIER",
             "value": "githubClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 32
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
