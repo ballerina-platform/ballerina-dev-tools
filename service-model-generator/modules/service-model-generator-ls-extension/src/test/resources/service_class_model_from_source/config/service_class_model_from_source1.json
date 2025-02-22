@@ -286,11 +286,11 @@
               "fileName": "main.bal",
               "startLine": {
                 "line": 14,
-                "offset": 22
+                "offset": 4
               },
               "endLine": {
-                "line": 14,
-                "offset": 25
+                "line": 28,
+                "offset": 5
               }
             },
             "inListenerInit": false,
