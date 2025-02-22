@@ -20,9 +20,8 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -31,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -134,12 +134,12 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             if (propCodedata == null) {
                 continue;
             }
-            if (propCodedata.kind().equals(Parameter.Kind.PATH_PARAM.name())) {
+            if (propCodedata.kind().equals(ParameterResult.Kind.PATH_PARAM.name())) {
                 String pathParamSubString = "[" + key + "]";
                 String replacement = "[" + property.get().value().toString() + "]";
                 resourcePath = resourcePath.replace(pathParamSubString, replacement);
                 ignoredKeys.add(key);
-            } else if (propCodedata.kind().equals(Parameter.Kind.PATH_REST_PARAM.name())) {
+            } else if (propCodedata.kind().equals(ParameterResult.Kind.PATH_REST_PARAM.name())) {
                 String replacement = property.get().value().toString();
                 resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
                 ignoredKeys.add(key);

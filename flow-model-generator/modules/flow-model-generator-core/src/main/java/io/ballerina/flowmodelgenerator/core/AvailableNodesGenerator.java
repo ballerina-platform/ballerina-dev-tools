@@ -36,8 +36,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -236,9 +235,9 @@ public class AvailableNodesGenerator {
 
         List<Item> availableNodes = new ArrayList<>();
         for (FunctionResult connectorAction : connectorActions) {
-            if (connectorAction.kind() == Function.Kind.REMOTE) {
+            if (connectorAction.kind() == FunctionResult.Kind.REMOTE) {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else if (connectorAction.kind() == Function.Kind.FUNCTION) {
+            } else if (connectorAction.kind() == FunctionResult.Kind.FUNCTION) {
                 availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             } else {
                 if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
@@ -299,7 +298,7 @@ public class AvailableNodesGenerator {
                     .label(label)
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
                     .description(connectorAction.description())
-                    .functionKind(Function.Kind.RESOURCE.name())
+                    .functionKind(FunctionResult.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
                     .node(NodeKind.RESOURCE_ACTION_CALL)

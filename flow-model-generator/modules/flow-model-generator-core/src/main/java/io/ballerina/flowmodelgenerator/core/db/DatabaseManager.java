@@ -18,10 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.db;
 
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 
 import java.io.IOException;
 import java.net.URL;
@@ -130,7 +128,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
                 functionResults.add(functionResult);
@@ -175,7 +173,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
                 functionResults.add(functionResult);
@@ -230,7 +228,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
                 functionResults.add(functionResult);
@@ -285,7 +283,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type")));
             }
@@ -327,7 +325,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type")));
             }
@@ -356,11 +354,12 @@ public class DatabaseManager {
             ResultSet rs = stmt.executeQuery();
             List<ParameterResult> parameterResults = new ArrayList<>();
             while (rs.next()) {
-                ParameterResult parameterResult = new ParameterResult(
+                ParameterResult
+                        parameterResult = new ParameterResult(
                         rs.getInt("parameter_id"),
                         rs.getString("name"),
                         rs.getString("type"),
-                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        ParameterResult.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
@@ -394,11 +393,12 @@ public class DatabaseManager {
             LinkedHashMap<String, ParameterResult> parameterResults = new LinkedHashMap<>();
             while (rs.next()) {
                 String paramName = rs.getString("name");
-                ParameterResult parameterResult = new ParameterResult(
+                ParameterResult
+                        parameterResult = new ParameterResult(
                         rs.getInt("parameter_id"),
                         paramName,
                         rs.getString("type"),
-                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        ParameterResult.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
@@ -442,7 +442,7 @@ public class DatabaseManager {
                         null, // org is not selected in this query
                         null, // version is not selected in this query
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
                 functionResults.add(functionResult);
@@ -525,7 +525,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionResult.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
                 functionResults.add(functionResult);

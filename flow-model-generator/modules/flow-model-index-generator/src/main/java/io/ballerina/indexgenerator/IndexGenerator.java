@@ -47,7 +47,7 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import ParameterResult;
 import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
@@ -257,8 +257,8 @@ class IndexGenerator {
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
-            List<ParameterResult> parameterResults = resourcePathTemplate.pathParams();
-            for (ParameterResult parameterResult : parameterResults) {
+            List<Parameter> parameterResults = resourcePathTemplate.pathParams();
+            for (Parameter parameterResult : parameterResults) {
                 DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
                         parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
                         FunctionParameterKind.fromString(parameterResult.kind().name()),

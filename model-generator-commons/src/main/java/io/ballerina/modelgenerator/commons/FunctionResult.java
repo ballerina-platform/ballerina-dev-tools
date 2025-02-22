@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.db.model;
+package io.ballerina.modelgenerator.commons;
 
 import java.util.List;
 
@@ -34,14 +34,14 @@ public class FunctionResult {
     private final String org;
     private final String version;
     private final String resourcePath;
-    private final Function.Kind kind;
+    private final Kind kind;
     private final boolean returnError;
     private final boolean inferredReturnType;
     private List<ParameterResult> parameters;
 
     public FunctionResult(int functionId, String name, String description, String returnType,
                         String packageName, String org, String version, String resourcePath,
-                        Function.Kind kind, boolean returnError, boolean inferredReturnType) {
+                        Kind kind, boolean returnError, boolean inferredReturnType) {
         this.functionId = functionId;
         this.name = name;
         this.description = description;
@@ -92,7 +92,7 @@ public class FunctionResult {
         return resourcePath;
     }
 
-    public Function.Kind kind() {
+    public Kind kind() {
         return kind;
     }
 
@@ -107,4 +107,12 @@ public class FunctionResult {
     public List<ParameterResult> parameters() {
         return parameters;
     }
+    
+    public enum Kind {
+        FUNCTION,
+        CONNECTOR,
+        REMOTE,
+        RESOURCE
+    }
+
 }

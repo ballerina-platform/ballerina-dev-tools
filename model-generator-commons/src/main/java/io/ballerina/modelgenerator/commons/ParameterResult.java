@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.db.model;
+package io.ballerina.modelgenerator.commons;
 
 /**
  * Represents the result of a parameter.
@@ -35,16 +35,28 @@ public record ParameterResult(
         int parameterId,
         String name,
         String type,
-        Parameter.Kind kind,
+        Kind kind,
         String defaultValue,
         String description,
         boolean optional,
         String importStatements) {
 
 
-    public static ParameterResult from(String name, String type, Parameter.Kind kind, String defaultValue,
+    public static ParameterResult from(String name, String type, Kind kind, String defaultValue,
                                        String description, boolean optional) {
         return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
                 null);
+    }
+
+    public enum Kind {
+        REQUIRED,
+        DEFAULTABLE,
+        INCLUDED_RECORD,
+        REST_PARAMETER,
+        INCLUDED_FIELD,
+        PARAM_FOR_TYPE_INFER,
+        INCLUDED_RECORD_REST,
+        PATH_PARAM,
+        PATH_REST_PARAM
     }
 }

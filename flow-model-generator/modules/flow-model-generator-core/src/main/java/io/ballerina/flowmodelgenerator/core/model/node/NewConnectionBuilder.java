@@ -35,10 +35,7 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -47,6 +44,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.TextRange;
@@ -191,8 +189,8 @@ public class NewConnectionBuilder extends NodeBuilder {
 
         boolean hasOnlyRestParams = functionParameters.size() == 1;
         for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+            if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -213,13 +211,13 @@ public class NewConnectionBuilder extends NodeBuilder {
                     .editable()
                     .defaultable(paramResult.optional());
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+            if (paramResult.kind() == ParameterResult.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
                 unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+            } else if (paramResult.kind() == ParameterResult.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
@@ -254,11 +252,11 @@ public class NewConnectionBuilder extends NodeBuilder {
         }
 
         return new FunctionResult(-1, methodSymbol.getName().orElse(""), description, retType, module, "", "", "",
-                Function.Kind.CONNECTOR, false, false);
+                FunctionResult.Kind.CONNECTOR, false, false);
     }
 
     private List<ParameterResult> getParametersFromMethodSymbol(WorkspaceManager workspaceManager,
-                                                                MethodSymbol methodSymbol, Path filePath) {
+                                                                                              MethodSymbol methodSymbol, Path filePath) {
         List<ParameterResult> parameterResults = new ArrayList<>();
         Optional<List<ParameterSymbol>> optParams = methodSymbol.typeDescriptor().params();
         if (optParams.isEmpty()) {
@@ -306,12 +304,12 @@ public class NewConnectionBuilder extends NodeBuilder {
         return defaultValues;
     }
 
-    private Parameter.Kind getParamKind(ParameterKind kind) {
+    private ParameterResult.Kind getParamKind(ParameterKind kind) {
         return switch (kind) {
-            case DEFAULTABLE -> Parameter.Kind.DEFAULTABLE;
-            case INCLUDED_RECORD -> Parameter.Kind.INCLUDED_RECORD;
-            case REST -> Parameter.Kind.REST_PARAMETER;
-            default -> Parameter.Kind.REQUIRED;
+            case DEFAULTABLE -> ParameterResult.Kind.DEFAULTABLE;
+            case INCLUDED_RECORD -> ParameterResult.Kind.INCLUDED_RECORD;
+            case REST -> ParameterResult.Kind.REST_PARAMETER;
+            default -> ParameterResult.Kind.REQUIRED;
         };
     }
 }

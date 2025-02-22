@@ -103,9 +103,7 @@ import io.ballerina.compiler.syntax.tree.WaitFieldNode;
 import io.ballerina.compiler.syntax.tree.WaitFieldsListNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -129,6 +127,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -380,7 +379,8 @@ class CodeAnalyzer extends NodeVisitor {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         ModuleID id = symbol.get().getModule().get().id();
         Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), DatabaseManager.FunctionKind.RESOURCE, resourcePathTemplate.resourcePathTemplate());
+                symbol.get().getName().get(), DatabaseManager.FunctionKind.RESOURCE,
+                resourcePathTemplate.resourcePathTemplate());
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
@@ -413,8 +413,8 @@ class CodeAnalyzer extends NodeVisitor {
                                                  boolean hasOnlyRestParams) {
         for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
             ParameterResult paramResult = entry.getValue();
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+            if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -435,13 +435,13 @@ class CodeAnalyzer extends NodeVisitor {
                     .editable()
                     .defaultable(paramResult.optional());
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+            if (paramResult.kind() == ParameterResult.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
                 unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+            } else if (paramResult.kind() == ParameterResult.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
@@ -494,11 +494,12 @@ class CodeAnalyzer extends NodeVisitor {
             List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
             boolean hasOnlyRestParams = functionParameters.size() == 1;
             for (ParameterResult paramResult : functionParameters) {
-                Parameter.Kind paramKind = paramResult.kind();
+                ParameterResult.Kind paramKind = paramResult.kind();
 
-                if (paramKind.equals(Parameter.Kind.PATH_PARAM) || paramKind.equals(Parameter.Kind.PATH_REST_PARAM)
-                        || paramKind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                        || paramKind.equals(Parameter.Kind.INCLUDED_RECORD)) {
+                if (paramKind.equals(ParameterResult.Kind.PATH_PARAM) ||
+                        paramKind.equals(ParameterResult.Kind.PATH_REST_PARAM)
+                        || paramKind.equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramKind.equals(ParameterResult.Kind.INCLUDED_RECORD)) {
                     continue;
                 }
 
@@ -519,12 +520,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .editable()
                         .defaultable(paramResult.optional());
 
-                if (paramKind == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (paramKind == ParameterResult.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                } else if (paramKind == Parameter.Kind.REST_PARAMETER) {
+                } else if (paramKind == ParameterResult.Kind.REST_PARAMETER) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
@@ -639,7 +640,7 @@ class CodeAnalyzer extends NodeVisitor {
                     paramValue = namedArgValueMap.get(paramResult.name());
                     namedArgValueMap.remove(paramResult.name());
                 }
-                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                if (paramResult.kind() == ParameterResult.Kind.INCLUDED_RECORD) {
                     if (argumentNodes.size() > i && argumentNodes.get(i).kind() == SyntaxKind.NAMED_ARG) {
                         FunctionArgumentNode argNode = argumentNodes.get(i);
                         funcParamMap.remove(escapedParamName);
@@ -735,7 +736,7 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                 }
 
-                if (paramValue == null && paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                if (paramValue == null && paramResult.kind() == ParameterResult.Kind.INCLUDED_RECORD) {
                     funcParamMap.remove(escapedParamName);
                     continue;
                 }
@@ -811,10 +812,10 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private Property.ValueType getPropertyTypeFromParamKind(Parameter.Kind kind) {
-        if (kind == Parameter.Kind.REST_PARAMETER) {
+    private Property.ValueType getPropertyTypeFromParamKind(ParameterResult.Kind kind) {
+        if (kind == ParameterResult.Kind.REST_PARAMETER) {
             return Property.ValueType.EXPRESSION_SET;
-        } else if (kind == Parameter.Kind.INCLUDED_RECORD_REST) {
+        } else if (kind == ParameterResult.Kind.INCLUDED_RECORD_REST) {
             return Property.ValueType.MAPPING_EXPRESSION_SET;
         }
         return Property.ValueType.EXPRESSION;

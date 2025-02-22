@@ -23,9 +23,8 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -35,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -54,8 +54,8 @@ public abstract class FunctionBuilder extends NodeBuilder {
     protected void setCustomProperties(FunctionResult function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
         for (ParameterResult paramResult : function.parameters()) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+            if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -124,9 +124,9 @@ public abstract class FunctionBuilder extends NodeBuilder {
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
     }
 
-    protected DatabaseManager dbManager = DatabaseManager.getInstance();
+    protected static DatabaseManager dbManager = DatabaseManager.getInstance();
 
-    protected Optional<FunctionResult> getFunctionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
+    protected static Optional<FunctionResult> getFunctionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
         Optional<FunctionResult> functionResult = codedata.id() != null ? 
                 dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind, codedata.resourcePath());
