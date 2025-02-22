@@ -1,10 +1,6 @@
 {
   "description": "",
   "source": "graphql",
-  "position": {
-    "line": 16,
-    "offset": 0
-  },
   "completions": [
     {
       "label": "Profile",
@@ -344,6 +340,15 @@
       },
       "kind": "TypeParameter",
       "insertText": "readonly"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
     }
   ]
 }

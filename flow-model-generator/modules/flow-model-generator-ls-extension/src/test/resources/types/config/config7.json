@@ -1,6 +1,7 @@
 {
   "description": "",
   "source": "data_mapper/main.bal",
+  "typeConstraint": "any",
   "completions": [
     {
       "label": "Input",
@@ -132,15 +133,6 @@
       "insertText": "byte"
     },
     {
-      "label": "error",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Error"
-      },
-      "kind": "Event",
-      "insertText": "error"
-    },
-    {
       "label": "json",
       "labelDetails": {
         "detail": "Primitive",
@@ -220,15 +212,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "never"
-    },
-    {
-      "label": "readonly",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Readonly"
-      },
-      "kind": "TypeParameter",
-      "insertText": "readonly"
     },
     {
       "label": "record",

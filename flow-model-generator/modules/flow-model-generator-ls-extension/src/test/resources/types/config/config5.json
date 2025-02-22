@@ -1,6 +1,7 @@
 {
   "description": "",
   "source": "data_mapper/main.bal",
+  "typeConstraint": "anydata",
   "completions": [
     {
       "label": "Input",
@@ -132,15 +133,6 @@
       "insertText": "byte"
     },
     {
-      "label": "error",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Error"
-      },
-      "kind": "Event",
-      "insertText": "error"
-    },
-    {
       "label": "json",
       "labelDetails": {
         "detail": "Primitive",
@@ -148,15 +140,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "json"
-    },
-    {
-      "label": "any",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Any"
-      },
-      "kind": "TypeParameter",
-      "insertText": "any"
     },
     {
       "label": "anydata",
@@ -168,51 +151,6 @@
       "insertText": "anydata"
     },
     {
-      "label": "function",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Function"
-      },
-      "kind": "TypeParameter",
-      "insertText": "function"
-    },
-    {
-      "label": "future",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Future"
-      },
-      "kind": "TypeParameter",
-      "insertText": "future"
-    },
-    {
-      "label": "typedesc",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Typedesc"
-      },
-      "kind": "TypeParameter",
-      "insertText": "typedesc"
-    },
-    {
-      "label": "handle",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Handle"
-      },
-      "kind": "TypeParameter",
-      "insertText": "handle"
-    },
-    {
-      "label": "stream",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Stream"
-      },
-      "kind": "TypeParameter",
-      "insertText": "stream"
-    },
-    {
       "label": "never",
       "labelDetails": {
         "detail": "Primitive",
@@ -220,15 +158,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "never"
-    },
-    {
-      "label": "readonly",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Readonly"
-      },
-      "kind": "TypeParameter",
-      "insertText": "readonly"
     },
     {
       "label": "record",
