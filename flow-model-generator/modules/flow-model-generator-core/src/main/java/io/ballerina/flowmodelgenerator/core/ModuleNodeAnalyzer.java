@@ -131,7 +131,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     continue;
                 }
             }
-            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""));
+            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""),
+                    paramName.orElse(null));
         }
         nodeBuilder.properties().endNestedProperty(
                 Property.ValueType.REPEATABLE_PROPERTY,

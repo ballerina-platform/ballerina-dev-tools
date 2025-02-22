@@ -33,6 +33,7 @@ import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
@@ -847,6 +848,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> parameter(String type, String name) {
+        return parameter(type, name, null);
+    }
+
+    public FormBuilder<T> parameter(String type, String name, Token token) {
         nestedProperty();
 
         // Build the parameter type property
@@ -868,8 +873,15 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .value(name)
-                .editable();
+                .value(name);
+
+        if (token == null) {
+            propertyBuilder.editable();
+        } else {
+            propertyBuilder.codedata()
+                    .lineRange(token.lineRange());
+        }
+
         addProperty(Property.VARIABLE_KEY);
 
         return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,
