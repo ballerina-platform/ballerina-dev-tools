@@ -1204,7 +1204,8 @@ class CodeAnalyzer extends NodeVisitor {
                 new FunctionResultBuilder()
                         .name(functionName)
                         .functionSymbol(functionSymbol)
-                        .semanticModel(semanticModel);
+                        .semanticModel(semanticModel)
+                        .userModuleInfo(moduleInfo);
         FunctionResult functionResult = functionResultBuilder.build();
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();

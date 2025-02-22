@@ -70,6 +70,7 @@ public class FunctionResultBuilder {
     private String description;
     private String packageName;
     private ModuleInfo moduleInfo;
+    private ModuleInfo userModuleInfo;
 
     public FunctionResultBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -115,6 +116,11 @@ public class FunctionResultBuilder {
         return this;
     }
 
+    public FunctionResultBuilder userModuleInfo(ModuleInfo moduleInfo) {
+        this.userModuleInfo = moduleInfo;
+        return this;
+    }
+
     public FunctionResult build() {
         // The function name is required to build the FunctionResult
         if (this.functionName == null) {
@@ -147,7 +153,7 @@ public class FunctionResultBuilder {
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> CommonUtils.getTypeSignature(semanticModel, returnTypeDesc, true))
+                .map(returnTypeDesc -> getTypeSignature(returnTypeDesc))
                 .orElse("");
 
         ParamForTypeInfer paramForTypeInfer = null;
@@ -217,7 +223,7 @@ public class FunctionResultBuilder {
         Map<String, ParameterResult> parameters = new LinkedHashMap<>();
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
-        ParameterResult.Kind parameterKind = ParameterResult.Kind.valueOf(paramSymbol.paramKind().toString());
+        ParameterResult.Kind parameterKind = ParameterResult.Kind.fromKind(paramSymbol.paramKind());
         String paramType;
         boolean optional = true;
         String defaultValue;
@@ -226,17 +232,16 @@ public class FunctionResultBuilder {
         if (parameterKind == ParameterResult.Kind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
-            paramType = CommonUtils.getTypeSignature(semanticModel,
-                    ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), false);
+            paramType = getTypeSignature(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
         } else if (parameterKind == ParameterResult.Kind.INCLUDED_RECORD) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            paramType = getTypeSignature(typeSymbol);
             Map<String, ParameterResult> includedParameters =
-                    getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol), true,
+                    getIncludedRecordParams((RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true,
                             new HashMap<>());
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == ParameterResult.Kind.REQUIRED) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            paramType = getTypeSignature(typeSymbol);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             optional = false;
         } else {
@@ -250,7 +255,7 @@ public class FunctionResultBuilder {
                 }
             }
             defaultValue = getParamDefaultValue(paramSymbol, typeSymbol);
-            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            paramType = getTypeSignature(typeSymbol);
         }
         parameters.put(paramName, ParameterResult.from(paramName, paramDescription, paramType, defaultValue,
                 parameterKind, optional, importStatements));
@@ -284,14 +289,14 @@ public class FunctionResultBuilder {
             }
 
             String defaultValue = getRecordFieldDefaultValue(recordFieldSymbol, fieldType);
-            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            String paramType = getTypeSignature(typeSymbol);
             boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
             parameters.put(paramName, ParameterResult.from(paramName, documentationMap.get(paramName),
                     paramType, defaultValue, ParameterResult.Kind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            String paramType = getTypeSignature(typeSymbol);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             parameters.put("Additional Values", ParameterResult.from("Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
@@ -379,6 +384,13 @@ public class FunctionResultBuilder {
         } catch (RuntimeException ex) {
             return null;
         }
+    }
+
+    private String getTypeSignature(TypeSymbol typeSymbol) {
+        if (userModuleInfo == null) {
+            return CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+        }
+        return CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, userModuleInfo);
     }
 
 }

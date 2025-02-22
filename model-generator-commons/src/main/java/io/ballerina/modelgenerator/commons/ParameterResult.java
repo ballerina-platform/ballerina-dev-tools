@@ -17,7 +17,9 @@
  */
 
 package io.ballerina.modelgenerator.commons;
-    
+
+import io.ballerina.compiler.api.symbols.ParameterKind;
+
 /**
  * Represents the result of a parameter.
  *
@@ -41,15 +43,14 @@ public record ParameterResult(
         boolean optional,
         String importStatements) {
 
-
     public static ParameterResult from(String name, String type, Kind kind, String defaultValue,
                                        String description, boolean optional) {
         return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
                 null);
     }
 
-    public static ParameterResult from(String name,String description, String type, String defaultValue,Kind kind,
-                                        boolean optional, String importStatements) {
+    public static ParameterResult from(String name, String description, String type, String defaultValue, Kind kind,
+                                       boolean optional, String importStatements) {
         return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
                 importStatements);
     }
@@ -63,6 +64,15 @@ public record ParameterResult(
         PARAM_FOR_TYPE_INFER,
         INCLUDED_RECORD_REST,
         PATH_PARAM,
-        PATH_REST_PARAM
+        PATH_REST_PARAM;
+
+        public static Kind fromKind(ParameterKind parameterKind) {
+            String value = parameterKind.name();
+            if (value.equals("REST")) {
+                return REST_PARAMETER;
+            }
+            return Kind.valueOf(value);
+        }
     }
+
 }
