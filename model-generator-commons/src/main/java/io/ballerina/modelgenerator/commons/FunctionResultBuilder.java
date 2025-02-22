@@ -24,12 +24,16 @@ import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -66,6 +70,7 @@ public class FunctionResultBuilder {
     private TypeSymbol errorTypeSymbol;
     private Package resolvedPackage;
     private FunctionSymbol functionSymbol;
+    private FunctionResult.Kind functionResultKind;
     private String functionName;
     private String description;
     private String packageName;
@@ -79,6 +84,10 @@ public class FunctionResultBuilder {
     }
 
     public FunctionResultBuilder resolvedPackage(Package resolvedPackage) {
+        if (semanticModel == null) {
+            semanticModel(resolvedPackage.getCompilation().getSemanticModel(
+                    resolvedPackage.getDefaultModule().moduleId()));
+        }
         this.resolvedPackage = resolvedPackage;
         return this;
     }
@@ -112,7 +121,23 @@ public class FunctionResultBuilder {
         if (moduleInfo == null) {
             functionSymbol.getModule().ifPresent(module -> moduleInfo = ModuleInfo.from(module.id()));
         }
+        if (functionResultKind == null) {
+            functionResultKind = FunctionResult.Kind.FUNCTION;
+            if (functionSymbol.kind() == SymbolKind.METHOD) {
+                List<Qualifier> qualifiers = functionSymbol.qualifiers();
+                if (qualifiers.contains(Qualifier.REMOTE)) {
+                    functionResultKind = FunctionResult.Kind.REMOTE;
+                } else if (qualifiers.contains(Qualifier.RESOURCE)) {
+                    functionResultKind = FunctionResult.Kind.RESOURCE;
+                }
+            }
+        }
         this.functionSymbol = functionSymbol;
+        return this;
+    }
+
+    public FunctionResultBuilder functionResultKind(FunctionResult.Kind kind) {
+        this.functionResultKind = kind;
         return this;
     }
 
@@ -139,9 +164,23 @@ public class FunctionResultBuilder {
             return indexedResult.get();
         }
 
-        // The semantic model must be present to build the FunctionResult
+        // Fetch the semantic model if not provided
         if (semanticModel == null) {
-            throw new IllegalStateException("Semantic model not found");
+            SemanticModel fetchedSemanticModel =
+                    PackageUtil.getSemanticModel(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())
+                            .orElseThrow(() -> new IllegalStateException("Semantic model not found"));
+            semanticModel(fetchedSemanticModel);
+        }
+
+        // Find the symbol if not provided
+        if (functionSymbol == null) {
+            FunctionSymbol fetchedSymbol = semanticModel.moduleSymbols().parallelStream()
+                    .filter(moduleSymbol -> moduleSymbol.nameEquals(functionName) &&
+                            moduleSymbol instanceof FunctionSymbol)
+                    .map(moduleSymbol -> (FunctionSymbol) moduleSymbol)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Function symbol not found"));
+            functionSymbol(fetchedSymbol);
         }
 
         if (description == null) {
@@ -165,7 +204,7 @@ public class FunctionResultBuilder {
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
             Map<String, TypeSymbol> returnTypeMap =
-                    ParamUtils.allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
                     returnType = "json";
@@ -384,6 +423,24 @@ public class FunctionResultBuilder {
         } catch (RuntimeException ex) {
             return null;
         }
+    }
+
+    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
+        Map<String, TypeSymbol> members = new HashMap<>();
+        if (typeSymbol == null) {
+            return members;
+        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            unionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
+            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+            intersectionTypeSymbol.memberTypeDescriptors()
+                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+        } else {
+            members.put(typeSymbol.getName().orElse(""), typeSymbol);
+        }
+        return members;
     }
 
     private String getTypeSignature(TypeSymbol typeSymbol) {

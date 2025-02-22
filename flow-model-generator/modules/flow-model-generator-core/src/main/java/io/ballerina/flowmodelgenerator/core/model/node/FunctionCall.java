@@ -25,9 +25,6 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -36,12 +33,16 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -73,16 +74,17 @@ public class FunctionCall extends FunctionBuilder {
     }
 
     private void handleImportedFunction(TemplateContext context, Codedata codedata) {
-        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.FUNCTION);
+        FunctionResultBuilder functionResultBuilder =
+                new FunctionResultBuilder()
+                        .name(codedata.symbol())
+                        .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(),
+                                codedata.version()))
+                        .userModuleInfo(moduleInfo);
+        FunctionResult functionResult = functionResultBuilder.build();
 
-        if (functionResult.isEmpty()) {
-            throw new RuntimeException("Function not found: " + codedata.symbol());
-        }
-
-        FunctionResult function = functionResult.get();
         metadata()
-                .label(function.name())
-                .description(function.description());
+                .label(functionResult.name())
+                .description(functionResult.description());
         codedata()
                 .node(NodeKind.FUNCTION_CALL)
                 .org(codedata.org())
@@ -91,14 +93,14 @@ public class FunctionCall extends FunctionBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        setCustomProperties(function);
+        setCustomProperties(functionResult);
 
-        String returnTypeName = function.returnType();
-        if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
+        String returnTypeName = functionResult.returnType();
+        if (CommonUtils.hasReturn(functionResult.returnType())) {
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
         }
 
-        if (function.returnError()) {
+        if (functionResult.returnError()) {
             properties().checkError(true);
         }
     }
@@ -119,8 +121,9 @@ public class FunctionCall extends FunctionBuilder {
             FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
             FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
 
-            List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values()
-                    .stream().toList();
+            List<ParameterResult> parameters =
+                    ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values()
+                            .stream().toList();
             Map<String, ParameterResult> parameterMap = parameters.stream()
                     .collect(Collectors.toMap(ParameterResult::name, param -> param));
 
@@ -164,7 +167,7 @@ public class FunctionCall extends FunctionBuilder {
             setCustomProperties(function);
 
             if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
-                && FlowNodeUtil.withinDoClause(context)) {
+                    && FlowNodeUtil.withinDoClause(context)) {
                 properties().checkError(true);
             }
         } catch (WorkspaceDocumentException | EventSyncException e) {
