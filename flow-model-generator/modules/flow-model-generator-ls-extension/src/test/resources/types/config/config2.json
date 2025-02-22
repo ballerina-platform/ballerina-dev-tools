@@ -1,10 +1,7 @@
 {
   "description": "",
   "source": "data_mapper/service.bal",
-  "position": {
-    "line": 14,
-    "offset": 0
-  },
+  "typeConstraint": "record",
   "completions": [
     {
       "label": "Input",
@@ -73,166 +70,13 @@
       "insertText": "Admission"
     },
     {
-      "label": "string",
+      "label": "record",
       "labelDetails": {
         "detail": "Primitive",
-        "description": "String"
+        "description": "Record"
       },
-      "kind": "TypeParameter",
-      "insertText": "string"
-    },
-    {
-      "label": "boolean",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Boolean"
-      },
-      "kind": "TypeParameter",
-      "insertText": "boolean"
-    },
-    {
-      "label": "int",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Int"
-      },
-      "kind": "TypeParameter",
-      "insertText": "int"
-    },
-    {
-      "label": "float",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Float"
-      },
-      "kind": "TypeParameter",
-      "insertText": "float"
-    },
-    {
-      "label": "decimal",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Decimal"
-      },
-      "kind": "TypeParameter",
-      "insertText": "decimal"
-    },
-    {
-      "label": "xml",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Xml"
-      },
-      "kind": "TypeParameter",
-      "insertText": "xml"
-    },
-    {
-      "label": "byte",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Byte"
-      },
-      "kind": "TypeParameter",
-      "insertText": "byte"
-    },
-    {
-      "label": "error",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Error"
-      },
-      "kind": "Event",
-      "insertText": "error"
-    },
-    {
-      "label": "json",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Json"
-      },
-      "kind": "TypeParameter",
-      "insertText": "json"
-    },
-    {
-      "label": "any",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Any"
-      },
-      "kind": "TypeParameter",
-      "insertText": "any"
-    },
-    {
-      "label": "anydata",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Anydata"
-      },
-      "kind": "TypeParameter",
-      "insertText": "anydata"
-    },
-    {
-      "label": "function",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Function"
-      },
-      "kind": "TypeParameter",
-      "insertText": "function"
-    },
-    {
-      "label": "future",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Future"
-      },
-      "kind": "TypeParameter",
-      "insertText": "future"
-    },
-    {
-      "label": "typedesc",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Typedesc"
-      },
-      "kind": "TypeParameter",
-      "insertText": "typedesc"
-    },
-    {
-      "label": "handle",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Handle"
-      },
-      "kind": "TypeParameter",
-      "insertText": "handle"
-    },
-    {
-      "label": "stream",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Stream"
-      },
-      "kind": "TypeParameter",
-      "insertText": "stream"
-    },
-    {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
-    },
-    {
-      "label": "readonly",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Readonly"
-      },
-      "kind": "TypeParameter",
-      "insertText": "readonly"
+      "kind": "Struct",
+      "insertText": "record"
     }
   ]
 }
