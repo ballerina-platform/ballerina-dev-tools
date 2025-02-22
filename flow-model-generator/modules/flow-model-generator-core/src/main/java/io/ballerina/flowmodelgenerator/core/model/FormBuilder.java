@@ -110,10 +110,16 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(doc)
                     .stepOut()
                 .value(node == null ? templateName : CommonUtils.getVariableName(node))
-                .type(Property.ValueType.IDENTIFIER)
-                .editable();
-        addProperty(Property.VARIABLE_KEY, node);
+                .type(Property.ValueType.IDENTIFIER);
 
+        if (node != null) {
+            propertyBuilder.codedata()
+                        .lineRange(node.lineRange());
+        } else {
+            propertyBuilder.editable();
+        }
+
+        addProperty(Property.VARIABLE_KEY, node);
         return this;
     }
 
