@@ -11,15 +11,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "string"
-    },
-    {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
     }
   ]
 }

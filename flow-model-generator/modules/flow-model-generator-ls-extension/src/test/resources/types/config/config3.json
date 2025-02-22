@@ -70,15 +70,6 @@
       "insertText": "Admission"
     },
     {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
-    },
-    {
       "label": "record",
       "labelDetails": {
         "detail": "Primitive",

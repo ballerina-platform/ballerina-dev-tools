@@ -324,15 +324,6 @@
       "insertText": "stream"
     },
     {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
-    },
-    {
       "label": "readonly",
       "labelDetails": {
         "detail": "Primitive",

@@ -77,7 +77,6 @@ public class TypesGenerator {
     public static final String TYPE_ANYDATA = TypeKind.ANYDATA.typeName();
     public static final String TYPE_BYTE = TypeKind.BYTE.typeName();
     public static final String TYPE_JSON = TypeKind.JSON.typeName();
-    public static final String TYPE_NEVER = TypeKind.NEVER.typeName();
     public static final String TYPE_READONLY = TypeKind.READONLY.typeName();
     public static final String TYPE_RECORD = TypeKind.RECORD.typeName();
 
@@ -154,7 +153,6 @@ public class TypesGenerator {
         typeSymbolMap.put(TYPE_TYPEDESC, types.TYPEDESC);
         typeSymbolMap.put(TYPE_HANDLE, types.HANDLE);
         typeSymbolMap.put(TYPE_STREAM, types.STREAM);
-        typeSymbolMap.put(TYPE_NEVER, types.NEVER);
         typeSymbolMap.put(TYPE_READONLY, types.READONLY);
         typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
 

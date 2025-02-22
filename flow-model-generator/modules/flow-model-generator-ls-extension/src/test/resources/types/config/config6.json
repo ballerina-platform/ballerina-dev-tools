@@ -104,15 +104,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "json"
-    },
-    {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
     }
   ]
 }
