@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -33,6 +34,7 @@ import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
@@ -675,20 +677,22 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> functionName(String functionName, boolean editable) {
-        return functionName(functionName, editable, FunctionDefinitionBuilder.FUNCTION_NAME_LABEL,
-                FunctionDefinitionBuilder.FUNCTION_NAME_DOC);
-    }
+    public FormBuilder<T> functionName(IdentifierToken identifierToken) {
+        String functionName = identifierToken.text() == null ? "" : identifierToken.text();
 
-    public FormBuilder<T> functionName(String functionName, boolean editable, String label, String description) {
         propertyBuilder
                 .metadata()
-                    .label(label)
-                    .description(description)
+                    .label(FunctionDefinitionBuilder.FUNCTION_NAME_LABEL)
+                    .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .value(functionName == null ? "" : functionName)
-                .editable(editable);
+                .value(functionName);
+
+        if (!functionName.equals(Constants.MAIN_FUNCTION_NAME)) {
+            propertyBuilder.codedata()
+                        .lineRange(identifierToken.lineRange());
+        }
+
         addProperty(Property.FUNCTION_NAME_KEY);
         return this;
     }
