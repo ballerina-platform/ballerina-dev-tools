@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;

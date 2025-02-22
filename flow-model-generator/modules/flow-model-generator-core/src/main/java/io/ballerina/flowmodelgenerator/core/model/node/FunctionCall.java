@@ -25,7 +25,7 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;

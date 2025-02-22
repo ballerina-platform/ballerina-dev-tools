@@ -16,10 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.db;
-
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.ParameterResult;
+package io.ballerina.modelgenerator.commons;
 
 import java.io.IOException;
 import java.net.URL;
@@ -240,7 +237,8 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind, String resourcePath) {
+    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind,
+                                                String resourcePath) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
         sql.append("f.name AS function_name, ");
@@ -455,7 +453,7 @@ public class DatabaseManager {
     }
 
     public List<FunctionResult> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
-                                                       FunctionKind kind) {
+                                                          FunctionKind kind) {
         if (packageNames == null || packageNames.isEmpty()) {
             return List.of();
         }

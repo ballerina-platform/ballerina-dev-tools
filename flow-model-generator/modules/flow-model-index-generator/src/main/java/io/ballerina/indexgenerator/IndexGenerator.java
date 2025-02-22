@@ -52,6 +52,7 @@ import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -256,8 +257,8 @@ class IndexGenerator {
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
-            List<io.ballerina.modelgenerator.commons.ParameterResult> parameterResults = resourcePathTemplate.pathParams();
-            for (io.ballerina.modelgenerator.commons.ParameterResult parameterResult : parameterResults) {
+            List<ParameterResult> parameterResults = resourcePathTemplate.pathParams();
+            for (ParameterResult parameterResult : parameterResults) {
                 DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
                         parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
                         FunctionParameterKind.fromString(parameterResult.kind().name()),
@@ -366,7 +367,7 @@ class IndexGenerator {
             String paramDescription = entry.getValue().documentation()
                     .flatMap(Documentation::description).orElse("");
             if (documentationMap.containsKey(paramName) && !paramDescription.isEmpty()) {
-               documentationMap.put(paramName, paramDescription);
+                documentationMap.put(paramName, paramDescription);
             } else if (!documentationMap.containsKey(paramName)) {
                 documentationMap.put(paramName, paramDescription);
             }

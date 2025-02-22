@@ -102,8 +102,6 @@ import io.ballerina.compiler.syntax.tree.WaitActionNode;
 import io.ballerina.compiler.syntax.tree.WaitFieldNode;
 import io.ballerina.compiler.syntax.tree.WaitFieldsListNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -126,6 +124,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Project;
@@ -402,14 +403,14 @@ class CodeAnalyzer extends NodeVisitor {
                                           FunctionSymbol methodSymbol,
                                           Queue<Node> positionalArgs,
                                           Map<String, Node> namedArgValueMap) {
-        LinkedHashMap<String, ParameterResult> funcParamMap = dbManager
+        Map<String, ParameterResult> funcParamMap = dbManager
                 .getFunctionParametersAsMap(functionResult.functionId());
 
         FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
         buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
     }
 
-    private void addRemainingParamsToPropertyMap(LinkedHashMap<String, ParameterResult> funcParamMap,
+    private void addRemainingParamsToPropertyMap(Map<String, ParameterResult> funcParamMap,
                                                  boolean hasOnlyRestParams) {
         for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
             ParameterResult paramResult = entry.getValue();
@@ -481,14 +482,14 @@ class CodeAnalyzer extends NodeVisitor {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        LinkedHashMap<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
+        Map<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
                 functionSymbol, semanticModel);
         buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
     }
 
     private void buildPropsFromFuncCallArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                             FunctionTypeSymbol functionTypeSymbol,
-                                            LinkedHashMap<String, ParameterResult> funcParamMap,
+                                            Map<String, ParameterResult> funcParamMap,
                                             Queue<Node> positionalArgs, Map<String, Node> namedArgValueMap) {
         if (argumentNodes == null) { // cl->/path/to/'resource;
             List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
@@ -1181,12 +1182,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
-
-        Optional<Documentation> documentation = functionSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
-
         String functionName = getIdentifierName(nameReferenceNode);
 
         if (dataMappings.containsKey(functionName)) {
@@ -1195,6 +1191,8 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
 
+        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
+
         if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
             functionSymbol.getLocation()
                     .flatMap(location -> CommonUtil.findNode(functionSymbol,
@@ -1202,29 +1200,27 @@ class CodeAnalyzer extends NodeVisitor {
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
 
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), DatabaseManager.FunctionKind.FUNCTION, null);
+        FunctionResultBuilder functionResultBuilder =
+                new FunctionResultBuilder()
+                        .name(functionName)
+                        .functionSymbol(functionSymbol)
+                        .semanticModel(semanticModel);
+        FunctionResult functionResult = functionResultBuilder.build();
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
 
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(), functionSymbol, positionalArgs,
-                    namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(arguments, functionSymbol);
-        }
+        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
+                positionalArgs, namedArgValueMap);
         handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
                 .label(functionName)
-                .description(description)
+                .description(functionResult.description())
                 .stepOut()
                 .codedata().symbol(functionName);
     }
