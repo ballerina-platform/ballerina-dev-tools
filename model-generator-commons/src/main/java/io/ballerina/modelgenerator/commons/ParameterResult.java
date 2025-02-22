@@ -17,7 +17,7 @@
  */
 
 package io.ballerina.modelgenerator.commons;
-
+    
 /**
  * Represents the result of a parameter.
  *
@@ -46,6 +46,12 @@ public record ParameterResult(
                                        String description, boolean optional) {
         return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
                 null);
+    }
+
+    public static ParameterResult from(String name,String description, String type, String defaultValue,Kind kind,
+                                        boolean optional, String importStatements) {
+        return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
+                importStatements);
     }
 
     public enum Kind {
