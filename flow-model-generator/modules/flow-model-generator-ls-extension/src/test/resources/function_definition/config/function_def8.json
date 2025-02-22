@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "processUser",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 47,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 47,
+              "offset": 27
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -116,8 +129,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "user",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 47,
+                      "offset": 61
+                    },
+                    "endLine": {
+                      "line": 47,
+                      "offset": 65
+                    }
+                  }
+                }
               }
             },
             "optional": false,

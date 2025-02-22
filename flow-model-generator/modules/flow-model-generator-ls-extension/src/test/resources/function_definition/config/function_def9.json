@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "\\$dollar\\#hash",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 55,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 30
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
