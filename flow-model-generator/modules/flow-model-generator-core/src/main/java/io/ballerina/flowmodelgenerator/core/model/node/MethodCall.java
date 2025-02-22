@@ -96,7 +96,7 @@ public class MethodCall extends FunctionBuilder {
                 .id(function.functionId())
                 .symbol(codedata.symbol());
         setExpressionProperty(codedata);
-        setCustomProperties(function);
+        setParameterProperties(function);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
@@ -169,7 +169,7 @@ public class MethodCall extends FunctionBuilder {
                 .symbol(function.name());
 
         setExpressionProperty(codedata);
-        setCustomProperties(function);
+        setParameterProperties(function);
 
         if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
                 && FlowNodeUtil.withinDoClause(context)) {

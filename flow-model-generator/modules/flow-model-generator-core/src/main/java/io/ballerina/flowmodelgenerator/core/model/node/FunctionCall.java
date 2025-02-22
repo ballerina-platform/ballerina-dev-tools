@@ -19,24 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Documentation;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
-import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -47,9 +38,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Represents a function call node.
@@ -66,22 +55,25 @@ public class FunctionCall extends FunctionBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
+
+        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+                .name(codedata.symbol())
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .userModuleInfo(moduleInfo);
+
+        // Set the semantic model if the function is local
         if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            handleLocalFunction(context, codedata);
-        } else {
-            handleImportedFunction(context, codedata);
+            try {
+                WorkspaceManager workspaceManager = context.workspaceManager();
+                workspaceManager.loadProject(context.filePath());
+                SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+                functionResultBuilder.semanticModel(semanticModel);
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                throw new RuntimeException("Error loading project: " + e.getMessage(), e);
+            }
         }
-    }
 
-    private void handleImportedFunction(TemplateContext context, Codedata codedata) {
-        FunctionResultBuilder functionResultBuilder =
-                new FunctionResultBuilder()
-                        .name(codedata.symbol())
-                        .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(),
-                                codedata.version()))
-                        .userModuleInfo(moduleInfo);
         FunctionResult functionResult = functionResultBuilder.build();
-
         metadata()
                 .label(functionResult.name())
                 .description(functionResult.description());
@@ -92,8 +84,7 @@ public class FunctionCall extends FunctionBuilder {
                 .object(codedata.object())
                 .version(codedata.version())
                 .symbol(codedata.symbol());
-
-        setCustomProperties(functionResult);
+        setParameterProperties(functionResult);
 
         String returnTypeName = functionResult.returnType();
         if (CommonUtils.hasReturn(functionResult.returnType())) {
@@ -102,76 +93,6 @@ public class FunctionCall extends FunctionBuilder {
 
         if (functionResult.returnError()) {
             properties().checkError(true);
-        }
-    }
-
-    private void handleLocalFunction(TemplateContext context, Codedata codedata) {
-        try {
-            WorkspaceManager workspaceManager = context.workspaceManager();
-            Project project = workspaceManager.loadProject(context.filePath());
-
-            SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-            Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                    .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                    .findFirst();
-            if (outSymbol.isEmpty()) {
-                throw new RuntimeException("Function not found: " + codedata.symbol());
-            }
-
-            FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-
-            List<ParameterResult> parameters =
-                    ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values()
-                            .stream().toList();
-            Map<String, ParameterResult> parameterMap = parameters.stream()
-                    .collect(Collectors.toMap(ParameterResult::name, param -> param));
-
-            String returnTypeName;
-            Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
-            if (returnType.isPresent()) {
-                returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType.get(), true, null);
-                setReturnTypeProperties(returnTypeName, context, false);
-            } else {
-                returnTypeName = null;
-            }
-
-            String packageName = project.currentPackage().packageName().toString();
-            String org = project.currentPackage().packageOrg().toString();
-            String version = project.currentPackage().packageVersion().toString();
-
-            String description = functionSymbol.documentation()
-                    .flatMap(Documentation::description)
-                    .orElse("");
-
-            FunctionResult function = new FunctionResult(
-                    0, // local functions don't have an ID
-                    codedata.symbol(),
-                    description,
-                    returnTypeName,
-                    packageName,
-                    org,
-                    version,
-                    "", // no resource path for local functions
-                    FunctionResult.Kind.FUNCTION,
-                    containsErrorInReturnType(semanticModel, functionTypeSymbol),
-                    false
-            );
-            function.setParameters(parameterMap);
-
-            metadata().label(function.name());
-            codedata()
-                    .node(NodeKind.FUNCTION_CALL)
-                    .symbol(function.name());
-
-            setCustomProperties(function);
-
-            if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
-                    && FlowNodeUtil.withinDoClause(context)) {
-                properties().checkError(true);
-            }
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error loading project: " + e.getMessage(), e);
         }
     }
 
@@ -219,12 +140,5 @@ public class FunctionCall extends FunctionBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return false;
         }
-    }
-
-    protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
-                                                       FunctionTypeSymbol functionTypeSymbol) {
-        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
-        return functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
     }
 }

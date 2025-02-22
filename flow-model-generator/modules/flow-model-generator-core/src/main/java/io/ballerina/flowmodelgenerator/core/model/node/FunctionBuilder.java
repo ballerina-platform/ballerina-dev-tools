@@ -48,7 +48,7 @@ import java.util.Optional;
  */
 public abstract class FunctionBuilder extends NodeBuilder {
 
-    protected void setCustomProperties(FunctionResult function) {
+    protected void setParameterProperties(FunctionResult function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
         for (ParameterResult paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)

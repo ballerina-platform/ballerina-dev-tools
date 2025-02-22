@@ -93,7 +93,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
         String resourcePath = function.resourcePath();
         properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
 
-        setCustomProperties(function);
+        setParameterProperties(function);
 
         String returnTypeName = function.returnType();
         if (CommonUtils.hasReturn(function.returnType())) {
