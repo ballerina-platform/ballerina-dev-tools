@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a function call node.
@@ -120,6 +121,8 @@ public class FunctionCall extends FunctionBuilder {
 
             List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(functionSymbol, semanticModel).values()
                     .stream().toList();
+            Map<String, ParameterResult> parameterMap = parameters.stream()
+                    .collect(Collectors.toMap(ParameterResult::name, param -> param));
 
             String returnTypeName;
             Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
@@ -151,7 +154,7 @@ public class FunctionCall extends FunctionBuilder {
                     containsErrorInReturnType(semanticModel, functionTypeSymbol),
                     false
             );
-            function.setParameters(parameters);
+            function.setParameters(parameterMap);
 
             metadata().label(function.name());
             codedata()

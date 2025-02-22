@@ -23,8 +23,6 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -34,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -49,11 +48,9 @@ import java.util.Optional;
  */
 public abstract class FunctionBuilder extends NodeBuilder {
 
-    public static final String TARGET_TYPE_KEY = "targetType";
-
     protected void setCustomProperties(FunctionResult function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
-        for (ParameterResult paramResult : function.parameters()) {
+        for (ParameterResult paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
                 continue;
@@ -118,7 +115,7 @@ public abstract class FunctionBuilder extends NodeBuilder {
     }
 
     protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
-                                                   FunctionTypeSymbol functionTypeSymbol) {
+                                                       FunctionTypeSymbol functionTypeSymbol) {
         TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
         return functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
@@ -126,14 +123,16 @@ public abstract class FunctionBuilder extends NodeBuilder {
 
     protected static DatabaseManager dbManager = DatabaseManager.getInstance();
 
-    protected static Optional<FunctionResult> getFunctionResult(Codedata codedata, DatabaseManager.FunctionKind functionKind) {
-        Optional<FunctionResult> functionResult = codedata.id() != null ? 
+    protected static Optional<FunctionResult> getFunctionResult(Codedata codedata,
+                                                                DatabaseManager.FunctionKind functionKind) {
+        Optional<FunctionResult> functionResult = codedata.id() != null ?
                 dbManager.getFunction(codedata.id()) :
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind, codedata.resourcePath());
-        
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind,
+                        codedata.resourcePath());
+
         if (functionResult.isPresent()) {
             FunctionResult function = functionResult.get();
-            List<ParameterResult> dbParameters = dbManager.getFunctionParameters(function.functionId());
+            Map<String, ParameterResult> dbParameters = dbManager.getFunctionParametersAsMap(function.functionId());
             function.setParameters(dbParameters);
         }
         return functionResult;
@@ -141,9 +140,9 @@ public abstract class FunctionBuilder extends NodeBuilder {
 
     /**
      * Template method to build the specific function call source code.
-     * 
+     *
      * @param sourceBuilder the source builder
-     * @param flowNode the flow node
+     * @param flowNode      the flow node
      * @return the text edits
      */
     protected abstract Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode);

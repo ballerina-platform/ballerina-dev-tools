@@ -18,7 +18,7 @@
 
 package io.ballerina.modelgenerator.commons;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the result of a function.
@@ -26,6 +26,7 @@ import java.util.List;
  * @since 2.0.0
  */
 public class FunctionResult {
+
     private final int functionId;
     private final String name;
     private final String description;
@@ -37,11 +38,11 @@ public class FunctionResult {
     private final Kind kind;
     private final boolean returnError;
     private final boolean inferredReturnType;
-    private List<ParameterResult> parameters;
+    private Map<String, ParameterResult> parameters;
 
     public FunctionResult(int functionId, String name, String description, String returnType,
-                        String packageName, String org, String version, String resourcePath,
-                        Kind kind, boolean returnError, boolean inferredReturnType) {
+                          String packageName, String org, String version, String resourcePath,
+                          Kind kind, boolean returnError, boolean inferredReturnType) {
         this.functionId = functionId;
         this.name = name;
         this.description = description;
@@ -55,7 +56,7 @@ public class FunctionResult {
         this.inferredReturnType = inferredReturnType;
     }
 
-    public void setParameters(List<ParameterResult> parameters) {
+    public void setParameters(Map<String, ParameterResult> parameters) {
         this.parameters = parameters;
     }
 
@@ -104,10 +105,10 @@ public class FunctionResult {
         return inferredReturnType;
     }
 
-    public List<ParameterResult> parameters() {
+    public Map<String, ParameterResult> parameters() {
         return parameters;
     }
-    
+
     public enum Kind {
         FUNCTION,
         CONNECTOR,

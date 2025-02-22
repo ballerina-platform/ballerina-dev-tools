@@ -28,8 +28,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -38,8 +36,10 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a method call.
@@ -127,6 +128,8 @@ public class MethodCall extends FunctionBuilder {
         FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
         List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel).values()
                 .stream().toList();
+        Map<String, ParameterResult> parameterMap = parameters.stream()
+                .collect(Collectors.toMap(ParameterResult::name, param -> param));
 
         String returnTypeName;
         Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
@@ -158,7 +161,7 @@ public class MethodCall extends FunctionBuilder {
                 containsErrorInReturnType(semanticModel, functionTypeSymbol),
                 false
         );
-        function.setParameters(parameters);
+        function.setParameters(parameterMap);
 
         metadata().label(function.name());
         codedata()
