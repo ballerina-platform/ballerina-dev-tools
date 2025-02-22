@@ -193,8 +193,21 @@
             "valueType": "IDENTIFIER",
             "value": "grpcClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "source.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -575,8 +588,21 @@
             "valueType": "IDENTIFIER",
             "value": "httpClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "source.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -716,8 +742,21 @@
             "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "source.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 30
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
