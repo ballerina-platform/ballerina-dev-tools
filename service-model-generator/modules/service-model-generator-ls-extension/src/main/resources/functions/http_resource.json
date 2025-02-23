@@ -300,7 +300,82 @@
             "description": ""
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
+          "value": "200",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "body": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "http:Response",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "http:Response",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "headers": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION_SET",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": false,
+        "editable": true,
+        "advanced": true
+      },
+      {
+        "statusCode": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
           "value": "200",
           "valueType": "EXPRESSION",
           "isType": false,
@@ -329,8 +404,8 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "json",
-          "valueType": "EXPRESSION",
+          "value": "",
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -350,146 +425,100 @@
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": false,
-        "editable": true,
-        "advanced": false
-      },
-      {
-        "statusCode": {
+        "headers": {
           "metadata": {
             "label": "",
             "description": ""
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "",
-          "valueType": "EXPRESSION",
+          "valueType": "EXPRESSION_SET",
           "isType": false,
           "optional": false,
           "advanced": false,
           "addNewButton": false
         },
-        "body": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
-          "enabled": true,
-          "editable": false,
-          "value": "json",
-          "valueType": "TYPE",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "name": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
-          "enabled": true,
-          "editable": false,
-          "value": "http:Response",
-          "valueType": "EXPRESSION",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "type": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
-          "enabled": true,
-          "editable": false,
-          "value": "",
-          "valueType": "TYPE",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "enabled": false,
+        "enabled": true,
         "editable": true,
-        "advanced": false
+        "advanced": true
       }
     ],
     "schema": {
       "statusCodeResponse": {
         "statusCode": {
           "metadata": {
-            "label": "Status Code",
-            "description": "Response status code"
+            "label": "",
+            "description": ""
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
-          "valueType": "SINGLE_SELECT",
-          "valueTypeConstraint": "http:StatusCode",
+          "valueType": "EXPRESSION",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
-          "items": [
-            "200",
-            "201",
-            "202",
-            "204",
-            "400",
-            "401",
-            "403",
-            "404",
-            "405",
-            "500"
-          ]
+          "addNewButton": false
         },
         "body": {
           "metadata": {
-            "label": "Body type",
-            "description": "Type of the response body field"
+            "label": "",
+            "description": ""
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
           "valueType": "TYPE",
-          "valueTypeConstraint": "anydata",
-          "isType": true,
-          "placeholder": "",
-          "optional": true,
-          "advanced": true
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
         },
         "name": {
           "metadata": {
-            "label": "Name of the Response Status Code Type",
-            "description": "Type name of the status code response"
+            "label": "",
+            "description": ""
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "anydata",
-          "isType": true,
-          "placeholder": "",
+          "valueType": "IDENTIFIER",
+          "isType": false,
           "optional": false,
-          "advanced": true
+          "advanced": false,
+          "addNewButton": false
         },
         "type": {
           "metadata": {
-            "label": "Response Type",
-            "description": "The response type"
+            "label": "",
+            "description": ""
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
           "valueType": "TYPE",
-          "valueTypeConstraint": "anydata|http:StatusCodeResponse",
-          "isType": true,
-          "placeholder": "",
-          "optional": true,
-          "advanced": false
-        }
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "headers": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION_SET",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": false,
+        "editable": true,
+        "advanced": true
       }
     }
   }
