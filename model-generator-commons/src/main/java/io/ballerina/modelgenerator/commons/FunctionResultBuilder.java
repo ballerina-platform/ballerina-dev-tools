@@ -20,20 +20,24 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -48,6 +52,7 @@ import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
@@ -58,6 +63,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Factory class to create FunctionResult instances from function symbols.
@@ -73,10 +79,11 @@ public class FunctionResultBuilder {
     private FunctionResult.Kind functionResultKind;
     private String functionName;
     private String description;
-    private String packageName;
     private ModuleInfo moduleInfo;
     private ModuleInfo userModuleInfo;
     private String resourcePath;
+    private ObjectTypeSymbol parentSymbol;
+    private String parentSymbolType;
 
     public FunctionResultBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -105,11 +112,6 @@ public class FunctionResultBuilder {
 
     public FunctionResultBuilder connectionDoc(Documentable documentable) {
         this.description = description;
-        return this;
-    }
-
-    public FunctionResultBuilder packageName(String packageName) {
-        this.packageName = packageName;
         return this;
     }
 
@@ -152,6 +154,39 @@ public class FunctionResultBuilder {
         return this;
     }
 
+    public FunctionResultBuilder parentSymbolType(String parentSymbolType) {
+        this.parentSymbolType = parentSymbolType;
+        return this;
+    }
+
+    public FunctionResultBuilder parentSymbol(ObjectTypeSymbol parentSymbol) {
+        this.parentSymbol = parentSymbol;
+        return this;
+    }
+
+    public FunctionResultBuilder parentSymbol(SemanticModel semanticModel, Document document, LinePosition position,
+                                              String parentSymbolName) {
+        Stream<Symbol> symbolStream = (document == null || position == null)
+                ? semanticModel.moduleSymbols().parallelStream()
+                : semanticModel.visibleSymbols(document, position).parallelStream();
+        setParentSymbol(symbolStream, parentSymbolName);
+        return this;
+    }
+
+    public FunctionResultBuilder parentSymbol(SemanticModel semanticModel, String parentSymbolName) {
+        setParentSymbol(semanticModel.moduleSymbols().parallelStream(), parentSymbolName);
+        return this;
+    }
+
+    private void setParentSymbol(Stream<Symbol> symbolStream, String parentSymbolName) {
+        this.parentSymbol = symbolStream
+                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE && symbol.nameEquals(parentSymbolName))
+                .map(symbol -> ((VariableSymbol) symbol).typeDescriptor())
+                .filter(typeSymbol -> typeSymbol instanceof ObjectTypeSymbol)
+                .map(typeSymbol -> (ObjectTypeSymbol) typeSymbol).findFirst()
+                .orElse(null);
+    }
+
     public FunctionResult build() {
         // The function name is required to build the FunctionResult
         if (this.functionName == null) {
@@ -172,38 +207,92 @@ public class FunctionResultBuilder {
         // Check if the function is in the index
         Optional<FunctionResult> indexedResult = getFunctionFromIndex();
         if (indexedResult.isPresent()) {
-            return indexedResult.get();
+//            return indexedResult.get();
         }
 
         // Fetch the semantic model if not provided
         if (semanticModel == null) {
-            SemanticModel fetchedSemanticModel =
-                    PackageUtil.getSemanticModel(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())
-                            .orElseThrow(() -> new IllegalStateException("Semantic model not found"));
-            semanticModel(fetchedSemanticModel);
+            semanticModel(PackageUtil.getSemanticModel(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())
+                    .orElseThrow(() -> new IllegalStateException("Semantic model not found")));
         }
 
         // Find the symbol if not provided
         if (functionSymbol == null) {
-            FunctionSymbol fetchedSymbol = semanticModel.moduleSymbols().parallelStream()
-                    .filter(moduleSymbol -> moduleSymbol.nameEquals(functionName) &&
-                            moduleSymbol instanceof FunctionSymbol)
-                    .map(moduleSymbol -> (FunctionSymbol) moduleSymbol)
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalStateException("Function symbol not found"));
-            functionSymbol(fetchedSymbol);
+            // If the parent symbol is not found, and its name is provided, search for the parent symbol
+            if (parentSymbol == null && parentSymbolType != null) {
+                ObjectTypeSymbol fetchedParentTypeSymbol = semanticModel.moduleSymbols().parallelStream()
+                        .filter(moduleSymbol -> moduleSymbol.nameEquals(parentSymbolType) &&
+                                moduleSymbol instanceof ObjectTypeSymbol)
+                        .map(moduleSymbol -> (ObjectTypeSymbol) moduleSymbol)
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("Parent symbol not found"));
+                parentSymbol(fetchedParentTypeSymbol);
+            }
+
+            // If the parent symbol is not found, search for functions in the module-level
+            if (parentSymbol == null) {
+                FunctionSymbol fetchedSymbol = semanticModel.moduleSymbols().parallelStream()
+                        .filter(moduleSymbol -> moduleSymbol.nameEquals(functionName) &&
+                                moduleSymbol instanceof FunctionSymbol)
+                        .map(moduleSymbol -> (FunctionSymbol) moduleSymbol)
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("Function symbol not found"));
+                functionSymbol(fetchedSymbol);
+            } else {
+                // Fetch the init method if it is a connection
+                if (functionResultKind == FunctionResult.Kind.CONNECTOR) {
+                    if (parentSymbol.kind() != SymbolKind.CLASS ||
+                            !parentSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                        throw new IllegalStateException("The connector should be a client class");
+                    }
+                    functionSymbol = ((ClassSymbol) parentSymbol).initMethod().orElseThrow(
+                            () -> new IllegalStateException("Init method not found"));
+                } else {
+                    if (functionResultKind == FunctionResult.Kind.RESOURCE) {
+                        // TODO: Need to improve how resource path is stored in the codedata, as this should reflect
+                        //  to the key in the methods map for easier retrieval.
+
+                        // We need to identify the resource method through its signature since we cannot use the
+                        // methods map. This limitation occurs because the resource path in the codedata is
+                        // normalized for display, making it impossible to extract the correct key.
+                        functionSymbol = parentSymbol.methods().values().parallelStream()
+                                .filter(symbol -> symbol.kind() == SymbolKind.RESOURCE_METHOD &&
+                                        symbol.nameEquals(functionName) &&
+                                        ParamUtils.buildResourcePathTemplate(semanticModel, symbol,
+                                                        semanticModel.types().ERROR).resourcePathTemplate()
+                                                .equals(resourcePath))
+                                .findFirst()
+                                .orElse(null);
+                    } else {
+                        // Fetch the respective method using the function name
+                        functionSymbol = parentSymbol.methods().get(functionName);
+                    }
+                    if (functionSymbol == null) {
+                        throw new IllegalStateException("Function symbol not found");
+                    }
+                }
+            }
         }
 
         if (description == null) {
-            this.description = this.functionSymbol.documentation()
-                    .flatMap(Documentation::description)
-                    .orElse("");
+            // Set the description of the client class if it is a connector, Else, use the function itself
+            Documentable documentable =
+                    functionResultKind == FunctionResult.Kind.CONNECTOR ? (ClassSymbol) parentSymbol : functionSymbol;
+            this.description = documentable.documentation().flatMap(Documentation::description).orElse("");
+
         }
 
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> getTypeSignature(returnTypeDesc))
+                .map(typeSymbol -> {
+                    if (functionResultKind == FunctionResult.Kind.CONNECTOR) {
+                        String packageName = moduleInfo.packageName();
+                        String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
+                        return String.format("%s:%s", importPrefix, parentSymbol.getName().orElse("Client"));
+                    }
+                    return getTypeSignature(typeSymbol, true);
+                })
                 .orElse("");
 
         ParamForTypeInfer paramForTypeInfer = null;
@@ -243,9 +332,10 @@ public class FunctionResultBuilder {
             resourcePathTemplate.pathParams().forEach(param -> parameters.put(param.name(), param));
         }
 
-        FunctionResult functionResult = new FunctionResult(0, functionName, description, returnType, packageName,
-                moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionResult.Kind.FUNCTION, returnError,
-                paramForTypeInfer != null);
+        FunctionResult functionResult =
+                new FunctionResult(0, functionName, description, returnType, moduleInfo.packageName(),
+                        moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionResult.Kind.FUNCTION, returnError,
+                        paramForTypeInfer != null);
 
         Map<String, String> documentationMap =
                 functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
@@ -274,9 +364,6 @@ public class FunctionResultBuilder {
                 dbManager.getFunctionParametersAsMap(functionResult.functionId());
         functionResult.setParameters(parameters);
         return Optional.of(functionResult);
-    }
-
-    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
     private Map<String, ParameterResult> getParameters(ParameterSymbol paramSymbol,
@@ -329,7 +416,8 @@ public class FunctionResultBuilder {
                                                                  Map<String, String> documentationMap) {
         Map<String, ParameterResult> parameters = new LinkedHashMap<>();
         recordTypeSymbol.typeInclusions().forEach(includedType -> parameters.putAll(
-                getIncludedRecordParams((RecordTypeSymbol) includedType, insert, documentationMap))
+                getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
+                        documentationMap))
         );
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
@@ -467,9 +555,16 @@ public class FunctionResultBuilder {
     }
 
     private String getTypeSignature(TypeSymbol typeSymbol) {
+        return getTypeSignature(typeSymbol, false);
+    }
+
+    private String getTypeSignature(TypeSymbol typeSymbol, boolean ignoreError) {
         if (userModuleInfo == null) {
-            return CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            return CommonUtils.getTypeSignature(semanticModel, typeSymbol, ignoreError);
         }
-        return CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, userModuleInfo);
+        return CommonUtils.getTypeSignature(semanticModel, typeSymbol, ignoreError, userModuleInfo);
+    }
+
+    private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 }

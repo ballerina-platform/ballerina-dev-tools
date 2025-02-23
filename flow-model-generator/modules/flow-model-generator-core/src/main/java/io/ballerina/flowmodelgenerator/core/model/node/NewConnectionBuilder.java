@@ -104,6 +104,7 @@ public class NewConnectionBuilder extends FunctionBuilder {
             FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
                     .name(codedata.symbol())
                     .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                    .parentSymbolType(codedata.object())
                     .functionResultKind(FunctionResult.Kind.CONNECTOR)
                     .userModuleInfo(moduleInfo);
             function = functionResultBuilder.build();

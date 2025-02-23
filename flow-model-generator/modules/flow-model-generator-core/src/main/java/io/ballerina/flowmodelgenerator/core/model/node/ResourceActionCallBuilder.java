@@ -65,6 +65,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
         FunctionResult functionResult = new FunctionResultBuilder()
                 .name(codedata.symbol())
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .parentSymbolType(codedata.object())
                 .resourcePath(codedata.resourcePath())
                 .functionResultKind(FunctionResult.Kind.RESOURCE)
                 .build();

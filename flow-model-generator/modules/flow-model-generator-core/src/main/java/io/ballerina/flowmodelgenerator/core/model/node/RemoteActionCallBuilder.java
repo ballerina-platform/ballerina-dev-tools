@@ -61,6 +61,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
         FunctionResult functionResult = new FunctionResultBuilder()
                 .name(codedata.symbol())
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .parentSymbolType(codedata.object())
                 .functionResultKind(FunctionResult.Kind.REMOTE)
                 .build();
 
