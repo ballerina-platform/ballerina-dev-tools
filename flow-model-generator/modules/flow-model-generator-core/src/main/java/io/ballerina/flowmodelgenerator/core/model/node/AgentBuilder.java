@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -48,6 +48,7 @@ public class AgentBuilder extends NodeBuilder {
 
     private static final String AGENT_LABEL = "Agent";
     public static final String INIT_SYMBOL = "init";
+    public static final String CLIENT_SYMBOL = "Client";
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String AGENT_NAME_LABEL = "Agent Name";
     protected static final Logger LOG = LoggerFactory.getLogger(AgentBuilder.class);

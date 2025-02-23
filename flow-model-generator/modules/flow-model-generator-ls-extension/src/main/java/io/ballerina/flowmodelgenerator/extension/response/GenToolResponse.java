@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 /**
  * Represents the response for the flow model getFlowDesignModel API.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
 public class GenToolResponse extends AbstractFlowModelResponse {
 

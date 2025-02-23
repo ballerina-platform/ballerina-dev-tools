@@ -119,7 +119,7 @@ public class GenToolsTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "agentsManager";
+        return "agentManager";
     }
 
     /**

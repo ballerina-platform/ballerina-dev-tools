@@ -36,7 +36,12 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * This class is responsible for generating types from the semantic model.
@@ -48,6 +53,10 @@ public class AgentsGenerator {
     private final Gson gson;
     private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
             "AzureChatGptModel"), "ReActAgent", Set.of("ChatGptModel", "AzureChatGptModel"));
+    private static final String WSO2 = "wso2";
+    private static final String AI_AGENT = "ai.agent";
+    private static final String INIT = "init";
+    private static final String AGENT_FILE = "agents.bal";
 
     public AgentsGenerator() {
         this.gson = new Gson();
@@ -56,16 +65,16 @@ public class AgentsGenerator {
     public JsonArray getAllAgents() {
         Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null);
         Codedata functionCallAgent = codedataBuilder.node(NodeKind.AGENT)
-                .org("wso2")
-                .module("ai.agent")
+                .org(WSO2)
+                .module(AI_AGENT)
                 .object("FunctionCallAgent")
-                .symbol("init")
+                .symbol(INIT)
                 .build();
         Codedata reactCallAgent = codedataBuilder.node(NodeKind.AGENT)
-                .org("wso2")
-                .module("ai.agent")
+                .org(WSO2)
+                .module(AI_AGENT)
                 .object("ReActAgent")
-                .symbol("init")
+                .symbol(INIT)
                 .build();
         List<Codedata> agents = List.of(functionCallAgent, reactCallAgent);
         return gson.toJsonTree(agents).getAsJsonArray();
@@ -74,16 +83,16 @@ public class AgentsGenerator {
     public JsonArray getAllModels(String agent) {
         Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null);
         Codedata chatGptModel = codedataBuilder.node(NodeKind.CLASS)
-                .org("wso2")
-                .module("ai.model")
+                .org(WSO2)
+                .module(AI_AGENT)
                 .object("ChatGptModel")
-                .symbol("init")
+                .symbol(INIT)
                 .build();
         Codedata azureChatGptModel = codedataBuilder.node(NodeKind.CLASS)
-                .org("wso2")
-                .module("ai.model")
+                .org(WSO2)
+                .module(AI_AGENT)
                 .object("AzureChatGptModel")
-                .symbol("init")
+                .symbol(INIT)
                 .build();
         if (agent.equals("FunctionCallAgent")) {
             List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
@@ -184,7 +193,7 @@ public class AgentsGenerator {
                     .keyword(SyntaxKind.CLOSE_PAREN_TOKEN).endOfStatement();
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, "agents.bal", false);
+            sourceBuilder.textEdit(false, AGENT_FILE, false);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
             sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
@@ -192,7 +201,8 @@ public class AgentsGenerator {
 
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
-            keys.removeAll(Set.of("variable", "type", "connection", "checkError"));
+            keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CONNECTION_KEY,
+                    Property.CHECK_ERROR_KEY));
             List<String> paramList = new ArrayList<>();
             for (String key : keys) {
                 Property property = properties.get(key);
@@ -223,7 +233,7 @@ public class AgentsGenerator {
             }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, "agents.bal", false);
+            sourceBuilder.textEdit(false, AGENT_FILE, false);
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
