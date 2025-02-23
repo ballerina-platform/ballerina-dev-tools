@@ -225,8 +225,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Query path",
+            "description": "Query path"
           },
           "enabled": true,
           "editable": true,
@@ -239,6 +239,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -384,8 +389,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Mutation name",
+            "description": "Mutation name"
           },
           "enabled": true,
           "editable": true,
@@ -398,6 +403,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -444,6 +454,11 @@
             "advanced": false
           },
           {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -591,8 +606,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Subscription path",
+            "description": "Subscription path"
           },
           "enabled": true,
           "editable": true,
