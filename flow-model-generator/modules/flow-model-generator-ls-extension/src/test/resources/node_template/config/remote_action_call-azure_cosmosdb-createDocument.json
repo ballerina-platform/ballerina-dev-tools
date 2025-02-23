@@ -1,0 +1,174 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "REMOTE_ACTION_CALL",
+    "org": "ballerinax",
+    "module": "azure_cosmosdb",
+    "object": "DataPlaneClient",
+    "symbol": "createDocument",
+    "parentSymbol": "covid19Client",
+    "version": "4.2.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "createDocument",
+      "description": "Creates a document.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "azure_cosmosdb",
+      "object": "Client",
+      "symbol": "createDocument",
+      "id": 0
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "azure_cosmosdb:Client",
+        "value": "covid19Client",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "databaseId": {
+        "metadata": {
+          "label": "databaseId",
+          "description": "ID of the database to which the container belongs to"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "databaseId"
+        }
+      },
+      "containerId": {
+        "metadata": {
+          "label": "containerId",
+          "description": "ID of the container where, document is created"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "containerId"
+        }
+      },
+      "documemtId": {
+        "metadata": {
+          "label": "documemtId",
+          "description": "ID of the document"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "documemtId"
+        }
+      },
+      "document": {
+        "metadata": {
+          "label": "document",
+          "description": "A JSON document to be saved in the database"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<json>",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "document"
+        }
+      },
+      "partitionKey": {
+        "metadata": {
+          "label": "partitionKey",
+          "description": "The specific value related to the partition key field of the container "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int|float|decimal|string",
+        "placeholder": "0",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "partitionKey"
+        }
+      },
+      "requestOptions": {
+        "metadata": {
+          "label": "requestOptions",
+          "description": "The `cosmos_db:RequestOptions` which can be used to add additional capabilities that can \noverride client configuration provided in the inilization"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "azure_cosmosdb:RequestOptions|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "requestOptions"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "azure_cosmosdb:DocumentResponse",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "azureCosmosdbDocumentresponse",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

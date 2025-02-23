@@ -267,13 +267,8 @@ class CodeAnalyzer extends NodeVisitor {
                         .userModuleInfo(moduleInfo);
         FunctionResult functionResult = functionResultBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        SeparatedNodeList<FunctionArgumentNode> arguments = remoteMethodCallActionNode.arguments();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
-                positionalArgs, namedArgValueMap);
-        handleCheckFlag(remoteMethodCallActionNode, SyntaxKind.CHECK_ACTION, functionSymbol.typeDescriptor());
+        processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
+                functionResult);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
@@ -358,12 +353,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .functionResultKind(FunctionResult.Kind.RESOURCE);
         FunctionResult functionResult = functionResultBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        buildPropsFromFuncCallArgs(argumentNodes, functionSymbol.typeDescriptor(), functionResult.parameters(),
-                positionalArgs, namedArgValueMap);
-        handleCheckFlag(clientResourceAccessActionNode, SyntaxKind.CHECK_ACTION, functionSymbol.typeDescriptor());
+        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionResult);
 
         nodeBuilder.symbolInfo(functionSymbol)
                 .metadata()
@@ -759,8 +749,9 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private void handleCheckFlag(NonTerminalNode node, SyntaxKind check, FunctionTypeSymbol functionTypeSymbol) {
-        if (node.parent().kind() == check) {
+    private void handleCheckFlag(NonTerminalNode node, FunctionTypeSymbol functionTypeSymbol) {
+        SyntaxKind parentKind = node.parent().kind();
+        if (parentKind == SyntaxKind.CHECK_ACTION || parentKind == SyntaxKind.CHECK_EXPRESSION) {
             nodeBuilder.properties().checkError(true);
         } else {
             functionTypeSymbol.returnTypeDescriptor()
@@ -873,11 +864,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .userModuleInfo(moduleInfo)
                 .build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        buildPropsFromFuncCallArgs(argumentNodes, methodSymbol.typeDescriptor(), functionResult.parameters(),
-                positionalArgs, namedArgValueMap);
+        processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionResult);
 
         nodeBuilder
                 .symbolInfo(methodSymbol)
@@ -1083,15 +1070,10 @@ class CodeAnalyzer extends NodeVisitor {
                         .userModuleInfo(moduleInfo);
         FunctionResult functionResult = functionResultBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
         if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
-            SeparatedNodeList<FunctionArgumentNode> arguments = methodCallExpressionNode.arguments();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-            buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
-                    positionalArgs, namedArgValueMap);
+            processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                    functionResult);
         }
-        handleCheckFlag(methodCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
@@ -1140,14 +1122,8 @@ class CodeAnalyzer extends NodeVisitor {
                         .userModuleInfo(moduleInfo);
         FunctionResult functionResult = functionResultBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-
-        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
-                positionalArgs, namedArgValueMap);
-        handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
+        processFunctionSymbol(functionCallExpressionNode, functionCallExpressionNode.arguments(), functionSymbol,
+                functionResult);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
@@ -1156,6 +1132,16 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(functionResult.description())
                 .stepOut()
                 .codedata().symbol(functionName);
+    }
+
+    private void processFunctionSymbol(NonTerminalNode callNode, SeparatedNodeList<FunctionArgumentNode> arguments,
+                                       FunctionSymbol functionSymbol, FunctionResult functionResult) {
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
+        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
+                positionalArgs, namedArgValueMap);
+        handleCheckFlag(callNode, functionSymbol.typeDescriptor());
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
