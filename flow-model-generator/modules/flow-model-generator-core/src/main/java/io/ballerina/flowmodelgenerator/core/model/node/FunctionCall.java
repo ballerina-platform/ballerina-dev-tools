@@ -88,7 +88,7 @@ public class FunctionCall extends FunctionBuilder {
 
         String returnTypeName = functionResult.returnType();
         if (CommonUtils.hasReturn(functionResult.returnType())) {
-            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType(), Property.VARIABLE_NAME);
         }
 
         if (functionResult.returnError()) {

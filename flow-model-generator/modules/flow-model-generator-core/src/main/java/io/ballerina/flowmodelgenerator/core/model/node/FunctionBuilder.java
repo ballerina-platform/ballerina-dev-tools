@@ -96,10 +96,11 @@ public abstract class FunctionBuilder extends NodeBuilder {
         }
     }
 
-    protected void setReturnTypeProperties(String returnTypeName, TemplateContext context, boolean editable) {
+    protected void setReturnTypeProperties(String returnTypeName, TemplateContext context, boolean editable,
+                                           String label) {
         properties()
                 .type(returnTypeName, editable)
-                .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+                .data(returnTypeName, context.getAllVisibleSymbolNames(), label);
     }
 
     @Override

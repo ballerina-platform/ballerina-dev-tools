@@ -20,34 +20,19 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
-import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.Token;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.ParameterResult;
-import io.ballerina.projects.Document;
-import io.ballerina.tools.diagnostics.Location;
-import io.ballerina.tools.text.TextRange;
+import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -56,8 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,7 +51,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class NewConnectionBuilder extends NodeBuilder {
+public class NewConnectionBuilder extends FunctionBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 
@@ -82,11 +65,11 @@ public class NewConnectionBuilder extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(NEW_CONNECTION_LABEL);
-        codedata().node(NodeKind.NEW_CONNECTION).symbol("init");
+        codedata().node(NodeKind.NEW_CONNECTION).symbol(INIT_SYMBOL);
     }
 
     @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
         sourceBuilder
                 .token().keyword(SyntaxKind.FINAL_KEYWORD).stepOut()
                 .newVariable();
@@ -113,65 +96,17 @@ public class NewConnectionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FunctionResult function = null;
-        List<ParameterResult> functionParameters = null;
-        if (codedata.isGenerated() != null && codedata.isGenerated()) {
-            Path projectPath = context.filePath().getParent();
-            if (projectPath == null) {
-                return;
-            }
-            Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
-            try {
-                if (clientPath.toFile().exists()) {
-                    LOG.info("Loading client file from: " + clientPath);
-                } else {
-                    LOG.info("Client file does not exist: " + clientPath);
-                }
-                WorkspaceManager workspaceManager = context.workspaceManager();
-                try {
-                    workspaceManager.loadProject(clientPath);
-                } catch (WorkspaceDocumentException e) {
-                    LOG.error("Error loading project: " + clientPath, e);
-                    throw new RuntimeException(e);
-                }
-                Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
-                if (optSemanticModel.isEmpty()) {
-                    return;
-                }
-                for (Symbol symbol : optSemanticModel.get().moduleSymbols()) {
-                    if (symbol.kind() != SymbolKind.CLASS) {
-                        continue;
-                    }
-                    ClassSymbol classSymbol = (ClassSymbol) symbol;
-                    if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                        continue;
-                    }
-                    Optional<MethodSymbol> optInitMethodSymbol = classSymbol.initMethod();
-                    if (optInitMethodSymbol.isEmpty()) {
-                        continue;
-                    }
-                    MethodSymbol methodSymbol = optInitMethodSymbol.get();
-                    function = convertMethodSymbolToFunctionResult(methodSymbol, codedata.module(),
-                            classSymbol.getName().get());
-                    functionParameters = getParametersFromMethodSymbol(workspaceManager, methodSymbol, clientPath);
-                    break;
-                }
-            } catch (EventSyncException e) {
-                throw new RuntimeException(e);
-            }
-            if (function == null) {
-                return;
-            }
+        FunctionResult function;
+
+        if (Boolean.TRUE.equals(codedata.isGenerated())) {
+            function = buildGeneratedFunctionResult(context);
         } else {
-            DatabaseManager dbManager = DatabaseManager.getInstance();
-            Optional<FunctionResult> optFunctionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
-                    dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
-                            FunctionResult.Kind.CONNECTOR, codedata.resourcePath());
-            if (optFunctionResult.isEmpty()) {
-                return;
-            }
-            function = optFunctionResult.get();
-            functionParameters = dbManager.getFunctionParameters(function.functionId());
+            FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+                    .name(codedata.symbol())
+                    .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                    .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                    .userModuleInfo(moduleInfo);
+            function = functionResultBuilder.build();
         }
 
         metadata()
@@ -187,129 +122,58 @@ public class NewConnectionBuilder extends NodeBuilder {
                 .id(function.functionId())
                 .isGenerated(codedata.isGenerated());
 
-        boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
-                continue;
-            }
-
-            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
-            customPropBuilder
-                    .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
-                    .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
-                    .placeholder(paramResult.defaultValue())
-                    .typeConstraint(paramResult.type())
-                    .editable()
-                    .defaultable(paramResult.optional());
-
-            if (paramResult.kind() == ParameterResult.Kind.INCLUDED_RECORD_REST) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                unescapedParamName = "additionalValues";
-                customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == ParameterResult.Kind.REST_PARAMETER) {
-                if (hasOnlyRestParams) {
-                    customPropBuilder.defaultable(false);
-                }
-                customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else {
-                customPropBuilder.type(Property.ValueType.EXPRESSION);
-            }
-            customPropBuilder
-                    .stepOut()
-                    .addProperty(unescapedParamName);
-        }
+        setParameterProperties(function);
 
         if (CommonUtils.hasReturn(function.returnType())) {
-            properties()
-                    .type(function.returnType(), false)
-                    .data(function.returnType(), context.getAllVisibleSymbolNames(), CONNECTION_NAME_LABEL);
+            setReturnTypeProperties(function.returnType(), context, false, CONNECTION_NAME_LABEL);
         }
+
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
     }
 
-    private FunctionResult convertMethodSymbolToFunctionResult(MethodSymbol methodSymbol, String module, String name) {
-        String retType = module + ":" + name;
-        String description = "";
-        Optional<Documentation> documentation = methodSymbol.documentation();
-        if (documentation.isPresent()) {
-            Optional<String> optDescription = documentation.get().description();
-            if (optDescription.isPresent()) {
-                description = optDescription.get();
+    private FunctionResult buildGeneratedFunctionResult(TemplateContext context) {
+        Path projectPath = context.filePath().getParent();
+        if (projectPath == null) {
+            throw new IllegalStateException("Project path not found");
+        }
+
+        Codedata codedata = context.codedata();
+        Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
+
+        try {
+            WorkspaceManager workspaceManager = context.workspaceManager();
+            workspaceManager.loadProject(clientPath);
+
+            Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
+            if (optSemanticModel.isEmpty()) {
+                throw new IllegalStateException("Semantic model not found");
             }
-        }
 
-        return new FunctionResult(-1, methodSymbol.getName().orElse(""), description, retType, module, "", "", "",
-                FunctionResult.Kind.CONNECTOR, false, false);
+            ClassSymbol clientClass = findClientClass(optSemanticModel.get());
+            MethodSymbol initMethod = clientClass.initMethod()
+                    .orElseThrow(() -> new IllegalStateException("Init method not found"));
+
+            return new FunctionResultBuilder()
+                    .semanticModel(optSemanticModel.get())
+                    .name(initMethod.getName().orElse(INIT_SYMBOL))
+                    .moduleInfo(
+                            new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                    .functionSymbol(initMethod)
+                    .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                    .build();
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException("Error loading generated client", e);
+        }
     }
 
-    private List<ParameterResult> getParametersFromMethodSymbol(WorkspaceManager workspaceManager,
-                                                                                              MethodSymbol methodSymbol, Path filePath) {
-        List<ParameterResult> parameterResults = new ArrayList<>();
-        Optional<List<ParameterSymbol>> optParams = methodSymbol.typeDescriptor().params();
-        if (optParams.isEmpty()) {
-            return parameterResults;
-        }
-
-        Optional<Location> optLocation = methodSymbol.getLocation();
-        Map<String, String> defaultValues = new HashMap<>();
-        if (optLocation.isPresent()) {
-            defaultValues = getDefaultValues(workspaceManager, filePath, optLocation.get().textRange());
-        }
-        List<ParameterSymbol> paramSymbols = optParams.get();
-        for (int i = 0; i < paramSymbols.size(); i++) {
-            ParameterSymbol paramSymbol = paramSymbols.get(i);
-            Optional<String> optParamName = paramSymbol.getName();
-            String paramName = optParamName.orElse("param" + i);
-            TypeSymbol paramType = paramSymbol.typeDescriptor();
-            String type = CommonUtils.getTypeSignature(semanticModel, paramType, true);
-            parameterResults.add(new ParameterResult(i, paramName, type, getParamKind(paramSymbol.paramKind()),
-                    defaultValues.getOrDefault(paramName, ""), "", false, ""));
-        }
-        return parameterResults;
-    }
-
-    private Map<String, String> getDefaultValues(WorkspaceManager workspaceManager, Path file,
-                                                 TextRange functionLocation) {
-        Optional<Document> document = workspaceManager.document(file);
-        Map<String, String> defaultValues = new HashMap<>();
-        if (document.isEmpty()) {
-            return defaultValues;
-        }
-        ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
-        NonTerminalNode node = modulePartNode.findNode(functionLocation);
-        if (node.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
-            return defaultValues;
-        }
-        FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) node;
-        functionDefinitionNode.functionSignature().parameters().forEach(parameter -> {
-            if (parameter instanceof DefaultableParameterNode defaultableParameterNode) {
-                Optional<Token> optParamName = defaultableParameterNode.paramName();
-                optParamName.ifPresent(token -> defaultValues.put(token.text(),
-                        defaultableParameterNode.expression().toString()));
-            }
-        });
-        return defaultValues;
-    }
-
-    private ParameterResult.Kind getParamKind(ParameterKind kind) {
-        return switch (kind) {
-            case DEFAULTABLE -> ParameterResult.Kind.DEFAULTABLE;
-            case INCLUDED_RECORD -> ParameterResult.Kind.INCLUDED_RECORD;
-            case REST -> ParameterResult.Kind.REST_PARAMETER;
-            default -> ParameterResult.Kind.REQUIRED;
-        };
+    private ClassSymbol findClientClass(SemanticModel semanticModel) {
+        return semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol.kind() == SymbolKind.CLASS)
+                .map(symbol -> (ClassSymbol) symbol)
+                .filter(classSymbol -> classSymbol.qualifiers().contains(Qualifier.CLIENT))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Client class not found"));
     }
 }

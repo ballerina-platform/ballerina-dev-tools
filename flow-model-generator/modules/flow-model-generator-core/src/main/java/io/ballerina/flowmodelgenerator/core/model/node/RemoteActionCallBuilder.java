@@ -80,7 +80,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
 
         String returnTypeName = functionResult.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType(), Property.VARIABLE_NAME);
         }
 
         if (functionResult.returnError()) {
