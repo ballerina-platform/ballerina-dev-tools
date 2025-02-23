@@ -55,7 +55,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "anonReturn",
+      "value": "customHttpOK",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -385,8 +385,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
+            "value": "http:Response",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -400,7 +400,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
+            "valueType": "IDENTIFIER",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -414,14 +414,28 @@
             "enabled": true,
             "editable": true,
             "value": "http:Response",
-            "valueType": "EXPRESSION",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false
           },
-          "enabled": true,
-          "editable": false,
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "enabled": false,
+          "editable": true,
           "advanced": true
         },
         {
@@ -431,7 +445,7 @@
               "description": ""
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "value": "200",
             "valueType": "EXPRESSION",
             "isType": false,
@@ -460,7 +474,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
+            "value": "MyCustomHttpOK",
             "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
@@ -473,9 +487,23 @@
               "description": ""
             },
             "enabled": true,
-            "editable": false,
-            "value": "record {|...|}",
+            "editable": true,
+            "value": "http:Ok",
             "valueType": "EXPRESSION",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -575,7 +603,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "record {|*http:Ok; int body;|}",
+      "value": "",
       "valueType": "TYPE",
       "valueTypeConstraint": "anydata|http:Response|http:StatusCodeResponse",
       "isType": true,
@@ -617,7 +645,20 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get anonReturn() returns record {|*http:Ok; int body;|} {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get customHttpOK() returns MyCustomHttpOK {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 12,
+            "character": 1
+          },
+          "end": {
+            "line": 12,
+            "character": 1
+          }
+        },
+        "newText": "\npublic type MyCustomHttpOK record {|\n\t*http:Ok;public type MyCustomHttpOK record {|\n\t*http:Ok;|};"
       }
     ]
   }

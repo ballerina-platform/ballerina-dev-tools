@@ -385,8 +385,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
+            "value": "http:Response",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -400,7 +400,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
+            "valueType": "IDENTIFIER",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -414,14 +414,28 @@
             "enabled": true,
             "editable": true,
             "value": "http:Response",
-            "valueType": "EXPRESSION",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false
           },
           "enabled": false,
-          "editable": false,
+          "editable": true,
           "advanced": true
         }
       ],
@@ -514,7 +528,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "http:Response",
+      "value": "",
       "valueType": "TYPE",
       "valueTypeConstraint": "anydata|http:Response|http:StatusCodeResponse",
       "isType": true,
@@ -556,7 +570,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get response() returns http:Response {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get response() returns  {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
       }
     ]
   }

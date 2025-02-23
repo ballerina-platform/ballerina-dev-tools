@@ -187,19 +187,16 @@ public final class HttpUtil {
     }
 
     public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
-        Value body = response.getBody();
-        if (Objects.nonNull(body) && body.isEnabledWithValue()) {
-            Value name = response.getName();
+        Value name = response.getName();
+        if (Objects.nonNull(name) && name.isEnabledWithValue()) {
             String statusCode = response.getStatusCode().getValue();
             String statusCodeRes = HTTP_CODES_DES.get(statusCode);
             if (Objects.isNull(statusCodeRes)) {
-                return body.getValue();
-            }
-            if (Objects.nonNull(name) && name.isEnabledWithValue()) {
-                statusCodeResponses.add(getNewResponseTypeStr(statusCodeRes, body.getValue(), name.getValue()));
                 return response.getName().getValue();
             }
-            return String.format("record {|*http:%s; %s body;|}", statusCodeRes, body.getValue());
+            statusCodeResponses.add(getNewResponseTypeStr(statusCodeRes, name.getValue(), response.getBody(),
+                    response.getHeaders()));
+            return response.getName().getValue();
         }
         return response.getType().getValue();
     }
@@ -367,8 +364,15 @@ public final class HttpUtil {
         };
     }
 
-    private static String getNewResponseTypeStr(String statusCodeTypeName, String body, String name) {
-        String template = "public type %s record {|%n\t*http:%s;%n\t%s body;%n|};";
-        return template.formatted(name, statusCodeTypeName, body);
+    private static String getNewResponseTypeStr(String statusCodeTypeName, String name, Value body, Value headers) {
+        String template = "public type %s record {|%n\t*http:%s;".formatted(name, statusCodeTypeName);
+        if (Objects.nonNull(body) && body.isEnabledWithValue()) {
+            template += "\t%s body;%n".formatted(body.getValue());
+        }
+        if (Objects.nonNull(headers) && headers.isEnabledWithValue()) {
+            template += "\tmap<%s> headers;%n".formatted(String.join("|", headers.getValues()));
+        }
+        template += template + "|};";
+        return template;
     }
 }

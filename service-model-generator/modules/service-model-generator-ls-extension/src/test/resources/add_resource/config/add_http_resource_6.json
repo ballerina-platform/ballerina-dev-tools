@@ -385,8 +385,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
+            "value": "http:Response",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -400,7 +400,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
+            "valueType": "IDENTIFIER",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -414,14 +414,28 @@
             "enabled": true,
             "editable": true,
             "value": "http:Response",
-            "valueType": "EXPRESSION",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false
           },
           "enabled": false,
-          "editable": false,
+          "editable": true,
           "advanced": true
         },
         {
@@ -447,7 +461,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -461,6 +475,156 @@
             "enabled": true,
             "editable": true,
             "value": "",
+            "valueType": "IDENTIFIER",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "type": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "http:Ok",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false
+        },
+        {
+          "statusCode": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "200",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "body": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "name": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "IDENTIFIER",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "type": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "HttpOk",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false
+        },
+        {
+          "statusCode": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "200",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "body": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "string",
+            "valueType": "EXPRESSION",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "name": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "CustomHttpOk",
             "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
@@ -481,26 +645,7 @@
             "advanced": false,
             "addNewButton": false
           },
-          "enabled": true,
-          "editable": false,
-          "advanced": false
-        },
-        {
-          "statusCode": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "200",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "body": {
+          "headers": {
             "metadata": {
               "label": "",
               "description": ""
@@ -508,96 +653,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "name": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "type": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "HttpOk",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "enabled": true,
-          "editable": false,
-          "advanced": false
-        },
-        {
-          "statusCode": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": false,
-            "value": "200",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "body": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "name": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "type": {
-            "metadata": {
-              "label": "",
-              "description": ""
-            },
-            "enabled": true,
-            "editable": false,
-            "value": "record {|...|}",
-            "valueType": "EXPRESSION",
+            "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -629,8 +685,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
-            "valueType": "EXPRESSION",
+            "value": "int",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -644,7 +700,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
+            "valueType": "IDENTIFIER",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -658,14 +714,28 @@
             "enabled": true,
             "editable": true,
             "value": "int",
-            "valueType": "EXPRESSION",
+            "valueType": "TYPE",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "advanced": false
         }
       ],
@@ -758,7 +828,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "http:Response|int|http:Ok|HttpOk|record {|*http:Ok; int body;|}",
+      "value": "",
       "valueType": "TYPE",
       "valueTypeConstraint": "anydata|http:Response|http:StatusCodeResponse",
       "isType": true,
@@ -800,7 +870,20 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get allUnion() returns http:Response|int|http:Ok|HttpOk|record {|*http:Ok; int body;|} {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get allUnion() returns http:Ok|HttpOk|CustomHttpOk|int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 12,
+            "character": 1
+          },
+          "end": {
+            "line": 12,
+            "character": 1
+          }
+        },
+        "newText": "\npublic type CustomHttpOk record {|\n\t*http:Ok;\tstring body;\npublic type CustomHttpOk record {|\n\t*http:Ok;\tstring body;\n|};"
       }
     ]
   }

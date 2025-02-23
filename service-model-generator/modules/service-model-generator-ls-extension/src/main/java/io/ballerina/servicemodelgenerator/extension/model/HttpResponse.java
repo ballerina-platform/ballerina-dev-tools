@@ -118,4 +118,12 @@ public class HttpResponse {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public Value getHeaders() {
+        return headers;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
