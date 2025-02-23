@@ -126,4 +126,12 @@ public class HttpResponse {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public boolean isAdvanced() {
+        return advanced;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
 }
