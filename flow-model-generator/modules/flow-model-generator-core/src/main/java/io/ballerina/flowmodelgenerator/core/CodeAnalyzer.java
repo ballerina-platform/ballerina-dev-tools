@@ -251,50 +251,45 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
-        String methodName = remoteMethodCallActionNode.methodName().name().text();
-        ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
-        SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
-
         Optional<Symbol> symbol = semanticModel.symbol(remoteMethodCallActionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD)) {
             handleExpressionNode(remoteMethodCallActionNode);
             return;
         }
 
-        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        Optional<Documentation> documentation = methodSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
+        String functionName = remoteMethodCallActionNode.methodName().name().text();
+        ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
+        MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
+        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
 
-        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
-                .symbolInfo(methodSymbol)
-                .metadata()
-                    .label(methodName)
-                    .description(description)
-                    .stepOut()
-                .codedata()
-                    .object("Client")
-                    .symbol(methodName)
-                    .stepOut()
-                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
-
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), FunctionResult.Kind.REMOTE, null);
+        FunctionResultBuilder functionResultBuilder =
+                new FunctionResultBuilder()
+                        .name(functionName)
+                        .functionSymbol(functionSymbol)
+                        .semanticModel(semanticModel)
+                        .userModuleInfo(moduleInfo);
+        FunctionResult functionResult = functionResultBuilder.build();
 
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+        SeparatedNodeList<FunctionArgumentNode> arguments = remoteMethodCallActionNode.arguments();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
+        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
+                positionalArgs, namedArgValueMap);
+        handleCheckFlag(remoteMethodCallActionNode, SyntaxKind.CHECK_ACTION, functionSymbol.typeDescriptor());
 
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                    methodSymbol, positionalArgs, namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
-        }
-        handleCheckFlag(remoteMethodCallActionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
-
-        nodeBuilder.codedata().nodeInfo(remoteMethodCallActionNode);
+        nodeBuilder
+                .symbolInfo(functionSymbol)
+                .metadata()
+                    .label(functionName)
+                    .description(functionResult.description())
+                    .stepOut()
+                .codedata()
+                .nodeInfo(remoteMethodCallActionNode)
+                    .object("Client")
+                    .symbol(functionName)
+                    .stepOut()
+                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
     }
 
     @Override
