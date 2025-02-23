@@ -27,6 +27,8 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -56,32 +58,32 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.REMOTE);
-        if (functionResult.isEmpty()) {
-            return;
-        }
+        FunctionResult functionResult = new FunctionResultBuilder()
+                .name(codedata.symbol())
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .functionResultKind(FunctionResult.Kind.REMOTE)
+                .build();
 
-        FunctionResult function = functionResult.get();
         metadata()
-                .label(function.name())
-                .description(function.description())
-                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+                .label(functionResult.name())
+                .description(functionResult.description())
+                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(), functionResult.version()));
         codedata()
-                .org(function.org())
-                .module(function.packageName())
+                .org(functionResult.org())
+                .module(functionResult.packageName())
                 .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .id(function.functionId())
-                .symbol(function.name());
+                .id(functionResult.functionId())
+                .symbol(functionResult.name());
 
-        setExpressionProperty(codedata, function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
-        setParameterProperties(function);
+        setExpressionProperty(codedata, functionResult.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
+        setParameterProperties(functionResult);
 
-        String returnTypeName = function.returnType();
+        String returnTypeName = functionResult.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
         }
 
-        if (function.returnError()) {
+        if (functionResult.returnError()) {
             properties().checkError(true);
         }
     }
