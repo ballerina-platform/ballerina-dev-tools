@@ -61,7 +61,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.RESOURCE);
+        Optional<FunctionResult> functionResult = getFunctionResult(codedata, FunctionResult.Kind.RESOURCE);
         if (functionResult.isEmpty()) {
             return;
         }

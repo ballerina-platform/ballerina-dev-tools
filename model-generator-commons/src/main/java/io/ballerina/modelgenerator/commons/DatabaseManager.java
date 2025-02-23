@@ -82,14 +82,7 @@ public class DatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
-    public enum FunctionKind {
-        FUNCTION,
-        REMOTE,
-        CONNECTOR,
-        RESOURCE
-    }
-
-    public List<FunctionResult> getAllFunctions(FunctionKind kind, Map<String, String> queryMap) {
+    public List<FunctionResult> getAllFunctions(FunctionResult.Kind kind, Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -137,7 +130,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getFunctionsByOrg(String orgName, FunctionKind functionKind) {
+    public List<FunctionResult> getFunctionsByOrg(String orgName, FunctionResult.Kind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -182,7 +175,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> searchFunctions(Map<String, String> queryMap, FunctionKind kind) {
+    public List<FunctionResult> searchFunctions(Map<String, String> queryMap, FunctionResult.Kind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -237,7 +230,7 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind,
+    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionResult.Kind kind,
                                                 String resourcePath) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
@@ -453,7 +446,7 @@ public class DatabaseManager {
     }
 
     public List<FunctionResult> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
-                                                          FunctionKind kind) {
+                                                          FunctionResult.Kind kind) {
         if (packageNames == null || packageNames.isEmpty()) {
             return List.of();
         }

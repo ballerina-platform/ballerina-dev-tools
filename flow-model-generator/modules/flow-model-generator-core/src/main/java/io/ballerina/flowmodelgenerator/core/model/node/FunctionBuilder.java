@@ -124,7 +124,7 @@ public abstract class FunctionBuilder extends NodeBuilder {
     protected static DatabaseManager dbManager = DatabaseManager.getInstance();
 
     protected static Optional<FunctionResult> getFunctionResult(Codedata codedata,
-                                                                DatabaseManager.FunctionKind functionKind) {
+                                                                FunctionResult.Kind functionKind) {
         Optional<FunctionResult> functionResult = codedata.id() != null ?
                 dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind,

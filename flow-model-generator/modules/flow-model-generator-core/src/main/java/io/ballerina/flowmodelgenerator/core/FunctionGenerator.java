@@ -26,8 +26,6 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -35,6 +33,8 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
@@ -150,7 +150,7 @@ public class FunctionGenerator {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         if (!moduleNames.isEmpty()) {
             List<FunctionResult> functionsByPackages =
-                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, DatabaseManager.FunctionKind.FUNCTION);
+                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, FunctionResult.Kind.FUNCTION);
             Category.Builder libraryBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
             addLibraryFunction(functionsByPackages, libraryBuilder);
         }
@@ -161,8 +161,8 @@ public class FunctionGenerator {
         }
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
         List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q")
-                ? dbManager.getFunctionsByOrg("ballerina", DatabaseManager.FunctionKind.FUNCTION)
-                : dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
+                ? dbManager.getFunctionsByOrg("ballerina", FunctionResult.Kind.FUNCTION)
+                : dbManager.searchFunctions(queryMap, FunctionResult.Kind.FUNCTION);
         functionResults.removeIf(functionResult -> moduleNames.contains(functionResult.packageName()));
         addLibraryFunction(functionResults, utilityBuilder);
     }

@@ -61,8 +61,8 @@ public class ConnectorGenerator {
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR, modifiedQueryMap) :
-                dbManager.searchFunctions(modifiedQueryMap, DatabaseManager.FunctionKind.CONNECTOR);
+                dbManager.getAllFunctions(FunctionResult.Kind.CONNECTOR, modifiedQueryMap) :
+                dbManager.searchFunctions(modifiedQueryMap, FunctionResult.Kind.CONNECTOR);
 
         List<AvailableNode> connectors = new ArrayList<>();
         for (FunctionResult connectorResult : connectorResults) {

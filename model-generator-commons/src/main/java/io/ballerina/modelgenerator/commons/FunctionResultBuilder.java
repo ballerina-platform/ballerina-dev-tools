@@ -158,6 +158,11 @@ public class FunctionResultBuilder {
             throw new IllegalStateException("Module information not found");
         }
 
+        // Defaulting the function result kind to FUNCTION if not provided
+        if (functionResultKind == null) {
+            functionResultKind = FunctionResult.Kind.FUNCTION;
+        }
+
         // Check if the function is in the index
         Optional<FunctionResult> indexedResult = getFunctionFromIndex();
         if (indexedResult.isPresent()) {
@@ -241,8 +246,7 @@ public class FunctionResultBuilder {
     private Optional<FunctionResult> getFunctionFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> optFunctionResult =
-                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName,
-                        DatabaseManager.FunctionKind.FUNCTION, null);
+                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName, functionResultKind, null);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
