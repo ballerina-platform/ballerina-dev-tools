@@ -25,6 +25,7 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
@@ -1194,6 +1195,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (dataMappings.containsKey(functionName)) {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
+        } else if (isAgentCall(functionSymbol)) {
+            genAgentCallNode(functionCallExpressionNode, functionSymbol, functionName, description);
+            return;
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
@@ -1230,6 +1234,79 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(description)
                 .stepOut()
                 .codedata().symbol(functionName);
+    }
+
+    private void genAgentCallNode(FunctionCallExpressionNode functionCallExpressionNode,
+                                  FunctionSymbol functionSymbol, String functionName, String description) {
+        startNode(NodeKind.AGENT_CALL, functionCallExpressionNode.parent());
+        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
+        handleFunctionCallActionCallsParams(arguments, functionSymbol);
+
+        String modelUrl = getModelIconUrl(arguments.get(0));
+        List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
+        if (!modelUrl.isEmpty()) {
+            nodeBuilder.metadata().addData("model", modelUrl);
+        }
+        if (!toolUrls.isEmpty()) {
+            nodeBuilder.metadata().addData("tools", toolUrls);
+        }
+
+        nodeBuilder
+                .symbolInfo(functionSymbol)
+                .metadata()
+                .label(functionName)
+                .description(description)
+                .stepOut()
+                .codedata().symbol(functionName);
+    }
+
+    private boolean isAgentCall(FunctionSymbol functionSymbol) {
+        Optional<ModuleSymbol> optModule = functionSymbol.getModule();
+        if (optModule.isEmpty()) {
+            return false;
+        }
+        ModuleID id = optModule.get().id();
+        return id.packageName().equals("wso2") && id.orgName().equals("ai.agent");
+    }
+
+    private String getModelIconUrl(FunctionArgumentNode firstArgNode) {
+        if (firstArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
+            Node firstArg = ((PositionalArgumentNode) firstArgNode).expression();
+            if (firstArg.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                Optional<Symbol> optArg = semanticModel.symbol(firstArg);
+                if (optArg.isPresent()) {
+                    Optional<ModuleSymbol> optModule = optArg.get().getModule();
+                    if (optModule.isPresent()) {
+                        ModuleID id = optModule.get().id();
+                        return CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version());
+                    }
+                }
+            }
+        }
+        return "";
+    }
+
+    private List<String> getToolIconUrls(FunctionArgumentNode lastArgNode) {
+        List<String> toolUrls = new ArrayList<>();
+        if (lastArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
+            Node lastArg = ((PositionalArgumentNode) lastArgNode).expression();
+            if (lastArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+                ListConstructorExpressionNode listConstructor = (ListConstructorExpressionNode) lastArg;
+                for (Node expression : listConstructor.expressions()) {
+                    if (expression.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                        Optional<Symbol> optArg = semanticModel.symbol(expression);
+                        if (optArg.isPresent()) {
+                            Optional<ModuleSymbol> optModule = optArg.get().getModule();
+                            if (optModule.isPresent()) {
+                                ModuleID id = optModule.get().id();
+                                toolUrls.add(CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return toolUrls;
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
