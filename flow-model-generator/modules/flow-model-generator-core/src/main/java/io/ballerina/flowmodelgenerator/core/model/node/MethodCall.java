@@ -19,31 +19,26 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Documentation;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
-import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.PackageUtil;
-import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -52,7 +47,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Represents a method call.
@@ -69,125 +63,55 @@ public class MethodCall extends FunctionBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
+
+        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+                .name(codedata.symbol())
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .userModuleInfo(moduleInfo);
+
         if (FunctionCall.isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            handleLocalObjMethods(context, codedata);
-        } else {
-            handleImportedModuleObjMethods(context, codedata);
+            try {
+                WorkspaceManager workspaceManager = context.workspaceManager();
+                workspaceManager.loadProject(context.filePath());
+                SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+
+                VariableSymbol varSymbol = findVariableSymbol(semanticModel,
+                        workspaceManager.document(context.filePath()).orElseThrow(),
+                        context.position(), codedata.parentSymbol());
+                ObjectTypeSymbol objectTypeSymbol = getObjectTypeSymbol(varSymbol);
+                MethodSymbol methodSymbol = objectTypeSymbol.methods().get(codedata.symbol());
+
+                functionResultBuilder.semanticModel(semanticModel)
+                        .functionSymbol(methodSymbol);
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                throw new RuntimeException("Error loading project: " + e.getMessage(), e);
+            }
         }
-    }
 
-    private void handleImportedModuleObjMethods(TemplateContext context, Codedata codedata) {
-        Optional<FunctionResult> functionResult = getFunctionResult(codedata, DatabaseManager.FunctionKind.FUNCTION);
-
-        if (functionResult.isEmpty()) {
-            throw new RuntimeException("Method not found: " + codedata.symbol());
-        }
-
-        FunctionResult function = functionResult.get();
+        FunctionResult functionResult = functionResultBuilder.build();
         metadata()
-                .label(function.name())
-                .description(function.description());
+                .label(functionResult.name())
+                .description(functionResult.description());
         codedata()
+                .id(functionResult.functionId())
                 .node(NodeKind.METHOD_CALL)
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
-                .id(function.functionId())
                 .symbol(codedata.symbol());
-        setExpressionProperty(codedata);
-        setParameterProperties(function);
 
-        String returnTypeName = function.returnType();
-        if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
+        setExpressionProperty(codedata, functionResult.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
+        setParameterProperties(functionResult);
+
+        String returnTypeName = functionResult.returnType();
+        if (CommonUtils.hasReturn(returnTypeName)) {
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
         }
 
-        if (function.returnError()) {
+        if (functionResult.returnError()) {
             properties().checkError(true);
         }
-    }
-
-    private void handleLocalObjMethods(TemplateContext context, Codedata codedata) {
-        WorkspaceManager workspaceManager = context.workspaceManager();
-        Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
-        this.moduleInfo = ModuleInfo.from(project.currentPackage().getDefaultModule().descriptor());
-
-        SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-        Document document = workspaceManager.document(context.filePath()).orElseThrow();
-
-        VariableSymbol varSymbol = findVariableSymbol(semanticModel, document, context.position(),
-                codedata.parentSymbol());
-        ObjectTypeSymbol objectTypeSymbol = getObjectTypeSymbol(varSymbol);
-
-        MethodSymbol methodSymbol = objectTypeSymbol.methods().get(codedata.symbol());
-        if (methodSymbol == null) {
-            throw new RuntimeException("Method not found: " + codedata.symbol());
-        }
-
-        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
-        List<ParameterResult> parameters = ParamUtils.buildFunctionParamResultMap(methodSymbol, semanticModel).values()
-                .stream().toList();
-        Map<String, ParameterResult> parameterMap = parameters.stream()
-                .collect(Collectors.toMap(ParameterResult::name, param -> param));
-
-        String returnTypeName;
-        Optional<TypeSymbol> returnType = functionTypeSymbol.returnTypeDescriptor();
-        if (returnType.isPresent()) {
-            returnTypeName = CommonUtils.getTypeSignature(semanticModel, returnType.get(), true, moduleInfo);
-            setReturnTypeProperties(returnTypeName, context, false);
-        } else {
-            returnTypeName = null;
-        }
-
-        String packageName = project.currentPackage().packageName().toString();
-        String org = project.currentPackage().packageOrg().toString();
-        String version = project.currentPackage().packageVersion().toString();
-
-        String description = methodSymbol.documentation()
-                .flatMap(Documentation::description)
-                .orElse("");
-
-        FunctionResult function = new FunctionResult(
-                0, // local methods don't have an ID
-                codedata.symbol(),
-                description,
-                returnTypeName,
-                packageName,
-                org,
-                version,
-                "", // no resource path for local methods
-                FunctionResult.Kind.FUNCTION,
-                containsErrorInReturnType(semanticModel, functionTypeSymbol),
-                false
-        );
-        function.setParameters(parameterMap);
-
-        metadata().label(function.name());
-        codedata()
-                .node(NodeKind.METHOD_CALL)
-                .symbol(function.name());
-
-        setExpressionProperty(codedata);
-        setParameterProperties(function);
-
-        if (containsErrorInReturnType(semanticModel, functionTypeSymbol)
-                && FlowNodeUtil.withinDoClause(context)) {
-            properties().checkError(true);
-        }
-    }
-
-    private void setExpressionProperty(Codedata codedata) {
-        properties()
-                .custom()
-                .metadata()
-                .label(Property.CONNECTION_LABEL)
-                .description(Property.CONNECTION_KEY)
-                .stepOut()
-                .value(codedata.parentSymbol())
-                .type(Property.ValueType.IDENTIFIER)
-                .stepOut()
-                .addProperty(Property.CONNECTION_KEY);
     }
 
     @Override

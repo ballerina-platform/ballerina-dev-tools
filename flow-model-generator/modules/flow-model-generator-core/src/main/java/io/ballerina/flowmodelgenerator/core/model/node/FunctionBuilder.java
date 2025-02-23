@@ -22,7 +22,6 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -32,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
@@ -136,6 +136,19 @@ public abstract class FunctionBuilder extends NodeBuilder {
             function.setParameters(dbParameters);
         }
         return functionResult;
+    }
+
+    protected void setExpressionProperty(Codedata codedata, String parentSymbolType) {
+        properties().custom()
+                .metadata()
+                    .label(Property.CONNECTION_LABEL)
+                    .description(Property.CONNECTION_DOC)
+                    .stepOut()
+                .typeConstraint(parentSymbolType)
+                .value(codedata.parentSymbol())
+                .type(Property.ValueType.IDENTIFIER)
+                .stepOut()
+                .addProperty(Property.CONNECTION_KEY);
     }
 
     /**

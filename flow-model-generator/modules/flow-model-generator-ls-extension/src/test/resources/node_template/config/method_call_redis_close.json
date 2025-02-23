@@ -34,9 +34,10 @@
       "connection": {
         "metadata": {
           "label": "Connection",
-          "description": "connection"
+          "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "redis:Client",
         "value": "rc",
         "optional": false,
         "editable": false,

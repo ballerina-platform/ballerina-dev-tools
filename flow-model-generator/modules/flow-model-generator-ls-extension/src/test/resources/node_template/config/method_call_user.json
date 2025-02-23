@@ -13,20 +13,23 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "addItem"
+      "label": "addItem",
+      "description": ""
     },
     "codedata": {
       "node": "METHOD_CALL",
-      "symbol": "addItem"
+      "symbol": "addItem",
+      "id": 0
     },
     "returning": false,
     "properties": {
       "connection": {
         "metadata": {
           "label": "Connection",
-          "description": "connection"
+          "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "null:Client",
         "value": "cart",
         "optional": false,
         "editable": false,

@@ -19,14 +19,14 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -73,17 +73,7 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
                 .id(function.functionId())
                 .symbol(function.name());
 
-        properties().custom()
-                .metadata()
-                .label(Property.CONNECTION_LABEL)
-                .description(Property.CONNECTION_DOC)
-                .stepOut()
-                .type(Property.ValueType.IDENTIFIER)
-                .typeConstraint(function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL)
-                .value(codedata.parentSymbol())
-                .stepOut()
-                .addProperty(Property.CONNECTION_KEY);
-
+        setExpressionProperty(codedata, function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
         setParameterProperties(function);
 
         String returnTypeName = function.returnType();

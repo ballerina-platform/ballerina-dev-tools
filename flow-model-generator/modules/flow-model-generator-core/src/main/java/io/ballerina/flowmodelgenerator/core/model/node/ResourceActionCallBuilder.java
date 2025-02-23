@@ -19,9 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -30,6 +27,8 @@ import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -79,16 +78,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
                 .id(function.functionId())
                 .symbol(function.name());
 
-        properties().custom()
-                .metadata()
-                .label(Property.CONNECTION_LABEL)
-                .description(Property.CONNECTION_DOC)
-                .stepOut()
-                .typeConstraint(function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL)
-                .value(codedata.parentSymbol())
-                .type(Property.ValueType.IDENTIFIER)
-                .stepOut()
-                .addProperty(Property.CONNECTION_KEY);
+        setExpressionProperty(codedata, function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
 
         String resourcePath = function.resourcePath();
         properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
@@ -116,7 +106,8 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
                 Property.TYPE_KEY, TARGET_TYPE_KEY, Property.RESOURCE_PATH_KEY,
                 Property.CHECK_ERROR_KEY));
 
-        String resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).codedata().originalName();
+        String resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY)
+                .codedata().originalName();
 
         if (resourcePath.equals(ParamUtils.REST_RESOURCE_PATH)) {
             resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString();
@@ -130,7 +121,8 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             if (property.isEmpty()) {
                 continue;
             }
-            PropertyCodedata propCodedata = property.get().codedata();
+            PropertyCodedata propCodedata = property.get()
+                    .codedata();
             if (propCodedata == null) {
                 continue;
             }
