@@ -18,10 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
@@ -876,9 +874,6 @@ class CodeAnalyzer extends NodeVisitor {
         if (typeSymbol.isEmpty()) {
             return;
         }
-
-        String moduleName = CommonUtils.getModuleName(typeSymbol.get());
-
         if (typeSymbol.get().typeKind() != TypeDescKind.TYPE_REFERENCE) {
             return;
         }
@@ -887,52 +882,41 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
         ClassSymbol classSymbol = (ClassSymbol) defintionSymbol;
-        String description = classSymbol.documentation().flatMap(Documentation::description).orElse("");
-
-        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
-        if (initMethodSymbol.isEmpty()) {
+        Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
+        if (optMethodSymbol.isEmpty()) {
             return;
         }
-        Map<String, String> documentationMap =
-                initMethodSymbol.get().documentation().map(Documentation::parameterMap).orElse(Map.of());
+        MethodSymbol methodSymbol = optMethodSymbol.get();
+        startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
 
-        startNode(NodeKind.NEW_CONNECTION, newExpressionNode)
-                .symbolInfo(initMethodSymbol.get())
+        FunctionResult functionResult = new FunctionResultBuilder()
+                .parentSymbol(classSymbol)
+                .functionSymbol(methodSymbol)
+                .semanticModel(semanticModel)
+                .name(NewConnectionBuilder.INIT_SYMBOL)
+                .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                .userModuleInfo(moduleInfo)
+                .build();
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+        buildPropsFromFuncCallArgs(argumentNodes, methodSymbol.typeDescriptor(), functionResult.parameters(),
+                positionalArgs, namedArgValueMap);
+
+        nodeBuilder
+                .symbolInfo(methodSymbol)
                 .metadata()
-                    .label(moduleName)
-                    .description(description)
+                    .label(functionResult.packageName())
+                    .description(functionResult.description())
                     .stepOut()
                 .codedata()
-                .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .symbol(NewConnectionBuilder.INIT_SYMBOL)
-                .stepOut()
+                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
+                    .stepOut()
                 .properties()
                 .scope(connectionScope)
                 .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
-        try {
-            MethodSymbol methodSymbol =
-                    ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
-                            .orElseThrow();
-
-            DatabaseManager dbManager = DatabaseManager.getInstance();
-            ModuleID id = methodSymbol.getModule().get().id();
-            Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
-                    methodSymbol.getName().get(), FunctionResult.Kind.CONNECTOR, null);
-
-            final Map<String, Node> namedArgValueMap = new HashMap<>();
-            final Queue<Node> positionalArgs = new LinkedList<>();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-
-            if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                        methodSymbol, positionalArgs, namedArgValueMap);
-                return;
-            }
-            methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, documentationMap, methodSymbol.external()));
-        } catch (RuntimeException ignored) {
-
-        }
     }
 
     @Override
@@ -1548,7 +1532,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-    // Utility methods
+// Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method

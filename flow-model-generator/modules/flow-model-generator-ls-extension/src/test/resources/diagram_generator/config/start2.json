@@ -90,10 +90,16 @@
               "label": "name"
             },
             "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "value": "\"foo\"",
+            "placeholder": "\"\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "name"
+            }
           },
           "variable": {
             "metadata": {

@@ -160,6 +160,9 @@ public class FunctionResultBuilder {
     }
 
     public FunctionResultBuilder parentSymbol(ObjectTypeSymbol parentSymbol) {
+        if (moduleInfo == null) {
+            parentSymbol.getModule().ifPresent(module -> moduleInfo = ModuleInfo.from(module.id()));
+        }
         this.parentSymbol = parentSymbol;
         return this;
     }
