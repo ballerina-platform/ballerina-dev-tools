@@ -525,7 +525,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp, isGraphQL);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
@@ -717,18 +717,19 @@ public final class Utils {
         return Optional.empty();
     }
 
-    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp) {
+    public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp,
+                                                        boolean isGraphQl) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp);
+                    parameter.annotations(), isHttp, isGraphQl);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
                     ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp);
+                    parameter.annotations(), isHttp, isGraphQl);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -740,8 +741,9 @@ public final class Utils {
 
 
     private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
-                                             NodeList<AnnotationNode> annotationNodes, boolean isHttp) {
-        Parameter parameterModel = Parameter.getNewParameter();
+                                             NodeList<AnnotationNode> annotationNodes, boolean isHttp,
+                                             boolean isGraphQL) {
+        Parameter parameterModel = Parameter.getNewParameter(isGraphQL);
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
         if (isHttp) {

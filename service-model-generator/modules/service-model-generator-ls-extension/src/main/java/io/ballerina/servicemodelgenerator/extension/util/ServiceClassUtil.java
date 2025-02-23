@@ -145,7 +145,7 @@ public class ServiceClassUtil {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false);
+            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false, true);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);

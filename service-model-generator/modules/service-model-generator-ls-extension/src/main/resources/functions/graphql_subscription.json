@@ -21,8 +21,8 @@
   },
   "name": {
     "metadata": {
-      "label": "Subscription path",
-      "description": "Subscription path"
+      "label": "Subscription Name",
+      "description": "The name of the subscription"
     },
     "enabled": true,
     "editable": true,

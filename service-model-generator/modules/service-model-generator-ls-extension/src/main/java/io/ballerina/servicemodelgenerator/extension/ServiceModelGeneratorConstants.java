@@ -81,6 +81,13 @@ public class ServiceModelGeneratorConstants {
 
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
 
+
+    public static final MetaData ARGUMENT_TYPE_METADATA = new MetaData("Argument Type",
+            "The type of the argument");
+    public static final MetaData ARGUMENT_NAME_METADATA = new MetaData("Argument Name",
+            "The name of the argument");
+    public static final MetaData ARGUMENT_DEFAULT_VALUE_METADATA = new MetaData("Default Value",
+            "The default value of the argument");
     public static final MetaData PARAMETER_TYPE_METADATA = new MetaData("Parameter Type",
             "The type of the parameter");
     public static final MetaData PARAMETER_NAME_METADATA = new MetaData("Parameter Name",

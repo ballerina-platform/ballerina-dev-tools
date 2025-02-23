@@ -19,7 +19,7 @@
   },
   "name": {
     "metadata": {
-      "label": "Object",
+      "label": "Mutation Name",
       "description": "The name of the mutation"
     },
     "enabled": true,
