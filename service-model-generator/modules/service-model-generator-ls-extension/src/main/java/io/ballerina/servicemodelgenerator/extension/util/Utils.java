@@ -426,7 +426,7 @@ public final class Utils {
     }
 
     public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode, SemanticModel semanticModel,
-                                            boolean isHttp) {
+                                            boolean isHttp, boolean isGraphQL) {
         Function functionModel = Function.getNewFunction();
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
@@ -463,7 +463,7 @@ public final class Utils {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp);
+            Optional<Parameter> parameterModel = getParameterModel(parameterNode, isHttp, isGraphQL);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);

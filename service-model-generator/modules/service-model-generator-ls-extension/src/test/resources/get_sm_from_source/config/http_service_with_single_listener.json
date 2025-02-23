@@ -40,9 +40,9 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:httpListener",
           "httpListener",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -338,6 +338,11 @@
             "advanced": true
           },
           {
+            "metadata": {
+              "label": "header",
+              "description": "header"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -385,6 +390,11 @@
             "httpParamType": "HEADER"
           },
           {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "DEFAULTABLE",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
