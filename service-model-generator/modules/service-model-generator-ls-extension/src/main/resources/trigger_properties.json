@@ -20,16 +20,6 @@
       "event"
     ]
   },
-  "3": {
-    "name": "trigger.github",
-    "orgName": "ballerinax",
-    "packageName": "trigger.github",
-    "keywords": [
-      "event",
-      "github",
-      "trigger"
-    ]
-  },
   "6": {
     "name": "ftp",
     "orgName": "ballerina",
@@ -53,15 +43,118 @@
       "event"
     ]
   },
-  "10": {
+  "11": {
+    "name": "trigger.asb",
+    "orgName": "ballerinax",
+    "packageName": "trigger.asb",
+    "keywords": [
+      "asb",
+      "event"
+    ]
+  },
+  "12": {
+    "name": "trigger.asgardeo",
+    "orgName": "ballerinax",
+    "packageName": "trigger.asgardeo",
+    "keywords": [
+      "asgardeo",
+      "event"
+    ]
+  },
+  "13": {
+    "name": "trigger.github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "github",
+      "event"
+    ]
+  },
+  "14": {
+    "name": "trigger.google.calendar",
+    "orgName": "ballerinax",
+    "packageName": "trigger.google.calendar",
+    "keywords": [
+      "google",
+      "calendar",
+      "google calendar",
+      "event"
+    ]
+  },
+  "15": {
+    "name": "trigger.google.drive",
+    "orgName": "ballerinax",
+    "packageName": "trigger.google.drive",
+    "keywords": [
+      "google",
+      "drive",
+      "google drive",
+      "event"
+    ]
+  },
+  "16": {
+    "name": "trigger.google.mail",
+    "orgName": "ballerinax",
+    "packageName": "trigger.google.mail",
+    "keywords": [
+      "google",
+      "mail",
+      "google mail",
+      "event"
+    ]
+  },
+  "18": {
+    "name": "trigger.hubspot",
+    "orgName": "ballerinax",
+    "packageName": "trigger.hubspot",
+    "keywords": [
+      "hubspot",
+      "event"
+    ]
+  },
+  "19": {
+    "name": "trigger.quickbooks",
+    "orgName": "ballerinax",
+    "packageName": "trigger.quickbooks",
+    "keywords": [
+      "quickbooks",
+      "event"
+    ]
+  },
+  "20": {
     "name": "trigger.salesforce",
     "orgName": "ballerinax",
     "packageName": "trigger.salesforce",
     "keywords": [
-      "event",
       "salesforce",
-      "trigger",
-      "sales"
+      "event"
+    ]
+  },
+  "21": {
+    "name": "trigger.shopify",
+    "orgName": "ballerinax",
+    "packageName": "trigger.shopify",
+    "keywords": [
+      "shopify",
+      "event"
+    ]
+  },
+  "22": {
+    "name": "trigger.slack",
+    "orgName": "ballerinax",
+    "packageName": "trigger.slack",
+    "keywords": [
+      "slack",
+      "event"
+    ]
+  },
+  "23": {
+    "name": "trigger.twilio",
+    "orgName": "ballerinax",
+    "packageName": "trigger.twilio",
+    "keywords": [
+      "twilio",
+      "event"
     ]
   }
 }
