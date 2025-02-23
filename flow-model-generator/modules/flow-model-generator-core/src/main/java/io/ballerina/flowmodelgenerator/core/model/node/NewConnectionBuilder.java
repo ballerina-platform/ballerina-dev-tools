@@ -19,10 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.MethodSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -33,8 +29,7 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 import org.slf4j.Logger;
@@ -96,85 +91,52 @@ public class NewConnectionBuilder extends FunctionBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FunctionResult function;
+        FunctionResult functionResult;
+
+        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+                .parentSymbolType(codedata.object())
+                .name(codedata.symbol())
+                .moduleInfo(
+                        new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                .userModuleInfo(moduleInfo);
 
         if (Boolean.TRUE.equals(codedata.isGenerated())) {
-            function = buildGeneratedFunctionResult(context);
-        } else {
-            FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
-                    .name(codedata.symbol())
-                    .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
-                    .parentSymbolType(codedata.object())
-                    .functionResultKind(FunctionResult.Kind.CONNECTOR)
-                    .userModuleInfo(moduleInfo);
-            function = functionResultBuilder.build();
+            Path projectPath = context.filePath().getParent();
+            if (projectPath == null) {
+                throw new IllegalStateException("Project path not found");
+            }
+            Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
+            WorkspaceManager workspaceManager = context.workspaceManager();
+            PackageUtil.loadProject(workspaceManager, context.filePath());
+            SemanticModel semanticModel = workspaceManager.semanticModel(clientPath)
+                    .orElseThrow(() -> new IllegalStateException("Semantic model not found"));
+            functionResultBuilder.semanticModel(semanticModel);
         }
 
+        functionResult = functionResultBuilder.build();
         metadata()
-                .label(function.packageName())
-                .description(function.description())
-                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+                .label(functionResult.packageName())
+                .description(functionResult.description())
+                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
+                        functionResult.version()));
         codedata()
                 .node(NodeKind.NEW_CONNECTION)
-                .org(function.org())
-                .module(function.packageName())
+                .org(functionResult.org())
+                .module(functionResult.packageName())
                 .object(CLIENT_SYMBOL)
                 .symbol(INIT_SYMBOL)
-                .id(function.functionId())
+                .id(functionResult.functionId())
                 .isGenerated(codedata.isGenerated());
 
-        setParameterProperties(function);
+        setParameterProperties(functionResult);
 
-        if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(function.returnType(), context, false, CONNECTION_NAME_LABEL);
+        if (CommonUtils.hasReturn(functionResult.returnType())) {
+            setReturnTypeProperties(functionResult.returnType(), context, false, CONNECTION_NAME_LABEL);
         }
 
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
-    }
-
-    private FunctionResult buildGeneratedFunctionResult(TemplateContext context) {
-        Path projectPath = context.filePath().getParent();
-        if (projectPath == null) {
-            throw new IllegalStateException("Project path not found");
-        }
-
-        Codedata codedata = context.codedata();
-        Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
-
-        try {
-            WorkspaceManager workspaceManager = context.workspaceManager();
-            workspaceManager.loadProject(clientPath);
-
-            Optional<SemanticModel> optSemanticModel = workspaceManager.semanticModel(clientPath);
-            if (optSemanticModel.isEmpty()) {
-                throw new IllegalStateException("Semantic model not found");
-            }
-
-            ClassSymbol clientClass = findClientClass(optSemanticModel.get());
-            MethodSymbol initMethod = clientClass.initMethod()
-                    .orElseThrow(() -> new IllegalStateException("Init method not found"));
-
-            return new FunctionResultBuilder()
-                    .semanticModel(optSemanticModel.get())
-                    .name(initMethod.getName().orElse(INIT_SYMBOL))
-                    .moduleInfo(
-                            new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
-                    .functionSymbol(initMethod)
-                    .functionResultKind(FunctionResult.Kind.CONNECTOR)
-                    .build();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException("Error loading generated client", e);
-        }
-    }
-
-    private ClassSymbol findClientClass(SemanticModel semanticModel) {
-        return semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.CLASS)
-                .map(symbol -> (ClassSymbol) symbol)
-                .filter(classSymbol -> classSymbol.qualifiers().contains(Qualifier.CLIENT))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Client class not found"));
     }
 }

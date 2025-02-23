@@ -207,7 +207,7 @@ public class FunctionResultBuilder {
         // Check if the function is in the index
         Optional<FunctionResult> indexedResult = getFunctionFromIndex();
         if (indexedResult.isPresent()) {
-//            return indexedResult.get();
+            return indexedResult.get();
         }
 
         // Fetch the semantic model if not provided
