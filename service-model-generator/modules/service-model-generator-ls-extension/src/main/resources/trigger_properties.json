@@ -52,5 +52,16 @@
       "service",
       "event"
     ]
+  },
+  "10": {
+    "name": "trigger.salesforce",
+    "orgName": "ballerinax",
+    "packageName": "trigger.salesforce",
+    "keywords": [
+      "event",
+      "salesforce",
+      "trigger",
+      "sales"
+    ]
   }
 }

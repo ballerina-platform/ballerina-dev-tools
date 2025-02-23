@@ -240,4 +240,108 @@ public class Value {
                 && Objects.equals(items, v.items) && Objects.equals(codedata, v.codedata)
                 && Objects.equals(choices, v.choices) && addNewButton == v.addNewButton;
     }
+
+    public static class ValueBuilder {
+        private MetaData metadata;
+        private boolean enabled;
+        private boolean editable;
+        private String value;
+        private List<String> values;
+        private String valueType;
+        private String valueTypeConstraint;
+        private boolean isType;
+        private String placeholder;
+        private boolean optional;
+        private boolean advanced;
+        private Map<String, Value> properties;
+        private List<String> items;
+        private Codedata codedata;
+        private List<Value> choices;
+        private boolean addNewButton = false;
+
+        public ValueBuilder setMetadata(MetaData metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public ValueBuilder setEnabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public ValueBuilder setEditable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public ValueBuilder setValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public ValueBuilder setValues(List<String> values) {
+            this.values = values;
+            return this;
+        }
+
+        public ValueBuilder setValueType(String valueType) {
+            this.valueType = valueType;
+            return this;
+        }
+
+        public ValueBuilder setValueTypeConstraint(String valueTypeConstraint) {
+            this.valueTypeConstraint = valueTypeConstraint;
+            return this;
+        }
+
+        public ValueBuilder setType(boolean isType) {
+            this.isType = isType;
+            return this;
+        }
+
+        public ValueBuilder setPlaceholder(String placeholder) {
+            this.placeholder = placeholder;
+            return this;
+        }
+
+        public ValueBuilder setOptional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public ValueBuilder setAdvanced(boolean advanced) {
+            this.advanced = advanced;
+            return this;
+        }
+
+        public ValueBuilder setProperties(Map<String, Value> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public ValueBuilder setItems(List<String> items) {
+            this.items = items;
+            return this;
+        }
+
+        public ValueBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public ValueBuilder setChoices(List<Value> choices) {
+            this.choices = choices;
+            return this;
+        }
+
+        public ValueBuilder setAddNewButton(boolean addNewButton) {
+            this.addNewButton = addNewButton;
+            return this;
+        }
+
+        public Value build() {
+            return new Value(metadata, enabled, editable, value, valueType, valueTypeConstraint, isType, placeholder,
+                    optional, advanced, properties, items, codedata);
+        }
+    }
 }
