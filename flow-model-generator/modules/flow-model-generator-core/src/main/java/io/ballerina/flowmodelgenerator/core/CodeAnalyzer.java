@@ -122,7 +122,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
 import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
@@ -382,19 +381,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
     }
 
-    private void analyzeAndHandleExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                          DatabaseManager dbManager,
-                                          FunctionResult functionResult,
-                                          FunctionSymbol methodSymbol,
-                                          Queue<Node> positionalArgs,
-                                          Map<String, Node> namedArgValueMap) {
-        Map<String, ParameterResult> funcParamMap = dbManager
-                .getFunctionParametersAsMap(functionResult.functionId());
-
-        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
-        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
-    }
-
     private void addRemainingParamsToPropertyMap(Map<String, ParameterResult> funcParamMap,
                                                  boolean hasOnlyRestParams) {
         for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
@@ -459,17 +445,6 @@ class CodeAnalyzer extends NodeVisitor {
                 }
             }
         }
-    }
-
-    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                                     FunctionSymbol functionSymbol) {
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        Map<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
-                functionSymbol, semanticModel);
-        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
     }
 
     private void buildPropsFromFuncCallArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,

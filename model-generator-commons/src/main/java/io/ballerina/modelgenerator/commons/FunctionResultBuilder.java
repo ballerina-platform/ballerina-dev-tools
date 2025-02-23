@@ -105,16 +105,6 @@ public class FunctionResultBuilder {
         return this;
     }
 
-    public FunctionResultBuilder functionDoc(Documentable documentable) {
-        this.description = documentable.documentation().flatMap(Documentation::description).orElse("");
-        return this;
-    }
-
-    public FunctionResultBuilder connectionDoc(Documentable documentable) {
-        this.description = description;
-        return this;
-    }
-
     public FunctionResultBuilder moduleInfo(ModuleInfo moduleInfo) {
         this.moduleInfo = moduleInfo;
         return this;
