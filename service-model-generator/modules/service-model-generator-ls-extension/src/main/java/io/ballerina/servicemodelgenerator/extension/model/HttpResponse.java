@@ -23,6 +23,7 @@ public class HttpResponse {
     private Value body = null;
     private Value name = null;
     private Value type = null;
+    private Value headers = null;
     private boolean enabled = true;
     private boolean editable = false;
     private boolean advanced = false;
@@ -30,11 +31,12 @@ public class HttpResponse {
     public HttpResponse() {
     }
 
-    public HttpResponse(Value statusCode, Value body, Value name, Value type) {
+    public HttpResponse(Value statusCode, Value body, Value name, Value type, Value headers) {
         this.statusCode = statusCode;
         this.body = body;
         this.name = name;
         this.type = type;
+        this.headers = headers;
     }
 
     public HttpResponse(String type) {
@@ -49,27 +51,28 @@ public class HttpResponse {
 
     public HttpResponse(String statusCode, String type) {
         this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value("", "EXPRESSION", true);
-        this.name = new Value("", "EXPRESSION", true);
-        this.type = new Value(type, "EXPRESSION", true);
+        this.body = new Value(type, "TYPE", true);
+        this.name = new Value("", "IDENTIFIER", true);
+        this.type = new Value(type, "TYPE", true);
+        this.headers = new Value("", "EXPRESSION_SET", true);
     }
 
-    public HttpResponse(String statusCode, String type, boolean addEditButton) {
+    public HttpResponse(String statusCode, String type, boolean editable) {
         this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value("", "EXPRESSION", true);
-        this.name = new Value("", "EXPRESSION", true);
-        this.type = new Value(type, "EXPRESSION", true);
-        this.type.setAddNewButton(addEditButton);
+        this.body = new Value("", "TYPE", true);
+        this.name = new Value("", "IDENTIFIER", true);
+        this.type = new Value(type, "TYPE", true);
+        this.headers = new Value("", "EXPRESSION_SET", true);
+        this.editable = editable;
     }
 
     public static HttpResponse getAnonResponse(String code, String typeStr) {
         Value statusCode = new Value(code, "EXPRESSION", true);
-        statusCode.setEditable(false);
         Value body = new Value("", "EXPRESSION", true);
         Value name = new Value("", "EXPRESSION", true);
         Value type = new Value(typeStr, "EXPRESSION", true);
-        type.setEditable(false);
-        return new HttpResponse(statusCode, body, name, type);
+        Value headers = new Value("", "EXPRESSION_SET", true);
+        return new HttpResponse(statusCode, body, name, type, headers);
     }
 
     public Value getStatusCode() {

@@ -253,6 +253,7 @@ public final class HttpUtil {
         List<HttpResponse> responses = new ArrayList<>();
         HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), "http:Response");
         normalResponse.setAdvanced(true);
+        normalResponse.setEditable(true);
         normalResponse.setEnabled(!hasHttpResponse.get());
         responses.add(normalResponse);
 
@@ -260,14 +261,16 @@ public final class HttpUtil {
                 .map(statusCodeResponse -> getHttpResponse(statusCodeResponse, String.valueOf(defaultStatusCode),
                         semanticModel, currentModuleName))
                 .forEach(responses::add);
-        String basicTypesUnion = anydataResponses.stream()
-                .map(type -> getTypeName(type, currentModuleName))
-                .collect(Collectors.joining("|"));
 
-        if (!basicTypesUnion.isEmpty()) {
-            HttpResponse basicTypeResponse = new HttpResponse(String.valueOf(defaultStatusCode), basicTypesUnion);
-            responses.add(basicTypeResponse);
-        }
+        anydataResponses.stream()
+                .map(type -> getTypeName(type, currentModuleName))
+                .forEach(type -> {
+                    HttpResponse response = new HttpResponse(String.valueOf(defaultStatusCode), type);
+                    response.setEnabled(true);
+                    response.setEditable(true);
+                    responses.add(response);
+                });
+
         return responses;
     }
 
@@ -280,9 +283,7 @@ public final class HttpUtil {
         String typeName = getTypeName(statusCodeResponseType, currentModuleName);
         String statusCode = getResponseCode(statusCodeResponseType, defaultStatusCode, semanticModel);
         if (typeName.contains("}")) {
-            HttpResponse response = HttpResponse.getAnonResponse(statusCode, "record {|...|}");
-            response.setEditable(false);
-            return response;
+            return HttpResponse.getAnonResponse(statusCode, "record {|...|}");
         }
         boolean addEditButton = typeName.startsWith(currentModuleName + ":");
         return new HttpResponse(statusCode, typeName, addEditButton);
