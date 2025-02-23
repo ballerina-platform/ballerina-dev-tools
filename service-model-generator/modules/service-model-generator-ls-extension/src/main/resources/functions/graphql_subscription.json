@@ -38,8 +38,8 @@
     "parameter": {
       "type": {
         "metadata": {
-          "label": "Parameter Type",
-          "description": "The type of the parameter"
+          "label": "Argument Type",
+          "description": "The type of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -52,8 +52,8 @@
       },
       "name": {
         "metadata": {
-          "label": "Parameter Name",
-          "description": "The name of the parameter"
+          "label": "Argument Name",
+          "description": "The name of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -67,7 +67,7 @@
       "defaultValue": {
         "metadata": {
           "label": "Default Value",
-          "description": "The default value of the parameter"
+          "description": "The default value of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -83,8 +83,12 @@
     }
   },
   "returnType": {
+    "metadata": {
+      "label": "Field Type",
+      "description": "The type of the field"
+    },
     "enabled": true,
-    "editable": false,
+    "editable": true,
     "value": "",
     "valueType": "TYPE",
     "isType": false,
