@@ -76,6 +76,7 @@ public class FunctionResultBuilder {
     private String packageName;
     private ModuleInfo moduleInfo;
     private ModuleInfo userModuleInfo;
+    private String resourcePath;
 
     public FunctionResultBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -114,6 +115,11 @@ public class FunctionResultBuilder {
 
     public FunctionResultBuilder moduleInfo(ModuleInfo moduleInfo) {
         this.moduleInfo = moduleInfo;
+        return this;
+    }
+
+    public FunctionResultBuilder resourcePath(String resourcePath) {
+        this.resourcePath = resourcePath;
         return this;
     }
 
@@ -224,14 +230,26 @@ public class FunctionResultBuilder {
         boolean returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
 
+        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
+        if (functionResultKind == FunctionResult.Kind.RESOURCE) {
+            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
+                    errorTypeSymbol);
+        }
+        resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
+        Map<String, ParameterResult> parameters = new LinkedHashMap<>();
+
+        // Store the resource path params
+        if (resourcePathTemplate != null) {
+            resourcePathTemplate.pathParams().forEach(param -> parameters.put(param.name(), param));
+        }
+
         FunctionResult functionResult = new FunctionResult(0, functionName, description, returnType, packageName,
-                moduleInfo.org(), moduleInfo.version(), null, FunctionResult.Kind.FUNCTION, returnError,
+                moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionResult.Kind.FUNCTION, returnError,
                 paramForTypeInfer != null);
 
         Map<String, String> documentationMap =
                 functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
-        Map<String, ParameterResult> parameters = new LinkedHashMap<>();
         functionTypeSymbol.params()
                 .ifPresent(paramList -> paramList.forEach(
                         paramSymbol -> parameters.putAll(
@@ -246,7 +264,8 @@ public class FunctionResultBuilder {
     private Optional<FunctionResult> getFunctionFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> optFunctionResult =
-                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName, functionResultKind, null);
+                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName, functionResultKind,
+                        resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -453,5 +472,4 @@ public class FunctionResultBuilder {
         }
         return CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, userModuleInfo);
     }
-
 }

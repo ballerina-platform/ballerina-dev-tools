@@ -27,8 +27,9 @@ import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -61,36 +62,38 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        Optional<FunctionResult> functionResult = getFunctionResult(codedata, FunctionResult.Kind.RESOURCE);
-        if (functionResult.isEmpty()) {
-            return;
-        }
+        FunctionResult functionResult = new FunctionResultBuilder()
+                .name(codedata.symbol())
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .resourcePath(codedata.resourcePath())
+                .functionResultKind(FunctionResult.Kind.RESOURCE)
+                .build();
 
-        FunctionResult function = functionResult.get();
         metadata()
-                .label(function.name())
-                .description(function.description())
-                .icon(CommonUtils.generateIcon(function.org(), function.packageName(), function.version()));
+                .label(functionResult.name())
+                .description(functionResult.description())
+                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
+                        functionResult.version()));
         codedata()
-                .org(function.org())
-                .module(function.packageName())
+                .org(functionResult.org())
+                .module(functionResult.packageName())
                 .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .id(function.functionId())
-                .symbol(function.name());
+                .id(functionResult.functionId())
+                .symbol(functionResult.name());
 
-        setExpressionProperty(codedata, function.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
+        setExpressionProperty(codedata, functionResult.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
 
-        String resourcePath = function.resourcePath();
+        String resourcePath = functionResult.resourcePath();
         properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
 
-        setParameterProperties(function);
+        setParameterProperties(functionResult);
 
-        String returnTypeName = function.returnType();
-        if (CommonUtils.hasReturn(function.returnType())) {
-            setReturnTypeProperties(returnTypeName, context, function.inferredReturnType());
+        String returnTypeName = functionResult.returnType();
+        if (CommonUtils.hasReturn(returnTypeName)) {
+            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType());
         }
 
-        if (function.returnError()) {
+        if (functionResult.returnError()) {
             properties().checkError(true);
         }
     }
