@@ -1119,10 +1119,6 @@ class CodeAnalyzer extends NodeVisitor {
 
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
-
-        Optional<Documentation> documentation = functionSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
-
         String functionName = getIdentifierName(nameReferenceNode);
 
         startNode(NodeKind.METHOD_CALL, methodCallExpressionNode.parent());
@@ -1132,46 +1128,36 @@ class CodeAnalyzer extends NodeVisitor {
                             CommonUtils.getDocument(project, location).syntaxTree()))
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
+
+        FunctionResultBuilder functionResultBuilder =
+                new FunctionResultBuilder()
+                        .name(functionName)
+                        .functionSymbol(functionSymbol)
+                        .semanticModel(semanticModel)
+                        .userModuleInfo(moduleInfo);
+        FunctionResult functionResult = functionResultBuilder.build();
+
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
+            SeparatedNodeList<FunctionArgumentNode> arguments = methodCallExpressionNode.arguments();
+            calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
+            buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
+                    positionalArgs, namedArgValueMap);
+        }
+        handleCheckFlag(methodCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
+
         nodeBuilder
                 .symbolInfo(functionSymbol)
                     .metadata()
                     .label(functionName)
-                    .description(description)
+                    .description(functionResult.description())
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
                     .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY);
-
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), FunctionResult.Kind.FUNCTION, null);
-
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-
-        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
-            SeparatedNodeList<FunctionArgumentNode> arguments = methodCallExpressionNode.arguments();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-
-            if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(),
-                        functionSymbol, positionalArgs, namedArgValueMap);
-            } else {
-                handleFunctionCallActionCallsParams(arguments, functionSymbol);
-            }
-        }
-        handleCheckFlag(methodCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
-
-        nodeBuilder
-                .symbolInfo(functionSymbol)
-                .metadata()
-                .label(functionName)
-                .description(description)
-                .stepOut()
-                .codedata().symbol(functionName);
     }
 
     @Override
