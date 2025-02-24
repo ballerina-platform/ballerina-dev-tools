@@ -1,3 +1,7 @@
+# Represents a geographical location.
+#
+# + city - The name of the city
+# + country - The name of the country
 type Location record {|
     string city;
     string country;

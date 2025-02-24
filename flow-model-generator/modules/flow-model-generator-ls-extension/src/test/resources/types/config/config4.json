@@ -1,36 +1,24 @@
 {
   "description": "",
-  "source": "data_mapper/main.bal",
+  "source": "graphql",
   "completions": [
     {
-      "label": "Input",
+      "label": "Profile",
       "labelDetails": {
         "detail": "User-Defined",
-        "description": "Record"
+        "description": "Object"
       },
-      "kind": "Struct",
-      "insertText": "Input"
+      "kind": "Interface",
+      "insertText": "Profile"
     },
     {
-      "label": "Output",
+      "label": "AbstractProfile",
       "labelDetails": {
         "detail": "User-Defined",
         "description": "Record"
       },
       "kind": "Struct",
-      "insertText": "Output"
-    },
-    {
-      "label": "Location",
-      "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "documentation": {
-        "left": "Represents a geographical location.\n"
-      },
-      "insertText": "Location"
+      "insertText": "AbstractProfile"
     },
     {
       "label": "Address",
@@ -42,6 +30,93 @@
       "insertText": "Address"
     },
     {
+      "label": "UserName",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "UserName"
+    },
+    {
+      "label": "User",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "User record type\nSimple record type with docs, anonymous field types (union, record)"
+      },
+      "insertText": "User"
+    },
+    {
+      "label": "City",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "City"
+    },
+    {
+      "label": "UserAddress",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Record type with a rest field"
+      },
+      "insertText": "UserAddress"
+    },
+    {
+      "label": "TimeSheet",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "TimeSheet"
+    },
+    {
+      "label": "ApartmentAddress",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Record type with a anonymous rest field"
+      },
+      "insertText": "ApartmentAddress"
+    },
+    {
+      "label": "FooApartmentAddress",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Record type with default values"
+      },
+      "insertText": "FooApartmentAddress"
+    },
+    {
+      "label": "UserAsArrays",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Record type with array field type"
+      },
+      "insertText": "UserAsArrays"
+    },
+    {
       "label": "Employee",
       "labelDetails": {
         "detail": "User-Defined",
@@ -51,22 +126,58 @@
       "insertText": "Employee"
     },
     {
-      "label": "Person",
+      "label": "SubjectArea",
       "labelDetails": {
         "detail": "User-Defined",
-        "description": "Record"
+        "description": "enum"
       },
-      "kind": "Struct",
-      "insertText": "Person"
+      "kind": "Enum",
+      "insertText": "SubjectArea"
     },
     {
-      "label": "Admission",
+      "label": "UserRole",
       "labelDetails": {
         "detail": "User-Defined",
-        "description": "Record"
+        "description": "enum"
       },
-      "kind": "Struct",
-      "insertText": "Admission"
+      "kind": "Enum",
+      "insertText": "UserRole"
+    },
+    {
+      "label": "AddressType",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "enum"
+      },
+      "kind": "Enum",
+      "insertText": "AddressType"
+    },
+    {
+      "label": "Teacher",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Class"
+      },
+      "kind": "Interface",
+      "insertText": "Teacher"
+    },
+    {
+      "label": "Student",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Class"
+      },
+      "kind": "Interface",
+      "insertText": "Student"
+    },
+    {
+      "label": "UserProfile",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Class"
+      },
+      "kind": "Interface",
+      "insertText": "UserProfile"
     },
     {
       "label": "string",

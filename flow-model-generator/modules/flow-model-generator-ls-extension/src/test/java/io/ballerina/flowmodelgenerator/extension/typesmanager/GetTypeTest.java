@@ -62,20 +62,22 @@ public class GetTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
+                {Path.of("get_array_type_def.json")},
+                {Path.of("get_class.json")},
+                {Path.of("get_enum_type1.json")},
+                {Path.of("get_enum_type2.json")},
+                {Path.of("get_error_type_def.json")},
+                {Path.of("get_object_type.json")},
                 {Path.of("get_record_type1.json")},
                 {Path.of("get_record_type2.json")},
                 {Path.of("get_record_type3.json")},
                 {Path.of("get_record_type4.json")},
                 {Path.of("get_record_type5.json")},
-                {Path.of("get_union_type1.json")},
                 {Path.of("get_service_class1.json")},
                 {Path.of("get_service_class2.json")},
                 {Path.of("get_service_class3.json")},
-                {Path.of("get_enum_type1.json")},
-                {Path.of("get_enum_type2.json")},
-                {Path.of("get_array_type_def.json")},
                 {Path.of("get_table_type_def.json")},
-                {Path.of("get_error_type_def.json")},
+                {Path.of("get_union_type1.json")},
         };
     }
 

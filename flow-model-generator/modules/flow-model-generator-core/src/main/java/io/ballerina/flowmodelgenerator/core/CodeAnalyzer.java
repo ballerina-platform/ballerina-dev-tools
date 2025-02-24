@@ -245,12 +245,9 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.STOP, returnStatementNode);
         } else {
             ExpressionNode expr = optExpr.get();
-            expr.accept(this);
-            if (isNodeUnidentified()) {
-                startNode(NodeKind.RETURN, returnStatementNode)
-                        .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
-                        .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
-            }
+            startNode(NodeKind.RETURN, returnStatementNode)
+                    .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
+                    .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
         }
         nodeBuilder.returning();
         endNode(returnStatementNode);
@@ -1112,7 +1109,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(FailStatementNode failStatementNode) {
         startNode(NodeKind.FAIL, failStatementNode)
                 .properties().expression(failStatementNode.expression(), FailBuilder.FAIL_EXPRESSION_DOC, false,
-                        TypesGenerator.ERROR_TYPE_NAME);
+                        TypesGenerator.TYPE_ERROR);
         endNode(failStatementNode);
     }
 
@@ -1367,7 +1364,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(PanicStatementNode panicStatementNode) {
         startNode(NodeKind.PANIC, panicStatementNode)
                 .properties().expression(panicStatementNode.expression(), PanicBuilder.PANIC_EXPRESSION_DOC, false,
-                        TypesGenerator.ERROR_TYPE_NAME);
+                        TypesGenerator.TYPE_ERROR);
         endNode(panicStatementNode);
     }
 

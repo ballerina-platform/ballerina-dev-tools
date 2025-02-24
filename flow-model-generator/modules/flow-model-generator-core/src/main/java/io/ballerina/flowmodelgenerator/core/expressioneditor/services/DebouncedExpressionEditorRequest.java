@@ -35,9 +35,12 @@ import java.util.concurrent.Callable;
 public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T> {
 
     private final ExpressionEditorContext context;
+    private TextDocument prevDoc;
+    private boolean reverted;
 
     public DebouncedExpressionEditorRequest(ExpressionEditorContext context) {
         this.context = context;
+        this.reverted = false;
     }
 
     /**
@@ -67,13 +70,20 @@ public abstract class DebouncedExpressionEditorRequest<T> implements Callable<T>
     @Override
     public T call() throws Exception {
         // Capture the first state of the document
-        TextDocument oldTextDocument = context.textDocument();
+        prevDoc = context.textDocument();
 
         // Write the statement and generate the response
         T response = getResponse(context);
 
         // Revert the document to the previous state
-        context.applyContent(oldTextDocument);
+        revertDocument();
         return response;
+    }
+
+    public final void revertDocument() {
+        if (!reverted && prevDoc != null) {
+            context.applyContent(prevDoc);
+            this.reverted = true;
+        }
     }
 }

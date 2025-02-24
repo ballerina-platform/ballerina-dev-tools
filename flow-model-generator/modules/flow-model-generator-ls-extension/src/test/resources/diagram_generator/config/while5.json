@@ -1208,16 +1208,11 @@
                       {
                         "id": "94822",
                         "metadata": {
-                          "label": "toString",
-                          "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+                          "label": "Return",
+                          "description": "Value of '\"Response received from admin service: \" + response.toString()'"
                         },
                         "codedata": {
-                          "node": "METHOD_CALL",
-                          "org": "ballerina",
-                          "module": "lang.value",
-                          "symbol": "toString",
-                          "version": "0.0.0",
+                          "node": "RETURN",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -1233,15 +1228,15 @@
                         },
                         "returning": true,
                         "properties": {
-                          "connection": {
+                          "expression": {
                             "metadata": {
-                              "label": "Connection",
-                              "description": "Connection to use"
+                              "label": "Expression",
+                              "description": "Return value"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "response",
+                            "value": "\"Response received from admin service: \" + response.toString()",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "advanced": false
                           }
                         },

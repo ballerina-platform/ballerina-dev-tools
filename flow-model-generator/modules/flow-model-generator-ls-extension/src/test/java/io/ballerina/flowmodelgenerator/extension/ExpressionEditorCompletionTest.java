@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class ExpressionEditorCompletionTest extends AbstractLSTest {
 
-    private static final Type COMPLETION_RESPONSE_TYPE = new TypeToken<List<CompletionItem>>() { }.getType();
+    public static final Type COMPLETION_RESPONSE_TYPE = new TypeToken<List<CompletionItem>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")

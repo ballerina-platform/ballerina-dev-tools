@@ -101,10 +101,7 @@ public class SourceCodeGenerator {
     }
 
     private String generateEnumCodeSnippet(TypeData typeData) {
-        String docs = "";
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
-        }
+        String docs = generateDocs(typeData.metadata().description(), "");
 
         // Build the enum values.
         StringBuilder enumValues = new StringBuilder();
@@ -119,22 +116,19 @@ public class SourceCodeGenerator {
             }
         }
 
-        String template = "%n%senum %s {%s%n}%n";
+        String template = "%senum %s {%s%n}%n";
 
         return template.formatted(docs, typeData.name(), enumValues.toString());
     }
 
     private String generateTypeDefCodeSnippet(TypeData typeData) {
-        String docs = "";
-        if (typeData.metadata().description() != null && !typeData.metadata().description().isEmpty()) {
-            docs = CommonUtils.convertToBalDocs(typeData.metadata().description());
-        }
+        String docs = generateDocs(typeData.metadata().description(), "");
 
         // Generate the type descriptor into a StringBuilder.
         StringBuilder typeDescriptorBuilder = new StringBuilder();
         generateTypeDescriptor(typeData, typeDescriptorBuilder);
 
-        String template = "%n%stype %s %s;";
+        String template = "%stype %s %s;";
 
         return template.formatted(docs, typeData.name(), typeDescriptorBuilder.toString());
     }
@@ -179,7 +173,7 @@ public class SourceCodeGenerator {
     private void generateObjectTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
         StringBuilder fieldsBuilder = new StringBuilder();
         for (Member member : typeData.members()) {
-            generateMember(member, fieldsBuilder, false);
+            generateFieldMember(member, fieldsBuilder, false);
         }
 
         // TODO: Generate functions if needed.
@@ -201,7 +195,7 @@ public class SourceCodeGenerator {
         // Build the fields.
         StringBuilder fieldsBuilder = new StringBuilder();
         for (Member member : typeData.members()) {
-            generateMember(member, fieldsBuilder, true);
+            generateFieldMember(member, fieldsBuilder, true);
         }
 
         // Build the rest field (if present).
@@ -213,44 +207,19 @@ public class SourceCodeGenerator {
         });
 
         // The template assumes that the dynamic parts already include their needed newlines and indentation.
-        String recordTemplate = "record {|%s%s%s%n|}";
+        String template = "record {|%s%s%s%n|}";
 
-        stringBuilder.append(recordTemplate.formatted(
+        stringBuilder.append(template.formatted(
                 inclusionsBuilder.toString(),
                 fieldsBuilder.toString(),
                 restBuilder.toString()
         ));
     }
 
-    private void generateMember(Member member, StringBuilder stringBuilder, boolean withDefaultValue) {
-        // The documentation string.
-        String docs = (member.docs() != null && !member.docs().isEmpty())
-                ? LS + "\t" + CommonUtils.convertToBalDocs(member.docs())
-                : LS;
 
-        // The default value string (if exist).
-        String defaultValue = "";
-        if (withDefaultValue && member.defaultValue() != null && !member.defaultValue().isEmpty()) {
-            defaultValue = " = " + member.defaultValue();
-        }
-
-        // Generate the type descriptor using a temporary StringBuilder.
-        StringBuilder typeDescriptorBuilder = new StringBuilder();
-        generateTypeDescriptor(member.type(), typeDescriptorBuilder);
-        String typeDescriptor = typeDescriptorBuilder.toString();
-
-        // The member template:
-        // %s -> documentation (including leading newline and indent)
-        // \t -> fixed indent for the member declaration
-        // %s -> type descriptor
-        // %s -> member name
-        // %s -> default value (if any)
-        // ; -> terminator
-        String memberTemplate = "%s\t%s %s%s;";
-
-        // Append the formatted member to the main string builder.
-        stringBuilder.append(memberTemplate.formatted(docs,
-                typeDescriptor, CommonUtil.escapeReservedKeyword(member.name()), defaultValue));
+    private void generateFieldMember(Member member, StringBuilder stringBuilder, boolean withDefaultValue) {
+        String docs = generateDocs(member.docs(), "\t");
+        stringBuilder.append(docs).append("\t").append(generateMember(member, withDefaultValue)).append(";");
     }
 
     private void generateTableTypeDescriptor(TypeData typeData, StringBuilder stringBuilder) {
@@ -389,6 +358,24 @@ public class SourceCodeGenerator {
         stringBuilder.append("[]");
     }
 
+    private String generateDocs(String docs, String indent) {
+        return (docs != null && !docs.isEmpty())
+                ? LS + indent + CommonUtils.convertToBalDocs(docs)
+                : LS;
+    }
+
+    private String generateMember(Member member, boolean withDefaultValue) {
+        StringBuilder typeDescriptorBuilder = new StringBuilder();
+        generateTypeDescriptor(member.type(), typeDescriptorBuilder);
+
+        String template = "%s %s%s"; // <type descriptor> <identifier> [= <default value>]
+
+        return template.formatted(typeDescriptorBuilder.toString(),
+                CommonUtil.escapeReservedKeyword(member.name()),
+                (withDefaultValue && member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
+                        " = " + member.defaultValue() : "");
+    }
+
     private void generateInferredGraphqlClassField(Function function, StringBuilder stringBuilder) {
         String template = "%n\tprivate final %s %s;";
         String classField = template.formatted(generateTypeDescriptor(function.returnType()),
@@ -401,21 +388,10 @@ public class SourceCodeGenerator {
                 ? LS + "\t" + CommonUtils.convertToBalDocs(function.description())
                 : LS;
 
-        StringBuilder paramsBuilder = new StringBuilder();
-        for (int i = 0; i < function.parameters().size(); i++) {
-            Member param = function.parameters().get(i);
-            paramsBuilder
-                    .append(generateTypeDescriptor(param.type()))
-                    .append(" ")
-                    .append(param.name());
-            if (param.defaultValue() != null && !param.defaultValue().isEmpty()) {
-                paramsBuilder
-                        .append(" = ")
-                        .append(param.defaultValue());
-            }
-            if (i < function.parameters().size() - 1) {
-                paramsBuilder.append(", ");
-            }
+        StringJoiner paramJoiner = new StringJoiner(", ");
+        for (Member param : function.parameters()) {
+            String genParam = generateMember(param, true);
+            paramJoiner.add(genParam);
         }
 
         String template = "%s\tresource function %s %s(%s) returns %s {" +
@@ -431,7 +407,7 @@ public class SourceCodeGenerator {
                 docs,
                 function.accessor(),
                 function.name(),
-                paramsBuilder.toString(),
+                paramJoiner.toString(),
                 generateTypeDescriptor(function.returnType()),
                 function.name()
         ));

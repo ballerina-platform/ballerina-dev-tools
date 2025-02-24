@@ -207,16 +207,11 @@
               {
                 "id": "65878",
                 "metadata": {
-                  "label": "toString",
-                  "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+                  "label": "Return",
+                  "description": "Value of 'res.toString()'"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.value",
-                  "symbol": "toString",
-                  "version": "0.0.0",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -232,15 +227,15 @@
                 },
                 "returning": true,
                 "properties": {
-                  "connection": {
+                  "expression": {
                     "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "res",
+                    "value": "res.toString()",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "advanced": false
                   }
                 },
@@ -308,16 +303,11 @@
               {
                 "id": "67861",
                 "metadata": {
-                  "label": "message",
-                  "description": "Returns the error's message.\n\n```ballerina\nerror(\"IO error\").message() ⇒ IO error\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.error_0.0.0.png"
+                  "label": "Return",
+                  "description": "Value of 'err.message()'"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.error",
-                  "symbol": "message",
-                  "version": "0.0.0",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -333,32 +323,16 @@
                 },
                 "returning": true,
                 "properties": {
-                  "connection": {
+                  "expression": {
                     "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "err",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
-                  "e": {
-                    "metadata": {
-                      "label": "e",
-                      "description": "the error value"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "error",
-                    "placeholder": "error(\"\")",
+                    "value": "err.message()",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "e"
-                    }
+                    "advanced": false
                   }
                 },
                 "flags": 0
