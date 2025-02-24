@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -42,7 +43,14 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
     public static final String TARGET_TYPE_KEY = "targetType";
 
     @Override
-    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
+
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
         Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");

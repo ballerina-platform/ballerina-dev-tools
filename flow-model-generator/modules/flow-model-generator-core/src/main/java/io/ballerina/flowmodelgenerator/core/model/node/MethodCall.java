@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -40,7 +41,14 @@ import java.util.Set;
 public class MethodCall extends FunctionBuilder {
 
     @Override
-    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
+
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
         Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Object must be defined for a method call node");

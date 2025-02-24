@@ -21,7 +21,6 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -61,7 +60,7 @@ public class NewConnectionBuilder extends FunctionBuilder {
     }
 
     @Override
-    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder
                 .token().keyword(SyntaxKind.FINAL_KEYWORD).stepOut()
                 .newVariable();

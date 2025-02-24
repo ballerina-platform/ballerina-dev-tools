@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -101,7 +102,14 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
     }
 
     @Override
-    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
+
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
         Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");

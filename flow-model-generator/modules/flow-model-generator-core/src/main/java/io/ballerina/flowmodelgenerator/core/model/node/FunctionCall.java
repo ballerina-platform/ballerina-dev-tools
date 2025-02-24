@@ -18,11 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -39,7 +41,14 @@ import java.util.Set;
 public class FunctionCall extends FunctionBuilder {
 
     @Override
-    protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+        FlowNode flowNode = sourceBuilder.flowNode;
+
+        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
         Codedata codedata = flowNode.codedata();
         if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
             return sourceBuilder.token()

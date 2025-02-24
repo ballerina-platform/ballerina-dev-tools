@@ -19,15 +19,11 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -40,11 +36,8 @@ import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
-import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Abstract base class for function-like builders (functions, methods, resource actions).
@@ -52,8 +45,6 @@ import java.util.Map;
  * @since 2.0.0
  */
 public abstract class FunctionBuilder extends NodeBuilder {
-
-    protected abstract Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode);
 
     protected abstract NodeKind getFunctionNodeKind();
 
@@ -182,18 +173,6 @@ public abstract class FunctionBuilder extends NodeBuilder {
         properties()
                 .type(returnTypeName, editable)
                 .data(returnTypeName, context.getAllVisibleSymbolNames(), label);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
-            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
-
-        return buildFunctionCall(sourceBuilder, flowNode);
     }
 
     protected void setExpressionProperty(Codedata codedata) {
