@@ -1,0 +1,4000 @@
+{
+  "filePath": "proj",
+  "codedata": {
+    "org": "ballerina",
+    "module": "http",
+    "version": "2.13.2"
+  },
+  "typeConstraint": "ClientAuthConfig",
+  "expr": "{tokenUrl: \"\", username: \"\", password: \"\"}",
+  "output": {
+    "members": [
+      {
+        "fields": [
+          {
+            "name": "username",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "password",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "CredentialsConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "CredentialsConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "token",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "BearerTokenConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "BearerTokenConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "issuer",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "username",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "typeName": "array",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "audience",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "jwtId",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "keyId",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "paramType": {
+              "typeName": "json",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            "name": "customClaims",
+            "typeName": "map",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "expTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "RS256",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "RS384",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "RS512",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HS256",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HS384",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HS512",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "none",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "algorithm",
+                "typeName": "union",
+                "optional": false,
+                "typeInfo": {
+                  "name": "SigningAlgorithm",
+                  "orgName": "ballerina",
+                  "moduleName": "jwt",
+                  "version": "2.14.0"
+                },
+                "defaultable": true,
+                "isRestType": false
+              },
+              {
+                "members": [
+                  {
+                    "fields": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "keyStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "keyAlias",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "keyPassword",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "typeName": "record",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "keyFile",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "keyPassword",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "typeName": "record",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "members": [
+                          {
+                            "typeName": "RSA",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "KYBER768",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "DILITHIUM3",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "algorithm",
+                        "typeName": "union",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyAlgorithm",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "PrivateKey",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "PrivateKey",
+                      "orgName": "ballerina",
+                      "moduleName": "crypto",
+                      "version": "2.8.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "config",
+                "typeName": "union",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "signatureConfig",
+            "typeName": "record",
+            "optional": true,
+            "typeInfo": {
+              "name": "IssuerSignatureConfig",
+              "orgName": "ballerina",
+              "moduleName": "jwt",
+              "version": "2.14.0"
+            },
+            "defaultable": false,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "JwtIssuerConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "JwtIssuerConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "tokenUrl",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "clientId",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientSecret",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "typeName": "array",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "scopes",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "defaultTokenExpTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "name": "clockSkew",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "paramType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            "name": "optionalParams",
+            "typeName": "map",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "POST_BODY_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "typeName": "AUTH_HEADER_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "credentialBearer",
+            "typeName": "enum",
+            "optional": false,
+            "typeInfo": {
+              "name": "CredentialBearer",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "HTTP_2",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HTTP_1_1",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "httpVersion",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "HttpVersion",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": true,
+                "isRestType": false
+              },
+              {
+                "paramType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "name": "customHeaders",
+                "typeName": "map",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "customPayload",
+                "typeName": "string",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "members": [
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "ClientCredentialsGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ClientCredentialsGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "username",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "password",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "fields": [
+                              {
+                                "name": "refreshUrl",
+                                "typeName": "string",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "string",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "memberType": {
+                                      "typeName": "string",
+                                      "optional": false,
+                                      "defaultable": false,
+                                      "isRestType": false
+                                    },
+                                    "typeName": "array",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "scopes",
+                                "typeName": "union",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "paramType": {
+                                  "typeName": "string",
+                                  "optional": false,
+                                  "defaultable": false,
+                                  "isRestType": false
+                                },
+                                "name": "optionalParams",
+                                "typeName": "map",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "POST_BODY_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "typeName": "AUTH_HEADER_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "credentialBearer",
+                                "typeName": "enum",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "CredentialBearer",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              },
+                              {
+                                "name": "clientConfig",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "ClientConfiguration",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              }
+                            ],
+                            "hasRestType": false,
+                            "name": "RefreshConfig",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "RefreshConfig",
+                              "orgName": "ballerina",
+                              "moduleName": "oauth2",
+                              "version": "2.13.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "INFER_REFRESH_CONFIG",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "refreshConfig",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "PasswordGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "PasswordGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "refreshUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "refreshToken",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "RefreshTokenGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "RefreshTokenGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "auth",
+                "typeName": "union",
+                "optional": true,
+                "typeInfo": {
+                  "name": "ClientAuth",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "disable",
+                    "typeName": "boolean",
+                    "optional": false,
+                    "defaultable": true,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "TrustStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "TrustStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "cert",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "KeyStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "fields": [
+                          {
+                            "name": "certFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyPassword",
+                            "typeName": "string",
+                            "optional": true,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "CertKey",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CertKey",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "key",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "secureSocket",
+                "typeName": "record",
+                "optional": true,
+                "typeInfo": {
+                  "name": "SecureSocket",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "clientConfig",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ClientConfiguration",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "OAuth2ClientCredentialsGrantConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "OAuth2ClientCredentialsGrantConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "tokenUrl",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "username",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "password",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "clientId",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientSecret",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "typeName": "array",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "scopes",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "fields": [
+                  {
+                    "name": "refreshUrl",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "memberType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "typeName": "array",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "scopes",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "paramType": {
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false
+                    },
+                    "name": "optionalParams",
+                    "typeName": "map",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "typeName": "POST_BODY_BEARER",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "typeName": "AUTH_HEADER_BEARER",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "credentialBearer",
+                    "typeName": "enum",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "CredentialBearer",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": true,
+                    "isRestType": false
+                  },
+                  {
+                    "name": "clientConfig",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ClientConfiguration",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": true,
+                    "isRestType": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "RefreshConfig",
+                "typeName": "record",
+                "optional": false,
+                "typeInfo": {
+                  "name": "RefreshConfig",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "typeName": "INFER_REFRESH_CONFIG",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "refreshConfig",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "defaultTokenExpTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "name": "clockSkew",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "paramType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            "name": "optionalParams",
+            "typeName": "map",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "POST_BODY_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "typeName": "AUTH_HEADER_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "credentialBearer",
+            "typeName": "enum",
+            "optional": false,
+            "typeInfo": {
+              "name": "CredentialBearer",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "HTTP_2",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HTTP_1_1",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "httpVersion",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "HttpVersion",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": true,
+                "isRestType": false
+              },
+              {
+                "paramType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "name": "customHeaders",
+                "typeName": "map",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "customPayload",
+                "typeName": "string",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "members": [
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "ClientCredentialsGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ClientCredentialsGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "username",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "password",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "fields": [
+                              {
+                                "name": "refreshUrl",
+                                "typeName": "string",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "string",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "memberType": {
+                                      "typeName": "string",
+                                      "optional": false,
+                                      "defaultable": false,
+                                      "isRestType": false
+                                    },
+                                    "typeName": "array",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "scopes",
+                                "typeName": "union",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "paramType": {
+                                  "typeName": "string",
+                                  "optional": false,
+                                  "defaultable": false,
+                                  "isRestType": false
+                                },
+                                "name": "optionalParams",
+                                "typeName": "map",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "POST_BODY_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "typeName": "AUTH_HEADER_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "credentialBearer",
+                                "typeName": "enum",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "CredentialBearer",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              },
+                              {
+                                "name": "clientConfig",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "ClientConfiguration",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              }
+                            ],
+                            "hasRestType": false,
+                            "name": "RefreshConfig",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "RefreshConfig",
+                              "orgName": "ballerina",
+                              "moduleName": "oauth2",
+                              "version": "2.13.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "INFER_REFRESH_CONFIG",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "refreshConfig",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "PasswordGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "PasswordGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "refreshUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "refreshToken",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "RefreshTokenGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "RefreshTokenGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "auth",
+                "typeName": "union",
+                "optional": true,
+                "typeInfo": {
+                  "name": "ClientAuth",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "disable",
+                    "typeName": "boolean",
+                    "optional": false,
+                    "defaultable": true,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "TrustStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "TrustStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "cert",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "KeyStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "fields": [
+                          {
+                            "name": "certFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyPassword",
+                            "typeName": "string",
+                            "optional": true,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "CertKey",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CertKey",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "key",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "secureSocket",
+                "typeName": "record",
+                "optional": true,
+                "typeInfo": {
+                  "name": "SecureSocket",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "clientConfig",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ClientConfiguration",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "OAuth2PasswordGrantConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "OAuth2PasswordGrantConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "refreshUrl",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "refreshToken",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientId",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientSecret",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "typeName": "array",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "scopes",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "defaultTokenExpTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "name": "clockSkew",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "paramType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            "name": "optionalParams",
+            "typeName": "map",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "POST_BODY_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "typeName": "AUTH_HEADER_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "credentialBearer",
+            "typeName": "enum",
+            "optional": false,
+            "typeInfo": {
+              "name": "CredentialBearer",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "HTTP_2",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HTTP_1_1",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "httpVersion",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "HttpVersion",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": true,
+                "isRestType": false
+              },
+              {
+                "paramType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "name": "customHeaders",
+                "typeName": "map",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "customPayload",
+                "typeName": "string",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "members": [
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "ClientCredentialsGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ClientCredentialsGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "username",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "password",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "fields": [
+                              {
+                                "name": "refreshUrl",
+                                "typeName": "string",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "string",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "memberType": {
+                                      "typeName": "string",
+                                      "optional": false,
+                                      "defaultable": false,
+                                      "isRestType": false
+                                    },
+                                    "typeName": "array",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "scopes",
+                                "typeName": "union",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "paramType": {
+                                  "typeName": "string",
+                                  "optional": false,
+                                  "defaultable": false,
+                                  "isRestType": false
+                                },
+                                "name": "optionalParams",
+                                "typeName": "map",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "POST_BODY_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "typeName": "AUTH_HEADER_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "credentialBearer",
+                                "typeName": "enum",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "CredentialBearer",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              },
+                              {
+                                "name": "clientConfig",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "ClientConfiguration",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              }
+                            ],
+                            "hasRestType": false,
+                            "name": "RefreshConfig",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "RefreshConfig",
+                              "orgName": "ballerina",
+                              "moduleName": "oauth2",
+                              "version": "2.13.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "INFER_REFRESH_CONFIG",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "refreshConfig",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "PasswordGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "PasswordGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "refreshUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "refreshToken",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "RefreshTokenGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "RefreshTokenGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "auth",
+                "typeName": "union",
+                "optional": true,
+                "typeInfo": {
+                  "name": "ClientAuth",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "disable",
+                    "typeName": "boolean",
+                    "optional": false,
+                    "defaultable": true,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "TrustStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "TrustStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "cert",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "KeyStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "fields": [
+                          {
+                            "name": "certFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyPassword",
+                            "typeName": "string",
+                            "optional": true,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "CertKey",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CertKey",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "key",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "secureSocket",
+                "typeName": "record",
+                "optional": true,
+                "typeInfo": {
+                  "name": "SecureSocket",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "clientConfig",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ClientConfiguration",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "OAuth2RefreshTokenGrantConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "OAuth2RefreshTokenGrantConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "tokenUrl",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "defaultValue": "\"\"",
+            "isRestType": false
+          },
+          {
+            "name": "assertion",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientId",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "clientSecret",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "typeName": "array",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "scopes",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "defaultTokenExpTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "name": "clockSkew",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "paramType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false
+            },
+            "name": "optionalParams",
+            "typeName": "map",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "POST_BODY_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "typeName": "AUTH_HEADER_BEARER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "name": "credentialBearer",
+            "typeName": "enum",
+            "optional": false,
+            "typeInfo": {
+              "name": "CredentialBearer",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "HTTP_2",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "typeName": "HTTP_1_1",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "httpVersion",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "HttpVersion",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": true,
+                "isRestType": false
+              },
+              {
+                "paramType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false
+                },
+                "name": "customHeaders",
+                "typeName": "map",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "name": "customPayload",
+                "typeName": "string",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "members": [
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "ClientCredentialsGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ClientCredentialsGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "tokenUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "username",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "password",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "fields": [
+                              {
+                                "name": "refreshUrl",
+                                "typeName": "string",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "string",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "memberType": {
+                                      "typeName": "string",
+                                      "optional": false,
+                                      "defaultable": false,
+                                      "isRestType": false
+                                    },
+                                    "typeName": "array",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "scopes",
+                                "typeName": "union",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "paramType": {
+                                  "typeName": "string",
+                                  "optional": false,
+                                  "defaultable": false,
+                                  "isRestType": false
+                                },
+                                "name": "optionalParams",
+                                "typeName": "map",
+                                "optional": true,
+                                "defaultable": false,
+                                "isRestType": false
+                              },
+                              {
+                                "members": [
+                                  {
+                                    "typeName": "POST_BODY_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  },
+                                  {
+                                    "typeName": "AUTH_HEADER_BEARER",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false
+                                  }
+                                ],
+                                "name": "credentialBearer",
+                                "typeName": "enum",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "CredentialBearer",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              },
+                              {
+                                "name": "clientConfig",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "ClientConfiguration",
+                                  "orgName": "ballerina",
+                                  "moduleName": "oauth2",
+                                  "version": "2.13.0"
+                                },
+                                "defaultable": true,
+                                "isRestType": false
+                              }
+                            ],
+                            "hasRestType": false,
+                            "name": "RefreshConfig",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "RefreshConfig",
+                              "orgName": "ballerina",
+                              "moduleName": "oauth2",
+                              "version": "2.13.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "INFER_REFRESH_CONFIG",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "refreshConfig",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "PasswordGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "PasswordGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "fields": [
+                      {
+                        "name": "refreshUrl",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "refreshToken",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientId",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientSecret",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "memberType": {
+                              "typeName": "string",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false
+                            },
+                            "typeName": "array",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "scopes",
+                        "typeName": "union",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "defaultTokenExpTime",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clockSkew",
+                        "typeName": "decimal",
+                        "optional": false,
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "paramType": {
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false
+                        },
+                        "name": "optionalParams",
+                        "typeName": "map",
+                        "optional": true,
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "members": [
+                          {
+                            "typeName": "POST_BODY_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "typeName": "AUTH_HEADER_BEARER",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "name": "credentialBearer",
+                        "typeName": "enum",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CredentialBearer",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      },
+                      {
+                        "name": "clientConfig",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ClientConfiguration",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": true,
+                        "isRestType": false
+                      }
+                    ],
+                    "hasRestType": false,
+                    "name": "RefreshTokenGrantConfig",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "RefreshTokenGrantConfig",
+                      "orgName": "ballerina",
+                      "moduleName": "oauth2",
+                      "version": "2.13.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "name": "auth",
+                "typeName": "union",
+                "optional": true,
+                "typeInfo": {
+                  "name": "ClientAuth",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "disable",
+                    "typeName": "boolean",
+                    "optional": false,
+                    "defaultable": true,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "TrustStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "TrustStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "cert",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  },
+                  {
+                    "members": [
+                      {
+                        "fields": [
+                          {
+                            "name": "path",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "password",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "KeyStore",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "KeyStore",
+                          "orgName": "ballerina",
+                          "moduleName": "crypto",
+                          "version": "2.8.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      },
+                      {
+                        "fields": [
+                          {
+                            "name": "certFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyFile",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false
+                          },
+                          {
+                            "name": "keyPassword",
+                            "typeName": "string",
+                            "optional": true,
+                            "defaultable": false,
+                            "isRestType": false
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "CertKey",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "CertKey",
+                          "orgName": "ballerina",
+                          "moduleName": "oauth2",
+                          "version": "2.13.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false
+                      }
+                    ],
+                    "name": "key",
+                    "typeName": "union",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "secureSocket",
+                "typeName": "record",
+                "optional": true,
+                "typeInfo": {
+                  "name": "SecureSocket",
+                  "orgName": "ballerina",
+                  "moduleName": "oauth2",
+                  "version": "2.13.0"
+                },
+                "defaultable": false,
+                "isRestType": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "clientConfig",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ClientConfiguration",
+              "orgName": "ballerina",
+              "moduleName": "oauth2",
+              "version": "2.13.0"
+            },
+            "defaultable": true,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "OAuth2JwtBearerGrantConfig",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "OAuth2JwtBearerGrantConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.2"
+        },
+        "defaultable": false,
+        "isRestType": false
+      }
+    ],
+    "typeName": "union",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false
+  }
+}
