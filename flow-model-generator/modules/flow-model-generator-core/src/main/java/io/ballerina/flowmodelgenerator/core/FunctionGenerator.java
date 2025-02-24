@@ -33,8 +33,8 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.SearchDatabaseManager;
+import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
@@ -132,7 +132,6 @@ public class FunctionGenerator {
             availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
         }
         projectBuilder.items(availableNodes);
-
     }
 
     private void buildLibraryFunctions(Map<String, String> queryMap) {
@@ -140,51 +139,52 @@ public class FunctionGenerator {
         List<String> moduleNames = module.moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
-        // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
-//        List<String> moduleNames = semanticModel.moduleSymbols().stream()
-//                .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
-//                .flatMap(symbol -> symbol.getName().stream())
-//                .toList();
+        // TODO: Use this method when
+        // https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
+        // List<String> moduleNames = semanticModel.moduleSymbols().stream()
+        // .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
+        // .flatMap(symbol -> symbol.getName().stream())
+        // .toList();
 
-        // Build the imported library functions if exists
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        if (!moduleNames.isEmpty()) {
-            List<FunctionData> functionsByPackages =
-                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, FunctionData.Kind.FUNCTION);
-            Category.Builder libraryBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
-            addLibraryFunction(functionsByPackages, libraryBuilder);
+        // Set the categories based on the available flags
+        Category.Builder importedFnBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
+        Category.Builder availableFnBuilder = null;
+        boolean includeAvailableFunctions = queryMap.get(INCLUDE_AVAILABLE_FUNCTIONS_FLAG).equals("true");
+        if (includeAvailableFunctions) {
+            availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
         }
 
-        // Build the available library functions if flag is set
-        if (queryMap.get(INCLUDE_AVAILABLE_FUNCTIONS_FLAG).equals("false")) {
-            return;
-        }
-        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
-        List<FunctionData> functionDataList = CommonUtils.hasNoKeyword(queryMap, "q")
-                ? dbManager.getFunctionsByOrg("ballerina", FunctionData.Kind.FUNCTION)
-                : dbManager.searchFunctions(queryMap, FunctionData.Kind.FUNCTION);
-        functionDataList.removeIf(functionResult -> moduleNames.contains(functionResult.packageName()));
-        addLibraryFunction(functionDataList, utilityBuilder);
-    }
+        // Add the library functions
+        List<SearchResult> functionSearchList = SearchDatabaseManager.getInstance().searchFunctions(queryMap);
+        for (SearchResult searchResult : functionSearchList) {
+            SearchResult.Package packageInfo = searchResult.packageInfo();
 
-    private static void addLibraryFunction(List<FunctionData> functionDataList, Category.Builder utilityBuilder) {
-        for (FunctionData functionData : functionDataList) {
-            String icon = CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
-                    functionData.version());
+            // Skip if the module is not imported and available functions are not included
+            boolean isImportedModule = moduleNames.contains(packageInfo.name());
+            if (!isImportedModule && !includeAvailableFunctions) {
+                continue;
+            }
+
+            // Add the function to the respective category
+            String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
             Metadata metadata = new Metadata.Builder<>(null)
-                    .label(functionData.name())
-                    .description(functionData.description())
+                    .label(searchResult.name())
+                    .description(searchResult.description())
                     .icon(icon)
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
-                    .org(functionData.org())
-                    .module(functionData.packageName())
-                    .symbol(functionData.name())
-                    .version(functionData.version())
+                    .org(packageInfo.org())
+                    .module(packageInfo.name())
+                    .symbol(searchResult.name())
+                    .version(packageInfo.version())
                     .build();
-            utilityBuilder.stepIn(functionData.packageName(), "", icon)
-                    .node(new AvailableNode(metadata, codedata, true));
+            Category.Builder builder = isImportedModule ? importedFnBuilder : availableFnBuilder;
+            if (builder != null) {
+                builder.stepIn(packageInfo.name(), "", icon)
+                        .node(new AvailableNode(metadata, codedata, true));
+            }
         }
+        functionSearchList.removeIf(functionResult -> moduleNames.contains(functionResult.packageInfo().name()));
     }
 }

@@ -290,15 +290,6 @@
       "pullCount": 19924
     },
     {
-      "name": "xmldata",
-      "version": "2.9.0",
-      "keywords": [
-        "xml",
-        "json"
-      ],
-      "pullCount": 18267
-    },
-    {
       "name": "tcp",
       "version": "1.12.1",
       "keywords": [

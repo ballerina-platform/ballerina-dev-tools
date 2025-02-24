@@ -43,21 +43,21 @@
           "metadata": {
             "label": "data.jsondata",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "parseString",
                 "description": "Converts JSON string to subtype of anydata.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.jsondata",
                 "symbol": "parseString",
-                "version": "0.2.0"
+                "version": "1.0.0"
               },
               "enabled": true
             }
@@ -78,23 +78,23 @@
       "items": [
         {
           "metadata": {
-            "label": "data.csv",
+            "label": "data.xmldata",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.1.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.2.1.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "parseString",
-                "description": "Parse a CSV string as a subtype of `record {}[]` or `anydata[][]`.\n\n```ballerina\nstring csvString = string `id,name\n                           1,John\n                           3,Jane`;\nrecord {int id; string name;}[] csv1 = check csv:parseString(csvString);\n[int, string][] csv2 = check csv:parseString(csvString);\nrecord {|int id;|}[] csv3 = check csv:parseString(csvString);\nrecord {int id;}[] csv4 = check csv:parseString(csvString, {skipLines: [1]});\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.1.0.png"
+                "description": "Converts XML string to record type with projection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.2.1.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "data.csv",
+                "module": "data.xmldata",
                 "symbol": "parseString",
-                "version": "0.1.0"
+                "version": "1.2.1"
               },
               "enabled": true
             }
@@ -104,21 +104,21 @@
           "metadata": {
             "label": "data.yaml",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.yaml_0.1.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.yaml_0.7.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "parseString",
                 "description": "Converts YAML string to subtype of anydata.\n\n```ballerina\njson value = yaml:parseString(\"name: Ballerina\");\nvalue ⇒ {\"name\": \"Ballerina\"}\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.yaml_0.1.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.yaml_0.7.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.yaml",
                 "symbol": "parseString",
-                "version": "0.1.0"
+                "version": "0.7.0"
               },
               "enabled": true
             }
@@ -126,23 +126,23 @@
         },
         {
           "metadata": {
-            "label": "data.xmldata",
+            "label": "data.csv",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.7.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "parseString",
-                "description": "Converts XML string to record type with projection.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.0.0.png"
+                "description": "Parse a CSV string as a subtype of `record {}[]` or `anydata[][]`.\n\n```ballerina\nstring csvString = string `id,name\n                           1,John\n                           3,Jane`;\nrecord {int id; string name;}[] csv1 = check csv:parseString(csvString);\n[int, string][] csv2 = check csv:parseString(csvString);\nrecord {|int id;|}[] csv3 = check csv:parseString(csvString);\nrecord {int id;}[] csv4 = check csv:parseString(csvString, {skipLines: [1]});\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.7.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "data.xmldata",
+                "module": "data.csv",
                 "symbol": "parseString",
-                "version": "1.0.0"
+                "version": "0.7.0"
               },
               "enabled": true
             }
