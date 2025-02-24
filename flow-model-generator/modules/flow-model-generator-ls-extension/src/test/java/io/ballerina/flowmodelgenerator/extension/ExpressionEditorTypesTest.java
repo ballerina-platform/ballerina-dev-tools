@@ -19,9 +19,8 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorTypesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -43,15 +42,15 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        VisibleVariableTypeRequest request =
-                new VisibleVariableTypeRequest(getSourcePath(testConfig.source()), testConfig.position());
+        ExpressionEditorTypesRequest request =
+                new ExpressionEditorTypesRequest(getSourcePath(testConfig.source()), testConfig.typeConstraint());
         JsonObject response = getResponse(request);
 
         List<CompletionItem> actualCompletions = gson.fromJson(response.get("left").getAsJsonArray(),
                 ExpressionEditorCompletionTest.COMPLETION_RESPONSE_TYPE);
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
-                    testConfig.position(), actualCompletions);
+                    testConfig.typeConstraint(), actualCompletions);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -77,7 +76,7 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String source, LinePosition position,
+    private record TestConfig(String description, String source, String typeConstraint,
                               List<CompletionItem> completions) {
     }
 }
