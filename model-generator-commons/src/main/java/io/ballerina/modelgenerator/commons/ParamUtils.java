@@ -17,6 +17,7 @@
  */
 
 package io.ballerina.modelgenerator.commons;
+
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
@@ -35,7 +36,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
-
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
@@ -83,8 +83,9 @@ public class ParamUtils {
                         String paramName = pathParameterSymbol.getName().orElse("");
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");
-                        pathParams.add(ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
-                                paramDescription, false));
+                        pathParams.add(
+                                ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
+                                        paramDescription, false));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
@@ -92,7 +93,8 @@ public class ParamUtils {
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
                     pathParams.add(
                             io.ballerina.modelgenerator.commons.ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
-                                    ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, false));
+                                    ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
+                                    false));
                 });
             }
             case PATH_REST_PARAM -> {

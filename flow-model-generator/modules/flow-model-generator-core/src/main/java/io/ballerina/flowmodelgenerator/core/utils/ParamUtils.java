@@ -36,7 +36,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
-
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterResult;
@@ -87,8 +86,9 @@ public class ParamUtils {
                         String paramName = pathParameterSymbol.getName().orElse("");
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");
-                        pathParams.add(ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
-                                paramDescription, false));
+                        pathParams.add(
+                                ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
+                                        paramDescription, false));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
@@ -96,7 +96,8 @@ public class ParamUtils {
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
                     pathParams.add(
                             io.ballerina.modelgenerator.commons.ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
-                            ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, false));
+                                    ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
+                                    false));
                 });
             }
             case PATH_REST_PARAM -> {
@@ -124,7 +125,7 @@ public class ParamUtils {
     }
 
     public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol,
-                                                                                                                   SemanticModel semanticModel) {
+                                                                                     SemanticModel semanticModel) {
         ParamForTypeInfer paramForTypeInfer = null;
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         if (functionSymbol.external()) {
