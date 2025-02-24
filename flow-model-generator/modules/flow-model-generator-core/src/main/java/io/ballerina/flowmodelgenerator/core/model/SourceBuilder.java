@@ -27,8 +27,8 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
@@ -319,7 +319,7 @@ public class SourceBuilder {
             boolean optional = prop.optional();
 
             if (firstParamAdded) {
-                if ((kind.equals(Parameter.Kind.REST_PARAMETER.name()))) {
+                if ((kind.equals(ParameterData.Kind.REST_PARAMETER.name()))) {
                     if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
                         continue;
                     }
@@ -327,7 +327,7 @@ public class SourceBuilder {
                         addRestParamValues(prop);
                         continue;
                     }
-                } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+                } else if (kind.equals(ParameterData.Kind.INCLUDED_RECORD_REST.name())) {
                     if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
                         continue;
                     }
@@ -339,12 +339,12 @@ public class SourceBuilder {
                 }
             }
 
-            if (!optional && kind.equals(Parameter.Kind.REQUIRED.name())) {
+            if (!optional && kind.equals(ParameterData.Kind.REQUIRED.name())) {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
                 tokenBuilder.expression(prop);
-            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD.name())) {
+            } else if (kind.equals(ParameterData.Kind.INCLUDED_RECORD.name())) {
                 if (isPropValueEmpty(prop)) {
                     continue;
                 }
@@ -352,7 +352,7 @@ public class SourceBuilder {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
                 tokenBuilder.expression(prop);
-            } else if (kind.equals(Parameter.Kind.DEFAULTABLE.name())) {
+            } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
                 if (isPropValueEmpty(prop)) {
                     missedDefaultValue = true;
                     continue;
@@ -369,7 +369,7 @@ public class SourceBuilder {
                 } else {
                     tokenBuilder.expression(prop);
                 }
-            } else if (kind.equals(Parameter.Kind.INCLUDED_FIELD.name())) {
+            } else if (kind.equals(ParameterData.Kind.INCLUDED_FIELD.name())) {
                 if (isPropValueEmpty(prop)) {
                     continue;
                 }
@@ -378,7 +378,7 @@ public class SourceBuilder {
                 }
                 tokenBuilder.name(prop.codedata().originalName())
                         .whiteSpace().keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
-            } else if (kind.equals(Parameter.Kind.REST_PARAMETER.name())) {
+            } else if (kind.equals(ParameterData.Kind.REST_PARAMETER.name())) {
                 if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
                     continue;
                 }
@@ -386,7 +386,7 @@ public class SourceBuilder {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
                 addRestParamValues(prop);
-            } else if (kind.equals(Parameter.Kind.INCLUDED_RECORD_REST.name())) {
+            } else if (kind.equals(ParameterData.Kind.INCLUDED_RECORD_REST.name())) {
                 if (isPropValueEmpty(prop) || ((List<?>) prop.value()).isEmpty()) {
                     continue;
                 }

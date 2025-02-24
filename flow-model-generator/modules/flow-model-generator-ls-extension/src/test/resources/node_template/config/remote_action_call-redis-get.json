@@ -10,6 +10,7 @@
     "org": "ballerinax",
     "module": "redis",
     "object": "Client",
+    "version": "3.1.0",
     "symbol": "get",
     "parentSymbol": "rc"
   },
@@ -26,6 +27,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
+      "version": "3.1.0",
       "id": 1439
     },
     "returning": false,
