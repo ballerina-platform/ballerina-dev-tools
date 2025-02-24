@@ -110,7 +110,8 @@ public class TriggerTemplateGenerator {
                 return;
             }
 
-            String moduleName = packageMetadataInfo.name().split("\\.")[1];
+            String[] parts = packageMetadataInfo.name().split("\\.");
+            String moduleName = parts[parts.length - 1];
             String formattedModuleName = upperCaseFirstLetter(moduleName);
 
             List<String> serviceNames = new ArrayList<>();
