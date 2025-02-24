@@ -1062,12 +1062,12 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                     .properties()
                     .expression(expression, AssignBuilder.EXPRESSION_DOC, false)
-                    .data(assignmentStatementNode.varRef(), true, new HashSet<>());
+                    .data(assignmentStatementNode.varRef(), true, new HashSet<>(), true);
         }
 
         if (nodeBuilder instanceof XmlPayloadBuilder || nodeBuilder instanceof JsonPayloadBuilder
                 || nodeBuilder instanceof BinaryBuilder) {
-            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>());
+            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>(), true);
         }
         endNode(assignmentStatementNode);
     }
@@ -1336,7 +1336,8 @@ class CodeAnalyzer extends NodeVisitor {
             type = "";
         }
         workerBranchBuilder.properties()
-                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC, "worker")
+                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC,
+                        "worker", false)
                 .returnType(type);
 
         // Analyze the body of the worker
