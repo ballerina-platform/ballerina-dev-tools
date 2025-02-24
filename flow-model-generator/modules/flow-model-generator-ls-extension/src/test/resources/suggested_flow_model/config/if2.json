@@ -293,21 +293,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "if.bal",
-                        "startLine": {
-                          "line": 4,
-                          "offset": 1
-                        },
-                        "endLine": {
-                          "line": 4,
-                          "offset": 2
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0,

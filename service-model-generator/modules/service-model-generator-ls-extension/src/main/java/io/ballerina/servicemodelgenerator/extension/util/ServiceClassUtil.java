@@ -128,7 +128,7 @@ public class ServiceClassUtil {
             accessor.setEnabled(true);
             accessor.setEditable(true);
             updateFunctionNameProperty(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
-                    functionDef.lineRange());
+                    functionDef.functionName().lineRange());
         } else {
             updateFunctionNameProperty(functionModel.getName(), functionDef.functionName().text().trim(),
                     functionDef.functionName().lineRange());

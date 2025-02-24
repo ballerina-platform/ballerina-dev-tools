@@ -1011,7 +1011,7 @@
             "valueType": "IDENTIFIER",
             "value": "c",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -1021,19 +1021,6 @@
                   "message": "cannot assign a value to function argument 'c'"
                 }
               ]
-            },
-            "codedata": {
-              "lineRange": {
-                "fileName": "diagnostics1.bal",
-                "startLine": {
-                  "line": 21,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 21,
-                  "offset": 5
-                }
-              }
             }
           }
         },

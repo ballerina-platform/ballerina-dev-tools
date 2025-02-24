@@ -134,21 +134,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "if_node.bal",
-                        "startLine": {
-                          "line": 38,
-                          "offset": 12
-                        },
-                        "endLine": {
-                          "line": 38,
-                          "offset": 24
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -325,21 +312,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
-                            "editable": false,
-                            "advanced": false,
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "if_node.bal",
-                                "startLine": {
-                                  "line": 42,
-                                  "offset": 16
-                                },
-                                "endLine": {
-                                  "line": 42,
-                                  "offset": 28
-                                }
-                              }
-                            }
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -408,21 +382,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
-                            "editable": false,
-                            "advanced": false,
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "if_node.bal",
-                                "startLine": {
-                                  "line": 44,
-                                  "offset": 16
-                                },
-                                "endLine": {
-                                  "line": 44,
-                                  "offset": 28
-                                }
-                              }
-                            }
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -570,21 +531,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "if_node.bal",
-                        "startLine": {
-                          "line": 49,
-                          "offset": 12
-                        },
-                        "endLine": {
-                          "line": 49,
-                          "offset": 24
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

@@ -236,21 +236,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "i",
                             "optional": false,
-                            "editable": false,
-                            "advanced": false,
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "lock.bal",
-                                "startLine": {
-                                  "line": 10,
-                                  "offset": 12
-                                },
-                                "endLine": {
-                                  "line": 10,
-                                  "offset": 13
-                                }
-                              }
-                            }
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0

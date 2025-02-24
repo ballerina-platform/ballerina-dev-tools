@@ -396,21 +396,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "error_handler.bal",
-                        "startLine": {
-                          "line": 21,
-                          "offset": 12
-                        },
-                        "endLine": {
-                          "line": 21,
-                          "offset": 15
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -736,21 +723,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
-                            "editable": false,
-                            "advanced": false,
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "error_handler.bal",
-                                "startLine": {
-                                  "line": 26,
-                                  "offset": 16
-                                },
-                                "endLine": {
-                                  "line": 26,
-                                  "offset": 19
-                                }
-                              }
-                            }
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0

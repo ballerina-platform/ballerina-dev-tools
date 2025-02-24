@@ -396,21 +396,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "error_handler.bal",
-                        "startLine": {
-                          "line": 11,
-                          "offset": 12
-                        },
-                        "endLine": {
-                          "line": 11,
-                          "offset": 15
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

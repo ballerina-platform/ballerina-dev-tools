@@ -369,21 +369,8 @@
             "valueType": "IDENTIFIER",
             "value": "a",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "new_data.bal",
-                "startLine": {
-                  "line": 43,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 43,
-                  "offset": 5
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -430,21 +417,8 @@
             "valueType": "IDENTIFIER",
             "value": "s",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "new_data.bal",
-                "startLine": {
-                  "line": 44,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 44,
-                  "offset": 5
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -491,21 +465,8 @@
             "valueType": "IDENTIFIER",
             "value": "j",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "new_data.bal",
-                "startLine": {
-                  "line": 45,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 45,
-                  "offset": 5
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

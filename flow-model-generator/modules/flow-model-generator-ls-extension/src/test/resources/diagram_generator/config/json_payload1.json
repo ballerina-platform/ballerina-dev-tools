@@ -127,21 +127,8 @@
             "valueType": "IDENTIFIER",
             "value": "j1",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "json_payload.bal",
-                "startLine": {
-                  "line": 2,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 2,
-                  "offset": 6
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

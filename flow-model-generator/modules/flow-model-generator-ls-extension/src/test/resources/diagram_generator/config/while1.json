@@ -578,21 +578,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "while.bal",
-                        "startLine": {
-                          "line": 15,
-                          "offset": 12
-                        },
-                        "endLine": {
-                          "line": 15,
-                          "offset": 13
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

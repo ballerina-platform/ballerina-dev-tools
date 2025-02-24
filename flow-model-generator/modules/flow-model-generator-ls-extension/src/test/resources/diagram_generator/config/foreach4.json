@@ -193,21 +193,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "foreach.bal",
-                        "startLine": {
-                          "line": 26,
-                          "offset": 8
-                        },
-                        "endLine": {
-                          "line": 26,
-                          "offset": 9
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

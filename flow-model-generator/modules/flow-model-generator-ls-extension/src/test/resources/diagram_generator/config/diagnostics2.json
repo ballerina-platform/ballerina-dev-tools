@@ -209,21 +209,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "f",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "diagnostics2.bal",
-                        "startLine": {
-                          "line": 5,
-                          "offset": 5
-                        },
-                        "endLine": {
-                          "line": 5,
-                          "offset": 6
-                        }
-                      }
-                    }
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {

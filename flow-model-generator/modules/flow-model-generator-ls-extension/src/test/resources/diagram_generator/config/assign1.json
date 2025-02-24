@@ -150,21 +150,8 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "update_data.bal",
-                "startLine": {
-                  "line": 2,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 2,
-                  "offset": 5
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -211,21 +198,8 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "update_data.bal",
-                "startLine": {
-                  "line": 3,
-                  "offset": 4
-                },
-                "endLine": {
-                  "line": 3,
-                  "offset": 5
-                }
-              }
-            }
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
