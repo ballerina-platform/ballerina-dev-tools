@@ -327,7 +327,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<ParameterResult> getFunctionParameters(int functionId) {
+    public List<ParameterData> getFunctionParameters(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
                 "p.name, " +
@@ -343,20 +343,20 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
-            List<ParameterResult> parameterResults = new ArrayList<>();
+            List<ParameterData> parameterResults = new ArrayList<>();
             while (rs.next()) {
-                ParameterResult
-                        parameterResult = new ParameterResult(
+                ParameterData
+                        parameterData = new ParameterData(
                         rs.getInt("parameter_id"),
                         rs.getString("name"),
                         rs.getString("type"),
-                        ParameterResult.Kind.valueOf(rs.getString("kind")),
+                        ParameterData.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
                         rs.getString("import_statements")
                 );
-                parameterResults.add(parameterResult);
+                parameterResults.add(parameterData);
             }
             return parameterResults;
         } catch (SQLException e) {
@@ -365,7 +365,7 @@ public class DatabaseManager {
         }
     }
 
-    public LinkedHashMap<String, ParameterResult> getFunctionParametersAsMap(int functionId) {
+    public LinkedHashMap<String, ParameterData> getFunctionParametersAsMap(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
                 "p.name, " +
@@ -381,21 +381,21 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
-            LinkedHashMap<String, ParameterResult> parameterResults = new LinkedHashMap<>();
+            LinkedHashMap<String, ParameterData> parameterResults = new LinkedHashMap<>();
             while (rs.next()) {
                 String paramName = rs.getString("name");
-                ParameterResult
-                        parameterResult = new ParameterResult(
+                ParameterData
+                        parameterData = new ParameterData(
                         rs.getInt("parameter_id"),
                         paramName,
                         rs.getString("type"),
-                        ParameterResult.Kind.valueOf(rs.getString("kind")),
+                        ParameterData.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
                         rs.getString("import_statements")
                 );
-                parameterResults.put(paramName, parameterResult);
+                parameterResults.put(paramName, parameterData);
             }
             return parameterResults;
         } catch (SQLException e) {

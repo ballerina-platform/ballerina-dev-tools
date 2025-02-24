@@ -30,7 +30,7 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
-import io.ballerina.modelgenerator.commons.ParameterResult;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -122,9 +122,9 @@ public abstract class CallBuilder extends NodeBuilder {
 
     protected void setParameterProperties(FunctionData function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
-        for (ParameterResult paramResult : function.parameters().values()) {
-            if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(ParameterResult.Kind.INCLUDED_RECORD)) {
+        for (ParameterData paramResult : function.parameters().values()) {
+            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 

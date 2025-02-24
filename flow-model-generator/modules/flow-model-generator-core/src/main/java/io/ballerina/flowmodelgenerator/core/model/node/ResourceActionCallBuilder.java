@@ -31,7 +31,7 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.ParameterResult;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -139,12 +139,12 @@ public class ResourceActionCallBuilder extends CallBuilder {
             if (propCodedata == null) {
                 continue;
             }
-            if (propCodedata.kind().equals(ParameterResult.Kind.PATH_PARAM.name())) {
+            if (propCodedata.kind().equals(ParameterData.Kind.PATH_PARAM.name())) {
                 String pathParamSubString = "[" + key + "]";
                 String replacement = "[" + property.get().value().toString() + "]";
                 resourcePath = resourcePath.replace(pathParamSubString, replacement);
                 ignoredKeys.add(key);
-            } else if (propCodedata.kind().equals(ParameterResult.Kind.PATH_REST_PARAM.name())) {
+            } else if (propCodedata.kind().equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
                 String replacement = property.get().value().toString();
                 resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
                 ignoredKeys.add(key);

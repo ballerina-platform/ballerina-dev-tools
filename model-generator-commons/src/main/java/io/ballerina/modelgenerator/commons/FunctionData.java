@@ -38,7 +38,7 @@ public class FunctionData {
     private final Kind kind;
     private final boolean returnError;
     private final boolean inferredReturnType;
-    private Map<String, ParameterResult> parameters;
+    private Map<String, ParameterData> parameters;
 
     public FunctionData(int functionId, String name, String description, String returnType,
                         String packageName, String org, String version, String resourcePath,
@@ -56,7 +56,7 @@ public class FunctionData {
         this.inferredReturnType = inferredReturnType;
     }
 
-    public void setParameters(Map<String, ParameterResult> parameters) {
+    public void setParameters(Map<String, ParameterData> parameters) {
         this.parameters = parameters;
     }
 
@@ -105,7 +105,7 @@ public class FunctionData {
         return inferredReturnType;
     }
 
-    public Map<String, ParameterResult> parameters() {
+    public Map<String, ParameterData> parameters() {
         return parameters;
     }
 

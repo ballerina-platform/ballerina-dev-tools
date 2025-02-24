@@ -1,4 +1,4 @@
-package io.ballerina.modelgenerator.commons;/*
+/*
  *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
@@ -15,6 +15,8 @@ package io.ballerina.modelgenerator.commons;/*
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
+package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;

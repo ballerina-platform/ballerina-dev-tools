@@ -47,12 +47,12 @@ import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.utils.DefaultValueGeneratorUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
-import io.ballerina.modelgenerator.commons.ParameterResult;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -257,12 +257,12 @@ class IndexGenerator {
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
-            List<ParameterResult> parameterResults = resourcePathTemplate.pathParams();
-            for (ParameterResult parameterResult : parameterResults) {
-                DatabaseManager.insertFunctionParameter(functionId, parameterResult.name(),
-                        parameterResult.description(), parameterResult.type(), parameterResult.defaultValue(),
-                        FunctionParameterKind.fromString(parameterResult.kind().name()),
-                        parameterResult.optional() ? 1 : 0, null);
+            List<ParameterData> parameterResults = resourcePathTemplate.pathParams();
+            for (ParameterData parameterData : parameterResults) {
+                DatabaseManager.insertFunctionParameter(functionId, parameterData.name(),
+                        parameterData.description(), parameterData.type(), parameterData.defaultValue(),
+                        FunctionParameterKind.fromString(parameterData.kind().name()),
+                        parameterData.optional() ? 1 : 0, null);
             }
         }
 

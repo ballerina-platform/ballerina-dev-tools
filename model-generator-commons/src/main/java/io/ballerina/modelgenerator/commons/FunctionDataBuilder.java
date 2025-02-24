@@ -70,7 +70,11 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * Factory class to create FunctionResult instances from function symbols.
+ * Factory class to create {@link FunctionData} instances from function symbols.
+ *
+ * <p>
+ * The class first checks if the item exists in the index. If not, it derives the symbol using the semantic model.
+ * </p>
  *
  * @since 2.0.0
  */
@@ -324,7 +328,7 @@ public class FunctionDataBuilder {
             );
         }
         resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
-        Map<String, ParameterResult> parameters = new LinkedHashMap<>();
+        Map<String, ParameterData> parameters = new LinkedHashMap<>();
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
@@ -359,36 +363,36 @@ public class FunctionDataBuilder {
             return Optional.empty();
         }
         FunctionData functionData = optFunctionResult.get();
-        LinkedHashMap<String, ParameterResult> parameters =
+        LinkedHashMap<String, ParameterData> parameters =
                 dbManager.getFunctionParametersAsMap(functionData.functionId());
         functionData.setParameters(parameters);
         return Optional.of(functionData);
     }
 
-    private Map<String, ParameterResult> getParameters(ParameterSymbol paramSymbol,
-                                                       Map<String, String> documentationMap,
-                                                       ParamForTypeInfer paramForTypeInfer) {
-        Map<String, ParameterResult> parameters = new LinkedHashMap<>();
+    private Map<String, ParameterData> getParameters(ParameterSymbol paramSymbol,
+                                                     Map<String, String> documentationMap,
+                                                     ParamForTypeInfer paramForTypeInfer) {
+        Map<String, ParameterData> parameters = new LinkedHashMap<>();
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
-        ParameterResult.Kind parameterKind = ParameterResult.Kind.fromKind(paramSymbol.paramKind());
+        ParameterData.Kind parameterKind = ParameterData.Kind.fromKind(paramSymbol.paramKind());
         String paramType;
         boolean optional = true;
         String defaultValue;
         TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
         String importStatements = CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null);
-        if (parameterKind == ParameterResult.Kind.REST_PARAMETER) {
+        if (parameterKind == ParameterData.Kind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
             paramType = getTypeSignature(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
-        } else if (parameterKind == ParameterResult.Kind.INCLUDED_RECORD) {
+        } else if (parameterKind == ParameterData.Kind.INCLUDED_RECORD) {
             paramType = getTypeSignature(typeSymbol);
-            Map<String, ParameterResult> includedParameters =
+            Map<String, ParameterData> includedParameters =
                     getIncludedRecordParams((RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true,
                             new HashMap<>());
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-        } else if (parameterKind == ParameterResult.Kind.REQUIRED) {
+        } else if (parameterKind == ParameterData.Kind.REQUIRED) {
             paramType = getTypeSignature(typeSymbol);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             optional = false;
@@ -397,23 +401,23 @@ public class FunctionDataBuilder {
                 if (paramForTypeInfer.paramName().equals(paramName)) {
                     defaultValue = paramForTypeInfer.type();
                     paramType = paramForTypeInfer.type();
-                    parameters.put(paramName, ParameterResult.from(paramName, paramDescription, paramType, defaultValue,
-                            ParameterResult.Kind.PARAM_FOR_TYPE_INFER, optional, importStatements));
+                    parameters.put(paramName, ParameterData.from(paramName, paramDescription, paramType, defaultValue,
+                            ParameterData.Kind.PARAM_FOR_TYPE_INFER, optional, importStatements));
                     return parameters;
                 }
             }
             defaultValue = getParamDefaultValue(paramSymbol, typeSymbol);
             paramType = getTypeSignature(typeSymbol);
         }
-        parameters.put(paramName, ParameterResult.from(paramName, paramDescription, paramType, defaultValue,
+        parameters.put(paramName, ParameterData.from(paramName, paramDescription, paramType, defaultValue,
                 parameterKind, optional, importStatements));
         return parameters;
     }
 
-    private Map<String, ParameterResult> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
-                                                                 boolean insert,
-                                                                 Map<String, String> documentationMap) {
-        Map<String, ParameterResult> parameters = new LinkedHashMap<>();
+    private Map<String, ParameterData> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
+                                                               boolean insert,
+                                                               Map<String, String> documentationMap) {
+        Map<String, ParameterData> parameters = new LinkedHashMap<>();
         recordTypeSymbol.typeInclusions().forEach(includedType -> parameters.putAll(
                 getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
                         documentationMap))
@@ -440,16 +444,16 @@ public class FunctionDataBuilder {
             String defaultValue = getRecordFieldDefaultValue(recordFieldSymbol, fieldType);
             String paramType = getTypeSignature(typeSymbol);
             boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
-            parameters.put(paramName, ParameterResult.from(paramName, documentationMap.get(paramName),
-                    paramType, defaultValue, ParameterResult.Kind.INCLUDED_FIELD, optional,
+            parameters.put(paramName, ParameterData.from(paramName, documentationMap.get(paramName),
+                    paramType, defaultValue, ParameterData.Kind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = getTypeSignature(typeSymbol);
             String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-            parameters.put("Additional Values", ParameterResult.from("Additional Values",
+            parameters.put("Additional Values", ParameterData.from("Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
-                    ParameterResult.Kind.INCLUDED_RECORD_REST, true,
+                    ParameterData.Kind.INCLUDED_RECORD_REST, true,
                     CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
         });
         return parameters;
@@ -559,7 +563,7 @@ public class FunctionDataBuilder {
         StringBuilder pathBuilder = new StringBuilder();
         ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
         ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-        List<ParameterResult> pathParams = new ArrayList<>();
+        List<ParameterData> pathParams = new ArrayList<>();
         switch (resourcePath.kind()) {
             case PATH_SEGMENT_LIST -> {
                 PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
@@ -574,7 +578,7 @@ public class FunctionDataBuilder {
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");
                         pathParams.add(
-                                ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
+                                ParameterData.from(paramName, type, ParameterData.Kind.PATH_PARAM, defaultValue,
                                         paramDescription, false));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
@@ -582,8 +586,8 @@ public class FunctionDataBuilder {
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
                     pathParams.add(
-                            io.ballerina.modelgenerator.commons.ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
-                                    ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
+                            ParameterData.from(REST_RESOURCE_PATH_LABEL, "string",
+                                    ParameterData.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
                                     false));
                 });
             }
@@ -595,7 +599,7 @@ public class FunctionDataBuilder {
         return new ResourcePathTemplate(pathBuilder.toString(), pathParams);
     }
 
-    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterResult> pathParams) {
+    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterData> pathParams) {
     }
 
     private String getTypeSignature(TypeSymbol typeSymbol) {
