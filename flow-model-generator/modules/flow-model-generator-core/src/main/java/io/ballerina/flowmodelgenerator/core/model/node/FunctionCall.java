@@ -18,21 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.projects.PackageDescriptor;
-import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -46,55 +37,6 @@ import java.util.Set;
  * @since 2.0.0
  */
 public class FunctionCall extends FunctionBuilder {
-
-    @Override
-    public void setConcreteConstData() {
-        codedata().node(NodeKind.FUNCTION_CALL);
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-
-        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
-                .name(codedata.symbol())
-                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
-                .userModuleInfo(moduleInfo);
-
-        // Set the semantic model if the function is local
-        if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
-            try {
-                WorkspaceManager workspaceManager = context.workspaceManager();
-                workspaceManager.loadProject(context.filePath());
-                SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-                functionResultBuilder.semanticModel(semanticModel);
-            } catch (WorkspaceDocumentException | EventSyncException e) {
-                throw new RuntimeException("Error loading project: " + e.getMessage(), e);
-            }
-        }
-
-        FunctionResult functionResult = functionResultBuilder.build();
-        metadata()
-                .label(functionResult.name())
-                .description(functionResult.description());
-        codedata()
-                .node(NodeKind.FUNCTION_CALL)
-                .org(codedata.org())
-                .module(codedata.module())
-                .object(codedata.object())
-                .version(codedata.version())
-                .symbol(codedata.symbol());
-        setParameterProperties(functionResult);
-
-        String returnTypeName = functionResult.returnType();
-        if (CommonUtils.hasReturn(functionResult.returnType())) {
-            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType(), Property.VARIABLE_NAME);
-        }
-
-        if (functionResult.returnError()) {
-            properties().checkError(true);
-        }
-    }
 
     @Override
     protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
@@ -123,22 +65,13 @@ public class FunctionCall extends FunctionBuilder {
                 .build();
     }
 
-    protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
-        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
-            return true;
-        }
-        try {
-            Project project = workspaceManager.loadProject(filePath);
-            PackageDescriptor descriptor = project.currentPackage().descriptor();
-            String packageOrg = descriptor.org().value();
-            String packageName = descriptor.name().value();
-            String packageVersion = descriptor.version().value().toString();
+    @Override
+    protected NodeKind getFunctionNodeKind() {
+        return NodeKind.FUNCTION_CALL;
+    }
 
-            return packageOrg.equals(codedata.org())
-                    && packageName.equals(codedata.module())
-                    && packageVersion.equals(codedata.version());
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            return false;
-        }
+    @Override
+    protected FunctionResult.Kind getFunctionResultKind() {
+        return FunctionResult.Kind.FUNCTION;
     }
 }

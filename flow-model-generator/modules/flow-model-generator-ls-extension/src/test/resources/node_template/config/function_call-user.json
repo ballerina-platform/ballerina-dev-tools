@@ -13,11 +13,13 @@
     "id": "31",
     "metadata": {
       "label": "fn",
-      "description": ""
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "symbol": "fn"
+      "symbol": "fn",
+      "id": 0
     },
     "returning": false,
     "properties": {

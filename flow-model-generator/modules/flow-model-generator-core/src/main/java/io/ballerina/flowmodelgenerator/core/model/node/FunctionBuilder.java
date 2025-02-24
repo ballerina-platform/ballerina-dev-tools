@@ -19,27 +19,32 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterResult;
+import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.Project;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Abstract base class for function-like builders (functions, methods, resource actions).
@@ -47,6 +52,82 @@ import java.util.Optional;
  * @since 2.0.0
  */
 public abstract class FunctionBuilder extends NodeBuilder {
+
+    protected abstract Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode);
+
+    protected abstract NodeKind getFunctionNodeKind();
+
+    protected abstract FunctionResult.Kind getFunctionResultKind();
+
+    @Override
+    public void setConcreteConstData() {
+        codedata().node(getFunctionNodeKind());
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
+
+        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+                .name(codedata.symbol())
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .functionResultKind(getFunctionResultKind())
+                .userModuleInfo(moduleInfo);
+
+        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
+            functionResultBuilder.parentSymbolType(codedata.object());
+        }
+
+        // Set the semantic model if the function is local
+        boolean isLocalFunction = isLocalFunction(context.workspaceManager(), context.filePath(), codedata);
+        if (isLocalFunction) {
+            WorkspaceManager workspaceManager = context.workspaceManager();
+            PackageUtil.loadProject(context.workspaceManager(), context.filePath());
+            SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+            functionResultBuilder.semanticModel(semanticModel);
+        }
+        FunctionResult functionResult = functionResultBuilder.build();
+
+        metadata()
+                .label(functionResult.name())
+                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
+                        functionResult.version()))
+                .description(functionResult.description());
+        codedata()
+                .id(functionResult.functionId())
+                .node(getFunctionNodeKind())
+                .org(codedata.org())
+                .module(codedata.module())
+                .object(codedata.object())
+                .version(codedata.version())
+                .symbol(codedata.symbol());
+
+        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
+            properties().custom()
+                    .metadata()
+                        .label(Property.CONNECTION_LABEL)
+                        .description(Property.CONNECTION_DOC)
+                        .stepOut()
+                    .typeConstraint(isLocalFunction ? codedata.object() :
+                            CommonUtils.getClassType(codedata.module(), codedata.object()))
+                    .value(codedata.parentSymbol())
+                    .type(Property.ValueType.IDENTIFIER)
+                    .stepOut()
+                    .addProperty(Property.CONNECTION_KEY);
+        }
+        setParameterProperties(functionResult);
+
+        String returnTypeName = functionResult.returnType();
+        if (CommonUtils.hasReturn(functionResult.returnType())) {
+            properties()
+                    .type(returnTypeName, functionResult.inferredReturnType())
+                    .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+        }
+
+        if (functionResult.returnError()) {
+            properties().checkError(true);
+        }
+    }
 
     protected void setParameterProperties(FunctionResult function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
@@ -115,49 +196,35 @@ public abstract class FunctionBuilder extends NodeBuilder {
         return buildFunctionCall(sourceBuilder, flowNode);
     }
 
-    protected static boolean containsErrorInReturnType(SemanticModel semanticModel,
-                                                       FunctionTypeSymbol functionTypeSymbol) {
-        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
-        return functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
-    }
-
-    protected static DatabaseManager dbManager = DatabaseManager.getInstance();
-
-    protected static Optional<FunctionResult> getFunctionResult(Codedata codedata,
-                                                                FunctionResult.Kind functionKind) {
-        Optional<FunctionResult> functionResult = codedata.id() != null ?
-                dbManager.getFunction(codedata.id()) :
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(), functionKind,
-                        codedata.resourcePath());
-
-        if (functionResult.isPresent()) {
-            FunctionResult function = functionResult.get();
-            Map<String, ParameterResult> dbParameters = dbManager.getFunctionParametersAsMap(function.functionId());
-            function.setParameters(dbParameters);
-        }
-        return functionResult;
-    }
-
-    protected void setExpressionProperty(Codedata codedata, String parentSymbolType) {
+    protected void setExpressionProperty(Codedata codedata) {
         properties().custom()
                 .metadata()
                     .label(Property.CONNECTION_LABEL)
                     .description(Property.CONNECTION_DOC)
                     .stepOut()
-                .typeConstraint(parentSymbolType)
+                .typeConstraint(CommonUtils.getClassType(codedata.module(), codedata.object()))
                 .value(codedata.parentSymbol())
                 .type(Property.ValueType.IDENTIFIER)
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
     }
 
-    /**
-     * Template method to build the specific function call source code.
-     *
-     * @param sourceBuilder the source builder
-     * @param flowNode      the flow node
-     * @return the text edits
-     */
-    protected abstract Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode);
+    protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
+        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
+            return true;
+        }
+        try {
+            Project project = workspaceManager.loadProject(filePath);
+            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            String packageOrg = descriptor.org().value();
+            String packageName = descriptor.name().value();
+            String packageVersion = descriptor.version().value().toString();
+
+            return packageOrg.equals(codedata.org())
+                    && packageName.equals(codedata.module())
+                    && packageVersion.equals(codedata.version());
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return false;
+        }
+    }
 }

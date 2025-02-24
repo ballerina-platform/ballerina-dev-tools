@@ -82,7 +82,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
                 .id(functionResult.functionId())
                 .symbol(functionResult.name());
 
-        setExpressionProperty(codedata, functionResult.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
+        setExpressionProperty(codedata);
 
         String resourcePath = functionResult.resourcePath();
         properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
@@ -154,5 +154,15 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
                 .textEdit(false)
                 .acceptImport()
                 .build();
+    }
+
+    @Override
+    protected NodeKind getFunctionNodeKind() {
+        return NodeKind.RESOURCE_ACTION_CALL;
+    }
+
+    @Override
+    protected FunctionResult.Kind getFunctionResultKind() {
+        return FunctionResult.Kind.RESOURCE;
     }
 }

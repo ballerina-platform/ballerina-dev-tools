@@ -32,8 +32,6 @@ import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -55,7 +53,6 @@ public class NewConnectionBuilder extends FunctionBuilder {
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String CONNECTION_NAME_LABEL = "Connection Name";
     public static final String CONNECTION_TYPE_LABEL = "Connection Type";
-    protected static final Logger LOG = LoggerFactory.getLogger(NewConnectionBuilder.class);
 
     @Override
     public void setConcreteConstData() {
@@ -138,5 +135,15 @@ public class NewConnectionBuilder extends FunctionBuilder {
         properties()
                 .scope(Property.GLOBAL_SCOPE)
                 .checkError(true, CHECK_ERROR_DOC, false);
+    }
+
+    @Override
+    protected NodeKind getFunctionNodeKind() {
+        return NodeKind.NEW_CONNECTION;
+    }
+
+    @Override
+    protected FunctionResult.Kind getFunctionResultKind() {
+        return FunctionResult.Kind.CONNECTOR;
     }
 }

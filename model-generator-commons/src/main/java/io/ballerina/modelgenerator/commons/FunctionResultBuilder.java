@@ -174,7 +174,7 @@ public class FunctionResultBuilder {
     private void setParentSymbol(Stream<Symbol> symbolStream, String parentSymbolName) {
         this.parentSymbol = symbolStream
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE && symbol.nameEquals(parentSymbolName))
-                .map(symbol -> ((VariableSymbol) symbol).typeDescriptor())
+                .map(symbol -> CommonUtils.getRawType(((VariableSymbol) symbol).typeDescriptor()))
                 .filter(typeSymbol -> typeSymbol instanceof ObjectTypeSymbol)
                 .map(typeSymbol -> (ObjectTypeSymbol) typeSymbol).findFirst()
                 .orElse(null);
@@ -280,9 +280,8 @@ public class FunctionResultBuilder {
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(typeSymbol -> {
                     if (functionResultKind == FunctionResult.Kind.CONNECTOR) {
-                        String packageName = moduleInfo.packageName();
-                        String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
-                        return String.format("%s:%s", importPrefix, parentSymbol.getName().orElse("Client"));
+                        return CommonUtils.getClassType(moduleInfo.packageName(),
+                                parentSymbol.getName().orElse("Client"));
                     }
                     return getTypeSignature(typeSymbol, true);
                 })

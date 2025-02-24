@@ -1,4 +1,5 @@
 {
+  "source": "data_mapper/method_call.bal",
   "description": "Sample diagram node",
   "codedata": {
     "node": "REMOTE_ACTION_CALL",
@@ -20,8 +21,9 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "azure_cosmosdb",
-      "object": "Client",
+      "object": "DataPlaneClient",
       "symbol": "createDocument",
+      "version": "4.2.0",
       "id": 0
     },
     "returning": false,
@@ -32,7 +34,7 @@
           "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "azure_cosmosdb:Client",
+        "valueTypeConstraint": "azure_cosmosdb:DataPlaneClient",
         "value": "covid19Client",
         "optional": false,
         "editable": false,

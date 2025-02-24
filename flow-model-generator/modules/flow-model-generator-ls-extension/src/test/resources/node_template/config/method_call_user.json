@@ -7,6 +7,7 @@
   "description": "Local method call template",
   "codedata": {
     "node": "METHOD_CALL",
+    "object": "Cart",
     "symbol": "addItem",
     "parentSymbol": "cart"
   },
@@ -14,10 +15,12 @@
     "id": "31",
     "metadata": {
       "label": "addItem",
-      "description": ""
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
     },
     "codedata": {
       "node": "METHOD_CALL",
+      "object": "Cart",
       "symbol": "addItem",
       "id": 0
     },
@@ -29,7 +32,7 @@
           "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "null:Client",
+        "valueTypeConstraint": "Cart",
         "value": "cart",
         "optional": false,
         "editable": false,

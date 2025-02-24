@@ -19,16 +19,11 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -45,49 +40,6 @@ import java.util.Set;
 public class RemoteActionCallBuilder extends FunctionBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
-
-    @Override
-    public void setConcreteConstData() {
-        codedata().node(NodeKind.REMOTE_ACTION_CALL);
-    }
-
-    @Override
-    public void setConcreteTemplateData(TemplateContext context) {
-        Codedata codedata = context.codedata();
-        if (codedata.org().equals("$anon")) {
-            return;
-        }
-
-        FunctionResult functionResult = new FunctionResultBuilder()
-                .name(codedata.symbol())
-                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
-                .parentSymbolType(codedata.object())
-                .functionResultKind(FunctionResult.Kind.REMOTE)
-                .build();
-
-        metadata()
-                .label(functionResult.name())
-                .description(functionResult.description())
-                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(), functionResult.version()));
-        codedata()
-                .org(functionResult.org())
-                .module(functionResult.packageName())
-                .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .id(functionResult.functionId())
-                .symbol(functionResult.name());
-
-        setExpressionProperty(codedata, functionResult.packageName() + ":" + NewConnectionBuilder.CLIENT_SYMBOL);
-        setParameterProperties(functionResult);
-
-        String returnTypeName = functionResult.returnType();
-        if (CommonUtils.hasReturn(returnTypeName)) {
-            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType(), Property.VARIABLE_NAME);
-        }
-
-        if (functionResult.returnError()) {
-            properties().checkError(true);
-        }
-    }
 
     @Override
     protected Map<Path, List<TextEdit>> buildFunctionCall(SourceBuilder sourceBuilder, FlowNode flowNode) {
@@ -107,5 +59,15 @@ public class RemoteActionCallBuilder extends FunctionBuilder {
                 .textEdit(false)
                 .acceptImport()
                 .build();
+    }
+
+    @Override
+    protected NodeKind getFunctionNodeKind() {
+        return NodeKind.REMOTE_ACTION_CALL;
+    }
+
+    @Override
+    protected FunctionResult.Kind getFunctionResultKind() {
+        return FunctionResult.Kind.REMOTE;
     }
 }
