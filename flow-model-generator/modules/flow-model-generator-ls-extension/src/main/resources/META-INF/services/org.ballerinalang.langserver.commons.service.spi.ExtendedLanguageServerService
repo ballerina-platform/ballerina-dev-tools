@@ -6,3 +6,4 @@ io.ballerina.flowmodelgenerator.extension.TypesManagerService
 io.ballerina.flowmodelgenerator.extension.OpenAPIService
 io.ballerina.flowmodelgenerator.extension.JsonToRecordConverterService
 io.ballerina.flowmodelgenerator.extension.XMLToRecordConverterService
+io.ballerina.flowmodelgenerator.extension.AgentsManagerService

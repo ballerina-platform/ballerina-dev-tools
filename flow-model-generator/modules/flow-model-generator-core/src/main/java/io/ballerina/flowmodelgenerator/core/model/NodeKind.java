@@ -70,5 +70,8 @@ public enum NodeKind {
     INTERSECTION,
     SERVICE_DECLARATION,
     TABLE,
-    TUPLE
+    TUPLE,
+
+    AGENT,
+    AGENT_CALL
 }

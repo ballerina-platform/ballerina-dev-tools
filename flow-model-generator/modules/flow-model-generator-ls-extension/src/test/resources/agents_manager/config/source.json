@@ -1,0 +1,138 @@
+{
+  "source": "agents/agents.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Agent",
+      "description": "Function call agent",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/wso2_ai.agent_1.0.0.png"
+    },
+    "codedata": {
+      "node": "AGENT",
+      "org": "wso2",
+      "module": "ai.agent",
+      "object": "FunctionCallAgent",
+      "symbol": "init",
+      "id": -1
+    },
+    "returning": false,
+    "properties": {
+      "model": {
+        "metadata": {
+          "label": "model",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "FunctionCallLlmModel",
+        "value": "model",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "model",
+          "importStatements": ""
+        }
+      },
+      "tools": {
+        "metadata": {
+          "label": "tools",
+          "description": ""
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "BaseToolKit|Tool",
+        "value": [
+          "listwifi",
+          "addWifi"
+        ],
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "tools",
+          "importStatements": ""
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "error?",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Agent Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "agent",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "agents/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import wso2/ai.agent;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final error? agent = check new (model, [listwifi, addWifi]);"
+      }
+    ]
+  }
+}

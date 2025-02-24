@@ -405,6 +405,43 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder agentParameters(FlowNode nodeTemplate) {
+        tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+        agentFirstParameter(nodeTemplate);
+        agentSecondParameter(nodeTemplate);
+        tokenBuilder
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .endOfStatement();
+        return this;
+    }
+
+    private SourceBuilder agentFirstParameter(FlowNode nodeTemplate) {
+        Optional<Property> property = nodeTemplate.getProperty("model");
+        if (property.isEmpty()) {
+            return this;
+        }
+        tokenBuilder.expression(property.get());
+        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+        return this;
+    }
+
+    private SourceBuilder agentSecondParameter(FlowNode nodeTemplate) {
+        Optional<Property> property = nodeTemplate.getProperty("tools");
+        if (property.isEmpty()) {
+            return this;
+        }
+
+        tokenBuilder.keyword(SyntaxKind.OPEN_BRACKET_TOKEN);
+        if (property.get().value() instanceof List<?> values) {
+            if (!values.isEmpty()) {
+                List<String> strValues = ((List<?>) property.get().value()).stream().map(Object::toString).toList();
+                tokenBuilder.expression(String.join(", ", strValues));
+            }
+        }
+        tokenBuilder.keyword(SyntaxKind.CLOSE_BRACKET_TOKEN);
+        return this;
+    }
+
     private boolean isPropValueEmpty(Property property) {
         return property.value() == null || (property.optional() && property.value().toString().isEmpty());
     }
