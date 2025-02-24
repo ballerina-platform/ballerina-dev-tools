@@ -107,7 +107,7 @@
             "character": 0
           }
         },
-        "newText": "jsondata:Error item = check jsondata:toJson(\"value\");"
+        "newText": "json|jsondata:Error item = check jsondata:toJson(\"value\");"
       }
     ]
   }
