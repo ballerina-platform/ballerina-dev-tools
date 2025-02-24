@@ -44,7 +44,7 @@ import java.nio.file.Path;
  *
  * @since 2.0.0
  */
-public abstract class FunctionBuilder extends NodeBuilder {
+public abstract class CallBuilder extends NodeBuilder {
 
     protected abstract NodeKind getFunctionNodeKind();
 

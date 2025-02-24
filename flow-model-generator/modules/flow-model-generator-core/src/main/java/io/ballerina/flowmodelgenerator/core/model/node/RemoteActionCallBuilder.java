@@ -38,7 +38,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class RemoteActionCallBuilder extends FunctionBuilder {
+public class RemoteActionCallBuilder extends CallBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 

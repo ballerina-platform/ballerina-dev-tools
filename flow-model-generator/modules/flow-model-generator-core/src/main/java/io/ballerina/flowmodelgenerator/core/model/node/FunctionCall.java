@@ -38,7 +38,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class FunctionCall extends FunctionBuilder {
+public class FunctionCall extends CallBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {

@@ -43,7 +43,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class NewConnectionBuilder extends FunctionBuilder {
+public class NewConnectionBuilder extends CallBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 

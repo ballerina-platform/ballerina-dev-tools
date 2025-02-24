@@ -47,7 +47,7 @@ import java.util.Set;
  *
  * @since 2.0.0
  */
-public class ResourceActionCallBuilder extends FunctionBuilder {
+public class ResourceActionCallBuilder extends CallBuilder {
 
     public static final String TARGET_TYPE_KEY = "targetType";
 
