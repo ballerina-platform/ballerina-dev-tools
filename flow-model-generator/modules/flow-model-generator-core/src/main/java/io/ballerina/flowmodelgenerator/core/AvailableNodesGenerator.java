@@ -36,7 +36,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -223,21 +223,21 @@ public class AvailableNodesGenerator {
 
     private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> connectorResult =
+        Optional<FunctionData> connectorResult =
                 dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnectionBuilder.INIT_SYMBOL,
-                        FunctionResult.Kind.CONNECTOR, null);
+                        FunctionData.Kind.CONNECTOR, null);
         if (connectorResult.isEmpty()) {
             return List.of();
         }
 
-        FunctionResult connector = connectorResult.get();
-        List<FunctionResult> connectorActions = dbManager.getConnectorActions(connector.functionId());
+        FunctionData connector = connectorResult.get();
+        List<FunctionData> connectorActions = dbManager.getConnectorActions(connector.functionId());
 
         List<Item> availableNodes = new ArrayList<>();
-        for (FunctionResult connectorAction : connectorActions) {
-            if (connectorAction.kind() == FunctionResult.Kind.REMOTE) {
+        for (FunctionData connectorAction : connectorActions) {
+            if (connectorAction.kind() == FunctionData.Kind.REMOTE) {
                 availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else if (connectorAction.kind() == FunctionResult.Kind.FUNCTION) {
+            } else if (connectorAction.kind() == FunctionData.Kind.FUNCTION) {
                 availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
             } else {
                 if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
@@ -250,26 +250,26 @@ public class AvailableNodesGenerator {
         return availableNodes;
     }
 
-    private static NodeBuilder getMethodCallNode(FunctionResult functionResult, FunctionResult connector,
+    private static NodeBuilder getMethodCallNode(FunctionData functionData, FunctionData connector,
                                                  String parentSymbol) {
         NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
         methodCallBuilder
                 .metadata()
-                    .label(functionResult.name())
+                    .label(functionData.name())
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                    .description(functionResult.description())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                     .node(NodeKind.METHOD_CALL)
                     .org(connector.org())
                     .module(connector.packageName())
-                    .symbol(functionResult.name())
+                    .symbol(functionData.name())
                     .parentSymbol(parentSymbol)
-                    .id(functionResult.functionId());
+                    .id(functionData.functionId());
         return methodCallBuilder;
     }
 
-    private static NodeBuilder getActionNode(FunctionResult connectorAction, FunctionResult connector,
+    private static NodeBuilder getActionNode(FunctionData connectorAction, FunctionData connector,
                                              String parentSymbol) {
         NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
         actionBuilder
@@ -289,7 +289,7 @@ public class AvailableNodesGenerator {
         return actionBuilder;
     }
 
-    private static NodeBuilder getResourceActionNode(FunctionResult connectorAction, FunctionResult connector,
+    private static NodeBuilder getResourceActionNode(FunctionData connectorAction, FunctionData connector,
                                                      String parentSymbol) {
         NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
         String label = connectorAction.name() + (isHttpModule(connector) ? "" : connectorAction.resourcePath());
@@ -298,7 +298,7 @@ public class AvailableNodesGenerator {
                     .label(label)
                     .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
                     .description(connectorAction.description())
-                    .functionKind(FunctionResult.Kind.RESOURCE.name())
+                    .functionKind(FunctionData.Kind.RESOURCE.name())
                     .stepOut()
                 .codedata()
                     .node(NodeKind.RESOURCE_ACTION_CALL)
@@ -312,7 +312,7 @@ public class AvailableNodesGenerator {
         return actionBuilder;
     }
 
-    private static boolean isHttpModule(FunctionResult connector) {
+    private static boolean isHttpModule(FunctionData connector) {
         return connector.org().equals(BALLERINA_ORG) && connector.packageName().equals(HTTP_MODULE);
     }
 }

@@ -70,13 +70,13 @@ import java.util.stream.Stream;
  *
  * @since 2.0.0
  */
-public class FunctionResultBuilder {
+public class FunctionDataBuilder {
 
     private SemanticModel semanticModel;
     private TypeSymbol errorTypeSymbol;
     private Package resolvedPackage;
     private FunctionSymbol functionSymbol;
-    private FunctionResult.Kind functionResultKind;
+    private FunctionData.Kind functionResultKind;
     private String functionName;
     private String description;
     private ModuleInfo moduleInfo;
@@ -85,13 +85,13 @@ public class FunctionResultBuilder {
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
 
-    public FunctionResultBuilder semanticModel(SemanticModel semanticModel) {
+    public FunctionDataBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.errorTypeSymbol = semanticModel.types().ERROR;
         return this;
     }
 
-    public FunctionResultBuilder resolvedPackage(Package resolvedPackage) {
+    public FunctionDataBuilder resolvedPackage(Package resolvedPackage) {
         if (semanticModel == null) {
             semanticModel(resolvedPackage.getCompilation().getSemanticModel(
                     resolvedPackage.getDefaultModule().moduleId()));
@@ -100,33 +100,33 @@ public class FunctionResultBuilder {
         return this;
     }
 
-    public FunctionResultBuilder name(String name) {
+    public FunctionDataBuilder name(String name) {
         this.functionName = name;
         return this;
     }
 
-    public FunctionResultBuilder moduleInfo(ModuleInfo moduleInfo) {
+    public FunctionDataBuilder moduleInfo(ModuleInfo moduleInfo) {
         this.moduleInfo = moduleInfo;
         return this;
     }
 
-    public FunctionResultBuilder resourcePath(String resourcePath) {
+    public FunctionDataBuilder resourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
         return this;
     }
 
-    public FunctionResultBuilder functionSymbol(FunctionSymbol functionSymbol) {
+    public FunctionDataBuilder functionSymbol(FunctionSymbol functionSymbol) {
         if (moduleInfo == null) {
             functionSymbol.getModule().ifPresent(module -> moduleInfo = ModuleInfo.from(module.id()));
         }
         if (functionResultKind == null) {
-            functionResultKind = FunctionResult.Kind.FUNCTION;
+            functionResultKind = FunctionData.Kind.FUNCTION;
             if (functionSymbol.kind() == SymbolKind.METHOD) {
                 List<Qualifier> qualifiers = functionSymbol.qualifiers();
                 if (qualifiers.contains(Qualifier.REMOTE)) {
-                    functionResultKind = FunctionResult.Kind.REMOTE;
+                    functionResultKind = FunctionData.Kind.REMOTE;
                 } else if (qualifiers.contains(Qualifier.RESOURCE)) {
-                    functionResultKind = FunctionResult.Kind.RESOURCE;
+                    functionResultKind = FunctionData.Kind.RESOURCE;
                 }
             }
         }
@@ -134,22 +134,22 @@ public class FunctionResultBuilder {
         return this;
     }
 
-    public FunctionResultBuilder functionResultKind(FunctionResult.Kind kind) {
+    public FunctionDataBuilder functionResultKind(FunctionData.Kind kind) {
         this.functionResultKind = kind;
         return this;
     }
 
-    public FunctionResultBuilder userModuleInfo(ModuleInfo moduleInfo) {
+    public FunctionDataBuilder userModuleInfo(ModuleInfo moduleInfo) {
         this.userModuleInfo = moduleInfo;
         return this;
     }
 
-    public FunctionResultBuilder parentSymbolType(String parentSymbolType) {
+    public FunctionDataBuilder parentSymbolType(String parentSymbolType) {
         this.parentSymbolType = parentSymbolType;
         return this;
     }
 
-    public FunctionResultBuilder parentSymbol(ObjectTypeSymbol parentSymbol) {
+    public FunctionDataBuilder parentSymbol(ObjectTypeSymbol parentSymbol) {
         if (moduleInfo == null) {
             parentSymbol.getModule().ifPresent(module -> moduleInfo = ModuleInfo.from(module.id()));
         }
@@ -157,8 +157,8 @@ public class FunctionResultBuilder {
         return this;
     }
 
-    public FunctionResultBuilder parentSymbol(SemanticModel semanticModel, Document document, LinePosition position,
-                                              String parentSymbolName) {
+    public FunctionDataBuilder parentSymbol(SemanticModel semanticModel, Document document, LinePosition position,
+                                            String parentSymbolName) {
         Stream<Symbol> symbolStream = (document == null || position == null)
                 ? semanticModel.moduleSymbols().parallelStream()
                 : semanticModel.visibleSymbols(document, position).parallelStream();
@@ -166,7 +166,7 @@ public class FunctionResultBuilder {
         return this;
     }
 
-    public FunctionResultBuilder parentSymbol(SemanticModel semanticModel, String parentSymbolName) {
+    public FunctionDataBuilder parentSymbol(SemanticModel semanticModel, String parentSymbolName) {
         setParentSymbol(semanticModel.moduleSymbols().parallelStream(), parentSymbolName);
         return this;
     }
@@ -180,7 +180,7 @@ public class FunctionResultBuilder {
                 .orElse(null);
     }
 
-    public FunctionResult build() {
+    public FunctionData build() {
         // The function name is required to build the FunctionResult
         if (this.functionName == null) {
             this.functionName = this.functionSymbol.getName()
@@ -194,11 +194,11 @@ public class FunctionResultBuilder {
 
         // Defaulting the function result kind to FUNCTION if not provided
         if (functionResultKind == null) {
-            functionResultKind = FunctionResult.Kind.FUNCTION;
+            functionResultKind = FunctionData.Kind.FUNCTION;
         }
 
         // Check if the function is in the index
-        Optional<FunctionResult> indexedResult = getFunctionFromIndex();
+        Optional<FunctionData> indexedResult = getFunctionFromIndex();
         if (indexedResult.isPresent()) {
             return indexedResult.get();
         }
@@ -233,7 +233,7 @@ public class FunctionResultBuilder {
                 functionSymbol(fetchedSymbol);
             } else {
                 // Fetch the init method if it is a connection
-                if (functionResultKind == FunctionResult.Kind.CONNECTOR) {
+                if (functionResultKind == FunctionData.Kind.CONNECTOR) {
                     if (parentSymbol.kind() != SymbolKind.CLASS ||
                             !parentSymbol.qualifiers().contains(Qualifier.CLIENT)) {
                         throw new IllegalStateException("The connector should be a client class");
@@ -241,7 +241,7 @@ public class FunctionResultBuilder {
                     functionSymbol = ((ClassSymbol) parentSymbol).initMethod().orElseThrow(
                             () -> new IllegalStateException("Init method not found"));
                 } else {
-                    if (functionResultKind == FunctionResult.Kind.RESOURCE) {
+                    if (functionResultKind == FunctionData.Kind.RESOURCE) {
                         // TODO: Need to improve how resource path is stored in the codedata, as this should reflect
                         //  to the key in the methods map for easier retrieval.
 
@@ -270,7 +270,7 @@ public class FunctionResultBuilder {
         if (description == null) {
             // Set the description of the client class if it is a connector, Else, use the function itself
             Documentable documentable =
-                    functionResultKind == FunctionResult.Kind.CONNECTOR ? (ClassSymbol) parentSymbol : functionSymbol;
+                    functionResultKind == FunctionData.Kind.CONNECTOR ? (ClassSymbol) parentSymbol : functionSymbol;
             this.description = documentable.documentation().flatMap(Documentation::description).orElse("");
 
         }
@@ -279,7 +279,7 @@ public class FunctionResultBuilder {
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
                 .map(typeSymbol -> {
-                    if (functionResultKind == FunctionResult.Kind.CONNECTOR) {
+                    if (functionResultKind == FunctionData.Kind.CONNECTOR) {
                         return CommonUtils.getClassType(moduleInfo.packageName(),
                                 parentSymbol.getName().orElse("Client"));
                     }
@@ -312,7 +312,7 @@ public class FunctionResultBuilder {
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
 
         ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
-        if (functionResultKind == FunctionResult.Kind.RESOURCE) {
+        if (functionResultKind == FunctionData.Kind.RESOURCE) {
             resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
                     errorTypeSymbol);
         }
@@ -324,9 +324,9 @@ public class FunctionResultBuilder {
             resourcePathTemplate.pathParams().forEach(param -> parameters.put(param.name(), param));
         }
 
-        FunctionResult functionResult =
-                new FunctionResult(0, functionName, description, returnType, moduleInfo.packageName(),
-                        moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionResult.Kind.FUNCTION, returnError,
+        FunctionData functionData =
+                new FunctionData(0, functionName, description, returnType, moduleInfo.packageName(),
+                        moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionData.Kind.FUNCTION, returnError,
                         paramForTypeInfer != null);
 
         Map<String, String> documentationMap =
@@ -339,23 +339,23 @@ public class FunctionResultBuilder {
         functionTypeSymbol.restParam()
                 .ifPresent(paramSymbol -> parameters.putAll(
                         getParameters(paramSymbol, documentationMap, finalParamForTypeInfer)));
-        functionResult.setParameters(parameters);
-        return functionResult;
+        functionData.setParameters(parameters);
+        return functionData;
     }
 
-    private Optional<FunctionResult> getFunctionFromIndex() {
+    private Optional<FunctionData> getFunctionFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionResult> optFunctionResult =
+        Optional<FunctionData> optFunctionResult =
                 dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName, functionResultKind,
                         resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
-        FunctionResult functionResult = optFunctionResult.get();
+        FunctionData functionData = optFunctionResult.get();
         LinkedHashMap<String, ParameterResult> parameters =
-                dbManager.getFunctionParametersAsMap(functionResult.functionId());
-        functionResult.setParameters(parameters);
-        return Optional.of(functionResult);
+                dbManager.getFunctionParametersAsMap(functionData.functionId());
+        functionData.setParameters(parameters);
+        return Optional.of(functionData);
     }
 
     private Map<String, ParameterResult> getParameters(ParameterSymbol paramSymbol,

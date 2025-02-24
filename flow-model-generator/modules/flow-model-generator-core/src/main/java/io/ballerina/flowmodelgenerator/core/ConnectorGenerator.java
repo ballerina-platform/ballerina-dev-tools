@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
@@ -60,12 +60,12 @@ public class ConnectorGenerator {
         }
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
-        List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getAllFunctions(FunctionResult.Kind.CONNECTOR, modifiedQueryMap) :
-                dbManager.searchFunctions(modifiedQueryMap, FunctionResult.Kind.CONNECTOR);
+        List<FunctionData> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
+                dbManager.getAllFunctions(FunctionData.Kind.CONNECTOR, modifiedQueryMap) :
+                dbManager.searchFunctions(modifiedQueryMap, FunctionData.Kind.CONNECTOR);
 
         List<AvailableNode> connectors = new ArrayList<>();
-        for (FunctionResult connectorResult : connectorResults) {
+        for (FunctionData connectorResult : connectorResults) {
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(connectorResult.packageName())
                     .description(connectorResult.description())

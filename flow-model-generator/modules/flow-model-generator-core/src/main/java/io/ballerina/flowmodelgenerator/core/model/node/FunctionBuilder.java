@@ -30,8 +30,8 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterResult;
@@ -57,7 +57,7 @@ public abstract class FunctionBuilder extends NodeBuilder {
 
     protected abstract NodeKind getFunctionNodeKind();
 
-    protected abstract FunctionResult.Kind getFunctionResultKind();
+    protected abstract FunctionData.Kind getFunctionResultKind();
 
     @Override
     public void setConcreteConstData() {
@@ -68,14 +68,14 @@ public abstract class FunctionBuilder extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
 
-        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .name(codedata.symbol())
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
                 .functionResultKind(getFunctionResultKind())
                 .userModuleInfo(moduleInfo);
 
         if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
-            functionResultBuilder.parentSymbolType(codedata.object());
+            functionDataBuilder.parentSymbolType(codedata.object());
         }
 
         // Set the semantic model if the function is local
@@ -84,17 +84,17 @@ public abstract class FunctionBuilder extends NodeBuilder {
             WorkspaceManager workspaceManager = context.workspaceManager();
             PackageUtil.loadProject(context.workspaceManager(), context.filePath());
             SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-            functionResultBuilder.semanticModel(semanticModel);
+            functionDataBuilder.semanticModel(semanticModel);
         }
-        FunctionResult functionResult = functionResultBuilder.build();
+        FunctionData functionData = functionDataBuilder.build();
 
         metadata()
-                .label(functionResult.name())
-                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
-                        functionResult.version()))
-                .description(functionResult.description());
+                .label(functionData.name())
+                .icon(CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
+                        functionData.version()))
+                .description(functionData.description());
         codedata()
-                .id(functionResult.functionId())
+                .id(functionData.functionId())
                 .node(getFunctionNodeKind())
                 .org(codedata.org())
                 .module(codedata.module())
@@ -115,21 +115,21 @@ public abstract class FunctionBuilder extends NodeBuilder {
                     .stepOut()
                     .addProperty(Property.CONNECTION_KEY);
         }
-        setParameterProperties(functionResult);
+        setParameterProperties(functionData);
 
-        String returnTypeName = functionResult.returnType();
-        if (CommonUtils.hasReturn(functionResult.returnType())) {
+        String returnTypeName = functionData.returnType();
+        if (CommonUtils.hasReturn(functionData.returnType())) {
             properties()
-                    .type(returnTypeName, functionResult.inferredReturnType())
+                    .type(returnTypeName, functionData.inferredReturnType())
                     .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
         }
 
-        if (functionResult.returnError()) {
+        if (functionData.returnError()) {
             properties().checkError(true);
         }
     }
 
-    protected void setParameterProperties(FunctionResult function) {
+    protected void setParameterProperties(FunctionData function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
         for (ParameterResult paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterResult.Kind.PARAM_FOR_TYPE_INFER)

@@ -26,8 +26,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -88,14 +88,14 @@ public class NewConnectionBuilder extends FunctionBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FunctionResult functionResult;
+        FunctionData functionData;
 
-        FunctionResultBuilder functionResultBuilder = new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .parentSymbolType(codedata.object())
                 .name(codedata.symbol())
                 .moduleInfo(
                         new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
-                .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                .functionResultKind(FunctionData.Kind.CONNECTOR)
                 .userModuleInfo(moduleInfo);
 
         if (Boolean.TRUE.equals(codedata.isGenerated())) {
@@ -108,28 +108,28 @@ public class NewConnectionBuilder extends FunctionBuilder {
             PackageUtil.loadProject(workspaceManager, context.filePath());
             SemanticModel semanticModel = workspaceManager.semanticModel(clientPath)
                     .orElseThrow(() -> new IllegalStateException("Semantic model not found"));
-            functionResultBuilder.semanticModel(semanticModel);
+            functionDataBuilder.semanticModel(semanticModel);
         }
 
-        functionResult = functionResultBuilder.build();
+        functionData = functionDataBuilder.build();
         metadata()
-                .label(functionResult.packageName())
-                .description(functionResult.description())
-                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
-                        functionResult.version()));
+                .label(functionData.packageName())
+                .description(functionData.description())
+                .icon(CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
+                        functionData.version()));
         codedata()
                 .node(NodeKind.NEW_CONNECTION)
-                .org(functionResult.org())
-                .module(functionResult.packageName())
+                .org(functionData.org())
+                .module(functionData.packageName())
                 .object(CLIENT_SYMBOL)
                 .symbol(INIT_SYMBOL)
-                .id(functionResult.functionId())
+                .id(functionData.functionId())
                 .isGenerated(codedata.isGenerated());
 
-        setParameterProperties(functionResult);
+        setParameterProperties(functionData);
 
-        if (CommonUtils.hasReturn(functionResult.returnType())) {
-            setReturnTypeProperties(functionResult.returnType(), context, false, CONNECTION_NAME_LABEL);
+        if (CommonUtils.hasReturn(functionData.returnType())) {
+            setReturnTypeProperties(functionData.returnType(), context, false, CONNECTION_NAME_LABEL);
         }
 
         properties()
@@ -143,7 +143,7 @@ public class NewConnectionBuilder extends FunctionBuilder {
     }
 
     @Override
-    protected FunctionResult.Kind getFunctionResultKind() {
-        return FunctionResult.Kind.CONNECTOR;
+    protected FunctionData.Kind getFunctionResultKind() {
+        return FunctionData.Kind.CONNECTOR;
     }
 }

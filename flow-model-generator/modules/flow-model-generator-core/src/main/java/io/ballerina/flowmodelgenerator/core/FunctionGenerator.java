@@ -34,7 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
@@ -149,8 +149,8 @@ public class FunctionGenerator {
         // Build the imported library functions if exists
         DatabaseManager dbManager = DatabaseManager.getInstance();
         if (!moduleNames.isEmpty()) {
-            List<FunctionResult> functionsByPackages =
-                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, FunctionResult.Kind.FUNCTION);
+            List<FunctionData> functionsByPackages =
+                    dbManager.searchFunctionsInPackages(moduleNames, queryMap, FunctionData.Kind.FUNCTION);
             Category.Builder libraryBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
             addLibraryFunction(functionsByPackages, libraryBuilder);
         }
@@ -160,30 +160,30 @@ public class FunctionGenerator {
             return;
         }
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
-        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q")
-                ? dbManager.getFunctionsByOrg("ballerina", FunctionResult.Kind.FUNCTION)
-                : dbManager.searchFunctions(queryMap, FunctionResult.Kind.FUNCTION);
-        functionResults.removeIf(functionResult -> moduleNames.contains(functionResult.packageName()));
-        addLibraryFunction(functionResults, utilityBuilder);
+        List<FunctionData> functionDataList = CommonUtils.hasNoKeyword(queryMap, "q")
+                ? dbManager.getFunctionsByOrg("ballerina", FunctionData.Kind.FUNCTION)
+                : dbManager.searchFunctions(queryMap, FunctionData.Kind.FUNCTION);
+        functionDataList.removeIf(functionResult -> moduleNames.contains(functionResult.packageName()));
+        addLibraryFunction(functionDataList, utilityBuilder);
     }
 
-    private static void addLibraryFunction(List<FunctionResult> functionResults, Category.Builder utilityBuilder) {
-        for (FunctionResult functionResult : functionResults) {
-            String icon = CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
-                    functionResult.version());
+    private static void addLibraryFunction(List<FunctionData> functionDataList, Category.Builder utilityBuilder) {
+        for (FunctionData functionData : functionDataList) {
+            String icon = CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
+                    functionData.version());
             Metadata metadata = new Metadata.Builder<>(null)
-                    .label(functionResult.name())
-                    .description(functionResult.description())
+                    .label(functionData.name())
+                    .description(functionData.description())
                     .icon(icon)
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
-                    .org(functionResult.org())
-                    .module(functionResult.packageName())
-                    .symbol(functionResult.name())
-                    .version(functionResult.version())
+                    .org(functionData.org())
+                    .module(functionData.packageName())
+                    .symbol(functionData.name())
+                    .version(functionData.version())
                     .build();
-            utilityBuilder.stepIn(functionResult.packageName(), "", icon)
+            utilityBuilder.stepIn(functionData.packageName(), "", icon)
                     .node(new AvailableNode(metadata, codedata, true));
         }
     }

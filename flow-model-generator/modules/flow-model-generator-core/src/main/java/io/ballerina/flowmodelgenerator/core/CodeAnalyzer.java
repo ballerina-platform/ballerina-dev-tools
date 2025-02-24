@@ -122,8 +122,8 @@ import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import io.ballerina.projects.Project;
@@ -259,22 +259,22 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
         startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
 
-        FunctionResultBuilder functionResultBuilder =
-                new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
                         .name(functionName)
                         .functionSymbol(functionSymbol)
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo);
-        FunctionResult functionResult = functionResultBuilder.build();
+        FunctionData functionData = functionDataBuilder.build();
 
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
-                functionResult);
+                functionData);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
                     .label(functionName)
-                    .description(functionResult.description())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                 .nodeInfo(remoteMethodCallActionNode)
@@ -343,22 +343,22 @@ class CodeAnalyzer extends NodeVisitor {
             }
         }
 
-        FunctionResultBuilder functionResultBuilder =
-                new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
                         .name(functionName)
                         .functionSymbol(functionSymbol)
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo)
                         .resourcePath(resourcePathTemplate.resourcePathTemplate())
-                        .functionResultKind(FunctionResult.Kind.RESOURCE);
-        FunctionResult functionResult = functionResultBuilder.build();
+                        .functionResultKind(FunctionData.Kind.RESOURCE);
+        FunctionData functionData = functionDataBuilder.build();
 
-        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionResult);
+        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
 
         nodeBuilder.symbolInfo(functionSymbol)
                 .metadata()
                     .label(functionName)
-                    .description(functionResult.description())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                     .nodeInfo(clientResourceAccessActionNode)
@@ -855,22 +855,22 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = optMethodSymbol.get();
         startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
 
-        FunctionResult functionResult = new FunctionResultBuilder()
+        FunctionData functionData = new FunctionDataBuilder()
                 .parentSymbol(classSymbol)
                 .functionSymbol(methodSymbol)
                 .semanticModel(semanticModel)
                 .name(NewConnectionBuilder.INIT_SYMBOL)
-                .functionResultKind(FunctionResult.Kind.CONNECTOR)
+                .functionResultKind(FunctionData.Kind.CONNECTOR)
                 .userModuleInfo(moduleInfo)
                 .build();
 
-        processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionResult);
+        processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionData);
 
         nodeBuilder
                 .symbolInfo(methodSymbol)
                 .metadata()
-                    .label(functionResult.packageName())
-                    .description(functionResult.description())
+                    .label(functionData.packageName())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                     .object(NewConnectionBuilder.CLIENT_SYMBOL)
@@ -1062,24 +1062,24 @@ class CodeAnalyzer extends NodeVisitor {
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
 
-        FunctionResultBuilder functionResultBuilder =
-                new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
                         .name(functionName)
                         .functionSymbol(functionSymbol)
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo);
-        FunctionResult functionResult = functionResultBuilder.build();
+        FunctionData functionData = functionDataBuilder.build();
 
         if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
             processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
-                    functionResult);
+                    functionData);
         }
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
                     .metadata()
                     .label(functionName)
-                    .description(functionResult.description())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
@@ -1114,32 +1114,32 @@ class CodeAnalyzer extends NodeVisitor {
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
 
-        FunctionResultBuilder functionResultBuilder =
-                new FunctionResultBuilder()
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
                         .name(functionName)
                         .functionSymbol(functionSymbol)
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo);
-        FunctionResult functionResult = functionResultBuilder.build();
+        FunctionData functionData = functionDataBuilder.build();
 
         processFunctionSymbol(functionCallExpressionNode, functionCallExpressionNode.arguments(), functionSymbol,
-                functionResult);
+                functionData);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
                 .label(functionName)
-                .description(functionResult.description())
+                .description(functionData.description())
                 .stepOut()
                 .codedata().symbol(functionName);
     }
 
     private void processFunctionSymbol(NonTerminalNode callNode, SeparatedNodeList<FunctionArgumentNode> arguments,
-                                       FunctionSymbol functionSymbol, FunctionResult functionResult) {
+                                       FunctionSymbol functionSymbol, FunctionData functionData) {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionResult.parameters(),
+        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionData.parameters(),
                 positionalArgs, namedArgValueMap);
         handleCheckFlag(callNode, functionSymbol.typeDescriptor());
     }

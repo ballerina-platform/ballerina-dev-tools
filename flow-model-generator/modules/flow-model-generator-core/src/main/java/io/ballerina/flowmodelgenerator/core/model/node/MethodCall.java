@@ -23,7 +23,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import io.ballerina.modelgenerator.commons.FunctionResult;
+import io.ballerina.modelgenerator.commons.FunctionData;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -64,7 +64,7 @@ public class MethodCall extends FunctionBuilder {
     }
 
     @Override
-    protected FunctionResult.Kind getFunctionResultKind() {
-        return FunctionResult.Kind.FUNCTION;
+    protected FunctionData.Kind getFunctionResultKind() {
+        return FunctionData.Kind.FUNCTION;
     }
 }

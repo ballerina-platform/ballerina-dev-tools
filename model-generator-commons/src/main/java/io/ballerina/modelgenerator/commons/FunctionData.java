@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @since 2.0.0
  */
-public class FunctionResult {
+public class FunctionData {
 
     private final int functionId;
     private final String name;
@@ -40,9 +40,9 @@ public class FunctionResult {
     private final boolean inferredReturnType;
     private Map<String, ParameterResult> parameters;
 
-    public FunctionResult(int functionId, String name, String description, String returnType,
-                          String packageName, String org, String version, String resourcePath,
-                          Kind kind, boolean returnError, boolean inferredReturnType) {
+    public FunctionData(int functionId, String name, String description, String returnType,
+                        String packageName, String org, String version, String resourcePath,
+                        Kind kind, boolean returnError, boolean inferredReturnType) {
         this.functionId = functionId;
         this.name = name;
         this.description = description;

@@ -27,8 +27,8 @@ import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.FunctionResult;
-import io.ballerina.modelgenerator.commons.FunctionResultBuilder;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterResult;
 import org.eclipse.lsp4j.TextEdit;
@@ -62,40 +62,40 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
             return;
         }
 
-        FunctionResult functionResult = new FunctionResultBuilder()
+        FunctionData functionData = new FunctionDataBuilder()
                 .name(codedata.symbol())
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
                 .parentSymbolType(codedata.object())
                 .resourcePath(codedata.resourcePath())
-                .functionResultKind(FunctionResult.Kind.RESOURCE)
+                .functionResultKind(FunctionData.Kind.RESOURCE)
                 .build();
 
         metadata()
-                .label(functionResult.name())
-                .description(functionResult.description())
-                .icon(CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),
-                        functionResult.version()));
+                .label(functionData.name())
+                .description(functionData.description())
+                .icon(CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
+                        functionData.version()));
         codedata()
-                .org(functionResult.org())
-                .module(functionResult.packageName())
+                .org(functionData.org())
+                .module(functionData.packageName())
                 .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .id(functionResult.functionId())
-                .symbol(functionResult.name());
+                .id(functionData.functionId())
+                .symbol(functionData.name());
 
         setExpressionProperty(codedata);
 
-        String resourcePath = functionResult.resourcePath();
+        String resourcePath = functionData.resourcePath();
         properties().resourcePath(resourcePath, resourcePath.equals(ParamUtils.REST_RESOURCE_PATH));
 
-        setParameterProperties(functionResult);
+        setParameterProperties(functionData);
 
-        String returnTypeName = functionResult.returnType();
+        String returnTypeName = functionData.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            setReturnTypeProperties(returnTypeName, context, functionResult.inferredReturnType(),
+            setReturnTypeProperties(returnTypeName, context, functionData.inferredReturnType(),
                     Property.VARIABLE_NAME);
         }
 
-        if (functionResult.returnError()) {
+        if (functionData.returnError()) {
             properties().checkError(true);
         }
     }
@@ -162,7 +162,7 @@ public class ResourceActionCallBuilder extends FunctionBuilder {
     }
 
     @Override
-    protected FunctionResult.Kind getFunctionResultKind() {
-        return FunctionResult.Kind.RESOURCE;
+    protected FunctionData.Kind getFunctionResultKind() {
+        return FunctionData.Kind.RESOURCE;
     }
 }
