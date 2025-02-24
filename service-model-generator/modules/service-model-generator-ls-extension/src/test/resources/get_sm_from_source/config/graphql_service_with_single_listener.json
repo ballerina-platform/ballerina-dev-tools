@@ -225,8 +225,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Query path",
+            "description": "Query path"
           },
           "enabled": true,
           "editable": true,
@@ -239,6 +239,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -259,12 +264,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 29,
+                    "offset": 42
+                  },
+                  "endLine": {
+                    "line": 29,
+                    "offset": 46
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -384,8 +405,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Mutation name",
+            "description": "Mutation name"
           },
           "enabled": true,
           "editable": true,
@@ -398,6 +419,11 @@
         },
         "parameters": [
           {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -418,12 +444,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "id",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 34,
+                    "offset": 35
+                  },
+                  "endLine": {
+                    "line": 34,
+                    "offset": 37
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -444,6 +486,11 @@
             "advanced": false
           },
           {
+            "metadata": {
+              "label": "name",
+              "description": "name"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -464,12 +511,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 34,
+                    "offset": 46
+                  },
+                  "endLine": {
+                    "line": 34,
+                    "offset": 50
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -591,8 +654,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Subscription path",
+            "description": "Subscription path"
           },
           "enabled": true,
           "editable": true,

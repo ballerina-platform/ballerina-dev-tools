@@ -18,6 +18,7 @@
 
 package io.ballerina.servicemodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
@@ -54,23 +55,15 @@ public class GetServiceClassModelFromSourceTest extends AbstractLSTest {
         ServiceClassModelResponse response = gson.fromJson(jsonMap, ServiceClassModelResponse.class);
 
         ServiceClass actualServiceClassModel = response.model();
-        boolean assertTrue = isServiceEqual(actualServiceClassModel, testConfig.response());
+        JsonElement actualServiceClassModelJson = gson.toJsonTree(actualServiceClassModel);
 
-        if (!assertTrue) {
+        if (!actualServiceClassModelJson.equals(testConfig.response())) {
             GetServiceClassModelFromSourceTest.TestConfig updatedConfig =
                     new GetServiceClassModelFromSourceTest.TestConfig(testConfig.filePath(), testConfig.description(),
-                            testConfig.start(), testConfig.end(), actualServiceClassModel);
+                            testConfig.start(), testConfig.end(), actualServiceClassModelJson);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    private static boolean isServiceEqual(ServiceClass actual, ServiceClass expected) {
-        return expected.id().equals(actual.id()) && expected.name().equals(actual.name()) &&
-                expected.type().equals(actual.type()) &&
-                expected.properties().values().size() == actual.properties().values().size() &&
-                expected.functions().size() == actual.functions().size() &&
-                expected.fields().size() == actual.fields().size();
     }
 
     @Override
@@ -103,7 +96,7 @@ public class GetServiceClassModelFromSourceTest extends AbstractLSTest {
      * @param response    The expected response
      */
     private record TestConfig(String filePath, String description, LinePosition start, LinePosition end,
-                              ServiceClass response) {
+                              JsonElement response) {
 
         public String description() {
             return description == null ? "" : description;

@@ -45,11 +45,11 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:globalListener",
-          "default:httpListener",
           "httpListener",
-          "new http:Listener(port = 8080)",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener",
+          "default:globalListener",
+          "new http:Listener(port = 8080)"
         ],
         "codedata": {
           "inListenerInit": false,
