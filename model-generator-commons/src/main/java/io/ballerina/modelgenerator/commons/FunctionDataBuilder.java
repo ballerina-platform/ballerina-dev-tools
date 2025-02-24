@@ -29,15 +29,19 @@ import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -84,6 +88,10 @@ public class FunctionDataBuilder {
     private String resourcePath;
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
+
+    public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
+    public static final String REST_PARAM_PATH = "/path/to/resource";
+    public static final String REST_RESOURCE_PATH_LABEL = "Remaining Resource Path";
 
     public FunctionDataBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -251,8 +259,7 @@ public class FunctionDataBuilder {
                         functionSymbol = parentSymbol.methods().values().parallelStream()
                                 .filter(symbol -> symbol.kind() == SymbolKind.RESOURCE_METHOD &&
                                         symbol.nameEquals(functionName) &&
-                                        ParamUtils.buildResourcePathTemplate(semanticModel, symbol,
-                                                        semanticModel.types().ERROR).resourcePathTemplate()
+                                        buildResourcePathTemplate(symbol).resourcePathTemplate()
                                                 .equals(resourcePath))
                                 .findFirst()
                                 .orElse(null);
@@ -311,10 +318,10 @@ public class FunctionDataBuilder {
         boolean returnError = functionTypeSymbol.returnTypeDescriptor()
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
 
-        ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
+        ResourcePathTemplate resourcePathTemplate = null;
         if (functionResultKind == FunctionData.Kind.RESOURCE) {
-            resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,
-                    errorTypeSymbol);
+            resourcePathTemplate = buildResourcePathTemplate(functionSymbol
+            );
         }
         resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         Map<String, ParameterResult> parameters = new LinkedHashMap<>();
@@ -544,6 +551,51 @@ public class FunctionDataBuilder {
             members.put(typeSymbol.getName().orElse(""), typeSymbol);
         }
         return members;
+    }
+
+    private ResourcePathTemplate buildResourcePathTemplate(FunctionSymbol functionSymbol) {
+        Map<String, String> documentationMap = functionSymbol.documentation().map(Documentation::parameterMap)
+                .orElse(Map.of());
+        StringBuilder pathBuilder = new StringBuilder();
+        ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
+        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        List<ParameterResult> pathParams = new ArrayList<>();
+        switch (resourcePath.kind()) {
+            case PATH_SEGMENT_LIST -> {
+                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
+                for (Symbol pathSegment : pathSegmentList.list()) {
+                    pathBuilder.append("/");
+                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+                        String defaultValue = DefaultValueGeneratorUtil
+                                .getDefaultValueForType(pathParameterSymbol.typeDescriptor());
+                        String type = CommonUtils.getTypeSignature(semanticModel, pathParameterSymbol.typeDescriptor(),
+                                true);
+                        String paramName = pathParameterSymbol.getName().orElse("");
+                        String paramDescription = documentationMap.get(paramName);
+                        pathBuilder.append("[").append(paramName).append("]");
+                        pathParams.add(
+                                ParameterResult.from(paramName, type, ParameterResult.Kind.PATH_PARAM, defaultValue,
+                                        paramDescription, false));
+                    } else {
+                        pathBuilder.append(pathSegment.getName().orElse(""));
+                    }
+                }
+                ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
+                    pathParams.add(
+                            io.ballerina.modelgenerator.commons.ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
+                                    ParameterResult.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
+                                    false));
+                });
+            }
+            case PATH_REST_PARAM -> {
+                pathBuilder.append(REST_RESOURCE_PATH);
+            }
+            case DOT_RESOURCE_PATH -> pathBuilder.append("/");
+        }
+        return new ResourcePathTemplate(pathBuilder.toString(), pathParams);
+    }
+
+    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterResult> pathParams) {
     }
 
     private String getTypeSignature(TypeSymbol typeSymbol) {
