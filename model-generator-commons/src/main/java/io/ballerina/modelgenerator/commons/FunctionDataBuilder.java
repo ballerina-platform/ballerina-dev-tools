@@ -49,7 +49,6 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -195,6 +194,9 @@ public class FunctionDataBuilder {
     public FunctionData build() {
         // The function name is required to build the FunctionResult
         if (this.functionName == null) {
+            if (functionSymbol == null) {
+                throw new IllegalStateException("Function symbol must be provided if function name is not given");
+            }
             this.functionName = this.functionSymbol.getName()
                     .orElseThrow(() -> new IllegalStateException("Function name not found"));
         }
@@ -406,7 +408,7 @@ public class FunctionDataBuilder {
                     return parameters;
                 }
             }
-            defaultValue = getParamDefaultValue(paramSymbol, typeSymbol);
+            defaultValue = getDefaultValue(paramSymbol, typeSymbol);
             paramType = getTypeSignature(typeSymbol);
         }
         parameters.put(paramName, ParameterData.from(paramName, paramDescription, paramType, defaultValue,
@@ -441,7 +443,7 @@ public class FunctionDataBuilder {
                 continue;
             }
 
-            String defaultValue = getRecordFieldDefaultValue(recordFieldSymbol, fieldType);
+            String defaultValue = getDefaultValue(recordFieldSymbol, fieldType);
             String paramType = getTypeSignature(typeSymbol);
             boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
             parameters.put(paramName, ParameterData.from(paramName, documentationMap.get(paramName),
@@ -459,68 +461,40 @@ public class FunctionDataBuilder {
         return parameters;
     }
 
-    private String getParamDefaultValue(ParameterSymbol paramSymbol, TypeSymbol typeSymbol) {
-        String defaultValue;
-        Location symbolLocation = paramSymbol.getLocation().get();
-        Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
-        defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-        if (document != null) {
-            defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
-                    symbolLocation, resolvedPackage.packageName().value());
-        }
-        return defaultValue;
-    }
+    private String getDefaultValue(Symbol paramSymbol, TypeSymbol typeSymbol) {
+        String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
 
-    private String getRecordFieldDefaultValue(RecordFieldSymbol recordFieldSymbol, TypeSymbol fieldType) {
-        Location symbolLocation = recordFieldSymbol.getLocation().get();
-        Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
-        String defaultValue;
-        if (document != null) {
-            defaultValue = getAttributeDefaultValue(document.syntaxTree().rootNode(),
-                    symbolLocation, resolvedPackage.packageName().value());
-            if (defaultValue == null) {
-                defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+        Optional<Location> symbolLocation = paramSymbol.getLocation();
+        if (resolvedPackage == null || symbolLocation.isEmpty()) {
+            return defaultValue;
+        }
+
+        Document document = findDocument(resolvedPackage, symbolLocation.get().lineRange().fileName());
+        if (document == null) {
+            return defaultValue;
+        }
+
+        ModulePartNode rootNode = document.syntaxTree().rootNode();
+        TextRange textRange = symbolLocation.get().textRange();
+        NonTerminalNode node = rootNode.findNode(TextRange.from(textRange.startOffset(), textRange.length()));
+
+        ExpressionNode expression;
+        switch (node.kind()) {
+            case DEFAULTABLE_PARAM -> expression = (ExpressionNode) ((DefaultableParameterNode) node).expression();
+            case RECORD_FIELD_WITH_DEFAULT_VALUE -> expression = ((RecordFieldWithDefaultValueNode) node).expression();
+            default -> {
+                return defaultValue;
             }
+        }
+
+        if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+            return resolvedPackage.packageName().value() + ":" + simpleNameReferenceNode.name().text();
+        } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+            return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                    .text();
         } else {
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+            return expression.toSourceCode();
         }
-        return defaultValue;
-    }
-
-    private static String getParamDefaultValue(ModulePartNode rootNode, Location location, String module) {
-        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
-                location.textRange().length()));
-        if (node.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
-            DefaultableParameterNode valueNode = (DefaultableParameterNode) node;
-            ExpressionNode expression = (ExpressionNode) valueNode.expression();
-            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
-                return module + ":" + simpleNameReferenceNode.name().text();
-            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
-                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
-                        .text();
-            } else {
-                return expression.toSourceCode();
-            }
-        }
-        return null;
-    }
-
-    private static String getAttributeDefaultValue(ModulePartNode rootNode, Location location, String module) {
-        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
-                location.textRange().length()));
-        if (node.kind() == SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE) {
-            RecordFieldWithDefaultValueNode valueNode = (RecordFieldWithDefaultValueNode) node;
-            ExpressionNode expression = valueNode.expression();
-            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
-                return module + ":" + simpleNameReferenceNode.name().text();
-            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
-                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
-                        .text();
-            } else {
-                return expression.toSourceCode();
-            }
-        }
-        return null;
     }
 
     private Document findDocument(Package pkg, String path) {
