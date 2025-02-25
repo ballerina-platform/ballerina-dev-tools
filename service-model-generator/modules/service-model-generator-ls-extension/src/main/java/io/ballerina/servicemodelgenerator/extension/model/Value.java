@@ -93,8 +93,7 @@ public class Value {
     }
 
     public boolean isEnabledWithValue() {
-        return enabled && ((value != null && !value.isEmpty()) || (placeholder != null && !placeholder.isEmpty())
-                || (values != null && !values.isEmpty()));
+        return enabled && ((value != null && !value.isEmpty()) || (values != null && !values.isEmpty()));
     }
 
     public void setEnabled(boolean enabled) {
