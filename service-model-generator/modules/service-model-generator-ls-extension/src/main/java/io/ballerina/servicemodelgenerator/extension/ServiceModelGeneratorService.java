@@ -61,6 +61,7 @@ import io.ballerina.servicemodelgenerator.extension.model.TriggerProperty;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.AddFieldRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ClassFieldModifierRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ClassModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
@@ -900,7 +901,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
      */
     @JsonRequest
     public CompletableFuture<ServiceClassModelResponse> getServiceClassModelFromSource(
-            CommonModelFromSourceRequest request) {
+            ClassModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
@@ -923,8 +924,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (node.kind() != SyntaxKind.CLASS_DEFINITION) {
                     return new ServiceClassModelResponse();
                 }
+                ServiceClassUtil.ServiceClassContext context = ServiceClassUtil.ServiceClassContext
+                        .valueOf(request.context());
                 ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) node;
-                ServiceClass serviceClass = ServiceClassUtil.getServiceClass(classDefinitionNode);
+                ServiceClass serviceClass = ServiceClassUtil.getServiceClass(classDefinitionNode, context);
                 return new ServiceClassModelResponse(serviceClass);
             } catch (Throwable e) {
                 return new ServiceClassModelResponse(e);

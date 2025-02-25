@@ -65,12 +65,12 @@ public class ServiceClassUtil {
         return builder.toString();
     }
 
-    public static ServiceClass getServiceClass(ClassDefinitionNode classDef) {
+    public static ServiceClass getServiceClass(ClassDefinitionNode classDef, ServiceClassContext context) {
         ServiceClass.ServiceClassBuilder builder = new ServiceClass.ServiceClassBuilder();
 
         List<Function> functions = new ArrayList<>();
         List<Field> fields = new ArrayList<>();
-        populateFunctionsAndFields(classDef, functions, fields);
+        populateFunctionsAndFields(classDef, functions, fields, context);
 
         builder.name(classDef.className().text().trim())
                 .type(getClassType(classDef))
@@ -101,18 +101,19 @@ public class ServiceClassUtil {
     }
 
     private static void populateFunctionsAndFields(ClassDefinitionNode classDef, List<Function> functions,
-                                                   List<Field> fields) {
+                                                   List<Field> fields, ServiceClassContext context) {
         classDef.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                functions.add(buildMemberFunction(functionDefinitionNode));
-            } else if (member instanceof ObjectFieldNode objectFieldNode) {
+                functions.add(buildMemberFunction(functionDefinitionNode, context));
+            } else if (context == ServiceClassContext.TYPE_DIAGRAM
+                    && member instanceof ObjectFieldNode objectFieldNode) {
                 fields.add(buildClassField(objectFieldNode));
             }
         });
     }
 
-    private static Function buildMemberFunction(FunctionDefinitionNode functionDef) {
-        Function functionModel = Function.getNewFunction();
+    private static Function buildMemberFunction(FunctionDefinitionNode functionDef, ServiceClassContext context) {
+        Function functionModel = Function.getNewFunctionModel(context);
         FunctionKind kind = getFunctionKind(functionDef);
         updateMetadata(functionModel, kind);
         functionModel.setKind(kind.name());
@@ -145,14 +146,16 @@ public class ServiceClassUtil {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false, true);
+            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false,
+                    context == ServiceClassContext.GRAPHQL_DIAGRAM);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
         functionModel.setEnabled(true);
         functionModel.setEditable(true);
         functionModel.setCodedata(new Codedata(functionDef.lineRange()));
-        functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.parameterSchema()));
+        functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
+                Parameter.parameterSchema(context == ServiceClassContext.GRAPHQL_DIAGRAM)));
         return functionModel;
     }
 
@@ -221,5 +224,10 @@ public class ServiceClassUtil {
         REMOTE,
         RESOURCE,
         DEFAULT
+    }
+
+    public enum ServiceClassContext {
+        TYPE_DIAGRAM,
+        GRAPHQL_DIAGRAM
     }
 }

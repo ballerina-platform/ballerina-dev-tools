@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension.model;
 
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -172,7 +173,14 @@ public class Parameter {
         this.httpParamType = httpParamType;
     }
 
-    public static Parameter parameterSchema() {
+    public static Parameter parameterSchema(boolean isGraphQL) {
+        if (isGraphQL) {
+            return new Parameter(null, null,
+                    new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
+                    new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
+                    new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
+                    false, false, false, false, null);
+        }
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),

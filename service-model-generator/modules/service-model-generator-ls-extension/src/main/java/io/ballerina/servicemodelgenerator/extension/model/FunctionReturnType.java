@@ -28,8 +28,8 @@ public class FunctionReturnType extends Value {
     private List<HttpResponse> responses;
     private Map<String, HttpResponse> schema;
 
-    public FunctionReturnType() {
-        this(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA, false, false, null,
+    public FunctionReturnType(MetaData metaData) {
+        this(metaData, false, false, null,
                 null, null, false, null, false, false,
                 null, null, null, null, null);
     }

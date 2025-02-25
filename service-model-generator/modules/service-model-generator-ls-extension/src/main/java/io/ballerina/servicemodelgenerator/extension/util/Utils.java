@@ -482,7 +482,8 @@ public final class Utils {
         functionName.setEnabled(true);
         if (isGraphQL) {
             accessor.setEditable(false);
-            functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.parameterSchema()));
+            functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
+                    Parameter.parameterSchema(isGraphQL)));
         }
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
