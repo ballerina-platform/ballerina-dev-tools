@@ -16,14 +16,16 @@
     "id": "31",
     "metadata": {
       "label": "utcFromCivil",
-      "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```"
+      "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "time",
       "symbol": "utcFromCivil",
-      "version": "2.5.0"
+      "version": "2.5.0",
+      "id": 603
     },
     "returning": false,
     "properties": {

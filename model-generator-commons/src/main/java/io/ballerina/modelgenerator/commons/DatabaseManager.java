@@ -16,12 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.db;
-
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
+package io.ballerina.modelgenerator.commons;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,14 +82,7 @@ public class DatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
-    public enum FunctionKind {
-        FUNCTION,
-        REMOTE,
-        CONNECTOR,
-        RESOURCE
-    }
-
-    public List<FunctionResult> getAllFunctions(FunctionKind kind, Map<String, String> queryMap) {
+    public List<FunctionData> getAllFunctions(FunctionData.Kind kind, Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -119,9 +107,9 @@ public class DatabaseManager {
             stmt.setString(2, queryMap.get("limit"));
             stmt.setString(3, queryMap.get("offset"));
             ResultSet rs = stmt.executeQuery();
-            List<FunctionResult> functionResults = new ArrayList<>();
+            List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
-                FunctionResult functionResult = new FunctionResult(
+                FunctionData functionData = new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -130,19 +118,19 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
-                functionResults.add(functionResult);
+                functionDataList.add(functionData);
             }
-            return functionResults;
+            return functionDataList;
         } catch (SQLException e) {
             LOGGER.severe("Error executing query: " + e.getMessage());
             return List.of();
         }
     }
 
-    public List<FunctionResult> getFunctionsByOrg(String orgName, FunctionKind functionKind) {
+    public List<FunctionData> getFunctionsByOrg(String orgName, FunctionData.Kind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -164,9 +152,9 @@ public class DatabaseManager {
             stmt.setString(1, functionKind.name());
             stmt.setString(2, orgName);
             ResultSet rs = stmt.executeQuery();
-            List<FunctionResult> functionResults = new ArrayList<>();
+            List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
-                FunctionResult functionResult = new FunctionResult(
+                FunctionData functionData = new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -175,19 +163,19 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
-                functionResults.add(functionResult);
+                functionDataList.add(functionData);
             }
-            return functionResults;
+            return functionDataList;
         } catch (SQLException e) {
             LOGGER.severe("Error executing query: " + e.getMessage());
             return List.of();
         }
     }
 
-    public List<FunctionResult> searchFunctions(Map<String, String> queryMap, FunctionKind kind) {
+    public List<FunctionData> searchFunctions(Map<String, String> queryMap, FunctionData.Kind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -219,9 +207,9 @@ public class DatabaseManager {
             stmt.setString(4, queryMap.get("limit"));
             stmt.setString(5, queryMap.get("offset"));
             ResultSet rs = stmt.executeQuery();
-            List<FunctionResult> functionResults = new ArrayList<>();
+            List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
-                FunctionResult functionResult = new FunctionResult(
+                FunctionData functionData = new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -230,68 +218,20 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
-                functionResults.add(functionResult);
+                functionDataList.add(functionData);
             }
-            return functionResults;
+            return functionDataList;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind) {
-        String sql = "SELECT " +
-                "f.function_id, " +
-                "f.name AS function_name, " +
-                "f.description AS function_description, " +
-                "f.return_type, " +
-                "f.resource_path, " +
-                "f.kind, " +
-                "f.return_error, " +
-                "f.inferred_return_type, " +
-                "p.name AS package_name, " +
-                "p.org, " +
-                "p.version " +
-                "FROM Function f " +
-                "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE f.kind = ? " +
-                "AND p.org = ? " +
-                "AND p.name = ? " +
-                "AND f.name = ?;";
-
-        try (Connection conn = DriverManager.getConnection(dbPath);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, kind.name());
-            stmt.setString(2, org);
-            stmt.setString(3, module);
-            stmt.setString(4, symbol);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return Optional.of(new FunctionResult(
-                        rs.getInt("function_id"),
-                        rs.getString("function_name"),
-                        rs.getString("function_description"),
-                        rs.getString("return_type"),
-                        rs.getString("package_name"),
-                        rs.getString("org"),
-                        rs.getString("version"),
-                        rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
-                        rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type")));
-            }
-            return Optional.empty();
-        } catch (SQLException e) {
-            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    public Optional<FunctionResult> getAction(String org, String module, String symbol, String resourcePath,
-                                              FunctionKind kind) {
+    public Optional<FunctionData> getFunction(String org, String module, String symbol, FunctionData.Kind kind,
+                                              String resourcePath) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
         sql.append("f.name AS function_name, ");
@@ -306,14 +246,12 @@ public class DatabaseManager {
         sql.append("p.version ");
         sql.append("FROM Function f ");
         sql.append("JOIN Package p ON f.package_id = p.package_id ");
-        sql.append("AND p.org = ? ");
+        sql.append("WHERE p.org = ? ");
         sql.append("AND p.name = ? ");
         sql.append("AND f.kind = ? ");
+        sql.append("AND f.name = ? ");
         if (resourcePath != null) {
-            sql.append("AND f.name = ? ");
-            sql.append("AND f.resource_path = ?;");
-        } else {
-            sql.append("AND f.name = ?;");
+            sql.append("AND f.resource_path = ?");
         }
 
         try (Connection conn = DriverManager.getConnection(dbPath);
@@ -327,7 +265,7 @@ public class DatabaseManager {
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return Optional.of(new FunctionResult(
+                return Optional.of(new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -336,7 +274,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type")));
             }
@@ -347,7 +285,7 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(int functionId) {
+    public Optional<FunctionData> getFunction(int functionId) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -369,7 +307,7 @@ public class DatabaseManager {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return Optional.of(new FunctionResult(
+                return Optional.of(new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -378,7 +316,7 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type")));
             }
@@ -389,7 +327,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<ParameterResult> getFunctionParameters(int functionId) {
+    public List<ParameterData> getFunctionParameters(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
                 "p.name, " +
@@ -405,19 +343,20 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
-            List<ParameterResult> parameterResults = new ArrayList<>();
+            List<ParameterData> parameterResults = new ArrayList<>();
             while (rs.next()) {
-                ParameterResult parameterResult = new ParameterResult(
+                ParameterData
+                        parameterData = new ParameterData(
                         rs.getInt("parameter_id"),
                         rs.getString("name"),
                         rs.getString("type"),
-                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        ParameterData.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
                         rs.getString("import_statements")
                 );
-                parameterResults.add(parameterResult);
+                parameterResults.add(parameterData);
             }
             return parameterResults;
         } catch (SQLException e) {
@@ -426,7 +365,7 @@ public class DatabaseManager {
         }
     }
 
-    public LinkedHashMap<String, ParameterResult> getFunctionParametersAsMap(int functionId) {
+    public LinkedHashMap<String, ParameterData> getFunctionParametersAsMap(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
                 "p.name, " +
@@ -442,20 +381,21 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
-            LinkedHashMap<String, ParameterResult> parameterResults = new LinkedHashMap<>();
+            LinkedHashMap<String, ParameterData> parameterResults = new LinkedHashMap<>();
             while (rs.next()) {
                 String paramName = rs.getString("name");
-                ParameterResult parameterResult = new ParameterResult(
+                ParameterData
+                        parameterData = new ParameterData(
                         rs.getInt("parameter_id"),
                         paramName,
                         rs.getString("type"),
-                        Parameter.Kind.valueOf(rs.getString("kind")),
+                        ParameterData.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
                         rs.getString("import_statements")
                 );
-                parameterResults.put(paramName, parameterResult);
+                parameterResults.put(paramName, parameterData);
             }
             return parameterResults;
         } catch (SQLException e) {
@@ -464,7 +404,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> getConnectorActions(int connectorId) {
+    public List<FunctionData> getConnectorActions(int connectorId) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -482,9 +422,9 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, connectorId);
             ResultSet rs = stmt.executeQuery();
-            List<FunctionResult> functionResults = new ArrayList<>();
+            List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
-                FunctionResult functionResult = new FunctionResult(
+                FunctionData functionData = new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("description"),
@@ -493,20 +433,20 @@ public class DatabaseManager {
                         null, // org is not selected in this query
                         null, // version is not selected in this query
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
-                functionResults.add(functionResult);
+                functionDataList.add(functionData);
             }
-            return functionResults;
+            return functionDataList;
         } catch (SQLException e) {
             LOGGER.severe("Error executing query: " + e.getMessage());
             return List.of();
         }
     }
 
-    public List<FunctionResult> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
-                                                       FunctionKind kind) {
+    public List<FunctionData> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
+                                                        FunctionData.Kind kind) {
         if (packageNames == null || packageNames.isEmpty()) {
             return List.of();
         }
@@ -565,9 +505,9 @@ public class DatabaseManager {
             stmt.setInt(paramIndex, queryMap.containsKey("offset") ? Integer.parseInt(queryMap.get("offset")) : 0);
 
             ResultSet rs = stmt.executeQuery();
-            List<FunctionResult> functionResults = new ArrayList<>();
+            List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
-                FunctionResult functionResult = new FunctionResult(
+                FunctionData functionData = new FunctionData(
                         rs.getInt("function_id"),
                         rs.getString("function_name"),
                         rs.getString("function_description"),
@@ -576,12 +516,12 @@ public class DatabaseManager {
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
-                        Function.Kind.valueOf(rs.getString("kind")),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
                         rs.getBoolean("inferred_return_type"));
-                functionResults.add(functionResult);
+                functionDataList.add(functionData);
             }
-            return functionResults;
+            return functionDataList;
         } catch (SQLException e) {
             LOGGER.severe("Error executing query: " + e.getMessage());
             return List.of();

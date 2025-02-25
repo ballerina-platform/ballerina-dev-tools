@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "mapPersonToEmployee",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 28
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -117,8 +130,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "person",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "data_mappings.bal",
+                    "startLine": {
+                      "line": 24,
+                      "offset": 36
+                    },
+                    "endLine": {
+                      "line": 24,
+                      "offset": 42
+                    }
+                  }
+                }
               }
             },
             "optional": false,

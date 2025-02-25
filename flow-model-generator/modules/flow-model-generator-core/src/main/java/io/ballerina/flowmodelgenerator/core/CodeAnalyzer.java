@@ -18,10 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
@@ -102,10 +100,6 @@ import io.ballerina.compiler.syntax.tree.WaitActionNode;
 import io.ballerina.compiler.syntax.tree.WaitFieldNode;
 import io.ballerina.compiler.syntax.tree.WaitFieldsListNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -128,7 +122,10 @@ import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -251,63 +248,43 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
-        String methodName = remoteMethodCallActionNode.methodName().name().text();
-        ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
-        SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
-
         Optional<Symbol> symbol = semanticModel.symbol(remoteMethodCallActionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD)) {
             handleExpressionNode(remoteMethodCallActionNode);
             return;
         }
 
-        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        Optional<Documentation> documentation = methodSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
+        String functionName = remoteMethodCallActionNode.methodName().name().text();
+        ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
+        MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
+        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
 
-        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent())
-                .symbolInfo(methodSymbol)
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
+                .name(functionName)
+                .functionSymbol(functionSymbol)
+                .semanticModel(semanticModel)
+                .userModuleInfo(moduleInfo);
+        FunctionData functionData = functionDataBuilder.build();
+
+        processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
+                functionData);
+
+        nodeBuilder
+                .symbolInfo(functionSymbol)
                 .metadata()
-                    .label(methodName)
-                    .description(description)
+                    .label(functionName)
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
+                .nodeInfo(remoteMethodCallActionNode)
                     .object("Client")
-                    .symbol(methodName)
+                    .symbol(functionName)
                     .stepOut()
                 .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
-
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), null, DatabaseManager.FunctionKind.REMOTE);
-
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                    methodSymbol, positionalArgs, namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
-        }
-        handleCheckFlag(remoteMethodCallActionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
-
-        nodeBuilder.codedata().nodeInfo(remoteMethodCallActionNode);
     }
 
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
-        String methodName = clientResourceAccessActionNode.methodName()
-                .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
-        ExpressionNode expressionNode = clientResourceAccessActionNode.expression();
-        SeparatedNodeList<FunctionArgumentNode> argumentNodes =
-                clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
-        if (argumentNodes == null) { // cl->/path/to/'resource;
-            methodName = "get";
-        }
-
         Optional<Symbol> symbol = semanticModel.symbol(clientResourceAccessActionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
@@ -315,36 +292,24 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        Optional<Documentation> documentation = methodSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
+        String functionName = clientResourceAccessActionNode.methodName()
+                .map(simpleNameReference -> simpleNameReference.name().text()).orElse("get");
+        ExpressionNode expressionNode = clientResourceAccessActionNode.expression();
+        SeparatedNodeList<FunctionArgumentNode> argumentNodes =
+                clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
+
+        MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
+        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent());
+
         SeparatedNodeList<Node> nodes = clientResourceAccessActionNode.resourceAccessPath();
-
         ParamUtils.ResourcePathTemplate resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel,
-                methodSymbol, semanticModel.types().ERROR);
-
-        startNode(NodeKind.RESOURCE_ACTION_CALL, expressionNode.parent())
-                .symbolInfo(methodSymbol)
-                .metadata()
-                    .label(methodName)
-                    .description(description)
-                    .stepOut()
-                .codedata()
-                .object("Client")
-                .symbol(methodName)
-                .resourcePath(resourcePathTemplate.resourcePathTemplate())
-                .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY)
-                .data(this.typedBindingPatternNode, false, new HashSet<>());
-
-        if (CommonUtils.isHttpModule(methodSymbol)) {
+                functionSymbol, semanticModel.types().ERROR);
+        if (CommonUtils.isHttpModule(functionSymbol)) {
             String resourcePath = nodes.stream().map(Node::toSourceCode).collect(Collectors.joining("/"));
             String fullPath = "/" + resourcePath;
             nodeBuilder.properties().resourcePath(fullPath, true);
         } else {
             nodeBuilder.properties().resourcePath(resourcePathTemplate.resourcePathTemplate(), false);
-
             int idx = 0;
             for (int i = 0; i < nodes.size(); i++) {
                 Node node = nodes.get(i);
@@ -353,7 +318,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 if (node instanceof ComputedResourceAccessSegmentNode computedResourceAccessSegmentNode) {
                     ExpressionNode expr = computedResourceAccessSegmentNode.expression();
-                    ParameterResult paramResult = resourcePathTemplate.pathParams().get(idx);
+                    ParameterData paramResult = resourcePathTemplate.pathParams().get(idx);
                     String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                     nodeBuilder.properties()
                             .custom()
@@ -377,45 +342,39 @@ class CodeAnalyzer extends NodeVisitor {
             }
         }
 
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = symbol.get().getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                symbol.get().getName().get(), resourcePathTemplate.resourcePathTemplate(),
-                DatabaseManager.FunctionKind.RESOURCE);
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
+                .name(functionName)
+                .functionSymbol(functionSymbol)
+                .semanticModel(semanticModel)
+                .userModuleInfo(moduleInfo)
+                .resourcePath(resourcePathTemplate.resourcePathTemplate())
+                .functionResultKind(FunctionData.Kind.RESOURCE);
+        FunctionData functionData = functionDataBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
+        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
 
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                    methodSymbol, positionalArgs, namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(argumentNodes, methodSymbol);
-        }
-        handleCheckFlag(clientResourceAccessActionNode, SyntaxKind.CHECK_ACTION, methodSymbol.typeDescriptor());
-        nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
+        nodeBuilder.symbolInfo(functionSymbol)
+                .metadata()
+                    .label(functionName)
+                    .description(functionData.description())
+                    .stepOut()
+                .codedata()
+                    .nodeInfo(clientResourceAccessActionNode)
+                    .object("Client")
+                    .symbol(functionName)
+                    .resourcePath(resourcePathTemplate.resourcePathTemplate())
+                    .stepOut()
+                .properties()
+                .callExpression(expressionNode, Property.CONNECTION_KEY)
+                .data(this.typedBindingPatternNode, false, new HashSet<>());
     }
 
-    private void analyzeAndHandleExprArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                          DatabaseManager dbManager,
-                                          FunctionResult functionResult,
-                                          FunctionSymbol methodSymbol,
-                                          Queue<Node> positionalArgs,
-                                          Map<String, Node> namedArgValueMap) {
-        LinkedHashMap<String, ParameterResult> funcParamMap = dbManager
-                .getFunctionParametersAsMap(functionResult.functionId());
-
-        FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
-        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
-    }
-
-    private void addRemainingParamsToPropertyMap(LinkedHashMap<String, ParameterResult> funcParamMap,
+    private void addRemainingParamsToPropertyMap(Map<String, ParameterData> funcParamMap,
                                                  boolean hasOnlyRestParams) {
-        for (Map.Entry<String, ParameterResult> entry : funcParamMap.entrySet()) {
-            ParameterResult paramResult = entry.getValue();
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+        for (Map.Entry<String, ParameterData> entry : funcParamMap.entrySet()) {
+            ParameterData paramResult = entry.getValue();
+            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -436,13 +395,13 @@ class CodeAnalyzer extends NodeVisitor {
                     .editable()
                     .defaultable(paramResult.optional());
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+            if (paramResult.kind() == ParameterData.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
                 unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+            } else if (paramResult.kind() == ParameterData.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
@@ -476,30 +435,20 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private void handleFunctionCallActionCallsParams(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                                     FunctionSymbol functionSymbol) {
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-        LinkedHashMap<String, ParameterResult> funcParamMap = ParamUtils.buildFunctionParamResultMap(
-                functionSymbol, semanticModel);
-        buildPropsFromFuncCallArgs(argumentNodes, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
-    }
-
     private void buildPropsFromFuncCallArgs(SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                             FunctionTypeSymbol functionTypeSymbol,
-                                            LinkedHashMap<String, ParameterResult> funcParamMap,
+                                            Map<String, ParameterData> funcParamMap,
                                             Queue<Node> positionalArgs, Map<String, Node> namedArgValueMap) {
         if (argumentNodes == null) { // cl->/path/to/'resource;
-            List<ParameterResult> functionParameters = funcParamMap.values().stream().toList();
+            List<ParameterData> functionParameters = funcParamMap.values().stream().toList();
             boolean hasOnlyRestParams = functionParameters.size() == 1;
-            for (ParameterResult paramResult : functionParameters) {
-                Parameter.Kind paramKind = paramResult.kind();
+            for (ParameterData paramResult : functionParameters) {
+                ParameterData.Kind paramKind = paramResult.kind();
 
-                if (paramKind.equals(Parameter.Kind.PATH_PARAM) || paramKind.equals(Parameter.Kind.PATH_REST_PARAM)
-                        || paramKind.equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                        || paramKind.equals(Parameter.Kind.INCLUDED_RECORD)) {
+                if (paramKind.equals(ParameterData.Kind.PATH_PARAM) ||
+                        paramKind.equals(ParameterData.Kind.PATH_REST_PARAM)
+                        || paramKind.equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
+                        || paramKind.equals(ParameterData.Kind.INCLUDED_RECORD)) {
                     continue;
                 }
 
@@ -520,12 +469,12 @@ class CodeAnalyzer extends NodeVisitor {
                         .editable()
                         .defaultable(paramResult.optional());
 
-                if (paramKind == Parameter.Kind.INCLUDED_RECORD_REST) {
+                if (paramKind == ParameterData.Kind.INCLUDED_RECORD_REST) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
                     customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-                } else if (paramKind == Parameter.Kind.REST_PARAMETER) {
+                } else if (paramKind == ParameterData.Kind.REST_PARAMETER) {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
                     }
@@ -554,7 +503,7 @@ class CodeAnalyzer extends NodeVisitor {
                 for (int i = 0; i < paramsList.size(); i++) {
                     ParameterSymbol parameterSymbol = paramsList.get(i);
                     String escapedParamName = parameterSymbol.getName().get();
-                    ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                    ParameterData paramResult = funcParamMap.get(escapedParamName);
                     if (paramResult == null) {
                         escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
                     }
@@ -593,7 +542,7 @@ class CodeAnalyzer extends NodeVisitor {
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
                 String escapedParamName = CommonUtil.escapeReservedKeyword(restParamSymbol.getName().get());
-                ParameterResult restParamResult = funcParamMap.get(escapedParamName);
+                ParameterData restParamResult = funcParamMap.get(escapedParamName);
                 funcParamMap.remove(restParamSymbol.getName().get());
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(restParamResult.name());
                 customPropBuilder
@@ -628,7 +577,7 @@ class CodeAnalyzer extends NodeVisitor {
             for (int i = 0; i < paramsList.size(); i++) {
                 ParameterSymbol parameterSymbol = paramsList.get(i);
                 String escapedParamName = parameterSymbol.getName().get();
-                ParameterResult paramResult = funcParamMap.get(escapedParamName);
+                ParameterData paramResult = funcParamMap.get(escapedParamName);
                 if (paramResult == null) {
                     escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
                 }
@@ -640,7 +589,7 @@ class CodeAnalyzer extends NodeVisitor {
                     paramValue = namedArgValueMap.get(paramResult.name());
                     namedArgValueMap.remove(paramResult.name());
                 }
-                if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                if (paramResult.kind() == ParameterData.Kind.INCLUDED_RECORD) {
                     if (argumentNodes.size() > i && argumentNodes.get(i).kind() == SyntaxKind.NAMED_ARG) {
                         FunctionArgumentNode argNode = argumentNodes.get(i);
                         funcParamMap.remove(escapedParamName);
@@ -736,7 +685,7 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                 }
 
-                if (paramValue == null && paramResult.kind() == Parameter.Kind.INCLUDED_RECORD) {
+                if (paramValue == null && paramResult.kind() == ParameterData.Kind.INCLUDED_RECORD) {
                     funcParamMap.remove(escapedParamName);
                     continue;
                 }
@@ -769,7 +718,7 @@ class CodeAnalyzer extends NodeVisitor {
                 map.put(entry.getKey(), entry.getValue().toSourceCode());
                 includedRecordRestArgs.add(map);
             }
-            ParameterResult includedRecordRest = funcParamMap.get("Additional Values");
+            ParameterData includedRecordRest = funcParamMap.get("Additional Values");
             if (includedRecordRest != null) {
                 funcParamMap.remove("Additional Values");
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
@@ -798,8 +747,9 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private void handleCheckFlag(NonTerminalNode node, SyntaxKind check, FunctionTypeSymbol functionTypeSymbol) {
-        if (node.parent().kind() == check) {
+    private void handleCheckFlag(NonTerminalNode node, FunctionTypeSymbol functionTypeSymbol) {
+        SyntaxKind parentKind = node.parent().kind();
+        if (parentKind == SyntaxKind.CHECK_ACTION || parentKind == SyntaxKind.CHECK_EXPRESSION) {
             nodeBuilder.properties().checkError(true);
         } else {
             functionTypeSymbol.returnTypeDescriptor()
@@ -812,10 +762,10 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private Property.ValueType getPropertyTypeFromParamKind(Parameter.Kind kind) {
-        if (kind == Parameter.Kind.REST_PARAMETER) {
+    private Property.ValueType getPropertyTypeFromParamKind(ParameterData.Kind kind) {
+        if (kind == ParameterData.Kind.REST_PARAMETER) {
             return Property.ValueType.EXPRESSION_SET;
-        } else if (kind == Parameter.Kind.INCLUDED_RECORD_REST) {
+        } else if (kind == ParameterData.Kind.INCLUDED_RECORD_REST) {
             return Property.ValueType.MAPPING_EXPRESSION_SET;
         }
         return Property.ValueType.EXPRESSION;
@@ -888,9 +838,6 @@ class CodeAnalyzer extends NodeVisitor {
         if (typeSymbol.isEmpty()) {
             return;
         }
-
-        String moduleName = CommonUtils.getModuleName(typeSymbol.get());
-
         if (typeSymbol.get().typeKind() != TypeDescKind.TYPE_REFERENCE) {
             return;
         }
@@ -899,52 +846,37 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
         ClassSymbol classSymbol = (ClassSymbol) defintionSymbol;
-        String description = classSymbol.documentation().flatMap(Documentation::description).orElse("");
-
-        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
-        if (initMethodSymbol.isEmpty()) {
+        Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
+        if (optMethodSymbol.isEmpty()) {
             return;
         }
-        Map<String, String> documentationMap =
-                initMethodSymbol.get().documentation().map(Documentation::parameterMap).orElse(Map.of());
+        MethodSymbol methodSymbol = optMethodSymbol.get();
+        startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
 
-        startNode(NodeKind.NEW_CONNECTION, newExpressionNode)
-                .symbolInfo(initMethodSymbol.get())
+        FunctionData functionData = new FunctionDataBuilder()
+                .parentSymbol(classSymbol)
+                .functionSymbol(methodSymbol)
+                .semanticModel(semanticModel)
+                .name(NewConnectionBuilder.INIT_SYMBOL)
+                .functionResultKind(FunctionData.Kind.CONNECTOR)
+                .userModuleInfo(moduleInfo)
+                .build();
+
+        processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionData);
+
+        nodeBuilder
+                .symbolInfo(methodSymbol)
                 .metadata()
-                    .label(moduleName)
-                    .description(description)
+                    .label(functionData.packageName())
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
-                .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                .symbol(NewConnectionBuilder.INIT_SYMBOL)
-                .stepOut()
+                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
+                    .stepOut()
                 .properties()
                 .scope(connectionScope)
                 .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
-        try {
-            MethodSymbol methodSymbol =
-                    ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
-                            .orElseThrow();
-
-            DatabaseManager dbManager = DatabaseManager.getInstance();
-            ModuleID id = methodSymbol.getModule().get().id();
-            Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                    methodSymbol.getName().get(), null, DatabaseManager.FunctionKind.CONNECTOR);
-
-            final Map<String, Node> namedArgValueMap = new HashMap<>();
-            final Queue<Node> positionalArgs = new LinkedList<>();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, argumentNodes);
-
-            if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHandleExprArgs(argumentNodes, dbManager, functionResult.get(),
-                        methodSymbol, positionalArgs, namedArgValueMap);
-                return;
-            }
-            methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, documentationMap, methodSymbol.external()));
-        } catch (RuntimeException ignored) {
-
-        }
     }
 
     @Override
@@ -1059,12 +991,12 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                     .properties()
                     .expression(expression, AssignBuilder.EXPRESSION_DOC, false)
-                    .data(assignmentStatementNode.varRef(), true, new HashSet<>());
+                    .data(assignmentStatementNode.varRef(), true, new HashSet<>(), true);
         }
 
         if (nodeBuilder instanceof XmlPayloadBuilder || nodeBuilder instanceof JsonPayloadBuilder
                 || nodeBuilder instanceof BinaryBuilder) {
-            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>());
+            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>(), true);
         }
         endNode(assignmentStatementNode);
     }
@@ -1118,10 +1050,6 @@ class CodeAnalyzer extends NodeVisitor {
 
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
-
-        Optional<Documentation> documentation = functionSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
-
         String functionName = getIdentifierName(nameReferenceNode);
 
         startNode(NodeKind.METHOD_CALL, methodCallExpressionNode.parent());
@@ -1131,46 +1059,31 @@ class CodeAnalyzer extends NodeVisitor {
                             CommonUtils.getDocument(project, location).syntaxTree()))
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
+
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
+                        .name(functionName)
+                        .functionSymbol(functionSymbol)
+                        .semanticModel(semanticModel)
+                        .userModuleInfo(moduleInfo);
+        FunctionData functionData = functionDataBuilder.build();
+
+        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
+            processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                    functionData);
+        }
+
         nodeBuilder
                 .symbolInfo(functionSymbol)
                     .metadata()
                     .label(functionName)
-                    .description(description)
+                    .description(functionData.description())
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
                     .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY);
-
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
-
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-
-        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
-            SeparatedNodeList<FunctionArgumentNode> arguments = methodCallExpressionNode.arguments();
-            calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-
-            if (functionResult.isPresent()) { // function details are indexed
-                analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(),
-                        functionSymbol, positionalArgs, namedArgValueMap);
-            } else {
-                handleFunctionCallActionCallsParams(arguments, functionSymbol);
-            }
-        }
-        handleCheckFlag(methodCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
-
-        nodeBuilder
-                .symbolInfo(functionSymbol)
-                .metadata()
-                .label(functionName)
-                .description(description)
-                .stepOut()
-                .codedata().symbol(functionName);
     }
 
     @Override
@@ -1181,12 +1094,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
-
-        Optional<Documentation> documentation = functionSymbol.documentation();
-        String description = documentation.flatMap(Documentation::description).orElse("");
-
         String functionName = getIdentifierName(nameReferenceNode);
 
         if (dataMappings.containsKey(functionName)) {
@@ -1195,6 +1103,8 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
 
+        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
+
         if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
             functionSymbol.getLocation()
                     .flatMap(location -> CommonUtil.findNode(functionSymbol,
@@ -1202,31 +1112,34 @@ class CodeAnalyzer extends NodeVisitor {
                     .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
         }
 
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        ModuleID id = functionSymbol.getModule().get().id();
-        Optional<FunctionResult> functionResult = dbManager.getAction(id.orgName(), id.moduleName(),
-                functionSymbol.getName().get(), null, DatabaseManager.FunctionKind.FUNCTION);
+        FunctionDataBuilder functionDataBuilder =
+                new FunctionDataBuilder()
+                        .name(functionName)
+                        .functionSymbol(functionSymbol)
+                        .semanticModel(semanticModel)
+                        .userModuleInfo(moduleInfo);
+        FunctionData functionData = functionDataBuilder.build();
 
-        final Map<String, Node> namedArgValueMap = new HashMap<>();
-        final Queue<Node> positionalArgs = new LinkedList<>();
-        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
-        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-
-        if (functionResult.isPresent()) { // function details are indexed
-            analyzeAndHandleExprArgs(arguments, dbManager, functionResult.get(), functionSymbol, positionalArgs,
-                    namedArgValueMap);
-        } else {
-            handleFunctionCallActionCallsParams(arguments, functionSymbol);
-        }
-        handleCheckFlag(functionCallExpressionNode, SyntaxKind.CHECK_EXPRESSION, functionSymbol.typeDescriptor());
+        processFunctionSymbol(functionCallExpressionNode, functionCallExpressionNode.arguments(), functionSymbol,
+                functionData);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
                 .label(functionName)
-                .description(description)
+                .description(functionData.description())
                 .stepOut()
                 .codedata().symbol(functionName);
+    }
+
+    private void processFunctionSymbol(NonTerminalNode callNode, SeparatedNodeList<FunctionArgumentNode> arguments,
+                                       FunctionSymbol functionSymbol, FunctionData functionData) {
+        final Map<String, Node> namedArgValueMap = new HashMap<>();
+        final Queue<Node> positionalArgs = new LinkedList<>();
+        calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
+        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionData.parameters(),
+                positionalArgs, namedArgValueMap);
+        handleCheckFlag(callNode, functionSymbol.typeDescriptor());
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
@@ -1335,7 +1248,8 @@ class CodeAnalyzer extends NodeVisitor {
             type = "";
         }
         workerBranchBuilder.properties()
-                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC, "worker")
+                .data(namedWorkerDeclarationNode.workerName(), Property.WORKER_NAME, Property.WORKER_DOC,
+                        "worker", false)
                 .returnType(type);
 
         // Analyze the body of the worker
@@ -1578,7 +1492,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-    // Utility methods
+// Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method

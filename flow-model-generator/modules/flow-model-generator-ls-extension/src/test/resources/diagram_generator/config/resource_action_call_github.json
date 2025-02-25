@@ -15,7 +15,7 @@
       {
         "id": "38931",
         "metadata": {
-          "label": "get",
+          "label": "post",
           "description": "Create a GitHub App from a manifest\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
         },
@@ -24,7 +24,7 @@
           "org": "ballerinax",
           "module": "github",
           "object": "Client",
-          "symbol": "get",
+          "symbol": "post",
           "version": "5.1.0",
           "lineRange": {
             "fileName": "github_resource_call.bal",
@@ -42,28 +42,6 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "githubClient",
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "manifestConversions",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "resourcePath": {
             "metadata": {
               "label": "Resource Path",
@@ -104,6 +82,41 @@
             "editable": true,
             "advanced": true
           },
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "githubClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "manifestConversions",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 50
+                }
+              }
+            }
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -122,7 +135,7 @@
       {
         "id": "39907",
         "metadata": {
-          "label": "get",
+          "label": "delete",
           "description": "Delete a thread subscription\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
         },
@@ -131,7 +144,7 @@
           "org": "ballerinax",
           "module": "github",
           "object": "Client",
-          "symbol": "get",
+          "symbol": "delete",
           "version": "5.1.0",
           "lineRange": {
             "fileName": "github_resource_call.bal",
@@ -149,28 +162,6 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "githubClient",
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "response",
-            "optional": false,
-            "editable": true,
-            "advanced": false
-          },
           "resourcePath": {
             "metadata": {
               "label": "Resource Path",
@@ -211,6 +202,41 @@
             "optional": false,
             "editable": true,
             "advanced": true
+          },
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "githubClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "response",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 26
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -261,28 +287,6 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "config": {
             "metadata": {
               "label": "config",
@@ -316,6 +320,28 @@
               "originalName": "serviceUrl"
             }
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
           "variable": {
             "metadata": {
               "label": "Connection Name",
@@ -324,8 +350,21 @@
             "valueType": "IDENTIFIER",
             "value": "githubClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 32
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

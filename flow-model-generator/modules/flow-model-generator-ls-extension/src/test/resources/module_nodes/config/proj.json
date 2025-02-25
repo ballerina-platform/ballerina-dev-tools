@@ -193,8 +193,21 @@
             "valueType": "IDENTIFIER",
             "value": "grpcClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "connections.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -575,8 +588,21 @@
             "valueType": "IDENTIFIER",
             "value": "httpClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -716,8 +742,21 @@
             "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "connections.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 30
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

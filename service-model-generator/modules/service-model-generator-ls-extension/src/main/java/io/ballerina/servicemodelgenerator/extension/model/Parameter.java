@@ -167,8 +167,10 @@ public class Parameter {
 
     public static Parameter parameterSchema() {
         return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
                 false, false, false, false, null);
     }

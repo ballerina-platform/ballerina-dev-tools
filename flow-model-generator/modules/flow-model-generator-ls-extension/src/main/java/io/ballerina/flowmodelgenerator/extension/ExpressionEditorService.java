@@ -31,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorTypesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
@@ -102,14 +103,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<Either<List<CompletionItem>, CompletionList>> types(VisibleVariableTypeRequest request) {
+    public CompletableFuture<Either<List<CompletionItem>, CompletionList>> types(ExpressionEditorTypesRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManagerProxy.get().loadProject(filePath);
                 SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
                         () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
-                return TypesGenerator.getInstance().getTypes(semanticModel);
+                return TypesGenerator.getInstance().getTypes(semanticModel, request.typeConstraint());
             } catch (Throwable e) {
                 return Either.forRight(new CompletionList());
             }

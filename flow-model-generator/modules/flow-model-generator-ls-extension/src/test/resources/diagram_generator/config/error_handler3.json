@@ -186,8 +186,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 33,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 33,
+                          "offset": 20
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -708,8 +721,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

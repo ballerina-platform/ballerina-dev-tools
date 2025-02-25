@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "transformToPerson",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 26
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -117,8 +130,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "data_mappings.bal",
+                    "startLine": {
+                      "line": 0,
+                      "offset": 34
+                    },
+                    "endLine": {
+                      "line": 0,
+                      "offset": 38
+                    }
+                  }
+                }
               }
             },
             "optional": false,
@@ -152,8 +178,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "email",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "data_mappings.bal",
+                    "startLine": {
+                      "line": 0,
+                      "offset": 47
+                    },
+                    "endLine": {
+                      "line": 0,
+                      "offset": 52
+                    }
+                  }
+                }
               }
             },
             "optional": false,
@@ -187,8 +226,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "address",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "data_mappings.bal",
+                    "startLine": {
+                      "line": 0,
+                      "offset": 62
+                    },
+                    "endLine": {
+                      "line": 0,
+                      "offset": 69
+                    }
+                  }
+                }
               }
             },
             "optional": false,

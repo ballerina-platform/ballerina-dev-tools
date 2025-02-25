@@ -96,7 +96,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     protected int flags;
     protected boolean returning;
     protected SemanticModel semanticModel;
-    protected FlowNode cachedFlowNode;
     protected ModuleInfo moduleInfo;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -249,11 +248,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
     public FlowNode build() {
         this.setConstData();
-
-        // Check if there is a pre-built node
-        if (cachedFlowNode != null) {
-            return cachedFlowNode;
-        }
 
         Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(

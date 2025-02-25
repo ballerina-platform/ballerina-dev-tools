@@ -83,7 +83,7 @@
             "character": 0
           }
         },
-        "newText": "function transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
+        "newText": "\nfunction transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
       }
     ]
   }

@@ -19,6 +19,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.tools.text.LineRange;
+
 /**
  * Represents the codedata of a property.
  *
@@ -26,9 +28,11 @@ package io.ballerina.flowmodelgenerator.core.model;
  * @param originalName      The original name of the property
  * @param importStatements  import statements of the dependent types
  * @param dependentProperty The property that is dependent for this property to be enabled
+ * @param lineRange         The line range of the property
  * @since 2.0.0
  */
-public record PropertyCodedata(String kind, String originalName, String importStatements, String dependentProperty) {
+public record PropertyCodedata(String kind, String originalName, String importStatements,
+                               String dependentProperty, LineRange lineRange) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
@@ -36,6 +40,7 @@ public record PropertyCodedata(String kind, String originalName, String importSt
         private String originalName;
         private String importStatements;
         private String dependentProperty;
+        private LineRange lineRange;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -61,8 +66,13 @@ public record PropertyCodedata(String kind, String originalName, String importSt
             return this;
         }
 
+        public Builder<T> lineRange(LineRange lineRange) {
+            this.lineRange = lineRange;
+            return this;
+        }
+
         public PropertyCodedata build() {
-            return new PropertyCodedata(kind, originalName, importStatements, dependentProperty);
+            return new PropertyCodedata(kind, originalName, importStatements, dependentProperty, lineRange);
         }
     }
 }

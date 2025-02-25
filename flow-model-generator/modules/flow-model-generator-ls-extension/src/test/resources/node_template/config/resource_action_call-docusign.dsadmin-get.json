@@ -37,7 +37,7 @@
           "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "docusign.dsadmin:Client",
+        "valueTypeConstraint": "dsadmin:Client",
         "value": "dsAdminClient",
         "optional": false,
         "editable": false,
