@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -145,6 +146,65 @@ public class SearchDatabaseManager {
     }
 
     /**
+     * Searches for connectors in the database based on the given query.
+     *
+     * @param q      the search query string
+     * @param limit  the maximum number of results to return
+     * @param offset the offset from which to start returning results
+     * @return a list of search results matching the query
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchConnectors(String q, int limit, int offset) {
+        List<SearchResult> results = new ArrayList<>();
+        String sql = """
+                SELECT
+                    c.id,
+                    c.name AS connector_name,
+                    c.description AS connector_description,
+                    c.package_id,
+                    p.name AS package_name, 
+                    p.org AS package_org,
+                    p.version AS package_version,
+                    fts.rank
+                FROM ConnectorFTS AS fts
+                JOIN Connector AS c ON fts.rowid = c.id
+                JOIN Package AS p ON c.package_id = p.id
+                WHERE fts.ConnectorFTS MATCH ?
+                ORDER BY fts.rank
+                LIMIT ? 
+                OFFSET ?;
+                """;
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, sanitizeQuery(q) + "*");
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String connectorName = rs.getString("connector_name");
+                    String description = rs.getString("connector_description");
+                    String packageName = rs.getString("package_name");
+                    String org = rs.getString("package_org");
+                    String version = rs.getString("package_version");
+                    SearchResult result = SearchResult.from(org, packageName, version, connectorName, description);
+                    results.add(result);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error searching connectors: " + e.getMessage());
+            throw new RuntimeException("Failed to search connectors", e);
+        } catch (NumberFormatException e) {
+            LOGGER.severe("Invalid number format in query parameters: " + e.getMessage());
+            throw new RuntimeException("Invalid limit or offset value", e);
+        }
+
+        return results;
+    }
+
+    /**
      * Searches for functions that match both the given package names and function names.
      *
      * @param packageNames  List of package names to search in
@@ -218,6 +278,78 @@ public class SearchDatabaseManager {
         } catch (SQLException e) {
             LOGGER.severe("Error searching functions: " + e.getMessage());
             throw new RuntimeException("Failed to search functions", e);
+        }
+
+        return results;
+    }
+
+    /**
+     * Searches for connectors that match the given package names and connector names.
+     *
+     * @param packageConnectorMap Map containing package names as keys and connector names as values
+     * @param limit               The maximum number of results to return
+     * @param offset              The number of results to skip
+     * @return A list of search results matching the criteria
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchConnectorsByPackage(Map<String, String> packageConnectorMap, int limit, int offset) {
+        List<SearchResult> results = new ArrayList<>();
+
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT ")
+                .append("c.name AS connector_name, ")
+                .append("c.description AS connector_description, ")
+                .append("c.package_id, ")
+                .append("p.name AS package_name, ")
+                .append("p.org AS package_org, ")
+                .append("p.version AS package_version ")
+                .append("FROM Package p ")
+                .append("JOIN Connector c ON p.id = c.package_id");
+
+        // Build the SQL query with IN clauses for both packages and connectors
+        boolean whereAdded = false;
+        if (!packageConnectorMap.isEmpty()) {
+            sqlBuilder.append(" WHERE (");
+            for (String packageName : packageConnectorMap.keySet()) {
+                if (whereAdded) {
+                    sqlBuilder.append(" OR ");
+                }
+                sqlBuilder.append("(p.name = ? AND c.name = ?)");
+                whereAdded = true;
+            }
+            sqlBuilder.append(")");
+        }
+        sqlBuilder.append(" LIMIT ? OFFSET ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sqlBuilder.toString())) {
+
+            // Set parameters for package names and connector names
+            int paramIndex = 1;
+            for (Map.Entry<String, String> entry : packageConnectorMap.entrySet()) {
+                stmt.setString(paramIndex++, entry.getKey());
+                stmt.setString(paramIndex++, entry.getValue());
+            }
+
+            // Set limit and offset
+            stmt.setInt(paramIndex++, limit);
+            stmt.setInt(paramIndex++, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("connector_name");
+                    String description = rs.getString("connector_description");
+                    String org = rs.getString("package_org");
+                    String pkgName = rs.getString("package_name");
+                    String version = rs.getString("package_version");
+
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    results.add(SearchResult.from(packageInfo, name, description));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error searching connectors: " + e.getMessage());
+            throw new RuntimeException("Failed to search connectors", e);
         }
 
         return results;

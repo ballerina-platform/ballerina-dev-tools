@@ -337,8 +337,9 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
             try {
-                ConnectorGenerator connectorGenerator = new ConnectorGenerator();
-                response.setCategories(connectorGenerator.getConnectors(request.queryMap()));
+                SearchCommand searchCommand = SearchCommand.from(SearchCommand.Kind.CONNECTOR, null,
+                        null, request.queryMap());
+                response.setCategories(searchCommand.execute());
             } catch (Throwable e) {
                 response.setError(e);
             }

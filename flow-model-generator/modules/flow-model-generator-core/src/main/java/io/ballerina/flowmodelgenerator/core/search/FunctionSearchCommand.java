@@ -69,6 +69,7 @@ class FunctionSearchCommand extends SearchCommand {
             "time", List.of("utcNow", "utcFromString"),
             "io", List.of("print", "println", "fileWriteString", "fileWriteJson", "fileReadString", "fileReadJson")
     );
+    private static final String FETCH_KEY = "functions";
     private final List<String> moduleNames;
 
     public FunctionSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
@@ -94,7 +95,7 @@ class FunctionSearchCommand extends SearchCommand {
             searchResults.addAll(dbManager.searchFunctionsByPackages(moduleNames, List.of(), limit, offset));
         }
         if (includeAvailableNodes) {
-            searchResults.addAll(defaultViewHolder.get(this));
+            searchResults.addAll(defaultViewHolder.get(this).getOrDefault(FETCH_KEY, List.of()));
         }
         buildLibraryNodes(searchResults);
         return rootBuilder.build().items();
@@ -109,12 +110,12 @@ class FunctionSearchCommand extends SearchCommand {
     }
 
     @Override
-    protected List<SearchResult> fetchPopularItems() {
+    protected Map<String, List<SearchResult>> fetchPopularItems() {
         List<String> packageNames = new ArrayList<>(POPULAR_BALLERINA_FUNCTIONS.keySet());
         List<String> functionNames = POPULAR_BALLERINA_FUNCTIONS.values().stream()
                 .flatMap(List::stream)
                 .toList();
-        return dbManager.searchFunctionsByPackages(packageNames, functionNames, limit, offset);
+        return Map.of(FETCH_KEY, dbManager.searchFunctionsByPackages(packageNames, functionNames, limit, offset));
     }
 
     private void buildProjectNodes() {
@@ -199,7 +200,7 @@ class FunctionSearchCommand extends SearchCommand {
                     .build();
             Category.Builder builder = isImportedModule ? importedFnBuilder : availableFnBuilder;
             if (builder != null) {
-                builder.stepIn(packageInfo.name(), "", icon)
+                builder.stepIn(packageInfo.name(), "", List.of())
                         .node(new AvailableNode(metadata, codedata, true));
             }
         }

@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 class DefaultViewHolder {
 
     private static volatile DefaultViewHolder instance;
-    private final Map<Class<? extends SearchCommand>, List<SearchResult>> defaultViewsCache;
+    private final Map<Class<? extends SearchCommand>, Map<String, List<SearchResult>>> defaultViewsCache;
 
     private DefaultViewHolder() {
         this.defaultViewsCache = new ConcurrentHashMap<>();
@@ -68,7 +68,7 @@ class DefaultViewHolder {
      * @param command The search command instance
      * @return The default view items for the command
      */
-    public List<SearchResult> get(SearchCommand command) {
+    public Map<String, List<SearchResult>> get(SearchCommand command) {
         Objects.requireNonNull(command, "SearchCommand cannot be null");
 
         Class<? extends SearchCommand> commandClass = command.getClass();
@@ -82,8 +82,8 @@ class DefaultViewHolder {
         synchronized (defaultViewsCache) {
             // Check again in case another thread has populated the cache while we were waiting
             if (!defaultViewsCache.containsKey(commandClass)) {
-                List<SearchResult> items = command.fetchPopularItems();
-                defaultViewsCache.put(commandClass, Collections.unmodifiableList(items));
+                Map<String, List<SearchResult>> items = command.fetchPopularItems();
+                defaultViewsCache.put(commandClass, Collections.unmodifiableMap(items));
             }
             return defaultViewsCache.get(commandClass);
         }

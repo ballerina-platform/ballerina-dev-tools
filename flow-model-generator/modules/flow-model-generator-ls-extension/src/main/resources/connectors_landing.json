@@ -1,0 +1,38 @@
+{
+  "Network": [
+    "http:Client",
+    "graphql:Client",
+    "grpc:Client",
+    "websocket:Client",
+    "tcp:Client",
+    "udp:Client",
+    "websub:Client"
+  ],
+  "Database": [
+    "mysql:Client",
+    "mongodb:Client",
+    "postgresql:Client",
+    "mssql:Client",
+    "redis:Client"
+  ],
+  "Messaging": [
+    "kafka:Client",
+    "rabbitmq:Client"
+  ],
+  "Cloud": [
+    "aws.s3:Client",
+    "aws.sqs:Client",
+    "aws.dynamodb:Client",
+    "aws.lambda:Client",
+    "googleapis.gmail:Client",
+    "googleapis.gcalendar:Client"
+  ],
+  "SaaS": [
+    "salesforce:Client",
+    "slack:Client",
+    "twilio:Client",
+    "github:Client",
+    "stripe:Client",
+    "shopify:Client"
+  ]
+}

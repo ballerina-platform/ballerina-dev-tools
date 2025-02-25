@@ -63,7 +63,7 @@ public abstract class SearchCommand {
     public static SearchCommand from(Kind kind, Module module, LineRange position, Map<String, String> queryMap) {
         return switch (kind) {
             case FUNCTION -> new FunctionSearchCommand(module, position, queryMap);
-            case CONNECTOR -> null;
+            case CONNECTOR -> new ConnectorSearchCommand(module, position, queryMap);
             case TYPE -> null;
         };
     }
@@ -108,7 +108,7 @@ public abstract class SearchCommand {
      *
      * @return a list of popular search results
      */
-    protected abstract List<SearchResult> fetchPopularItems();
+    protected abstract Map<String, List<SearchResult>> fetchPopularItems();
 
     /**
      * Executes the search based on the current search parameters.
