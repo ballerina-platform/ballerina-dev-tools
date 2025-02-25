@@ -252,7 +252,6 @@ public class Value {
         private boolean enabled;
         private boolean editable;
         private String value;
-        private List<String> values;
         private String valueType;
         private String valueTypeConstraint;
         private boolean isType;
@@ -262,8 +261,6 @@ public class Value {
         private Map<String, Value> properties;
         private List<String> items;
         private Codedata codedata;
-        private List<Value> choices;
-        private boolean addNewButton = false;
 
         public ValueBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
@@ -282,11 +279,6 @@ public class Value {
 
         public ValueBuilder setValue(String value) {
             this.value = value;
-            return this;
-        }
-
-        public ValueBuilder setValues(List<String> values) {
-            this.values = values;
             return this;
         }
 
@@ -332,16 +324,6 @@ public class Value {
 
         public ValueBuilder setCodedata(Codedata codedata) {
             this.codedata = codedata;
-            return this;
-        }
-
-        public ValueBuilder setChoices(List<Value> choices) {
-            this.choices = choices;
-            return this;
-        }
-
-        public ValueBuilder setAddNewButton(boolean addNewButton) {
-            this.addNewButton = addNewButton;
             return this;
         }
 

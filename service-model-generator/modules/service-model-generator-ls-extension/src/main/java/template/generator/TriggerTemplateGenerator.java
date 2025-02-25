@@ -18,7 +18,6 @@
 
 package template.generator;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -55,15 +54,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -77,7 +81,7 @@ import java.util.logging.Logger;
  */
 public class TriggerTemplateGenerator {
 
-    static Logger LOGGER = Logger.getLogger(TriggerTemplateGenerator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TriggerTemplateGenerator.class.getName());
     private static final Type propertyMapType = new TypeToken<Map<String,
             TriggerTemplateGenerator.TriggerProperty>>() { }.getType();
 
@@ -144,14 +148,12 @@ public class TriggerTemplateGenerator {
                     .setEnabled(true)
                     .setEditable(false)
                     .setValue("")
-                    .setValues(new ArrayList<>())
                     .setValueType("MULTIPLE_SELECT")
                     .setValueTypeConstraint(moduleName + ":Listener")
                     .setType(false)
                     .setPlaceholder("")
                     .setOptional(false)
                     .setAdvanced(false)
-                    .setAddNewButton(true)
                     .setItems(new ArrayList<>());
 
             String serviceTypeConstrain = String.join("|",
@@ -189,7 +191,7 @@ public class TriggerTemplateGenerator {
                     .setDescription("")
                     .setModuleName(packageMetadataInfo.name())
                     .setOrgName(org)
-                    .setListenerProtocol(moduleName.toLowerCase())
+                    .setListenerProtocol(moduleName.toLowerCase(Locale.ROOT))
                     .setPackageName(packageMetadataInfo.name())
                     .setVersion(packageMetadataInfo.version())
                     .setIcon(CommonUtils.generateIcon(org, packageMetadataInfo.name(), packageMetadataInfo.version()))
@@ -199,9 +201,7 @@ public class TriggerTemplateGenerator {
                     .build();
 
             try {
-                Path resourcesPath = Paths.get(TriggerTemplateGenerator.class.getProtectionDomain()
-                                .getCodeSource().getLocation().toURI()).getParent().
-                        getParent().getParent().getParent().resolve("src/main/resources");
+                Path resourcesPath = getFullPathForResources();
                 String resourcesDir = resourcesPath.resolve("services").toString();
                 String fileName = packageMetadataInfo.name() + ".json";
                 writeJsonToFile(new Gson().toJsonTree(service), resourcesDir, fileName);
@@ -210,7 +210,8 @@ public class TriggerTemplateGenerator {
                     List<Function> functions = entry.getValue();
                     service.getServiceType().setValue(serviceName);
                     service.setFunctions(functions);
-                    fileName = moduleName.toLowerCase() + "." + serviceName.toLowerCase() + ".json";
+                    fileName = moduleName.toLowerCase(Locale.ROOT) + "."
+                            + serviceName.toLowerCase(Locale.ROOT) + ".json";
                     writeJsonToFile(new Gson().toJsonTree(service), resourcesDir, fileName);
                 }
             } catch (IOException e) {
@@ -220,7 +221,44 @@ public class TriggerTemplateGenerator {
             }
         }
 
+    }
 
+    private static Path getFullPathForResources() throws URISyntaxException {
+        // Get ProtectionDomain
+        ProtectionDomain protectionDomain = TriggerTemplateGenerator.class.getProtectionDomain();
+        if (protectionDomain == null) {
+            throw new IllegalStateException("Protection domain is null.");
+        }
+
+        // Get CodeSource
+        CodeSource codeSource = protectionDomain.getCodeSource();
+        if (codeSource == null) {
+            throw new IllegalStateException("Code source is null.");
+        }
+
+        // Get Location URL
+        URL location = codeSource.getLocation();
+        if (location == null) {
+            throw new IllegalStateException("Location URL is null.");
+        }
+
+        // Convert URL to URI
+        URI uri = location.toURI();
+
+        // Convert URI to Path
+        Path path = Paths.get(uri);
+
+        // Traverse up four parent directories with checks
+        for (int i = 0; i < 4; i++) {
+            path = path.getParent();
+            if (path == null) {
+                throw new IllegalStateException("Cannot traverse parent directories: path is null at step " + (i + 1));
+            }
+        }
+
+        // Resolve the target directory
+        Path resourcesPath = path.resolve("src/main/resources");
+        return resourcesPath;
     }
 
     private static Map<String, TriggerProperty> readGeneratedTriggerList() {
@@ -384,7 +422,7 @@ public class TriggerTemplateGenerator {
                     .setType("event")
                     .setDisplayName(formattedModuleName)
                     .setDescription("")
-                    .setListenerProtocol(moduleName.toLowerCase())
+                    .setListenerProtocol(moduleName.toLowerCase(Locale.ROOT))
                     .setModuleName(packageMetadataInfo.name())
                     .setOrgName(org)
                     .setPackageName(packageMetadataInfo.name())
@@ -395,9 +433,7 @@ public class TriggerTemplateGenerator {
                     .setProperties(properties);
 
             try {
-                Path resourcesPath = Paths.get(TriggerTemplateGenerator.class.getProtectionDomain()
-                                .getCodeSource().getLocation().toURI()).getParent().
-                        getParent().getParent().getParent().resolve("src/main/resources");
+                Path resourcesPath = getFullPathForResources();
                 String resourcesDir = resourcesPath.resolve("listeners").toString();
                 String fileName = packageMetadataInfo.name() + ".json";
                 writeJsonToFile(new Gson().toJsonTree(listenerBuilder.build()), resourcesDir, fileName);
@@ -412,7 +448,7 @@ public class TriggerTemplateGenerator {
     record PackageMetadataInfo(String name, String version) { }
 
     public static String upperCaseFirstLetter(String value) {
-        return value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+        return value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1).toLowerCase(Locale.ROOT);
     }
 
     public static void writeJsonToFile(JsonElement jsonElement, String resourcesDir, String fileName)
