@@ -96,7 +96,7 @@
             "character": 1
           }
         },
-        "newText": "function fn() {\n}"
+        "newText": "\nfunction fn() {\n}"
       }
     ]
   }
