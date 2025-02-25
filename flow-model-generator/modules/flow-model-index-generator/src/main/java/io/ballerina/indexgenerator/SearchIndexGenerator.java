@@ -71,9 +71,11 @@ public class SearchIndexGenerator {
         try (FileReader reader = new FileReader(Objects.requireNonNull(resource).getFile(), StandardCharsets.UTF_8)) {
             Map<String, List<SearchListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
+            int totalPackages = packagesMap.values().stream().mapToInt(List::size).sum();
+            SearchIndexLogger logger = new SearchIndexLogger(totalPackages);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
             forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
-                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
+                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo, logger)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -93,7 +95,7 @@ public class SearchIndexGenerator {
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,
-                                       SearchListGenerator.PackageMetadataInfo packageMetadataInfo) {
+                                       SearchListGenerator.PackageMetadataInfo packageMetadataInfo, SearchIndexLogger logger) {
         Package resolvedPackage;
         try {
             resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
@@ -168,6 +170,7 @@ public class SearchIndexGenerator {
                 }
             }
         }
+        logger.completion(packageMetadataInfo.name());
     }
 
     private static Optional<Info> getName(Symbol symbol) {
