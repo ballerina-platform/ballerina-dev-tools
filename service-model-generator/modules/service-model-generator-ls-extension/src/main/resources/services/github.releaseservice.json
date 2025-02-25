@@ -53,6 +53,7 @@
       "optional": false,
       "advanced": false,
       "items": [
+        "",
         "IssuesService",
         "IssueCommentService",
         "PullRequestService",

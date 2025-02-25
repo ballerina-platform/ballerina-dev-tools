@@ -18,6 +18,7 @@
 
 package template.generator;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -156,6 +157,9 @@ public class TriggerTemplateGenerator {
             String serviceTypeConstrain = String.join("|",
                     serviceNames.stream().map(name -> moduleName + ":" + name).toList());
 
+            List<String> items = new ArrayList<>();
+            items.add("");
+            items.addAll(serviceNames);
             Value.ValueBuilder serviceType = new Value.ValueBuilder();
             serviceType
                     .setMetadata(new MetaData("Channel", "The channel name"))
@@ -170,7 +174,7 @@ public class TriggerTemplateGenerator {
                     .setPlaceholder("")
                     .setOptional(false)
                     .setAdvanced(false)
-                    .setItems(serviceNames);
+                    .setItems(items);
 
             Map<String, Value> properties = new LinkedHashMap<>();
             properties.put("listener", listener.build());
