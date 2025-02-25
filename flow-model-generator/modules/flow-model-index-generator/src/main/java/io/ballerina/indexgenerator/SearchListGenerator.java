@@ -34,15 +34,16 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * A utility class that generates a JSON file containing package metadata information from Ballerina Central.
- * The generated JSON file includes package information from both 'ballerina' and 'ballerinax' organizations.
- * 
+ * A utility class that generates a JSON file containing package metadata information from Ballerina Central. The
+ * generated JSON file includes package information from both 'ballerina' and 'ballerinax' organizations.
+ *
  * @since 2.0.0
  */
 class SearchListGenerator {
 
     private static final int LIMIT = 50;
     public static final String PACKAGE_JSON_FILE = "search_list.json";
+    private static final Logger LOGGER = Logger.getLogger(SearchListGenerator.class.getName());
 
     public static void main(String[] args) {
         List<PackageMetadataInfo> ballerinaPackages = getPackageList("ballerina");
@@ -76,6 +77,7 @@ class SearchListGenerator {
         int totalCalls = (int) Math.ceil((double) totalCount / LIMIT);
 
         for (int i = 1; i < totalCalls; i++) {
+            LOGGER.log(Level.INFO, "Fetching packages for {0}, offset: {1}", new Object[]{org, i * LIMIT});
             packages = centralApi.searchPackages(Map.of(
                     "org", org,
                     "limit", String.valueOf(LIMIT),

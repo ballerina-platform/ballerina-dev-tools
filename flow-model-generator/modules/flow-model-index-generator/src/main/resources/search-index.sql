@@ -95,3 +95,18 @@ CREATE TRIGGER type_ai AFTER INSERT ON Type BEGIN
     VALUES (new.id, new.name, new.description,
            (SELECT name FROM Package WHERE id = new.package_id));
 END;
+
+CREATE TRIGGER connector_ad AFTER DELETE ON Connector BEGIN
+    INSERT INTO ConnectorFTS(ConnectorFTS, rowid, name, description, package_name) 
+    VALUES('delete', old.id, old.name, old.description, '');
+END;
+
+CREATE TRIGGER function_ad AFTER DELETE ON Function BEGIN
+    INSERT INTO FunctionFTS(FunctionFTS, rowid, name, description, package_name) 
+    VALUES('delete', old.id, old.name, old.description, '');
+END;
+
+CREATE TRIGGER type_ad AFTER DELETE ON Type BEGIN
+    INSERT INTO TypeFTS(TypeFTS, rowid, name, description, package_name) 
+    VALUES('delete', old.id, old.name, old.description, '');
+END;

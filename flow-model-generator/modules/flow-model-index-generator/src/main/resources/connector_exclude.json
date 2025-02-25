@@ -1,0 +1,18 @@
+{
+  "http": [
+    "ClientOAuth2Handler",
+    "FailoverClient",
+    "FailoverClient",
+    "ListenerLdapUserStoreBasicAuthHandler",
+    "ListenerOAuth2Handler",
+    "LoadBalanceClient",
+    "StatusCodeClient",
+    "Caller"
+  ],
+  "grpc": [
+    "ClientOAuth2Handler",
+    "ListenerLdapUserStoreBasicAuthHandler",
+    "ListenerOAuth2Handler",
+    "ServerReflectionServerReflectionResponseCaller"
+  ]
+}

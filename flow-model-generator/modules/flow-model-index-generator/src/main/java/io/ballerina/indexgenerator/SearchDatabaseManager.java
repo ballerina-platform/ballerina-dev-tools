@@ -113,4 +113,18 @@ class SearchDatabaseManager {
         String sql = "INSERT INTO Type (name, description, kind, package_id) VALUES (?, ?, ?, ?)";
         insertEntry(sql, new Object[]{name, description, kind, packageId});
     }
+
+    public static void deleteConnector(String packageName, List<String> connectors) {
+        String sql = "DELETE FROM Connector WHERE package_id = (SELECT id FROM Package WHERE name = ?) AND name = ?";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (String connector : connectors) {
+                stmt.setString(1, packageName);
+                stmt.setString(2, connector);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error deleting connector: " + e.getMessage());
+        }
+    }
 }

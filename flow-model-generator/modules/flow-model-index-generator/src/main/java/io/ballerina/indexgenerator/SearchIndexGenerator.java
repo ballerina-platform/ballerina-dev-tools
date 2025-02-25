@@ -24,7 +24,6 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
-import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.Qualifiable;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -39,6 +38,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -47,11 +48,11 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
 /**
- * A utility class that generates search indexes for Ballerina packages, types, functions, and connectors.
- * This class reads package metadata from a JSON file and processes each package to extract
- * public symbols (functions, classes, type definitions, and enums) along with their documentation.
- * The extracted information is then stored in a search database.
- * 
+ * A utility class that generates search indexes for Ballerina packages, types, functions, and connectors. This class
+ * reads package metadata from a JSON file and processes each package to extract public symbols (functions, classes,
+ * type definitions, and enums) along with their documentation. The extracted information is then stored in a search
+ * database.
+ *
  * @since 2.0.0
  */
 public class SearchIndexGenerator {
@@ -59,6 +60,7 @@ public class SearchIndexGenerator {
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<SearchListGenerator.PackageMetadataInfo>>>() { }.getType();
     private static final Logger LOGGER = Logger.getLogger(SearchIndexGenerator.class.getName());
+    private static final String CONNECTOR_EXCLUDE_JSON = "connector_exclude.json";
 
     public static void main(String[] args) {
         SearchDatabaseManager.createDatabase();
@@ -74,6 +76,19 @@ public class SearchIndexGenerator {
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
+        }
+
+        // Delete irrelevant connectors from the index
+        try {
+            resource = SearchIndexGenerator.class.getClassLoader().getResource(CONNECTOR_EXCLUDE_JSON);
+            if (resource != null) {
+                String jsonContent = Files.readString(Path.of(resource.toURI()), StandardCharsets.UTF_8);
+                Map<String, List<String>> excludeMap =
+                        gson.fromJson(jsonContent, new TypeToken<Map<String, List<String>>>() { }.getType());
+                excludeMap.forEach(SearchDatabaseManager::deleteConnector);
+            }
+        } catch (Exception e) {
+            LOGGER.severe("Error reading connector_exclude.json file: " + e.getMessage());
         }
     }
 
@@ -125,17 +140,12 @@ public class SearchIndexGenerator {
                     }
 
                     if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
-                        if (initMethodSymbol.isEmpty()) {
-                            continue;
-                        }
-
                         SearchDatabaseManager.insertConnector(info.get().name(), info.get().description(), "Connector",
                                 packageId);
-                        continue;
+                    } else {
+                        SearchDatabaseManager.insertType(info.get().name(), info.get().description(), "class",
+                                packageId);
                     }
-
-                    SearchDatabaseManager.insertType(info.get().name(), info.get().description(), "class", packageId);
                 }
                 case TYPE_DEFINITION -> {
                     TypeDefinitionSymbol typeDefinitionSymbol = (TypeDefinitionSymbol) symbol;
