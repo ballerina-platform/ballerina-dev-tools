@@ -27,7 +27,7 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "get",
-      "id": 2111
+      "id": 2382
     },
     "returning": false,
     "properties": {
@@ -37,7 +37,7 @@
           "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "docusign.dsadmin:Client",
+        "valueTypeConstraint": "dsadmin:Client",
         "value": "dsAdminClient",
         "optional": false,
         "editable": false,

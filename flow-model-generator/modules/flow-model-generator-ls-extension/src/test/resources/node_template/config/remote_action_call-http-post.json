@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerina",
     "module": "http",
+    "version": "2.12.0",
     "object": "Client",
     "symbol": "post",
     "parentSymbol": "httpClient"
@@ -26,7 +27,8 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 560
+      "version": "2.12.0",
+      "id": 565
     },
     "returning": false,
     "properties": {

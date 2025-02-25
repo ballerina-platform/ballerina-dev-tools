@@ -117,15 +117,11 @@
               {
                 "id": "185796",
                 "metadata": {
-                  "label": "mockFetch",
-                  "description": ""
+                  "label": "Return",
+                  "description": "Value of 'mockFetch(\"http://1.com\", 1)'"
                 },
                 "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "$anon",
-                  "module": ".",
-                  "symbol": "mockFetch",
-                  "version": "0.0.0",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "wait.bal",
                     "startLine": {
@@ -141,58 +137,16 @@
                 },
                 "returning": true,
                 "properties": {
-                  "view": {
+                  "expression": {
                     "metadata": {
-                      "label": "View",
-                      "description": "Function definition location"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
-                    "valueType": "VIEW",
-                    "value": {
-                      "fileName": "wait.bal",
-                      "startLine": {
-                        "line": 4,
-                        "offset": 0
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 1
-                      }
-                    },
+                    "valueType": "EXPRESSION",
+                    "value": "mockFetch(\"http://1.com\", 1)",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "advanced": false
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"http://1.com\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "url"
-                    }
-                  },
-                  "delay": {
-                    "metadata": {
-                      "label": "delay"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "decimal",
-                    "value": "1",
-                    "placeholder": "0.0d",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "delay"
-                    }
                   }
                 },
                 "flags": 0
@@ -259,15 +213,11 @@
               {
                 "id": "189764",
                 "metadata": {
-                  "label": "mockFetch",
-                  "description": ""
+                  "label": "Return",
+                  "description": "Value of 'mockFetch(\"http://2.com\", 2)'"
                 },
                 "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "$anon",
-                  "module": ".",
-                  "symbol": "mockFetch",
-                  "version": "0.0.0",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "wait.bal",
                     "startLine": {
@@ -283,58 +233,16 @@
                 },
                 "returning": true,
                 "properties": {
-                  "view": {
+                  "expression": {
                     "metadata": {
-                      "label": "View",
-                      "description": "Function definition location"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
-                    "valueType": "VIEW",
-                    "value": {
-                      "fileName": "wait.bal",
-                      "startLine": {
-                        "line": 4,
-                        "offset": 0
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 1
-                      }
-                    },
+                    "valueType": "EXPRESSION",
+                    "value": "mockFetch(\"http://2.com\", 2)",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "advanced": false
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"http://2.com\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "url"
-                    }
-                  },
-                  "delay": {
-                    "metadata": {
-                      "label": "delay"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "decimal",
-                    "value": "2",
-                    "placeholder": "0.0d",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "delay"
-                    }
                   }
                 },
                 "flags": 0

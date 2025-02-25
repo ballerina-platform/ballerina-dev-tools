@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class ExpressionEditorCompletionTest extends AbstractLSTest {
 
-    private static final Type COMPLETION_RESPONSE_TYPE = new TypeToken<List<CompletionItem>>() { }.getType();
+    public static final Type COMPLETION_RESPONSE_TYPE = new TypeToken<List<CompletionItem>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -64,12 +64,6 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    @Override
-    protected String[] skipList() {
-        // TODO: Remove after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43706
-        return new String[]{"proj6.json"};
     }
 
     @Test

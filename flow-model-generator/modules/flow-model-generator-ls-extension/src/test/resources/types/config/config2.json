@@ -1,35 +1,82 @@
 {
   "description": "",
   "source": "data_mapper/service.bal",
-  "position": {
-    "line": 14,
-    "offset": 0
-  },
-  "types": [
-    "Input",
-    "Output",
-    "Location",
-    "Address",
-    "Employee",
-    "Person",
-    "Admission",
-    "string",
-    "boolean",
-    "int",
-    "float",
-    "decimal",
-    "xml",
-    "byte",
-    "error",
-    "json",
-    "any",
-    "anydata",
-    "function",
-    "future",
-    "typedesc",
-    "handle",
-    "stream",
-    "never",
-    "readonly"
+  "typeConstraint": "record",
+  "completions": [
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
+      "label": "Output",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Output"
+    },
+    {
+      "label": "Location",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Represents a geographical location.\n"
+      },
+      "insertText": "Location"
+    },
+    {
+      "label": "Address",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Address"
+    },
+    {
+      "label": "Employee",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Employee"
+    },
+    {
+      "label": "Person",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Person"
+    },
+    {
+      "label": "Admission",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Admission"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    }
   ]
 }

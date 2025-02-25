@@ -103,10 +103,26 @@
               "originalName": "url"
             }
           },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
           "httpVersion": {
             "metadata": {
               "label": "httpVersion",
-              "description": ""
+              "description": "The HTTP version understood by the client"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:HttpVersion",
@@ -122,7 +138,7 @@
           "http1Settings": {
             "metadata": {
               "label": "http1Settings",
-              "description": ""
+              "description": "Configurations related to HTTP/1.x protocol"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientHttp1Settings",
@@ -138,7 +154,7 @@
           "http2Settings": {
             "metadata": {
               "label": "http2Settings",
-              "description": ""
+              "description": "Configurations related to HTTP/2 protocol"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientHttp2Settings",
@@ -154,7 +170,7 @@
           "timeout": {
             "metadata": {
               "label": "timeout",
-              "description": ""
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "decimal",
@@ -170,7 +186,7 @@
           "forwarded": {
             "metadata": {
               "label": "forwarded",
-              "description": ""
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
@@ -186,7 +202,7 @@
           "followRedirects": {
             "metadata": {
               "label": "followRedirects",
-              "description": ""
+              "description": "Configurations associated with Redirection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:FollowRedirects|()",
@@ -202,7 +218,7 @@
           "poolConfig": {
             "metadata": {
               "label": "poolConfig",
-              "description": ""
+              "description": "Configurations associated with request pooling"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:PoolConfiguration|()",
@@ -218,7 +234,7 @@
           "cache": {
             "metadata": {
               "label": "cache",
-              "description": ""
+              "description": "HTTP caching related configurations"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CacheConfig",
@@ -234,7 +250,7 @@
           "compression": {
             "metadata": {
               "label": "compression",
-              "description": ""
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:Compression",
@@ -250,7 +266,7 @@
           "auth": {
             "metadata": {
               "label": "auth",
-              "description": ""
+              "description": "Configurations related to client authentication"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
@@ -266,7 +282,7 @@
           "circuitBreaker": {
             "metadata": {
               "label": "circuitBreaker",
-              "description": ""
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CircuitBreakerConfig|()",
@@ -282,7 +298,7 @@
           "retryConfig": {
             "metadata": {
               "label": "retryConfig",
-              "description": ""
+              "description": "Configurations associated with retrying"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:RetryConfig|()",
@@ -298,7 +314,7 @@
           "cookieConfig": {
             "metadata": {
               "label": "cookieConfig",
-              "description": ""
+              "description": "Configurations associated with cookies"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CookieConfig|()",
@@ -314,7 +330,7 @@
           "responseLimits": {
             "metadata": {
               "label": "responseLimits",
-              "description": ""
+              "description": "Configurations associated with inbound response size limits"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ResponseLimitConfigs",
@@ -330,7 +346,7 @@
           "proxy": {
             "metadata": {
               "label": "proxy",
-              "description": ""
+              "description": "Proxy server related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ProxyConfig|()",
@@ -346,7 +362,7 @@
           "validation": {
             "metadata": {
               "label": "validation",
-              "description": ""
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -362,7 +378,7 @@
           "socketConfig": {
             "metadata": {
               "label": "socketConfig",
-              "description": ""
+              "description": "Provides settings related to client socket configuration"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSocketConfig",
@@ -373,22 +389,6 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
             }
           },
           "variable": {
@@ -433,17 +433,11 @@
       {
         "id": "70742",
         "metadata": {
-          "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "label": "Return",
+          "description": "Value of 'drinkClient->post(\"/milkshake\", \"mixed fruit\")'"
         },
         "codedata": {
-          "node": "REMOTE_ACTION_CALL",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "post",
-          "version": "2.13.2",
+          "node": "RETURN",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -459,98 +453,16 @@
         },
         "returning": true,
         "properties": {
-          "connection": {
+          "expression": {
             "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
+              "label": "Expression",
+              "description": "Return value"
             },
             "valueType": "EXPRESSION",
-            "value": "drinkClient",
+            "value": "drinkClient->post(\"/milkshake\", \"mixed fruit\")",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "advanced": false
-          },
-          "path": {
-            "metadata": {
-              "label": "path",
-              "description": "Resource path"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
-            "value": "\"/milkshake\"",
-            "placeholder": "\"\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "path"
-            }
-          },
-          "message": {
-            "metadata": {
-              "label": "message",
-              "description": "An HTTP outbound request or any allowed payload"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:RequestMessage",
-            "value": "\"mixed fruit\"",
-            "placeholder": "{}",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "message"
-            }
-          },
-          "headers": {
-            "metadata": {
-              "label": "headers",
-              "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "map<string|string[]>|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "DEFAULTABLE",
-              "originalName": "headers"
-            }
-          },
-          "mediaType": {
-            "metadata": {
-              "label": "mediaType",
-              "description": "The MIME type header of the request entity"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "DEFAULTABLE",
-              "originalName": "mediaType"
-            }
-          },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            }
           }
         },
         "flags": 0
@@ -625,10 +537,26 @@
               "originalName": "url"
             }
           },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
           "httpVersion": {
             "metadata": {
               "label": "httpVersion",
-              "description": ""
+              "description": "The HTTP version understood by the client"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:HttpVersion",
@@ -644,7 +572,7 @@
           "http1Settings": {
             "metadata": {
               "label": "http1Settings",
-              "description": ""
+              "description": "Configurations related to HTTP/1.x protocol"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientHttp1Settings",
@@ -660,7 +588,7 @@
           "http2Settings": {
             "metadata": {
               "label": "http2Settings",
-              "description": ""
+              "description": "Configurations related to HTTP/2 protocol"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientHttp2Settings",
@@ -676,7 +604,7 @@
           "timeout": {
             "metadata": {
               "label": "timeout",
-              "description": ""
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "decimal",
@@ -692,7 +620,7 @@
           "forwarded": {
             "metadata": {
               "label": "forwarded",
-              "description": ""
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
@@ -708,7 +636,7 @@
           "followRedirects": {
             "metadata": {
               "label": "followRedirects",
-              "description": ""
+              "description": "Configurations associated with Redirection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:FollowRedirects|()",
@@ -724,7 +652,7 @@
           "poolConfig": {
             "metadata": {
               "label": "poolConfig",
-              "description": ""
+              "description": "Configurations associated with request pooling"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:PoolConfiguration|()",
@@ -740,7 +668,7 @@
           "cache": {
             "metadata": {
               "label": "cache",
-              "description": ""
+              "description": "HTTP caching related configurations"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CacheConfig",
@@ -756,7 +684,7 @@
           "compression": {
             "metadata": {
               "label": "compression",
-              "description": ""
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:Compression",
@@ -772,7 +700,7 @@
           "auth": {
             "metadata": {
               "label": "auth",
-              "description": ""
+              "description": "Configurations related to client authentication"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
@@ -788,7 +716,7 @@
           "circuitBreaker": {
             "metadata": {
               "label": "circuitBreaker",
-              "description": ""
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CircuitBreakerConfig|()",
@@ -804,7 +732,7 @@
           "retryConfig": {
             "metadata": {
               "label": "retryConfig",
-              "description": ""
+              "description": "Configurations associated with retrying"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:RetryConfig|()",
@@ -820,7 +748,7 @@
           "cookieConfig": {
             "metadata": {
               "label": "cookieConfig",
-              "description": ""
+              "description": "Configurations associated with cookies"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:CookieConfig|()",
@@ -836,7 +764,7 @@
           "responseLimits": {
             "metadata": {
               "label": "responseLimits",
-              "description": ""
+              "description": "Configurations associated with inbound response size limits"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ResponseLimitConfigs",
@@ -852,7 +780,7 @@
           "proxy": {
             "metadata": {
               "label": "proxy",
-              "description": ""
+              "description": "Proxy server related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ProxyConfig|()",
@@ -868,7 +796,7 @@
           "validation": {
             "metadata": {
               "label": "validation",
-              "description": ""
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -884,7 +812,7 @@
           "socketConfig": {
             "metadata": {
               "label": "socketConfig",
-              "description": ""
+              "description": "Provides settings related to client socket configuration"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSocketConfig",
@@ -895,22 +823,6 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
             }
           },
           "variable": {

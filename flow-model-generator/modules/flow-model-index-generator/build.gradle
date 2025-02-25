@@ -49,14 +49,6 @@ dependencies {
     implementation "com.google.code.gson:gson:${gsonVersion}"
 }
 
-tasks.register('runIndexGenerator', JavaExec) {
-    mainClass = 'io.ballerina.indexgenerator.IndexGenerator'
-    classpath = sourceSets.main.runtimeClasspath
-    args = [] // Add any arguments if needed
-    systemProperties = [
-            "ballerina.home": balDistribution
-    ]
-}
 
 ext.moduleName = 'io.ballerina.indexgenerator'
 

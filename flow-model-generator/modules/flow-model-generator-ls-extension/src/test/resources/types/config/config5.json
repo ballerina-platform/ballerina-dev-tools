@@ -1,0 +1,163 @@
+{
+  "description": "",
+  "source": "data_mapper/main.bal",
+  "typeConstraint": "anydata",
+  "completions": [
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
+      "label": "Output",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Output"
+    },
+    {
+      "label": "Location",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Represents a geographical location.\n"
+      },
+      "insertText": "Location"
+    },
+    {
+      "label": "Address",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Address"
+    },
+    {
+      "label": "Employee",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Employee"
+    },
+    {
+      "label": "Person",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Person"
+    },
+    {
+      "label": "Admission",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Admission"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "boolean",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Boolean"
+      },
+      "kind": "TypeParameter",
+      "insertText": "boolean"
+    },
+    {
+      "label": "int",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Int"
+      },
+      "kind": "TypeParameter",
+      "insertText": "int"
+    },
+    {
+      "label": "float",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Float"
+      },
+      "kind": "TypeParameter",
+      "insertText": "float"
+    },
+    {
+      "label": "decimal",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Decimal"
+      },
+      "kind": "TypeParameter",
+      "insertText": "decimal"
+    },
+    {
+      "label": "xml",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Xml"
+      },
+      "kind": "TypeParameter",
+      "insertText": "xml"
+    },
+    {
+      "label": "byte",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Byte"
+      },
+      "kind": "TypeParameter",
+      "insertText": "byte"
+    },
+    {
+      "label": "json",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Json"
+      },
+      "kind": "TypeParameter",
+      "insertText": "json"
+    },
+    {
+      "label": "anydata",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Anydata"
+      },
+      "kind": "TypeParameter",
+      "insertText": "anydata"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    }
+  ]
+}

@@ -62,6 +62,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateAndUpdateTypeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetGraphqlTypeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateGraphqlClassTypeTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.RecordConfigTest"/>
         </classes>
     </test>
 </suite>

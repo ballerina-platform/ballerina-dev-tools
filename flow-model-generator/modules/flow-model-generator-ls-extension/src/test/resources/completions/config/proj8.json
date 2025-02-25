@@ -1,0 +1,122 @@
+{
+  "description": "",
+  "filePath": "proj/main.bal",
+  "context": {
+    "expression": "{}",
+    "startLine": {
+      "line": 3,
+      "offset": 4
+    },
+    "offset": 1,
+    "node": {
+      "id": "32874",
+      "metadata": {
+        "label": "Variable",
+        "description": "Assign a value to a variable"
+      },
+      "codedata": {
+        "node": "VARIABLE",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 1,
+            "offset": 14
+          }
+        },
+        "sourceCode": "int i = 12;"
+      },
+      "returning": false,
+      "properties": {
+        "expression": {
+          "metadata": {
+            "label": "Expression",
+            "description": "Initialize with value"
+          },
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "Location",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "variable": {
+          "metadata": {
+            "label": "Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "i",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "",
+          "placeholder": "var",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        }
+      },
+      "flags": 0
+    },
+    "property": "expression"
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "readonly",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "U",
+      "filterText": "readonly",
+      "insertText": "readonly ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "Fill Location Required Fields",
+      "kind": "Property",
+      "detail": "Location",
+      "sortText": "R",
+      "filterText": "fill",
+      "insertText": "country: ${1:\"\"},\ncity: ${2:\"\"}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "...__reserved__",
+      "kind": "Variable",
+      "detail": "Location",
+      "sortText": "AC",
+      "filterText": "__reserved__",
+      "insertText": "...__reserved__",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "country",
+      "kind": "Field",
+      "detail": "Location.country",
+      "sortText": "K",
+      "insertText": "country: ${1:\"\"}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "city",
+      "kind": "Field",
+      "detail": "Location.city",
+      "sortText": "K",
+      "insertText": "city: ${1:\"\"}",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

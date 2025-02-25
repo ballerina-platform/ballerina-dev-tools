@@ -18,13 +18,18 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.Types;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.EnumSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import org.ballerinalang.model.types.TypeKind;
+import org.eclipse.lsp4j.CompletionItem;
+import org.eclipse.lsp4j.CompletionList;
+import org.eclipse.lsp4j.jsonrpc.messages.Either;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -40,53 +45,129 @@ import java.util.stream.Collectors;
  */
 public class TypesGenerator {
 
-    private final Gson gson;
-    private final Map<String, TypeSymbol> builtinTypeSymbols;
+    private final Map<String, TypeSymbol> typeSymbolMap;
+    private final Map<TypeSymbol, CompletionItem> completionItemMap;
+    private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
+
+    private static final String PRIMITIVE_TYPE = "Primitive";
+    private static final String USER_DEFINED_TYPE = "User-Defined";
+    private static final List<SymbolKind> TYPE_SYMBOL_KINDS =
+            List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS, SymbolKind.ENUM);
+
+    // Basic simple types
+    public static final String TYPE_BOOLEAN = TypeKind.BOOLEAN.typeName();
+    public static final String TYPE_DECIMAL = TypeKind.DECIMAL.typeName();
+    public static final String TYPE_FLOAT = TypeKind.FLOAT.typeName();
+    public static final String TYPE_INT = TypeKind.INT.typeName();
+
+    // Basic sequence types
+    public static final String TYPE_STRING = TypeKind.STRING.typeName();
+    public static final String TYPE_XML = TypeKind.XML.typeName();
+
+    // Basic behavioral
+    public static final String TYPE_ERROR = TypeKind.ERROR.typeName();
+    public static final String TYPE_FUNCTION = TypeKind.FUNCTION.typeName();
+    public static final String TYPE_FUTURE = TypeKind.FUTURE.typeName();
+    public static final String TYPE_HANDLE = TypeKind.HANDLE.typeName();
+    public static final String TYPE_STREAM = TypeKind.STREAM.typeName();
+    public static final String TYPE_TYPEDESC = TypeKind.TYPEDESC.typeName();
+
+    // Other
+    public static final String TYPE_ANY = TypeKind.ANY.typeName();
+    public static final String TYPE_ANYDATA = TypeKind.ANYDATA.typeName();
+    public static final String TYPE_BYTE = TypeKind.BYTE.typeName();
+    public static final String TYPE_JSON = TypeKind.JSON.typeName();
+    public static final String TYPE_READONLY = TypeKind.READONLY.typeName();
+    public static final String TYPE_RECORD = TypeKind.RECORD.typeName();
 
     private TypesGenerator() {
-        this.gson = new Gson();
-        this.builtinTypeSymbols = new LinkedHashMap<>();
+        this.typeSymbolMap = new LinkedHashMap<>();
+        this.completionItemMap = new LinkedHashMap<>();
+        this.subtypeItemsMap = new LinkedHashMap<>();
     }
 
-    public JsonArray getTypes(SemanticModel semanticModel) {
-        List<String> visibleTypes = semanticModel.moduleSymbols().parallelStream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
-                .flatMap(symbol -> symbol.getName().stream())
+    public Either<List<CompletionItem>, CompletionList> getTypes(SemanticModel semanticModel, String typeConstraint) {
+        // Get the symbol of the type constraint
+        initializeBuiltinTypes(semanticModel);
+        TypeSymbol typeSymbol = typeSymbolMap.get(typeConstraint);
+
+        // If the symbol not found, return all the completions
+        if (typeSymbol == null) {
+            List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
+                    .filter(symbol -> TYPE_SYMBOL_KINDS.contains(symbol.kind()))
+                    .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
+                            USER_DEFINED_TYPE))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            completionItems.addAll(completionItemMap.values());
+            return Either.forLeft(completionItems);
+        }
+
+        // Get the filtered type completions
+        List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
+                .filter(symbol -> isSubtype(typeSymbol, symbol))
+                .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
+                        USER_DEFINED_TYPE))
                 .collect(Collectors.toCollection(ArrayList::new));
-        initializeTypeSymbolMap(semanticModel);
-        visibleTypes.addAll(builtinTypeSymbols.keySet());
-        return gson.toJsonTree(visibleTypes).getAsJsonArray();
+        completionItems.addAll(subtypeItemsMap.get(typeSymbol));
+        return Either.forLeft(completionItems);
+    }
+
+    private static boolean isSubtype(TypeSymbol parentSymbol, Symbol childSymbol) {
+        TypeSymbol childTypeSymbol = switch (childSymbol.kind()) {
+            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) childSymbol).typeDescriptor();
+            case CLASS -> ((ClassSymbol) childSymbol);
+            case ENUM -> ((EnumSymbol) childSymbol).typeDescriptor();
+            default -> null;
+        };
+        if (childTypeSymbol == null) {
+            return false;
+        }
+        return childTypeSymbol.subtypeOf(parentSymbol);
     }
 
     public Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, String typeName) {
-        initializeTypeSymbolMap(semanticModel);
-        return Optional.ofNullable(builtinTypeSymbols.get(typeName));
+        initializeBuiltinTypes(semanticModel);
+        return Optional.ofNullable(typeSymbolMap.get(typeName));
     }
 
-    private void initializeTypeSymbolMap(SemanticModel semanticModel) {
-        if (!builtinTypeSymbols.isEmpty()) {
+    private void initializeBuiltinTypes(SemanticModel semanticModel) {
+        if (!typeSymbolMap.isEmpty()) {
             return;
         }
 
+        // Obtain the type symbols for the builtin types
         Types types = semanticModel.types();
-        builtinTypeSymbols.put(TypeKind.STRING.typeName(), types.STRING);
-        builtinTypeSymbols.put(TypeKind.BOOLEAN.typeName(), types.BOOLEAN);
-        builtinTypeSymbols.put(TypeKind.INT.typeName(), types.INT);
-        builtinTypeSymbols.put(TypeKind.FLOAT.typeName(), types.FLOAT);
-        builtinTypeSymbols.put(TypeKind.DECIMAL.typeName(), types.DECIMAL);
-        builtinTypeSymbols.put(TypeKind.XML.typeName(), types.XML);
-        builtinTypeSymbols.put(TypeKind.BYTE.typeName(), types.BYTE);
-        builtinTypeSymbols.put(TypeKind.ERROR.typeName(), types.ERROR);
-        builtinTypeSymbols.put(TypeKind.JSON.typeName(), types.JSON);
-        builtinTypeSymbols.put(TypeKind.ANY.typeName(), types.ANY);
-        builtinTypeSymbols.put(TypeKind.ANYDATA.typeName(), types.ANYDATA);
-        builtinTypeSymbols.put(TypeKind.FUNCTION.typeName(), types.FUNCTION);
-        builtinTypeSymbols.put(TypeKind.FUTURE.typeName(), types.FUTURE);
-        builtinTypeSymbols.put(TypeKind.TYPEDESC.typeName(), types.TYPEDESC);
-        builtinTypeSymbols.put(TypeKind.HANDLE.typeName(), types.HANDLE);
-        builtinTypeSymbols.put(TypeKind.STREAM.typeName(), types.STREAM);
-        builtinTypeSymbols.put(TypeKind.NEVER.typeName(), types.NEVER);
-        builtinTypeSymbols.put(TypeKind.READONLY.typeName(), types.READONLY);
+        typeSymbolMap.put(TYPE_STRING, types.STRING);
+        typeSymbolMap.put(TYPE_BOOLEAN, types.BOOLEAN);
+        typeSymbolMap.put(TYPE_INT, types.INT);
+        typeSymbolMap.put(TYPE_FLOAT, types.FLOAT);
+        typeSymbolMap.put(TYPE_DECIMAL, types.DECIMAL);
+        typeSymbolMap.put(TYPE_XML, types.XML);
+        typeSymbolMap.put(TYPE_BYTE, types.BYTE);
+        typeSymbolMap.put(TYPE_ERROR, types.ERROR);
+        typeSymbolMap.put(TYPE_JSON, types.JSON);
+        typeSymbolMap.put(TYPE_ANY, types.ANY);
+        typeSymbolMap.put(TYPE_ANYDATA, types.ANYDATA);
+        typeSymbolMap.put(TYPE_FUNCTION, types.FUNCTION);
+        typeSymbolMap.put(TYPE_FUTURE, types.FUTURE);
+        typeSymbolMap.put(TYPE_TYPEDESC, types.TYPEDESC);
+        typeSymbolMap.put(TYPE_HANDLE, types.HANDLE);
+        typeSymbolMap.put(TYPE_STREAM, types.STREAM);
+        typeSymbolMap.put(TYPE_READONLY, types.READONLY);
+        typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
+
+        // Build the completion items for the builtin types
+        typeSymbolMap.forEach((name, symbol) -> completionItemMap.put(symbol,
+                TypeCompletionItemBuilder.build(symbol, name, PRIMITIVE_TYPE)));
+
+        // Build the subtype items for the builtin types
+        typeSymbolMap.forEach((name, symbol) -> {
+            List<CompletionItem> completionsList = typeSymbolMap.values().parallelStream()
+                    .filter(typeSymbol -> typeSymbol.subtypeOf(symbol))
+                    .map(completionItemMap::get)
+                    .toList();
+            subtypeItemsMap.put(symbol, completionsList);
+        });
     }
 
     public static TypesGenerator getInstance() {

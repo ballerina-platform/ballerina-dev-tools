@@ -1,0 +1,212 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "position": {
+    "line": 75,
+    "offset": 12
+  },
+  "description": "Get a object type data",
+  "type": {
+    "name": "VehicleType",
+    "editable": true,
+    "metadata": {
+      "label": "VehicleType",
+      "description": "Represents the type of the vehicle"
+    },
+    "codedata": {
+      "node": "OBJECT",
+      "lineRange": {
+        "fileName": "types.bal",
+        "startLine": {
+          "line": 75,
+          "offset": 12
+        },
+        "endLine": {
+          "line": 75,
+          "offset": 23
+        }
+      }
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "VehicleType",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isPublic": {
+        "metadata": {
+          "label": "public",
+          "description": "Is this public"
+        },
+        "valueType": "FLAG",
+        "value": "true",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "Represents the type of the vehicle",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isIsolated": {
+        "metadata": {
+          "label": "isolated",
+          "description": "Is this isolated"
+        },
+        "valueType": "FLAG",
+        "value": "true",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "networkQualifier": {
+        "metadata": {
+          "label": "Network Qualifier",
+          "description": "Network qualifier"
+        },
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": [
+          "service",
+          "client"
+        ],
+        "value": "client",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "make",
+        "docs": ""
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "model",
+        "docs": ""
+      }
+    ],
+    "includes": [],
+    "functions": [
+      {
+        "qualifiers": [
+          "ISOLATED",
+          "REMOTE"
+        ],
+        "parameters": [],
+        "kind": "FUNCTION",
+        "name": "getMake",
+        "description": "Get the make of the vehicle",
+        "returnType": "string",
+        "refs": [],
+        "properties": {
+          "isPrivate": {
+            "metadata": {
+              "label": "private",
+              "description": "Is this private"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isPublic": {
+            "metadata": {
+              "label": "public",
+              "description": "Is this public"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isIsolated": {
+            "metadata": {
+              "label": "isolated",
+              "description": "Is this isolated"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        }
+      },
+      {
+        "qualifiers": [
+          "PUBLIC",
+          "ISOLATED"
+        ],
+        "parameters": [
+          {
+            "kind": "FIELD",
+            "refs": [],
+            "type": "int",
+            "name": "year"
+          }
+        ],
+        "kind": "FUNCTION",
+        "name": "setYear",
+        "description": "",
+        "returnType": "()",
+        "refs": [],
+        "properties": {
+          "isPrivate": {
+            "metadata": {
+              "label": "private",
+              "description": "Is this private"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isPublic": {
+            "metadata": {
+              "label": "public",
+              "description": "Is this public"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isIsolated": {
+            "metadata": {
+              "label": "isolated",
+              "description": "Is this isolated"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        }
+      }
+    ]
+  },
+  "refs": []
+}

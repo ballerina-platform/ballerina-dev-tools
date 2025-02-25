@@ -41,6 +41,7 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
 
     private final CompletionContext completionContext;
     private final TextDocumentService textDocumentService;
+    private static final String RESERVED_VARIABLE_NAME = "__reserved__";
 
     public CompletionRequest(ExpressionEditorContext context, CompletionContext completionContext,
                              TextDocumentService textDocumentService) {
@@ -59,7 +60,16 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
         // Get completions from language server
         CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                 textDocumentService.completion(params);
-        return completableFuture.join();
+        Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
+
+        // TODO: Remove this once https://github.com/ballerina-platform/ballerina-lang/issues/43706 is fixed
+        if (completions.getLeft() != null) {
+            completions.getLeft().removeIf(item -> RESERVED_VARIABLE_NAME.equals(item.getLabel()));
+        } else if (completions.getRight() != null && completions.getRight().getItems() != null) {
+            completions.getRight().getItems().removeIf(item -> RESERVED_VARIABLE_NAME.equals(item.getLabel()));
+        }
+
+        return completions;
     }
 
     @Override

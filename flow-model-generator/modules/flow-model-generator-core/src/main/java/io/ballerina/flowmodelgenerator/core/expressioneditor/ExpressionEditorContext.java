@@ -62,10 +62,9 @@ public class ExpressionEditorContext {
     private final Info info;
     private final FlowNode flowNode;
     private final Path filePath;
-    private final List<ImportDeclarationNode> imports;
+    private final DocumentContext documentContext;
 
     // State variables
-    private final Document document;
     private int expressionOffset;
     private LineRange statementLineRange;
     private Property property;
@@ -79,13 +78,7 @@ public class ExpressionEditorContext {
         this.filePath = filePath;
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
         this.propertyInitialized = false;
-
-        Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
-        if (optionalDocument.isEmpty()) {
-            throw new IllegalStateException("Document not found for the given path: " + filePath);
-        }
-        this.document = optionalDocument.get();
-        imports = getImportDeclarationNodes(document);
+        this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
     }
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
@@ -93,18 +86,10 @@ public class ExpressionEditorContext {
         this.workspaceManagerProxy = workspaceManagerProxy;
         this.fileUri = fileUri;
         this.filePath = filePath;
-        this.document = document;
         this.info = null;
         this.flowNode = null;
         this.propertyInitialized = false;
-        imports = getImportDeclarationNodes(document);
-    }
-
-    private static List<ImportDeclarationNode> getImportDeclarationNodes(Document document) {
-        SyntaxTree syntaxTree = document.syntaxTree();
-        return syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
-                ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
-                : List.of();
+        this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
     }
 
     public Property getProperty() {
@@ -132,6 +117,7 @@ public class ExpressionEditorContext {
     }
 
     public LinePosition getStartLine() {
+        List<ImportDeclarationNode> imports = documentContext.imports();
         if (imports.isEmpty()) {
             return info.startLine();
         }
@@ -178,7 +164,7 @@ public class ExpressionEditorContext {
         }
 
         // Check if the import statement already exists
-        boolean importExists = imports.stream().anyMatch(importDeclarationNode -> {
+        boolean importExists = documentContext.imports().stream().anyMatch(importDeclarationNode -> {
             String importText = importDeclarationNode.toSourceCode().trim();
             return importText.startsWith("import " + importStatement) && importText.endsWith(";");
         });
@@ -203,14 +189,14 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = "var _ = ";
+        String prefix = "var __reserved__ = ";
         Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 
         if (property != null) {
             // Append the type if exists
             if (property.valueTypeConstraint() != null) {
-                prefix = String.format("%s _ = ", property.valueTypeConstraint());
+                prefix = String.format("%s __reserved__ = ", property.valueTypeConstraint());
             }
 
             // Add the import statements of the dependent types
@@ -231,7 +217,7 @@ public class ExpressionEditorContext {
         }
 
         // Get the text position of the start line
-        TextDocument textDocument = document.textDocument();
+        TextDocument textDocument = documentContext.document().textDocument();
         int textPosition = textDocument.textPositionFrom(info.startLine());
 
         // Generate the statement and apply the text edits
@@ -261,6 +247,9 @@ public class ExpressionEditorContext {
      * @return the cursor position as a Position object
      */
     public Position getCursorPosition() {
+        if (statementLineRange == null || info == null) {
+            throw new IllegalStateException("Statement line range not initialized. Call generateStatement() first.");
+        }
         return new Position(statementLineRange.startLine().line(),
                 statementLineRange.startLine().offset() + info.offset() + expressionOffset);
     }
@@ -271,7 +260,7 @@ public class ExpressionEditorContext {
      * @param textEdits the list of text edits to be applied
      */
     public void applyTextEdits(List<TextEdit> textEdits) {
-        TextDocument newTextDocument = document.textDocument()
+        TextDocument newTextDocument = documentContext.document().textDocument()
                 .apply(TextDocumentChange.from(textEdits.toArray(new TextEdit[0])));
         applyContent(newTextDocument);
     }
@@ -282,9 +271,25 @@ public class ExpressionEditorContext {
      * @param textDocument The TextDocument containing the new content
      */
     public void applyContent(TextDocument textDocument) {
-        document.modify()
+        documentContext.document().modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
+    }
+
+    public String fileUri() {
+        return fileUri;
+    }
+
+    public TextDocument textDocument() {
+        return documentContext.document().textDocument();
+    }
+
+    public Path filePath() {
+        return filePath;
+    }
+
+    public WorkspaceManager workspaceManager() {
+        return workspaceManagerProxy.get(fileUri);
     }
 
     /**
@@ -301,19 +306,55 @@ public class ExpressionEditorContext {
                        String branch, String property) {
     }
 
-    public String fileUri() {
-        return fileUri;
-    }
+    /**
+     * Encapsulates document and import related context with lazy loading capabilities.
+     *
+     * @since 2.0.0
+     */
+    private static class DocumentContext {
 
-    public TextDocument textDocument() {
-        return document.textDocument();
-    }
+        private final WorkspaceManagerProxy workspaceManagerProxy;
+        private final String fileUri;
+        private final Path filePath;
 
-    public Path filePath() {
-        return filePath;
-    }
+        private Document document;
+        private List<ImportDeclarationNode> imports;
 
-    public WorkspaceManager workspaceManager() {
-        return workspaceManagerProxy.get(fileUri);
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
+            this(workspaceManagerProxy, fileUri, filePath, null);
+        }
+
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
+                               Document document) {
+            this.workspaceManagerProxy = workspaceManagerProxy;
+            this.fileUri = fileUri;
+            this.filePath = filePath;
+            this.document = document;
+        }
+
+        public Document document() {
+            if (document == null) {
+                Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
+                if (optionalDocument.isEmpty()) {
+                    throw new IllegalStateException("Document not found for the given path: " + filePath);
+                }
+                document = optionalDocument.get();
+            }
+            return document;
+        }
+
+        public List<ImportDeclarationNode> imports() {
+            if (imports == null) {
+                if (document == null) {
+                    document();
+                }
+                SyntaxTree syntaxTree = document.syntaxTree();
+                imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
+                        ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
+                        : List.of();
+
+            }
+            return imports;
+        }
     }
 }

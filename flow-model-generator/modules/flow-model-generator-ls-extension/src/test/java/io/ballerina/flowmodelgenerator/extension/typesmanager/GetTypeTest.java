@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.flowmodelgenerator.extension.typesmanager;
 
 import com.google.gson.JsonElement;
@@ -44,20 +62,22 @@ public class GetTypeTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
+                {Path.of("get_array_type_def.json")},
+                {Path.of("get_class.json")},
+                {Path.of("get_enum_type1.json")},
+                {Path.of("get_enum_type2.json")},
+                {Path.of("get_error_type_def.json")},
+                {Path.of("get_object_type.json")},
                 {Path.of("get_record_type1.json")},
                 {Path.of("get_record_type2.json")},
                 {Path.of("get_record_type3.json")},
                 {Path.of("get_record_type4.json")},
                 {Path.of("get_record_type5.json")},
-                {Path.of("get_union_type1.json")},
                 {Path.of("get_service_class1.json")},
                 {Path.of("get_service_class2.json")},
                 {Path.of("get_service_class3.json")},
-                {Path.of("get_enum_type1.json")},
-                {Path.of("get_enum_type2.json")},
-                {Path.of("get_array_type_def.json")},
                 {Path.of("get_table_type_def.json")},
-                {Path.of("get_error_type_def.json")},
+                {Path.of("get_union_type1.json")},
         };
     }
 

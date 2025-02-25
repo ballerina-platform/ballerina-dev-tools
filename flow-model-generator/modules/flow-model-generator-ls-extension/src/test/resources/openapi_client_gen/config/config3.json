@@ -12,7 +12,7 @@
     "node": "NEW_CONNECTION",
     "org": "",
     "module": "mod2",
-    "object": "",
+    "object": "Client",
     "symbol": "init",
     "isGenerated": true
   },
@@ -20,8 +20,8 @@
     "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Gets invoked to initialize the `connector`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_.png"
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -29,7 +29,7 @@
       "module": "mod2",
       "object": "Client",
       "symbol": "init",
-      "id": -1,
+      "id": 0,
       "isGenerated": true
     },
     "returning": false,
@@ -37,35 +37,34 @@
       "config": {
         "metadata": {
           "label": "config",
-          "description": ""
+          "description": "The configurations to be used when initializing the `connector` "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "mod2:ConnectionConfig",
         "placeholder": "{}",
-        "optional": false,
+        "optional": true,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "config",
-          "importStatements": ""
+          "importStatements": "oas/client2.client2.mod2"
         }
       },
       "serviceUrl": {
         "metadata": {
           "label": "serviceUrl",
-          "description": ""
+          "description": "URL of the target service "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "placeholder": "\"http://localhost:9090/v1\"",
-        "optional": false,
+        "placeholder": "\"\"",
+        "optional": true,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl",
-          "importStatements": ""
+          "originalName": "serviceUrl"
         }
       },
       "type": {

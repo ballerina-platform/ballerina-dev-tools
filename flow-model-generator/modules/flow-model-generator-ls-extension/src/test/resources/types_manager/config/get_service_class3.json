@@ -81,12 +81,48 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "RESOURCE",
+        "kind": "FUNCTION",
         "name": "profile21",
+        "description": "",
         "returnType": "AbstractProfile",
         "refs": [
           "AbstractProfile"
-        ]
+        ],
+        "properties": {
+          "isPrivate": {
+            "metadata": {
+              "label": "private",
+              "description": "Is this private"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isPublic": {
+            "metadata": {
+              "label": "public",
+              "description": "Is this public"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isIsolated": {
+            "metadata": {
+              "label": "isolated",
+              "description": "Is this isolated"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        }
       },
       {
         "accessor": "get",
@@ -95,12 +131,48 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "RESOURCE",
+        "kind": "FUNCTION",
         "name": "profile",
+        "description": "",
         "returnType": "UserProfile",
         "refs": [
           "UserProfile"
-        ]
+        ],
+        "properties": {
+          "isPrivate": {
+            "metadata": {
+              "label": "private",
+              "description": "Is this private"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isPublic": {
+            "metadata": {
+              "label": "public",
+              "description": "Is this public"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isIsolated": {
+            "metadata": {
+              "label": "isolated",
+              "description": "Is this isolated"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        }
       },
       {
         "qualifiers": [
@@ -117,12 +189,48 @@
             "name": "userName"
           }
         ],
-        "kind": "REMOTE",
+        "kind": "FUNCTION",
         "name": "updateName",
+        "description": "",
         "returnType": "UserProfile",
         "refs": [
           "UserProfile"
-        ]
+        ],
+        "properties": {
+          "isPrivate": {
+            "metadata": {
+              "label": "private",
+              "description": "Is this private"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isPublic": {
+            "metadata": {
+              "label": "public",
+              "description": "Is this public"
+            },
+            "valueType": "FLAG",
+            "value": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "isIsolated": {
+            "metadata": {
+              "label": "isolated",
+              "description": "Is this isolated"
+            },
+            "valueType": "FLAG",
+            "value": "true",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          }
+        }
       }
     ]
   },
@@ -157,6 +265,17 @@
           "valueType": "IDENTIFIER",
           "value": "UserName",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
           "editable": true,
           "advanced": false
         },
@@ -235,6 +354,17 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
           "editable": true,
           "advanced": false
         },
@@ -354,6 +484,65 @@
           "optional": false,
           "editable": false,
           "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "isDistinct": {
+          "metadata": {
+            "label": "distinct",
+            "description": "Is this distinct"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "isIsolated": {
+          "metadata": {
+            "label": "isolated",
+            "description": "Is this isolated"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "isReadOnly": {
+          "metadata": {
+            "label": "readonly",
+            "description": "Is this readonly"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "networkQualifier": {
+          "metadata": {
+            "label": "Network Qualifier",
+            "description": "Network qualifier"
+          },
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": [
+            "service",
+            "client"
+          ],
+          "value": "service",
+          "optional": true,
+          "editable": true,
+          "advanced": false
         }
       },
       "members": [
@@ -381,10 +570,46 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "RESOURCE",
+          "kind": "FUNCTION",
           "name": "name",
+          "description": "",
           "returnType": "string",
-          "refs": []
+          "refs": [],
+          "properties": {
+            "isPrivate": {
+              "metadata": {
+                "label": "private",
+                "description": "Is this private"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isPublic": {
+              "metadata": {
+                "label": "public",
+                "description": "Is this public"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isIsolated": {
+              "metadata": {
+                "label": "isolated",
+                "description": "Is this isolated"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            }
+          }
         },
         {
           "accessor": "get",
@@ -393,10 +618,46 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "RESOURCE",
+          "kind": "FUNCTION",
           "name": "age",
+          "description": "",
           "returnType": "int",
-          "refs": []
+          "refs": [],
+          "properties": {
+            "isPrivate": {
+              "metadata": {
+                "label": "private",
+                "description": "Is this private"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isPublic": {
+              "metadata": {
+                "label": "public",
+                "description": "Is this public"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isIsolated": {
+              "metadata": {
+                "label": "isolated",
+                "description": "Is this isolated"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            }
+          }
         },
         {
           "accessor": "get",
@@ -405,10 +666,46 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "RESOURCE",
+          "kind": "FUNCTION",
           "name": "isAdult",
+          "description": "",
           "returnType": "boolean",
-          "refs": []
+          "refs": [],
+          "properties": {
+            "isPrivate": {
+              "metadata": {
+                "label": "private",
+                "description": "Is this private"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isPublic": {
+              "metadata": {
+                "label": "public",
+                "description": "Is this public"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            },
+            "isIsolated": {
+              "metadata": {
+                "label": "isolated",
+                "description": "Is this isolated"
+              },
+              "valueType": "FLAG",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": false
+            }
+          }
         }
       ]
     },
@@ -442,6 +739,17 @@
           "valueType": "IDENTIFIER",
           "value": "AbstractProfile",
           "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "true",
+          "optional": true,
           "editable": true,
           "advanced": false
         },

@@ -122,12 +122,12 @@
       {
         "range": {
           "start": {
-            "line": 72,
-            "character": 3
+            "line": 111,
+            "character": 1
           },
           "end": {
-            "line": 72,
-            "character": 3
+            "line": 111,
+            "character": 1
           }
         },
         "newText": "\ntype AddressTable table<Address> key<string|int>;"
