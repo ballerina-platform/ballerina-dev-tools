@@ -37,7 +37,7 @@
     },
     "listenerConfig": {
       "metadata": {
-        "label": "",
+        "label": "listenerConfig",
         "description": ""
       },
       "enabled": true,
@@ -46,8 +46,8 @@
       "valueType": "EXPRESSION",
       "valueTypeConstraint": "github:ListenerConfig",
       "isType": false,
-      "placeholder": "",
-      "optional": false,
+      "placeholder": "{}",
+      "optional": true,
       "advanced": false,
       "codedata": {
         "inListenerInit": false,
@@ -60,7 +60,7 @@
     },
     "listenOn": {
       "metadata": {
-        "label": "",
+        "label": "listenOn",
         "description": ""
       },
       "enabled": true,
@@ -69,8 +69,8 @@
       "valueType": "EXPRESSION",
       "valueTypeConstraint": "int|http:Listener",
       "isType": false,
-      "placeholder": "",
-      "optional": false,
+      "placeholder": "8090",
+      "optional": true,
       "advanced": false,
       "codedata": {
         "inListenerInit": false,

@@ -24,20 +24,39 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.Project;
 import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
@@ -48,6 +67,9 @@ import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -126,7 +148,7 @@ public class TriggerTemplateGenerator {
             for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
                 if (moduleSymbol instanceof ClassSymbol classSymbol
                         && classSymbol.nameEquals("Listener")) {
-                    handleListenerClass(classSymbol, semanticModel, formattedModuleName, moduleName,
+                    handleListenerClass(classSymbol, semanticModel, resolvedPackage, formattedModuleName, moduleName,
                             packageMetadataInfo, org, id);
                 }
 
@@ -376,7 +398,7 @@ public class TriggerTemplateGenerator {
     }
 
     private static void handleListenerClass(ClassSymbol classSymbol, SemanticModel semanticModel,
-                                            String formattedModuleName, String moduleName,
+                                            Package resolvedPackage, String formattedModuleName, String moduleName,
                                             PackageMetadataInfo packageMetadataInfo, String org, String id) {
         Value.ValueBuilder nameProperty = new Value.ValueBuilder();
         nameProperty
@@ -398,20 +420,13 @@ public class TriggerTemplateGenerator {
             Optional<List<ParameterSymbol>> params = methodSymbol.get().typeDescriptor().params();
             if (params.isPresent()) {
                 for (ParameterSymbol param : params.get()) {
-                    Value.ValueBuilder property = new Value.ValueBuilder();
-                    property
-                            .setMetadata(new MetaData("", ""))
-                            .setCodedata(new Codedata("LISTENER_INIT_PARAM", "NAMED"))
-                            .setEditable(true)
-                            .setEnabled(true)
-                            .setValue("")
-                            .setValueType("EXPRESSION")
-                            .setValueTypeConstraint(CommonUtils.getTypeSignature(semanticModel,
-                                    param.typeDescriptor(), false))
-                            .setPlaceholder("")
-                            .setOptional(false)
-                            .setAdvanced(false);
-                    properties.put(param.getName().orElse("param"), property.build());
+                    Map<String, String> docMap;
+                    if (methodSymbol.get().documentation().isPresent()) {
+                        docMap = methodSymbol.get().documentation().get().parameterMap();
+                    } else {
+                        docMap = new HashMap<>();
+                    }
+                    processParameterSymbol(param, docMap, resolvedPackage, semanticModel, properties);
                 }
             }
 
@@ -442,6 +457,170 @@ public class TriggerTemplateGenerator {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
+                                               Package resolvedPackage, SemanticModel semanticModel,
+                                               Map<String, Value> properties) {
+        String paramName = paramSymbol.getName().orElse("");
+        String paramDescription = documentationMap.get(paramName);
+        ParameterKind parameterKind = paramSymbol.paramKind();
+        String paramType;
+        boolean optional = true;
+        String defaultValue;
+        TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
+        if (parameterKind == ParameterKind.REST) {
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
+                    ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
+            paramType = CommonUtils.getTypeSignature(semanticModel,
+                    ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), false);
+        } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
+                    resolvedPackage, semanticModel, true, new HashMap<>(), properties);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+        } else if (parameterKind == ParameterKind.REQUIRED) {
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+            optional = false;
+        } else {
+            Location symbolLocation = paramSymbol.getLocation().get();
+            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+            if (document != null) {
+                defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
+                        symbolLocation, resolvedPackage.packageName().value());
+            }
+            paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+        }
+
+        if (parameterKind != ParameterKind.INCLUDED_RECORD) {
+            Value.ValueBuilder property = new Value.ValueBuilder();
+            property
+                    .setMetadata(new MetaData(paramName,
+                            paramDescription != null ? paramDescription : ""))
+                    .setCodedata(new Codedata("LISTENER_INIT_PARAM", "NAMED"))
+                    .setEditable(true)
+                    .setEnabled(true)
+                    .setValue("")
+                    .setValueType("EXPRESSION")
+                    .setValueTypeConstraint(paramType)
+                    .setPlaceholder(defaultValue)
+                    .setOptional(optional)
+                    .setAdvanced(false);
+            properties.put(paramName, property.build());
+        }
+    }
+
+    protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, Package resolvedPackage,
+                                                      SemanticModel semanticModel, boolean insert,
+                                                      Map<String, String> documentationMap,
+                                                      Map<String, Value> properties) {
+        recordTypeSymbol.typeInclusions().forEach(includedType -> addIncludedRecordParamsToDb(
+                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), resolvedPackage,
+                semanticModel, false, documentationMap, properties)
+        );
+        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
+            RecordFieldSymbol recordFieldSymbol = entry.getValue();
+            TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
+            TypeSymbol fieldType = CommonUtil.getRawType(typeSymbol);
+            if (fieldType.typeKind() == TypeDescKind.NEVER) {
+                continue;
+            }
+            String paramName = entry.getKey();
+            String paramDescription = entry.getValue().documentation()
+                    .flatMap(Documentation::description).orElse("");
+            if (documentationMap.containsKey(paramName) && !paramDescription.isEmpty()) {
+                documentationMap.put(paramName, paramDescription);
+            } else if (!documentationMap.containsKey(paramName)) {
+                documentationMap.put(paramName, paramDescription);
+            }
+            if (!insert) {
+                continue;
+            }
+
+            Location symbolLocation = recordFieldSymbol.getLocation().get();
+            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            String defaultValue;
+            if (document != null) {
+                defaultValue = getAttributeDefaultValue(document.syntaxTree().rootNode(),
+                        symbolLocation, resolvedPackage.packageName().value());
+                if (defaultValue == null) {
+                    defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+                }
+            } else {
+                defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
+            }
+            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            boolean optional = false;
+            if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
+                optional = true;
+            }
+            Value.ValueBuilder property = new Value.ValueBuilder();
+            property
+                    .setMetadata(new MetaData(paramName, paramDescription))
+                    .setCodedata(new Codedata("LISTENER_INIT_PARAM", "NAMED"))
+                    .setEditable(true)
+                    .setEnabled(true)
+                    .setValue("")
+                    .setValueType("EXPRESSION")
+                    .setValueTypeConstraint(paramType)
+                    .setPlaceholder(defaultValue)
+                    .setOptional(optional)
+                    .setAdvanced(optional);
+            properties.put(paramName, property.build());
+        }
+    }
+
+    private static String getAttributeDefaultValue(ModulePartNode rootNode, Location location, String module) {
+        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
+                location.textRange().length()));
+        if (node.kind() == SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE) {
+            RecordFieldWithDefaultValueNode valueNode = (RecordFieldWithDefaultValueNode) node;
+            ExpressionNode expression = valueNode.expression();
+            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                return module + ":" + simpleNameReferenceNode.name().text();
+            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                        .text();
+            } else {
+                return expression.toSourceCode();
+            }
+        }
+        return null;
+    }
+
+    private static String getParamDefaultValue(ModulePartNode rootNode, Location location, String module) {
+        NonTerminalNode node = rootNode.findNode(TextRange.from(location.textRange().startOffset(),
+                location.textRange().length()));
+        if (node.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
+            DefaultableParameterNode valueNode = (DefaultableParameterNode) node;
+            ExpressionNode expression = (ExpressionNode) valueNode.expression();
+            if (expression instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+                return module + ":" + simpleNameReferenceNode.name().text();
+            } else if (expression instanceof QualifiedNameReferenceNode qualifiedNameReferenceNode) {
+                return qualifiedNameReferenceNode.modulePrefix().text() + ":" + qualifiedNameReferenceNode.identifier()
+                        .text();
+            } else if (expression instanceof MappingConstructorExpressionNode) {
+                return "{}";
+            } else {
+                return expression.toSourceCode();
+            }
+        }
+        return null;
+    }
+
+    public static Document findDocument(Package pkg, String path) {
+        Project project = pkg.project();
+        Module defaultModule = pkg.getDefaultModule();
+        String module = pkg.packageName().value();
+        Path docPath = project.sourceRoot().resolve("modules").resolve(module).resolve(path);
+        try {
+            DocumentId documentId = project.documentId(docPath);
+            return defaultModule.document(documentId);
+        } catch (RuntimeException ex) {
+            return null;
         }
     }
 

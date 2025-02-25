@@ -35,20 +35,66 @@
       },
       "addNewButton": false
     },
-    "listenerConfig": {
+    "auth": {
       "metadata": {
-        "label": "",
-        "description": ""
+        "label": "auth",
+        "description": "Configurations related to username/password authentication"
       },
       "enabled": true,
       "editable": true,
       "value": "",
       "valueType": "EXPRESSION",
-      "valueTypeConstraint": "salesforce:ListenerConfig",
+      "valueTypeConstraint": "salesforce:CredentialsConfig",
       "isType": false,
-      "placeholder": "",
+      "placeholder": "{username: \"\", password: \"\"}",
       "optional": false,
       "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "replayFrom": {
+      "metadata": {
+        "label": "replayFrom",
+        "description": "The replay ID to change the point in time when events are read"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int|\"REPLAY_FROM_EARLIEST\"|\"REPLAY_FROM_TIP\"",
+      "isType": false,
+      "placeholder": "salesforce:REPLAY_FROM_TIP",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "isSandBox": {
+      "metadata": {
+        "label": "isSandBox",
+        "description": "The type of salesforce environment, if sandbox environment or not"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "boolean",
+      "isType": false,
+      "placeholder": "false",
+      "optional": true,
+      "advanced": true,
       "codedata": {
         "inListenerInit": false,
         "isBasePath": false,
