@@ -30,46 +30,41 @@
   },
   "name": {
     "metadata": {
-      "label": "Field Name",
-      "description": "The name of the field"
+      "label": "Resource Path",
+      "description": "The resource path"
     },
     "enabled": true,
-    "editable": true,
+    "editable": false,
     "value": "",
     "valueType": "IDENTIFIER",
     "valueTypeConstraint": "string",
     "isType": false,
     "placeholder": "",
     "optional": false,
-    "advanced": false,
-    "addNewButton": false
+    "advanced": false
   },
   "parameters": [],
-  "schema" : {
+  "schema": {
     "parameter": {
       "type": {
         "metadata": {
-          "label": "Argument Type",
-          "description": "The type of the argument"
+          "label": "Parameter Type",
+          "description": "The type of the parameter"
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
-        "value": "",
-        "valueType": "TYPE",
-        "isType": true,
+        "isType": false,
         "optional": false,
         "advanced": false,
         "addNewButton": false
       },
       "name": {
         "metadata": {
-          "label": "Argument Name",
-          "description": "The name of the argument"
+          "label": "Parameter Name",
+          "description": "The name of the parameter"
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
-        "value": "",
-        "valueType": "IDENTIFIER",
         "isType": false,
         "optional": false,
         "advanced": false,
@@ -78,16 +73,16 @@
       "defaultValue": {
         "metadata": {
           "label": "Default Value",
-          "description": "The default value of the argument"
+          "description": "The default value of the parameter"
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "isType": false,
-        "optional": true,
+        "optional": false,
         "advanced": false,
         "addNewButton": false
       },
-      "enabled": true,
+      "enabled": false,
       "editable": false,
       "optional": false,
       "advanced": false
@@ -95,17 +90,16 @@
   },
   "returnType": {
     "metadata": {
-      "label": "Field Type",
-      "description": "The type of the field"
+      "label": "Return Type",
+      "description": "The return type of the function"
     },
     "enabled": true,
     "editable": true,
-    "value": "",
-    "valueType": "TYPE",
     "isType": false,
     "optional": false,
     "advanced": false,
-    "addNewButton": false
+    "addNewButton": false,
+    "valueType": "TYPE"
   },
   "enabled": true,
   "optional": false,
