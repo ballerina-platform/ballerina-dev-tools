@@ -16,7 +16,9 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.db.model;
+package io.ballerina.modelgenerator.commons;
+
+import io.ballerina.compiler.api.symbols.ParameterKind;
 
 /**
  * Represents the result of a parameter.
@@ -31,20 +33,46 @@ package io.ballerina.flowmodelgenerator.core.db.model;
  * @param importStatements import statements of the dependent types
  * @since 2.0.0
  */
-public record ParameterResult(
+public record ParameterData(
         int parameterId,
         String name,
         String type,
-        Parameter.Kind kind,
+        Kind kind,
         String defaultValue,
         String description,
         boolean optional,
         String importStatements) {
 
-
-    public static ParameterResult from(String name, String type, Parameter.Kind kind, String defaultValue,
-                                       String description, boolean optional) {
-        return new ParameterResult(0, name, type, kind, defaultValue, description, optional,
+    public static ParameterData from(String name, String type, Kind kind, String defaultValue,
+                                     String description, boolean optional) {
+        return new ParameterData(0, name, type, kind, defaultValue, description, optional,
                 null);
     }
+
+    public static ParameterData from(String name, String description, String type, String defaultValue, Kind kind,
+                                     boolean optional, String importStatements) {
+        return new ParameterData(0, name, type, kind, defaultValue, description, optional,
+                importStatements);
+    }
+
+    public enum Kind {
+        REQUIRED,
+        DEFAULTABLE,
+        INCLUDED_RECORD,
+        REST_PARAMETER,
+        INCLUDED_FIELD,
+        PARAM_FOR_TYPE_INFER,
+        INCLUDED_RECORD_REST,
+        PATH_PARAM,
+        PATH_REST_PARAM;
+
+        public static Kind fromKind(ParameterKind parameterKind) {
+            String value = parameterKind.name();
+            if (value.equals("REST")) {
+                return REST_PARAMETER;
+            }
+            return Kind.valueOf(value);
+        }
+    }
+
 }

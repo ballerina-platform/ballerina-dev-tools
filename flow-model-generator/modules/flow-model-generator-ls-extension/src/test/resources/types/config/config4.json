@@ -1,10 +1,6 @@
 {
   "description": "",
   "source": "graphql",
-  "position": {
-    "line": 16,
-    "offset": 0
-  },
   "completions": [
     {
       "label": "Profile",
@@ -328,15 +324,6 @@
       "insertText": "stream"
     },
     {
-      "label": "never",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Never"
-      },
-      "kind": "TypeParameter",
-      "insertText": "never"
-    },
-    {
       "label": "readonly",
       "labelDetails": {
         "detail": "Primitive",
@@ -344,6 +331,15 @@
       },
       "kind": "TypeParameter",
       "insertText": "readonly"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Primitive",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
     }
   ]
 }

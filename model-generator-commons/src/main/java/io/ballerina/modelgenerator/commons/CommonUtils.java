@@ -764,4 +764,9 @@ public class CommonUtils {
         ModuleID moduleId = module.get().id();
         return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
+
+    public static String getClassType(String packageName, String clientName) {
+        String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
+        return String.format("%s:%s", importPrefix, clientName);
+    }
 }

@@ -20,14 +20,14 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,12 +60,12 @@ public class ConnectorGenerator {
         }
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
-        List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR, modifiedQueryMap) :
-                dbManager.searchFunctions(modifiedQueryMap, DatabaseManager.FunctionKind.CONNECTOR);
+        List<FunctionData> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
+                dbManager.getAllFunctions(FunctionData.Kind.CONNECTOR, modifiedQueryMap) :
+                dbManager.searchFunctions(modifiedQueryMap, FunctionData.Kind.CONNECTOR);
 
         List<AvailableNode> connectors = new ArrayList<>();
-        for (FunctionResult connectorResult : connectorResults) {
+        for (FunctionData connectorResult : connectorResults) {
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(connectorResult.packageName())
                     .description(connectorResult.description())

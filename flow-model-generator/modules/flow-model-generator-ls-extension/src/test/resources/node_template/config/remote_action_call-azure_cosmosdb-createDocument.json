@@ -1,33 +1,30 @@
 {
-  "source": "data_mapper/main.bal",
-  "position": {
-    "line": 14,
-    "offset": 0
-  },
+  "source": "data_mapper/method_call.bal",
   "description": "Sample diagram node",
   "codedata": {
-    "node": "RESOURCE_ACTION_CALL",
+    "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
-    "module": "docusign.dsadmin",
-    "object": "Client",
-    "symbol": "get",
-    "parentSymbol": "dsAdminClient",
-    "resourcePath": "/v2/organizations/[organizationId]/accounts/[accountId]/groups"
+    "module": "azure_cosmosdb",
+    "object": "DataPlaneClient",
+    "symbol": "createDocument",
+    "parentSymbol": "covid19Client",
+    "version": "4.2.0"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "get",
-      "description": "Returns the list of groups in an account.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsadmin_2.0.0.png"
+      "label": "createDocument",
+      "description": "Creates a document.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
     },
     "codedata": {
-      "node": "RESOURCE_ACTION_CALL",
+      "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
-      "module": "docusign.dsadmin",
-      "object": "Client",
-      "symbol": "get",
-      "id": 2382
+      "module": "azure_cosmosdb",
+      "object": "DataPlaneClient",
+      "symbol": "createDocument",
+      "version": "4.2.0",
+      "id": 0
     },
     "returning": false,
     "properties": {
@@ -37,30 +34,16 @@
           "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "dsadmin:Client",
-        "value": "dsAdminClient",
+        "valueTypeConstraint": "azure_cosmosdb:DataPlaneClient",
+        "value": "covid19Client",
         "optional": false,
         "editable": false,
         "advanced": false
       },
-      "resourcePath": {
+      "databaseId": {
         "metadata": {
-          "label": "Resource Path",
-          "description": "Resource Path"
-        },
-        "valueType": "EXPRESSION",
-        "value": "/v2/organizations/[organizationId]/accounts/[accountId]/groups",
-        "optional": false,
-        "editable": false,
-        "advanced": false,
-        "codedata": {
-          "originalName": "/v2/organizations/[organizationId]/accounts/[accountId]/groups"
-        }
-      },
-      "organizationId": {
-        "metadata": {
-          "label": "organizationId",
-          "description": "The organization ID Guid"
+          "label": "databaseId",
+          "description": "ID of the database to which the container belongs to"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
@@ -69,14 +52,14 @@
         "editable": true,
         "advanced": false,
         "codedata": {
-          "kind": "PATH_PARAM",
-          "originalName": "organizationId"
+          "kind": "REQUIRED",
+          "originalName": "databaseId"
         }
       },
-      "accountId": {
+      "containerId": {
         "metadata": {
-          "label": "accountId",
-          "description": "The account ID Guid"
+          "label": "containerId",
+          "description": "ID of the container where, document is created"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
@@ -85,56 +68,72 @@
         "editable": true,
         "advanced": false,
         "codedata": {
-          "kind": "PATH_PARAM",
-          "originalName": "accountId"
+          "kind": "REQUIRED",
+          "originalName": "containerId"
         }
       },
-      "start": {
+      "documemtId": {
         "metadata": {
-          "label": "start",
-          "description": "Index of first item to include in the response. The default value is 0."
+          "label": "documemtId",
+          "description": "ID of the document"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int:Signed32|()",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "documemtId"
+        }
+      },
+      "document": {
+        "metadata": {
+          "label": "document",
+          "description": "A JSON document to be saved in the database"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<json>",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "document"
+        }
+      },
+      "partitionKey": {
+        "metadata": {
+          "label": "partitionKey",
+          "description": "The specific value related to the partition key field of the container "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int|float|decimal|string",
+        "placeholder": "0",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "partitionKey"
+        }
+      },
+      "requestOptions": {
+        "metadata": {
+          "label": "requestOptions",
+          "description": "The `cosmos_db:RequestOptions` which can be used to add additional capabilities that can \noverride client configuration provided in the inilization"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "azure_cosmosdb:RequestOptions|()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "'start"
-        }
-      },
-      "take": {
-        "metadata": {
-          "label": "take",
-          "description": "Page size of the response. The default value is 20."
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int:Signed32|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "take"
-        }
-      },
-      "end": {
-        "metadata": {
-          "label": "end",
-          "description": "Index of the last item to include in the response. Ignored if `take` parameter is specified."
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int:Signed32|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "end"
+          "originalName": "requestOptions"
         }
       },
       "type": {
@@ -143,7 +142,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "dsadmin:MemberGroupsResponse",
+        "value": "azure_cosmosdb:DocumentResponse",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -155,7 +154,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "dsadminMembergroupsresponse",
+        "value": "azureCosmosdbDocumentresponse",
         "optional": false,
         "editable": true,
         "advanced": false

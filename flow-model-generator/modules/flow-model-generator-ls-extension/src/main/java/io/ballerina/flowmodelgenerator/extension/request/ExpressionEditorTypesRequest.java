@@ -16,18 +16,15 @@
  *  under the License.
  */
 
-module io.ballerina.model.generator.commons {
-    requires io.ballerina.language.server.core;
-    requires io.ballerina.language.server.commons;
-    requires org.eclipse.lsp4j;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.slf4j;
-    requires org.testng;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.parser;
-    requires io.ballerina.lang;
-    requires java.sql;
+package io.ballerina.flowmodelgenerator.extension.request;
 
-    exports io.ballerina.modelgenerator.commons;
+/**
+ * Record representing a request for expression editor types.
+ *
+ * @param filePath The path to the file being processed
+ * @param typeConstraint The type constraint to filter out the completions
+ * @since 2.0.0
+ */
+public record ExpressionEditorTypesRequest(String filePath, String typeConstraint) {
+
 }
