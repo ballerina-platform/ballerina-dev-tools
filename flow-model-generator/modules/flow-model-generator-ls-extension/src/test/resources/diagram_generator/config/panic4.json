@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "e",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "panic.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 11
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

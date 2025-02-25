@@ -9,7 +9,6 @@
     "line": 37,
     "offset": 0
   },
-  "context": "GRAPHQL_DIAGRAM",
   "response": {
     "id": "0",
     "name": "Book",
@@ -21,7 +20,7 @@
           "description": "The name of the class definition"
         },
         "enabled": true,
-        "editable": true,
+        "editable": false,
         "value": "Book",
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
@@ -29,6 +28,22 @@
         "placeholder": "",
         "optional": false,
         "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 21
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 25
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
         "addNewButton": false
       }
     },
@@ -82,6 +97,22 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 13
+              },
+              "endLine": {
+                "line": 5,
+                "offset": 17
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
           "addNewButton": false
         },
         "parameters": [
@@ -93,8 +124,8 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
@@ -107,22 +138,38 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 5,
+                    "offset": 25
+                  },
+                  "endLine": {
+                    "line": 5,
+                    "offset": 29
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -141,11 +188,12 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -153,11 +201,12 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -166,7 +215,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -183,8 +232,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Field Type",
-            "description": "The type of the field"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
@@ -242,7 +291,7 @@
             "description": "The name of the function"
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "value": "author/[int id]",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -250,6 +299,22 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 14,
+                "offset": 22
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 25
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
           "addNewButton": false
         },
         "parameters": [],
@@ -257,11 +322,12 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -269,11 +335,12 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -282,7 +349,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -299,8 +366,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Field Type",
-            "description": "The type of the field"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
@@ -356,7 +423,7 @@
             "description": "The name of the function"
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "value": "addAuthor",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -364,6 +431,22 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 30,
+                "offset": 20
+              },
+              "endLine": {
+                "line": 30,
+                "offset": 29
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
           "addNewButton": false
         },
         "parameters": [
@@ -375,8 +458,8 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
@@ -389,22 +472,38 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "author",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 30,
+                    "offset": 37
+                  },
+                  "endLine": {
+                    "line": 30,
+                    "offset": 43
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -423,11 +522,12 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -435,11 +535,12 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -448,7 +549,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -465,8 +566,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Field Type",
-            "description": "The type of the field"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": false,
           "editable": false,
@@ -496,6 +597,249 @@
         }
       }
     ],
-    "fields": []
+    "fields": [
+      {
+        "isPrivate": true,
+        "isFinal": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 28
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Field Type",
+            "description": "The type of the field"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Field Name",
+            "description": "The name of the field"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "id",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 25
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 27
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
+          },
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      },
+      {
+        "isPrivate": true,
+        "isFinal": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 30
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Field Type",
+            "description": "The type of the field"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Field Name",
+            "description": "The name of the field"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "name",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 25
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 29
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
+          },
+          "enabled": false,
+          "editable": true,
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      },
+      {
+        "isPrivate": true,
+        "isFinal": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 34
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Field Type",
+            "description": "The type of the field"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "Author[]",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Field Name",
+            "description": "The name of the field"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "authors",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 3,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 3,
+                "offset": 28
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Initial Value",
+            "description": "The initial value of the filed"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "[]",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
+    ]
   }
 }

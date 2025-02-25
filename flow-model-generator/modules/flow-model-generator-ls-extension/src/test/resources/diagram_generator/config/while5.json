@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 49,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 49,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -137,8 +150,21 @@
             "valueType": "IDENTIFIER",
             "value": "finalMsg",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 50,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -306,8 +332,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "response",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 52,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 52,
+                          "offset": 25
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -504,8 +543,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "attempts",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 56,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 56,
+                          "offset": 24
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -886,8 +938,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "adminClient",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 57,
+                          "offset": 41
+                        },
+                        "endLine": {
+                          "line": 57,
+                          "offset": 52
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -1187,8 +1252,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "response",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "while.bal",
+                                "startLine": {
+                                  "line": 62,
+                                  "offset": 21
+                                },
+                                "endLine": {
+                                  "line": 62,
+                                  "offset": 29
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -1779,8 +1857,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

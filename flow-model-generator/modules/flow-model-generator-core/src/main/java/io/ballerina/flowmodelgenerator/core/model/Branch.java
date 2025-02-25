@@ -70,7 +70,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
                 .codedata().node(NodeKind.WORKER).stepOut()
                 .properties()
                     .returnType(null)
-                    .data(null, Property.WORKER_NAME, Property.WORKER_DOC, workerName)
+                    .data(null, Property.WORKER_NAME, Property.WORKER_DOC, workerName, false)
                 .stepOut()
                 .build();
     }

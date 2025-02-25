@@ -140,8 +140,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "j",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 2,
+                          "offset": 5
+                        },
+                        "endLine": {
+                          "line": 2,
+                          "offset": 6
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -206,8 +219,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "val",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 3,
+                          "offset": 8
+                        },
+                        "endLine": {
+                          "line": 3,
+                          "offset": 11
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -273,8 +299,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 10
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -339,8 +378,21 @@
             "valueType": "IDENTIFIER",
             "value": "val",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 14
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

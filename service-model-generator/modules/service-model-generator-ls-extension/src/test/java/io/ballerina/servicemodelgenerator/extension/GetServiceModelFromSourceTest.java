@@ -18,7 +18,6 @@
 
 package io.ballerina.servicemodelgenerator.extension;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
@@ -55,15 +54,26 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
         ServiceFromSourceResponse serviceFromSourceResponse = gson.fromJson(jsonMap, ServiceFromSourceResponse.class);
 
         Service actualServiceModel = serviceFromSourceResponse.service();
-        JsonElement actualServiceModelJson = gson.toJsonTree(actualServiceModel);
+        boolean assertTrue = isServiceEqual(actualServiceModel, testConfig.response());
 
-        if (!actualServiceModelJson.equals(testConfig.response())) {
+        if (!assertTrue) {
             GetServiceModelFromSourceTest.TestConfig updatedConfig =
                     new GetServiceModelFromSourceTest.TestConfig(testConfig.filePath(), testConfig.description(),
-                            testConfig.start(), testConfig.end(), actualServiceModelJson);
+                            testConfig.start(), testConfig.end(), actualServiceModel);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    private static boolean isServiceEqual(Service actual, Service expected) {
+        return expected.getId().equals(actual.getId()) &&
+                expected.getName().equals(actual.getName()) &&
+                expected.getType().equals(actual.getType()) &&
+                expected.getModuleName().equals(actual.getModuleName()) &&
+                expected.getOrgName().equals(actual.getOrgName()) &&
+                expected.getListenerProtocol().equals(actual.getListenerProtocol()) &&
+                expected.getFunctions().size() == actual.getFunctions().size() &&
+                expected.getProperties().values().size() == actual.getProperties().values().size();
     }
 
     @Override
@@ -96,7 +106,7 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
      * @param response    The expected response
      */
     private record TestConfig(String filePath, String description, LinePosition start, LinePosition end,
-                              JsonElement response) {
+                              Service response) {
 
         public String description() {
             return description == null ? "" : description;

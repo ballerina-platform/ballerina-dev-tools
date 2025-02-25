@@ -132,7 +132,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
@@ -363,12 +363,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "header",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 15,
+                    "offset": 69
+                  },
+                  "endLine": {
+                    "line": 15,
+                    "offset": 75
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -415,12 +431,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "id",
               "valueType": "EXPRESSION",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 15,
+                    "offset": 81
+                  },
+                  "endLine": {
+                    "line": 15,
+                    "offset": 83
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {

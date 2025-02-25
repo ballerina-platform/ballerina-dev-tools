@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "greet",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 21
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -116,8 +129,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 29
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 33
+                    }
+                  }
+                }
               }
             },
             "optional": false,
@@ -151,8 +177,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "title",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 42
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 47
+                    }
+                  }
+                }
               }
             },
             "optional": false,

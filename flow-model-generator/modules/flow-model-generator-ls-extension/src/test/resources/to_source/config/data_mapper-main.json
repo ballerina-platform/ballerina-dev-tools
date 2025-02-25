@@ -95,7 +95,7 @@
             "character": 0
           }
         },
-        "newText": "function transform() returns => {\n} ;"
+        "newText": "\nfunction transform() returns => {\n} ;"
       }
     ]
   }

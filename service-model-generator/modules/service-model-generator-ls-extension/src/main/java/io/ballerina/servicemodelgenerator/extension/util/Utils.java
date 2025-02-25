@@ -483,7 +483,7 @@ public final class Utils {
         if (isGraphQL) {
             accessor.setEditable(false);
             functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
-                    Parameter.parameterSchema(isGraphQL)));
+                    Parameter.parameterSchema(true)));
         }
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
@@ -719,18 +719,18 @@ public final class Utils {
     }
 
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp,
-                                                        boolean isGraphQl) {
+                                                        boolean isGraphQL) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp, isGraphQl);
+                    parameter.annotations(), isHttp, isGraphQL);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
                     ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp, isGraphQl);
+                    parameter.annotations(), isHttp, isGraphQL);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -1116,10 +1116,9 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append("\tdo {");
         builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Unimplemented function\");");
         builder.append("\t} on fail error err {");
         builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Un handled error\");");
+        builder.append("\t\t// handle error");
         builder.append(System.lineSeparator());
         builder.append("\t}");
         builder.append(System.lineSeparator());
