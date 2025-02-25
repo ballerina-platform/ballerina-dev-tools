@@ -18,11 +18,12 @@
 
 package io.ballerina.servicemodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
-import io.ballerina.servicemodelgenerator.extension.request.CommonModelFromSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ClassModelFromSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -49,28 +50,21 @@ public class GetServiceClassModelFromSourceTest extends AbstractLSTest {
 
         String sourcePath = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from(sourcePath, testConfig.start(), testConfig.end()));
-        CommonModelFromSourceRequest sourceRequest = new CommonModelFromSourceRequest(sourcePath, codedata);
+        ClassModelFromSourceRequest sourceRequest = new ClassModelFromSourceRequest(sourcePath, codedata,
+                testConfig.context());
         JsonObject jsonMap = getResponseAndCloseFile(sourceRequest, sourcePath);
         ServiceClassModelResponse response = gson.fromJson(jsonMap, ServiceClassModelResponse.class);
 
         ServiceClass actualServiceClassModel = response.model();
-        boolean assertTrue = isServiceEqual(actualServiceClassModel, testConfig.response());
+        JsonElement actual = gson.toJsonTree(actualServiceClassModel);
 
-        if (!assertTrue) {
+        if (!actual.equals(testConfig.response())) {
             GetServiceClassModelFromSourceTest.TestConfig updatedConfig =
                     new GetServiceClassModelFromSourceTest.TestConfig(testConfig.filePath(), testConfig.description(),
-                            testConfig.start(), testConfig.end(), actualServiceClassModel);
+                            testConfig.start(), testConfig.end(), testConfig.context(), actual);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    private static boolean isServiceEqual(ServiceClass actual, ServiceClass expected) {
-        return expected.id().equals(actual.id()) && expected.name().equals(actual.name()) &&
-                expected.type().equals(actual.type()) &&
-                expected.properties().values().size() == actual.properties().values().size() &&
-                expected.functions().size() == actual.functions().size() &&
-                expected.fields().size() == actual.fields().size();
     }
 
     @Override
@@ -100,10 +94,11 @@ public class GetServiceClassModelFromSourceTest extends AbstractLSTest {
      * @param description The description of the test
      * @param start       The start position of the service declaration node
      * @param end         The end position of the service declaration node
+     * @param context     The context of the service declaration node
      * @param response    The expected response
      */
     private record TestConfig(String filePath, String description, LinePosition start, LinePosition end,
-                              ServiceClass response) {
+                              String context, JsonElement response) {
 
         public String description() {
             return description == null ? "" : description;

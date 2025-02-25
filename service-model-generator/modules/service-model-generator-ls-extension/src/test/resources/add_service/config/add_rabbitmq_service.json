@@ -536,7 +536,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice \"queueName\" on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message) returns error? {\n\t\tdo {\n\t\t\tpanic error(\"Unimplemented function\");\t} on fail error err {\n\t\t\tpanic error(\"Un handled error\");\n\t\t}\n\t}\n}"
+        "newText": "\nservice \"queueName\" on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n}"
       }
     ]
   }
