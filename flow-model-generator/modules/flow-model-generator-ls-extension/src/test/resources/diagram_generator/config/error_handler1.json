@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "msg",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 19
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -246,8 +259,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "res2",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 8,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 8,
+                          "offset": 21
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -747,8 +773,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

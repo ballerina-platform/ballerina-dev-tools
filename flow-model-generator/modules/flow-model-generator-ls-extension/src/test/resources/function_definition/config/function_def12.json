@@ -116,8 +116,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 28
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 32
+                    }
+                  }
+                }
               }
             },
             "optional": false,

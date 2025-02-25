@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "results",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 44,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 44,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -146,8 +159,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WA",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 47,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 47,
+                      "offset": 17
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -316,8 +342,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WB",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 52,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 17
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {

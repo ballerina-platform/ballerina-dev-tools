@@ -107,8 +107,21 @@
             "valueType": "IDENTIFIER",
             "value": "greeting",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 68,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 68,
+                  "offset": 19
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -212,8 +225,21 @@
             "valueType": "IDENTIFIER",
             "value": "squared",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 69,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 69,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -318,8 +344,21 @@
             "valueType": "IDENTIFIER",
             "value": "cubed",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 70,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 70,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -467,8 +506,21 @@
             "valueType": "IDENTIFIER",
             "value": "total",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 72,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 72,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -589,8 +641,21 @@
             "valueType": "IDENTIFIER",
             "value": "result",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 74,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 74,
+                  "offset": 14
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1125,8 +1190,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

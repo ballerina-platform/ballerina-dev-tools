@@ -80,8 +80,21 @@
             "valueType": "IDENTIFIER",
             "value": "bm1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "diagnostics2.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 17
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

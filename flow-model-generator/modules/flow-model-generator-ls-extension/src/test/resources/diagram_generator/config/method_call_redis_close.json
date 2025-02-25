@@ -213,8 +213,21 @@
             "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call_redis.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 30
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
