@@ -19,6 +19,7 @@
 package template.generator;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -424,7 +425,9 @@ public class TriggerTemplateGenerator {
 
         // Write JSON to file with UTF-8 encoding
         try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8)) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
             gson.toJson(jsonElement, writer);
         }
     }
