@@ -16,7 +16,9 @@
     "redis:Client"
   ],
   "Messaging": [
-    "kafka:Client",
+    "kafka:Caller",
+    "kafka:Consumer",
+    "kafka:Producer",
     "rabbitmq:Client"
   ],
   "Cloud": [

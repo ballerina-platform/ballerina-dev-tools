@@ -199,6 +199,54 @@
       "items": [
         {
           "metadata": {
+            "label": "Kafka Caller",
+            "description": "Represents a Kafka caller, which can be used to commit the offsets consumed by the service.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "kafka",
+            "object": "Caller",
+            "symbol": "init",
+            "version": "4.4.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Kafka Consumer",
+            "description": "Represents a Kafka consumer endpoint.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "kafka",
+            "object": "Consumer",
+            "symbol": "init",
+            "version": "4.4.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Kafka Producer",
+            "description": "Represents a Kafka producer endpoint.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "kafka",
+            "object": "Producer",
+            "symbol": "init",
+            "version": "4.4.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Rabbitmq Client",
             "description": "The Ballerina interface to provide AMQP Channel related functionality.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png"

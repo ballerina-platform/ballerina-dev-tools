@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Manages SQLite database operations for searching functions in a package repository.
@@ -286,13 +287,13 @@ public class SearchDatabaseManager {
     /**
      * Searches for connectors that match the given package names and connector names.
      *
-     * @param packageConnectorMap Map containing package names as keys and connector names as values
+     * @param packageConnectorMap List containing the package name and connector name
      * @param limit               The maximum number of results to return
      * @param offset              The number of results to skip
      * @return A list of search results matching the criteria
      * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
      */
-    public List<SearchResult> searchConnectorsByPackage(Map<String, String> packageConnectorMap, int limit, int offset) {
+    public List<SearchResult> searchConnectorsByPackage(List<String> packageConnectorMap, int limit, int offset) {
         List<SearchResult> results = new ArrayList<>();
 
         StringBuilder sqlBuilder = new StringBuilder();
@@ -310,7 +311,7 @@ public class SearchDatabaseManager {
         boolean whereAdded = false;
         if (!packageConnectorMap.isEmpty()) {
             sqlBuilder.append(" WHERE (");
-            for (String packageName : packageConnectorMap.keySet()) {
+            for (String packageName : packageConnectorMap) {
                 if (whereAdded) {
                     sqlBuilder.append(" OR ");
                 }
@@ -326,9 +327,10 @@ public class SearchDatabaseManager {
 
             // Set parameters for package names and connector names
             int paramIndex = 1;
-            for (Map.Entry<String, String> entry : packageConnectorMap.entrySet()) {
-                stmt.setString(paramIndex++, entry.getKey());
-                stmt.setString(paramIndex++, entry.getValue());
+            for (String mapping: packageConnectorMap) {
+                String[] mappingTuple = mapping.split(":");
+                stmt.setString(paramIndex++, mappingTuple[0]);
+                stmt.setString(paramIndex++, mappingTuple[1]);
             }
 
             // Set limit and offset
