@@ -21,8 +21,8 @@
   },
   "name": {
     "metadata": {
-      "label": "Subscription Name",
-      "description": "The name of the subscription"
+      "label": "Field Name",
+      "description": "The name of the field"
     },
     "enabled": true,
     "editable": true,
