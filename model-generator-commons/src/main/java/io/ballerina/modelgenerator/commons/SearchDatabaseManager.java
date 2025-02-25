@@ -28,8 +28,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -85,7 +85,16 @@ public class SearchDatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile;
     }
 
-    public List<SearchResult> searchFunctions(Map<String, String> queryMap) {
+    /**
+     * Searches for functions in the database based on the given query.
+     *
+     * @param q      the search query string
+     * @param limit  the maximum number of results to return
+     * @param offset the offset from which to start returning results
+     * @return a list of search results matching the query
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchFunctions(String q, int limit, int offset) {
         List<SearchResult> results = new ArrayList<>();
         String sql = """
                 SELECT
@@ -109,9 +118,9 @@ public class SearchDatabaseManager {
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, sanitizeQuery(queryMap.get("q")) + "*");
-            stmt.setInt(2, Integer.parseInt(queryMap.get("limit")));
-            stmt.setInt(3, Integer.parseInt(queryMap.get("offset")));
+            stmt.setString(1, sanitizeQuery(q) + "*");
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -135,14 +144,93 @@ public class SearchDatabaseManager {
         return results;
     }
 
+    /**
+     * Searches for functions that match both the given package names and function names.
+     *
+     * @param packageNames  List of package names to search in
+     * @param functionNames List of function names to search for
+     * @param limit         The maximum number of results to return
+     * @param offset        The number of results to skip
+     * @return A list of search results matching the criteria
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchFunctionsByPackages(List<String> packageNames, List<String> functionNames,
+                                                        int limit, int offset) {
+        List<SearchResult> results = new ArrayList<>();
+
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT ")
+                .append("f.name AS function_name, ")
+                .append("f.description AS function_description, ")
+                .append("f.package_id, ")
+                .append("p.name AS package_name, ")
+                .append("p.org AS package_org, ")
+                .append("p.version AS package_version ")
+                .append("FROM Package p ")
+                .append("JOIN Function f ON p.id = f.package_id");
+
+        // Build the SQL query with IN clauses for both packages and functions
+        boolean whereAdded = false;
+        if (!packageNames.isEmpty()) {
+            sqlBuilder.append(" WHERE p.name IN (")
+                    .append(String.join(",", Collections.nCopies(packageNames.size(), "?")))
+                    .append(")");
+            whereAdded = true;
+        }
+        if (!functionNames.isEmpty()) {
+            sqlBuilder.append(whereAdded ? " AND" : " WHERE")
+                    .append(" f.name IN (")
+                    .append(String.join(",", Collections.nCopies(functionNames.size(), "?")))
+                    .append(")");
+        }
+        sqlBuilder.append(" LIMIT ? OFFSET ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sqlBuilder.toString())) {
+
+            // Set parameters for package names
+            int paramIndex = 1;
+            for (String packageName : packageNames) {
+                stmt.setString(paramIndex++, packageName);
+            }
+
+            // Set parameters for function names
+            for (String functionName : functionNames) {
+                stmt.setString(paramIndex++, functionName);
+            }
+
+            // Set limit and offset
+            stmt.setInt(paramIndex++, limit);
+            stmt.setInt(paramIndex++, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("function_name");
+                    String description = rs.getString("function_description");
+                    String org = rs.getString("package_org");
+                    String pkgName = rs.getString("package_name");
+                    String version = rs.getString("package_version");
+
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    results.add(SearchResult.from(packageInfo, name, description));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error searching functions: " + e.getMessage());
+            throw new RuntimeException("Failed to search functions", e);
+        }
+
+        return results;
+    }
+
     private static String sanitizeQuery(String q) {
         if (q == null || q.trim().isEmpty()) {
             return "";
         }
         // Escape quotes and remove special SQLite FTS operators, and only allow alphanumeric characters and spaces
-        return "\"" + q.replace("\"", "\"\"")
+        return q.replace("\"", "\"\"")
                 .replaceAll("(?i)(UNION|SELECT|FROM|OR|AND|WHERE|MATCH|NEAR|NOT)|[^a-zA-Z0-9\\s\"]", " ")
-                .trim() + "\"";
+                .trim();
     }
 
 }

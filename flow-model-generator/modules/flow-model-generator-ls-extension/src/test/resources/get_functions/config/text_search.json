@@ -52,7 +52,152 @@
           "Library"
         ]
       },
-      "items": []
+      "items": [
+        {
+          "metadata": {
+            "label": "io",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileWriteString",
+                "description": "Write a string content to a file.\n```ballerina\nstring content = \"Hello Universe..!!\";\nio:Error? result = io:fileWriteString(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteString",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteJson",
+                "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteJson",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteBytes",
+                "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteBytes",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteXml",
+                "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteXml",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteBlocksFromStream",
+                "description": "Write a byte stream to a file.\n```ballerina\nbyte[] content = [[60, 78, 39, 28]];\nstream<byte[], io:Error?> byteStream = content.toStream();\nio:Error? result = io:fileWriteBlocksFromStream(\"./resources/myfile.txt\", byteStream);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteBlocksFromStream",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteLines",
+                "description": "Write an array of lines to a file.\nDuring the writing operation, a newline character `\\n` will be added after each line.\n```ballerina\nstring[] content = [\"Hello Universe..!!\", \"How are you?\"];\nio:Error? result = io:fileWriteLines(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteLines",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteLinesFromStream",
+                "description": "Write stream of lines to a file.\nDuring the writing operation, a newline character `\\n` will be added after each line.\n```ballerina\nstring content = [\"Hello Universe..!!\", \"How are you?\"];\nstream<string, io:Error?> lineStream = content.toStream();\nio:Error? result = io:fileWriteLinesFromStream(\"./resources/myfile.txt\", lineStream);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteLinesFromStream",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteCsv",
+                "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteCsv",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteCsvFromStream",
+                "description": "Write CSV record stream to a file.\nWhen the input is a `stream<record, io:Error?>` in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nstream<string[], io:Error?> stringStream = content.toStream();\nstream<Coord, io:Error?> recordStream = contentRecord.toStream();\nio:Error? result = io:fileWriteCsvFromStream(\"./resources/myfile.csv\", stringStream);\nio:Error? resultRecord = io:fileWriteCsvFromStream(\"./resources/myfileRecord.csv\", recordStream);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteCsvFromStream",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

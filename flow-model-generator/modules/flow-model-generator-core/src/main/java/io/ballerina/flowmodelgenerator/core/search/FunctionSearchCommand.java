@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,10 +16,8 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core;
+package io.ballerina.flowmodelgenerator.core.search;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -33,7 +31,6 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.SearchDatabaseManager;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Module;
 import io.ballerina.tools.diagnostics.Location;
@@ -41,56 +38,90 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * Generates functions based on a given keyword.
+ * Represents a command to search for functions within a module. This class extends SearchCommand and provides
+ * functionality to search for both project-specific and library functions.
  *
+ * <p>
+ * The search includes:
+ * <li>Functions within the current project/module </li>
+ * <li>Imported functions from dependencies</li>
+ * <li>Available functions from the standard library (if enabled)</li>
+ *
+ * <p>The search results are organized into different categories:</p>
+ * <li>CURRENT_INTEGRATION: Functions from the current project</li>
+ * <li>IMPORTED_FUNCTIONS: Functions from imported modules</li>
+ * <li>AVAILABLE_FUNCTIONS: Functions available but not imported (optional)</li>
+ * </p>
+ *
+ * @see SearchCommand
  * @since 2.0.0
  */
-public class FunctionGenerator {
+class FunctionSearchCommand extends SearchCommand {
 
-    private final Gson gson;
-    private final Module module;
-    private final Category.Builder rootBuilder;
+    private static final Map<String, List<String>> POPULAR_BALLERINA_FUNCTIONS = Map.of(
+            "log", List.of("printInfo", "printDebug", "printError", "printWarn"),
+            "time", List.of("utcNow", "utcFromString"),
+            "io", List.of("print", "println", "fileWriteString", "fileWriteJson", "fileReadString", "fileReadJson")
+    );
+    private final List<String> moduleNames;
 
-    private static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
-    private static final String DATA_MAPPER_FILE_NAME = "data_mappings.bal";
+    public FunctionSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
+        super(module, position, queryMap);
 
-    public FunctionGenerator(Module module) {
-        gson = new Gson();
-        this.module = module;
-        this.rootBuilder = new Category.Builder(null);
+        // Obtain the imported module names
+        module.getCompilation();
+        moduleNames = module.moduleDependencies().stream()
+                .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
+                .toList();
+        // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
+        // List<String> moduleNames = semanticModel.moduleSymbols().stream()
+        // .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
+        // .flatMap(symbol -> symbol.getName().stream())
+        // .toList();
     }
 
-    public JsonArray getFunctions(Map<String, String> queryMap, LineRange position) {
-        buildProjectNodes(queryMap, position);
-
-        Map<String, String> modifiedQueryMap = new HashMap<>(queryMap);
-        if (CommonUtils.hasNoKeyword(queryMap, "limit")) {
-            modifiedQueryMap.put("limit", "20");
+    @Override
+    protected List<Item> defaultView() {
+        buildProjectNodes();
+        List<SearchResult> searchResults = new ArrayList<>();
+        if (!moduleNames.isEmpty()) {
+            searchResults.addAll(dbManager.searchFunctionsByPackages(moduleNames, List.of(), limit, offset));
         }
-        if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
-            modifiedQueryMap.put("offset", "0");
+        if (includeAvailableNodes) {
+            searchResults.addAll(defaultViewHolder.get(this));
         }
-        if (CommonUtils.hasNoKeyword(queryMap, INCLUDE_AVAILABLE_FUNCTIONS_FLAG)) {
-            modifiedQueryMap.put(INCLUDE_AVAILABLE_FUNCTIONS_FLAG, "false");
-        }
-        buildLibraryFunctions(modifiedQueryMap);
-
-        return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
+        buildLibraryNodes(searchResults);
+        return rootBuilder.build().items();
     }
 
-    private void buildProjectNodes(Map<String, String> queryMap, LineRange position) {
+    @Override
+    protected List<Item> search() {
+        buildProjectNodes();
+        List<SearchResult> functionSearchList = dbManager.searchFunctions(query, limit, offset);
+        buildLibraryNodes(functionSearchList);
+        return rootBuilder.build().items();
+    }
+
+    @Override
+    protected List<SearchResult> fetchPopularItems() {
+        List<String> packageNames = new ArrayList<>(POPULAR_BALLERINA_FUNCTIONS.keySet());
+        List<String> functionNames = POPULAR_BALLERINA_FUNCTIONS.values().stream()
+                .flatMap(List::stream)
+                .toList();
+        return dbManager.searchFunctionsByPackages(packageNames, functionNames, limit, offset);
+    }
+
+    private void buildProjectNodes() {
         List<Symbol> functionSymbols = module.getCompilation().getSemanticModel().moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
 
-        String keyword = queryMap.get("q");
         List<Item> availableNodes = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
@@ -106,8 +137,8 @@ public class FunctionGenerator {
             symbol.getName();
 
             if (symbol.getName().isEmpty() ||
-                    (keyword != null && !symbol.getName().get().toLowerCase(Locale.ROOT)
-                            .contains(keyword.toLowerCase(Locale.ROOT)))) {
+                    (!query.isEmpty() && !symbol.getName().get().toLowerCase(Locale.ROOT)
+                            .contains(query.toLowerCase(Locale.ROOT)))) {
                 continue;
             }
 
@@ -122,9 +153,9 @@ public class FunctionGenerator {
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
                     .symbol(symbol.getName().get());
-            Optional<ModuleSymbol> module = functionSymbol.getModule();
-            if (module.isPresent()) {
-                ModuleID id = module.get().id();
+            Optional<ModuleSymbol> moduleSymbol = functionSymbol.getModule();
+            if (moduleSymbol.isPresent()) {
+                ModuleID id = moduleSymbol.get().id();
                 id.packageName();
                 id.moduleName();
             }
@@ -134,34 +165,21 @@ public class FunctionGenerator {
         projectBuilder.items(availableNodes);
     }
 
-    private void buildLibraryFunctions(Map<String, String> queryMap) {
-        // Obtain the imported module names
-        List<String> moduleNames = module.moduleDependencies().stream()
-                .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
-                .toList();
-        // TODO: Use this method when
-        // https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
-        // List<String> moduleNames = semanticModel.moduleSymbols().stream()
-        // .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
-        // .flatMap(symbol -> symbol.getName().stream())
-        // .toList();
-
+    private void buildLibraryNodes(List<SearchResult> functionSearchList) {
         // Set the categories based on the available flags
         Category.Builder importedFnBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
         Category.Builder availableFnBuilder = null;
-        boolean includeAvailableFunctions = queryMap.get(INCLUDE_AVAILABLE_FUNCTIONS_FLAG).equals("true");
-        if (includeAvailableFunctions) {
+        if (includeAvailableNodes) {
             availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
         }
 
         // Add the library functions
-        List<SearchResult> functionSearchList = SearchDatabaseManager.getInstance().searchFunctions(queryMap);
         for (SearchResult searchResult : functionSearchList) {
             SearchResult.Package packageInfo = searchResult.packageInfo();
 
             // Skip if the module is not imported and available functions are not included
             boolean isImportedModule = moduleNames.contains(packageInfo.name());
-            if (!isImportedModule && !includeAvailableFunctions) {
+            if (!isImportedModule && !includeAvailableNodes) {
                 continue;
             }
 
@@ -185,6 +203,5 @@ public class FunctionGenerator {
                         .node(new AvailableNode(metadata, codedata, true));
             }
         }
-        functionSearchList.removeIf(functionResult -> moduleNames.contains(functionResult.packageInfo().name()));
     }
 }

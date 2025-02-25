@@ -29,7 +29,6 @@ import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeHandler;
 import io.ballerina.flowmodelgenerator.core.EnclosedNodeFinder;
 import io.ballerina.flowmodelgenerator.core.ErrorHandlerGenerator;
-import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
@@ -37,6 +36,7 @@ import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.core.search.SearchCommand;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
@@ -358,8 +358,9 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 if (module.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                FunctionGenerator connectorGenerator = new FunctionGenerator(module.get());
-                response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
+                SearchCommand searchCommand = SearchCommand.from(SearchCommand.Kind.FUNCTION, module.get(),
+                        request.position(), request.queryMap());
+                response.setCategories(searchCommand.execute());
             } catch (Throwable e) {
                 response.setError(e);
             }
