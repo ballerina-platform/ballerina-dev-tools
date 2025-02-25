@@ -170,7 +170,7 @@ public class Parameter {
                 new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
                         ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, false),
+                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
                 false, false, false, false, null);
     }

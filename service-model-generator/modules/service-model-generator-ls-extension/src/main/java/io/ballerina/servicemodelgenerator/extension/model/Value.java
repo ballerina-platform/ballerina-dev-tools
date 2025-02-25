@@ -41,7 +41,7 @@ public class Value {
     private boolean addNewButton = false;
 
     public Value(MetaData metadata, String valueType, boolean editable) {
-        this(metadata, editable, false, null, valueType,
+        this(metadata, false, editable, null, valueType,
                 null, false, null, false, false,
                 null, null, null);
     }

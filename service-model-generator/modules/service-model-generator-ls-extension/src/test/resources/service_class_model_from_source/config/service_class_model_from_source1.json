@@ -191,8 +191,8 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": true,
-              "editable": false,
+              "enabled": false,
+              "editable": true,
               "valueType": "TYPE",
               "isType": false,
               "optional": false,
@@ -205,7 +205,7 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": false,
+              "editable": true,
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
@@ -325,8 +325,8 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": true,
-              "editable": false,
+              "enabled": false,
+              "editable": true,
               "valueType": "TYPE",
               "isType": false,
               "optional": false,
@@ -339,7 +339,7 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": false,
+              "editable": true,
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
@@ -525,8 +525,8 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": true,
-              "editable": false,
+              "enabled": false,
+              "editable": true,
               "valueType": "TYPE",
               "isType": false,
               "optional": false,
@@ -539,7 +539,7 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": false,
+              "editable": true,
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
