@@ -19,7 +19,6 @@
 package io.ballerina.servicemodelgenerator.extension.model;
 
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
-import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.Locale;
 import java.util.Objects;

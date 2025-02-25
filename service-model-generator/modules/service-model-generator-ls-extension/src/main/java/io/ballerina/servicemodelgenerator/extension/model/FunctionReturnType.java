@@ -18,8 +18,6 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
