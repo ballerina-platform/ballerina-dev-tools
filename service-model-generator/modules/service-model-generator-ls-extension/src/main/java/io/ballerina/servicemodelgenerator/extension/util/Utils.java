@@ -517,6 +517,7 @@ public final class Utils {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
                 returnType.setEnabled(true);
+                returnType.setEditable(true);
             }
             if (isHttp) {
                 populateHttpResponses(functionDefinitionNode, returnType, semanticModel);

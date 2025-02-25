@@ -131,8 +131,9 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": false,
-              "editable": true,
+              "enabled": true,
+              "editable": false,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -144,7 +145,8 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": true,
+              "editable": false,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -174,7 +176,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
@@ -313,8 +315,9 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": false,
-              "editable": true,
+              "enabled": true,
+              "editable": false,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -326,7 +329,8 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": true,
+              "editable": false,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -356,7 +360,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "string",
           "valueType": "TYPE",
           "isType": false,
@@ -560,8 +564,9 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": false,
-              "editable": true,
+              "enabled": true,
+              "editable": false,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -573,7 +578,8 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": true,
+              "editable": false,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -603,7 +609,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "Profile|error",
           "valueType": "TYPE",
           "isType": false,
@@ -674,8 +680,9 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": false,
-              "editable": true,
+              "enabled": true,
+              "editable": false,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -687,7 +694,8 @@
                 "description": "The name of the parameter"
               },
               "enabled": false,
-              "editable": true,
+              "editable": false,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -717,7 +725,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "stream<string, error?>",
           "valueType": "TYPE",
           "isType": false,

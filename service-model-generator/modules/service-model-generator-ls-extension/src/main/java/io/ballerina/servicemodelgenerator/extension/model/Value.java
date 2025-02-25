@@ -40,6 +40,12 @@ public class Value {
     private List<Value> choices;
     private boolean addNewButton = false;
 
+    public Value(MetaData metadata, String valueType, boolean editable) {
+        this(metadata, editable, false, null, valueType,
+                null, false, null, false, false,
+                null, null, null);
+    }
+
     public Value(MetaData metadata) {
         this(metadata, false, true, null, null,
                 null, false, null, false, false,
