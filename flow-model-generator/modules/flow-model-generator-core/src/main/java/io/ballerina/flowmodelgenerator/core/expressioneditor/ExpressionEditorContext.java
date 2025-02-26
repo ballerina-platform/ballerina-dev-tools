@@ -87,7 +87,8 @@ public class ExpressionEditorContext {
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
-        return nodeKinds.contains(property.nodeKind());
+        NodeKind nodeKind = property.nodeKind();
+        return nodeKind != null && nodeKinds.contains(nodeKind);
     }
 
     public LinePosition getStartLine() {
