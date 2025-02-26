@@ -160,7 +160,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "[int id]/country",
         "description": "",
         "returnType": "string",
@@ -315,7 +315,7 @@
           "REMOTE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "REMOTE",
         "name": "getMake",
         "description": "",
         "returnType": "string",
@@ -465,7 +465,7 @@
             "REMOTE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "REMOTE",
           "name": "getMake",
           "description": "Get the make of the vehicle",
           "returnType": "string",

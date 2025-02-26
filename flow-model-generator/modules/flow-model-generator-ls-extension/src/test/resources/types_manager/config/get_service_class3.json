@@ -81,7 +81,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile21",
         "description": "",
         "returnType": "AbstractProfile",
@@ -131,7 +131,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile",
         "description": "",
         "returnType": "UserProfile",
@@ -189,7 +189,7 @@
             "name": "userName"
           }
         ],
-        "kind": "FUNCTION",
+        "kind": "REMOTE",
         "name": "updateName",
         "description": "",
         "returnType": "UserProfile",
@@ -570,7 +570,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "name",
           "description": "",
           "returnType": "string",
@@ -618,7 +618,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "age",
           "description": "",
           "returnType": "int",
@@ -666,7 +666,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "isAdult",
           "description": "",
           "returnType": "boolean",
