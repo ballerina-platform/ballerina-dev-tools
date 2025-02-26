@@ -144,7 +144,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "name",
         "description": "",
         "returnType": "string",
@@ -279,7 +279,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "name",
           "description": "",
           "returnType": "string",

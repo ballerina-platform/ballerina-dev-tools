@@ -150,7 +150,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "name",
         "description": "",
         "returnType": "string",
@@ -198,7 +198,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "subject",
         "description": "",
         "returnType": "string",
@@ -246,7 +246,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile",
         "description": "",
         "returnType": "Profile",
@@ -383,7 +383,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "name",
           "description": "",
           "returnType": "string",

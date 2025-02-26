@@ -545,6 +545,8 @@ public class TypeTransformer {
 
         List<Qualifier> functionQuals = functionSymbol.qualifiers();
 
+        functionBuilder.kind(Function.FunctionKind.FUNCTION);
+
         // qualifiers
         List<String> qualifiers = new ArrayList<>();
         functionQuals.forEach(q -> {
@@ -558,7 +560,6 @@ public class TypeTransformer {
         functionBuilder.qualifiers(qualifiers);
 
         functionBuilder
-                .kind(Function.FunctionKind.FUNCTION)
                 .docs(getDocumentString(functionSymbol))
                 .name(functionSymbol.getName().orElse(""))
                 .properties()
