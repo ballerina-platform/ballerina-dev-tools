@@ -83,7 +83,7 @@
           "metadata": {
             "label": "lang.int",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.int_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -107,7 +107,7 @@
           "metadata": {
             "label": "lang.decimal",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -131,7 +131,7 @@
           "metadata": {
             "label": "lang.float",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -155,7 +155,7 @@
           "metadata": {
             "label": "lang.future",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.future_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {

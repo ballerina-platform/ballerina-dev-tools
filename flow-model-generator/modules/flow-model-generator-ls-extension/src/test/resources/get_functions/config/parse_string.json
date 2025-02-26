@@ -43,7 +43,7 @@
           "metadata": {
             "label": "data.jsondata",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -80,7 +80,7 @@
           "metadata": {
             "label": "data.xmldata",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.2.1.png"
+            "keywords": []
           },
           "items": [
             {
@@ -104,7 +104,7 @@
           "metadata": {
             "label": "data.yaml",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.yaml_0.7.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -128,7 +128,7 @@
           "metadata": {
             "label": "data.csv",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.csv_0.7.0.png"
+            "keywords": []
           },
           "items": [
             {

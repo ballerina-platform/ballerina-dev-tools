@@ -57,7 +57,7 @@
           "metadata": {
             "label": "crypto",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.8.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -96,7 +96,7 @@
           "metadata": {
             "label": "lang.function",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.function_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -120,7 +120,7 @@
           "metadata": {
             "label": "lang.string",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {

@@ -55,7 +55,7 @@
           "metadata": {
             "label": "lang.float",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -94,7 +94,7 @@
           "metadata": {
             "label": "log",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -176,9 +176,63 @@
         },
         {
           "metadata": {
+            "label": "edifact.d03a.logistics",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "getEDINames",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "getEDINames",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fromEdiString",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "fromEdiString",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "toEdiString",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "toEdiString",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "file",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_file_1.11.0.png"
+            "keywords": []
           },
           "items": [
             {

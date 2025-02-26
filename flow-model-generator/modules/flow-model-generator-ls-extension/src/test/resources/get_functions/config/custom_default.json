@@ -122,123 +122,9 @@
       "items": [
         {
           "metadata": {
-            "label": "data.jsondata",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "parseAsType",
-                "description": "Convert value of type `json` to subtype of `anydata`.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseAsType",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseString",
-                "description": "Converts JSON string to subtype of anydata.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseString",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseBytes",
-                "description": "Converts JSON byte[] to subtype of anydata.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseBytes",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseStream",
-                "description": "Converts JSON byte-block-stream to subtype of anydata.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseStream",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "toJson",
-                "description": "Converts a value of type `anydata` to `json`.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "toJson",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "prettify",
-                "description": "Prettifies a `json` value to print it.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "prettify",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "read",
-                "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "read",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "io",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -433,6 +319,120 @@
                 "module": "io",
                 "symbol": "fileReadXml",
                 "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteString",
+                "description": "Write a string content to a file.\n```ballerina\nstring content = \"Hello Universe..!!\";\nio:Error? result = io:fileWriteString(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteString",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteLines",
+                "description": "Write an array of lines to a file.\nDuring the writing operation, a newline character `\\n` will be added after each line.\n```ballerina\nstring[] content = [\"Hello Universe..!!\", \"How are you?\"];\nio:Error? result = io:fileWriteLines(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteLines",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteLinesFromStream",
+                "description": "Write stream of lines to a file.\nDuring the writing operation, a newline character `\\n` will be added after each line.\n```ballerina\nstring content = [\"Hello Universe..!!\", \"How are you?\"];\nstream<string, io:Error?> lineStream = content.toStream();\nio:Error? result = io:fileWriteLinesFromStream(\"./resources/myfile.txt\", lineStream);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteLinesFromStream",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteJson",
+                "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteJson",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteXml",
+                "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteXml",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "data.jsondata",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "parseAsType",
+                "description": "Convert value of type `json` to subtype of `anydata`.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "parseAsType",
+                "version": "1.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "parseString",
+                "description": "Converts JSON string to subtype of anydata.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "parseString",
+                "version": "1.0.0"
               },
               "enabled": true
             }

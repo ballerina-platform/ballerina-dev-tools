@@ -95,7 +95,8 @@ public class SearchIndexGenerator {
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,
-                                       SearchListGenerator.PackageMetadataInfo packageMetadataInfo, SearchIndexLogger logger) {
+                                       SearchListGenerator.PackageMetadataInfo packageMetadataInfo,
+                                       SearchIndexLogger logger) {
         Package resolvedPackage;
         try {
             resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
