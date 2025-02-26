@@ -19,10 +19,10 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
+import expression.editor.Debouncer;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
-import expression.editor.Debouncer;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.CompletionRequest;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DiagnosticsRequest;
@@ -181,14 +181,15 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         if (document.isPresent()) {
                             String importStatement = codedata.getImportSignature();
                             Document doc = document.get();
-                            FlowNodeExpressionEditorContext flowNodeExpressionEditorContext = new FlowNodeExpressionEditorContext(
-                                    workspaceManagerProxy,
-                                    fileUri,
-                                    Path.of(request.filePath()),
-                                    doc);
-                            Optional<TextEdit> importTextEdit = flowNodeExpressionEditorContext.getImport(importStatement);
+                            FlowNodeExpressionEditorContext expressionEditorContext =
+                                    new FlowNodeExpressionEditorContext(
+                                            workspaceManagerProxy,
+                                            fileUri,
+                                            Path.of(request.filePath()),
+                                            doc);
+                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
                             importTextEdit.ifPresent(
-                                    textEdit -> flowNodeExpressionEditorContext.applyTextEdits(List.of(textEdit)));
+                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
                         }
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
                         break;
@@ -213,17 +214,19 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 String fileUri = CommonUtils.getExprUri(request.filePath());
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
                 if (document.isPresent()) {
-                    FlowNodeExpressionEditorContext flowNodeExpressionEditorContext = new FlowNodeExpressionEditorContext(
-                            workspaceManagerProxy,
-                            fileUri,
-                            Path.of(request.filePath()),
-                            document.get());
+                    FlowNodeExpressionEditorContext flowNodeExpressionEditorContext =
+                            new FlowNodeExpressionEditorContext(
+                                workspaceManagerProxy,
+                                fileUri,
+                                Path.of(request.filePath()),
+                                document.get());
                     String importStatement = request.importStatement()
                             .replaceFirst("^import\\s+", "")
                             .replaceAll(";\\n$", "");
                     Optional<TextEdit> importTextEdit = flowNodeExpressionEditorContext
                             .getImport(importStatement);
-                    importTextEdit.ifPresent(textEdit -> flowNodeExpressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    importTextEdit.ifPresent(textEdit ->
+                            flowNodeExpressionEditorContext.applyTextEdits(List.of(textEdit)));
                     response.setSuccess(true);
                 }
             } catch (Exception e) {

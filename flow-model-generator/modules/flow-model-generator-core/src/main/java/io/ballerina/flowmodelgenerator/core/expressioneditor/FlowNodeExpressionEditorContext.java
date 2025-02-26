@@ -57,12 +57,16 @@ public class FlowNodeExpressionEditorContext extends ExpressionEditorContext {
 
     private final FlowNode flowNode;
 
+    // State variables
+    protected int expressionOffset;
+    protected LineRange statementLineRange;
     private Property property;
+    protected boolean propertyInitialized;
 
     public FlowNodeExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                            Path filePath) {
         super(workspaceManagerProxy, fileUri, info, filePath);
-        this.flowNode = gson.fromJson(info.node(), FlowNode.class);
+        this.flowNode = GSON.fromJson(info.node(), FlowNode.class);
         this.propertyInitialized = false;
     }
 
@@ -226,6 +230,7 @@ public class FlowNodeExpressionEditorContext extends ExpressionEditorContext {
      *
      * @return the cursor position as a Position object
      */
+    @Override
     public Position getCursorPosition() {
         if (statementLineRange == null || info == null) {
             throw new IllegalStateException("Statement line range not initialized. Call generateStatement() first.");

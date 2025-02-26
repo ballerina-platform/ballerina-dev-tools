@@ -46,17 +46,12 @@ import java.util.Optional;
  */
 public abstract class ExpressionEditorContext {
 
-    protected static final Gson gson = new Gson();
+    protected static final Gson GSON = new Gson();
     protected final WorkspaceManagerProxy workspaceManagerProxy;
     protected final String fileUri;
     protected final Info info;
     protected final Path filePath;
     protected final DocumentContext documentContext;
-
-    // State variables
-    protected int expressionOffset;
-    protected LineRange statementLineRange;
-    protected boolean propertyInitialized;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
@@ -64,7 +59,6 @@ public abstract class ExpressionEditorContext {
         this.fileUri = fileUri;
         this.info = info;
         this.filePath = filePath;
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
     }
 
@@ -74,7 +68,6 @@ public abstract class ExpressionEditorContext {
         this.fileUri = fileUri;
         this.filePath = filePath;
         this.info = null;
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
     }
 
@@ -122,13 +115,7 @@ public abstract class ExpressionEditorContext {
      *
      * @return the cursor position as a Position object
      */
-    public Position getCursorPosition() {
-        if (statementLineRange == null || info == null) {
-            throw new IllegalStateException("Statement line range not initialized. Call generateStatement() first.");
-        }
-        return new Position(statementLineRange.startLine().line(),
-                statementLineRange.startLine().offset() + info.offset() + expressionOffset);
-    }
+    public abstract Position getCursorPosition();
 
     /**
      * Applies a list of text edits to the current document and updates the content.

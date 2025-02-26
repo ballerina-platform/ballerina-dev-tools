@@ -91,8 +91,8 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         if (offset > -1) {
             template = template.replace("${1}", " ");
         }
-        FlowNodeExpressionEditorContext.Info info = new FlowNodeExpressionEditorContext.Info(template, startPosition, offset,
-                variableNode, null, "expression");
+        FlowNodeExpressionEditorContext.Info info = new FlowNodeExpressionEditorContext.Info(
+                template, startPosition, offset, variableNode, null, "expression");
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);
         JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");

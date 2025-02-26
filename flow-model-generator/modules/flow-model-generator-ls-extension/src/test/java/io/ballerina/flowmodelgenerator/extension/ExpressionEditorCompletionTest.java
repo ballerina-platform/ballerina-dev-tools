@@ -79,8 +79,9 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
 
         FlowNodeExpressionEditorContext.Info firstContext = testConfig.context();
         FlowNodeExpressionEditorContext.Info info =
-                new FlowNodeExpressionEditorContext.Info("self.classVar > localVar + self. +  21", firstContext.startLine(),
-                        32, firstContext.node(), firstContext.branch(), firstContext.property());
+                new FlowNodeExpressionEditorContext.Info("self.classVar > localVar + self. +  21",
+                        firstContext.startLine(), 32, firstContext.node(), firstContext.branch(),
+                        firstContext.property());
         ExpressionEditorCompletionRequest secondRequest = new ExpressionEditorCompletionRequest(sourcePath, info,
                 testConfig.completionContext());
         JsonObject secondResponse = getResponse(secondRequest);

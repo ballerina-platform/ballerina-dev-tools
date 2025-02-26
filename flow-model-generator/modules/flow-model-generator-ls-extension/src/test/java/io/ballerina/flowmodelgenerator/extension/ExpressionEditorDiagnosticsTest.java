@@ -95,8 +95,9 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
 
         // In the final complete expression, assert that no diagnostics are returned
         FlowNodeExpressionEditorContext.Info context =
-                new FlowNodeExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(), templateContext.offset(),
-                        templateContext.node(), templateContext.branch(), templateContext.property());
+                new FlowNodeExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(),
+                        templateContext.offset(), templateContext.node(), templateContext.branch(),
+                        templateContext.property());
         ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
         JsonObject resp = getResponse(req);
         List<Diagnostic> diagnostics = gson.fromJson(resp.get("diagnostics").getAsJsonArray(), diagnosticsType);

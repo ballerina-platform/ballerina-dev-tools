@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import expression.editor.DebouncedExpressionEditorRequest;
 import expression.editor.ExpressionEditorContext;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
