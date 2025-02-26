@@ -27,6 +27,17 @@
       }
     },
     "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Color",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "isArray": {
         "metadata": {
           "label": "Is array type",

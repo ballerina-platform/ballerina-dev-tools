@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "/graphql",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "qualifiers": {
@@ -265,7 +265,7 @@
           "valueType": "IDENTIFIER",
           "value": "UserName",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -354,7 +354,7 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -449,6 +449,17 @@
         }
       },
       "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "UserProfile",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
         "qualifiers": {
           "metadata": {
             "label": "Type Qualifiers",
@@ -739,7 +750,7 @@
           "valueType": "IDENTIFIER",
           "value": "AbstractProfile",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {

@@ -97,7 +97,7 @@ public class TypeTransformer {
                     .lineRange(serviceDeclarationSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .name(attachPoint, false, true, false)
+                    .name(attachPoint, false, false, false)
                     .qualifiers(qualifiers, true, true, true)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false);
@@ -134,6 +134,7 @@ public class TypeTransformer {
                     .lineRange(classSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
+                    .name(typeName, false, false, false)
                     .qualifiers(qualifiers.stream().map(Qualifier::getValue).toList(), true, true, true)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false)
@@ -208,13 +209,13 @@ public class TypeTransformer {
                     .lineRange(typeDef.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .name(typeName, false, true, false)
+                    .name(typeName, false, false, false)
                     .isPublic(typeDef.qualifiers().contains(Qualifier.PUBLIC), true, true, false);
 
         if (typeDef.documentation().isPresent()) {
             String doc = getDocumentString(typeDef);
             typeDataBuilder
-                    .metadata().description(getDocumentString(typeDef)).stepOut()
+                    .metadata().description(doc).stepOut()
                     .properties().description(doc, false, true, false);
         }
 
@@ -235,13 +236,14 @@ public class TypeTransformer {
                     .lineRange(enumSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
+                    .name(typeName, false, false, false)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false);
 
         if (enumSymbol.documentation().isPresent()) {
             String doc = getDocumentString(enumSymbol);
             typeDataBuilder
-                    .metadata().description(getDocumentString(enumSymbol)).stepOut()
+                    .metadata().description(doc).stepOut()
                     .properties().description(doc, false, true, false);
         }
 

@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "Employees",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "isPublic": {
@@ -178,7 +178,7 @@
           "valueType": "IDENTIFIER",
           "value": "Names",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
