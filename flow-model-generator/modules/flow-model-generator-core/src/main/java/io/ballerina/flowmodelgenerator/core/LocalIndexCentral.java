@@ -140,7 +140,7 @@ public class LocalIndexCentral {
         connectionMap = readJsonResource(CONNECTIONS_JSON, new ConnectionTypeToken().getType());
     }
 
-    private <T> T readJsonResource(String resourcePath, Type type) {
+    public  <T> T readJsonResource(String resourcePath, Type type) {
         InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
         if (resourceStream == null) {
             throw new IllegalArgumentException("Resource not found: " + resourcePath);
