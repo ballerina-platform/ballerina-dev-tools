@@ -1,0 +1,7 @@
+{
+  "projectPath": "proj1",
+  "description": "Project with no ICP related configurations",
+  "response": {
+    "enabled": false
+  }
+}

@@ -56,6 +56,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.JsonConverterTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.FunctionDefinitionTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.XMLConverterTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ICPEnablerTests"/>
             <!--types manager-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>
