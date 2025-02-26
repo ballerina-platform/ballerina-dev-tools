@@ -133,7 +133,7 @@
             "character": 0
           }
         },
-        "newText": "function mapNames(Employee []employees) returns Summary=> {\ntotalSalary: 0, averageAge: () } ;"
+        "newText": "\nfunction mapNames(Employee []employees) returns Summary=> {\ntotalSalary: 0, averageAge: () } ;"
       }
     ]
   }

@@ -16,14 +16,16 @@
     "id": "31",
     "metadata": {
       "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n"
+      "description": "Converts a value of type `anydata` to `json`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "toJson",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "id": 551
     },
     "returning": false,
     "properties": {

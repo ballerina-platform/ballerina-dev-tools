@@ -57,8 +57,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         IMPORTED_FUNCTIONS("Imported Functions", "Functions imported from other integrations",
                 List.of("Imported", "Function", "Library")),
         AVAILABLE_FUNCTIONS("Available Functions", "Functions available in the library",
-                List.of("Available", "Function", "Library")),
-        ;
+                List.of("Available", "Function", "Library"));
 
         final String name;
         final String description;
@@ -103,13 +102,13 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return builder;
         }
 
-        public Builder stepIn(String name, String description, String icon) {
+        public Builder stepIn(String name, String description, List<String> keywords) {
             Builder builder = this.childBuilders.get(name);
             if (builder == null) {
                 builder = new Builder(this).metadata()
                         .label(name)
                         .description(description)
-                        .icon(icon)
+                        .keywords(keywords)
                         .stepOut();
                 this.childBuilders.put(name, builder);
             }

@@ -1,0 +1,69 @@
+{
+  "id": "11",
+  "name": "Salesforce Channel",
+  "type": "event",
+  "displayName": "Salesforce",
+  "description": "",
+  "displayAnnotation": {
+    "label": "Salesforce",
+    "iconPath": ""
+  },
+  "moduleName": "salesforce",
+  "orgName": "ballerinax",
+  "version": "8.1.0",
+  "packageName": "salesforce",
+  "listenerProtocol": "salesforce",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png",
+  "properties": {
+    "listener": {
+      "metadata": {
+        "label": "Listener",
+        "description": "The Listeners to be bound with the service"
+      },
+      "enabled": true,
+      "editable": false,
+      "value": "",
+      "valueType": "MULTIPLE_SELECT",
+      "valueTypeConstraint": "salesforce:Listener",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "items": [],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER"
+      },
+      "addNewButton": false
+    },
+    "serviceType": {
+      "metadata": {
+        "label": "Channel",
+        "description": "The channel name"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "onRestore",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "salesforce:Service",
+      "isType": true,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "items": [
+        "",
+        "Service"
+      ],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "SERVICE_TYPE"
+      },
+      "addNewButton": false
+    }
+  },
+  "functions": []
+}

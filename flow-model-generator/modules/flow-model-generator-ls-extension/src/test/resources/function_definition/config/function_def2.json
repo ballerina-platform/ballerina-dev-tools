@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "add",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 19
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -116,8 +129,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "a",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 6,
+                      "offset": 24
+                    },
+                    "endLine": {
+                      "line": 6,
+                      "offset": 25
+                    }
+                  }
+                }
               }
             },
             "optional": false,
@@ -151,8 +177,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "b",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 6,
+                      "offset": 31
+                    },
+                    "endLine": {
+                      "line": 6,
+                      "offset": 32
+                    }
+                  }
+                }
               }
             },
             "optional": false,

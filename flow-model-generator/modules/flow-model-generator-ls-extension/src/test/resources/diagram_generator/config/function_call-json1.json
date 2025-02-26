@@ -99,8 +99,21 @@
             "valueType": "IDENTIFIER",
             "value": "jsonResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 22,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -213,8 +226,21 @@
             "valueType": "IDENTIFIER",
             "value": "apple",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 23,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 19
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -634,8 +660,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

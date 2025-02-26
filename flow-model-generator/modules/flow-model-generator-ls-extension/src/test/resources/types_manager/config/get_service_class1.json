@@ -27,6 +27,17 @@
       }
     },
     "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Teacher",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "qualifiers": {
         "metadata": {
           "label": "Type Qualifiers",
@@ -150,7 +161,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "name",
         "description": "",
         "returnType": "string",
@@ -198,7 +209,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "subject",
         "description": "",
         "returnType": "string",
@@ -246,7 +257,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile",
         "description": "",
         "returnType": "Profile",
@@ -322,7 +333,7 @@
           "valueType": "IDENTIFIER",
           "value": "Profile",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -383,7 +394,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "name",
           "description": "",
           "returnType": "string",

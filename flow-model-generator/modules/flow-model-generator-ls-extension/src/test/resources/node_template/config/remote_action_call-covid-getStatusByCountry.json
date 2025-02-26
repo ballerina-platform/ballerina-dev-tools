@@ -10,6 +10,7 @@
     "org": "ballerinax",
     "module": "covid19",
     "object": "Client",
+    "version": "1.5.1",
     "symbol": "getStatusByCountry",
     "parentSymbol": "covid19Client"
   },
@@ -26,6 +27,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
+      "version": "1.5.1",
       "id": 725
     },
     "returning": false,

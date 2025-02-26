@@ -1,0 +1,8 @@
+[package]
+org = "org"
+name = "proj2"
+version = "0.1.0"
+distribution = "2201.11.0"
+
+[build-options]
+observabilityIncluded = true

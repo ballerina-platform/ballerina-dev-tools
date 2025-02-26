@@ -28,6 +28,12 @@ public class FunctionReturnType extends Value {
     private List<HttpResponse> responses;
     private Map<String, HttpResponse> schema;
 
+    public FunctionReturnType(Value value) {
+        super(value.getMetadata(), value.isEnabled(), value.isEditable(), value.getValue(), value.getValueType(),
+                value.getValueTypeConstraint(), value.isType(), value.getPlaceholder(), value.isOptional(),
+                value.isAdvanced(), value.getProperties(), value.getItems(), value.getCodedata());
+    }
+
     public FunctionReturnType() {
         this(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA, false, false, null,
                 null, null, false, null, false, false,

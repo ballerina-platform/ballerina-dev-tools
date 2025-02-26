@@ -10,6 +10,7 @@
     "org": "ballerinax",
     "module": "snowflake",
     "object": "Client",
+    "version": "2.1.0",
     "symbol": "query",
     "parentSymbol": "snowflakeCl"
   },
@@ -26,6 +27,7 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "query",
+      "version": "2.1.0",
       "id": 637
     },
     "returning": false,

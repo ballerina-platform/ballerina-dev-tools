@@ -461,8 +461,21 @@
             "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

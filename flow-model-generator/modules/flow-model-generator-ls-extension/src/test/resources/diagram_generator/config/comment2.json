@@ -171,8 +171,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "comment.bal",
+                        "startLine": {
+                          "line": 10,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 10,
+                          "offset": 13
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -231,8 +244,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "x",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "comment.bal",
+                        "startLine": {
+                          "line": 11,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 11,
+                          "offset": 13
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {

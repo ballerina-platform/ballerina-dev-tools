@@ -156,8 +156,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 243,
+                          "offset": 20
+                        },
+                        "endLine": {
+                          "line": 243,
+                          "offset": 28
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -216,8 +229,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "'type",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 244,
+                          "offset": 23
+                        },
+                        "endLine": {
+                          "line": 244,
+                          "offset": 28
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {

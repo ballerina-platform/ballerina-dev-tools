@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "update_data.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 1,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

@@ -16,14 +16,16 @@
     "id": "31",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0"
+      "version": "2.10.0",
+      "id": 81
     },
     "returning": false,
     "properties": {

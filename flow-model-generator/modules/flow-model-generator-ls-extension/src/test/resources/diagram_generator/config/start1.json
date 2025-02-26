@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureVar",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "start.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 1,
+                  "offset": 25
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

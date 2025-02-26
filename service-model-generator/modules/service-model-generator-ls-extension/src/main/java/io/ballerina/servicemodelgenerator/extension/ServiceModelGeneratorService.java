@@ -610,6 +610,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 } else {
                     updateListenerModel(listenerModel, listenerNode);
                 }
+                Value nameProperty = listenerModel.getProperty("name");
+                if (Objects.nonNull(nameProperty)) {
+                    ListenerUtil.addCodedataForListenerName(nameProperty, listenerNode);
+                }
                 return new ListenerFromSourceResponse(listenerModel);
             } catch (Exception e) {
                 return new ListenerFromSourceResponse(e);

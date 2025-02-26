@@ -18,7 +18,8 @@
     "id": "31",
     "metadata": {
       "label": "close",
-      "description": "Close the connection.\n"
+      "description": "Close the connection.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
       "node": "METHOD_CALL",
@@ -34,9 +35,10 @@
       "connection": {
         "metadata": {
           "label": "Connection",
-          "description": "connection"
+          "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "redis:Client",
         "value": "rc",
         "optional": false,
         "editable": false,

@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 33,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 33,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -198,8 +211,21 @@
             "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 34,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 34,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

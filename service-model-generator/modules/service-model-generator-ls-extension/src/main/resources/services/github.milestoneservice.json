@@ -1,76 +1,84 @@
 {
-  "id": 3,
-  "name": "GitHub Channel",
+  "id": "12",
+  "name": "Github Channel",
   "type": "event",
-  "displayName": "GitHub",
-  "documentation": "The GitHub service can be attached to  GitHub channel which listens to GitHub events and triggers the service when a GitHub event is received",
+  "displayName": "Github",
+  "description": "",
+  "displayAnnotation": {
+    "label": "Github",
+    "iconPath": ""
+  },
   "moduleName": "trigger.github",
   "orgName": "ballerinax",
-  "packageName": "trigger.github",
   "version": "0.9.2",
+  "packageName": "trigger.github",
   "listenerProtocol": "github",
   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_trigger.github_0.9.2.png",
-  "displayAnnotation": {
-    "label": "GitHub",
-    "iconPath": "docs/icon.png"
-  },
   "properties": {
     "listener": {
       "metadata": {
-        "label": "Listeners",
+        "label": "Listener",
         "description": "The Listeners to be bound with the service"
-      },
-      "codedata": {
-        "type": "LISTENER"
       },
       "enabled": true,
       "editable": false,
       "value": "",
-      "values": [],
       "valueType": "MULTIPLE_SELECT",
       "valueTypeConstraint": "github:Listener",
       "isType": false,
       "placeholder": "",
       "optional": false,
       "advanced": false,
-      "addNewButton": true
+      "items": [],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER"
+      },
+      "addNewButton": false
     },
     "serviceType": {
-        "metadata": {
-            "label": "Channel",
-            "description": "The channel name"
-        },
-        "codedata": {
-            "type": "SERVICE_TYPE"
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "MilestoneService",
-        "valueType": "SINGLE_SELECT",
-        "valueTypeConstraint": "github:GenericServiceType",
-        "isType": true,
-        "placeholder": "",
-        "optional": false,
-        "advanced": false,
-        "items": [
-          "IssuesService",
-          "IssueCommentService",
-          "PullRequestService",
-          "PullRequestReviewService",
-          "PullRequestReviewCommentService",
-          "ReleaseService",
-          "LabelService",
-          "MilestoneService",
-          "PushService",
-          "ProjectCardService"
-      ]
+      "metadata": {
+        "label": "Channel",
+        "description": "The channel name"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "MilestoneService",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "github:IssuesService|github:IssueCommentService|github:PullRequestService|github:PullRequestReviewService|github:PullRequestReviewCommentService|github:ReleaseService|github:LabelService|github:MilestoneService|github:PushService|github:ProjectCardService",
+      "isType": true,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "items": [
+        "",
+        "IssuesService",
+        "IssueCommentService",
+        "PullRequestService",
+        "PullRequestReviewService",
+        "PullRequestReviewCommentService",
+        "ReleaseService",
+        "LabelService",
+        "MilestoneService",
+        "PushService",
+        "ProjectCardService"
+      ],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "SERVICE_TYPE"
+      },
+      "addNewButton": false
     }
   },
   "functions": [
     {
       "metadata": {
         "label": "onCreated",
-        "description": "Triggers when a new milestone is created."
+        "description": ""
       },
       "kind": "REMOTE",
       "name": {
@@ -78,20 +86,17 @@
         "editable": false,
         "value": "onCreated",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "onCreated",
         "optional": false,
-        "advanced": false
+        "advanced": false,
+        "items": [],
+        "addNewButton": false
       },
-      "enabled": true,
-      "optional": false,
-      "editable": false,
       "parameters": [
         {
           "metadata": {
             "label": "payload",
-            "description": "The information about the triggered event."
+            "description": ""
           },
           "kind": "REQUIRED",
           "type": {
@@ -99,48 +104,45 @@
             "editable": false,
             "value": "github:MilestoneEvent",
             "valueType": "TYPE",
-            "valueTypeConstraint": "string",
             "isType": true,
-            "placeholder": "github:MilestoneEvent",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "name": {
             "enabled": true,
             "editable": true,
             "value": "payload",
             "valueType": "IDENTIFIER",
-            "valueTypeConstraint": "string",
             "isType": false,
-            "placeholder": "payload",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "optional": false
+          "editable": false,
+          "optional": false,
+          "advanced": false
         }
       ],
       "returnType": {
-        "metadata": {
-          "label": "error?",
-          "description": "Error object."
-        },
         "enabled": true,
-        "editable": true,
-        "value": "error?",
+        "editable": false,
+        "value": "error|()",
         "valueType": "TYPE",
-        "valueTypeConstraint": "error?",
         "isType": true,
-        "placeholder": "error?",
-        "optional": true,
-        "advanced": false
-      }
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true
     },
     {
       "metadata": {
         "label": "onEdited",
-        "description": "Triggers when a milestone is edited."
+        "description": ""
       },
       "kind": "REMOTE",
       "name": {
@@ -148,20 +150,17 @@
         "editable": false,
         "value": "onEdited",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "onEdited",
         "optional": false,
-        "advanced": false
+        "advanced": false,
+        "items": [],
+        "addNewButton": false
       },
-      "enabled": true,
-      "optional": false,
-      "editable": false,
       "parameters": [
         {
           "metadata": {
             "label": "payload",
-            "description": "The information about the triggered event."
+            "description": ""
           },
           "kind": "REQUIRED",
           "type": {
@@ -169,48 +168,45 @@
             "editable": false,
             "value": "github:MilestoneEvent",
             "valueType": "TYPE",
-            "valueTypeConstraint": "string",
             "isType": true,
-            "placeholder": "github:MilestoneEvent",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "name": {
             "enabled": true,
             "editable": true,
             "value": "payload",
             "valueType": "IDENTIFIER",
-            "valueTypeConstraint": "string",
             "isType": false,
-            "placeholder": "payload",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "optional": false
+          "editable": false,
+          "optional": false,
+          "advanced": false
         }
       ],
       "returnType": {
-        "metadata": {
-          "label": "error?",
-          "description": "Error object."
-        },
         "enabled": true,
-        "editable": true,
-        "value": "error?",
+        "editable": false,
+        "value": "error|()",
         "valueType": "TYPE",
-        "valueTypeConstraint": "error?",
         "isType": true,
-        "placeholder": "error?",
-        "optional": true,
-        "advanced": false
-      }
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true
     },
     {
       "metadata": {
         "label": "onDeleted",
-        "description": "Triggers when a milestone is deleted."
+        "description": ""
       },
       "kind": "REMOTE",
       "name": {
@@ -218,20 +214,17 @@
         "editable": false,
         "value": "onDeleted",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "onDeleted",
         "optional": false,
-        "advanced": false
+        "advanced": false,
+        "items": [],
+        "addNewButton": false
       },
-      "enabled": true,
-      "optional": false,
-      "editable": false,
       "parameters": [
         {
           "metadata": {
             "label": "payload",
-            "description": "The information about the triggered event."
+            "description": ""
           },
           "kind": "REQUIRED",
           "type": {
@@ -239,48 +232,45 @@
             "editable": false,
             "value": "github:MilestoneEvent",
             "valueType": "TYPE",
-            "valueTypeConstraint": "string",
             "isType": true,
-            "placeholder": "github:MilestoneEvent",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "name": {
             "enabled": true,
             "editable": true,
             "value": "payload",
             "valueType": "IDENTIFIER",
-            "valueTypeConstraint": "string",
             "isType": false,
-            "placeholder": "payload",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "optional": false
+          "editable": false,
+          "optional": false,
+          "advanced": false
         }
       ],
       "returnType": {
-        "metadata": {
-          "label": "error?",
-          "description": "Error object."
-        },
         "enabled": true,
-        "editable": true,
-        "value": "error?",
+        "editable": false,
+        "value": "error|()",
         "valueType": "TYPE",
-        "valueTypeConstraint": "error?",
         "isType": true,
-        "placeholder": "error?",
-        "optional": true,
-        "advanced": false
-      }
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true
     },
     {
       "metadata": {
         "label": "onClosed",
-        "description": "Triggers when a milestone is closed."
+        "description": ""
       },
       "kind": "REMOTE",
       "name": {
@@ -288,20 +278,17 @@
         "editable": false,
         "value": "onClosed",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "onClosed",
         "optional": false,
-        "advanced": false
+        "advanced": false,
+        "items": [],
+        "addNewButton": false
       },
-      "enabled": true,
-      "optional": false,
-      "editable": false,
       "parameters": [
         {
           "metadata": {
             "label": "payload",
-            "description": "The information about the triggered event."
+            "description": ""
           },
           "kind": "REQUIRED",
           "type": {
@@ -309,48 +296,45 @@
             "editable": false,
             "value": "github:MilestoneEvent",
             "valueType": "TYPE",
-            "valueTypeConstraint": "string",
             "isType": true,
-            "placeholder": "github:MilestoneEvent",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "name": {
             "enabled": true,
             "editable": true,
             "value": "payload",
             "valueType": "IDENTIFIER",
-            "valueTypeConstraint": "string",
             "isType": false,
-            "placeholder": "payload",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "optional": false
+          "editable": false,
+          "optional": false,
+          "advanced": false
         }
       ],
       "returnType": {
-        "metadata": {
-          "label": "error?",
-          "description": "Error object."
-        },
         "enabled": true,
-        "editable": true,
-        "value": "error?",
+        "editable": false,
+        "value": "error|()",
         "valueType": "TYPE",
-        "valueTypeConstraint": "error?",
         "isType": true,
-        "placeholder": "error?",
-        "optional": true,
-        "advanced": false
-      }
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true
     },
     {
       "metadata": {
         "label": "onOpened",
-        "description": "Triggers when a milestone is opened."
+        "description": ""
       },
       "kind": "REMOTE",
       "name": {
@@ -358,20 +342,17 @@
         "editable": false,
         "value": "onOpened",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "onOpened",
         "optional": false,
-        "advanced": false
+        "advanced": false,
+        "items": [],
+        "addNewButton": false
       },
-      "enabled": true,
-      "optional": false,
-      "editable": false,
       "parameters": [
         {
           "metadata": {
             "label": "payload",
-            "description": "The information about the triggered event."
+            "description": ""
           },
           "kind": "REQUIRED",
           "type": {
@@ -379,43 +360,40 @@
             "editable": false,
             "value": "github:MilestoneEvent",
             "valueType": "TYPE",
-            "valueTypeConstraint": "string",
             "isType": true,
-            "placeholder": "github:MilestoneEvent",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "name": {
             "enabled": true,
             "editable": true,
             "value": "payload",
             "valueType": "IDENTIFIER",
-            "valueTypeConstraint": "string",
             "isType": false,
-            "placeholder": "payload",
             "optional": false,
-            "advanced": false
+            "advanced": false,
+            "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "optional": false
+          "editable": false,
+          "optional": false,
+          "advanced": false
         }
       ],
       "returnType": {
-        "metadata": {
-          "label": "error?",
-          "description": "Error object."
-        },
         "enabled": true,
-        "editable": true,
-        "value": "error?",
+        "editable": false,
+        "value": "error|()",
         "valueType": "TYPE",
-        "valueTypeConstraint": "error?",
         "isType": true,
-        "placeholder": "error?",
-        "optional": true,
-        "advanced": false
-      }
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true
     }
   ]
 }

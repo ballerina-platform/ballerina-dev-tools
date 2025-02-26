@@ -80,8 +80,21 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -170,7 +183,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -180,6 +193,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 15
+                }
+              }
             }
           },
           "type": {
@@ -281,8 +307,21 @@
             "valueType": "IDENTIFIER",
             "value": "var2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -374,7 +413,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -384,6 +423,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 12
+                }
+              }
             }
           },
           "type": {
@@ -473,7 +525,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -483,6 +535,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 15
+                }
+              }
             }
           },
           "type": {

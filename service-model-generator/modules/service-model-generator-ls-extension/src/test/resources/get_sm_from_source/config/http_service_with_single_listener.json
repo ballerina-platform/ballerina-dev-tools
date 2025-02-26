@@ -40,9 +40,9 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:httpListener",
           "httpListener",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -132,7 +132,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
@@ -338,6 +338,11 @@
             "advanced": true
           },
           {
+            "metadata": {
+              "label": "header",
+              "description": "header"
+            },
+            "kind": "REQUIRED",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -358,12 +363,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "header",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 15,
+                    "offset": 69
+                  },
+                  "endLine": {
+                    "line": 15,
+                    "offset": 75
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -385,6 +406,11 @@
             "httpParamType": "HEADER"
           },
           {
+            "metadata": {
+              "label": "id",
+              "description": "id"
+            },
+            "kind": "DEFAULTABLE",
             "type": {
               "metadata": {
                 "label": "Parameter Type",
@@ -405,12 +431,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "id",
               "valueType": "EXPRESSION",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 15,
+                    "offset": 81
+                  },
+                  "endLine": {
+                    "line": 15,
+                    "offset": 83
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {

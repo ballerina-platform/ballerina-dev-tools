@@ -466,7 +466,7 @@ public class ServiceModelAPITests {
         Service service = response.service();
         Assert.assertTrue(Objects.nonNull(response.service()));
         Value serviceType = service.getServiceType();
-        Assert.assertEquals(serviceType.getItems().size(), 10);
+        Assert.assertEquals(serviceType.getItems().size(), 11);
 
         request = new ServiceModelRequest(filePath.toAbsolutePath().toString(), "ballerinax",
                 "trigger.github", "githubTestListener");
@@ -475,7 +475,7 @@ public class ServiceModelAPITests {
         service = response.service();
         Assert.assertTrue(Objects.nonNull(response.service()));
         serviceType = service.getServiceType();
-        Assert.assertEquals(serviceType.getItems().size(), 8);
+        Assert.assertEquals(serviceType.getItems().size(), 9);
     }
 
     @Test(enabled = false)

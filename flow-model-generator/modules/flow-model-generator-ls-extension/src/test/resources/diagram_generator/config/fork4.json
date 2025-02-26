@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "results",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 65,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 65,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -146,8 +159,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "First",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 68,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 68,
+                      "offset": 20
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -316,8 +342,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "Second",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 73,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 73,
+                      "offset": 21
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -524,8 +563,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "Third",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 78,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 78,
+                      "offset": 20
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {

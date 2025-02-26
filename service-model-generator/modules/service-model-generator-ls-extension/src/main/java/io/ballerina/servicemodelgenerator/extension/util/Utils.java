@@ -517,6 +517,7 @@ public final class Utils {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
                 returnType.setEnabled(true);
+                returnType.setEditable(true);
             }
             if (isHttp) {
                 populateHttpResponses(functionDefinitionNode, returnType, semanticModel);
@@ -719,16 +720,18 @@ public final class Utils {
 
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
-            String paramName = parameter.paramName().get().toString().trim();
+            Token paramNameToken = parameter.paramName().get();
+            String paramName = paramNameToken.toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp);
+                    parameter.annotations(), paramNameToken.lineRange(), isHttp);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
+            Token paramNameToken = parameter.paramName().get();
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
                     ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp);
+                    parameter.annotations(), paramNameToken.lineRange(), isHttp);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
@@ -740,7 +743,8 @@ public final class Utils {
 
 
     private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
-                                             NodeList<AnnotationNode> annotationNodes, boolean isHttp) {
+                                             NodeList<AnnotationNode> annotationNodes, LineRange lineRange,
+                                             boolean isHttp) {
         Parameter parameterModel = Parameter.getNewParameter();
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
@@ -762,6 +766,8 @@ public final class Utils {
         name.setValue(paramName);
         name.setValueType(valueType);
         name.setEnabled(true);
+        name.setEditable(false);
+        name.setCodedata(new Codedata(lineRange));
         parameterModel.setEnabled(true);
         return parameterModel;
     }
@@ -1067,10 +1073,6 @@ public final class Utils {
         if (!value.getValue().trim().isEmpty()) {
             return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
                     String.format("\"%s\"", value.getValue()) : value.getValue();
-        }
-        if (!value.getPlaceholder().trim().isEmpty()) {
-            return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
-                    String.format("\"%s\"", value.getPlaceholder()) : value.getPlaceholder();
         }
         Map<String, Value> properties = value.getProperties();
         if (Objects.isNull(properties)) {

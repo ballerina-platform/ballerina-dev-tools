@@ -23,12 +23,22 @@
         <Bug pattern="BC_UNCONFIRMED_CAST"/>
     </Match>
     <Match>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+    <Match>
+        <Class name="io.ballerina.modelgenerator.commons.SearchDatabaseManager" />
+        <Method name="searchFunctionsByPackages" />
+        <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+    </Match>
+    <Match>
         <Class name="io.ballerina.indexgenerator.DatabaseManager"/>
         <Method name="createDatabase"/>
         <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
     </Match>
     <Match>
-        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+        <Class name="io.ballerina.indexgenerator.SearchDatabaseManager"/>
+        <Method name="createDatabase"/>
+        <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
     </Match>
     <Match>
         <Class name="io.ballerina.modelgenerator.commons.AbstractLSTest"/>
