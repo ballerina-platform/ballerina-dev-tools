@@ -526,13 +526,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder expressionWithType(Property type, Property variable) {
-            // Handle module prefixed types.
-            // Transform <prefix>.<module>:<Type> to <module>:<Type>.
-            // Example: lang.jsondata:Error -> jsondata:Error
-            String regex = "([A-Za-z]\\w*)\\.([A-Za-z]\\w*):([A-Za-z]\\w*)";
-            String typeName = type.toSourceCode().replaceAll(regex, "$2:$3");
-
-            sb.append(typeName).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
+            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
             return this;
         }
 

@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json|data.jsondata:Error",
+        "value": "json|jsondata:Error",
         "optional": false,
         "editable": true,
         "advanced": false
