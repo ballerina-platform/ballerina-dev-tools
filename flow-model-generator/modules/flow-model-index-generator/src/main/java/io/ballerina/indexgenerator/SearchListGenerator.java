@@ -44,6 +44,7 @@ class SearchListGenerator {
     private static final int LIMIT = 50;
     public static final String PACKAGE_JSON_FILE = "search_list.json";
     private static final Logger LOGGER = Logger.getLogger(SearchListGenerator.class.getName());
+    private static final Map<String, String> SKIPPED_PACKAGE_LIST = Map.of("ballerina", "xmldata");
 
     public static void main(String[] args) {
         List<PackageMetadataInfo> ballerinaPackages = getPackageList("ballerina");
@@ -51,6 +52,12 @@ class SearchListGenerator {
 
         Map<String, List<PackageMetadataInfo>> packagesMap =
                 Map.of("ballerina", ballerinaPackages, "ballerinax", ballerinaxPackages);
+
+        // Remove the skipped package list
+        SKIPPED_PACKAGE_LIST.forEach((org, pkg) -> {
+            packagesMap.get(org).removeIf(packageMetadataInfo -> packageMetadataInfo.name().equals(pkg));
+        });
+
         Gson gson = new Gson();
 
         String destinationPath = Path.of("flow-model-generator/modules/flow-model-index-generator/src/main/resources")
