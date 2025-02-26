@@ -8,73 +8,27 @@
       "offset": 8
     },
     "offset": 0,
-    "node": {
-      "id": "31",
-      "metadata": {
-        "label": "utcFromCivil",
-        "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```"
-      },
-      "codedata": {
-        "node": "FUNCTION_CALL",
-        "org": "ballerina",
-        "module": "time",
-        "symbol": "utcFromCivil",
-        "version": "2.5.0"
-      },
-      "returning": false,
-      "properties": {
-        "civilTime": {
-          "metadata": {
-            "label": "civilTime",
-            "description": "`time:Civil` time"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "time:Civil",
-          "value": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
-          "placeholder": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "kind": "REQUIRED"
-        },
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "time:Utc",
-          "placeholder": "var",
-          "optional": false,
-          "editable": false,
-          "advanced": false
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "value": "timeUtc",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "checkError": {
-          "metadata": {
-            "label": "Check Error",
-            "description": "Trigger error flow"
-          },
-          "valueType": "FLAG",
-          "value": true,
-          "optional": false,
-          "editable": true,
-          "advanced": true
-        }
-      },
-      "flags": 0
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "time",
+      "symbol": "utcFromCivil",
+      "version": "2.5.0"
     },
-    "property": "civilTime"
+    "property": {
+      "metadata": {
+        "label": "civilTime",
+        "description": "`time:Civil` time"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "time:Civil",
+      "value": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
+      "placeholder": "{year: 0, month: 0, day: 0, hour: 0, minute: 0}",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "kind": "REQUIRED"
+    }
   },
   "diagnostics": [
     {

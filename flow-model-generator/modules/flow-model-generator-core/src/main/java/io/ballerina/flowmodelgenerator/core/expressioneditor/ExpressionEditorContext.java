@@ -24,9 +24,7 @@ import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
@@ -60,15 +58,13 @@ public class ExpressionEditorContext {
     private final WorkspaceManagerProxy workspaceManagerProxy;
     private final String fileUri;
     private final Info info;
-    private final FlowNode flowNode;
     private final Path filePath;
     private final DocumentContext documentContext;
+    private final Property property;
 
     // State variables
     private int expressionOffset;
     private LineRange statementLineRange;
-    private Property property;
-    private boolean propertyInitialized;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
@@ -76,9 +72,8 @@ public class ExpressionEditorContext {
         this.fileUri = fileUri;
         this.info = info;
         this.filePath = filePath;
-        this.flowNode = gson.fromJson(info.node(), FlowNode.class);
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
+        this.property = new Property(info.property(), info.codedata());
     }
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
@@ -87,33 +82,12 @@ public class ExpressionEditorContext {
         this.fileUri = fileUri;
         this.filePath = filePath;
         this.info = null;
-        this.flowNode = null;
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
-    }
-
-    public Property getProperty() {
-        if (propertyInitialized) {
-            return property;
-        }
-        if (info.property() == null || info.property().isEmpty()) {
-            this.property = null;
-        } else if (info.branch() == null || info.branch().isEmpty()) {
-            this.property = flowNode.getProperty(info.property()).orElse(null);
-        } else {
-            this.property = flowNode.getBranch(info.branch())
-                    .flatMap(branch -> branch.getProperty(info.property()))
-                    .orElse(null);
-        }
-        propertyInitialized = true;
-        return property;
+        this.property = new Property(null, null);
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
-        if (flowNode == null || flowNode.codedata() == null) {
-            return false;
-        }
-        return nodeKinds.contains(flowNode.codedata().node());
+        return nodeKinds.contains(property.nodeKind());
     }
 
     public LinePosition getStartLine() {
@@ -137,8 +111,8 @@ public class ExpressionEditorContext {
 
     // TODO: Check how we can use SourceBuilder in place of this method
     private Optional<TextEdit> getImport() {
-        String org = flowNode.codedata().org();
-        String module = flowNode.codedata().module();
+        String org = property.org();
+        String module = property.module();
 
         if (org == null || module == null || CommonUtils.isPredefinedLangLib(org, module)) {
             return Optional.empty();
@@ -190,7 +164,6 @@ public class ExpressionEditorContext {
      */
     public LineRange generateStatement() {
         String prefix = "var __reserved__ = ";
-        Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
 
         if (property != null) {
@@ -200,12 +173,10 @@ public class ExpressionEditorContext {
             }
 
             // Add the import statements of the dependent types
-            if (property.codedata() != null) {
-                String importStatements = property.codedata().importStatements();
-                if (importStatements != null && !importStatements.isEmpty()) {
-                    for (String importStmt : importStatements.split(",")) {
-                        getImport(importStmt).ifPresent(textEdits::add);
-                    }
+            String importStatements = property.importStatements();
+            if (importStatements != null && !importStatements.isEmpty()) {
+                for (String importStmt : importStatements.split(",")) {
+                    getImport(importStmt).ifPresent(textEdits::add);
                 }
             }
         }
@@ -292,18 +263,122 @@ public class ExpressionEditorContext {
         return workspaceManagerProxy.get(fileUri);
     }
 
+    public Property getProperty() {
+        return property;
+    }
+
+    public static class Property {
+
+        private final JsonObject property;
+        private final JsonObject codedata;
+        private boolean initialized;
+
+        // Property values
+        private String value;
+        private String valueType;
+        private String typeConstraint;
+
+        // Codedata values
+        private String importStatements;
+        private String org;
+        private String module;
+        private NodeKind nodeKind;
+
+        private static final String VALUE_KEY = "value";
+        private static final String VALUE_TYPE_KEY = "valueType";
+        private static final String TYPE_CONSTRAINT_KEY = "valueTypeConstraint";
+        private static final String CODEDATA_KEY = "codedata";
+        private static final String IMPORT_STATEMENTS_KEY = "importStatements";
+        private static final String ORG_KEY = "org";
+        private static final String MODULE_KEY = "module";
+        private static final String NODE_KEY = "node";
+
+        public Property(JsonObject property, JsonObject codedata) {
+            this.property = property;
+            this.codedata = codedata;
+            this.initialized = false;
+        }
+
+        private void initialize() {
+            if (initialized) {
+                return;
+            }
+            if (property == null) {
+                value = "";
+                typeConstraint = "any";
+            } else {
+                value = property.has(VALUE_KEY) ? property.get(VALUE_KEY).getAsString() : "";
+                valueType = property.has(VALUE_TYPE_KEY) ? property.get(VALUE_TYPE_KEY).getAsString() : "";
+                typeConstraint =
+                        property.has(TYPE_CONSTRAINT_KEY) ? property.get(TYPE_CONSTRAINT_KEY).getAsString() : "any";
+                JsonObject propertyCodedata =
+                        property.has(CODEDATA_KEY) ? property.getAsJsonObject(CODEDATA_KEY) : null;
+                if (propertyCodedata != null) {
+                    importStatements = propertyCodedata.has(IMPORT_STATEMENTS_KEY)
+                            ? propertyCodedata.get(IMPORT_STATEMENTS_KEY).getAsString() : "";
+                }
+            }
+
+            if (codedata == null) {
+                importStatements = "";
+                org = "";
+                module = "";
+                nodeKind = null;
+            } else {
+                org = codedata.has(ORG_KEY) ? codedata.get(ORG_KEY).getAsString() : "";
+                module = codedata.has(MODULE_KEY) ? codedata.get(MODULE_KEY).getAsString() : "";
+                nodeKind = codedata.has(NODE_KEY) ? NodeKind.valueOf(codedata.get(NODE_KEY).getAsString()) : null;
+            }
+            initialized = true;
+        }
+
+        public String value() {
+            initialize();
+            return value;
+        }
+
+        public String valueType() {
+            initialize();
+            return valueType;
+        }
+
+        public String valueTypeConstraint() {
+            initialize();
+            return typeConstraint;
+        }
+
+        public String importStatements() {
+            initialize();
+            return importStatements;
+        }
+
+        public String org() {
+            initialize();
+            return org;
+        }
+
+        public String module() {
+            initialize();
+            return module;
+        }
+
+        public NodeKind nodeKind() {
+            initialize();
+            return nodeKind;
+        }
+    }
+
     /**
      * Represents the json format of the expression editor context.
      *
      * @param expression The modified expression
      * @param startLine  The start line of the node
      * @param offset     The offset of cursor compared to the start of the expression
-     * @param node       The node which contains the expression
-     * @param branch     The branch of the expression if exists
+     * @param codedata   The codedata of the expression
      * @param property   The property of the expression
      */
-    public record Info(String expression, LinePosition startLine, int offset, JsonObject node,
-                       String branch, String property) {
+    public record Info(String expression, LinePosition startLine, int offset, JsonObject codedata,
+                       JsonObject property) {
     }
 
     /**
