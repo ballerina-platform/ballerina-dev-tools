@@ -561,9 +561,9 @@ public class TypeTransformer {
                 .docs(getDocumentString(functionSymbol))
                 .name(functionSymbol.getName().orElse(""))
                 .properties()
-                .isPrivate(functionQuals.contains(Qualifier.PRIVATE), true, true, false)
-                .isPublic(functionQuals.contains(Qualifier.PUBLIC), true, true, false)
-                .isIsolated(functionQuals.contains(Qualifier.ISOLATED), true, true, false);
+                    .isPrivate(functionQuals.contains(Qualifier.PRIVATE), true, true, false)
+                    .isPublic(functionQuals.contains(Qualifier.PUBLIC), true, true, false)
+                    .isIsolated(functionQuals.contains(Qualifier.ISOLATED), true, true, false);
 
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
 
