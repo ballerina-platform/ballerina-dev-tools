@@ -46,6 +46,7 @@ dependencies {
     implementation "org.ballerinalang:language-server-core:${ballerinaLangVersion}"
     implementation "org.ballerinalang:diagram-util:${ballerinaLangVersion}"
     implementation "org.ballerinalang:json-mapper:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:toml-parser:${ballerinaLangVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
     testImplementation "org.testng:testng:${testngVersion}"
@@ -101,11 +102,11 @@ task copyStdlibs() {
     }
 }
 
-test.dependsOn rootProject.pullBallerinaModule('redis')
-test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce')
-test.dependsOn rootProject.pullBallerinaModule('github')
-test.dependsOn rootProject.pullBallerinaModule('snowflake')
-test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin')
+//test.dependsOn rootProject.pullBallerinaModule('redis')
+//test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce')
+//test.dependsOn rootProject.pullBallerinaModule('github')
+//test.dependsOn rootProject.pullBallerinaModule('snowflake')
+//test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin')
 
 test {
     dependsOn {

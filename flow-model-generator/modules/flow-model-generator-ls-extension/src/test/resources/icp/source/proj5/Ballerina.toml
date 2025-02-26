@@ -6,4 +6,4 @@ distribution = "2201.11.0"
 
 [build-options]
 observabilityIncluded = true
-remoteManagement = true
+remoteManagement=false

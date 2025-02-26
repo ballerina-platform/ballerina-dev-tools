@@ -32,11 +32,11 @@ public class ICPEnabledResponse extends AbstractFlowModelResponse {
     public ICPEnabledResponse() {
     }
 
-    public ICPEnabledResponse(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
