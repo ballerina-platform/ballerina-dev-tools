@@ -36,6 +36,7 @@ import io.ballerina.projects.directory.BuildProject;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -89,7 +90,7 @@ public class SearchIndexGenerator {
                         gson.fromJson(jsonContent, new TypeToken<Map<String, List<String>>>() { }.getType());
                 excludeMap.forEach(SearchDatabaseManager::deleteConnector);
             }
-        } catch (Exception e) {
+        } catch (URISyntaxException | IOException e) {
             LOGGER.severe("Error reading connector_exclude.json file: " + e.getMessage());
         }
     }

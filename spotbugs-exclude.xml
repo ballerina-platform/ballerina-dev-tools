@@ -31,6 +31,16 @@
         <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
     </Match>
     <Match>
+        <Class name="io.ballerina.indexgenerator.DatabaseManager"/>
+        <Method name="createDatabase"/>
+        <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+    </Match>
+    <Match>
+        <Class name="io.ballerina.indexgenerator.SearchDatabaseManager"/>
+        <Method name="createDatabase"/>
+        <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+    </Match>
+    <Match>
         <Class name="io.ballerina.modelgenerator.commons.AbstractLSTest"/>
         <Or>
             <Bug pattern="MS_PKGPROTECT"/>
