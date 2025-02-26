@@ -20,16 +20,6 @@
       "event"
     ]
   },
-  "3": {
-    "name": "trigger.github",
-    "orgName": "ballerinax",
-    "packageName": "trigger.github",
-    "keywords": [
-      "event",
-      "github",
-      "trigger"
-    ]
-  },
   "6": {
     "name": "ftp",
     "orgName": "ballerina",
@@ -50,6 +40,24 @@
       "file",
       "directory",
       "service",
+      "event"
+    ]
+  },
+  "11": {
+    "name": "salesforce",
+    "orgName": "ballerinax",
+    "packageName": "salesforce",
+    "keywords": [
+      "salesforce",
+      "event"
+    ]
+  },
+  "12": {
+    "name": "trigger.github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "github",
       "event"
     ]
   }

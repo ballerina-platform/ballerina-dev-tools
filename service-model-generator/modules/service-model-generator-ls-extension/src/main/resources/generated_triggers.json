@@ -1,0 +1,12 @@
+{
+  "11": {
+    "orgName": "ballerinax",
+    "packageName": "salesforce",
+    "version": "8.1.0"
+  },
+  "12": {
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "version": "0.9.2"
+  }
+}

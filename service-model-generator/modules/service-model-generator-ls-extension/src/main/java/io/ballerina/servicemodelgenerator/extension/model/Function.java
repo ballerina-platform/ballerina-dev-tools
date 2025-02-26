@@ -171,4 +171,84 @@ public class Function {
     public void setSchema(Map<String, Parameter> schema) {
         this.schema = schema;
     }
+
+    public static class FunctionBuilder {
+        private MetaData metadata;
+        private List<String> qualifiers;
+        private String kind;
+        private Value accessor;
+        private Value name;
+        private List<Parameter> parameters;
+        private Map<String, Parameter> schema;
+        private FunctionReturnType returnType;
+        private boolean enabled;
+        private boolean optional;
+        private boolean editable;
+        private Codedata codedata;
+
+        public FunctionBuilder setMetadata(MetaData metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public FunctionBuilder setQualifiers(List<String> qualifiers) {
+            this.qualifiers = qualifiers;
+            return this;
+        }
+
+        public FunctionBuilder setKind(String kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        public FunctionBuilder setAccessor(Value accessor) {
+            this.accessor = accessor;
+            return this;
+        }
+
+        public FunctionBuilder setName(Value name) {
+            this.name = name;
+            return this;
+        }
+
+        public FunctionBuilder setParameters(List<Parameter> parameters) {
+            this.parameters = parameters;
+            return this;
+        }
+
+        public FunctionBuilder setSchema(Map<String, Parameter> schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public FunctionBuilder setReturnType(FunctionReturnType returnType) {
+            this.returnType = returnType;
+            return this;
+        }
+
+        public FunctionBuilder setEnabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public FunctionBuilder setOptional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public FunctionBuilder setEditable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public FunctionBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public Function build() {
+            return new Function(metadata, qualifiers, kind, accessor, name, parameters, schema, returnType, enabled,
+                    optional, editable, codedata);
+        }
+    }
 }
