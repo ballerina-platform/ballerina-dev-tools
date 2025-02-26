@@ -30,9 +30,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * Manages SQLite database operations for searching functions in a package repository.
@@ -104,7 +102,7 @@ public class SearchDatabaseManager {
                     f.name AS function_name,
                     f.description AS function_description,
                     f.package_id,
-                    p.name AS package_name, 
+                    p.name AS package_name,
                     p.org AS package_org,
                     p.version AS package_version,
                     fts.rank
@@ -113,7 +111,7 @@ public class SearchDatabaseManager {
                 JOIN Package AS p ON f.package_id = p.id
                 WHERE fts.FunctionFTS MATCH ?
                 ORDER BY fts.rank
-                LIMIT ? 
+                LIMIT ?
                 OFFSET ?;
                 """;
 
@@ -163,7 +161,7 @@ public class SearchDatabaseManager {
                     c.name AS connector_name,
                     c.description AS connector_description,
                     c.package_id,
-                    p.name AS package_name, 
+                    p.name AS package_name,
                     p.org AS package_org,
                     p.version AS package_version,
                     fts.rank
@@ -172,7 +170,7 @@ public class SearchDatabaseManager {
                 JOIN Package AS p ON c.package_id = p.id
                 WHERE fts.ConnectorFTS MATCH ?
                 ORDER BY fts.rank
-                LIMIT ? 
+                LIMIT ?
                 OFFSET ?;
                 """;
 
@@ -262,7 +260,7 @@ public class SearchDatabaseManager {
 
             // Set limit and offset
             stmt.setInt(paramIndex++, limit);
-            stmt.setInt(paramIndex++, offset);
+            stmt.setInt(paramIndex, offset);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -308,15 +306,13 @@ public class SearchDatabaseManager {
                 .append("JOIN Connector c ON p.id = c.package_id");
 
         // Build the SQL query with IN clauses for both packages and connectors
-        boolean whereAdded = false;
         if (!packageConnectorMap.isEmpty()) {
             sqlBuilder.append(" WHERE (");
-            for (String packageName : packageConnectorMap) {
-                if (whereAdded) {
+            for (int i = 0; i < packageConnectorMap.size(); i++) {
+                if (i > 0) {
                     sqlBuilder.append(" OR ");
                 }
                 sqlBuilder.append("(p.name = ? AND c.name = ?)");
-                whereAdded = true;
             }
             sqlBuilder.append(")");
         }
@@ -327,7 +323,7 @@ public class SearchDatabaseManager {
 
             // Set parameters for package names and connector names
             int paramIndex = 1;
-            for (String mapping: packageConnectorMap) {
+            for (String mapping : packageConnectorMap) {
                 String[] mappingTuple = mapping.split(":");
                 stmt.setString(paramIndex++, mappingTuple[0]);
                 stmt.setString(paramIndex++, mappingTuple[1]);
@@ -335,7 +331,7 @@ public class SearchDatabaseManager {
 
             // Set limit and offset
             stmt.setInt(paramIndex++, limit);
-            stmt.setInt(paramIndex++, offset);
+            stmt.setInt(paramIndex, offset);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

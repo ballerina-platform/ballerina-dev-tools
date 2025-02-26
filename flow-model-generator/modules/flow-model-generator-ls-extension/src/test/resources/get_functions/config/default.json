@@ -55,7 +55,7 @@
           "metadata": {
             "label": "io",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -154,7 +154,7 @@
           "metadata": {
             "label": "log",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -223,7 +223,7 @@
           "metadata": {
             "label": "time",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+            "keywords": []
           },
           "items": [
             {
