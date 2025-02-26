@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.extension.request.CreateFilesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
@@ -30,7 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Tests for the flow model source generator service.
+ * Tests for the `isIcpEnabled` service.
  *
  * @since 2.0.0
  */
