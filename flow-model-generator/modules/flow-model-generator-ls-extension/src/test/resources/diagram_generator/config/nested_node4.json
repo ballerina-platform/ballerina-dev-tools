@@ -305,8 +305,21 @@
                                     "valueType": "IDENTIFIER",
                                     "value": "j",
                                     "optional": false,
-                                    "editable": true,
-                                    "advanced": false
+                                    "editable": false,
+                                    "advanced": false,
+                                    "codedata": {
+                                      "lineRange": {
+                                        "fileName": "nested_node.bal",
+                                        "startLine": {
+                                          "line": 32,
+                                          "offset": 25
+                                        },
+                                        "endLine": {
+                                          "line": 32,
+                                          "offset": 26
+                                        }
+                                      }
+                                    }
                                   },
                                   "type": {
                                     "metadata": {
@@ -460,8 +473,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "k",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "nested_node.bal",
+                                "startLine": {
+                                  "line": 35,
+                                  "offset": 21
+                                },
+                                "endLine": {
+                                  "line": 35,
+                                  "offset": 22
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -604,8 +630,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "l",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "nested_node.bal",
+                        "startLine": {
+                          "line": 37,
+                          "offset": 17
+                        },
+                        "endLine": {
+                          "line": 37,
+                          "offset": 18
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -1006,8 +1045,21 @@
             "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

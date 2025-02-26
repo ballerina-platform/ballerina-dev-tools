@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "getCounter",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 42,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 42,
+              "offset": 28
+            }
+          }
+        }
       },
       "type": {
         "metadata": {

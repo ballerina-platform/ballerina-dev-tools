@@ -35,6 +35,7 @@ import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,8 @@ public class ServiceClassUtil {
 
         builder.name(classDef.className().text().trim())
                 .type(getClassType(classDef))
-                .properties(Map.of("name", buildClassNameProperty(classDef.className().text().trim())))
+                .properties(Map.of("name", buildClassNameProperty(classDef.className().text().trim(),
+                        classDef.className().lineRange())))
                 .codedata(new Codedata(classDef.lineRange()))
                 .functions(functions)
                 .fields(fields);
@@ -89,10 +91,12 @@ public class ServiceClassUtil {
         return classDef.classTypeQualifiers().get(0).text().trim();
     }
 
-    private static Value buildClassNameProperty(String className) {
+    private static Value buildClassNameProperty(String className, LineRange lineRange) {
         Value value = new Value();
         value.setMetadata(new MetaData("Class Name", "The name of the class definition"));
+        value.setCodedata(new Codedata(lineRange));
         value.setEnabled(true);
+        value.setEditable(false);
         value.setValue(className);
         value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         value.setValueTypeConstraint("string");
@@ -124,10 +128,10 @@ public class ServiceClassUtil {
             accessor.setEnabled(true);
             accessor.setEditable(true);
             updateFunctionNameProperty(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
-                    true);
+                    functionDef.functionName().lineRange());
         } else {
             updateFunctionNameProperty(functionModel.getName(), functionDef.functionName().text().trim(),
-                    kind != FunctionKind.INIT);
+                    functionDef.functionName().lineRange());
         }
 
         FunctionSignatureNode functionSignatureNode = functionDef.functionSignature();
@@ -167,6 +171,8 @@ public class ServiceClassUtil {
         name.setValue(objectField.fieldName().text().trim());
         name.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         name.setEnabled(true);
+        name.setEditable(false);
+        name.setCodedata(new Codedata(objectField.fieldName().lineRange()));
         parameterModel.setEnabled(true);
         if (objectField.expression().isPresent()) {
             Value defaultValue = parameterModel.getDefaultValue();
@@ -197,11 +203,12 @@ public class ServiceClassUtil {
         return FunctionKind.DEFAULT;
     }
 
-    private static void updateFunctionNameProperty(Value value, String functionName, boolean editable) {
+    private static void updateFunctionNameProperty(Value value, String functionName, LineRange lineRange) {
         value.setMetadata(new MetaData("Function Name", "The name of the function"));
         value.setEnabled(true);
-        value.setEditable(editable);
+        value.setEditable(false);
         value.setValue(functionName);
+        value.setCodedata(new Codedata(lineRange));
         value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
         value.setValueTypeConstraint("string");
         value.setPlaceholder("");

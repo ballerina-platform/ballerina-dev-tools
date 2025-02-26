@@ -85,8 +85,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "W1",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 154,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 154,
+                      "offset": 13
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -168,8 +181,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "W2",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 158,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 158,
+                      "offset": 13
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -268,8 +294,21 @@
             "valueType": "IDENTIFIER",
             "value": "value",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 162,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 162,
+                  "offset": 16
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

@@ -194,8 +194,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "key",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 19,
+                          "offset": 19
+                        },
+                        "endLine": {
+                          "line": 19,
+                          "offset": 22
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -325,8 +338,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "cacheValue",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 21,
+                          "offset": 20
+                        },
+                        "endLine": {
+                          "line": 21,
+                          "offset": 30
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -516,8 +542,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "main.bal",
+                                "startLine": {
+                                  "line": 26,
+                                  "offset": 21
+                                },
+                                "endLine": {
+                                  "line": 26,
+                                  "offset": 28
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -775,8 +814,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "response",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "main.bal",
+                                "startLine": {
+                                  "line": 33,
+                                  "offset": 21
+                                },
+                                "endLine": {
+                                  "line": 33,
+                                  "offset": 29
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -872,8 +924,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "value",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "main.bal",
+                                "startLine": {
+                                  "line": 36,
+                                  "offset": 24
+                                },
+                                "endLine": {
+                                  "line": 36,
+                                  "offset": 29
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -1026,8 +1091,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "convertedAmount",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "main.bal",
+                                "startLine": {
+                                  "line": 38,
+                                  "offset": 24
+                                },
+                                "endLine": {
+                                  "line": 38,
+                                  "offset": 39
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -1248,8 +1326,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "main.bal",
+                                "startLine": {
+                                  "line": 44,
+                                  "offset": 21
+                                },
+                                "endLine": {
+                                  "line": 44,
+                                  "offset": 28
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -1984,8 +2075,21 @@
             "valueType": "IDENTIFIER",
             "value": "currencyClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 11,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 32
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -2126,8 +2230,21 @@
             "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 30
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

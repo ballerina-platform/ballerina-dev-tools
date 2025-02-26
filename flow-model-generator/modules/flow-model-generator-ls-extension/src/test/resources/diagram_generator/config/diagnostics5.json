@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "a",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "functions.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 1,
+                  "offset": 12
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

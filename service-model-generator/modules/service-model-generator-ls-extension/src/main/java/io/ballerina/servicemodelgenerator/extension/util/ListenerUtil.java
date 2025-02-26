@@ -30,6 +30,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
@@ -146,6 +147,11 @@ public class ListenerUtil {
         }
         properties.put("defaultListener", ListenerUtil.getHttpDefaultListenerValue());
         listenerModel.setProperties(properties);
+    }
+
+    public static void addCodedataForListenerName(Value value, ListenerDeclarationNode listenerNode) {
+        value.setCodedata(new Codedata(listenerNode.variableName().lineRange()));
+        value.setEditable(false);
     }
 
     public static Value getHttpDefaultListenerValue() {

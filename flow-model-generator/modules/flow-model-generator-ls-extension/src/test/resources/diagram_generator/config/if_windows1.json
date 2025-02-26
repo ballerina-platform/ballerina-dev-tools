@@ -134,8 +134,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "a",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node_windows.bal",
+                        "startLine": {
+                          "line": 16,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 16,
+                          "offset": 17
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -216,8 +229,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "b",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node_windows.bal",
+                        "startLine": {
+                          "line": 18,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 18,
+                          "offset": 17
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -276,8 +302,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "c",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node_windows.bal",
+                        "startLine": {
+                          "line": 19,
+                          "offset": 19
+                        },
+                        "endLine": {
+                          "line": 19,
+                          "offset": 20
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -665,8 +704,21 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if_node_windows.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 22
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

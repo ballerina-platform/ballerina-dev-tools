@@ -399,8 +399,21 @@
             "valueType": "IDENTIFIER",
             "value": "localHttpCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 27
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -540,8 +553,21 @@
             "valueType": "IDENTIFIER",
             "value": "localRedisCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 17
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 29
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -653,8 +679,21 @@
             "valueType": "IDENTIFIER",
             "value": "moduleHttpCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 24
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1035,8 +1074,21 @@
             "valueType": "IDENTIFIER",
             "value": "moduleHttpExCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 11,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 26
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1176,8 +1228,21 @@
             "valueType": "IDENTIFIER",
             "value": "moduleRedisCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 26
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -1317,8 +1382,21 @@
             "valueType": "IDENTIFIER",
             "value": "moduleRedisExCl",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_connection.bal",
+                "startLine": {
+                  "line": 12,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 12,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

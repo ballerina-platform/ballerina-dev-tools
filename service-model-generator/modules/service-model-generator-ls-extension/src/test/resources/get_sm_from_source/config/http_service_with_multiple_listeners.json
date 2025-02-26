@@ -44,10 +44,10 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "default:httpListener",
           "httpListener",
-          "new http:Listener(port = 8080)",
-          "githubListener"
+          "githubListener",
+          "(+) Create and use the default HTTP listener",
+          "new http:Listener(port = 8080)"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -137,7 +137,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,

@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 173,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 173,
+                  "offset": 31
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -137,8 +150,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureResult1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 174,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 174,
+                  "offset": 32
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -197,8 +223,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureResult2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 175,
+                  "offset": 25
+                },
+                "endLine": {
+                  "line": 175,
+                  "offset": 38
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -257,8 +296,21 @@
             "valueType": "IDENTIFIER",
             "value": "futures",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 176,
+                  "offset": 27
+                },
+                "endLine": {
+                  "line": 176,
+                  "offset": 34
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -403,8 +455,21 @@
             "valueType": "IDENTIFIER",
             "value": "val1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 178,
+                  "offset": 17
+                },
+                "endLine": {
+                  "line": 178,
+                  "offset": 21
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -549,8 +614,21 @@
             "valueType": "IDENTIFIER",
             "value": "mapResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 179,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 179,
+                  "offset": 31
+                }
+              }
+            }
           },
           "type": {
             "metadata": {

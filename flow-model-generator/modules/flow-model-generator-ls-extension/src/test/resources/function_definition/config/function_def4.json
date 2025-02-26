@@ -33,8 +33,21 @@
         "valueType": "IDENTIFIER",
         "value": "sum",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "function_def.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 19
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
@@ -116,8 +129,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "numbers",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "function_def.bal",
+                    "startLine": {
+                      "line": 16,
+                      "offset": 27
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 34
+                    }
+                  }
+                }
               }
             },
             "optional": false,
