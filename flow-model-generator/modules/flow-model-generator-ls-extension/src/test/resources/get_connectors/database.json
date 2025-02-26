@@ -292,22 +292,6 @@
     },
     {
       "metadata": {
-        "label": "Googleapis.clouddatastore Client",
-        "description": "This is a generated connector for [Google Cloud Datastore REST API v1](https://cloud.google.com/datastore/docs/reference/data/rest) OpenAPI specification.\nThe Google Cloud Datastore API provides the capability to access the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.clouddatastore_1.5.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "googleapis.clouddatastore",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.5.1"
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Files.com Client",
         "description": "This is a generated connector from [Files.com API v1.0](https://www.files.com/) OpenAPI specification.\nWelcome to the Files.com API. Our REST API are designed for people who require the highest level of integration between Files.com and their own application, website, or database.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_files.com_1.5.1.png"
@@ -316,6 +300,22 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "files.com",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.5.1"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Googleapis.clouddatastore Client",
+        "description": "This is a generated connector for [Google Cloud Datastore REST API v1](https://cloud.google.com/datastore/docs/reference/data/rest) OpenAPI specification.\nThe Google Cloud Datastore API provides the capability to access the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.clouddatastore_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "googleapis.clouddatastore",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1"
