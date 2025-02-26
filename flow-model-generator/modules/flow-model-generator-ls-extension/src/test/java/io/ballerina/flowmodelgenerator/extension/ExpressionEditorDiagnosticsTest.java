@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.Diagnostic;
@@ -70,7 +70,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         // Load the template test config
         Path configJsonPath = configDir.resolve("variable1.json");
         TestConfig templateTestConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        ExpressionEditorContext.Info templateContext = templateTestConfig.context();
+        FlowNodeExpressionEditorContext.Info templateContext = templateTestConfig.context();
         String sourcePath = getSourcePath(templateTestConfig.filePath());
         String method = getServiceName() + "/" + getApiName();
         notifyDidOpen(sourcePath);
@@ -85,7 +85,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
                 "fn({id: 0",
         };
         for (int i = 0; i < expressionSteps.length - 1; i++) {
-            ExpressionEditorContext.Info context = new ExpressionEditorContext.Info(expressionSteps[i],
+            FlowNodeExpressionEditorContext.Info context = new FlowNodeExpressionEditorContext.Info(expressionSteps[i],
                     templateContext.startLine(), templateContext.offset(), templateContext.node(),
                     templateContext.branch(), templateContext.property());
             ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
@@ -94,8 +94,8 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         }
 
         // In the final complete expression, assert that no diagnostics are returned
-        ExpressionEditorContext.Info context =
-                new ExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(), templateContext.offset(),
+        FlowNodeExpressionEditorContext.Info context =
+                new FlowNodeExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(), templateContext.offset(),
                         templateContext.node(), templateContext.branch(), templateContext.property());
         ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
         JsonObject resp = getResponse(req);
@@ -124,7 +124,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+    private record TestConfig(String description, String filePath, FlowNodeExpressionEditorContext.Info context,
                               List<Diagnostic> diagnostics) {
     }
 }

@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import org.eclipse.lsp4j.CompletionContext;
 
 /**
@@ -28,6 +28,6 @@ import org.eclipse.lsp4j.CompletionContext;
  * @param context           The context of the expression editor
  * @param completionContext The completion completionContext
  */
-public record ExpressionEditorCompletionRequest(String filePath, ExpressionEditorContext.Info context,
+public record ExpressionEditorCompletionRequest(String filePath, FlowNodeExpressionEditorContext.Info context,
                                                 CompletionContext completionContext) {
 }

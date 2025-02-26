@@ -18,11 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
+import expression.editor.ExpressionEditorContext;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
@@ -43,7 +44,7 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
     private static final String REDECLARED_SYMBOL = "redeclared symbol '%s'";
     private static final DiagnosticErrorCode REDECLARED_SYMBOL_ERROR_CODE = DiagnosticErrorCode.REDECLARED_SYMBOL;
 
-    public IdentifierDiagnosticsRequest(ExpressionEditorContext context) {
+    public IdentifierDiagnosticsRequest(FlowNodeExpressionEditorContext context) {
         super(context);
     }
 

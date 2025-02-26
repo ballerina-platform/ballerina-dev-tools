@@ -30,4 +30,5 @@ module io.ballerina.model.generator.commons {
     requires java.sql;
 
     exports io.ballerina.modelgenerator.commons;
+    exports expression.editor;
 }

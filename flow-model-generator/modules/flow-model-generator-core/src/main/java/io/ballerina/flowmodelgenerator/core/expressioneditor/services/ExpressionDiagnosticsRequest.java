@@ -18,10 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
+import expression.editor.ExpressionEditorContext;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LineRange;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
  */
 public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
-    public ExpressionDiagnosticsRequest(ExpressionEditorContext context) {
+    public ExpressionDiagnosticsRequest(FlowNodeExpressionEditorContext context) {
         super(context);
     }
 

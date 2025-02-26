@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
+import expression.editor.ExpressionEditorContext;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -25,7 +26,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
@@ -48,7 +49,7 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
     private static final String INVALID_SUBTYPE = "expected a subtype of '%s', but found '%s'";
     private static final DiagnosticErrorCode UNKNOWN_TYPE_ERROR_CODE = DiagnosticErrorCode.UNKNOWN_TYPE;
 
-    public TypeDiagnosticRequest(ExpressionEditorContext context) {
+    public TypeDiagnosticRequest(FlowNodeExpressionEditorContext context) {
         super(context);
     }
 
@@ -91,7 +92,7 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
         }
 
         // Check if the type is a subtype of the type constraint
-        Object typeConstraint = context.getProperty().valueTypeConstraint();
+        Object typeConstraint = ((FlowNodeExpressionEditorContext) context).getProperty().valueTypeConstraint();
         if (typeConstraint == null) {
             return diagnostics;
         }

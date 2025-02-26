@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
@@ -64,8 +64,8 @@ public class ImportModuleTest extends AbstractLSTest {
         Assert.assertTrue(successResponse.get("success").getAsBoolean(), "Module snippet request failed");
 
         // Send diagnostics request
-        ExpressionEditorContext.Info info =
-                new ExpressionEditorContext.Info(testConfig.expression(), LinePosition.from(1, 0),
+        FlowNodeExpressionEditorContext.Info info =
+                new FlowNodeExpressionEditorContext.Info(testConfig.expression(), LinePosition.from(1, 0),
                         0, variableNode, null, "expression");
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);

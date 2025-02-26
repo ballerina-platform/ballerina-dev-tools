@@ -16,9 +16,8 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
+package expression.editor;
 
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.tools.text.TextDocument;
 
 import java.util.concurrent.Callable;

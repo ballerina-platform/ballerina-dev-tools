@@ -22,8 +22,8 @@ import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.Debouncer;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import expression.editor.Debouncer;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.CompletionRequest;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.SignatureHelpRequest;
@@ -121,7 +121,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new SignatureHelpRequest(
-                new ExpressionEditorContext(
+                new FlowNodeExpressionEditorContext(
                         workspaceManagerProxy,
                         fileUri,
                         request.context(),
@@ -136,7 +136,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorCompletionRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(new CompletionRequest(
-                new ExpressionEditorContext(
+                new FlowNodeExpressionEditorContext(
                         workspaceManagerProxy,
                         fileUri,
                         request.context(),
@@ -151,7 +151,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorDiagnosticsRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(DiagnosticsRequest.from(
-                new ExpressionEditorContext(
+                new FlowNodeExpressionEditorContext(
                         workspaceManagerProxy,
                         fileUri,
                         request.context(),
@@ -181,14 +181,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         if (document.isPresent()) {
                             String importStatement = codedata.getImportSignature();
                             Document doc = document.get();
-                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                            FlowNodeExpressionEditorContext flowNodeExpressionEditorContext = new FlowNodeExpressionEditorContext(
                                     workspaceManagerProxy,
                                     fileUri,
                                     Path.of(request.filePath()),
                                     doc);
-                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                            Optional<TextEdit> importTextEdit = flowNodeExpressionEditorContext.getImport(importStatement);
                             importTextEdit.ifPresent(
-                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                                    textEdit -> flowNodeExpressionEditorContext.applyTextEdits(List.of(textEdit)));
                         }
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
                         break;
@@ -213,7 +213,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 String fileUri = CommonUtils.getExprUri(request.filePath());
                 Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
                 if (document.isPresent()) {
-                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                    FlowNodeExpressionEditorContext flowNodeExpressionEditorContext = new FlowNodeExpressionEditorContext(
                             workspaceManagerProxy,
                             fileUri,
                             Path.of(request.filePath()),
@@ -221,9 +221,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                     String importStatement = request.importStatement()
                             .replaceFirst("^import\\s+", "")
                             .replaceAll(";\\n$", "");
-                    Optional<TextEdit> importTextEdit = expressionEditorContext
+                    Optional<TextEdit> importTextEdit = flowNodeExpressionEditorContext
                             .getImport(importStatement);
-                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    importTextEdit.ifPresent(textEdit -> flowNodeExpressionEditorContext.applyTextEdits(List.of(textEdit)));
                     response.setSuccess(true);
                 }
             } catch (Exception e) {

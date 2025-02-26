@@ -18,7 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import expression.editor.DebouncedExpressionEditorRequest;
+import expression.editor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.SignatureHelp;
 import org.eclipse.lsp4j.SignatureHelpContext;
@@ -39,7 +41,7 @@ public class SignatureHelpRequest extends DebouncedExpressionEditorRequest<Signa
     private final SignatureHelpContext signatureHelpContext;
     private final TextDocumentService textDocumentService;
 
-    public SignatureHelpRequest(ExpressionEditorContext context,
+    public SignatureHelpRequest(FlowNodeExpressionEditorContext context,
                                 SignatureHelpContext signatureHelpContext,
                                 TextDocumentService textDocumentService) {
         super(context);

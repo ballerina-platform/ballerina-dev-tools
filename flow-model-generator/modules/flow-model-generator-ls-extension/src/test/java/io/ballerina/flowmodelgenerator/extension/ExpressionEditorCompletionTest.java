@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.CompletionContext;
@@ -77,9 +77,9 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
                 testConfig.context(), testConfig.completionContext());
         getResponse(request);
 
-        ExpressionEditorContext.Info firstContext = testConfig.context();
-        ExpressionEditorContext.Info info =
-                new ExpressionEditorContext.Info("self.classVar > localVar + self. +  21", firstContext.startLine(),
+        FlowNodeExpressionEditorContext.Info firstContext = testConfig.context();
+        FlowNodeExpressionEditorContext.Info info =
+                new FlowNodeExpressionEditorContext.Info("self.classVar > localVar + self. +  21", firstContext.startLine(),
                         32, firstContext.node(), firstContext.branch(), firstContext.property());
         ExpressionEditorCompletionRequest secondRequest = new ExpressionEditorCompletionRequest(sourcePath, info,
                 testConfig.completionContext());
@@ -111,7 +111,7 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+    private record TestConfig(String description, String filePath, FlowNodeExpressionEditorContext.Info context,
                               CompletionContext completionContext, List<CompletionItem> completions) {
     }
 }

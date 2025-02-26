@@ -18,8 +18,10 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
+import expression.editor.DebouncedExpressionEditorRequest;
+import expression.editor.ExpressionEditorContext;
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.eclipse.lsp4j.Diagnostic;
@@ -39,11 +41,11 @@ import java.util.stream.StreamSupport;
  */
 public abstract class DiagnosticsRequest extends DebouncedExpressionEditorRequest<DiagnosticsRequest.Diagnostics> {
 
-    public DiagnosticsRequest(ExpressionEditorContext context) {
+    public DiagnosticsRequest(FlowNodeExpressionEditorContext context) {
         super(context);
     }
 
-    public static DiagnosticsRequest from(ExpressionEditorContext context) {
+    public static DiagnosticsRequest from(FlowNodeExpressionEditorContext context) {
         Property property = context.getProperty();
         if (property == null) {
             throw new IllegalArgumentException("Property cannot be null");

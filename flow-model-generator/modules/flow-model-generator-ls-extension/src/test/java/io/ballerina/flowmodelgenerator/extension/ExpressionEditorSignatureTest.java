@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.SignatureHelpContext;
@@ -82,7 +82,7 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String filePath, ExpressionEditorContext.Info context,
+    private record TestConfig(String description, String filePath, FlowNodeExpressionEditorContext.Info context,
                               SignatureHelpContext signatureHelpContext, JsonElement signatureHelp) {
     }
 }

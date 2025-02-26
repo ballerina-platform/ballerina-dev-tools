@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.FlowNodeExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
@@ -91,7 +91,7 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         if (offset > -1) {
             template = template.replace("${1}", " ");
         }
-        ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
+        FlowNodeExpressionEditorContext.Info info = new FlowNodeExpressionEditorContext.Info(template, startPosition, offset,
                 variableNode, null, "expression");
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);

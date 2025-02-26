@@ -18,8 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import expression.editor.ExpressionEditorContext;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -54,42 +53,24 @@ import java.util.Optional;
  *
  * @since 2.0.0
  */
-public class ExpressionEditorContext {
+public class FlowNodeExpressionEditorContext extends ExpressionEditorContext {
 
-    private static final Gson gson = new Gson();
-    private final WorkspaceManagerProxy workspaceManagerProxy;
-    private final String fileUri;
-    private final Info info;
     private final FlowNode flowNode;
-    private final Path filePath;
-    private final DocumentContext documentContext;
 
-    // State variables
-    private int expressionOffset;
-    private LineRange statementLineRange;
     private Property property;
-    private boolean propertyInitialized;
 
-    public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
-                                   Path filePath) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
-        this.info = info;
-        this.filePath = filePath;
+    public FlowNodeExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
+                                           Path filePath) {
+        super(workspaceManagerProxy, fileUri, info, filePath);
         this.flowNode = gson.fromJson(info.node(), FlowNode.class);
         this.propertyInitialized = false;
-        this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
     }
 
-    public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
-                                   Document document) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
-        this.filePath = filePath;
-        this.info = null;
+    public FlowNodeExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
+                                           Document document) {
+        super(workspaceManagerProxy, fileUri, filePath, document);
         this.flowNode = null;
         this.propertyInitialized = false;
-        this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
     }
 
     public Property getProperty() {
@@ -131,12 +112,9 @@ public class ExpressionEditorContext {
         return importEndLine;
     }
 
-    public Info info() {
-        return info;
-    }
-
     // TODO: Check how we can use SourceBuilder in place of this method
-    private Optional<TextEdit> getImport() {
+    @Override
+    public Optional<TextEdit> getImport() {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
@@ -146,6 +124,7 @@ public class ExpressionEditorContext {
         return getImport(CommonUtils.getImportStatement(org, module, module));
     }
 
+    @Override
     public Optional<TextEdit> getImport(String importStatement) {
         try {
             this.workspaceManagerProxy.get(fileUri).loadProject(filePath);
@@ -188,6 +167,7 @@ public class ExpressionEditorContext {
      *
      * @return the line range of the generated statement.
      */
+    @Override
     public LineRange generateStatement() {
         String prefix = "var __reserved__ = ";
         Property property = getProperty();
@@ -290,20 +270,6 @@ public class ExpressionEditorContext {
 
     public WorkspaceManager workspaceManager() {
         return workspaceManagerProxy.get(fileUri);
-    }
-
-    /**
-     * Represents the json format of the expression editor context.
-     *
-     * @param expression The modified expression
-     * @param startLine  The start line of the node
-     * @param offset     The offset of cursor compared to the start of the expression
-     * @param node       The node which contains the expression
-     * @param branch     The branch of the expression if exists
-     * @param property   The property of the expression
-     */
-    public record Info(String expression, LinePosition startLine, int offset, JsonObject node,
-                       String branch, String property) {
     }
 
     /**

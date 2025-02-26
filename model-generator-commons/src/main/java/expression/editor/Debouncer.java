@@ -16,9 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.expressioneditor;
-
-import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DebouncedExpressionEditorRequest;
+package expression.editor;
 
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
