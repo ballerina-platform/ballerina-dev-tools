@@ -32,7 +32,7 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -149,7 +149,7 @@
           "valueType": "IDENTIFIER",
           "value": "PersonWithId",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -236,6 +236,17 @@
         }
       },
       "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Color",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
         "isArray": {
           "metadata": {
             "label": "Is array type",
@@ -321,7 +332,7 @@
           "valueType": "IDENTIFIER",
           "value": "VehicleType",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -524,7 +535,7 @@
           "valueType": "IDENTIFIER",
           "value": "ballerina/time:Utc",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -660,7 +671,7 @@
           "valueType": "IDENTIFIER",
           "value": "Misc",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -765,7 +776,7 @@
           "valueType": "IDENTIFIER",
           "value": "Employees",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -907,7 +918,7 @@
           "valueType": "IDENTIFIER",
           "value": "MixRecord",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -1149,6 +1160,17 @@
         }
       },
       "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Gender",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
         "isArray": {
           "metadata": {
             "label": "Is array type",
@@ -1230,7 +1252,7 @@
           "valueType": "IDENTIFIER",
           "value": "Student",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -1391,7 +1413,7 @@
           "valueType": "IDENTIFIER",
           "value": "PersonError",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -1480,7 +1502,7 @@
           "valueType": "IDENTIFIER",
           "value": "Names",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -1559,6 +1581,17 @@
         }
       },
       "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Vehicle",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
         "qualifiers": {
           "metadata": {
             "label": "Type Qualifiers",
@@ -1920,7 +1953,7 @@
           "valueType": "IDENTIFIER",
           "value": "AddressTable",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -2058,7 +2091,7 @@
           "valueType": "IDENTIFIER",
           "value": "PartTimeStudent",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -2227,7 +2260,7 @@
           "valueType": "IDENTIFIER",
           "value": "Person",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {

@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "Person",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "isPublic": {
@@ -191,7 +191,7 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -308,7 +308,7 @@
           "valueType": "IDENTIFIER",
           "value": "ballerina/time:Utc",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
