@@ -112,11 +112,9 @@ public class AddICPTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the source generator test.
      *
-     * @param filePath    The path to the source file.
-     * @param description The description of the test.
-     * @param codedata    The codedata of the function.
-     * @param function    The function to be updated.
-     * @param output      The expected output.
+     * @param projectPath the path to the project directory.
+     * @param description the description of the test.
+     * @param output      the expected output text edits.
      */
     private record TestConfig(String projectPath, String description, Map<String, List<TextEdit>> output) {
 

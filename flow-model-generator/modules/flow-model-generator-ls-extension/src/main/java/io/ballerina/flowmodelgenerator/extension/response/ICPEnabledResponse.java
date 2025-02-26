@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonArray;
-
 /**
  * Represents the response for new files.
  *

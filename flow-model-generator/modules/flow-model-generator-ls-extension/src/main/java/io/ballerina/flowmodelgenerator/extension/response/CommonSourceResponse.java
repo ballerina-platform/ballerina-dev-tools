@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.extension.response;
 
 import org.eclipse.lsp4j.TextEdit;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

@@ -39,7 +39,6 @@ import io.ballerina.toml.semantic.ast.TomlKeyValueNode;
 import io.ballerina.toml.semantic.ast.TomlTableNode;
 import io.ballerina.toml.semantic.ast.TopLevelNode;
 import org.ballerinalang.annotation.JavaSPIService;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -49,7 +48,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -190,7 +188,8 @@ public class ICPEnablerService implements ExtendedLanguageServerService {
                         }
                     } else {
                         TextEdit edit = new TextEdit(
-                                PositionUtil.toRange(buildOptions.location().lineRange().endLine()), REMOTE_MANAGEMENT_TRUE);
+                                PositionUtil.toRange(buildOptions.location().lineRange().endLine()),
+                                REMOTE_MANAGEMENT_TRUE);
                         textEdits.put(tomlPath.toString(), List.of(edit));
                     }
                 } else {
