@@ -28,6 +28,7 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -152,7 +153,7 @@ public abstract class SearchCommand {
         }
 
         try {
-            return Boolean.parseBoolean(value.trim().toLowerCase());
+            return Boolean.parseBoolean(value.trim().toLowerCase(Locale.ROOT));
         } catch (Exception e) {
             return defaultValue;
         }

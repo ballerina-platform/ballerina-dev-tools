@@ -33,9 +33,9 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -57,26 +57,7 @@ public class ConnectorSearchCommand extends SearchCommand {
         Map<String, List<SearchResult>> categories = fetchPopularItems();
         for (Map.Entry<String, List<SearchResult>> entry : categories.entrySet()) {
             Category.Builder categoryBuilder = rootBuilder.stepIn(entry.getKey(), null, null);
-            for (SearchResult searchResult : entry.getValue()) {
-                SearchResult.Package packageInfo = searchResult.packageInfo();
-                Metadata metadata = new Metadata.Builder<>(null)
-                        .label(packageInfo.name().substring(0, 1).toUpperCase() + packageInfo.name().substring(1) +
-                                " " + searchResult.name())
-                        .description(searchResult.description())
-                        .icon(CommonUtils.generateIcon(packageInfo.org(),
-                                packageInfo.name(),
-                                packageInfo.version()))
-                        .build();
-                Codedata codedata = new Codedata.Builder<>(null)
-                        .node(NodeKind.NEW_CONNECTION)
-                        .org(packageInfo.org())
-                        .module(packageInfo.name())
-                        .object(searchResult.name())
-                        .symbol(NewConnectionBuilder.INIT_SYMBOL)
-                        .version(packageInfo.version())
-                        .build();
-                categoryBuilder.node(new AvailableNode(metadata, codedata, true));
-            }
+            entry.getValue().forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
         }
         return rootBuilder.build().items();
     }
@@ -84,29 +65,8 @@ public class ConnectorSearchCommand extends SearchCommand {
     @Override
     protected List<Item> search() {
         List<SearchResult> searchResults = dbManager.searchConnectors(query, limit, offset);
-        List<Item> connectors = new ArrayList<>();
-        for (SearchResult connectorResult : searchResults) {
-            SearchResult.Package packageInfo = connectorResult.packageInfo();
-
-            Metadata metadata = new Metadata.Builder<>(null)
-                    .label(packageInfo.name().substring(0, 1).toUpperCase() + packageInfo.name().substring(1) + " " +
-                            connectorResult.name())
-                    .description(connectorResult.description())
-                    .icon(CommonUtils.generateIcon(packageInfo.org(),
-                            packageInfo.name(),
-                            packageInfo.version()))
-                    .build();
-            Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(packageInfo.org())
-                    .module(packageInfo.name())
-                    .object(connectorResult.name())
-                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
-                    .version(packageInfo.version())
-                    .build();
-            connectors.add(new AvailableNode(metadata, codedata, true));
-        }
-        return connectors;
+        searchResults.forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
+        return rootBuilder.build().items();
     }
 
     @Override
@@ -120,6 +80,28 @@ public class ConnectorSearchCommand extends SearchCommand {
             defaultView.put(category.getKey(), searchResults);
         }
         return defaultView;
+    }
+
+    private static AvailableNode generateAvailableNode(SearchResult searchResult) {
+        SearchResult.Package packageInfo = searchResult.packageInfo();
+        Metadata metadata = new Metadata.Builder<>(null)
+                .label(packageInfo.name().substring(0, 1).toUpperCase(Locale.ROOT) + packageInfo.name().substring(1) +
+                        " " +
+                        searchResult.name())
+                .description(searchResult.description())
+                .icon(CommonUtils.generateIcon(packageInfo.org(),
+                        packageInfo.name(),
+                        packageInfo.version()))
+                .build();
+        Codedata codedata = new Codedata.Builder<>(null)
+                .node(NodeKind.NEW_CONNECTION)
+                .org(packageInfo.org())
+                .module(packageInfo.name())
+                .object(searchResult.name())
+                .symbol(NewConnectionBuilder.INIT_SYMBOL)
+                .version(packageInfo.version())
+                .build();
+        return new AvailableNode(metadata, codedata, true);
     }
 
 }
