@@ -2,5 +2,35 @@
   "projectPath": "proj1",
   "description": "Project with no ICP related configurations",
   "output": {
+    "proj1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/wso2.controlplane as _;%n"
+      }
+    ],
+    "proj1/Ballerina.toml": [
+      {
+        "range": {
+          "start": {
+            "line": 6,
+            "character": 0
+          },
+          "end": {
+            "line": 6,
+            "character": 0
+          }
+        },
+        "newText": "%n[build-options]%nremoteManagement = true%n"
+      }
+    ]
   }
 }

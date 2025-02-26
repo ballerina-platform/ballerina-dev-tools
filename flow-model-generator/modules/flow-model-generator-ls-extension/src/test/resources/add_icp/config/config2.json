@@ -2,5 +2,20 @@
   "projectPath": "proj2",
   "description": "Project with only import stmt",
   "output": {
+    "proj2/Ballerina.toml": [
+      {
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 28
+          },
+          "end": {
+            "line": 7,
+            "character": 28
+          }
+        },
+        "newText": "remoteManagement = true%n"
+      }
+    ]
   }
 }
