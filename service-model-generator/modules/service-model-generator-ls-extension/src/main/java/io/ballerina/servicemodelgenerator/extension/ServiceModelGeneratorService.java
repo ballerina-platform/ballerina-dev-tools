@@ -1122,7 +1122,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Listener> getListenerByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
+                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+                !name.equals(ServiceModelGeneratorConstants.TCP) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
@@ -1140,7 +1142,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Service> getServiceByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
+                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+                !name.equals(ServiceModelGeneratorConstants.TCP) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
