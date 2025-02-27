@@ -121,6 +121,7 @@ public class NewConnectionBuilder extends CallBuilder {
                 .org(functionData.org())
                 .module(functionData.packageName())
                 .object(functionData.name())
+                .version(functionData.version())
                 .symbol(INIT_SYMBOL)
                 .id(functionData.functionId())
                 .isGenerated(codedata.isGenerated());

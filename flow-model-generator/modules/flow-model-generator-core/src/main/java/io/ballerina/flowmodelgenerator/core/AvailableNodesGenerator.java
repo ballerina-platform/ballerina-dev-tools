@@ -248,6 +248,7 @@ public class AvailableNodesGenerator {
                             .module(packageName)
                             .object(className)
                             .symbol(methodFunction.name())
+                            .version(version)
                             .parentSymbol(parentSymbolName)
                             .resourcePath(methodFunction.resourcePath())
                             .id(methodFunction.functionId())

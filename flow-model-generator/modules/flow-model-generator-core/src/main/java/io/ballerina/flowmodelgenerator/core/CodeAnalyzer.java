@@ -253,6 +253,11 @@ class CodeAnalyzer extends NodeVisitor {
             handleExpressionNode(remoteMethodCallActionNode);
             return;
         }
+        Optional<ClassSymbol> classSymbol = getClassSymbol(remoteMethodCallActionNode.expression());
+        if (classSymbol.isEmpty()) {
+            handleExpressionNode(remoteMethodCallActionNode);
+            return;
+        }
 
         String functionName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
@@ -266,9 +271,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .userModuleInfo(moduleInfo);
         FunctionData functionData = functionDataBuilder.build();
 
-        processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
-                functionData);
-
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
@@ -277,10 +279,12 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                 .nodeInfo(remoteMethodCallActionNode)
-                    .object("Client")
+                    .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .stepOut()
                 .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+        processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
+                functionData);
     }
 
     @Override
@@ -288,6 +292,11 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(clientResourceAccessActionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+            handleExpressionNode(clientResourceAccessActionNode);
+            return;
+        }
+        Optional<ClassSymbol> classSymbol = getClassSymbol(clientResourceAccessActionNode.expression());
+        if (classSymbol.isEmpty()) {
             handleExpressionNode(clientResourceAccessActionNode);
             return;
         }
@@ -351,8 +360,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .functionResultKind(FunctionData.Kind.RESOURCE);
         FunctionData functionData = functionDataBuilder.build();
 
-        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
-
         nodeBuilder.symbolInfo(functionSymbol)
                 .metadata()
                     .label(functionName)
@@ -360,13 +367,14 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                     .nodeInfo(clientResourceAccessActionNode)
-                    .object("Client")
+                    .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .resourcePath(resourcePathTemplate.resourcePathTemplate())
                     .stepOut()
                 .properties()
                 .callExpression(expressionNode, Property.CONNECTION_KEY)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
+        processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
     }
 
     private void addRemainingParamsToPropertyMap(Map<String, ParameterData> funcParamMap,
@@ -826,6 +834,52 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void checkForNewConnection(NewExpressionNode newExpressionNode,
                                        SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        Optional<ClassSymbol> optClassSymbol = getClassSymbol(newExpressionNode);
+        if (optClassSymbol.isEmpty()) {
+            return;
+        }
+        ClassSymbol classSymbol = optClassSymbol.get();
+        startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
+
+        Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
+                .parentSymbol(classSymbol)
+                .semanticModel(semanticModel)
+                .name(NewConnectionBuilder.INIT_SYMBOL)
+                .functionResultKind(FunctionData.Kind.CONNECTOR)
+                .userModuleInfo(moduleInfo);
+
+        FunctionData functionData;
+        if (optMethodSymbol.isPresent()) {
+            MethodSymbol methodSymbol = optMethodSymbol.get();
+            functionDataBuilder.functionSymbol(methodSymbol);
+            functionData = functionDataBuilder.build();
+            processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionData);
+        } else {
+            functionData = functionDataBuilder.build();
+        }
+
+        String org = functionData.org();
+        String packageName = functionData.packageName();
+        nodeBuilder
+                .metadata()
+                    .label(packageName)
+                    .description(functionData.description())
+                    .icon(CommonUtils.generateIcon(org, packageName, functionData.version()))
+                    .stepOut()
+                .codedata()
+                    .id(functionData.functionId())
+                    .org(org)
+                    .module(packageName)
+                    .object(classSymbol.getName().orElse(""))
+                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
+                    .stepOut()
+                .properties()
+                .scope(connectionScope)
+                .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
+    }
+
+    private Optional<ClassSymbol> getClassSymbol(ExpressionNode newExpressionNode) {
         Optional<TypeSymbol> typeSymbol =
                 CommonUtils.getTypeSymbol(semanticModel, newExpressionNode).flatMap(symbol -> {
                     if (symbol.typeKind() == TypeDescKind.UNION) {
@@ -836,47 +890,16 @@ class CodeAnalyzer extends NodeVisitor {
                     return Optional.of(symbol);
                 });
         if (typeSymbol.isEmpty()) {
-            return;
+            return Optional.empty();
         }
         if (typeSymbol.get().typeKind() != TypeDescKind.TYPE_REFERENCE) {
-            return;
+            return Optional.empty();
         }
         Symbol defintionSymbol = ((TypeReferenceTypeSymbol) typeSymbol.get()).definition();
         if (defintionSymbol.kind() != SymbolKind.CLASS) {
-            return;
+            return Optional.empty();
         }
-        ClassSymbol classSymbol = (ClassSymbol) defintionSymbol;
-        Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
-        if (optMethodSymbol.isEmpty()) {
-            return;
-        }
-        MethodSymbol methodSymbol = optMethodSymbol.get();
-        startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
-
-        FunctionData functionData = new FunctionDataBuilder()
-                .parentSymbol(classSymbol)
-                .functionSymbol(methodSymbol)
-                .semanticModel(semanticModel)
-                .name(NewConnectionBuilder.INIT_SYMBOL)
-                .functionResultKind(FunctionData.Kind.CONNECTOR)
-                .userModuleInfo(moduleInfo)
-                .build();
-
-        processFunctionSymbol(newExpressionNode, argumentNodes, methodSymbol, functionData);
-
-        nodeBuilder
-                .symbolInfo(methodSymbol)
-                .metadata()
-                    .label(functionData.packageName())
-                    .description(functionData.description())
-                    .stepOut()
-                .codedata()
-                    .object(classSymbol.getName().orElse(""))
-                    .symbol(NewConnectionBuilder.INIT_SYMBOL)
-                    .stepOut()
-                .properties()
-                .scope(connectionScope)
-                .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
+        return Optional.of((ClassSymbol) defintionSymbol);
     }
 
     @Override
@@ -1492,7 +1515,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-// Utility methods
+    // Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
