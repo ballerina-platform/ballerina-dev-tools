@@ -70,7 +70,7 @@ public class ICPEnablerTests extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "icpEnabler";
+        return "icpService";
     }
 
     /**

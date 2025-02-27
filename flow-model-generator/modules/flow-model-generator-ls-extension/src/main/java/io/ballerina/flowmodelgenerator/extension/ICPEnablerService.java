@@ -62,7 +62,7 @@ import java.util.stream.Collectors;
  * @since 2.0.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
-@JsonSegment("icpEnabler")
+@JsonSegment("icpService")
 public class ICPEnablerService implements ExtendedLanguageServerService {
 
     private static final String BALLERINAX = "ballerinax";

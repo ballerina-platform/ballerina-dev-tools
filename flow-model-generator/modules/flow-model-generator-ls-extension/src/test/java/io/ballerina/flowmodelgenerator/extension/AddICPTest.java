@@ -101,7 +101,7 @@ public class AddICPTest extends AbstractLSTest {
 
     @Override
     protected String getServiceName() {
-        return "icpEnabler";
+        return "icpService";
     }
     
     @Override
