@@ -110,7 +110,12 @@ public class ServiceClassUtil {
                                                    List<Field> fields, ServiceClassContext context) {
         classDef.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                functions.add(buildMemberFunction(functionDefinitionNode, context));
+                FunctionKind functionKind = getFunctionKind(functionDefinitionNode);
+                if (context.equals(ServiceClassContext.GRAPHQL_DIAGRAM)
+                        && !functionKind.equals(FunctionKind.RESOURCE)) {
+                    return;
+                }
+                functions.add(buildMemberFunction(functionDefinitionNode, functionKind, context));
             } else if (context == ServiceClassContext.TYPE_DIAGRAM
                     && member instanceof ObjectFieldNode objectFieldNode) {
                 fields.add(buildClassField(objectFieldNode));
@@ -118,9 +123,9 @@ public class ServiceClassUtil {
         });
     }
 
-    private static Function buildMemberFunction(FunctionDefinitionNode functionDef, ServiceClassContext context) {
+    private static Function buildMemberFunction(FunctionDefinitionNode functionDef, FunctionKind kind,
+                                                ServiceClassContext context) {
         Function functionModel = Function.getNewFunctionModel(context);
-        FunctionKind kind = getFunctionKind(functionDef);
         updateMetadata(functionModel, kind);
         functionModel.setKind(kind.name());
 
