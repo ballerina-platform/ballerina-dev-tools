@@ -29,7 +29,7 @@
             "character": 0
           }
         },
-        "newText": "\n[build-options]\nremoteManagement = true\n"
+        "newText": "\n\n[build-options]\nremoteManagement = true\n"
       }
     ]
   }
