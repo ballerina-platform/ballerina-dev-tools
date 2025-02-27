@@ -42,7 +42,8 @@ public class NodeTemplateTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("template.json")}
+                {Path.of("template.json")},
+                {Path.of("model_template.json")}
         };
     }
 
