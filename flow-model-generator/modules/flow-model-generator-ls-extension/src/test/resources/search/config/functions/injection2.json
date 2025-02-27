@@ -1,0 +1,147 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "NEAR(hello) OR 1=1--",
+    "includeAvailableFunctions": "true",
+    "limit": "12",
+    "offset": "0"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "crypto",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "hashSha1",
+                "description": "Returns the SHA-1 hash of the given data.\n```ballerina\nstring dataString = \"Hello Ballerina\";\nbyte[] data = dataString.toBytes();\nbyte[] hash = crypto:hashSha1(data);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.8.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "crypto",
+                "symbol": "hashSha1",
+                "version": "2.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "hmacSha1",
+                "description": "Returns the HMAC using the SHA-1 hash function of the given data.\n```ballerina\nstring input = \"Hello Ballerina\";\nbyte[] data = input.toBytes();\nstring secret = \"some-secret\";\nbyte[] key = secret.toBytes();\nbyte[] hmac = check crypto:hmacSha1(data, key);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.8.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "crypto",
+                "symbol": "hmacSha1",
+                "version": "2.8.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.function",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "call",
+                "description": "Calls a function dynamically.\n\nIf the arguments specified in `args` are not of the type required by `func`,\nthen this will panic.\n\n```ballerina\nfunction getGreeting(string? name = ()) returns string => name is () ? \"Hello\" : string `Hello ${name}!`;\nfunction:call(getGreeting) ⇒ Hello\nfunction:call(getGreeting, \"David\") ⇒ Hello David!\nfunction:call(getGreeting, 1) ⇒ panic\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.function_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.function",
+                "symbol": "call",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.string",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "iterator",
+                "description": "Returns an iterator over the string.\n\nThe iterator will yield the substrings of length 1 in order.\n\n```ballerina\nobject {\n  public isolated function next() returns record {|string:Char value;|}?;\n} iterator = \"Hello, World!\".iterator();\niterator.next() ⇒ {\"value\":\"H\"}\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.string",
+                "symbol": "iterator",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

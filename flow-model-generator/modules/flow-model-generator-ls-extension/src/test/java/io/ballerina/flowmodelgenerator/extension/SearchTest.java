@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,11 +16,14 @@
  *  under the License.
  */
 
+
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
+import io.ballerina.flowmodelgenerator.core.search.SearchCommand;
+import io.ballerina.flowmodelgenerator.extension.request.SearchRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
+import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -30,26 +33,27 @@ import java.nio.file.Path;
 import java.util.Map;
 
 /**
- * Tests for getting the connectors.
+ * Tests for the search API.
  *
- * @since 1.4.0
+ * @since 2.0.0
  */
-public class GetConnectorsTest extends AbstractLSTest {
+public class SearchTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        Map<String, String> queryMap = Map.of("q", testConfig.keyword());
-        FlowModelGetConnectorsRequest request = new FlowModelGetConnectorsRequest(queryMap);
+        SearchRequest request = new SearchRequest(testConfig.kind().name(), getSourcePath(testConfig.source()),
+                testConfig.position(), testConfig.queryMap());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.keyword(), categories);
-//            updateConfig(config, updateConfig);
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.kind(), testConfig.source(),
+                    testConfig.position(), testConfig.queryMap(), categories);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(categories, testConfig.categories());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -57,27 +61,21 @@ public class GetConnectorsTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "get_connectors";
+        return "search";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return GetConnectorsTest.class;
+        return SearchTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getConnectors";
+        return "search";
     }
 
-    /**
-     * Represent the test configurations for the get connectors test.
-     *
-     * @param description The description of the test
-     * @param keyword     The keyword to search for connectors
-     * @param categories  The categories of connectors
-     */
-    private record TestConfig(String description, String keyword, JsonArray categories) {
+    private record TestConfig(String description, SearchCommand.Kind kind, String source, LineRange position,
+                              Map<String, String> queryMap, JsonArray categories) {
 
     }
 }

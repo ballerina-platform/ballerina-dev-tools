@@ -1,0 +1,259 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "log",
+    "includeAvailableFunctions": "true"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "lang.float",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "log",
+                "description": "Returns the natural logarithm of a float value.\n\nCorresponds to IEEE log operation.\n\n```ballerina\nfloat f = 234.56;\nf.log() ⇒ 5.4577114186982865\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "log10",
+                "description": "Returns the base 10 logarithm of a float value.\n\nCorresponds to IEEE log10 operation.\n\n```ballerina\nfloat f = 0.1;\nf.log10() ⇒ -1.0\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "log10",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "log",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printDebug",
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printDebug",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printInfo",
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printInfo",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printWarn",
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printWarn",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "setOutputFile",
+                "description": "Set the log output to a file. Note that all the subsequent logs of the entire application will be written to this file.\n```ballerina\nvar result = log:setOutputFile(\"./resources/myfile.log\");\nvar result = log:setOutputFile(\"./resources/myfile.log\", log:OVERWRITE);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "setOutputFile",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printError",
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printError",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "edifact.d03a.logistics",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "getEDINames",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "getEDINames",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fromEdiString",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "fromEdiString",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "toEdiString",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_edifact.d03a.logistics_0.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "edifact.d03a.logistics",
+                "symbol": "toEdiString",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "file",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "relativePath",
+                "description": "Returns a relative path, which is logically equivalent to the target path when joined to the base path with an\nintervening separator.\nAn error is returned if the target path cannot be made relative to the base path.\n```ballerina\n string relative = check file:relativePath(\"a/b/e\", \"a/c/d\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_file_1.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "file",
+                "symbol": "relativePath",
+                "version": "1.11.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

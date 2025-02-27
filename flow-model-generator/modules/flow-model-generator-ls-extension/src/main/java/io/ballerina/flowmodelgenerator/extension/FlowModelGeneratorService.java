@@ -42,21 +42,19 @@ import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
+import io.ballerina.flowmodelgenerator.extension.request.SearchRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ComponentDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
 import io.ballerina.flowmodelgenerator.extension.response.EnclosedFuncDefResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGeneratorResponse;
-import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectorsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
@@ -332,43 +330,6 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(FlowModelGetConnectorsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
-            try {
-                SearchCommand searchCommand = SearchCommand.from(SearchCommand.Kind.CONNECTOR, null,
-                        null, request.queryMap());
-                response.setCategories(searchCommand.execute());
-            } catch (Throwable e) {
-                response.setError(e);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
-    public CompletableFuture<FlowModelAvailableNodesResponse> getFunctions(FlowModelGetFunctionsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
-            try {
-                Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                Optional<Module> module = workspaceManager.module(filePath);
-                if (module.isEmpty() || document.isEmpty()) {
-                    return response;
-                }
-                SearchCommand searchCommand = SearchCommand.from(SearchCommand.Kind.FUNCTION, module.get(),
-                        request.position(), request.queryMap());
-                response.setCategories(searchCommand.execute());
-            } catch (Throwable e) {
-                response.setError(e);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
     public CompletableFuture<CopilotContextResponse> getCopilotContext(CopilotContextRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             CopilotContextResponse response = new CopilotContextResponse();
@@ -520,6 +481,31 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 ModulePartNode rootNode = document.syntaxTree().rootNode();
                 Optional<JsonElement> function = moduleNodeAnalyzer.findFunction(rootNode, request.functionName());
                 function.ifPresent(response::setFunctionDefinition);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelAvailableNodesResponse> search(SearchRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
+            try {
+                // Load the module if the file path exists
+                Module module;
+                if (request.filePath() != null) {
+                    Path filePath = Path.of(request.filePath());
+                    this.workspaceManager.loadProject(filePath);
+                    module = workspaceManager.module(filePath).orElse(null);
+                } else {
+                    module = null;
+                }
+
+                SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
+                SearchCommand command = SearchCommand.from(searchKind, module, request.position(), request.query());
+                response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);
             }

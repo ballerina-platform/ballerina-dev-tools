@@ -1,0 +1,182 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "proj/main.bal",
+  "position": {
+    "startLine": {
+      "line": 2,
+      "offset": 0
+    },
+    "endLine": {
+      "line": 4,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "sum",
+    "includeAvailableFunctions": "true"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "sum",
+            "data": {
+              "isDataMappedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "sum"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "prefixSum",
+            "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
+            "data": {
+              "isDataMappedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "prefixSum"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "lang.int",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "sum",
+                "description": "Returns sum of zero or more int values.\n\n```ballerina\nint:sum(10, 20, 30, 40) ⇒ 100\nint[] marks = [50, 65, 78, 95];\nint:sum(...marks) ⇒ 288\nint num = 24;\nnum.sum(38, 15, 97, 27) ⇒ 201\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.int_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.int",
+                "symbol": "sum",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.decimal",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "sum",
+                "description": "Returns the sum of zero or more decimal values.\n\n```ballerina\ndecimal:sum(1.2, 2.3, 3.4) ⇒ 6.9\ndecimal[] scores = [11.1, 22.2, 33.3];\ndecimal:sum(...scores) ⇒ 66.6\n[decimal, decimal, decimal] marks = [7.21, 10.32, 9.2];\ndecimal:sum(...marks) ⇒ 26.73\ndecimal d = 21.2;\nd.sum(10.5, 21, 32.4) ⇒ 85.1\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.decimal",
+                "symbol": "sum",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.float",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "sum",
+                "description": "Returns the sum of zero or more float values.\n\nResult is NaN if any arg is NaN\n\n```ballerina\nfloat:sum(1.2, 2.3, 3.4) ⇒ 6.9\nfloat[] scores = [11.1, 22.2, 33.3];\nfloat:sum(...scores) ⇒ 66.6\nfloat f = 21.2;\nf.sum(10.5, 21, 32.4) ⇒ 85.1\nfloat:sum(float:NaN, 2.3, 3.4) ⇒ NaN\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.float",
+                "symbol": "sum",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.future",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "cancel",
+                "description": "Requests cancellation of a future.\n\nThis sets the cancellation flag in the strand corresponding to `f`.\nEach time that a strand yields, it will check the cancellation flag\nand terminate abnormally if the flag is set.\n\n```ballerina\nfuture<int> sumFuture = start int:sum(10, 13, 54, 245, 24, 29, 343, 34);\nsumFuture.cancel();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.future_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.future",
+                "symbol": "cancel",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
