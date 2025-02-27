@@ -34,7 +34,7 @@
       "description": "The resource path"
     },
     "enabled": true,
-    "editable": false,
+    "editable": true,
     "value": "",
     "valueType": "IDENTIFIER",
     "valueTypeConstraint": "string",

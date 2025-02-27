@@ -1112,9 +1112,13 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append("\tdo {");
         builder.append(System.lineSeparator());
+        builder.append("\t\tpanic error(\"Unimplemented function\");");
+        builder.append(System.lineSeparator());
         builder.append("\t} on fail error err {");
         builder.append(System.lineSeparator());
         builder.append("\t\t// handle error");
+        builder.append(System.lineSeparator());
+        builder.append("\t\tpanic error(\"Unhandled error\");");
         builder.append(System.lineSeparator());
         builder.append("\t}");
         builder.append(System.lineSeparator());

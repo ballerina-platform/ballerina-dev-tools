@@ -33,7 +33,7 @@ public class FunctionReturnType extends Value {
     }
 
     public FunctionReturnType(MetaData metaData) {
-        this(metaData, false, false, null,
+        this(metaData, false, true, null,
                 null, null, false, null, false, false,
                 null, null, null, null, null);
     }

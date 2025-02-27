@@ -82,6 +82,10 @@ public class ServiceModelGeneratorConstants {
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
 
 
+    public static final MetaData SERCVICE_CLASS_NAME_METADATA = new MetaData("Class Name",
+            "The name of the class definition");
+    public static final MetaData GRAPHQL_CLASS_NAME_METADATA = new MetaData("Object Name",
+            "The name of the object");
     public static final MetaData ARGUMENT_TYPE_METADATA = new MetaData("Argument Type",
             "The type of the argument");
     public static final MetaData ARGUMENT_NAME_METADATA = new MetaData("Argument Name",
