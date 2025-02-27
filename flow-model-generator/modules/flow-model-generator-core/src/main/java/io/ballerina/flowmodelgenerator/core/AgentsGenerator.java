@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -51,33 +53,58 @@ import java.util.Set;
 public class AgentsGenerator {
 
     private final Gson gson;
+    private final SemanticModel semanticModel;
     private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
             "AzureChatGptModel"), "ReActAgent", Set.of("ChatGptModel", "AzureChatGptModel"));
     private static final String WSO2 = "wso2";
+    private static final String BALLERINAX = "ballerinax";
     private static final String AI_AGENT = "ai.agent";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
+    public static final String BASE_AGENT = "BaseAgent";
 
     public AgentsGenerator() {
         this.gson = new Gson();
+        this.semanticModel = null;
+    }
+
+    public AgentsGenerator(SemanticModel semanticModel) {
+        this.gson = new Gson();
+        this.semanticModel = semanticModel;
     }
 
     public JsonArray getAllAgents() {
-        Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null);
-        Codedata functionCallAgent = codedataBuilder.node(NodeKind.AGENT)
-                .org(WSO2)
-                .module(AI_AGENT)
-                .object("FunctionCallAgent")
-                .symbol(INIT)
-                .build();
-        Codedata reactCallAgent = codedataBuilder.node(NodeKind.AGENT)
-                .org(WSO2)
-                .module(AI_AGENT)
-                .object("ReActAgent")
-                .symbol(INIT)
-                .build();
-        List<Codedata> agents = List.of(functionCallAgent, reactCallAgent);
+        List<Codedata> agents = new ArrayList<>();
+        ModuleSymbol agentModule = getAgentModule();
+        for (ClassSymbol classSymbol : agentModule.classes()) {
+            List<TypeSymbol> typeInclusions = classSymbol.typeInclusions();
+            for (TypeSymbol typeInclusion : typeInclusions) {
+                if (typeInclusion.getName().isPresent() && typeInclusion.getName().get().equals(BASE_AGENT)) {
+                    agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
+                            .org(BALLERINAX)
+                            .module(AI_AGENT)
+                            .object(classSymbol.getName().orElse(BASE_AGENT))
+                            .symbol(INIT)
+                            .build());
+                    break;
+                }
+            }
+        }
+
         return gson.toJsonTree(agents).getAsJsonArray();
+    }
+
+    private ModuleSymbol getAgentModule() {
+        assert semanticModel != null;
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() == SymbolKind.MODULE) {
+                ModuleSymbol modSymbol = (ModuleSymbol) symbol;
+                if (modSymbol.id().orgName().equals(BALLERINAX) && modSymbol.id().packageName().equals(AI_AGENT)) {
+                    return modSymbol;
+                }
+            }
+        }
+        throw new IllegalStateException("Agent module not found");
     }
 
     public JsonArray getAllModels(String agent) {

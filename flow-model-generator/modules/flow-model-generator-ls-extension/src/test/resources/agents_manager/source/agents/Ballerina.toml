@@ -6,3 +6,9 @@ distribution = "2201.11.0"
 
 [build-options]
 observabilityIncluded = true
+
+[[dependency]]
+org = "ballerinax"
+name = "ai.agent"
+version = "0.7.8"
+repository = "local"

@@ -1,0 +1,20 @@
+{
+  "source": "agents/agents.bal",
+  "description": "Sample diagram node",
+  "agents": [
+    {
+      "node": "AGENT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "FunctionCallAgent",
+      "symbol": "init"
+    },
+    {
+      "node": "AGENT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "ReActAgent",
+      "symbol": "init"
+    }
+  ]
+}
