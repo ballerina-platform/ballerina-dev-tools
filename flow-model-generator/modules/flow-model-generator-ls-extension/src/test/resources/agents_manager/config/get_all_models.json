@@ -1,0 +1,21 @@
+{
+  "source": "agents/agents.bal",
+  "description": "Sample diagram node",
+  "agent": "FunctionCallAgent",
+  "models": [
+    {
+      "node": "CLASS",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "ChatGptModel",
+      "symbol": "init"
+    },
+    {
+      "node": "CLASS",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "AzureChatGptModel",
+      "symbol": "init"
+    }
+  ]
+}

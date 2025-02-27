@@ -22,12 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -35,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
@@ -52,6 +48,7 @@ import java.util.Set;
  */
 public class AgentsGenerator {
 
+    public static final String MODEL_PARAM = "model";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
@@ -108,27 +105,26 @@ public class AgentsGenerator {
     }
 
     public JsonArray getAllModels(String agent) {
-        Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null);
-        Codedata chatGptModel = codedataBuilder.node(NodeKind.CLASS)
-                .org(WSO2)
-                .module(AI_AGENT)
-                .object("ChatGptModel")
-                .symbol(INIT)
-                .build();
-        Codedata azureChatGptModel = codedataBuilder.node(NodeKind.CLASS)
-                .org(WSO2)
-                .module(AI_AGENT)
-                .object("AzureChatGptModel")
-                .symbol(INIT)
-                .build();
-        if (agent.equals("FunctionCallAgent")) {
-            List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
-            return gson.toJsonTree(models).getAsJsonArray();
-        } else if (agent.equals("ReActAgent")) {
-            List<Codedata> models = List.of(chatGptModel, azureChatGptModel);
-            return gson.toJsonTree(models).getAsJsonArray();
+        ModuleSymbol agentModule = getAgentModule();
+        List<ClassSymbol> agentSymbols = getAgentSymbols(agentModule);
+        List<ClassSymbol> models = new ArrayList<>();
+        for (ClassSymbol agentSymbol : agentSymbols) {
+            if (agent.equals(agentSymbol.getName().orElse(""))) {
+                models = getModelsForAgent(agentSymbol, agentModule.classes());
+                break;
+            }
         }
-        throw new IllegalStateException(String.format("Agent %s is not supported", agent));
+
+        List<Codedata> modelsCodedata = new ArrayList<>();
+        for (ClassSymbol model : models) {
+            modelsCodedata.add(new Codedata.Builder<>(null).node(NodeKind.CLASS)
+                    .org(BALLERINAX)
+                    .module(AI_AGENT)
+                    .object(model.getName().orElse(""))
+                    .symbol(INIT)
+                    .build());
+        }
+        return gson.toJsonTree(modelsCodedata).getAsJsonArray();
     }
 
     public JsonArray getModels(SemanticModel semanticModel, String agent) {
@@ -264,5 +260,52 @@ public class AgentsGenerator {
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
+    }
+
+    private List<ClassSymbol> getAgentSymbols(ModuleSymbol agentModule) {
+        List<ClassSymbol> agentSymbols = new ArrayList<>();
+        for (ClassSymbol classSymbol : agentModule.classes()) {
+            List<TypeSymbol> typeInclusions = classSymbol.typeInclusions();
+            for (TypeSymbol typeInclusion : typeInclusions) {
+                if (typeInclusion.getName().isPresent() && typeInclusion.getName().get().equals(BASE_AGENT)) {
+                    agentSymbols.add(classSymbol);
+                    break;
+                }
+            }
+        }
+        return agentSymbols;
+    }
+
+    private List<ClassSymbol> getModelsForAgent(ClassSymbol agentSymbol, List<ClassSymbol> classSymbols) {
+        Optional<MethodSymbol> optInitMethodSymbol = agentSymbol.initMethod();
+        if (optInitMethodSymbol.isEmpty()) {
+            throw new IllegalStateException(String.format("Agent %s does not have an init method", agentSymbol.getName()));
+        }
+        Optional<List<ParameterSymbol>> optParams = optInitMethodSymbol.get().typeDescriptor().params();
+        if (optParams.isEmpty()) {
+            throw new IllegalStateException(String.format("Agent %s init method does not have parameters", agentSymbol.getName()));
+        }
+        for (ParameterSymbol paramSymbol : optParams.get()) {
+            if (paramSymbol.getName().orElse("").equals(MODEL_PARAM)) {
+                List<ClassSymbol> models = new ArrayList<>();
+                TypeSymbol paramType = paramSymbol.typeDescriptor();
+                for (ClassSymbol classSymbol : classSymbols) {
+                    if (isSubType(paramType, classSymbol.typeInclusions())) {
+                        models.add(classSymbol);
+                    }
+                }
+                return models;
+            }
+        }
+        throw new IllegalStateException(String.format("Agent %s does not have corresponding models", agentSymbol.getName()));
+    }
+
+    private boolean isSubType(TypeSymbol typeSymbol, List<TypeSymbol> typeSymbols) {
+        for (TypeSymbol type : typeSymbols) {
+            if (CommonUtils.subTypeOf(type, typeSymbol)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
