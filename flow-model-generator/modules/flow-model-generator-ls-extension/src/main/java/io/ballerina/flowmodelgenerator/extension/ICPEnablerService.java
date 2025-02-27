@@ -65,11 +65,11 @@ import java.util.stream.Collectors;
 @JsonSegment("icpService")
 public class ICPEnablerService implements ExtendedLanguageServerService {
 
-
+    private static final String LS = System.lineSeparator();
     private static final String BALLERINAX = "ballerinax";
     private static final String MODULE_NAME = "wso2.controlplane";
     private static final String IMPORT_STMT = "import ballerinax/wso2.controlplane as _;%n";
-    private static final String REMOTE_MANAGEMENT_TRUE = "remoteManagement = true%n";
+    private static final String REMOTE_MANAGEMENT_TRUE = "remoteManagement = true";
     private static final String REMOTE_MANAGEMENT_FALSE = "remoteManagement = false";
     private static final String BUILD_OPTIONS = "%n%n[build-options]%n";
 
@@ -187,19 +187,19 @@ public class ICPEnablerService implements ExtendedLanguageServerService {
                         } else {
                             TextEdit edit = new TextEdit(
                                     PositionUtil.toRange(icpNode.location().lineRange()),
-                                    REMOTE_MANAGEMENT_TRUE.formatted());
+                                    REMOTE_MANAGEMENT_TRUE);
                             textEdits.put(tomlPath.toString(), List.of(edit));
                         }
                     } else {
                         TextEdit edit = new TextEdit(
                                 PositionUtil.toRange(buildOptions.location().lineRange().endLine()),
-                                REMOTE_MANAGEMENT_TRUE.formatted());
+                                REMOTE_MANAGEMENT_TRUE + LS);
                         textEdits.put(tomlPath.toString(), List.of(edit));
                     }
                 } else {
                     TextEdit edit = new TextEdit(
                             PositionUtil.toRange(tomlTableNode.location().lineRange().endLine()),
-                            BUILD_OPTIONS.formatted() + REMOTE_MANAGEMENT_TRUE.formatted());
+                            BUILD_OPTIONS.formatted() + REMOTE_MANAGEMENT_TRUE + LS);
                     textEdits.put(tomlPath.toString(), List.of(edit));
                 }
             } catch (Throwable e) {
