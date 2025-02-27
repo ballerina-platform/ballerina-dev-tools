@@ -1,0 +1,7 @@
+{
+  "projectPath": "proj5",
+  "description": "Project with remote management false",
+  "response": {
+    "enabled": false
+  }
+}
