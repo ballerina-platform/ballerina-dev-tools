@@ -128,12 +128,11 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -141,12 +140,11 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -155,7 +153,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -227,8 +225,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Query path",
-            "description": "Query path"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
           "editable": true,
@@ -248,8 +246,8 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": true,
               "editable": true,
@@ -262,38 +260,22 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 29,
-                    "offset": 42
-                  },
-                  "endLine": {
-                    "line": 29,
-                    "offset": 46
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -312,12 +294,11 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -325,12 +306,11 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -339,7 +319,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -409,8 +389,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Mutation name",
-            "description": "Mutation name"
+            "label": "Mutation Name",
+            "description": "The name of the mutation"
           },
           "enabled": true,
           "editable": true,
@@ -430,8 +410,8 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": true,
               "editable": true,
@@ -444,38 +424,22 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "id",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 34,
-                    "offset": 35
-                  },
-                  "endLine": {
-                    "line": 34,
-                    "offset": 37
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -497,8 +461,8 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": true,
               "editable": true,
@@ -511,38 +475,22 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 34,
-                    "offset": 46
-                  },
-                  "endLine": {
-                    "line": 34,
-                    "offset": 50
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -561,12 +509,11 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -574,12 +521,11 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -588,7 +534,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,
@@ -660,8 +606,8 @@
         },
         "name": {
           "metadata": {
-            "label": "Subscription path",
-            "description": "Subscription path"
+            "label": "Subscription Name",
+            "description": "The name of the subscription"
           },
           "enabled": true,
           "editable": true,
@@ -677,12 +623,11 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Parameter Type",
-                "description": "The type of the parameter"
+                "label": "Argument Type",
+                "description": "The type of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -690,12 +635,11 @@
             },
             "name": {
               "metadata": {
-                "label": "Parameter Name",
-                "description": "The name of the parameter"
+                "label": "Argument Name",
+                "description": "The name of the argument"
               },
               "enabled": false,
               "editable": true,
-              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -704,7 +648,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the parameter"
+                "description": "The default value of the argument"
               },
               "enabled": false,
               "editable": true,

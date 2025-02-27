@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension.model;
 
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,20 @@ public class Function {
                 ServiceModelGeneratorConstants.KIND_DEFAULT,
                 new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
                 new Value(ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA), new ArrayList<>(),
-                null, new FunctionReturnType(), false, false, false, null);
+                null, new FunctionReturnType(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA),
+                false, false, false, null);
+    }
+
+    public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
+        if (context == ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM) {
+            return new Function(new MetaData("", ""), new ArrayList<>(),
+                    ServiceModelGeneratorConstants.KIND_DEFAULT,
+                    new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
+                    new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA), new ArrayList<>(),
+                    null, new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
+                    false, false, false, null);
+        }
+        return getNewFunction();
     }
 
     public MetaData getMetadata() {
