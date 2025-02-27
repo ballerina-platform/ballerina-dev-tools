@@ -19,10 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -31,6 +27,8 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import org.eclipse.lsp4j.TextEdit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,8 +78,8 @@ public class ClassBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FunctionResult function = getInitFunctionResult(codedata.object());
-        List<ParameterResult> functionParameters = getInitFunctionParameters(codedata.object());
+        FunctionData function = getInitFunctionResult(codedata.object());
+        List<ParameterData> functionParameters = getInitFunctionParameters(codedata.object());
 
         metadata()
                 .label(function.packageName())
@@ -97,9 +95,9 @@ public class ClassBuilder extends NodeBuilder {
                 .isGenerated(codedata.isGenerated());
 
         boolean hasOnlyRestParams = functionParameters.size() == 1;
-        for (ParameterResult paramResult : functionParameters) {
-            if (paramResult.kind().equals(Parameter.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(Parameter.Kind.INCLUDED_RECORD)) {
+        for (ParameterData paramResult : functionParameters) {
+            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -120,18 +118,18 @@ public class ClassBuilder extends NodeBuilder {
                     .editable()
                     .defaultable(paramResult.optional());
 
-            if (paramResult.kind() == Parameter.Kind.INCLUDED_RECORD_REST) {
+            if (paramResult.kind() == ParameterData.Kind.INCLUDED_RECORD_REST) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
                 unescapedParamName = "additionalValues";
                 customPropBuilder.type(Property.ValueType.MAPPING_EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REST_PARAMETER) {
+            } else if (paramResult.kind() == ParameterData.Kind.REST_PARAMETER) {
                 if (hasOnlyRestParams) {
                     customPropBuilder.defaultable(false);
                 }
                 customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
-            } else if (paramResult.kind() == Parameter.Kind.REQUIRED) {
+            } else if (paramResult.kind() == ParameterData.Kind.REQUIRED) {
                 customPropBuilder.type(Property.ValueType.EXPRESSION).value(paramResult.defaultValue());
             } else {
                 customPropBuilder.type(Property.ValueType.EXPRESSION);
@@ -151,40 +149,31 @@ public class ClassBuilder extends NodeBuilder {
                 .checkError(true, CHECK_ERROR_DOC, false);
     }
 
-    private FunctionResult getInitFunctionResult(String name) {
+    private FunctionData getInitFunctionResult(String name) {
         if (name.equals("ChatGptModel")) {
-            return new FunctionResult(-1, "ChatGptModel", "ChatGPT model", "error?", "ballerina", "agent", "1.0.0", "",
-                    Function.Kind.FUNCTION, true, false);
+            return new FunctionData(-1, "ChatGptModel", "ChatGPT model", "error?", "ballerina", "agent", "1.0.0", "",
+                    FunctionData.Kind.FUNCTION, true, false);
         } else if (name.equals("AzureChatGptModel")) {
-            return new FunctionResult(-1, "AzureChatGptModel", "ChatGPT model", "error?", "ballerina", "agent",
-                    "1.0.0", "", Function.Kind.FUNCTION, true, false);
+            return new FunctionData(-1, "AzureChatGptModel", "ChatGPT model", "error?", "ballerina", "agent",
+                    "1.0.0", "", FunctionData.Kind.FUNCTION, true, false);
         }
         throw new IllegalStateException(String.format("Agent %s is not supported", name));
     }
 
-    private List<ParameterResult> getInitFunctionParameters(String name) {
+    private List<ParameterData> getInitFunctionParameters(String name) {
         if (name.equals("ChatGptModel")) {
             return List.of(
-                    new ParameterResult(-1, "connectionConfig", "chat:ConnectionConfig", Parameter.Kind.REQUIRED, "",
-                            "", false, ""),
-                    new ParameterResult(-2, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "",
-                            false
-                            , "")
+                    ParameterData.from("connectionConfig", "chat:ConnectionConfig", ParameterData.Kind.REQUIRED, "", "", false),
+                    ParameterData.from("modelConfig", "ChatModelConfig", ParameterData.Kind.DEFAULTABLE, "{}",
+                            "Model configuration", false)
             );
         } else if (name.equals("AzureChatGptModel")) {
             return List.of(
-                    new ParameterResult(-1, "connectionConfig", "azure_chat:ConnectionConfig",
-                            Parameter.Kind.REQUIRED, "", "", false,
-                            ""),
-                    new ParameterResult(-2, "serviceUrl", "string", Parameter.Kind.REQUIRED, "", "", false,
-                            ""),
-                    new ParameterResult(-3, "deploymentId", "string", Parameter.Kind.REQUIRED, "", "", false,
-                            ""),
-                    new ParameterResult(-4, "apiVersion", "string", Parameter.Kind.REQUIRED, "", "", false,
-                            ""),
-                    new ParameterResult(-5, "modelConfig", "ChatModelConfig", Parameter.Kind.DEFAULTABLE, "{}", "",
-                            false
-                            , "")
+                    ParameterData.from("connectionConfig", "azure_chat:ConnectionConfig", ParameterData.Kind.REQUIRED, "", "", false),
+                    ParameterData.from("serviceUrl", "string", ParameterData.Kind.REQUIRED, "", "", false),
+                    ParameterData.from("deploymentId", "string", ParameterData.Kind.REQUIRED, "", "", false),
+                    ParameterData.from("apiVersion", "string", ParameterData.Kind.REQUIRED, "", "", false),
+                    ParameterData.from("modelConfig", "ChatModelConfig", ParameterData.Kind.DEFAULTABLE, "{}", "", false)
             );
         }
         throw new IllegalStateException(String.format("Class %s is not supported", name));

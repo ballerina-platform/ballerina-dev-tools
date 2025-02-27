@@ -19,10 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.db.model.Function;
-import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -31,6 +27,8 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import org.eclipse.lsp4j.TextEdit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,8 +75,8 @@ public class AgentBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
-        FunctionResult function = getInitFunctionResult(codedata.object());
-        List<ParameterResult> functionParameters = getInitFunctionParameterResults(codedata.object());
+        FunctionData function = getInitFunctionDataResult(codedata.object());
+        List<ParameterData> functionParameters = getInitFunctionParameterDataResults(codedata.object());
 
         metadata()
                 .label(function.packageName())
@@ -110,7 +108,7 @@ public class AgentBuilder extends NodeBuilder {
                 .checkError(true, CHECK_ERROR_DOC, false);
     }
 
-    private void createParameterProperty(ParameterResult paramResult, Property.ValueType valueType) {
+    private void createParameterProperty(ParameterData paramResult, Property.ValueType valueType) {
         String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
         Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
         customPropBuilder
@@ -133,31 +131,27 @@ public class AgentBuilder extends NodeBuilder {
                 .addProperty(unescapedParamName);
     }
 
-    private FunctionResult getInitFunctionResult(String agentName) {
+    private FunctionData getInitFunctionDataResult(String agentName) {
         if (agentName.equals("ReActAgent")) {
-            return new FunctionResult(-1, "ReActAgent", "React agent", "error?", "ai.agent", "wso2", "1.0.0", "",
-                    Function.Kind.FUNCTION, true, false);
+            return new FunctionData(-1, "ReActAgent", "React agent", "error?", "ai.agent", "wso2", "1.0.0", "",
+                    FunctionData.Kind.FUNCTION, true, false);
         } else if (agentName.equals("FunctionCallAgent")) {
-            return new FunctionResult(-1, "FunctionCallAgent", "Function call agent", "error?", "ai.agent", "wso2",
-                    "1.0.0", "", Function.Kind.FUNCTION, true, false);
+            return new FunctionData(-1, "FunctionCallAgent", "Function call agent", "error?", "ai.agent", "wso2",
+                    "1.0.0", "", FunctionData.Kind.FUNCTION, true, false);
         }
         throw new IllegalStateException(String.format("Agent %s is not supported", agentName));
     }
 
-    private List<ParameterResult> getInitFunctionParameterResults(String agentName) {
+    private List<ParameterData> getInitFunctionParameterDataResults(String agentName) {
         if (agentName.equals("ReActAgent")) {
             return List.of(
-                    new ParameterResult(-1, "model", "CompletionLlmModel|ChatLlmModel", Parameter.Kind.REQUIRED, "",
-                            "", false, ""),
-                    new ParameterResult(-2, "tools", "BaseToolKit|Tool", Parameter.Kind.REST_PARAMETER, "", "", false
-                            , "")
+                    ParameterData.from("model", "CompletionLlmModel|ChatLlmModel", ParameterData.Kind.REQUIRED, "", "Tools to be used for the agent", false),
+                    ParameterData.from("tools", "BaseToolKit|Tool", ParameterData.Kind.REST_PARAMETER, "", "Tools to be used for the agent", false)
             );
         } else if (agentName.equals("FunctionCallAgent")) {
             return List.of(
-                    new ParameterResult(-1, "model", "FunctionCallLlmModel", Parameter.Kind.REQUIRED, "", "", false,
-                            ""),
-                    new ParameterResult(-2, "tools", "BaseToolKit|Tool", Parameter.Kind.REST_PARAMETER, "", "", false
-                            , "")
+                    ParameterData.from("model", "FunctionCallLlmModel", ParameterData.Kind.REQUIRED, "", "Tools to be used for the agent", false),
+                    ParameterData.from("tools", "BaseToolKit|Tool", ParameterData.Kind.REST_PARAMETER, "", "Tools to be used for the agent", false)
             );
         }
         throw new IllegalStateException(String.format("Agent %s is not supported", agentName));

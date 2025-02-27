@@ -135,8 +135,9 @@ public class AvailableNodesGenerator {
                 Metadata metadata = new Metadata.Builder<>(null)
                         .label(variableSymbol.getName().orElse(""))
                         .build();
-                FunctionResult functionResult = new FunctionResult(-1, "run", "Run agent", "error?", AI_AGENT, WSO2,
-                        AI_VERSION, "", Function.Kind.FUNCTION, true, false);
+                FunctionData functionResult = new FunctionData(-1, "run", "Run agent", "error?", AI_AGENT, WSO2,
+                        AI_VERSION, "",
+                        FunctionData.Kind.FUNCTION, true, false);
                 NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.AGENT_CALL);
                 methodCallBuilder
                         .metadata()
