@@ -29,6 +29,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "createDocument",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -47,6 +48,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "replaceDocument",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -65,6 +67,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "getDocument",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -83,6 +86,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "getDocumentList",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -101,6 +105,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "deleteDocument",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -119,6 +124,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "queryDocuments",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -137,6 +143,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "createStoredProcedure",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -155,6 +162,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "listStoredProcedures",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -173,6 +181,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "deleteStoredProcedure",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -191,6 +200,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "executeStoredProcedure",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -209,6 +219,7 @@
                 "module": "azure_cosmosdb",
                 "object": "DataPlaneClient",
                 "symbol": "close",
+                "version": "4.2.0",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0

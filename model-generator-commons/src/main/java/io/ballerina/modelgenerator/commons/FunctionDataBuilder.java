@@ -350,6 +350,9 @@ public class FunctionDataBuilder {
     }
 
     private void setParentSymbol() {
+        if (semanticModel == null) {
+            deriveSemanticModel();
+        }
         ObjectTypeSymbol fetchedParentTypeSymbol = semanticModel.moduleSymbols().parallelStream()
                 .filter(moduleSymbol -> moduleSymbol.nameEquals(parentSymbolType) &&
                         moduleSymbol instanceof ObjectTypeSymbol)
@@ -391,7 +394,7 @@ public class FunctionDataBuilder {
         }
 
         // Derive if the semantic model is not provided
-        if (this.semanticModel == null) {
+        if (semanticModel == null) {
             deriveSemanticModel();
         }
 
