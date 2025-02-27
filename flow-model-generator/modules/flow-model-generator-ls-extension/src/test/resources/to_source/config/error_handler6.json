@@ -193,7 +193,7 @@
               "description": "Type of the error"
             },
             "valueType": "TYPE",
-            "value": ".:error",
+            "value": "error",
             "placeholder": "error",
             "optional": false,
             "editable": true,
@@ -256,7 +256,7 @@
             "character": 5
           }
         },
-        "newText": "do {\n    AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    fail e;\n} on fail :error e {\n    return e;\n}"
+        "newText": "do {\n    AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    fail e;\n} on fail error e {\n    return e;\n}"
       }
     ]
   }

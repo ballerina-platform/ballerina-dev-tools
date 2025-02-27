@@ -28,6 +28,15 @@ public class Codedata {
     private String type;
     private String argType;
 
+    public Codedata(String type) {
+        this.type = type;
+    }
+
+    public Codedata(String type, String argType) {
+        this.type = type;
+        this.argType = argType;
+    }
+
     public Codedata(LineRange lineRange) {
         this(lineRange, false, false, false);
     }

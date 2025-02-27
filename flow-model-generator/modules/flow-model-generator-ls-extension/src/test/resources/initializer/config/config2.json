@@ -1,0 +1,11 @@
+{
+  "source": "proj2",
+  "description": "Sample diagram node",
+  "files": [
+    "config.bal",
+    "connections.bal",
+    "data_mappings.bal",
+    "functions.bal",
+    "types.bal"
+  ]
+}

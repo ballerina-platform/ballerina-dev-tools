@@ -526,10 +526,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder expressionWithType(Property type, Property variable) {
-            String typeSourceCode = type.toSourceCode();
-            int lastDotIndex = typeSourceCode.lastIndexOf('.');
-            String typeName = lastDotIndex >= 0 ? typeSourceCode.substring(lastDotIndex + 1) : type.toSourceCode();
-            sb.append(typeName).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
+            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
             return this;
         }
 

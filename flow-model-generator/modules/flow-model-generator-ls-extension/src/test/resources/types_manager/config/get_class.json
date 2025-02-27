@@ -27,6 +27,17 @@
       }
     },
     "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Vehicle",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "qualifiers": {
         "metadata": {
           "label": "Type Qualifiers",
@@ -160,7 +171,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "[int id]/country",
         "description": "",
         "returnType": "string",
@@ -315,7 +326,7 @@
           "REMOTE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "REMOTE",
         "name": "getMake",
         "description": "",
         "returnType": "string",
@@ -389,7 +400,7 @@
           "valueType": "IDENTIFIER",
           "value": "VehicleType",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -465,7 +476,7 @@
             "REMOTE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "REMOTE",
           "name": "getMake",
           "description": "Get the make of the vehicle",
           "returnType": "string",

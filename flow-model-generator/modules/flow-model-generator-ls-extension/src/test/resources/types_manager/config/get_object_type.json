@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "VehicleType",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "isPublic": {
@@ -111,7 +111,7 @@
           "REMOTE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "REMOTE",
         "name": "getMake",
         "description": "Get the make of the vehicle",
         "returnType": "string",

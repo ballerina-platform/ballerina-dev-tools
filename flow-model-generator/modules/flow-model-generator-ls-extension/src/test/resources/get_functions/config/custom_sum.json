@@ -83,7 +83,7 @@
           "metadata": {
             "label": "lang.int",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.int_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -105,33 +105,9 @@
         },
         {
           "metadata": {
-            "label": "lang.float",
-            "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "sum",
-                "description": "Returns the sum of zero or more float values.\n\nResult is NaN if any arg is NaN\n\n```ballerina\nfloat:sum(1.2, 2.3, 3.4) ⇒ 6.9\nfloat[] scores = [11.1, 22.2, 33.3];\nfloat:sum(...scores) ⇒ 66.6\nfloat f = 21.2;\nf.sum(10.5, 21, 32.4) ⇒ 85.1\nfloat:sum(float:NaN, 2.3, 3.4) ⇒ NaN\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.float",
-                "symbol": "sum",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "lang.decimal",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.decimal_0.0.0.png"
+            "keywords": []
           },
           "items": [
             {
@@ -153,38 +129,47 @@
         },
         {
           "metadata": {
-            "label": "task",
+            "label": "lang.float",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+            "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "resumeAllJobs",
-                "description": "Resumes all the jobs.\n```ballerina\ncheck task:resumeAllJobs();\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+                "label": "sum",
+                "description": "Returns the sum of zero or more float values.\n\nResult is NaN if any arg is NaN\n\n```ballerina\nfloat:sum(1.2, 2.3, 3.4) ⇒ 6.9\nfloat[] scores = [11.1, 22.2, 33.3];\nfloat:sum(...scores) ⇒ 66.6\nfloat f = 21.2;\nf.sum(10.5, 21, 32.4) ⇒ 85.1\nfloat:sum(float:NaN, 2.3, 3.4) ⇒ NaN\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.float_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "task",
-                "symbol": "resumeAllJobs",
-                "version": "2.5.0"
+                "module": "lang.float",
+                "symbol": "sum",
+                "version": "0.0.0"
               },
               "enabled": true
-            },
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.future",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
             {
               "metadata": {
-                "label": "resumeJob",
-                "description": "Resumes the particular job.\n```ballerina\ncheck task:resumeJob(jobId);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_task_2.5.0.png"
+                "label": "cancel",
+                "description": "Requests cancellation of a future.\n\nThis sets the cancellation flag in the strand corresponding to `f`.\nEach time that a strand yields, it will check the cancellation flag\nand terminate abnormally if the flag is set.\n\n```ballerina\nfuture<int> sumFuture = start int:sum(10, 13, 54, 245, 24, 29, 343, 34);\nsumFuture.cancel();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.future_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "task",
-                "symbol": "resumeJob",
-                "version": "2.5.0"
+                "module": "lang.future",
+                "symbol": "cancel",
+                "version": "0.0.0"
               },
               "enabled": true
             }

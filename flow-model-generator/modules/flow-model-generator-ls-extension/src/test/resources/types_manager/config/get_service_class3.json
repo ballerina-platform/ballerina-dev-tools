@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "/graphql",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "qualifiers": {
@@ -81,7 +81,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile21",
         "description": "",
         "returnType": "AbstractProfile",
@@ -131,7 +131,7 @@
           "RESOURCE"
         ],
         "parameters": [],
-        "kind": "FUNCTION",
+        "kind": "RESOURCE",
         "name": "profile",
         "description": "",
         "returnType": "UserProfile",
@@ -189,7 +189,7 @@
             "name": "userName"
           }
         ],
-        "kind": "FUNCTION",
+        "kind": "REMOTE",
         "name": "updateName",
         "description": "",
         "returnType": "UserProfile",
@@ -265,7 +265,7 @@
           "valueType": "IDENTIFIER",
           "value": "UserName",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -354,7 +354,7 @@
           "valueType": "IDENTIFIER",
           "value": "Address",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -449,6 +449,17 @@
         }
       },
       "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "UserProfile",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
         "qualifiers": {
           "metadata": {
             "label": "Type Qualifiers",
@@ -570,7 +581,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "name",
           "description": "",
           "returnType": "string",
@@ -618,7 +629,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "age",
           "description": "",
           "returnType": "int",
@@ -666,7 +677,7 @@
             "RESOURCE"
           ],
           "parameters": [],
-          "kind": "FUNCTION",
+          "kind": "RESOURCE",
           "name": "isAdult",
           "description": "",
           "returnType": "boolean",
@@ -739,7 +750,7 @@
           "valueType": "IDENTIFIER",
           "value": "AbstractProfile",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {

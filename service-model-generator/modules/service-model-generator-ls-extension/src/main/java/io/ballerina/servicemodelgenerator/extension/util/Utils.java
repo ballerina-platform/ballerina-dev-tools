@@ -1071,10 +1071,6 @@ public final class Utils {
             return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
                     String.format("\"%s\"", value.getValue()) : value.getValue();
         }
-        if (!value.getPlaceholder().trim().isEmpty()) {
-            return !Objects.isNull(value.getValueType()) && value.getValueType().equals("STRING") ?
-                    String.format("\"%s\"", value.getPlaceholder()) : value.getPlaceholder();
-        }
         Map<String, Value> properties = value.getProperties();
         if (Objects.isNull(properties)) {
             return "";

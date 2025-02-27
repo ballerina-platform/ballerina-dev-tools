@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json|data.jsondata:Error",
+        "value": "json|jsondata:Error",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -107,7 +107,7 @@
             "character": 0
           }
         },
-        "newText": "jsondata:Error item = check jsondata:toJson(\"value\");"
+        "newText": "json|jsondata:Error item = check jsondata:toJson(\"value\");"
       }
     ]
   }
