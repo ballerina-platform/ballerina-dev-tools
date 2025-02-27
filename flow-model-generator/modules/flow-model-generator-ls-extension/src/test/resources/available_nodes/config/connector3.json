@@ -4,7 +4,7 @@
     "line": 8,
     "offset": 0
   },
-  "source": "azure_cosmosdb.bal",
+  "source": "grpc_streaming_client.bal",
   "categories": [
     {
       "metadata": {
@@ -19,17 +19,17 @@
           "items": [
             {
               "metadata": {
-                "label": "createDocument",
-                "description": "Creates a document.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+                "label": "send",
+                "description": "Sends the request message to the server.\n```ballerina\ngrpc:Error? err = sClient->send(message);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "createDocument",
-                "version": "4.2.0",
+                "org": "ballerina",
+                "module": "grpc",
+                "object": "StreamingClient",
+                "symbol": "send",
+                "version": "1.13.2",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -38,17 +38,17 @@
             },
             {
               "metadata": {
-                "label": "replaceDocument",
-                "description": "Replaces a document.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+                "label": "complete",
+                "description": "Informs the server when the caller has sent all the messages.\n```ballerina\ngrpc:Error? result = sClient->complete();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "replaceDocument",
-                "version": "4.2.0",
+                "org": "ballerina",
+                "module": "grpc",
+                "object": "StreamingClient",
+                "symbol": "complete",
+                "version": "1.13.2",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -57,17 +57,17 @@
             },
             {
               "metadata": {
-                "label": "getDocument",
-                "description": "Gets information about a document.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+                "label": "sendError",
+                "description": "Sends an error message to the server.\n```ballerina\ngrpc:Error? result = sClient->sendError(error grpc:AbortedError(\"Operation aborted\"));\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "getDocument",
-                "version": "4.2.0",
+                "org": "ballerina",
+                "module": "grpc",
+                "object": "StreamingClient",
+                "symbol": "sendError",
+                "version": "1.13.2",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
@@ -76,150 +76,17 @@
             },
             {
               "metadata": {
-                "label": "getDocumentList",
-                "description": "Lists information of all the documents .\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+                "label": "receive",
+                "description": "Receives server responses in client streaming and bidirectional streaming.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error? result = streamingClient->receive();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "getDocumentList",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "deleteDocument",
-                "description": "Deletes a document.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "deleteDocument",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "queryDocuments",
-                "description": "Queries documents.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "queryDocuments",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "createStoredProcedure",
-                "description": "Creates a new stored procedure. \n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "createStoredProcedure",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "listStoredProcedures",
-                "description": "Lists information of all stored procedures.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "listStoredProcedures",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "deleteStoredProcedure",
-                "description": "Deletes a stored procedure.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "deleteStoredProcedure",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "executeStoredProcedure",
-                "description": "Executes a stored procedure.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "executeStoredProcedure",
-                "version": "4.2.0",
-                "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "close",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
-              },
-              "codedata": {
-                "node": "REMOTE_ACTION_CALL",
-                "org": "ballerinax",
-                "module": "azure_cosmosdb",
-                "object": "DataPlaneClient",
-                "symbol": "close",
-                "version": "4.2.0",
+                "org": "ballerina",
+                "module": "grpc",
+                "object": "StreamingClient",
+                "symbol": "receive",
+                "version": "1.13.2",
                 "parentSymbol": "moduleClient",
                 "resourcePath": "",
                 "id": 0
