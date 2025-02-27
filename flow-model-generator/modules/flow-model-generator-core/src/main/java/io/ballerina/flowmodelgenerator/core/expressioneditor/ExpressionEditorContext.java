@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -54,7 +53,6 @@ import java.util.Optional;
  */
 public class ExpressionEditorContext {
 
-    private static final Gson gson = new Gson();
     private final WorkspaceManagerProxy workspaceManagerProxy;
     private final String fileUri;
     private final Info info;
@@ -151,7 +149,7 @@ public class ExpressionEditorContext {
                     .name(importStatement)
                     .endOfStatement()
                     .build(false);
-            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
+            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt + System.lineSeparator());
             return Optional.of(textEdit);
         }
         return Optional.empty();
@@ -166,6 +164,7 @@ public class ExpressionEditorContext {
     public LineRange generateStatement() {
         String prefix = "var __reserved__ = ";
         List<TextEdit> textEdits = new ArrayList<>();
+        int lineOffset = 0;
 
         if (property != null) {
             // Append the type if exists
@@ -177,7 +176,11 @@ public class ExpressionEditorContext {
             String importStatements = property.importStatements();
             if (importStatements != null && !importStatements.isEmpty()) {
                 for (String importStmt : importStatements.split(",")) {
-                    getImport(importStmt).ifPresent(textEdits::add);
+                    Optional<TextEdit> textEdit = getImport(importStmt);
+                    if (textEdit.isPresent()) {
+                        textEdits.add(textEdit.get());
+                        lineOffset++;
+                    }
                 }
             }
         }
@@ -185,12 +188,17 @@ public class ExpressionEditorContext {
         // Add the import statement for the node type
         if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
                 NodeKind.RESOURCE_ACTION_CALL))) {
-            getImport().ifPresent(textEdits::add);
+            Optional<TextEdit> textEdit = getImport();
+            if (textEdit.isPresent()) {
+                textEdits.add(textEdit.get());
+                lineOffset++;
+            }
         }
 
         // Get the text position of the start line
         TextDocument textDocument = documentContext.document().textDocument();
-        int textPosition = textDocument.textPositionFrom(info.startLine());
+        LinePosition cursorStartLine = info.startLine();
+        int textPosition = textDocument.textPositionFrom(cursorStartLine);
 
         // Generate the statement and apply the text edits
         String statement = String.format("%s%s;%n", prefix, info.expression());
@@ -199,7 +207,7 @@ public class ExpressionEditorContext {
         applyTextEdits(textEdits);
 
         // Return the line range of the generated statement
-        LinePosition startLine = info.startLine();
+        LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
         this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
@@ -268,6 +276,23 @@ public class ExpressionEditorContext {
         return property;
     }
 
+    /**
+     * Represents a property with associated code data in the expression editor context.
+     *
+     * <p>
+     * This is a temporary abstraction of the {@link io.ballerina.flowmodelgenerator.core.model.Property} and
+     * {@link io.ballerina.flowmodelgenerator.core.model.Codedata} until the source code is properly refactored to use
+     * these structures. The class provides the minimum public methods required to build the context and follows the CoR
+     * pattern to support fallback mechanisms for property derivation.
+     * </p>
+     * <p>
+     * The property encapsulates various attributes such as value, value type, type constraints, import statements,
+     * organization, module, and node kind. These values are lazily initialized when first accessed through the getter
+     * methods.
+     * </p>
+     *
+     * @since 2.0.0
+     */
     public static class Property {
 
         private final JsonObject property;

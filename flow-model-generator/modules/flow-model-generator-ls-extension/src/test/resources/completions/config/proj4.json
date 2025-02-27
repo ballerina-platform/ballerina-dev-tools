@@ -49,5 +49,39 @@
   "completionContext": {
     "triggerKind": "Invoked"
   },
-  "completions": []
+  "completions": [
+    {
+      "label": "readonly",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "U",
+      "filterText": "readonly",
+      "insertText": "readonly ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "maxOpenConnections",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.maxOpenConnections",
+      "sortText": "K",
+      "insertText": "maxOpenConnections: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "maxConnectionLifeTime",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.maxConnectionLifeTime",
+      "sortText": "K",
+      "insertText": "maxConnectionLifeTime: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "minIdleConnections",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.minIdleConnections",
+      "sortText": "K",
+      "insertText": "minIdleConnections: ${1:0}",
+      "insertTextFormat": "Snippet"
+    }
+  ]
 }
