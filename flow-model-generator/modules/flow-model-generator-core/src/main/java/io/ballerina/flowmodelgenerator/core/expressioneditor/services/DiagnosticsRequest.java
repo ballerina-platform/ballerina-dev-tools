@@ -44,7 +44,7 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
     }
 
     public static DiagnosticsRequest from(ExpressionEditorContext context) {
-        Property property = context.getProperty();
+        ExpressionEditorContext.Property property = context.getProperty();
         if (property == null) {
             throw new IllegalArgumentException("Property cannot be null");
         }

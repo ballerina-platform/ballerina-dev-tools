@@ -8,88 +8,37 @@
       "offset": 8
     },
     "offset": 0,
-    "node": {
-      "id": "31",
-      "metadata": {
-        "label": "printInfo",
-        "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
-      },
-      "codedata": {
-        "node": "FUNCTION_CALL",
-        "org": "ballerina",
-        "module": "log",
-        "symbol": "printInfo",
-        "version": "2.10.0"
-      },
-      "returning": false,
-      "properties": {
-        "msg": {
-          "metadata": {
-            "label": "msg",
-            "description": "The message to be logged"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "string",
-          "value": "\"\"",
-          "placeholder": "\"\"",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "kind": "REQUIRED"
-        },
-        "'error": {
-          "metadata": {
-            "label": "'error",
-            "description": "The error struct to be logged"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "error|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "kind": "DEFAULTABLE"
-        },
-        "stackTrace": {
-          "metadata": {
-            "label": "stackTrace",
-            "description": "The error stack trace to be logged"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "kind": "DEFAULTABLE"
-        },
-        "Additional Values": {
-          "metadata": {
-            "label": "Additional Values",
-            "description": "Capture key value pairs"
-          },
-          "valueType": "MAPPING_EXPRESSION_SET",
-          "valueTypeConstraint": "log:Value",
-          "placeholder": "{}",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "kind": "INCLUDED_RECORD_REST"
-        }
-      },
-      "flags": 0
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo",
+      "version": "2.10.0"
     },
-    "property": "msg"
+    "property": {
+      "metadata": {
+        "label": "msg",
+        "description": "The message to be logged"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "value": "\"\"",
+      "placeholder": "\"\"",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "kind": "REQUIRED"
+    }
   },
   "diagnostics": [
     {
       "range": {
         "start": {
-          "line": 13,
+          "line": 14,
           "character": 30
         },
         "end": {
-          "line": 13,
+          "line": 14,
           "character": 32
         }
       },

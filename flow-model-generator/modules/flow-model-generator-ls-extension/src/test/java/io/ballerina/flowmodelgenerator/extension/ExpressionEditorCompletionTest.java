@@ -80,7 +80,7 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         ExpressionEditorContext.Info firstContext = testConfig.context();
         ExpressionEditorContext.Info info =
                 new ExpressionEditorContext.Info("self.classVar > localVar + self. +  21", firstContext.startLine(),
-                        32, firstContext.node(), firstContext.branch(), firstContext.property());
+                        32, firstContext.codedata(), firstContext.property());
         ExpressionEditorCompletionRequest secondRequest = new ExpressionEditorCompletionRequest(sourcePath, info,
                 testConfig.completionContext());
         JsonObject secondResponse = getResponse(secondRequest);
