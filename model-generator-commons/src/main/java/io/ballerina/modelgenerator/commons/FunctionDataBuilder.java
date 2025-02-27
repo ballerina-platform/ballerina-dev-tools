@@ -408,11 +408,15 @@ public class FunctionDataBuilder {
         ClassSymbol classSymbol = (ClassSymbol) this.parentSymbol;
         List<FunctionData> functionDataList = new ArrayList<>();
         for (MethodSymbol methodSymbol : classSymbol.methods().values()) {
-            if (methodSymbol.qualifiers().contains(Qualifier.PRIVATE)) {
+            List<Qualifier> qualifiers = methodSymbol.qualifiers();
+            if (qualifiers.contains(Qualifier.PRIVATE)) {
+                continue;
+            }
+            FunctionData.Kind methodKind = getFunctionKind(methodSymbol);
+            if (methodKind == FunctionData.Kind.FUNCTION && !qualifiers.contains(Qualifier.PUBLIC)) {
                 continue;
             }
             ReturnData returnData = getReturnData(methodSymbol);
-            FunctionData.Kind methodKind = getFunctionKind(methodSymbol);
 
             // If the method is a resource method, the resource path should be derived
             String methodResourcePath;
@@ -420,7 +424,7 @@ public class FunctionDataBuilder {
                 ResourcePathTemplate resourcePathTemplate = buildResourcePathTemplate(methodSymbol);
                 methodResourcePath = resourcePathTemplate.resourcePathTemplate();
             } else {
-                methodResourcePath = REST_RESOURCE_PATH;
+                methodResourcePath = "";
             }
 
             FunctionData functionData = new FunctionData(0,

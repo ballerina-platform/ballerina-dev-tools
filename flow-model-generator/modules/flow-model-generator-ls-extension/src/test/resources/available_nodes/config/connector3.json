@@ -30,6 +30,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "createDocument",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -47,6 +48,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "replaceDocument",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -64,6 +66,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "getDocument",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -81,6 +84,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "getDocumentList",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -98,6 +102,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "deleteDocument",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -115,6 +120,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "queryDocuments",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -132,6 +138,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "createStoredProcedure",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -149,6 +156,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "listStoredProcedures",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -166,6 +174,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "deleteStoredProcedure",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -183,6 +192,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "executeStoredProcedure",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
@@ -200,6 +210,7 @@
                 "object": "DataPlaneClient",
                 "symbol": "close",
                 "parentSymbol": "moduleClient",
+                "resourcePath": "",
                 "id": 0
               },
               "enabled": true
