@@ -39,7 +39,8 @@
         "id": "52725",
         "metadata": {
           "label": "New Connection",
-          "description": ""
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -47,7 +48,6 @@
           "module": ".",
           "object": "Foo1",
           "symbol": "init",
-          "version": "0.0.0",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -59,10 +59,27 @@
               "offset": 25
             }
           },
-          "sourceCode": "Foo1 f1 = new(\"foo\");"
+          "sourceCode": "Foo1 f1 = new(\"foo\");",
+          "id": 0
         },
         "returning": false,
         "properties": {
+          "name": {
+            "metadata": {
+              "label": "name"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"foo\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "name"
+            }
+          },
           "scope": {
             "metadata": {
               "label": "Connection Scope",
@@ -84,22 +101,6 @@
             "optional": false,
             "editable": false,
             "advanced": true
-          },
-          "name": {
-            "metadata": {
-              "label": "name"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
-            "value": "\"foo\"",
-            "placeholder": "\"\"",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "kind": "REQUIRED",
-              "originalName": "name"
-            }
           },
           "variable": {
             "metadata": {

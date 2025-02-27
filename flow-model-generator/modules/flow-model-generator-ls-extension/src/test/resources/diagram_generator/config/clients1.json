@@ -40,7 +40,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -184,7 +184,7 @@
           "node": "REMOTE_ACTION_CALL",
           "org": "$anon",
           "module": ".",
-          "object": "Client",
+          "object": "MyClient",
           "symbol": "myRemoteFn",
           "version": "0.0.0",
           "lineRange": {
@@ -221,7 +221,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -229,7 +229,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -241,32 +240,11 @@
               "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -300,6 +278,28 @@
               "kind": "INCLUDED_RECORD",
               "originalName": "config"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Local",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -345,7 +345,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -353,7 +353,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -482,11 +482,16 @@
       {
         "id": "50745",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "New Connection",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "MyClient",
+          "symbol": "init",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -498,24 +503,36 @@
               "offset": 29
             }
           },
-          "sourceCode": "MyClient myLocalCl = new;"
+          "sourceCode": "MyClient myLocalCl = new;",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Initialize with value"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "EXPRESSION",
-            "value": "new",
-            "optional": true,
+            "valueType": "ENUM",
+            "value": "Local",
+            "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -539,14 +556,14 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "MyClient",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -562,7 +579,7 @@
           "node": "REMOTE_ACTION_CALL",
           "org": "$anon",
           "module": ".",
-          "object": "Client",
+          "object": "MyClient",
           "symbol": "myRemoteFn",
           "version": "0.0.0",
           "lineRange": {
@@ -638,7 +655,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -646,7 +663,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -658,32 +674,11 @@
               "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -717,6 +712,28 @@
               "kind": "INCLUDED_RECORD",
               "originalName": "config"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -760,11 +777,16 @@
       {
         "id": "41709",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "New Connection",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "MyClient",
+          "symbol": "init",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -776,24 +798,36 @@
               "offset": 45
             }
           },
-          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();"
+          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Initialize with value"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "EXPRESSION",
-            "value": "new MyClient()",
-            "optional": true,
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -817,14 +851,14 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "MyClient",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
@@ -833,11 +867,16 @@
       {
         "id": "40698",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "New Connection",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "MyClient",
+          "symbol": "init",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -849,24 +888,36 @@
               "offset": 26
             }
           },
-          "sourceCode": "MyClient myModuleCl = new;"
+          "sourceCode": "MyClient myModuleCl = new;",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Initialize with value"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "EXPRESSION",
-            "value": "new",
-            "optional": true,
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": true
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
           },
           "variable": {
             "metadata": {
-              "label": "Name",
+              "label": "Connection Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -890,14 +941,14 @@
           },
           "type": {
             "metadata": {
-              "label": "Type",
+              "label": "Connection Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "MyClient",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false
           }
         },
