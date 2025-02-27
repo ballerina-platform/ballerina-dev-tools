@@ -20,14 +20,11 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
@@ -42,10 +39,9 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -204,115 +200,68 @@ public class AvailableNodesGenerator {
         try {
             TypeReferenceTypeSymbol typeDescriptorSymbol =
                     (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
-            if (typeDescriptorSymbol.typeDescriptor().kind() != SymbolKind.CLASS ||
-                    !((ClassSymbol) typeDescriptorSymbol.typeDescriptor()).qualifiers().contains(Qualifier.CLIENT)) {
+            ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
+            if (!(classSymbol.qualifiers().contains(Qualifier.CLIENT))) {
                 return Optional.empty();
             }
+            String parentSymbolName = symbol.getName().orElseThrow();
+            String className = classSymbol.getName().orElseThrow();
 
-            ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
-            List<Item> connections = fetchConnections(moduleSymbol.id(), symbol.getName().orElse(""));
+            // Obtain methods of the connector
+            List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
+                    .parentSymbol(classSymbol)
+                    .buildChildNodes();
+
+            List<Item> methods = new ArrayList<>();
+            for (FunctionData methodFunction : methodFunctionsData) {
+                String org = methodFunction.org();
+                String packageName = methodFunction.packageName();
+                String version = methodFunction.version();
+                boolean isHttpModule = org.equals(BALLERINA_ORG) && packageName.equals(HTTP_MODULE);
+
+                NodeBuilder nodeBuilder;
+                String label;
+                if (methodFunction.kind() == FunctionData.Kind.RESOURCE) {
+                    // TODO: Move this logic to the index
+                    if (isHttpModule && HTTP_REMOTE_METHOD_SKIP_LIST.contains(methodFunction.name())) {
+                        continue;
+                    }
+                    label = methodFunction.name() + (isHttpModule ? "" : methodFunction.resourcePath());
+                    nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
+                } else {
+                    label = methodFunction.name();
+                    nodeBuilder = switch (methodFunction.kind()) {
+                        case REMOTE -> NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
+                        case FUNCTION -> NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
+                        default -> throw new IllegalStateException("Unexpected value: " + methodFunction.kind());
+                    };
+                }
+
+                Item node = nodeBuilder
+                        .metadata()
+                            .label(label)
+                            .icon(CommonUtils.generateIcon(org, packageName, version))
+                            .description(methodFunction.description())
+                            .stepOut()
+                        .codedata()
+                            .org(org)
+                            .module(packageName)
+                            .object(className)
+                            .symbol(methodFunction.name())
+                            .parentSymbol(parentSymbolName)
+                            .resourcePath(methodFunction.resourcePath())
+                            .id(methodFunction.functionId())
+                            .stepOut()
+                        .buildAvailableNode();
+                methods.add(node);
+            }
 
             Metadata metadata = new Metadata.Builder<>(null)
-                    .label(symbol.getName().orElseThrow())
+                    .label(parentSymbolName)
                     .build();
-            return Optional.of(new Category(metadata, connections));
+            return Optional.of(new Category(metadata, methods));
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-    }
-
-    private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
-        DatabaseManager dbManager = DatabaseManager.getInstance();
-        Optional<FunctionData> connectorResult =
-                dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnectionBuilder.INIT_SYMBOL,
-                        FunctionData.Kind.CONNECTOR, null);
-        if (connectorResult.isEmpty()) {
-            return List.of();
-        }
-
-        FunctionData connector = connectorResult.get();
-        List<FunctionData> connectorActions = dbManager.getConnectorActions(connector.functionId());
-
-        List<Item> availableNodes = new ArrayList<>();
-        for (FunctionData connectorAction : connectorActions) {
-            if (connectorAction.kind() == FunctionData.Kind.REMOTE) {
-                availableNodes.add(getActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else if (connectorAction.kind() == FunctionData.Kind.FUNCTION) {
-                availableNodes.add(getMethodCallNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            } else {
-                if (isHttpModule(connector) && HTTP_REMOTE_METHOD_SKIP_LIST.contains(connectorAction.name())) {
-                    continue;
-                }
-                availableNodes.add(
-                        getResourceActionNode(connectorAction, connector, parentSymbol).buildAvailableNode());
-            }
-        }
-        return availableNodes;
-    }
-
-    private static NodeBuilder getMethodCallNode(FunctionData functionData, FunctionData connector,
-                                                 String parentSymbol) {
-        NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
-        methodCallBuilder
-                .metadata()
-                    .label(functionData.name())
-                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                    .description(functionData.description())
-                    .stepOut()
-                .codedata()
-                    .node(NodeKind.METHOD_CALL)
-                    .org(connector.org())
-                    .module(connector.packageName())
-                    .symbol(functionData.name())
-                    .parentSymbol(parentSymbol)
-                    .id(functionData.functionId());
-        return methodCallBuilder;
-    }
-
-    private static NodeBuilder getActionNode(FunctionData connectorAction, FunctionData connector,
-                                             String parentSymbol) {
-        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
-        actionBuilder
-                .metadata()
-                    .label(connectorAction.name())
-                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                    .description(connectorAction.description())
-                    .stepOut()
-                .codedata()
-                    .node(NodeKind.REMOTE_ACTION_CALL)
-                    .org(connector.org())
-                    .module(connector.packageName())
-                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                    .symbol(connectorAction.name())
-                    .parentSymbol(parentSymbol)
-                    .id(connectorAction.functionId());
-        return actionBuilder;
-    }
-
-    private static NodeBuilder getResourceActionNode(FunctionData connectorAction, FunctionData connector,
-                                                     String parentSymbol) {
-        NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
-        String label = connectorAction.name() + (isHttpModule(connector) ? "" : connectorAction.resourcePath());
-        actionBuilder
-                .metadata()
-                    .label(label)
-                    .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
-                    .description(connectorAction.description())
-                    .functionKind(FunctionData.Kind.RESOURCE.name())
-                    .stepOut()
-                .codedata()
-                    .node(NodeKind.RESOURCE_ACTION_CALL)
-                    .org(connector.org())
-                    .module(connector.packageName())
-                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
-                    .symbol(connectorAction.name())
-                    .parentSymbol(parentSymbol)
-                    .resourcePath(connectorAction.resourcePath())
-                    .id(connectorAction.functionId());
-        return actionBuilder;
-    }
-
-    private static boolean isHttpModule(FunctionData connector) {
-        return connector.org().equals(BALLERINA_ORG) && connector.packageName().equals(HTTP_MODULE);
     }
 }

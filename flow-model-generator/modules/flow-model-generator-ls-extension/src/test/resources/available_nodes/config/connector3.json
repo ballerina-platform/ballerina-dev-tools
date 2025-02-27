@@ -1,0 +1,518 @@
+{
+  "description": "A simple example of a package",
+  "position": {
+    "line": 8,
+    "offset": 0
+  },
+  "source": "azure_cosmosdb.bal",
+  "categories": [
+    {
+      "metadata": {
+        "label": "Connections",
+        "description": "The connections used in the flow"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "moduleClient"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "createDocument",
+                "description": "Creates a document.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "createDocument",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replaceDocument",
+                "description": "Replaces a document.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "replaceDocument",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getDocument",
+                "description": "Gets information about a document.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "getDocument",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getDocumentList",
+                "description": "Lists information of all the documents .\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "getDocumentList",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "deleteDocument",
+                "description": "Deletes a document.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "deleteDocument",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "queryDocuments",
+                "description": "Queries documents.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "queryDocuments",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "createStoredProcedure",
+                "description": "Creates a new stored procedure. \n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "createStoredProcedure",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "listStoredProcedures",
+                "description": "Lists information of all stored procedures.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "listStoredProcedures",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "deleteStoredProcedure",
+                "description": "Deletes a stored procedure.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "deleteStoredProcedure",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "executeStoredProcedure",
+                "description": "Executes a stored procedure.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "executeStoredProcedure",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "close",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "azure_cosmosdb",
+                "object": "DataPlaneClient",
+                "symbol": "close",
+                "parentSymbol": "moduleClient",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Statement",
+        "description": "Fundamental executable units in a program"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Variable"
+          },
+          "codedata": {
+            "node": "VARIABLE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Assign",
+            "description": "Assign a value to a variable"
+          },
+          "codedata": {
+            "node": "ASSIGN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Function Call",
+            "description": "Both project and utility functions"
+          },
+          "codedata": {
+            "node": "FUNCTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Map Data"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER_CALL"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Control",
+        "description": "Control nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "If",
+            "description": "Add conditional branch to the integration flow."
+          },
+          "codedata": {
+            "node": "IF"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Match",
+            "description": "Switches the data flow based on the value of an expression."
+          },
+          "codedata": {
+            "node": "MATCH"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "While",
+            "description": "Loop over a block of code."
+          },
+          "codedata": {
+            "node": "WHILE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Foreach",
+            "description": "Iterate over a block of code."
+          },
+          "codedata": {
+            "node": "FOREACH"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Return"
+          },
+          "codedata": {
+            "node": "RETURN"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Error Handling",
+        "description": "Handle errors that occur during execution"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "ErrorHandler",
+            "description": "Catch and handle errors"
+          },
+          "codedata": {
+            "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Fail",
+            "description": "Fail the execution"
+          },
+          "codedata": {
+            "node": "FAIL"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Panic",
+            "description": "Panic and stop the execution"
+          },
+          "codedata": {
+            "node": "PANIC"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Concurrency",
+        "description": "Concurrency nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Fork",
+            "description": "Create parallel workers"
+          },
+          "codedata": {
+            "node": "FORK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Parallel Flow",
+            "description": "Create parallel flows"
+          },
+          "codedata": {
+            "node": "PARALLEL_FLOW"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Wait",
+            "description": "Wait for a set of futures to complete"
+          },
+          "codedata": {
+            "node": "WAIT"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Commit",
+            "description": "Commit transaction"
+          },
+          "codedata": {
+            "node": "COMMIT"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Rollback",
+            "description": "Rollback the transaction"
+          },
+          "codedata": {
+            "node": "ROLLBACK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Retry Block",
+            "description": "Retry block."
+          },
+          "codedata": {
+            "node": "RETRY"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Logging"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Log Info",
+            "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printInfo",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Error",
+            "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printError",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Warn",
+            "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printWarn",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Debug",
+            "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printDebug",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}
