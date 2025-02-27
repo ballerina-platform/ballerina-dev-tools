@@ -24,7 +24,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "azure_cosmosdb",
-      "object": "Client",
+      "object": "DataPlaneClient",
       "symbol": "init",
       "id": 0
     },

@@ -45,7 +45,7 @@
           "node": "NEW_CONNECTION",
           "org": "$anon",
           "module": ".",
-          "object": "Client",
+          "object": "Foo1",
           "symbol": "init",
           "version": "0.0.0",
           "lineRange": {

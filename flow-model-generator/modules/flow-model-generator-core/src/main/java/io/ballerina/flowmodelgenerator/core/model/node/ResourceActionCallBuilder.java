@@ -79,7 +79,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
         codedata()
                 .org(functionData.org())
                 .module(functionData.packageName())
-                .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                .object(codedata.object())
                 .id(functionData.functionId())
                 .symbol(functionData.name());
 

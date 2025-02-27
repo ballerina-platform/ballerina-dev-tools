@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
@@ -252,8 +253,20 @@ public class FunctionDataBuilder {
                             !parentSymbol.qualifiers().contains(Qualifier.CLIENT)) {
                         throw new IllegalStateException("The connector should be a client class");
                     }
-                    functionSymbol = ((ClassSymbol) parentSymbol).initMethod().orElseThrow(
-                            () -> new IllegalStateException("Init method not found"));
+                    ClassSymbol classSymbol = (ClassSymbol) parentSymbol;
+                    Optional<MethodSymbol> initMethod = classSymbol.initMethod();
+
+                    // If the init method is not found, create the function data without parameters
+                    if (initMethod.isEmpty()) {
+                        String clientName = getFunctionName();
+                        FunctionData functionData = new FunctionData(0, clientName, getDescription(classSymbol),
+                                getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.org(),
+                                moduleInfo.version(), "", functionResultKind, false, false);
+                        functionData.setParameters(Map.of());
+                        return functionData;
+                    }
+
+                    functionSymbol = initMethod.get();
                 } else {
                     if (functionResultKind == FunctionData.Kind.RESOURCE) {
                         // TODO: Need to improve how resource path is stored in the codedata, as this should reflect
@@ -284,8 +297,7 @@ public class FunctionDataBuilder {
             // Set the description of the client class if it is a connector, Else, use the function itself
             Documentable documentable =
                     functionResultKind == FunctionData.Kind.CONNECTOR ? (ClassSymbol) parentSymbol : functionSymbol;
-            this.description = documentable.documentation().flatMap(Documentation::description).orElse("");
-
+            this.description = getDescription(documentable);
         }
 
         // Obtain the return type of the function
@@ -326,8 +338,7 @@ public class FunctionDataBuilder {
 
         ResourcePathTemplate resourcePathTemplate = null;
         if (functionResultKind == FunctionData.Kind.RESOURCE) {
-            resourcePathTemplate = buildResourcePathTemplate(functionSymbol
-            );
+            resourcePathTemplate = buildResourcePathTemplate(functionSymbol);
         }
         resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         Map<String, ParameterData> parameters = new LinkedHashMap<>();
@@ -337,10 +348,9 @@ public class FunctionDataBuilder {
             resourcePathTemplate.pathParams().forEach(param -> parameters.put(param.name(), param));
         }
 
-        FunctionData functionData =
-                new FunctionData(0, functionName, description, returnType, moduleInfo.packageName(),
-                        moduleInfo.org(), moduleInfo.version(), resourcePath, FunctionData.Kind.FUNCTION, returnError,
-                        paramForTypeInfer != null);
+        FunctionData functionData = new FunctionData(0, getFunctionName(), description, returnType,
+                moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionResultKind,
+                returnError, paramForTypeInfer != null);
 
         Map<String, String> documentationMap =
                 functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
@@ -359,7 +369,7 @@ public class FunctionDataBuilder {
     private Optional<FunctionData> getFunctionFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionData> optFunctionResult =
-                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), functionName, functionResultKind,
+                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(), functionResultKind,
                         resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
@@ -432,8 +442,7 @@ public class FunctionDataBuilder {
                 continue;
             }
             String paramName = entry.getKey();
-            String paramDescription = entry.getValue().documentation()
-                    .flatMap(Documentation::description).orElse("");
+            String paramDescription = getDescription(entry.getValue());
             if (documentationMap.containsKey(paramName) && !paramDescription.isEmpty()) {
                 documentationMap.put(paramName, paramDescription);
             } else if (!documentationMap.containsKey(paramName)) {
@@ -585,6 +594,30 @@ public class FunctionDataBuilder {
             return CommonUtils.getTypeSignature(semanticModel, typeSymbol, ignoreError);
         }
         return CommonUtils.getTypeSignature(semanticModel, typeSymbol, ignoreError, userModuleInfo);
+    }
+
+    private String getTypeSignature(String type) {
+        if (userModuleInfo == null) {
+            return moduleInfo.moduleName() + ":" + type;
+        }
+        return type;
+    }
+
+    private String getFunctionName() {
+        // Get the client name if it is the init method of the client
+        if (functionResultKind == FunctionData.Kind.CONNECTOR) {
+            if (parentSymbolType != null) {
+                return parentSymbolType;
+            }
+            if (parentSymbol != null) {
+                return CommonUtils.getClassType(moduleInfo.packageName(), parentSymbol.getName().orElse(functionName));
+            }
+        }
+        return functionName;
+    }
+
+    private String getDescription(Documentable documentable) {
+        return documentable.documentation().flatMap(Documentation::description).orElse("");
     }
 
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {

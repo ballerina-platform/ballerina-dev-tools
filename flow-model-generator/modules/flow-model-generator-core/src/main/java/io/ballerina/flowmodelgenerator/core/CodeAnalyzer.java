@@ -871,7 +871,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(functionData.description())
                     .stepOut()
                 .codedata()
-                    .object(NewConnectionBuilder.CLIENT_SYMBOL)
+                    .object(classSymbol.getName().orElse(""))
                     .symbol(NewConnectionBuilder.INIT_SYMBOL)
                     .stepOut()
                 .properties()
