@@ -1,0 +1,154 @@
+{
+  "id": "13",
+  "name": "Mqtt Listener",
+  "type": "event",
+  "displayName": "Mqtt",
+  "description": "",
+  "displayAnnotation": {
+    "label": "Mqtt",
+    "iconPath": ""
+  },
+  "moduleName": "mqtt",
+  "orgName": "ballerina",
+  "version": "1.3.0",
+  "packageName": "mqtt",
+  "listenerProtocol": "mqtt",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_mqtt_1.3.0.png",
+  "properties": {
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "The name of the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_VAR_NAME"
+      },
+      "addNewButton": false
+    },
+    "serverUri": {
+      "metadata": {
+        "label": "serverUri",
+        "description": "The URI of the remote MQTT server"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "\"\"",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "clientId": {
+      "metadata": {
+        "label": "clientId",
+        "description": "The unique client ID to identify the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "\"\"",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "subscriptions": {
+      "metadata": {
+        "label": "subscriptions",
+        "description": "The topics to be subscribed to"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string|string[]|mqtt:Subscription|mqtt:Subscription[]",
+      "isType": false,
+      "placeholder": "\"\"",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "connectionConfig": {
+      "metadata": {
+        "label": "connectionConfig",
+        "description": ""
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "mqtt:ConnectionConfiguration",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "manualAcks": {
+      "metadata": {
+        "label": "manualAcks",
+        "description": ""
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "boolean",
+      "isType": false,
+      "placeholder": "false",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    }
+  }
+}

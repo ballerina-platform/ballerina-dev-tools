@@ -60,5 +60,14 @@
       "github",
       "event"
     ]
+  },
+  "13": {
+    "name": "mqtt",
+    "orgName": "ballerina",
+    "packageName": "mqtt",
+    "keywords": [
+      "mqtt",
+      "event"
+    ]
   }
 }
