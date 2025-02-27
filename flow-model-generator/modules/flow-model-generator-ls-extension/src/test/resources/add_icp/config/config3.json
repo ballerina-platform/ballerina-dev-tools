@@ -14,7 +14,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerinax/wso2.controlplane as _;%n"
+        "newText": "import ballerinax/wso2.controlplane as _;\n"
       }
     ]
   }

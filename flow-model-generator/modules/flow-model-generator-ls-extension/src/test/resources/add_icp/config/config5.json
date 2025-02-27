@@ -14,7 +14,7 @@
             "character": 22
           }
         },
-        "newText": "remoteManagement = true%n"
+        "newText": "remoteManagement = true\n"
       }
     ]
   }

@@ -14,7 +14,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerinax/wso2.controlplane as _;%n"
+        "newText": "import ballerinax/wso2.controlplane as _;\n"
       }
     ],
     "proj1/Ballerina.toml": [
@@ -29,7 +29,7 @@
             "character": 0
           }
         },
-        "newText": "%n[build-options]%nremoteManagement = true%n"
+        "newText": "\n[build-options]\nremoteManagement = true\n"
       }
     ]
   }
