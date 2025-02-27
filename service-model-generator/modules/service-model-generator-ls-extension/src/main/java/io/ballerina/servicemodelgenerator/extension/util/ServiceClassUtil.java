@@ -227,14 +227,6 @@ public class ServiceClassUtil {
         return "service class %s {%n" +
                 "    *tcp:ConnectionService;%n" +
                 "%n" +
-                "    function init() {%n" +
-                "        do {%n" +
-                "        } on fail error err {%n" +
-                "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
-                "        }%n" +
-                "    }%n" +
-                "%n" +
                 "    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
