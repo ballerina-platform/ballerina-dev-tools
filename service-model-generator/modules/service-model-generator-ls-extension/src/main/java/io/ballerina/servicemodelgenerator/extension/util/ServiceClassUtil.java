@@ -223,6 +223,47 @@ public class ServiceClassUtil {
         }
     }
 
+    public static String getTcpConnectionServiceTemplate() {
+        return "service class %s {%n" +
+                "    *tcp:ConnectionService;%n" +
+                "%n" +
+                "    function init() {%n" +
+                "        do {%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "%n" +
+                "    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "%n" +
+                "    remote function onError(tcp:Error tcpError) {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "%n" +
+                "    remote function onClose() {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "}%n";
+    }
+
     public enum FunctionKind {
         INIT,
         REMOTE,

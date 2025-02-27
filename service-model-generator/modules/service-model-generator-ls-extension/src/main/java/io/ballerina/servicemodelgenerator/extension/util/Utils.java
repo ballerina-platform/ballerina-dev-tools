@@ -59,6 +59,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
@@ -74,6 +75,7 @@ import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
@@ -91,6 +93,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -1050,13 +1053,21 @@ public final class Utils {
         builder.append(ServiceModelGeneratorConstants.SPACE).append(ServiceModelGeneratorConstants.OPEN_BRACE);
         builder.append(System.lineSeparator());
         List<String> functions = new ArrayList<>();
-        service.getFunctions().forEach(function -> {
-            if (function.isEnabled()) {
-                String functionNode = "\t" + getFunction(function, new ArrayList<>()).replace(System.lineSeparator(),
-                        System.lineSeparator() + "\t");
-                functions.add(functionNode);
-            }
-        });
+        boolean isNewTcpService = Utils.isTcpService(service.getOrgName(), service.getPackageName())
+                && service.getProperties().containsKey("returningServiceClass");
+        if (isNewTcpService) {
+            String serviceClassName = service.getProperties().get("returningServiceClass").getValue();
+            String onConnectFunc = Utils.getTcpOnConnectTemplate().formatted(serviceClassName, serviceClassName);
+            functions.add(onConnectFunc);
+        } else {
+            service.getFunctions().forEach(function -> {
+                if (function.isEnabled()) {
+                    String functionNode = "\t" + getFunction(function, new ArrayList<>())
+                            .replace(System.lineSeparator(), System.lineSeparator() + "\t");
+                    functions.add(functionNode);
+                }
+            });
+        }
         builder.append(String.join(System.lineSeparator() + System.lineSeparator(), functions));
         builder.append(System.lineSeparator());
         builder.append(ServiceModelGeneratorConstants.CLOSE_BRACE);
@@ -1315,4 +1326,37 @@ public final class Utils {
         return URI.create(exprUriString).toString();
     }
 
+    public static boolean isTcpService(String org, String module) {
+        return org.equals("ballerina") && module.equals("tcp");
+    }
+
+    public static String getTcpOnConnectTemplate() {
+        return "    remote function onConnect(tcp:Caller caller) returns tcp:ConnectionService {%n" +
+                "        do {%n" +
+                "            %s connectionService = new %s();%n" +
+                "            return connectionService;%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }";
+    }
+
+    public static String generateVariableIdentifier(SemanticModel semanticModel, Document document,
+                                                    LinePosition linePosition, String prefix) {
+        Set<String> names = semanticModel.visibleSymbols(document, linePosition).parallelStream()
+                .filter(s -> s.getName().isPresent())
+                .map(s -> s.getName().get())
+                .collect(Collectors.toSet());
+        return NameUtil.generateVariableName(prefix, names);
+    }
+
+    public static String generateTypeIdentifier(SemanticModel semanticModel, Document document,
+                                                    LinePosition linePosition, String prefix) {
+        Set<String> names = semanticModel.visibleSymbols(document, linePosition).parallelStream()
+                .filter(s -> s.getName().isPresent())
+                .map(s -> s.getName().get())
+                .collect(Collectors.toSet());
+        return NameUtil.generateTypeName(prefix, names);
+    }
 }
