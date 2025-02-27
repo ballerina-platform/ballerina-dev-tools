@@ -65,11 +65,13 @@ import java.util.stream.Collectors;
 @JsonSegment("icpService")
 public class ICPEnablerService implements ExtendedLanguageServerService {
 
+
     private static final String BALLERINAX = "ballerinax";
     private static final String MODULE_NAME = "wso2.controlplane";
     private static final String IMPORT_STMT = "import ballerinax/wso2.controlplane as _;%n";
     private static final String REMOTE_MANAGEMENT_TRUE = "remoteManagement = true%n";
-    private static final String BUILD_OPTIONS = "%n[build-options]%n";
+    private static final String REMOTE_MANAGEMENT_FALSE = "remoteManagement = false";
+    private static final String BUILD_OPTIONS = "%n%n[build-options]%n";
 
     private WorkspaceManager workspaceManager;
 
@@ -165,7 +167,8 @@ public class ICPEnablerService implements ExtendedLanguageServerService {
                         throw new RuntimeException("main.bal not found");
                     }
                     Node node = document.get().syntaxTree().rootNode();
-                    TextEdit edit = new TextEdit(PositionUtil.toRange(node.lineRange().startLine()), IMPORT_STMT);
+                    TextEdit edit = new TextEdit(PositionUtil.toRange(node.lineRange().startLine()),
+                            IMPORT_STMT.formatted());
                     textEdits.put(mainPath.toString(), List.of(edit));
                 }
                 Optional<BallerinaToml> ballerinaToml = pkg.ballerinaToml();
@@ -183,20 +186,57 @@ public class ICPEnablerService implements ExtendedLanguageServerService {
                             return response;
                         } else {
                             TextEdit edit = new TextEdit(
-                                    PositionUtil.toRange(icpNode.location().lineRange()), REMOTE_MANAGEMENT_TRUE);
+                                    PositionUtil.toRange(icpNode.location().lineRange()),
+                                    REMOTE_MANAGEMENT_TRUE.formatted());
                             textEdits.put(tomlPath.toString(), List.of(edit));
                         }
                     } else {
                         TextEdit edit = new TextEdit(
                                 PositionUtil.toRange(buildOptions.location().lineRange().endLine()),
-                                REMOTE_MANAGEMENT_TRUE);
+                                REMOTE_MANAGEMENT_TRUE.formatted());
                         textEdits.put(tomlPath.toString(), List.of(edit));
                     }
                 } else {
                     TextEdit edit = new TextEdit(
                             PositionUtil.toRange(tomlTableNode.location().lineRange().endLine()),
-                            BUILD_OPTIONS + REMOTE_MANAGEMENT_TRUE);
+                            BUILD_OPTIONS.formatted() + REMOTE_MANAGEMENT_TRUE.formatted());
                     textEdits.put(tomlPath.toString(), List.of(edit));
+                }
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<CommonSourceResponse> disableICP(CreateFilesRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            CommonSourceResponse response = new CommonSourceResponse();
+            try {
+                Path filePath = Path.of(request.projectPath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Package pkg = project.currentPackage();
+                Map<String, List<TextEdit>> textEdits = new HashMap<>();
+                response.setTextEdits(textEdits);
+                Optional<BallerinaToml> ballerinaToml = pkg.ballerinaToml();
+                if (ballerinaToml.isEmpty()) {
+                    throw new RuntimeException("Ballerina.toml not found");
+                }
+                Path tomlPath = project.sourceRoot().resolve("Ballerina.toml");
+                TomlTableNode tomlTableNode = ballerinaToml.get().tomlAstNode();
+                TopLevelNode topLevelNode = tomlTableNode.entries().get("build-options");
+                if (topLevelNode instanceof TomlTableNode buildOptions) {
+                    TopLevelNode icpNode = buildOptions.entries().get("remoteManagement");
+                    if (icpNode instanceof TomlKeyValueNode keyValueNode) {
+                        String value = keyValueNode.value().toNativeValue().toString();
+                        if (value.trim().equals("true")) {
+                            TextEdit edit = new TextEdit(
+                                    PositionUtil.toRange(icpNode.location().lineRange()),
+                                    REMOTE_MANAGEMENT_FALSE.formatted());
+                            textEdits.put(tomlPath.toString(), List.of(edit));
+                        }
+                    }
                 }
             } catch (Throwable e) {
                 response.setError(e);
