@@ -539,7 +539,7 @@
             "description": "The return type of the function"
           },
           "enabled": false,
-          "editable": false,
+          "editable": true,
           "isType": false,
           "optional": false,
           "advanced": false,

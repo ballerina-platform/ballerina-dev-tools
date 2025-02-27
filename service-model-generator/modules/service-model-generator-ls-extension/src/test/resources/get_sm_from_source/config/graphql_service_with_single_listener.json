@@ -174,7 +174,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
@@ -340,7 +340,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "string",
           "valueType": "TYPE",
           "isType": false,
@@ -555,7 +555,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "Profile|error",
           "valueType": "TYPE",
           "isType": false,
@@ -669,7 +669,7 @@
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "stream<string, error?>",
           "valueType": "TYPE",
           "isType": false,

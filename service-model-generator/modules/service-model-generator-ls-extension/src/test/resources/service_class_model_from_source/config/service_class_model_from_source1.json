@@ -17,8 +17,8 @@
     "properties": {
       "name": {
         "metadata": {
-          "label": "Class Name",
-          "description": "The name of the class definition"
+          "label": "Object Name",
+          "description": "The name of the object"
         },
         "enabled": true,
         "editable": false,
@@ -533,7 +533,7 @@
             "description": "The type of the field"
           },
           "enabled": false,
-          "editable": false,
+          "editable": true,
           "isType": false,
           "optional": false,
           "advanced": false,
