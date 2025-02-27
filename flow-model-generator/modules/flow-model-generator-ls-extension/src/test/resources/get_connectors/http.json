@@ -212,22 +212,6 @@
     },
     {
       "metadata": {
-        "label": "Commercetools.cartsordershoppinglists Client",
-        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "commercetools.cartsordershoppinglists",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.4.1"
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Commercetools.customer Client",
         "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png"
@@ -236,6 +220,22 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "commercetools.customer",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.4.1"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Commercetools.cartsordershoppinglists Client",
+        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "commercetools.cartsordershoppinglists",
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1"

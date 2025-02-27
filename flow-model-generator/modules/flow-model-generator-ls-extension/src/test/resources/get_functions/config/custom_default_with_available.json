@@ -400,6 +400,36 @@
             },
             {
               "metadata": {
+                "label": "openReadableFile",
+                "description": "Retrieves a `ReadableByteChannel` from a given file path.\n```ballerina\nio:ReadableByteChannel readableFieldResult = check io:openReadableFile(\"./files/sample.txt\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "openReadableFile",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "openWritableFile",
+                "description": "Retrieves a `WritableByteChannel` from a given file path.\n```ballerina\nio:WritableByteChannel writableFileResult = check io:openWritableFile(\"./files/sampleResponse.txt\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "openWritableFile",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
                 "label": "fileReadJson",
                 "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```",
                 "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
@@ -485,45 +515,6 @@
                 "module": "io",
                 "symbol": "println",
                 "version": "1.7.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "data.jsondata",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "parseAsType",
-                "description": "Convert value of type `json` to subtype of `anydata`.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseAsType",
-                "version": "1.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseString",
-                "description": "Converts JSON string to subtype of anydata.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseString",
-                "version": "1.0.0"
               },
               "enabled": true
             }
