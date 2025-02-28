@@ -60,5 +60,26 @@
       "github",
       "event"
     ]
+  },
+  "13": {
+    "name": "mqtt",
+    "orgName": "ballerina",
+    "packageName": "mqtt",
+    "keywords": [
+      "mqtt",
+      "event"
+    ]
+  },
+  "14": {
+    "name": "asb",
+    "orgName": "ballerinax",
+    "packageName": "asb",
+    "keywords": [
+      "azure",
+      "service bus",
+      "asb",
+      "azure service bus",
+      "event"
+    ]
   }
 }
