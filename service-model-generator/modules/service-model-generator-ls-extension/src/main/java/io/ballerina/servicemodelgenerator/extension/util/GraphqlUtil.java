@@ -48,15 +48,15 @@ public class GraphqlUtil {
     }
 
     private static MetaData graphqlSubscriptionNameMetaData() {
-        return new MetaData("Subscription path", "Subscription path");
+        return new MetaData("Subscription Name", "The name of the subscription");
     }
 
     private static MetaData graphqlQueryNameMetaData() {
-        return new MetaData("Query path", "Query path");
+        return new MetaData("Field Name", "The name of the field");
     }
 
     private static MetaData graphqlMutationNameMetaData() {
-        return new MetaData("Mutation name", "Mutation name");
+        return new MetaData("Mutation Name", "The name of the mutation");
     }
 
     private static MetaData graphqlSubscriptionMetaData() {

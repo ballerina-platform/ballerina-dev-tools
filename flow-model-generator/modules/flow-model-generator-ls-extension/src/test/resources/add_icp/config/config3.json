@@ -1,0 +1,21 @@
+{
+  "projectPath": "proj3",
+  "description": "Project with only Ballerina.toml stmt",
+  "output": {
+    "proj3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/wso2.controlplane as _;\n"
+      }
+    ]
+  }
+}

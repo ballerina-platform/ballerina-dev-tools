@@ -8,67 +8,33 @@
       "offset": 8
     },
     "offset": 0,
-    "node": {
-      "id": "31",
-      "metadata": {
-        "label": "fn"
-      },
-      "codedata": {
-        "node": "FUNCTION_CALL",
-        "symbol": "fn"
-      },
-      "returning": false,
-      "properties": {
-        "rec": {
-          "metadata": {
-            "label": "rec"
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "MyRecord",
-          "value": "{id: 0}",
-          "placeholder": "{id: 0}",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "kind": "REQUIRED"
-        },
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "int",
-          "placeholder": "var",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "value": "intResult",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        }
-      },
-      "flags": 0
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "symbol": "fn"
     },
-    "property": "rec"
+    "property": {
+      "metadata": {
+        "label": "rec"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "MyRecord",
+      "value": "{id: 0}",
+      "placeholder": "{id: 0}",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "kind": "REQUIRED"
+    }
   },
   "diagnostics": [
     {
       "range": {
         "start": {
-          "line": 13,
+          "line": 14,
           "character": 32
         },
         "end": {
-          "line": 13,
+          "line": 14,
           "character": 34
         }
       },

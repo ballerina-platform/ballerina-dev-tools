@@ -25,6 +25,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
+      "version": "3.0.2",
       "id": 1380
     },
     "returning": false,

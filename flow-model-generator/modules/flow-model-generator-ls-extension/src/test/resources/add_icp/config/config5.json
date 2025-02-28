@@ -1,0 +1,21 @@
+{
+  "projectPath": "proj5",
+  "description": "Project with remote management false",
+  "output": {
+    "proj5/Ballerina.toml": [
+      {
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 0
+          },
+          "end": {
+            "line": 8,
+            "character": 22
+          }
+        },
+        "newText": "remoteManagement = true"
+      }
+    ]
+  }
+}

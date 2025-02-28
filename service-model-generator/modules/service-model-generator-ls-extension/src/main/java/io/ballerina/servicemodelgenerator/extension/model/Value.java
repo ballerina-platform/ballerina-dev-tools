@@ -246,6 +246,12 @@ public class Value {
                 && Objects.equals(choices, v.choices) && addNewButton == v.addNewButton;
     }
 
+    public static Value getTcpValue(String value) {
+        return new Value(null, true, true, value,
+                null, null, false, null, false, false,
+                null, null, null);
+    }
+
     public static class ValueBuilder {
         private MetaData metadata;
         private boolean enabled;

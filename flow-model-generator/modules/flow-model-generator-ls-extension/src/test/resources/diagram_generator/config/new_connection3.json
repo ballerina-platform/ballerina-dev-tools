@@ -42,7 +42,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -50,7 +50,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -62,32 +61,11 @@
               "offset": 67
             }
           },
-          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});"
+          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -121,6 +99,28 @@
               "kind": "INCLUDED_RECORD",
               "originalName": "config"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -166,7 +166,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -174,7 +174,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -186,32 +185,11 @@
               "offset": 76
             }
           },
-          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
+          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -227,22 +205,6 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
             }
           },
           "httpVersion": {
@@ -516,6 +478,60 @@
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
             }
+          },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "laxDataBinding"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -569,7 +585,6 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -581,32 +596,11 @@
               "offset": 39
             }
           },
-          "sourceCode": "redis:Client moduleRedisCl = check new;"
+          "sourceCode": "redis:Client moduleRedisCl = check new;",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "connection",
@@ -614,7 +608,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"redis://localhost:6379\"",
+            "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -670,6 +664,28 @@
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -723,7 +739,6 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -735,32 +750,11 @@
               "offset": 56
             }
           },
-          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
+          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "connection",
@@ -768,7 +762,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"redis://localhost:6379\"",
+            "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -825,6 +819,28 @@
               "originalName": "secureSocket"
             }
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
           "variable": {
             "metadata": {
               "label": "Connection Name",
@@ -869,7 +885,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -877,7 +893,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -889,32 +904,11 @@
               "offset": 68
             }
           },
-          "sourceCode": "http:Client serviceHttpCl = check new (\"http://localhost:9090\");"
+          "sourceCode": "http:Client serviceHttpCl = check new (\"http://localhost:9090\");",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Service",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -930,22 +924,6 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
             }
           },
           "httpVersion": {
@@ -1220,6 +1198,60 @@
               "originalName": "socketConfig"
             }
           },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "laxDataBinding"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Service",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -1272,7 +1304,6 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -1284,32 +1315,11 @@
               "offset": 44
             }
           },
-          "sourceCode": "redis:Client serviceRedisCl = check new;"
+          "sourceCode": "redis:Client serviceRedisCl = check new;",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Service",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "connection",
@@ -1317,7 +1327,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"redis://localhost:6379\"",
+            "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -1373,6 +1383,28 @@
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Service",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "type": {
             "metadata": {

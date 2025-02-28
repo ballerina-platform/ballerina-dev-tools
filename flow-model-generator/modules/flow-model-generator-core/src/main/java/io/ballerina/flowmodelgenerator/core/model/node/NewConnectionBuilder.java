@@ -120,7 +120,8 @@ public class NewConnectionBuilder extends CallBuilder {
                 .node(NodeKind.NEW_CONNECTION)
                 .org(functionData.org())
                 .module(functionData.packageName())
-                .object(CLIENT_SYMBOL)
+                .object(functionData.name())
+                .version(functionData.version())
                 .symbol(INIT_SYMBOL)
                 .id(functionData.functionId())
                 .isGenerated(codedata.isGenerated());

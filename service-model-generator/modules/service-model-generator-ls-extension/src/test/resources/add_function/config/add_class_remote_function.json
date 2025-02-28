@@ -151,12 +151,12 @@
       },
       "enabled": true,
       "editable": false,
+      "value": "int",
+      "valueType": "TYPE",
       "isType": false,
       "optional": false,
       "advanced": false,
-      "addNewButton": false,
-      "value": "int",
-      "valueType": "TYPE"
+      "addNewButton": false
     },
     "enabled": true,
     "optional": false,
@@ -191,7 +191,7 @@
             "character": 34
           }
         },
-        "newText": "\n\tremote function addAuthor(Author author) returns int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}"
+        "newText": "\n\tremote function addAuthor(Author author) returns int {\n\t\tdo {\n\t\t\tpanic error(\"Unimplemented function\");\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}"
       }
     ]
   }
