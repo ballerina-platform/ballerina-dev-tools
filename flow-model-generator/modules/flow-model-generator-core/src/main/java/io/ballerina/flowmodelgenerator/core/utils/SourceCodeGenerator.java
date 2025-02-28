@@ -55,29 +55,12 @@ public class SourceCodeGenerator {
             return "";
         }
 
-        // Build inferred fields (from functions)
-        StringBuilder inferredFields = new StringBuilder();
-        for (Function function : typeData.functions()) {
-            inferredFields.append(generateInferredGraphqlClassField(function));
-        }
-
-        // Build the "init" function parameters and body.
-        // Infer the parameters and body from the functions.
-        StringBuilder initParams = new StringBuilder();
-        StringBuilder initBody = new StringBuilder();
-        for (int i = 0; i < typeData.functions().size(); i++) {
-            Function function = typeData.functions().get(i);
-            // Append the return type and function name as a parameter.
-            String paramTemplate = "%s %s";
-            String param = paramTemplate.formatted(generateTypeDescriptor(function.returnType()), function.name());
-            initParams.append(param);
-            if (i < typeData.functions().size() - 1) {
-                initParams.append(", ");
-            }
-            // Build the init function body: "self.<function-name> = <function-name>;"
-            // TODO: Add do-on-fail block after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43817
-            String initBodyStatementTemplate = "%n\t\tself.%s = %s;";
-            initBody.append(initBodyStatementTemplate.formatted(function.name(), function.name()));
+        StringBuilder fieldBuilder = new StringBuilder();
+        for (Member member: typeData.members()) {
+            fieldBuilder
+                    .append(generateDocs(member.docs(), "\t"))
+                    .append(generateMember(member, true))
+                    .append(";");
         }
 
         // Build the resource functions.
@@ -86,13 +69,11 @@ public class SourceCodeGenerator {
             resourceFunctions.append(generateResourceFunction(function));
         }
 
-        String template = "%nservice class %s {%s%n\tfunction init(%s) {%s%n\t}%s%n}";
+        String template = "%nservice class %s {%s%n\tfunction init() {%n\t}%s%n}";
 
         return template.formatted(
                 typeData.name(),
-                inferredFields.toString(),
-                initParams.toString(),
-                initBody.toString(),
+                fieldBuilder.toString(),
                 resourceFunctions.toString()
         );
     }
@@ -364,12 +345,6 @@ public class SourceCodeGenerator {
                         " = " + member.defaultValue() : "");
     }
 
-    private String generateInferredGraphqlClassField(Function function) {
-        String template = "%n\tprivate final %s %s;";
-        return template.formatted(generateTypeDescriptor(function.returnType()),
-                CommonUtil.escapeReservedKeyword(function.name()));
-    }
-
     private String generateResourceFunction(Function function) {
         String docs = generateDocs(function.description(), "\t");
 
@@ -381,10 +356,10 @@ public class SourceCodeGenerator {
 
         String template = "%s\tresource function %s %s(%s) returns %s {" +
                 "%n\t\tdo {" +
-                "%n\t\t\treturn self.%s;" +
+                "%n\t\t\tpanic error(\"Unimplemented function\");" +
                 "%n\t\t} on fail error err {" +
                 "%n\t\t\t//handle error" +
-                "%n\t\t\tpanic err;" +
+                "%n\t\t\tpanic error(\"Unhandled error\");" +
                 "%n\t\t}" +
                 "%n\t}";
 
