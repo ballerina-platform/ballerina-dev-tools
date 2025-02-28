@@ -345,12 +345,6 @@ public class SourceCodeGenerator {
                         " = " + member.defaultValue() : "");
     }
 
-    private String generateInferredGraphqlClassField(Function function) {
-        String template = "%n\tprivate final %s %s;";
-        return template.formatted(generateTypeDescriptor(function.returnType()),
-                CommonUtil.escapeReservedKeyword(function.name()));
-    }
-
     private String generateResourceFunction(Function function) {
         String docs = generateDocs(function.description(), "\t");
 
