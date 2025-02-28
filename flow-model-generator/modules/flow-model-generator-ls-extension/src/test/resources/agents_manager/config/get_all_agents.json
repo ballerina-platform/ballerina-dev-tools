@@ -4,16 +4,9 @@
   "agents": [
     {
       "node": "AGENT",
-      "org": "ballerinax",
+      "org": "wso2",
       "module": "ai.agent",
-      "object": "FunctionCallAgent",
-      "symbol": "init"
-    },
-    {
-      "node": "AGENT",
-      "org": "ballerinax",
-      "module": "ai.agent",
-      "object": "ReActAgent",
+      "object": "Agent",
       "symbol": "init"
     }
   ]

@@ -59,6 +59,7 @@ public class AgentsGenerator {
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
     public static final String BASE_AGENT = "BaseAgent";
+    public static final String AGENT = "Agent";
 
     public AgentsGenerator() {
         this.gson = new Gson();
@@ -74,17 +75,14 @@ public class AgentsGenerator {
         List<Codedata> agents = new ArrayList<>();
         ModuleSymbol agentModule = getAgentModule();
         for (ClassSymbol classSymbol : agentModule.classes()) {
-            List<TypeSymbol> typeInclusions = classSymbol.typeInclusions();
-            for (TypeSymbol typeInclusion : typeInclusions) {
-                if (typeInclusion.getName().isPresent() && typeInclusion.getName().get().equals(BASE_AGENT)) {
-                    agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
-                            .org(BALLERINAX)
-                            .module(AI_AGENT)
-                            .object(classSymbol.getName().orElse(BASE_AGENT))
-                            .symbol(INIT)
-                            .build());
-                    break;
-                }
+            if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
+                agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
+                        .org(WSO2)
+                        .module(AI_AGENT)
+                        .object(classSymbol.getName().orElse(AGENT))
+                        .symbol(INIT)
+                        .build());
+
             }
         }
 
