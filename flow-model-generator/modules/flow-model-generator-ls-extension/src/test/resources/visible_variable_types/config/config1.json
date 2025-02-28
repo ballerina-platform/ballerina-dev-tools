@@ -26,12 +26,14 @@
                     "version": "2.13.3"
                   },
                   "defaultable": false,
-                  "isRestType": false
+                  "isRestType": false,
+                  "selected": false
                 },
                 "typeName": "inclusion",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               }
             ],
             "name": "Client",
@@ -44,7 +46,8 @@
               "version": "2.13.3"
             },
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -56,14 +59,16 @@
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "name": "age",
                 "typeName": "int",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               }
             ],
             "hasRestType": true,
@@ -71,7 +76,8 @@
               "typeName": "anydata",
               "optional": false,
               "defaultable": false,
-              "isRestType": false
+              "isRestType": false,
+              "selected": false
             },
             "name": "Input",
             "typeName": "record",
@@ -83,7 +89,8 @@
               "version": "0.1.0"
             },
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         }
       ]
@@ -102,14 +109,16 @@
                     "typeName": "string",
                     "optional": false,
                     "defaultable": false,
-                    "isRestType": false
+                    "isRestType": false,
+                    "selected": false
                   },
                   {
                     "name": "age",
                     "typeName": "int",
                     "optional": false,
                     "defaultable": false,
-                    "isRestType": false
+                    "isRestType": false,
+                    "selected": false
                   }
                 ],
                 "hasRestType": true,
@@ -117,7 +126,8 @@
                   "typeName": "anydata",
                   "optional": false,
                   "defaultable": false,
-                  "isRestType": false
+                  "isRestType": false,
+                  "selected": false
                 },
                 "name": "Input",
                 "typeName": "record",
@@ -129,19 +139,22 @@
                   "version": "0.1.0"
                 },
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "typeName": "readonly",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               }
             ],
             "typeName": "intersection",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -156,14 +169,16 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
-                      "isRestType": false
+                      "isRestType": false,
+                      "selected": false
                     },
                     {
                       "name": "age",
                       "typeName": "int",
                       "optional": false,
                       "defaultable": false,
-                      "isRestType": false
+                      "isRestType": false,
+                      "selected": false
                     }
                   ],
                   "hasRestType": true,
@@ -171,7 +186,8 @@
                     "typeName": "anydata",
                     "optional": false,
                     "defaultable": false,
-                    "isRestType": false
+                    "isRestType": false,
+                    "selected": false
                   },
                   "name": "Input",
                   "typeName": "record",
@@ -183,7 +199,8 @@
                     "version": "0.1.0"
                   },
                   "defaultable": false,
-                  "isRestType": false
+                  "isRestType": false,
+                  "selected": false
                 },
                 "keys": [
                   "name"
@@ -191,19 +208,22 @@
                 "typeName": "table",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "typeName": "readonly",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               }
             ],
             "typeName": "intersection",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -212,7 +232,8 @@
             "typeName": "string",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -221,7 +242,8 @@
             "typeName": "int",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         }
       ]
@@ -238,35 +260,40 @@
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "name": "line1",
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "name": "line2",
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "name": "city",
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               },
               {
                 "name": "country",
                 "typeName": "string",
                 "optional": false,
                 "defaultable": false,
-                "isRestType": false
+                "isRestType": false,
+                "selected": false
               }
             ],
             "hasRestType": false,
@@ -280,7 +307,8 @@
               "version": "0.1.0"
             },
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -289,7 +317,8 @@
             "typeName": "boolean",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -298,7 +327,8 @@
             "typeName": "int",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         },
         {
@@ -307,7 +337,8 @@
             "typeName": "string",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         }
       ]

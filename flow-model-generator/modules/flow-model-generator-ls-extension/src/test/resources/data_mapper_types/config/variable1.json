@@ -65,20 +65,23 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "password",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       }
     ],
     "hasRestType": false,
     "typeName": "record",
     "optional": false,
     "defaultable": false,
-    "isRestType": false
+    "isRestType": false,
+    "selected": false
   }
 }
