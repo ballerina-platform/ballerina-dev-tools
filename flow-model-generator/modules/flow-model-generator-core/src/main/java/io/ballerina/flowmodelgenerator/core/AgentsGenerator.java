@@ -49,6 +49,7 @@ import java.util.Set;
 public class AgentsGenerator {
 
     public static final String MODEL_PARAM = "model";
+    public static final String MODEL = "Model";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
@@ -102,27 +103,32 @@ public class AgentsGenerator {
         throw new IllegalStateException("Agent module not found");
     }
 
-    public JsonArray getAllModels(String agent) {
+    public JsonArray getAllModels() {
         ModuleSymbol agentModule = getAgentModule();
-        List<ClassSymbol> agentSymbols = getAgentSymbols(agentModule);
-        List<ClassSymbol> models = new ArrayList<>();
-        for (ClassSymbol agentSymbol : agentSymbols) {
-            if (agent.equals(agentSymbol.getName().orElse(""))) {
-                models = getModelsForAgent(agentSymbol, agentModule.classes());
-                break;
+        List<ClassSymbol> modelSymbols = new ArrayList<>();
+        for (ClassSymbol classSymbol : agentModule.classes()) {
+            if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                continue;
+            }
+            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
+            for (TypeSymbol typeSymbol : inclusionsTypes) {
+                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MODEL)) {
+                    modelSymbols.add(classSymbol);
+                    break;
+                }
             }
         }
 
-        List<Codedata> modelsCodedata = new ArrayList<>();
-        for (ClassSymbol model : models) {
-            modelsCodedata.add(new Codedata.Builder<>(null).node(NodeKind.CLASS)
+        List<Codedata> models = new ArrayList<>();
+        for (ClassSymbol model : modelSymbols) {
+            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS)
                     .org(BALLERINAX)
                     .module(AI_AGENT)
-                    .object(model.getName().orElse(""))
+                    .object(model.getName().orElse(MODEL))
                     .symbol(INIT)
                     .build());
         }
-        return gson.toJsonTree(modelsCodedata).getAsJsonArray();
+        return gson.toJsonTree(models).getAsJsonArray();
     }
 
     public JsonArray getModels(SemanticModel semanticModel, String agent) {

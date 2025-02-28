@@ -122,7 +122,7 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
                         .getSemanticModel(modifiedDoc.module().moduleId());
                 AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel);
-                response.setModels(agentsGenerator.getAllModels(request.agent()));
+                response.setModels(agentsGenerator.getAllModels());
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -136,13 +136,27 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
             GetModelsResponse response = new GetModelsResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> optDocument = this.workspaceManager.document(filePath);
+                if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
                     return response;
                 }
+                Document document = optDocument.get();
+                io.ballerina.tools.text.TextEdit textEdit =
+                        io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
+                io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
+                TextDocument modifiedTextDoc = optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
+
+                Document modifiedDoc =
+                        project.duplicate().currentPackage().module(document.module().moduleId())
+                                .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
+                                        modifiedTextDoc.textLines())).apply();
+
+                SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
+                        .getSemanticModel(modifiedDoc.module().moduleId());
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setModels(agentsGenerator.getModels(semanticModel.get(), request.agent()));
+                response.setModels(agentsGenerator.getModels(semanticModel, request.agent()));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
