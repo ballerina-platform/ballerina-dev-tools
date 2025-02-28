@@ -50,10 +50,10 @@ public abstract class SearchCommand {
     protected final int limit;
     protected final int offset;
     protected final boolean includeAvailableNodes;
-    protected final SearchDatabaseManager dbManager;
-    protected final DefaultViewHolder defaultViewHolder;
+    final SearchDatabaseManager dbManager;
+    final DefaultViewHolder defaultViewHolder;
 
-    protected static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailableFunctions";
+    protected static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailable";
     protected static final String DATA_MAPPER_FILE_NAME = "data_mappings.bal";
     private static final Gson GSON = new Gson();
 
@@ -65,7 +65,7 @@ public abstract class SearchCommand {
         return switch (kind) {
             case FUNCTION -> new FunctionSearchCommand(module, position, queryMap);
             case CONNECTOR -> new ConnectorSearchCommand(module, position, queryMap);
-            case TYPE -> null;
+            case TYPE -> new TypeSearchCommand(module, position, queryMap);
         };
     }
 

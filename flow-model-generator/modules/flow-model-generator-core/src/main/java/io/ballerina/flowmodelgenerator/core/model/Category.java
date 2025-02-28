@@ -56,7 +56,11 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         IMPORTED_FUNCTIONS("Imported Functions", "Functions imported from other integrations",
                 List.of("Imported", "Function", "Library")),
         AVAILABLE_FUNCTIONS("Available Functions", "Functions available in the library",
-                List.of("Available", "Function", "Library"));
+                List.of("Available", "Function", "Library")),
+        IMPORTED_TYPES("Imported Types", "Types imported from other integrations",
+                List.of("Imported", "Type", "Library")),
+        AVAILABLE_TYPES("Available Types", "Types available in the library",
+                List.of("Available", "Type", "Library"));
 
         final String name;
         final String description;
