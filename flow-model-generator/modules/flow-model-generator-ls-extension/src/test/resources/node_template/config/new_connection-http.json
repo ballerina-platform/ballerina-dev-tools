@@ -25,6 +25,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
+      "version": "2.12.2",
       "id": 563
     },
     "returning": false,
