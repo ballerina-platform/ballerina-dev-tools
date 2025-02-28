@@ -36,7 +36,7 @@
         "flags": 0
       },
       {
-        "id": "54972",
+        "id": "54879",
         "metadata": {
           "label": "Custom Expression",
           "description": "Represents a custom Ballerina expression"
@@ -47,39 +47,16 @@
             "fileName": "nested_node.bal",
             "startLine": {
               "line": 23,
-              "offset": 11
+              "offset": 8
             },
             "endLine": {
               "line": 25,
               "offset": 9
             }
           },
-          "sourceCode": "{\n\n        }"
+          "sourceCode": "do {\n\n        }"
         },
         "returning": false,
-        "branches": [
-          {
-            "label": "Body",
-            "kind": "BLOCK",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "nested_node.bal",
-                "startLine": {
-                  "line": 23,
-                  "offset": 11
-                },
-                "endLine": {
-                  "line": 25,
-                  "offset": 9
-                }
-              },
-              "sourceCode": "{\n\n        }"
-            },
-            "repeatable": "ONE",
-            "children": []
-          }
-        ],
         "properties": {
           "statement": {
             "metadata": {
@@ -87,7 +64,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "{\n\n        }",
+            "value": "do {\n\n        }",
             "optional": false,
             "editable": true,
             "advanced": false
