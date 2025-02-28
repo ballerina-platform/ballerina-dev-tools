@@ -8,105 +8,35 @@
       "offset": 8
     },
     "offset": 0,
-    "node": {
-      "id": "47036",
-      "metadata": {
-        "label": "If",
-        "description": "Add conditional branch to the integration flow."
-      },
-      "codedata": {
-        "node": "IF",
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 15,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 20,
-            "offset": 9
-          }
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 8
         },
-        "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
-      },
-      "returning": false,
-      "branches": [
-        {
-          "label": "Then",
-          "kind": "BLOCK",
-          "codedata": {
-            "node": "CONDITIONAL",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 16
-              },
-              "endLine": {
-                "line": 17,
-                "offset": 9
-              }
-            },
-            "sourceCode": "{\n            int a = 1;\n        }"
-          },
-          "repeatable": "ONE_OR_MORE",
-          "properties": {
-            "condition": {
-              "metadata": {
-                "label": "Condition",
-                "description": "Boolean Condition"
-              },
-              "valueType": "EXPRESSION",
-              "value": "flag ",
-              "placeholder": "true",
-              "optional": false,
-              "editable": true,
-              "advanced": false
-            }
-          },
-          "children": []
-        },
-        {
-          "label": "self.classVar > ",
-          "kind": "BLOCK",
-          "codedata": {
-            "node": "CONDITIONAL",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 17,
-                "offset": 15
-              },
-              "endLine": {
-                "line": 20,
-                "offset": 9
-              }
-            },
-            "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
-          },
-          "repeatable": "ONE_OR_MORE",
-          "properties": {
-            "condition": {
-              "metadata": {
-                "label": "Condition",
-                "description": "Boolean Condition"
-              },
-              "valueType": "EXPRESSION",
-              "value": "self.classVar > ",
-              "valueTypeConstraint": "boolean",
-              "placeholder": "true",
-              "optional": false,
-              "editable": true,
-              "advanced": false
-            }
-          },
-          "children": []
+        "endLine": {
+          "line": 20,
+          "offset": 9
         }
-      ],
-      "flags": 0
+      },
+      "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
     },
     "branch": "self.classVar > ",
-    "property": "condition"
+    "property": {
+      "metadata": {
+        "label": "Condition",
+        "description": "Boolean Condition"
+      },
+      "valueType": "EXPRESSION",
+      "value": "self.classVar > ",
+      "valueTypeConstraint": "boolean",
+      "placeholder": "true",
+      "optional": false,
+      "editable": true,
+      "advanced": false
+    }
   },
   "diagnostics": [
     {

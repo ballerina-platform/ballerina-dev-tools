@@ -66,17 +66,17 @@ public class ServiceClassUtil {
         return builder.toString();
     }
 
-    public static ServiceClass getServiceClass(ClassDefinitionNode classDef) {
+    public static ServiceClass getServiceClass(ClassDefinitionNode classDef, ServiceClassContext context) {
         ServiceClass.ServiceClassBuilder builder = new ServiceClass.ServiceClassBuilder();
 
         List<Function> functions = new ArrayList<>();
         List<Field> fields = new ArrayList<>();
-        populateFunctionsAndFields(classDef, functions, fields);
+        populateFunctionsAndFields(classDef, functions, fields, context);
 
         builder.name(classDef.className().text().trim())
                 .type(getClassType(classDef))
                 .properties(Map.of("name", buildClassNameProperty(classDef.className().text().trim(),
-                        classDef.className().lineRange())))
+                        classDef.className().lineRange(), context)))
                 .codedata(new Codedata(classDef.lineRange()))
                 .functions(functions)
                 .fields(fields);
@@ -91,9 +91,11 @@ public class ServiceClassUtil {
         return classDef.classTypeQualifiers().get(0).text().trim();
     }
 
-    private static Value buildClassNameProperty(String className, LineRange lineRange) {
+    private static Value buildClassNameProperty(String className, LineRange lineRange, ServiceClassContext context) {
         Value value = new Value();
-        value.setMetadata(new MetaData("Class Name", "The name of the class definition"));
+        value.setMetadata(context == ServiceClassContext.TYPE_DIAGRAM
+                ? ServiceModelGeneratorConstants.SERCVICE_CLASS_NAME_METADATA
+                : ServiceModelGeneratorConstants.GRAPHQL_CLASS_NAME_METADATA);
         value.setCodedata(new Codedata(lineRange));
         value.setEnabled(true);
         value.setEditable(false);
@@ -105,19 +107,25 @@ public class ServiceClassUtil {
     }
 
     private static void populateFunctionsAndFields(ClassDefinitionNode classDef, List<Function> functions,
-                                                   List<Field> fields) {
+                                                   List<Field> fields, ServiceClassContext context) {
         classDef.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                functions.add(buildMemberFunction(functionDefinitionNode));
-            } else if (member instanceof ObjectFieldNode objectFieldNode) {
+                FunctionKind functionKind = getFunctionKind(functionDefinitionNode);
+                if (context.equals(ServiceClassContext.GRAPHQL_DIAGRAM)
+                        && !functionKind.equals(FunctionKind.RESOURCE)) {
+                    return;
+                }
+                functions.add(buildMemberFunction(functionDefinitionNode, functionKind, context));
+            } else if (context == ServiceClassContext.TYPE_DIAGRAM
+                    && member instanceof ObjectFieldNode objectFieldNode) {
                 fields.add(buildClassField(objectFieldNode));
             }
         });
     }
 
-    private static Function buildMemberFunction(FunctionDefinitionNode functionDef) {
-        Function functionModel = Function.getNewFunction();
-        FunctionKind kind = getFunctionKind(functionDef);
+    private static Function buildMemberFunction(FunctionDefinitionNode functionDef, FunctionKind kind,
+                                                ServiceClassContext context) {
+        Function functionModel = Function.getNewFunctionModel(context);
         updateMetadata(functionModel, kind);
         functionModel.setKind(kind.name());
 
@@ -149,14 +157,16 @@ public class ServiceClassUtil {
         SeparatedNodeList<ParameterNode> parameters = functionSignatureNode.parameters();
         List<Parameter> parameterModels = new ArrayList<>();
         parameters.forEach(parameterNode -> {
-            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false);
+            Optional<Parameter> parameterModel = Utils.getParameterModel(parameterNode, false,
+                    context == ServiceClassContext.GRAPHQL_DIAGRAM);
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
         functionModel.setEnabled(true);
         functionModel.setEditable(true);
         functionModel.setCodedata(new Codedata(functionDef.lineRange()));
-        functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.parameterSchema()));
+        functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
+                Parameter.parameterSchema(context == ServiceClassContext.GRAPHQL_DIAGRAM)));
         return functionModel;
     }
 
@@ -223,10 +233,48 @@ public class ServiceClassUtil {
         }
     }
 
+    public static String getTcpConnectionServiceTemplate() {
+        return "service class %s {%n" +
+                "    *tcp:ConnectionService;%n" +
+                "%n" +
+                "    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "%n" +
+                "    remote function onError(tcp:Error tcpError) {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "%n" +
+                "    remote function onClose() {%n" +
+                "        do {%n" +
+                "%n" +
+                "        } on fail error err {%n" +
+                "            // handle error%n" +
+                "            panic error(\"Unhandled error\", err);%n" +
+                "        }%n" +
+                "    }%n" +
+                "}%n";
+    }
+
     public enum FunctionKind {
         INIT,
         REMOTE,
         RESOURCE,
         DEFAULT
+    }
+
+    public enum ServiceClassContext {
+        TYPE_DIAGRAM,
+        GRAPHQL_DIAGRAM
     }
 }

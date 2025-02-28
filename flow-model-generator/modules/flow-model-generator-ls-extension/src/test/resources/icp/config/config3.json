@@ -1,0 +1,7 @@
+{
+  "projectPath": "proj3",
+  "description": "Project with only Ballerina.toml stmt",
+  "response": {
+    "enabled": false
+  }
+}

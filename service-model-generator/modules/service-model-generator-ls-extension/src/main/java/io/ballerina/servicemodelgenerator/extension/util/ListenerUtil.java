@@ -37,7 +37,6 @@ import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.common.utils.NameUtil;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -47,7 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Util class for Listener related operations.
@@ -129,12 +127,8 @@ public class ListenerUtil {
 
     public static String getListenerDeclarationStmt(SemanticModel semanticModel, Document document,
                                                     LinePosition linePosition) {
-        Set<String> names = semanticModel.visibleSymbols(document, linePosition).parallelStream()
-                .filter(s -> s.getName().isPresent())
-                .map(s -> s.getName().get())
-                .collect(Collectors.toSet());
-        String variableName = NameUtil.generateVariableName(
-                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME, names);
+        String variableName = Utils.generateVariableIdentifier(semanticModel, document, linePosition,
+                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
         return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
     }
 

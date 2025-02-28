@@ -92,7 +92,8 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
             template = template.replace("${1}", " ");
         }
         ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
-                variableNode, null, "expression");
+                variableNode.get("codedata").getAsJsonObject(),
+                variableNode.getAsJsonObject("properties").getAsJsonObject("expression"));
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);
         JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");

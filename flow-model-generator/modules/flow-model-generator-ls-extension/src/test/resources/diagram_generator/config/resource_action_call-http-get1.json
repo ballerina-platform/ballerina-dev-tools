@@ -40,7 +40,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -65,6 +65,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/western/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -98,20 +112,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/western/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -194,7 +194,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -202,7 +202,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -219,6 +219,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -252,20 +266,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -355,7 +355,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -363,7 +363,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -380,6 +380,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -413,20 +427,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -509,7 +509,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -517,7 +517,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -534,6 +534,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -567,20 +581,6 @@
                   "offset": 16
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -664,7 +664,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -672,7 +672,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -689,6 +689,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -722,20 +736,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -818,7 +818,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -826,7 +826,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -843,6 +843,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -876,20 +890,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -973,7 +973,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -981,7 +981,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -998,6 +998,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -1031,20 +1045,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -1127,7 +1127,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -1135,7 +1135,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -1152,6 +1152,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples/[varRef]/[12 + 3]",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -1185,20 +1199,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples/[varRef]/[12 + 3]",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -1281,7 +1281,7 @@
         "metadata": {
           "label": "get",
           "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -1289,7 +1289,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.2",
+          "version": "2.13.3",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -1306,6 +1306,20 @@
         },
         "returning": false,
         "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/apples",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "originalName": "/path/to/subdirectory"
+            }
+          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -1339,20 +1353,6 @@
                   "offset": 17
                 }
               }
-            }
-          },
-          "resourcePath": {
-            "metadata": {
-              "label": "Resource Path",
-              "description": "Resource Path"
-            },
-            "valueType": "EXPRESSION",
-            "value": "/apples",
-            "optional": false,
-            "editable": true,
-            "advanced": false,
-            "codedata": {
-              "originalName": "/path/to/subdirectory"
             }
           },
           "headers": {
@@ -1420,7 +1420,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -1428,7 +1428,6 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.13.2",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -1440,32 +1439,11 @@
               "offset": 45
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+          "sourceCode": "http:Client foodClient = check new (\"/food\");",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "url": {
             "metadata": {
               "label": "url",
@@ -1481,22 +1459,6 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientSecureSocket|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
             }
           },
           "httpVersion": {
@@ -1770,6 +1732,60 @@
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
             }
+          },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "laxDataBinding"
+            }
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {

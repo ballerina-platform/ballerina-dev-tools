@@ -26,8 +26,6 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.SourceGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.AvailableNodesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.NodeTemplateTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.GetConnectorsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.GetFunctionsTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.SuggestedComponentTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DeleteNodeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DeleteComponentTest"/>
@@ -56,6 +54,9 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.JsonConverterTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.FunctionDefinitionTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.XMLConverterTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ICPEnablerTests"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.AddICPTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.SearchTest"/>
             <!--types manager-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetAllTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.GetTypeTest"/>

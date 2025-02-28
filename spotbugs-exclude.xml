@@ -27,7 +27,6 @@
     </Match>
     <Match>
         <Class name="io.ballerina.modelgenerator.commons.SearchDatabaseManager" />
-        <Method name="searchFunctionsByPackages" />
         <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
     </Match>
     <Match>

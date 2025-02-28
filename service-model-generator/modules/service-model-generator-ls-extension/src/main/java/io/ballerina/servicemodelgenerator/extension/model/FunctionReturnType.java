@@ -18,8 +18,6 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
-import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,8 +32,8 @@ public class FunctionReturnType extends Value {
                 value.isAdvanced(), value.getProperties(), value.getItems(), value.getCodedata());
     }
 
-    public FunctionReturnType() {
-        this(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA, false, false, null,
+    public FunctionReturnType(MetaData metaData) {
+        this(metaData, false, true, null,
                 null, null, false, null, false, false,
                 null, null, null, null, null);
     }

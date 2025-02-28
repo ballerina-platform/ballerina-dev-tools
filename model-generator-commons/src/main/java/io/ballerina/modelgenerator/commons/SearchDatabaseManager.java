@@ -353,6 +353,127 @@ public class SearchDatabaseManager {
         return results;
     }
 
+    /**
+     * Searches for types in the database based on the given query.
+     *
+     * @param q      the search query string
+     * @param limit  the maximum number of results to return
+     * @param offset the offset from which to start returning results
+     * @return a list of search results matching the query
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchTypes(String q, int limit, int offset) {
+        List<SearchResult> results = new ArrayList<>();
+        String sql = """
+                SELECT
+                    t.id,
+                    t.name AS type_name,
+                    t.description AS type_description,
+                    t.package_id,
+                    p.name AS package_name,
+                    p.org AS package_org,
+                    p.version AS package_version,
+                    fts.rank
+                FROM TypeFTS AS fts
+                JOIN Type AS t ON fts.rowid = t.id
+                JOIN Package AS p ON t.package_id = p.id
+                WHERE fts.TypeFTS MATCH ?
+                ORDER BY fts.rank
+                LIMIT ?
+                OFFSET ?;
+                """;
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, sanitizeQuery(q) + "*");
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String typeName = rs.getString("type_name");
+                    String description = rs.getString("type_description");
+                    String packageName = rs.getString("package_name");
+                    String org = rs.getString("package_org");
+                    String version = rs.getString("package_version");
+                    SearchResult result = SearchResult.from(org, packageName, version, typeName, description);
+                    results.add(result);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error searching types: " + e.getMessage());
+            throw new RuntimeException("Failed to search types", e);
+        } catch (NumberFormatException e) {
+            LOGGER.severe("Invalid number format in query parameters: " + e.getMessage());
+            throw new RuntimeException("Invalid limit or offset value", e);
+        }
+
+        return results;
+    }
+
+    /**
+     * Searches for types that match the given package names.
+     *
+     * @param packageNames List of package names to search in
+     * @param limit        The maximum number of results to return
+     * @param offset       The number of results to skip
+     * @return A list of search results matching the criteria
+     * @throws RuntimeException if there is an error executing the search or if the limit or offset values are invalid
+     */
+    public List<SearchResult> searchTypesByPackages(List<String> packageNames, int limit, int offset) {
+        List<SearchResult> results = new ArrayList<>();
+
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT ")
+                .append("t.name AS type_name, ")
+                .append("t.description AS type_description, ")
+                .append("t.package_id, ")
+                .append("p.name AS package_name, ")
+                .append("p.org AS package_org, ")
+                .append("p.version AS package_version ")
+                .append("FROM Package p ")
+                .append("JOIN Type t ON p.id = t.package_id");
+
+        // Build the SQL query with IN clauses for packages
+        sqlBuilder.append(" WHERE p.name IN (")
+                .append(String.join(",", Collections.nCopies(packageNames.size(), "?")))
+                .append(")");
+        sqlBuilder.append(" LIMIT ? OFFSET ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sqlBuilder.toString())) {
+
+            // Set parameters for package names
+            int paramIndex = 1;
+            for (String packageName : packageNames) {
+                stmt.setString(paramIndex++, packageName);
+            }
+
+            // Set limit and offset
+            stmt.setInt(paramIndex++, limit);
+            stmt.setInt(paramIndex, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("type_name");
+                    String description = rs.getString("type_description");
+                    String org = rs.getString("package_org");
+                    String pkgName = rs.getString("package_name");
+                    String version = rs.getString("package_version");
+
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    results.add(SearchResult.from(packageInfo, name, description));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error searching types: " + e.getMessage());
+            throw new RuntimeException("Failed to search types", e);
+        }
+
+        return results;
+    }
+
     private static String sanitizeQuery(String q) {
         if (q == null || q.trim().isEmpty()) {
             return "";

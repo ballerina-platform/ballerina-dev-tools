@@ -71,17 +71,6 @@
               "originalName": "code"
             }
           },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -116,6 +105,17 @@
                 }
               }
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "type": {
             "metadata": {
@@ -192,17 +192,6 @@
               "originalName": "thread_id"
             }
           },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -238,6 +227,17 @@
               }
             }
           },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -271,7 +271,6 @@
           "module": "github",
           "object": "Client",
           "symbol": "init",
-          "version": "5.1.0",
           "lineRange": {
             "fileName": "github_resource_call.bal",
             "startLine": {
@@ -283,7 +282,8 @@
               "offset": 3
             }
           },
-          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});"
+          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});",
+          "id": 0
         },
         "returning": false,
         "properties": {
@@ -311,7 +311,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "placeholder": "\"https://api.github.com\"",
+            "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,

@@ -1,0 +1,208 @@
+{
+  "filePath": "sample1/main.bal",
+  "description": "Test adding a tcp service",
+  "service": {
+    "id": "20",
+    "name": "Tcp Channel",
+    "type": "event",
+    "displayName": "Tcp",
+    "description": "",
+    "displayAnnotation": {
+      "label": "Tcp",
+      "iconPath": ""
+    },
+    "moduleName": "tcp",
+    "orgName": "ballerina",
+    "version": "1.12.1",
+    "packageName": "tcp",
+    "listenerProtocol": "tcp",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listener",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "tcpListener",
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "tcp:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": false
+      },
+      "serviceType": {
+        "metadata": {
+          "label": "TCP Service Type",
+          "description": ""
+        },
+        "enabled": false,
+        "editable": false,
+        "value": "Service",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "tcp:Service",
+        "isType": true,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false
+      },
+      "returningServiceClass": {
+        "enabled": true,
+        "editable": true,
+        "value": "TcpEchoService",
+        "isType": false,
+        "optional": false,
+        "advanced": false,
+        "addNewButton": false
+      }
+    },
+    "functions": [
+      {
+        "metadata": {
+          "label": "onConnect",
+          "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onConnect",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Caller Object",
+              "description": "The new client connection"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "tcp:Caller",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "tcp:Caller",
+              "isType": true,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "caller",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function. The function can return an error or nil"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "tcp:ConnectionService",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "tcp:ConnectionService|error",
+          "isType": true,
+          "placeholder": "tcp:ConnectionService",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true
+      }
+    ]
+  },
+  "output": {
+    "sample1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nimport ballerina/tcp;\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nservice on tcpListener {\n    remote function onConnect(tcp:Caller caller) returns tcp:ConnectionService {\n        do {\n            TcpEchoService connectionService = new TcpEchoService();\n            return connectionService;\n        } on fail error err {\n            // handle error\n            panic error(\"Unhandled error\", err);\n        }\n    }\n}"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nservice class TcpEchoService {\n    *tcp:ConnectionService;\n\n    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            panic error(\"Unhandled error\", err);\n        }\n    }\n\n    remote function onError(tcp:Error tcpError) {\n        do {\n\n        } on fail error err {\n            // handle error\n            panic error(\"Unhandled error\", err);\n        }\n    }\n\n    remote function onClose() {\n        do {\n\n        } on fail error err {\n            // handle error\n            panic error(\"Unhandled error\", err);\n        }\n    }\n}\n\n"
+      }
+    ]
+  }
+}

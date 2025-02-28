@@ -1,0 +1,37 @@
+{
+  "description": "",
+  "filePath": "empty.bal",
+  "context": {
+    "expression": "\"\"",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 1,
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerina",
+      "module": "grpc",
+      "object": "Client",
+      "symbol": "init",
+      "id": 154
+    },
+    "property": {
+      "metadata": {
+        "label": "url",
+        "description": "The server URL"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "placeholder": "\"\"",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "codedata": {
+        "kind": "REQUIRED",
+        "originalName": "url"
+      }
+    }
+  },
+  "diagnostics": []
+}

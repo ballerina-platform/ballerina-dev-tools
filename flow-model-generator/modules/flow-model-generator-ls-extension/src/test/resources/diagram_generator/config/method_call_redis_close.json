@@ -63,17 +63,6 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "redisClient",
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -84,6 +73,17 @@
             "optional": false,
             "editable": true,
             "advanced": true
+          },
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "redisClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 1
@@ -103,7 +103,6 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.0.2",
           "lineRange": {
             "fileName": "method_call_redis.bal",
             "startLine": {
@@ -115,32 +114,11 @@
               "offset": 43
             }
           },
-          "sourceCode": "final redis:Client redisClient = check new;"
+          "sourceCode": "final redis:Client redisClient = check new;",
+          "id": 0
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
           "connection": {
             "metadata": {
               "label": "connection",
@@ -148,7 +126,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"redis://localhost:6379\"",
+            "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -204,6 +182,28 @@
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
             }
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {

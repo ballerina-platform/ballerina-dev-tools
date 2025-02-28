@@ -66,7 +66,6 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
         }
     }
 
-
     @Override
     protected String getResourceDir() {
         return "get_sm_from_source";

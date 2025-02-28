@@ -21,8 +21,8 @@
   },
   "name": {
     "metadata": {
-      "label": "Query path",
-      "description": "The query path"
+      "label": "Field Name",
+      "description": "The name of the field"
     },
     "enabled": true,
     "editable": true,
@@ -38,8 +38,8 @@
     "parameter": {
       "type": {
         "metadata": {
-          "label": "Parameter Type",
-          "description": "The type of the parameter"
+          "label": "Argument Type",
+          "description": "The type of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -52,8 +52,8 @@
       },
       "name": {
         "metadata": {
-          "label": "Parameter Name",
-          "description": "The name of the parameter"
+          "label": "Argument Name",
+          "description": "The name of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -67,7 +67,7 @@
       "defaultValue": {
         "metadata": {
           "label": "Default Value",
-          "description": "The default value of the parameter"
+          "description": "The default value of the argument"
         },
         "enabled": true,
         "editable": true,
@@ -84,8 +84,8 @@
   },
   "returnType": {
     "metadata": {
-      "label": "Return type",
-      "description": "The return type of the function"
+      "label": "Field Type",
+      "description": "The type of the field"
     },
     "enabled": true,
     "editable": true,
