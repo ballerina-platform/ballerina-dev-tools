@@ -364,6 +364,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
 
+                SemanticModel semanticModel = null;
                 if (isDefaultListenerCreationRequired) {
                     List<ImportDeclarationNode> importsList = node.imports().stream().toList();
                     LinePosition listenerDeclaringLoc;
@@ -372,15 +373,33 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listenerDeclaringLoc = lineRange.endLine();
                     }
-                    SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
+                    semanticModel = document.get().module().getCompilation().getSemanticModel();
                     String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
                             semanticModel, document.get(), listenerDeclaringLoc);
                     edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
                 }
 
+                boolean isTcpService = Utils.isTcpService(service.getOrgName(), service.getPackageName());
+                if (isTcpService) {
+                    if (semanticModel == null) {
+                        semanticModel = document.get().module().getCompilation().getSemanticModel();
+                    }
+                    String serviceName = Utils.generateTypeIdentifier(semanticModel, document.get(),
+                            lineRange.endLine(), "TcpEchoService");
+                    service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
+                }
+
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
+
+                if (isTcpService) {
+                    String serviceName = service.getProperties().get("returningServiceClass").getValue();
+                    String serviceClass = ServiceClassUtil.getTcpConnectionServiceTemplate().formatted(serviceName);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
+                            ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceClass
+                                    + ServiceModelGeneratorConstants.LINE_SEPARATOR));
+                }
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
@@ -1125,7 +1144,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Listener> getListenerByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
+                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+                !name.equals(ServiceModelGeneratorConstants.TCP) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
@@ -1143,7 +1164,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<Service> getServiceByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) && !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
+                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
+                !name.equals(ServiceModelGeneratorConstants.TCP) &&
                 triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
             return Optional.empty();
         }
