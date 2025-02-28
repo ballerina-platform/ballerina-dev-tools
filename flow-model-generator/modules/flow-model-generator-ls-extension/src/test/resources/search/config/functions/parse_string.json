@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "parseString",
-    "includeAvailableFunctions": "true"
+    "includeAvailable": "true"
   },
   "categories": [
     {

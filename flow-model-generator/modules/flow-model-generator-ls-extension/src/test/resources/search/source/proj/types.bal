@@ -1,3 +1,6 @@
+import ballerina/http;
+import ballerina/time;
+
 type Location record {|
     string city;
     string country;
@@ -28,3 +31,17 @@ type Admission record {
     string empId;
     string admissionDate;
 };
+
+type Event record {|
+    string name;
+    string description;
+    time:Civil startTime;
+    time:Civil endTime;
+    Location location;
+|};
+
+type MyAcceptRec record {|
+    *http:Accepted;
+    time:Utc lastActive;
+    string msg;
+|};

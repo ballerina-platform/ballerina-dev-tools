@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "println",
-    "includeAvailableFunctions": "true"
+    "includeAvailable": "true"
   },
   "categories": [
     {

@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "",
-    "includeAvailableFunctions": "true"
+    "includeAvailable": "true"
   },
   "categories": [
     {
@@ -520,6 +520,45 @@
               "enabled": true
             }
           ]
+        },
+        {
+          "metadata": {
+            "label": "time",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "utcFromString",
+                "description": "Converts from RFC 3339 timestamp (e.g., `2007-12-03T10:15:30.00Z`) to Utc.\n```ballerina\ntime:Utc|time:Error utc = time:utcFromString(\"2007-12-03T10:15:30.00Z\");\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "utcFromString",
+                "version": "2.6.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "utcNow",
+                "description": "Returns the UTC representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).\n```ballerina\ntime:Utc utc = time:utcNow();\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "utcNow",
+                "version": "2.6.0"
+              },
+              "enabled": true
+            }
+          ]
         }
       ]
     },
@@ -598,45 +637,6 @@
                 "module": "log",
                 "symbol": "printWarn",
                 "version": "2.11.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "time",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "utcFromString",
-                "description": "Converts from RFC 3339 timestamp (e.g., `2007-12-03T10:15:30.00Z`) to Utc.\n```ballerina\ntime:Utc|time:Error utc = time:utcFromString(\"2007-12-03T10:15:30.00Z\");\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "utcFromString",
-                "version": "2.6.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "utcNow",
-                "description": "Returns the UTC representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).\n```ballerina\ntime:Utc utc = time:utcNow();\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "utcNow",
-                "version": "2.6.0"
               },
               "enabled": true
             }

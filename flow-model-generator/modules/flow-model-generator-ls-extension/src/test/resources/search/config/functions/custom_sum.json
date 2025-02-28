@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "sum",
-    "includeAvailableFunctions": "true"
+    "includeAvailable": "true"
   },
   "categories": [
     {

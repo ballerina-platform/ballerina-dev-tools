@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "* OR rowid < 0;--",
-    "includeAvailableFunctions": "true",
+    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

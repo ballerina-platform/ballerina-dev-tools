@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "json to xml",
-    "includeAvailableFunctions": "true",
+    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

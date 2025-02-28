@@ -14,7 +14,7 @@
   },
   "queryMap": {
     "q": "log",
-    "includeAvailableFunctions": "true"
+    "includeAvailable": "true"
   },
   "categories": [
     {
