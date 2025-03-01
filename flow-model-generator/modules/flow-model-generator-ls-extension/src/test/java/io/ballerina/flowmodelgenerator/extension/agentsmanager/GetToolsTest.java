@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension.agentsmanager;
 
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.extension.request.GetAllAgentsRequest;
+import io.ballerina.flowmodelgenerator.extension.request.GetToolsRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -29,13 +29,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class GetAllAgentsTest extends AbstractLSTest {
+public class GetToolsTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("get_all_agents.json")}
+                {Path.of("get_tools.json")}
         };
     }
 
@@ -47,12 +47,12 @@ public class GetAllAgentsTest extends AbstractLSTest {
 
         String filePath =
                 testConfig.source() == null ? "" : sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
-        GetAllAgentsRequest request = new GetAllAgentsRequest(filePath);
-        JsonArray agents = getResponse(request).getAsJsonArray("agents");
+        GetToolsRequest request = new GetToolsRequest(filePath);
+        JsonArray functions = getResponse(request).getAsJsonArray("tools");
 
-        if (!agents.equals(testConfig.agents())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.source(), testConfig.description(), agents);
-//            updateConfig(configJsonPath, updatedConfig);
+        if (!functions.equals(testConfig.functions())) {
+            TestConfig updatedConfig = new TestConfig(testConfig.source(), testConfig.description(), functions);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail("Test failed. Updated the expected output in " + configJsonPath);
         }
     }
@@ -64,12 +64,12 @@ public class GetAllAgentsTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return GetAllAgentsTest.class;
+        return GetToolsTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getAllAgents";
+        return "getTools";
     }
 
     @Override
@@ -78,13 +78,13 @@ public class GetAllAgentsTest extends AbstractLSTest {
     }
 
     /**
-     * Represents the test configuration for the flow model getNodeTemplate API.
+     * Represents the test configuration for the agent manager getTools API.
      *
      * @param source      The source file path
      * @param description The description of the test
-     * @param agents      List of all available agents
+     * @param functions      List of all available function tools
      */
-    private record TestConfig(String source, String description, JsonArray agents) {
+    private record TestConfig(String source, String description, JsonArray functions) {
 
         public String description() {
             return description == null ? "" : description;

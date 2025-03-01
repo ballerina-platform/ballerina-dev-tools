@@ -29,6 +29,14 @@ function fn(int x) returns int {
     return x + 1;
 }
 
+function fn1(int x) returns int|error? {
+    return x + 1;
+}
+
+function fn2(int x, error? err) returns int? {
+    return x + 1;
+}
+
 http:Client httpClientResult = check new ("http://localhost:9091");
 
 final Address[] addresses = [];

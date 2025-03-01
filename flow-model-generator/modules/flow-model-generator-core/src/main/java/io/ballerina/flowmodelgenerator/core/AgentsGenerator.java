@@ -157,12 +157,35 @@ public class AgentsGenerator {
     public JsonArray getTools(SemanticModel semanticModel) {
         List<Symbol> moduleSymbols = semanticModel.moduleSymbols();
         List<String> functionNames = new ArrayList<>();
+        TypeSymbol anydata = semanticModel.types().ANYDATA;
         for (Symbol moduleSymbol : moduleSymbols) {
-            if (moduleSymbol.kind() == SymbolKind.FUNCTION) {
-                // TODO: Filter from the annotations
-                functionNames.add((moduleSymbol).getName().orElse(""));
+            if (moduleSymbol.kind() != SymbolKind.FUNCTION) {
+                continue;
             }
+
+            FunctionTypeSymbol functionTypeSymbol = ((FunctionSymbol) moduleSymbol).typeDescriptor();
+            Optional<List<ParameterSymbol>> optParams = functionTypeSymbol.params();
+            if (optParams.isPresent()) {
+                boolean isAnydataSubType = true;
+                for (ParameterSymbol parameterSymbol : optParams.get()) {
+                    if (!CommonUtils.subTypeOf(parameterSymbol.typeDescriptor(), anydata)) {
+                        isAnydataSubType = false;
+                        break;
+                    }
+                }
+                if (!isAnydataSubType) {
+                    continue;
+                }
+            }
+            Optional<TypeSymbol> optReturnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
+            if (optReturnTypeSymbol.isPresent()) {
+                if (!CommonUtils.subTypeOf(optReturnTypeSymbol.get(), anydata)) {
+                    continue;
+                }
+            }
+            functionNames.add(moduleSymbol.getName().orElse(""));
         }
+
         return gson.toJsonTree(functionNames).getAsJsonArray();
     }
 
