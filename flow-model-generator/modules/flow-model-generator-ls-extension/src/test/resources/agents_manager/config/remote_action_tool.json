@@ -1,5 +1,5 @@
 {
-  "source": "agents/agents.bal",
+  "source": "agent_1/agents.bal",
   "name": "toolFunc",
   "description": "Sample diagram node",
   "diagram": {
@@ -129,7 +129,7 @@
     "flags": 1
   },
   "output": {
-    "agents/agents.bal": [
+    "agent_1/agents.bal": [
       {
         "range": {
           "start": {

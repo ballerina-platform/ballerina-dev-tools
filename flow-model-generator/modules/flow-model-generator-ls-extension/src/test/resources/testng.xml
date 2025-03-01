@@ -71,6 +71,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GenToolsTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllAgentsTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllModelsTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetModelsTest"/>
         </classes>
     </test>
 </suite>

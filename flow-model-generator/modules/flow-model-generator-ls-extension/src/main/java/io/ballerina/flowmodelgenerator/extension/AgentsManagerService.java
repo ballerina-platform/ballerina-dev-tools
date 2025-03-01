@@ -136,27 +136,14 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
             GetModelsResponse response = new GetModelsResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> optDocument = this.workspaceManager.document(filePath);
                 if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
                     return response;
                 }
-                Document document = optDocument.get();
-                io.ballerina.tools.text.TextEdit textEdit =
-                        io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
-                io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
-                TextDocument modifiedTextDoc = optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
-
-                Document modifiedDoc =
-                        project.duplicate().currentPackage().module(document.module().moduleId())
-                                .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                        modifiedTextDoc.textLines())).apply();
-
-                SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                        .getSemanticModel(modifiedDoc.module().moduleId());
-                AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setModels(agentsGenerator.getModels(semanticModel, request.agent()));
+                AgentsGenerator agentsGenerator = new AgentsGenerator(optSemanticModel.get());
+                response.setModels(agentsGenerator.getModels());
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

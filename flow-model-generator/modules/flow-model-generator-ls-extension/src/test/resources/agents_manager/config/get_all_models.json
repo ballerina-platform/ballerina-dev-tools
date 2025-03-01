@@ -1,5 +1,5 @@
 {
-  "source": "agents/agents.bal",
+  "source": "agent_1/agents.bal",
   "description": "Sample diagram node",
   "agent": "FunctionCallAgent",
   "models": [

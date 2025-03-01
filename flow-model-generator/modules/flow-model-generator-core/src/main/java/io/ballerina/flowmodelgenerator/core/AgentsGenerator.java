@@ -131,25 +131,27 @@ public class AgentsGenerator {
         return gson.toJsonTree(models).getAsJsonArray();
     }
 
-    public JsonArray getModels(SemanticModel semanticModel, String agent) {
+    public JsonArray getModels() {
         List<Symbol> moduleSymbols = semanticModel.moduleSymbols();
-        Set<String> models = modelsForAgent.get(agent);
-        if (models == null) {
-            throw new IllegalStateException(String.format("Cannot find models for agent %s", agent));
-        }
-        List<String> availableModels = new ArrayList<>();
+        List<String> models = new ArrayList<>();
         for (Symbol moduleSymbol : moduleSymbols) {
             if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
                 continue;
             }
             VariableSymbol variableSymbol = (VariableSymbol) moduleSymbol;
-            TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
-            String signature = typeSymbol.signature();
-            if (models.contains(signature)) {
-                availableModels.add(signature);
+            TypeSymbol typeSymbol = CommonUtils.getRawType(variableSymbol.typeDescriptor());
+            if (typeSymbol.kind() != SymbolKind.CLASS) {
+                continue;
+            }
+            List<TypeSymbol> typeInclusions = ((ClassSymbol) typeSymbol).typeInclusions();
+            for (TypeSymbol typeInclusion : typeInclusions) {
+                Optional<String> optName = typeInclusion.getName();
+                if (optName.isPresent() && optName.get().equals(MODEL)) {
+                    models.add(variableSymbol.getName().orElse(""));
+                }
             }
         }
-        return gson.toJsonTree(availableModels).getAsJsonArray();
+        return gson.toJsonTree(models).getAsJsonArray();
     }
 
     public JsonArray getTools(SemanticModel semanticModel) {

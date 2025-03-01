@@ -1,5 +1,5 @@
 {
-  "source": "agents/agents.bal",
+  "source": "agent_1/agents.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
@@ -106,7 +106,7 @@
     "flags": 0
   },
   "output": {
-    "agents/agents.bal": [
+    "agent_1/agents.bal": [
       {
         "range": {
           "start": {
