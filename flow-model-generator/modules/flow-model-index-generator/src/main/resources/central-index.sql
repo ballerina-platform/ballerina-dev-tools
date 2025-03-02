@@ -51,3 +51,14 @@ CREATE TABLE Parameter (
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );
+
+-- Create Parameter Member Type table
+CREATE TABLE ParameterMemberType (
+    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type JSON, -- JSON type for parameter type information
+    member_type JSON, -- JSON type for member type information int arrays and map cases
+    kind TEXT,
+    parameter_id INTEGER,
+    package TEXT, -- format of the package is org:name:version
+    FOREIGN KEY (parameter_id) REFERENCES Parameter(parameter_id) ON DELETE CASCADE
+);
