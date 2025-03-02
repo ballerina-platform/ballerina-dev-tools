@@ -219,6 +219,9 @@ class IndexGenerator {
         if (name.isEmpty()) {
             return packageId;
         }
+        if (documentable instanceof ClassSymbol && name.get().equals("init")) {
+            name = Optional.of("Client");
+        }
 
         // Obtain the description of the function
         String description = getDescription(documentable);
@@ -354,9 +357,9 @@ class IndexGenerator {
             }
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
         }
-        DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType, defaultValue,
-                parameterKind, optional, importStatements);
-        insertParameterMemberTypes(functionId, typeSymbol, semanticModel);
+        int paramId = DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+                defaultValue, parameterKind, optional, importStatements);
+        insertParameterMemberTypes(paramId, typeSymbol, semanticModel);
     }
 
     protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId,
@@ -403,10 +406,10 @@ class IndexGenerator {
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
             }
-            DatabaseManager.insertFunctionParameter(functionId, paramName, documentationMap.get(paramName),
+            int paramId = DatabaseManager.insertFunctionParameter(functionId, paramName, documentationMap.get(paramName),
                     paramType, defaultValue, FunctionParameterKind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
-            insertParameterMemberTypes(functionId, typeSymbol, semanticModel);
+            insertParameterMemberTypes(paramId, typeSymbol, semanticModel);
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);

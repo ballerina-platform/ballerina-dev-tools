@@ -496,7 +496,7 @@ public class FunctionDataBuilder {
             paramType = getTypeSignature(typeSymbol);
             Map<String, ParameterData> includedParameters =
                     getIncludedRecordParams((RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true,
-                            new HashMap<>());
+                            new HashMap<>(), union);
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == ParameterData.Kind.REQUIRED) {
@@ -595,11 +595,12 @@ public class FunctionDataBuilder {
 
     private Map<String, ParameterData> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
                                                                boolean insert,
-                                                               Map<String, String> documentationMap) {
+                                                               Map<String, String> documentationMap,
+                                                               UnionTypeSymbol union) {
         Map<String, ParameterData> parameters = new LinkedHashMap<>();
         recordTypeSymbol.typeInclusions().forEach(includedType -> parameters.putAll(
                 getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
-                        documentationMap))
+                        documentationMap, union))
         );
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
@@ -622,9 +623,11 @@ public class FunctionDataBuilder {
             String defaultValue = getDefaultValue(recordFieldSymbol, fieldType);
             String paramType = getTypeSignature(typeSymbol);
             boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
-            parameters.put(paramName, ParameterData.from(paramName, documentationMap.get(paramName),
+            ParameterData parameterData = ParameterData.from(paramName, documentationMap.get(paramName),
                     paramType, defaultValue, ParameterData.Kind.INCLUDED_FIELD, optional,
-                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
+                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null));
+            parameters.put(paramName, parameterData);
+            addParameterMemberTypes(typeSymbol, parameterData, union);
         }
         recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
             String paramType = getTypeSignature(typeSymbol);
