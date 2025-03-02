@@ -109,7 +109,7 @@
         "flags": 0
       },
       {
-        "id": "132313",
+        "id": "132220",
         "metadata": {
           "label": "Custom Expression",
           "description": "Represents a custom Ballerina expression"
@@ -120,162 +120,16 @@
             "fileName": "comment.bal",
             "startLine": {
               "line": 101,
-              "offset": 7
+              "offset": 4
             },
             "endLine": {
               "line": 106,
               "offset": 5
             }
           },
-          "sourceCode": "{\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }"
+          "sourceCode": "do {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }"
         },
         "returning": false,
-        "branches": [
-          {
-            "label": "Body",
-            "kind": "BLOCK",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "comment.bal",
-                "startLine": {
-                  "line": 101,
-                  "offset": 7
-                },
-                "endLine": {
-                  "line": 106,
-                  "offset": 5
-                }
-              },
-              "sourceCode": "{\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }"
-            },
-            "repeatable": "ONE",
-            "children": [
-              {
-                "id": "132952",
-                "metadata": {
-                  "label": "Comment",
-                  "description": "Increment `x`"
-                },
-                "codedata": {
-                  "node": "COMMENT",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 102,
-                      "offset": 0
-                    },
-                    "endLine": {
-                      "line": 102,
-                      "offset": 24
-                    }
-                  },
-                  "sourceCode": "Increment `x`"
-                },
-                "returning": false,
-                "properties": {
-                  "comment": {
-                    "metadata": {
-                      "label": "Comment",
-                      "description": "Comment to describe the flow"
-                    },
-                    "valueType": "STRING",
-                    "value": "Increment `x`",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "134186",
-                "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
-                },
-                "codedata": {
-                  "node": "ASSIGN",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 103,
-                      "offset": 8
-                    },
-                    "endLine": {
-                      "line": 103,
-                      "offset": 18
-                    }
-                  },
-                  "sourceCode": "// Increment `x`\n        x = x + 1;"
-                },
-                "returning": false,
-                "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Assign value"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "x + 1",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "x",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "134965",
-                "metadata": {
-                  "label": "Comment",
-                  "description": "Precess `x`"
-                },
-                "codedata": {
-                  "node": "COMMENT",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 104,
-                      "offset": 0
-                    },
-                    "endLine": {
-                      "line": 105,
-                      "offset": 22
-                    }
-                  },
-                  "sourceCode": "Precess `x`"
-                },
-                "returning": false,
-                "properties": {
-                  "comment": {
-                    "metadata": {
-                      "label": "Comment",
-                      "description": "Comment to describe the flow"
-                    },
-                    "valueType": "STRING",
-                    "value": "Precess `x`",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              }
-            ]
-          }
-        ],
         "properties": {
           "statement": {
             "metadata": {
@@ -283,7 +137,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "{\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }",
+            "value": "do {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }",
             "optional": false,
             "editable": true,
             "advanced": false

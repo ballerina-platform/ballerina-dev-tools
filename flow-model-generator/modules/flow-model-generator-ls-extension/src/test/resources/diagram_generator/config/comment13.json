@@ -146,7 +146,7 @@
         "flags": 0
       },
       {
-        "id": "155315",
+        "id": "155222",
         "metadata": {
           "label": "Custom Expression",
           "description": "Represents a custom Ballerina expression"
@@ -157,162 +157,16 @@
             "fileName": "comment.bal",
             "startLine": {
               "line": 124,
-              "offset": 7
+              "offset": 4
             },
             "endLine": {
               "line": 135,
               "offset": 5
             }
           },
-          "sourceCode": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }"
+          "sourceCode": "do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }"
         },
         "returning": false,
-        "branches": [
-          {
-            "label": "Body",
-            "kind": "BLOCK",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "comment.bal",
-                "startLine": {
-                  "line": 124,
-                  "offset": 7
-                },
-                "endLine": {
-                  "line": 135,
-                  "offset": 5
-                }
-              },
-              "sourceCode": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }"
-            },
-            "repeatable": "ONE",
-            "children": [
-              {
-                "id": "155768",
-                "metadata": {
-                  "label": "Comment",
-                  "description": "Increment `x`"
-                },
-                "codedata": {
-                  "node": "COMMENT",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 125,
-                      "offset": 0
-                    },
-                    "endLine": {
-                      "line": 125,
-                      "offset": 24
-                    }
-                  },
-                  "sourceCode": "Increment `x`"
-                },
-                "returning": false,
-                "properties": {
-                  "comment": {
-                    "metadata": {
-                      "label": "Comment",
-                      "description": "Comment to describe the flow"
-                    },
-                    "valueType": "STRING",
-                    "value": "Increment `x`",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "159978",
-                "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
-                },
-                "codedata": {
-                  "node": "ASSIGN",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 129,
-                      "offset": 8
-                    },
-                    "endLine": {
-                      "line": 129,
-                      "offset": 18
-                    }
-                  },
-                  "sourceCode": "// Increment `x`\n\n\n\n        x = x + 1;"
-                },
-                "returning": false,
-                "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Assign value"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "x + 1",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "x",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "160757",
-                "metadata": {
-                  "label": "Comment",
-                  "description": "Precess `x`"
-                },
-                "codedata": {
-                  "node": "COMMENT",
-                  "lineRange": {
-                    "fileName": "comment.bal",
-                    "startLine": {
-                      "line": 130,
-                      "offset": 0
-                    },
-                    "endLine": {
-                      "line": 131,
-                      "offset": 22
-                    }
-                  },
-                  "sourceCode": "Precess `x`"
-                },
-                "returning": false,
-                "properties": {
-                  "comment": {
-                    "metadata": {
-                      "label": "Comment",
-                      "description": "Comment to describe the flow"
-                    },
-                    "valueType": "STRING",
-                    "value": "Precess `x`",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 0
-              }
-            ]
-          }
-        ],
         "properties": {
           "statement": {
             "metadata": {
@@ -320,7 +174,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }",
+            "value": "do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }",
             "optional": false,
             "editable": true,
             "advanced": false

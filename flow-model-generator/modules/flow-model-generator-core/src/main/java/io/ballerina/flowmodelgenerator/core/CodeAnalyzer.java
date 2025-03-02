@@ -81,6 +81,7 @@ import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.QueryActionNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
@@ -1026,12 +1027,17 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(CompoundAssignmentStatementNode compoundAssignmentStatementNode) {
-        handleDefaultStatementNode(compoundAssignmentStatementNode, () -> super.visit(compoundAssignmentStatementNode));
+        handleDefaultStatementNode(compoundAssignmentStatementNode);
     }
 
     @Override
     public void visit(BlockStatementNode blockStatementNode) {
-        handleDefaultNodeWithBlock(blockStatementNode);
+        handleDefaultStatementNode(blockStatementNode);
+    }
+
+    @Override
+    public void visit(QueryActionNode queryActionNode) {
+        handleDefaultStatementNode(queryActionNode);
     }
 
     @Override
@@ -1210,8 +1216,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LocalTypeDefinitionStatementNode localTypeDefinitionStatementNode) {
-        handleDefaultStatementNode(localTypeDefinitionStatementNode,
-                () -> super.visit(localTypeDefinitionStatementNode));
+        handleDefaultStatementNode(localTypeDefinitionStatementNode
+        );
     }
 
     @Override
@@ -1455,7 +1461,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<OnFailClauseNode> optOnFailClauseNode = doStatementNode.onFailClause();
         BlockStatementNode blockStatementNode = doStatementNode.blockStatement();
         if (optOnFailClauseNode.isEmpty()) {
-            handleDefaultNodeWithBlock(blockStatementNode);
+            handleDefaultStatementNode(doStatementNode);
             return;
         }
 
@@ -1594,32 +1600,15 @@ class CodeAnalyzer extends NodeVisitor {
      * The default procedure to handle the statement nodes. These nodes should be handled explicitly.
      *
      * @param statementNode the statement node
-     * @param runnable      The runnable to be called to analyze the child nodes.
      */
-    private void handleDefaultStatementNode(NonTerminalNode statementNode,
-                                            Runnable runnable) {
+    private void handleDefaultStatementNode(NonTerminalNode statementNode) {
         handleExpressionNode(statementNode);
-        runnable.run();
         endNode(statementNode);
     }
 
     private void handleExpressionNode(NonTerminalNode statementNode) {
         startNode(NodeKind.EXPRESSION, statementNode)
                 .properties().statement(statementNode);
-    }
-
-    /**
-     * The default procedure to handle the node with a block statement.
-     *
-     * @param bodyNode the block statement node
-     */
-    private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        handleExpressionNode(bodyNode);
-        Branch.Builder branchBuilder =
-                startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        analyzeBlock(bodyNode, branchBuilder);
-        endBranch(branchBuilder, bodyNode);
-        endNode(bodyNode);
     }
 
     private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {
