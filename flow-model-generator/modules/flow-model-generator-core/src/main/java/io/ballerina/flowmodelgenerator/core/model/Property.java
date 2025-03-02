@@ -303,6 +303,12 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder<T> typeMembers(List<ParameterMemberTypeData> memberTypeData, String selectedType) {
+            this.typeMembers = memberTypeData.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
+                    memberType.kind(), memberType.packageInfo(), memberType.type().equals(selectedType))).toList();
+            return this;
+        }
+
         public PropertyCodedata.Builder<Builder<T>> codedata() {
             if (this.codedataBuilder == null) {
                 this.codedataBuilder = new PropertyCodedata.Builder<>(this);

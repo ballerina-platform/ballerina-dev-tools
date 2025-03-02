@@ -34,7 +34,39 @@ import java.util.Map;
  * @param selected   The selected status of the type
  * @since 2.0.0
  */
-public record PropertyTypeMemberInfo(String type, String packageInfo, String kind, boolean selected) {
+public class PropertyTypeMemberInfo {
+
+    private final String type;
+    private final String packageInfo;
+    private final String kind;
+    private boolean selected;
+
+    public PropertyTypeMemberInfo(String type, String packageInfo, String kind, boolean selected) {
+        this.type = type;
+        this.packageInfo = packageInfo;
+        this.kind = kind;
+        this.selected = selected;
+    }
+
+    public String type() {
+        return type;
+    }
+
+    public String packageInfo() {
+        return packageInfo;
+    }
+
+    public String kind() {
+        return kind;
+    }
+
+    public boolean selected() {
+        return selected;
+    }
+
+    public void selected(boolean selected) {
+        this.selected = selected;
+    }
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
