@@ -1,0 +1,178 @@
+{
+  "source": "agent_1/agents.bal",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "description": "",
+  "codedata": {
+    "node": "AGENT",
+    "org": "ballerinax",
+    "module": "ai.agent",
+    "object": "Agent",
+    "symbol": "init",
+    "version": "0.7.8"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Agent",
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.8.png"
+    },
+    "codedata": {
+      "node": "AGENT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "Agent",
+      "symbol": "init",
+      "version": "0.7.8",
+      "id": 0
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "agent:Agent",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "systemPrompt": {
+        "metadata": {
+          "label": "systemPrompt",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:SystemPrompt",
+        "placeholder": "{role: \"\", instructions: \"\"}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "systemPrompt"
+        }
+      },
+      "model": {
+        "metadata": {
+          "label": "model",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:Model",
+        "placeholder": "object {}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "model"
+        }
+      },
+      "tools": {
+        "metadata": {
+          "label": "tools",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
+        "placeholder": "[]",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "tools"
+        }
+      },
+      "agentType": {
+        "metadata": {
+          "label": "agentType",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:AgentType",
+        "placeholder": "\"FUNCTION_CALL_AGENT\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "agentType"
+        }
+      },
+      "maxIter": {
+        "metadata": {
+          "label": "maxIter",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "maxIter"
+        }
+      },
+      "verbose": {
+        "metadata": {
+          "label": "verbose",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "verbose"
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "agent:Agent",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "agentAgent",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

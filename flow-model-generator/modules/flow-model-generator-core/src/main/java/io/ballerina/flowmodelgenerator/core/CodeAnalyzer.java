@@ -170,7 +170,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final List<FlowNode> flowNodeList;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
-    private static final String WSO2 = "wso2";
+    private static final String BALLERINAX = "ballerinax";
     private static final String AI_AGENT = "ai.agent";
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
@@ -1133,8 +1133,6 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
         } else if (isAgentCall(symbol.get())) {
             startNode(NodeKind.AGENT_CALL, functionCallExpressionNode.parent());
-//            genAgentCallNode(functionCallExpressionNode, (FunctionSymbol) symbol.get(), functionName, description);
-//            return;
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
@@ -1190,37 +1188,13 @@ class CodeAnalyzer extends NodeVisitor {
         handleCheckFlag(callNode, functionSymbol.typeDescriptor());
     }
 
-//    private void genAgentCallNode(FunctionCallExpressionNode functionCallExpressionNode,
-//                                  FunctionSymbol functionSymbol, String functionName, String description) {
-//        startNode(NodeKind.AGENT_CALL, functionCallExpressionNode.parent());
-//        SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
-//        handleFunctionCallActionCallsParams(arguments, functionSymbol);
-//
-//        String modelUrl = getModelIconUrl(arguments.get(0));
-//        List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
-//        if (!modelUrl.isEmpty()) {
-//            nodeBuilder.metadata().addData("model", modelUrl);
-//        }
-//        if (!toolUrls.isEmpty()) {
-//            nodeBuilder.metadata().addData("tools", toolUrls);
-//        }
-//
-//        nodeBuilder
-//                .symbolInfo(functionSymbol)
-//                .metadata()
-//                .label(functionName)
-//                .description(description)
-//                .stepOut()
-//                .codedata().symbol(functionName);
-//    }
-
     private boolean isAgentCall(Symbol symbol) {
         Optional<ModuleSymbol> optModule = symbol.getModule();
         if (optModule.isEmpty()) {
             return false;
         }
         ModuleID id = optModule.get().id();
-        return id.packageName().equals(WSO2) && id.orgName().equals(AI_AGENT);
+        return id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
     }
 
     private String getModelIconUrl(FunctionArgumentNode firstArgNode) {
