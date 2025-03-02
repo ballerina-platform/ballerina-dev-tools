@@ -19,19 +19,9 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.modelgenerator.commons.CommonUtils;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * Represents the metadata of a diagram component.
  *
- * @param type       A member type of the parameter
- * @param packageInfo The package information of the member type
- * @param kind       The kind of the type
- * @param selected   The selected status of the type
  * @since 2.0.0
  */
 public class PropertyTypeMemberInfo {

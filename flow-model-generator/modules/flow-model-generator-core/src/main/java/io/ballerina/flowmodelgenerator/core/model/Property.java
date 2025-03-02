@@ -41,6 +41,7 @@ import java.util.List;
  * @param advanced            whether the property should be shown in the advanced tab
  * @param diagnostics         diagnostics of the property
  * @param codedata            codedata of the property
+ * @param typeMembers         member types of the type constrain
  * @since 2.0.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
