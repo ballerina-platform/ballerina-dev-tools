@@ -17,7 +17,7 @@
         "metadata": {
           "label": "post",
           "description": "Create a GitHub App from a manifest\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -25,7 +25,7 @@
           "module": "github",
           "object": "Client",
           "symbol": "post",
-          "version": "5.0.2",
+          "version": "5.1.0",
           "lineRange": {
             "fileName": "github_resource_call.bal",
             "startLine": {
@@ -138,7 +138,7 @@
         "metadata": {
           "label": "delete",
           "description": "Delete a thread subscription\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
         },
         "codedata": {
           "node": "RESOURCE_ACTION_CALL",
@@ -146,7 +146,7 @@
           "module": "github",
           "object": "Client",
           "symbol": "delete",
-          "version": "5.0.2",
+          "version": "5.1.0",
           "lineRange": {
             "fileName": "github_resource_call.bal",
             "startLine": {
@@ -262,7 +262,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "GitHub's v3 REST API.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -305,7 +305,7 @@
             "typeMembers": [
               {
                 "type": "ConnectionConfig",
-                "packageInfo": "ballerinax:github:5.0.2",
+                "packageInfo": "ballerinax:github:5.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }

@@ -19,7 +19,7 @@
     "metadata": {
       "label": "post",
       "description": "Create a GitHub App from a manifest\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
     },
     "codedata": {
       "node": "RESOURCE_ACTION_CALL",
