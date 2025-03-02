@@ -44,7 +44,7 @@ import java.util.List;
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced,
-                       Diagnostics diagnostics, PropertyCodedata codedata) {
+                       Diagnostics diagnostics, PropertyCodedata codedata, List<PropertyTypeMemberInfo> typeMembers) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -232,6 +232,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private Metadata.Builder<Builder<T>> metadataBuilder;
         private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
         private PropertyCodedata.Builder<Builder<T>> codedataBuilder;
+        private List<PropertyTypeMemberInfo> typeMembers;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -315,7 +316,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
                             placeholder, optional, editable, advanced,
                             diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
-                            codedataBuilder == null ? null : codedataBuilder.build());
+                            codedataBuilder == null ? null : codedataBuilder.build(), typeMembers);
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
@@ -326,6 +327,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             this.advanced = false;
             this.diagnosticsBuilder = null;
             this.codedataBuilder = null;
+            this.typeMembers = null;
             return property;
         }
     }

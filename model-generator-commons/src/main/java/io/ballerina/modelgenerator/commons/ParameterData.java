@@ -20,6 +20,9 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.symbols.ParameterKind;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the result of a parameter.
  *
@@ -41,18 +44,19 @@ public record ParameterData(
         String defaultValue,
         String description,
         boolean optional,
-        String importStatements) {
+        String importStatements,
+        List<ParameterMemberTypeData> typeMembers) {
 
     public static ParameterData from(String name, String type, Kind kind, String defaultValue,
                                      String description, boolean optional) {
         return new ParameterData(0, name, type, kind, defaultValue, description, optional,
-                null);
+                null, new ArrayList<>());
     }
 
     public static ParameterData from(String name, String description, String type, String defaultValue, Kind kind,
                                      boolean optional, String importStatements) {
         return new ParameterData(0, name, type, kind, defaultValue, description, optional,
-                importStatements);
+                importStatements, new ArrayList<>());
     }
 
     public enum Kind {
