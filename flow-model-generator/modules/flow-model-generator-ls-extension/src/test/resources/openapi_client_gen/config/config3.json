@@ -49,7 +49,15 @@
           "kind": "DEFAULTABLE",
           "originalName": "config",
           "importStatements": "oas/client2.client2.mod2"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "mod2:ConnectionConfig",
+            "packageInfo": "oas:client2.mod2:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "serviceUrl": {
         "metadata": {
@@ -65,7 +73,15 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "serviceUrl"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
