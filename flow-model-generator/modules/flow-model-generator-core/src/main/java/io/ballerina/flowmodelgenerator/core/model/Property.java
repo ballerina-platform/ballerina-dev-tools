@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 
 import java.util.List;
 
@@ -294,6 +295,12 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
                 this.metadataBuilder = new Metadata.Builder<>(this);
             }
             return this.metadataBuilder;
+        }
+
+        public Builder<T> typeMembers(List<ParameterMemberTypeData> memberTypeData) {
+            this.typeMembers = memberTypeData.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
+                    memberType.kind(), memberType.packageInfo(), false)).toList();
+            return this;
         }
 
         public PropertyCodedata.Builder<Builder<T>> codedata() {

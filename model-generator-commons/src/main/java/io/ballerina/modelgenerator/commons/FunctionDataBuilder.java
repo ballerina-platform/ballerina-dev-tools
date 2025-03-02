@@ -18,14 +18,19 @@
 
 package io.ballerina.modelgenerator.commons;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.TypeBuilder;
+import io.ballerina.compiler.api.Types;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
+import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
@@ -35,8 +40,11 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
+import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -302,12 +310,17 @@ public class FunctionDataBuilder {
                 moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionKind,
                 returnData.returnError(), paramForTypeInfer != null);
 
+        Types types = semanticModel.types();
+        TypeBuilder builder = semanticModel.types().builder();
+        UnionTypeSymbol union = builder.UNION_TYPE.withMemberTypes(types.BOOLEAN, types.NIL, types.STRING, types.INT,
+                types.FLOAT, types.DECIMAL, types.BYTE, types.REGEX, types.XML).build();
+
         Map<String, String> documentationMap =
                 functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
         functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol -> parameters.putAll(
-                getParameters(paramSymbol, documentationMap, paramForTypeInfer))));
+                getParameters(paramSymbol, documentationMap, paramForTypeInfer, union))));
         functionTypeSymbol.restParam().ifPresent(paramSymbol -> parameters.putAll(
-                getParameters(paramSymbol, documentationMap, paramForTypeInfer)));
+                getParameters(paramSymbol, documentationMap, paramForTypeInfer, union)));
         functionData.setParameters(parameters);
         return functionData;
     }
@@ -464,7 +477,8 @@ public class FunctionDataBuilder {
 
     private Map<String, ParameterData> getParameters(ParameterSymbol paramSymbol,
                                                      Map<String, String> documentationMap,
-                                                     ParamForTypeInfer paramForTypeInfer) {
+                                                     ParamForTypeInfer paramForTypeInfer,
+                                                     UnionTypeSymbol union) {
         Map<String, ParameterData> parameters = new LinkedHashMap<>();
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
@@ -503,9 +517,80 @@ public class FunctionDataBuilder {
             defaultValue = getDefaultValue(paramSymbol, typeSymbol);
             paramType = getTypeSignature(typeSymbol);
         }
-        parameters.put(paramName, ParameterData.from(paramName, paramDescription, paramType, defaultValue,
-                parameterKind, optional, importStatements));
+        ParameterData parameterData = ParameterData.from(paramName, paramDescription, paramType, defaultValue,
+                parameterKind, optional, importStatements);
+        parameters.put(paramName, parameterData);
+        addParameterMemberTypes(typeSymbol, parameterData, union);
         return parameters;
+    }
+
+    private static void addParameterMemberTypes(TypeSymbol typeSymbol, ParameterData parameterData,
+                                                UnionTypeSymbol union) {
+
+        if (typeSymbol instanceof UnionTypeSymbol unionTypeSymbol) {
+            unionTypeSymbol.memberTypeDescriptors().forEach(
+                    memberType -> addParameterMemberTypes(memberType, parameterData, union));
+            return;
+        }
+
+        String packageIdentifier = "";
+        ModuleInfo moduleInfo = null;
+        if (typeSymbol.getModule().isPresent()) {
+            ModuleID id = typeSymbol.getModule().get().id();
+            packageIdentifier = "%s:%s:%s".formatted(id.orgName(), id.moduleName(), id.version());
+            moduleInfo = ModuleInfo.from(id);
+        }
+        String type = CommonUtils.getTypeSignature(typeSymbol, moduleInfo);
+        String kind = "OTHER";
+        TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+        if (typeSymbol.subtypeOf(union)) {
+            kind = "BASIC_TYPE";
+        } else if (rawType instanceof TupleTypeSymbol) {
+            kind = "TUPLE_TYPE";
+        } else if (rawType instanceof ArrayTypeSymbol arrayTypeSymbol) {
+            kind = "ARRAY_TYPE";
+            TypeSymbol memberType = arrayTypeSymbol.memberTypeDescriptor();
+            if (memberType.getModule().isPresent()) {
+                ModuleID id = memberType.getModule().get().id();
+                packageIdentifier = "%s:%s:%s".formatted(id.orgName(), id.moduleName(), id.version());
+                moduleInfo = ModuleInfo.from(id);
+            }
+            type = CommonUtils.getTypeSignature(memberType, moduleInfo);
+        } else if (rawType instanceof RecordTypeSymbol) {
+            if (typeSymbol instanceof RecordTypeSymbol) {
+                kind = "ANON_RECORD_TYPE";
+            } else {
+                kind = "RECORD_TYPE";
+            }
+        } else if (rawType instanceof MapTypeSymbol mapTypeSymbol) {
+            kind = "MAP_TYPE";
+            TypeSymbol typeParam = mapTypeSymbol.typeParam();
+            if (typeParam.getModule().isPresent()) {
+                ModuleID id = typeParam.getModule().get().id();
+                packageIdentifier = "%s:%s:%s".formatted(id.orgName(), id.moduleName(), id.version());
+                moduleInfo = ModuleInfo.from(id);
+            }
+            type = CommonUtils.getTypeSignature(typeSymbol, moduleInfo);
+        } else if (rawType instanceof TableTypeSymbol tableTypeSymbol) {
+            kind = "TABLE_TYPE";
+            TypeSymbol rowTypeParameter = tableTypeSymbol.rowTypeParameter();
+            if (rowTypeParameter.getModule().isPresent()) {
+                ModuleID id = rowTypeParameter.getModule().get().id();
+                packageIdentifier = "%s:%s:%s".formatted(id.orgName(), id.moduleName(), id.version());
+                moduleInfo = ModuleInfo.from(id);
+            }
+            type = CommonUtils.getTypeSignature(typeSymbol, moduleInfo);
+        } else if (rawType instanceof StreamTypeSymbol) {
+            kind = "STREAM_TYPE";
+        } else if (rawType instanceof ObjectTypeSymbol) {
+            kind = "OBJECT_TYPE";
+        } else if (rawType instanceof FunctionTypeSymbol) {
+            kind = "FUNCTION_TYPE";
+        } else if (rawType instanceof ErrorTypeSymbol) {
+            kind = "ERROR_TYPE";
+        }
+
+        parameterData.typeMembers().add(new ParameterMemberTypeData(type, kind, packageIdentifier));
     }
 
     private Map<String, ParameterData> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,

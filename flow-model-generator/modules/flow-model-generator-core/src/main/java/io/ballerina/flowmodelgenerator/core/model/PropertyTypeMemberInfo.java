@@ -31,15 +31,17 @@ import java.util.Map;
  * @param type       A member type of the parameter
  * @param packageInfo The package information of the member type
  * @param kind       The kind of the type
+ * @param selected   The selected status of the type
  * @since 2.0.0
  */
-public record PropertyTypeMemberInfo(String type, String packageInfo, String kind) {
+public record PropertyTypeMemberInfo(String type, String packageInfo, String kind, boolean selected) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private String type;
         private String packageInfo;
         private String kind;
+        private boolean selected = false;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -60,8 +62,13 @@ public record PropertyTypeMemberInfo(String type, String packageInfo, String kin
             return this;
         }
 
+        public Builder<T> selected(boolean selected) {
+            this.selected = selected;
+            return this;
+        }
+
         public PropertyTypeMemberInfo build() {
-            return new PropertyTypeMemberInfo(type, packageInfo, kind);
+            return new PropertyTypeMemberInfo(type, packageInfo, kind, selected);
         }
     }
 }
