@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Parameter;
 DROP TABLE IF EXISTS Function;
 DROP TABLE IF EXISTS Connector;
 DROP TABLE IF EXISTS Package;
+DROP TABLE IF EXISTS ParameterMemberType;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -56,7 +57,6 @@ CREATE TABLE Parameter (
 CREATE TABLE ParameterMemberType (
     member_id INTEGER PRIMARY KEY AUTOINCREMENT,
     type JSON, -- JSON type for parameter type information
-    member_type JSON, -- JSON type for member type information int arrays and map cases
     kind TEXT,
     parameter_id INTEGER,
     package TEXT, -- format of the package is org:name:version

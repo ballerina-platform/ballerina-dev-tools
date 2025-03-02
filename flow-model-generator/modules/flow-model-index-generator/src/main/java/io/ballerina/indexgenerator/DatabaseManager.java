@@ -114,11 +114,10 @@ class DatabaseManager {
                         parameterKind.name(), optional, importStatements});
     }
 
-    public static int insertParameterMemberType(int parameterId, String type, String memberType, String kind,
-                                                String packageIdentifier) {
-        String sql = "INSERT INTO ParameterMemberType (parameter_id, type, member_type, kind, package) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        return insertEntry(sql, new Object[]{parameterId, type, memberType, kind, packageIdentifier});
+    public static void insertParameterMemberType(int parameterId, String type, String kind, String packageIdentifier) {
+        String sql = "INSERT INTO ParameterMemberType (parameter_id, type, kind, package) " +
+                "VALUES (?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{parameterId, type, kind, packageIdentifier});
     }
 
     public static void mapConnectorAction(int actionId, int connectorId) {
