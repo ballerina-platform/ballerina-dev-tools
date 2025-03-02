@@ -121,7 +121,7 @@ public class AgentsGenerator {
 
         List<Codedata> models = new ArrayList<>();
         for (ClassSymbol model : modelSymbols) {
-            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS)
+            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
                     .org(BALLERINAX)
                     .module(AI_AGENT)
                     .object(model.getName().orElse(MODEL))

@@ -4,14 +4,14 @@
   "agent": "FunctionCallAgent",
   "models": [
     {
-      "node": "CLASS",
+      "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai.agent",
       "object": "ChatGptModel",
       "symbol": "init"
     },
     {
-      "node": "CLASS",
+      "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai.agent",
       "object": "AzureChatGptModel",

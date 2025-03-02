@@ -52,7 +52,7 @@ public class GetToolsTest extends AbstractLSTest {
 
         if (!functions.equals(testConfig.functions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.source(), testConfig.description(), functions);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail("Test failed. Updated the expected output in " + configJsonPath);
         }
     }

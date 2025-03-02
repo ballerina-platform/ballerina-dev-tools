@@ -862,6 +862,8 @@ class CodeAnalyzer extends NodeVisitor {
         ClassSymbol classSymbol = optClassSymbol.get();
         if (isAgentCall(classSymbol)) {
             startNode(NodeKind.AGENT, newExpressionNode);
+        } else if (isAIModel(classSymbol)) {
+            startNode(NodeKind.CLASS_INIT, newExpressionNode);
         } else {
             startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
         }
@@ -1210,7 +1212,31 @@ class CodeAnalyzer extends NodeVisitor {
             return false;
         }
         ModuleID id = optModule.get().id();
-        return id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
+        boolean isAIModule = id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
+        if (!isAIModule) {
+            return false;
+        }
+
+        return symbol.getName().isPresent() && symbol.getName().get().equals("Agent");
+    }
+
+    private boolean isAIModel(ClassSymbol classSymbol) {
+        Optional<ModuleSymbol> optModule = classSymbol.getModule();
+        if (optModule.isEmpty()) {
+            return false;
+        }
+        ModuleID id = optModule.get().id();
+        boolean isAIModule = id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
+        if (!isAIModule) {
+            return false;
+        }
+
+        for (TypeSymbol typeSymbol : classSymbol.typeInclusions()) {
+            if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals("Model")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String getModelIconUrl(FunctionArgumentNode firstArgNode) {

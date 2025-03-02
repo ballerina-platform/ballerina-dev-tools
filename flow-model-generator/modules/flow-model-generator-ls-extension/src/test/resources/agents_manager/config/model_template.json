@@ -6,9 +6,10 @@
   },
   "description": "",
   "codedata": {
-    "node": "CLASS",
-    "org": "wso2",
+    "node": "CLASS_INIT",
+    "org": "ballerinax",
     "module": "ai.agent",
+    "version": "0.7.8",
     "object": "ChatGptModel",
     "symbol": "init"
   },
@@ -16,52 +17,62 @@
     "id": "31",
     "metadata": {
       "label": "Class",
-      "description": "ChatGPT model",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/agent_ballerina_1.0.0.png"
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.8.png"
     },
     "codedata": {
-      "node": "CLASS",
-      "org": "agent",
-      "module": "ballerina",
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
       "object": "ChatGptModel",
       "symbol": "init",
-      "id": -1
+      "version": "0.7.8",
+      "id": 0
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "agent:ChatGptModel",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "connectionConfig": {
         "metadata": {
           "label": "connectionConfig",
-          "description": ""
+          "description": "Connection Configuration for OpenAI chat client"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "chat:ConnectionConfig",
-        "value": "",
-        "placeholder": "",
+        "placeholder": "{auth: {token: \"\"}}",
         "optional": false,
         "editable": true,
         "advanced": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "connectionConfig",
-          "importStatements": ""
+          "importStatements": "ballerinax/openai.chat"
         }
       },
       "modelConfig": {
         "metadata": {
           "label": "modelConfig",
-          "description": ""
+          "description": "Model Configuration for OpenAI chat client"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "ChatModelConfig",
+        "valueTypeConstraint": "agent:ChatModelConfig",
         "placeholder": "{}",
-        "optional": false,
+        "optional": true,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "modelConfig",
-          "importStatements": ""
+          "originalName": "modelConfig"
         }
       },
       "type": {
@@ -70,7 +81,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "error?",
+        "value": "agent:ChatGptModel",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -78,35 +89,24 @@
       },
       "variable": {
         "metadata": {
-          "label": "Class Name",
+          "label": "Variable Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "errorResult",
+        "value": "agentChatgptmodel",
         "optional": false,
         "editable": true,
         "advanced": false
       },
-      "scope": {
-        "metadata": {
-          "label": "Connection Scope",
-          "description": "Scope of the connection, Global or Local"
-        },
-        "valueType": "ENUM",
-        "value": "Global",
-        "optional": false,
-        "editable": true,
-        "advanced": true
-      },
       "checkError": {
         "metadata": {
           "label": "Check Error",
-          "description": "Terminate on error"
+          "description": "Trigger error flow"
         },
         "valueType": "FLAG",
         "value": true,
         "optional": false,
-        "editable": false,
+        "editable": true,
         "advanced": true
       }
     },
