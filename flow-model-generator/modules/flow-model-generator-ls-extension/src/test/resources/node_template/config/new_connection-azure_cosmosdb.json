@@ -44,7 +44,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "config"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "RECORD_TYPE",
+            "kind": "ballerinax:azure_cosmosdb:4.2.0",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

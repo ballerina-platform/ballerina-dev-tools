@@ -28,7 +28,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 574
+      "id": 595
     },
     "returning": false,
     "properties": {
@@ -72,7 +72,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "BASIC_TYPE",
+            "kind": "",
+            "selected": false
+          },
+          {
+            "type": "map<string|string[]>",
+            "packageInfo": "MAP_TYPE",
+            "kind": "",
+            "selected": false
+          }
+        ]
       },
       "additionalValues": {
         "metadata": {
@@ -88,7 +102,8 @@
         "codedata": {
           "kind": "INCLUDED_RECORD_REST",
           "originalName": "Additional Values"
-        }
+        },
+        "typeMembers": []
       },
       "type": {
         "metadata": {

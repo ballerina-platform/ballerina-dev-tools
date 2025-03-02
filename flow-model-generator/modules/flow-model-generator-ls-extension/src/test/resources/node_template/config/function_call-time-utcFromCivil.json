@@ -25,7 +25,7 @@
       "module": "time",
       "symbol": "utcFromCivil",
       "version": "2.5.0",
-      "id": 603
+      "id": 624
     },
     "returning": false,
     "properties": {
@@ -43,7 +43,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "civilTime"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "Civil",
+            "packageInfo": "RECORD_TYPE",
+            "kind": "ballerina:time:2.5.0",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

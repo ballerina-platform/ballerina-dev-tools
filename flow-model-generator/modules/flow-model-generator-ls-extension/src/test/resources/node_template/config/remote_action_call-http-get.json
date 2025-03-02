@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "get",
       "version": "2.12.0",
-      "id": 575
+      "id": 596
     },
     "returning": false,
     "properties": {
@@ -58,7 +58,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "path"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "BASIC_TYPE",
+            "kind": "",
+            "selected": false
+          }
+        ]
       },
       "headers": {
         "metadata": {
@@ -74,7 +82,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "BASIC_TYPE",
+            "kind": "",
+            "selected": false
+          },
+          {
+            "type": "map<string|string[]>",
+            "packageInfo": "MAP_TYPE",
+            "kind": "",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

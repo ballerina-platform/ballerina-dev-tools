@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 1849
+      "id": 2114
     },
     "returning": false,
     "properties": {
@@ -70,7 +70,8 @@
         "codedata": {
           "kind": "PATH_PARAM",
           "originalName": "code"
-        }
+        },
+        "typeMembers": []
       },
       "type": {
         "metadata": {

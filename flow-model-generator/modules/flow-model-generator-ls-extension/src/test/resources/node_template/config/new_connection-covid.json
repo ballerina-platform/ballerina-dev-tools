@@ -26,7 +26,7 @@
       "object": "Client",
       "symbol": "init",
       "version": "1.5.1",
-      "id": 718
+      "id": 701
     },
     "returning": false,
     "properties": {
@@ -44,7 +44,15 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "config"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "RECORD_TYPE",
+            "kind": "ballerinax:covid19:1.5.1",
+            "selected": false
+          }
+        ]
       },
       "serviceUrl": {
         "metadata": {
@@ -60,7 +68,15 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "serviceUrl"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "BASIC_TYPE",
+            "kind": "",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
