@@ -1,42 +1,42 @@
 {
   "start": {
-    "line": 14,
+    "line": 7,
     "offset": 0
   },
   "end": {
-    "line": 17,
+    "line": 19,
     "offset": 1
   },
-  "source": "new_connection.bal",
+  "source": "http_new_connection.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "new_connection.bal",
+    "fileName": "http_new_connection.bal",
     "nodes": [
       {
-        "id": "46873",
+        "id": "39991",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 14,
-              "offset": 37
+              "line": 7,
+              "offset": 30
             },
             "endLine": {
-              "line": 17,
+              "line": 19,
               "offset": 1
             }
           },
-          "sourceCode": "public function fn2() returns error? {\n    http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");\n    redis:Client localRedisCl = check new redis:Client();\n}"
+          "sourceCode": "function foo() returns error? {\n    final http:Client cl1 = check new (\"http://localhost:9090\");\n\n    final http:Client cl2 = check new (\"http://localhost:9090\", {\n        timeout: 5000\n    });\n\n    final http:Client cl3 = check new (\"http://localhost:9090\", auth = clientAuthConfig);\n\n    final http:Client cl4 = check new (\"http://localhost:9090\", auth = {username: \"\", password: \"\"});\n\n    final http:Client cl5 = check new (\"http://localhost:9090\", auth = {jwtId: \"Id\"});\n}"
         },
         "returning": false,
         "flags": 0
       },
       {
-        "id": "46825",
+        "id": "39868",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -49,17 +49,17 @@
           "object": "Client",
           "symbol": "init",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 15,
+              "line": 8,
               "offset": 4
             },
             "endLine": {
-              "line": 15,
-              "offset": 77
+              "line": 8,
+              "offset": 64
             }
           },
-          "sourceCode": "http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");",
+          "sourceCode": "final http:Client cl1 = check new (\"http://localhost:9090\");",
           "id": 0
         },
         "returning": false,
@@ -71,7 +71,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "\"http://localhost:8080\"",
+            "value": "\"http://localhost:9090\"",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -657,20 +657,20 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "localHttpCl",
+            "value": "cl1",
             "optional": false,
             "editable": false,
             "advanced": false,
             "codedata": {
               "lineRange": {
-                "fileName": "new_connection.bal",
+                "fileName": "http_new_connection.bal",
                 "startLine": {
-                  "line": 15,
-                  "offset": 16
+                  "line": 8,
+                  "offset": 22
                 },
                 "endLine": {
-                  "line": 15,
-                  "offset": 27
+                  "line": 8,
+                  "offset": 25
                 }
               }
             }
@@ -688,204 +688,10 @@
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 5
       },
       {
-        "id": "47797",
-        "metadata": {
-          "label": "New Connection",
-          "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
-        },
-        "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
-          "object": "Client",
-          "symbol": "init",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 16,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 16,
-              "offset": 57
-            }
-          },
-          "sourceCode": "redis:Client localRedisCl = check new redis:Client();",
-          "id": 0
-        },
-        "returning": false,
-        "properties": {
-          "connection": {
-            "metadata": {
-              "label": "connection",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"\"",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "connection"
-            },
-            "typeMembers": [
-              {
-                "type": "ConnectionUri",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
-                "selected": false
-              },
-              {
-                "type": "ConnectionParams",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
-                "selected": false
-              }
-            ]
-          },
-          "connectionPooling": {
-            "metadata": {
-              "label": "connectionPooling",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "boolean",
-            "placeholder": "false",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "connectionPooling"
-            },
-            "typeMembers": [
-              {
-                "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
-                "selected": false
-              }
-            ]
-          },
-          "isClusterConnection": {
-            "metadata": {
-              "label": "isClusterConnection",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "boolean",
-            "placeholder": "false",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "isClusterConnection"
-            },
-            "typeMembers": [
-              {
-                "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
-                "selected": false
-              }
-            ]
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:SecureSocket",
-            "placeholder": "{}",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
-            },
-            "typeMembers": [
-              {
-                "type": "SecureSocket",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
-                "selected": false
-              }
-            ]
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Connection Name",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "localRedisCl",
-            "optional": false,
-            "editable": false,
-            "advanced": false,
-            "codedata": {
-              "lineRange": {
-                "fileName": "new_connection.bal",
-                "startLine": {
-                  "line": 16,
-                  "offset": 17
-                },
-                "endLine": {
-                  "line": 16,
-                  "offset": 29
-                }
-              }
-            }
-          },
-          "type": {
-            "metadata": {
-              "label": "Connection Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "redis:Client",
-            "placeholder": "var",
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          }
-        },
-        "flags": 1
-      }
-    ],
-    "connections": [
-      {
-        "id": "34787",
+        "id": "41857",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -898,17 +704,17 @@
           "object": "Client",
           "symbol": "init",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 3,
-              "offset": 0
+              "line": 10,
+              "offset": 4
             },
             "endLine": {
-              "line": 3,
-              "offset": 67
+              "line": 12,
+              "offset": 7
             }
           },
-          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});",
+          "sourceCode": "final http:Client cl2 = check new (\"http://localhost:9090\", {\n        timeout: 5000\n    });",
           "id": 0
         },
         "returning": false,
@@ -945,7 +751,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientConfiguration",
-            "value": "{}",
+            "value": "{\n        timeout: 5000\n    }",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -980,7 +786,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Local",
             "optional": false,
             "editable": true,
             "advanced": true
@@ -991,20 +797,20 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "moduleHttpCl",
+            "value": "cl2",
             "optional": false,
             "editable": false,
             "advanced": false,
             "codedata": {
               "lineRange": {
-                "fileName": "new_connection.bal",
+                "fileName": "http_new_connection.bal",
                 "startLine": {
-                  "line": 3,
-                  "offset": 12
+                  "line": 10,
+                  "offset": 22
                 },
                 "endLine": {
-                  "line": 3,
-                  "offset": 24
+                  "line": 10,
+                  "offset": 25
                 }
               }
             }
@@ -1022,10 +828,10 @@
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 5
       },
       {
-        "id": "42732",
+        "id": "45845",
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
@@ -1038,17 +844,17 @@
           "object": "Client",
           "symbol": "init",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 11,
-              "offset": 0
+              "line": 14,
+              "offset": 4
             },
             "endLine": {
-              "line": 11,
-              "offset": 76
+              "line": 14,
+              "offset": 89
             }
           },
-          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");",
+          "sourceCode": "final http:Client cl3 = check new (\"http://localhost:9090\", auth = clientAuthConfig);",
           "id": 0
         },
         "returning": false,
@@ -1075,6 +881,73 @@
                 "packageInfo": "BASIC_TYPE",
                 "kind": "",
                 "selected": true
+              }
+            ]
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": "Configurations related to client authentication"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "value": "clientAuthConfig",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
               }
             ]
           },
@@ -1302,72 +1175,6 @@
                 "type": "Compression",
                 "packageInfo": "BASIC_TYPE",
                 "kind": "ballerina:http:2.13.3",
-                "selected": false
-              }
-            ]
-          },
-          "auth": {
-            "metadata": {
-              "label": "auth",
-              "description": "Configurations related to client authentication"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "auth"
-            },
-            "typeMembers": [
-              {
-                "type": "CredentialsConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "BearerTokenConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "JwtIssuerConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "OAuth2ClientCredentialsGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "OAuth2PasswordGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "OAuth2RefreshTokenGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "OAuth2JwtBearerGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
-                "selected": false
-              },
-              {
-                "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
                 "selected": false
               }
             ]
@@ -1635,7 +1442,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Local",
             "optional": false,
             "editable": true,
             "advanced": true
@@ -1646,20 +1453,20 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "moduleHttpExCl",
+            "value": "cl3",
             "optional": false,
             "editable": false,
             "advanced": false,
             "codedata": {
               "lineRange": {
-                "fileName": "new_connection.bal",
+                "fileName": "http_new_connection.bal",
                 "startLine": {
-                  "line": 11,
-                  "offset": 12
+                  "line": 14,
+                  "offset": 22
                 },
                 "endLine": {
-                  "line": 11,
-                  "offset": 26
+                  "line": 14,
+                  "offset": 25
                 }
               }
             }
@@ -1677,71 +1484,505 @@
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 5
       },
       {
-        "id": "35751",
+        "id": "47841",
         "metadata": {
           "label": "New Connection",
-          "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
+          "org": "ballerina",
+          "module": "http",
           "object": "Client",
           "symbol": "init",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 4,
-              "offset": 0
+              "line": 16,
+              "offset": 4
             },
             "endLine": {
-              "line": 4,
-              "offset": 39
+              "line": 16,
+              "offset": 101
             }
           },
-          "sourceCode": "redis:Client moduleRedisCl = check new;",
+          "sourceCode": "final http:Client cl4 = check new (\"http://localhost:9090\", auth = {username: \"\", password: \"\"});",
           "id": 0
         },
         "returning": false,
         "properties": {
-          "connection": {
+          "url": {
             "metadata": {
-              "label": "connection",
-              "description": ""
+              "label": "url",
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": "Configurations related to client authentication"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "value": "{username: \"\", password: \"\"}",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": true
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": "The HTTP version understood by the client"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": "Configurations related to HTTP/1.x protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": "Configurations related to HTTP/2 protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "connection"
+              "originalName": "forwarded"
             },
             "typeMembers": [
               {
-                "type": "ConnectionUri",
+                "type": "string",
                 "packageInfo": "BASIC_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
-                "selected": false
-              },
-              {
-                "type": "ConnectionParams",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "kind": "",
                 "selected": false
               }
             ]
           },
-          "connectionPooling": {
+          "followRedirects": {
             "metadata": {
-              "label": "connectionPooling",
-              "description": ""
+              "label": "followRedirects",
+              "description": "Configurations associated with Redirection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": "Configurations associated with request pooling"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": "HTTP caching related configurations"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": "Configurations associated with retrying"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": "Configurations associated with cookies"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": "Configurations associated with inbound response size limits"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": "Proxy server related options"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1751,7 +1992,7 @@
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "connectionPooling"
+              "originalName": "validation"
             },
             "typeMembers": [
               {
@@ -1762,10 +2003,34 @@
               }
             ]
           },
-          "isClusterConnection": {
+          "socketConfig": {
             "metadata": {
-              "label": "isClusterConnection",
-              "description": ""
+              "label": "socketConfig",
+              "description": "Provides settings related to client socket configuration"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1775,7 +2040,7 @@
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "isClusterConnection"
+              "originalName": "laxDataBinding"
             },
             "typeMembers": [
               {
@@ -1792,8 +2057,8 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:SecureSocket",
-            "placeholder": "{}",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -1803,9 +2068,15 @@
             },
             "typeMembers": [
               {
-                "type": "SecureSocket",
+                "type": "ClientSecureSocket",
                 "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
                 "selected": false
               }
             ]
@@ -1827,7 +2098,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Local",
             "optional": false,
             "editable": true,
             "advanced": true
@@ -1838,20 +2109,20 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "moduleRedisCl",
+            "value": "cl4",
             "optional": false,
             "editable": false,
             "advanced": false,
             "codedata": {
               "lineRange": {
-                "fileName": "new_connection.bal",
+                "fileName": "http_new_connection.bal",
                 "startLine": {
-                  "line": 4,
-                  "offset": 13
+                  "line": 16,
+                  "offset": 22
                 },
                 "endLine": {
-                  "line": 4,
-                  "offset": 26
+                  "line": 16,
+                  "offset": 25
                 }
               }
             }
@@ -1862,78 +2133,512 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "redis:Client",
+            "value": "http:Client",
             "placeholder": "var",
             "optional": false,
             "editable": false,
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 5
       },
       {
-        "id": "43704",
+        "id": "49810",
         "metadata": {
           "label": "New Connection",
-          "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
+          "org": "ballerina",
+          "module": "http",
           "object": "Client",
           "symbol": "init",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "http_new_connection.bal",
             "startLine": {
-              "line": 12,
-              "offset": 0
+              "line": 18,
+              "offset": 4
             },
             "endLine": {
-              "line": 12,
-              "offset": 56
+              "line": 18,
+              "offset": 86
             }
           },
-          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();",
+          "sourceCode": "final http:Client cl5 = check new (\"http://localhost:9090\", auth = {jwtId: \"Id\"});",
           "id": 0
         },
         "returning": false,
         "properties": {
-          "connection": {
+          "url": {
             "metadata": {
-              "label": "connection",
-              "description": ""
+              "label": "url",
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": "Configurations related to client authentication"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "value": "{jwtId: \"Id\"}",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": true
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": "The HTTP version understood by the client"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": "Configurations related to HTTP/1.x protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": "Configurations related to HTTP/2 protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
             "placeholder": "\"\"",
             "optional": true,
             "editable": true,
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "connection"
+              "originalName": "forwarded"
             },
             "typeMembers": [
               {
-                "type": "ConnectionUri",
+                "type": "string",
                 "packageInfo": "BASIC_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
-                "selected": false
-              },
-              {
-                "type": "ConnectionParams",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "kind": "",
                 "selected": false
               }
             ]
           },
-          "connectionPooling": {
+          "followRedirects": {
             "metadata": {
-              "label": "connectionPooling",
-              "description": ""
+              "label": "followRedirects",
+              "description": "Configurations associated with Redirection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": "Configurations associated with request pooling"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": "HTTP caching related configurations"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": "Configurations associated with retrying"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": "Configurations associated with cookies"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": "Configurations associated with inbound response size limits"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": "Proxy server related options"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1943,7 +2648,7 @@
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "connectionPooling"
+              "originalName": "validation"
             },
             "typeMembers": [
               {
@@ -1954,10 +2659,34 @@
               }
             ]
           },
-          "isClusterConnection": {
+          "socketConfig": {
             "metadata": {
-              "label": "isClusterConnection",
-              "description": ""
+              "label": "socketConfig",
+              "description": "Provides settings related to client socket configuration"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
+          },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1967,7 +2696,7 @@
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "isClusterConnection"
+              "originalName": "laxDataBinding"
             },
             "typeMembers": [
               {
@@ -1984,8 +2713,8 @@
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:SecureSocket",
-            "placeholder": "{}",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -1995,9 +2724,15 @@
             },
             "typeMembers": [
               {
-                "type": "SecureSocket",
+                "type": "ClientSecureSocket",
                 "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
                 "selected": false
               }
             ]
@@ -2019,7 +2754,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Local",
             "optional": false,
             "editable": true,
             "advanced": true
@@ -2030,20 +2765,20 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "moduleRedisExCl",
+            "value": "cl5",
             "optional": false,
             "editable": false,
             "advanced": false,
             "codedata": {
               "lineRange": {
-                "fileName": "new_connection.bal",
+                "fileName": "http_new_connection.bal",
                 "startLine": {
-                  "line": 12,
-                  "offset": 13
+                  "line": 18,
+                  "offset": 22
                 },
                 "endLine": {
-                  "line": 12,
-                  "offset": 28
+                  "line": 18,
+                  "offset": 25
                 }
               }
             }
@@ -2054,15 +2789,16 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "redis:Client",
+            "value": "http:Client",
             "placeholder": "var",
             "optional": false,
             "editable": false,
             "advanced": false
           }
         },
-        "flags": 1
+        "flags": 5
       }
-    ]
+    ],
+    "connections": []
   }
 }

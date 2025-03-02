@@ -78,7 +78,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "name"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "scope": {
             "metadata": {

@@ -317,7 +317,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "key"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": true
+                      }
+                    ]
                   },
                   "checkError": {
                     "metadata": {
@@ -761,7 +769,15 @@
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "path"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "string",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": true
+                              }
+                            ]
                           },
                           "headers": {
                             "metadata": {
@@ -777,7 +793,21 @@
                             "codedata": {
                               "kind": "DEFAULTABLE",
                               "originalName": "headers"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "()",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": false
+                              },
+                              {
+                                "type": "map<string|string[]>",
+                                "packageInfo": "MAP_TYPE",
+                                "kind": "",
+                                "selected": false
+                              }
+                            ]
                           },
                           "targetType": {
                             "metadata": {
@@ -793,7 +823,8 @@
                             "codedata": {
                               "kind": "PARAM_FOR_TYPE_INFER",
                               "originalName": "targetType"
-                            }
+                            },
+                            "typeMembers": []
                           },
                           "checkError": {
                             "metadata": {
@@ -1054,7 +1085,15 @@
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "amount"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "decimal",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": true
+                              }
+                            ]
                           },
                           "cacheValue": {
                             "metadata": {
@@ -1070,7 +1109,15 @@
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "cacheValue"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "string",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": true
+                              }
+                            ]
                           },
                           "checkError": {
                             "metadata": {
@@ -1214,7 +1261,15 @@
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "key"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "string",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": true
+                              }
+                            ]
                           },
                           "value": {
                             "metadata": {
@@ -1231,7 +1286,15 @@
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "value"
-                            }
+                            },
+                            "typeMembers": [
+                              {
+                                "type": "string",
+                                "packageInfo": "BASIC_TYPE",
+                                "kind": "",
+                                "selected": true
+                              }
+                            ]
                           },
                           "checkError": {
                             "metadata": {
@@ -1575,7 +1638,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "msg"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": true
+                      }
+                    ]
                   },
                   "error": {
                     "metadata": {
@@ -1592,7 +1663,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "'error"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": false
+                      },
+                      {
+                        "type": "error",
+                        "packageInfo": "ERROR_TYPE",
+                        "kind": "ballerina:lang.annotations:0.0.0",
+                        "selected": false
+                      }
+                    ]
                   },
                   "stackTrace": {
                     "metadata": {
@@ -1608,7 +1693,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "stackTrace"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": false
+                      },
+                      {
+                        "type": "error:StackFrame",
+                        "packageInfo": "ARRAY_TYPE",
+                        "kind": "ballerina:lang.error:0.0.0",
+                        "selected": false
+                      }
+                    ]
                   },
                   "additionalValues": {
                     "metadata": {
@@ -1625,7 +1724,8 @@
                     "codedata": {
                       "kind": "INCLUDED_RECORD_REST",
                       "originalName": "Additional Values"
-                    }
+                    },
+                    "typeMembers": []
                   }
                 },
                 "flags": 0
@@ -1755,7 +1855,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "httpVersion": {
             "metadata": {
@@ -1771,7 +1879,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "http1Settings": {
             "metadata": {
@@ -1787,7 +1903,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "http2Settings": {
             "metadata": {
@@ -1803,7 +1927,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "timeout": {
             "metadata": {
@@ -1819,7 +1951,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "forwarded": {
             "metadata": {
@@ -1835,7 +1975,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "followRedirects": {
             "metadata": {
@@ -1851,7 +1999,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "poolConfig": {
             "metadata": {
@@ -1867,7 +2029,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "cache": {
             "metadata": {
@@ -1883,7 +2059,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "compression": {
             "metadata": {
@@ -1899,7 +2083,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "auth": {
             "metadata": {
@@ -1915,7 +2107,57 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "circuitBreaker": {
             "metadata": {
@@ -1931,7 +2173,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "retryConfig": {
             "metadata": {
@@ -1947,7 +2203,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "cookieConfig": {
             "metadata": {
@@ -1963,7 +2233,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "responseLimits": {
             "metadata": {
@@ -1979,7 +2263,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "proxy": {
             "metadata": {
@@ -1995,7 +2287,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "validation": {
             "metadata": {
@@ -2011,7 +2317,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "socketConfig": {
             "metadata": {
@@ -2027,7 +2341,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "laxDataBinding": {
             "metadata": {
@@ -2043,7 +2365,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "secureSocket": {
             "metadata": {
@@ -2059,7 +2389,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSecureSocket",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {
@@ -2166,7 +2510,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connection"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ConnectionUri",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": false
+              },
+              {
+                "type": "ConnectionParams",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": true
+              }
+            ]
           },
           "connectionPooling": {
             "metadata": {
@@ -2182,7 +2540,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "isClusterConnection": {
             "metadata": {
@@ -2198,7 +2564,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "secureSocket": {
             "metadata": {
@@ -2214,7 +2588,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "SecureSocket",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {

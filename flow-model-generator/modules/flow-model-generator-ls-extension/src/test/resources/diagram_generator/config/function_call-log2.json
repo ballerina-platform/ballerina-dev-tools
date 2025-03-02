@@ -156,7 +156,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "msg"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": true
+                      }
+                    ]
                   },
                   "error": {
                     "metadata": {
@@ -173,7 +181,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "'error"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": false
+                      },
+                      {
+                        "type": "error",
+                        "packageInfo": "ERROR_TYPE",
+                        "kind": "ballerina:lang.annotations:0.0.0",
+                        "selected": true
+                      }
+                    ]
                   },
                   "stackTrace": {
                     "metadata": {
@@ -189,7 +211,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "stackTrace"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "BASIC_TYPE",
+                        "kind": "",
+                        "selected": false
+                      },
+                      {
+                        "type": "error:StackFrame",
+                        "packageInfo": "ARRAY_TYPE",
+                        "kind": "ballerina:lang.error:0.0.0",
+                        "selected": false
+                      }
+                    ]
                   },
                   "additionalValues": {
                     "metadata": {
@@ -213,7 +249,8 @@
                     "codedata": {
                       "kind": "INCLUDED_RECORD_REST",
                       "originalName": "Additional Values"
-                    }
+                    },
+                    "typeMembers": []
                   }
                 },
                 "flags": 0

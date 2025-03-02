@@ -390,7 +390,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "name"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "email": {
             "metadata": {
@@ -406,7 +414,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "email"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "address": {
             "metadata": {
@@ -422,7 +438,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "address"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Address",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -635,7 +659,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "person"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Person",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": true
+              }
+            ]
           },
           "admission": {
             "metadata": {
@@ -651,7 +683,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "admission"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Admission",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -754,7 +794,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "employee"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Employee",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": true
+              }
+            ]
           }
         },
         "flags": 0
@@ -805,7 +853,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "httpVersion": {
             "metadata": {
@@ -821,7 +877,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "http1Settings": {
             "metadata": {
@@ -837,7 +901,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "http2Settings": {
             "metadata": {
@@ -853,7 +925,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "timeout": {
             "metadata": {
@@ -869,7 +949,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "forwarded": {
             "metadata": {
@@ -885,7 +973,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "followRedirects": {
             "metadata": {
@@ -901,7 +997,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "poolConfig": {
             "metadata": {
@@ -917,7 +1027,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "cache": {
             "metadata": {
@@ -933,7 +1057,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "compression": {
             "metadata": {
@@ -949,7 +1081,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "auth": {
             "metadata": {
@@ -965,7 +1105,57 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "circuitBreaker": {
             "metadata": {
@@ -981,7 +1171,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "retryConfig": {
             "metadata": {
@@ -997,7 +1201,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "cookieConfig": {
             "metadata": {
@@ -1013,7 +1231,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "responseLimits": {
             "metadata": {
@@ -1029,7 +1261,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "proxy": {
             "metadata": {
@@ -1045,7 +1285,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "validation": {
             "metadata": {
@@ -1061,7 +1315,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "socketConfig": {
             "metadata": {
@@ -1077,7 +1339,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              }
+            ]
           },
           "laxDataBinding": {
             "metadata": {
@@ -1093,7 +1363,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "secureSocket": {
             "metadata": {
@@ -1109,7 +1387,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSecureSocket",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {

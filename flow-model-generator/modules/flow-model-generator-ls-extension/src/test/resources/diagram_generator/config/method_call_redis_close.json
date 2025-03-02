@@ -133,7 +133,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connection"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ConnectionUri",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": false
+              },
+              {
+                "type": "ConnectionParams",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": false
+              }
+            ]
           },
           "connectionPooling": {
             "metadata": {
@@ -149,7 +163,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "isClusterConnection": {
             "metadata": {
@@ -165,7 +187,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "secureSocket": {
             "metadata": {
@@ -181,7 +211,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "SecureSocket",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerinax:redis:3.0.2",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {

@@ -275,7 +275,15 @@
             "codedata": {
               "kind": "REST_PARAMETER",
               "originalName": "values"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Printable",
+                "packageInfo": "ARRAY_TYPE",
+                "kind": "ballerina:io:1.6.1",
+                "selected": false
+              }
+            ]
           }
         },
         "flags": 0

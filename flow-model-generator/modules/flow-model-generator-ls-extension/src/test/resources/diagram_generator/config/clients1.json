@@ -90,7 +90,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "path"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "headers": {
             "metadata": {
@@ -106,7 +114,21 @@
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "headers"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              },
+              {
+                "type": "map<string|string[]>",
+                "packageInfo": "MAP_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "targetType": {
             "metadata": {
@@ -122,7 +144,8 @@
             "codedata": {
               "kind": "PARAM_FOR_TYPE_INFER",
               "originalName": "targetType"
-            }
+            },
+            "typeMembers": []
           },
           "checkError": {
             "metadata": {
@@ -260,7 +283,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "config": {
             "metadata": {
@@ -277,7 +308,15 @@
             "codedata": {
               "kind": "INCLUDED_RECORD",
               "originalName": "config"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": true
+              }
+            ]
           },
           "checkError": {
             "metadata": {
@@ -395,7 +434,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "path"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "headers": {
             "metadata": {
@@ -411,7 +458,21 @@
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "headers"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "()",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              },
+              {
+                "type": "map<string|string[]>",
+                "packageInfo": "MAP_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "targetType": {
             "metadata": {
@@ -427,7 +488,8 @@
             "codedata": {
               "kind": "PARAM_FOR_TYPE_INFER",
               "originalName": "targetType"
-            }
+            },
+            "typeMembers": []
           },
           "checkError": {
             "metadata": {
@@ -694,7 +756,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "config": {
             "metadata": {
@@ -711,7 +781,15 @@
             "codedata": {
               "kind": "INCLUDED_RECORD",
               "originalName": "config"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientConfiguration",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "ballerina:http:2.13.3",
+                "selected": true
+              }
+            ]
           },
           "checkError": {
             "metadata": {

@@ -173,7 +173,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "src"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Source",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -297,7 +305,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "src"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Source",
+                "packageInfo": "RECORD_TYPE",
+                "kind": "nipunaf:new_connection1:0.1.0",
+                "selected": false
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -403,7 +419,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "i"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -499,7 +523,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "value"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "json",
+                "packageInfo": "OTHER",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "indentation": {
             "metadata": {
@@ -515,7 +547,15 @@
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "indentation"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "BASIC_TYPE",
+                "kind": "",
+                "selected": false
+              }
+            ]
           },
           "variable": {
             "metadata": {
