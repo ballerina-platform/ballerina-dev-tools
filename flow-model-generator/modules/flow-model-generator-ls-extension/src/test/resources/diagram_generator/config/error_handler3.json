@@ -137,8 +137,8 @@
                     "typeMembers": [
                       {
                         "type": "string",
-                        "packageInfo": "BASIC_TYPE",
-                        "kind": "",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
                         "selected": true
                       }
                     ]
@@ -161,14 +161,14 @@
                     "typeMembers": [
                       {
                         "type": "()",
-                        "packageInfo": "BASIC_TYPE",
-                        "kind": "",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
                         "selected": false
                       },
                       {
                         "type": "map<string|string[]>",
-                        "packageInfo": "MAP_TYPE",
-                        "kind": "",
+                        "packageInfo": "",
+                        "kind": "MAP_TYPE",
                         "selected": false
                       }
                     ]
@@ -428,8 +428,8 @@
             "typeMembers": [
               {
                 "type": "string",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": true
               }
             ]
@@ -452,8 +452,8 @@
             "typeMembers": [
               {
                 "type": "HttpVersion",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -476,8 +476,8 @@
             "typeMembers": [
               {
                 "type": "ClientHttp1Settings",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -500,8 +500,8 @@
             "typeMembers": [
               {
                 "type": "ClientHttp2Settings",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -524,8 +524,8 @@
             "typeMembers": [
               {
                 "type": "decimal",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -548,8 +548,8 @@
             "typeMembers": [
               {
                 "type": "string",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -572,14 +572,14 @@
             "typeMembers": [
               {
                 "type": "FollowRedirects",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -602,14 +602,14 @@
             "typeMembers": [
               {
                 "type": "PoolConfiguration",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -632,8 +632,8 @@
             "typeMembers": [
               {
                 "type": "CacheConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -656,8 +656,8 @@
             "typeMembers": [
               {
                 "type": "Compression",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -680,50 +680,50 @@
             "typeMembers": [
               {
                 "type": "CredentialsConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "BearerTokenConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "JwtIssuerConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2ClientCredentialsGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2PasswordGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2RefreshTokenGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2JwtBearerGrantConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -746,14 +746,14 @@
             "typeMembers": [
               {
                 "type": "CircuitBreakerConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -776,14 +776,14 @@
             "typeMembers": [
               {
                 "type": "RetryConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -806,14 +806,14 @@
             "typeMembers": [
               {
                 "type": "CookieConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -836,8 +836,8 @@
             "typeMembers": [
               {
                 "type": "ResponseLimitConfigs",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -860,14 +860,14 @@
             "typeMembers": [
               {
                 "type": "ProxyConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -890,8 +890,8 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -914,8 +914,8 @@
             "typeMembers": [
               {
                 "type": "ClientSocketConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -938,8 +938,8 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -962,14 +962,14 @@
             "typeMembers": [
               {
                 "type": "ClientSecureSocket",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]

@@ -331,8 +331,8 @@
             "typeMembers": [
               {
                 "type": "string",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -364,8 +364,8 @@
             "typeMembers": [
               {
                 "type": "int",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -388,8 +388,8 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": true
               }
             ]
@@ -421,8 +421,8 @@
             "typeMembers": [
               {
                 "type": "map<json>",
-                "packageInfo": "MAP_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "MAP_TYPE",
                 "selected": false
               }
             ]

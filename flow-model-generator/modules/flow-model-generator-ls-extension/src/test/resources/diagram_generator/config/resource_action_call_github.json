@@ -305,8 +305,8 @@
             "typeMembers": [
               {
                 "type": "ConnectionConfig",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:github:5.0.2",
+                "packageInfo": "ballerinax:github:5.0.2",
+                "kind": "RECORD_TYPE",
                 "selected": true
               }
             ]
@@ -329,8 +329,8 @@
             "typeMembers": [
               {
                 "type": "string",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]

@@ -137,14 +137,14 @@
             "typeMembers": [
               {
                 "type": "ConnectionUri",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "ConnectionParams",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
@@ -167,8 +167,8 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -191,8 +191,8 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "BASIC_TYPE",
-                "kind": "",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -215,8 +215,8 @@
             "typeMembers": [
               {
                 "type": "SecureSocket",
-                "packageInfo": "RECORD_TYPE",
-                "kind": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "RECORD_TYPE",
                 "selected": false
               }
             ]
