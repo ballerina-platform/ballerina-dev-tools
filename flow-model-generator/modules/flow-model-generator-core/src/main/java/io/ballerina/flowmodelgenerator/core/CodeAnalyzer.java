@@ -267,7 +267,11 @@ class CodeAnalyzer extends NodeVisitor {
         String functionName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
         MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
-        startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
+        if (isAgentCall(symbol.get())) {
+            startNode(NodeKind.AGENT_CALL, expressionNode.parent());
+        } else {
+            startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
+        }
 
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .name(functionName)
@@ -290,6 +294,18 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
                 functionData);
+
+        if (isAgentCall(symbol.get())) {
+            SeparatedNodeList<FunctionArgumentNode> arguments = remoteMethodCallActionNode.arguments();
+            String modelUrl = getModelIconUrl(arguments.get(0));
+            List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
+            if (!modelUrl.isEmpty()) {
+                nodeBuilder.metadata().addData("model", modelUrl);
+            }
+            if (!toolUrls.isEmpty()) {
+                nodeBuilder.metadata().addData("tools", toolUrls);
+            }
+        }
     }
 
     @Override
