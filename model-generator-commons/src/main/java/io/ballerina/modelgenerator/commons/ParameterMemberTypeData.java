@@ -18,8 +18,6 @@
 
 package io.ballerina.modelgenerator.commons;
 
-import io.ballerina.compiler.api.symbols.ParameterKind;
-
 /**
  * Represents the result of a parameter.
  *

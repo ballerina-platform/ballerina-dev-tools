@@ -34,6 +34,7 @@ import java.util.List;
  * @param description      the description of the parameter
  * @param optional         whether the parameter is optional
  * @param importStatements import statements of the dependent types
+ * @param typeMembers      the member types of the parameter
  * @since 2.0.0
  */
 public record ParameterData(
