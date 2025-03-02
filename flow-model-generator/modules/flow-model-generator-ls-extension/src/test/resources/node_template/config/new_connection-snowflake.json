@@ -43,8 +43,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -67,8 +67,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -91,8 +91,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -115,14 +115,14 @@
         "typeMembers": [
           {
             "type": "()",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "Options",
-            "packageInfo": "RECORD_TYPE",
-            "kind": "ballerinax:snowflake:2.0.0",
+            "packageInfo": "ballerinax:snowflake:2.0.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
@@ -146,14 +146,14 @@
         "typeMembers": [
           {
             "type": "()",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "ConnectionPool",
-            "packageInfo": "RECORD_TYPE",
-            "kind": "ballerina:sql:1.13.0",
+            "packageInfo": "ballerina:sql:1.13.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]

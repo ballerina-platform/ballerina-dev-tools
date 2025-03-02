@@ -47,8 +47,8 @@
         "typeMembers": [
           {
             "type": "anydata",
-            "packageInfo": "OTHER",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "OTHER",
             "selected": false
           }
         ]

@@ -58,8 +58,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -82,8 +82,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -106,8 +106,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -130,8 +130,8 @@
         "typeMembers": [
           {
             "type": "map<json>",
-            "packageInfo": "MAP_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
             "selected": false
           }
         ]
@@ -154,26 +154,26 @@
         "typeMembers": [
           {
             "type": "int",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "float",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "decimal",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -196,14 +196,14 @@
         "typeMembers": [
           {
             "type": "RequestOptions",
-            "packageInfo": "RECORD_TYPE",
-            "kind": "ballerinax:azure_cosmosdb:4.2.0",
+            "packageInfo": "ballerinax:azure_cosmosdb:4.2.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           },
           {
             "type": "()",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]

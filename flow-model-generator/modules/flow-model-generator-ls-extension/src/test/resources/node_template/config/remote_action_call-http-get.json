@@ -62,8 +62,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -86,14 +86,14 @@
         "typeMembers": [
           {
             "type": "()",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "map<string|string[]>",
-            "packageInfo": "MAP_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
             "selected": false
           }
         ]

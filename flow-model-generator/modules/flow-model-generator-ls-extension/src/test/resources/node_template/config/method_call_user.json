@@ -55,8 +55,8 @@
         "typeMembers": [
           {
             "type": "string",
-            "packageInfo": "BASIC_TYPE",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]

@@ -63,8 +63,8 @@
         "typeMembers": [
           {
             "type": "ParameterizedQuery",
-            "packageInfo": "OBJECT_TYPE",
-            "kind": "ballerina:sql:1.13.0",
+            "packageInfo": "ballerina:sql:1.13.0",
+            "kind": "OBJECT_TYPE",
             "selected": false
           }
         ]
@@ -87,8 +87,8 @@
         "typeMembers": [
           {
             "type": "typedesc<record {|anydata...;|}>",
-            "packageInfo": "OTHER",
-            "kind": "",
+            "packageInfo": "",
+            "kind": "OTHER",
             "selected": false
           }
         ]

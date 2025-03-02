@@ -47,8 +47,8 @@
         "typeMembers": [
           {
             "type": "Civil",
-            "packageInfo": "RECORD_TYPE",
-            "kind": "ballerina:time:2.5.0",
+            "packageInfo": "ballerina:time:2.5.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]

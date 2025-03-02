@@ -47,8 +47,8 @@
         "typeMembers": [
           {
             "type": "Printable",
-            "packageInfo": "ARRAY_TYPE",
-            "kind": "ballerina:io:1.6.1",
+            "packageInfo": "ballerina:io:1.6.1",
+            "kind": "ARRAY_TYPE",
             "selected": false
           }
         ]

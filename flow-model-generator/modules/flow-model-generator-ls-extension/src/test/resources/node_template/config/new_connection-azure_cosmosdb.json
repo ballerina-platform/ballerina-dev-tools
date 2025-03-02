@@ -48,8 +48,8 @@
         "typeMembers": [
           {
             "type": "ConnectionConfig",
-            "packageInfo": "RECORD_TYPE",
-            "kind": "ballerinax:azure_cosmosdb:4.2.0",
+            "packageInfo": "ballerinax:azure_cosmosdb:4.2.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
