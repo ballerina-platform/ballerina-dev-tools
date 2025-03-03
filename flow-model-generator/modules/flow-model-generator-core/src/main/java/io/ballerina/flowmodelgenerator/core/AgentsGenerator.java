@@ -27,11 +27,23 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Item;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextDocumentChange;
+import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -54,13 +66,16 @@ public class AgentsGenerator {
     private final SemanticModel semanticModel;
     private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
             "AzureChatGptModel"), "ReActAgent", Set.of("ChatGptModel", "AzureChatGptModel"));
-    private static final String WSO2 = "wso2";
     private static final String BALLERINAX = "ballerinax";
     private static final String AI_AGENT = "ai.agent";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
     public static final String BASE_AGENT = "BaseAgent";
     public static final String AGENT = "Agent";
+    private static final String BALLERINA_ORG = "ballerina";
+    private static final String HTTP_MODULE = "http";
+    private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
+            "delete", "patch", "options");
 
     public AgentsGenerator() {
         this.gson = new Gson();
@@ -78,8 +93,9 @@ public class AgentsGenerator {
         for (ClassSymbol classSymbol : agentModule.classes()) {
             if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
                 agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
-                        .org(WSO2)
+                        .org(BALLERINAX) // TODO: Get org from the module
                         .module(AI_AGENT)
+                        .version("0.7.8")
                         .object(classSymbol.getName().orElse(AGENT))
                         .symbol(INIT)
                         .build());
@@ -126,6 +142,7 @@ public class AgentsGenerator {
                     .module(AI_AGENT)
                     .object(model.getName().orElse(MODEL))
                     .symbol(INIT)
+                    .version("0.7.8")
                     .build());
         }
         return gson.toJsonTree(models).getAsJsonArray();
@@ -289,6 +306,114 @@ public class AgentsGenerator {
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
+    }
+
+    public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {
+        FlowNode flowNode = gson.fromJson(node, FlowNode.class);
+        Document document = workspaceManager.document(filePath).orElseThrow();
+        TextDocument textDocument = document.textDocument();
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
+        List<TextEdit> connectionTextEdits = NodeBuilder.getNodeFromKind(flowNode.codedata().node())
+                .toSource(sourceBuilder).get(filePath.getParent().resolve("connections.bal"));
+        io.ballerina.tools.text.TextEdit[] textEdits = new io.ballerina.tools.text.TextEdit[connectionTextEdits.size()];
+        for (int i = 0; i < connectionTextEdits.size(); i++) {
+            TextEdit connectionTextEdit = connectionTextEdits.get(i);
+            Position start = connectionTextEdit.getRange().getStart();
+            int startTextPosition = textDocument.textPositionFrom(LinePosition.from(start.getLine(),
+                    start.getCharacter()));
+            Position end = connectionTextEdit.getRange().getEnd();
+            int endTextPosition = textDocument.textPositionFrom(LinePosition.from(end.getLine(), end.getCharacter()));
+            io.ballerina.tools.text.TextEdit textEdit =
+                    io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
+                            endTextPosition - startTextPosition), connectionTextEdit.getNewText());
+            textEdits[i] = textEdit;
+        }
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(textEdits));
+        Document modifiedDoc =
+                project.duplicate().currentPackage().module(document.module().moduleId())
+                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
+                                modifiedTextDoc.textLines())).apply();
+
+        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+                .getSemanticModel(modifiedDoc.module().moduleId());
+        Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
+        if (property.isEmpty()) {
+            throw new IllegalStateException("Variable name is not present");
+        }
+        String variableName = property.get().value().toString();
+        VariableSymbol variableSymbol = null;
+        List<Symbol> moduleSymbols = newSemanticModel.moduleSymbols();
+        for (Symbol moduleSymbol : moduleSymbols) {
+            if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
+                continue;
+            }
+            if (moduleSymbol.getName().orElse("").equals(variableName)) {
+                variableSymbol = (VariableSymbol) moduleSymbol;
+            }
+        }
+        List<Item> methods = new ArrayList<>();
+        if (variableSymbol == null) {
+            return gson.toJsonTree(methods).getAsJsonArray();
+        }
+
+        // TODO: Derive this logic from AvailableNodeGenerator
+        TypeReferenceTypeSymbol typeDescriptorSymbol =
+                (TypeReferenceTypeSymbol) variableSymbol.typeDescriptor();
+        ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
+        if (!(classSymbol.qualifiers().contains(Qualifier.CLIENT))) {
+            return gson.toJsonTree(methods).getAsJsonArray();
+        }
+        String parentSymbolName = variableSymbol.getName().orElseThrow();
+        String className = classSymbol.getName().orElseThrow();
+
+        // Obtain methods of the connector
+        List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
+                .parentSymbol(classSymbol)
+                .buildChildNodes();
+
+        for (FunctionData methodFunction : methodFunctionsData) {
+            String org = methodFunction.org();
+            String packageName = methodFunction.packageName();
+            String version = methodFunction.version();
+            boolean isHttpModule = org.equals(BALLERINA_ORG) && packageName.equals(HTTP_MODULE);
+
+            NodeBuilder nodeBuilder;
+            String label;
+            if (methodFunction.kind() == FunctionData.Kind.RESOURCE) {
+                if (isHttpModule && HTTP_REMOTE_METHOD_SKIP_LIST.contains(methodFunction.name())) {
+                    continue;
+                }
+                label = methodFunction.name() + (isHttpModule ? "" : methodFunction.resourcePath());
+                nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
+            } else {
+                label = methodFunction.name();
+                nodeBuilder = switch (methodFunction.kind()) {
+                    case REMOTE -> NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
+                    case FUNCTION -> NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
+                    default -> throw new IllegalStateException("Unexpected value: " + methodFunction.kind());
+                };
+            }
+
+            Item item = nodeBuilder
+                    .metadata()
+                    .label(label)
+                    .icon(CommonUtils.generateIcon(org, packageName, version))
+                    .description(methodFunction.description())
+                    .stepOut()
+                    .codedata()
+                    .org(org)
+                    .module(packageName)
+                    .object(className)
+                    .symbol(methodFunction.name())
+                    .version(version)
+                    .parentSymbol(parentSymbolName)
+                    .resourcePath(methodFunction.resourcePath())
+                    .id(methodFunction.functionId())
+                    .stepOut()
+                    .buildAvailableNode();
+            methods.add(item);
+        }
+        return gson.toJsonTree(methods).getAsJsonArray();
     }
 
     private List<ClassSymbol> getAgentSymbols(ModuleSymbol agentModule) {

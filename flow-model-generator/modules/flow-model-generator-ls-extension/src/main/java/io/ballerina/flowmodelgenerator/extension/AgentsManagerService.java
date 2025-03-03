@@ -20,15 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.AgentsGenerator;
-import io.ballerina.flowmodelgenerator.extension.request.GenToolRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetAllAgentsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetAllModelsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetModelsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetToolsRequest;
-import io.ballerina.flowmodelgenerator.extension.response.GenToolResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetAgentsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetModelsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetToolsResponse;
+import io.ballerina.flowmodelgenerator.extension.request.*;
+import io.ballerina.flowmodelgenerator.extension.response.*;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextDocument;
@@ -49,7 +42,7 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("agentManager")
 public class AgentsManagerService implements ExtendedLanguageServerService {
     private WorkspaceManager workspaceManager;
-    private static final String IMPORT_STATEMENT = "import ballerinax/ai.agent;";
+    private static final String IMPORT_STATEMENT = "import ballerinax/ai.agent;\n";
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
@@ -74,6 +67,7 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                     return response;
                 }
                 Document document = optDocument.get();
+                // TODO: Add the import statement when it is not available
                 io.ballerina.tools.text.TextEdit textEdit =
                         io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
                 io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
@@ -172,18 +166,18 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<GenToolResponse> genTool(GenToolRequest request) {
+    public CompletableFuture<GetConnectorActionsResponse> getActions(GetConnectorActionsRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            GenToolResponse response = new GenToolResponse();
+            GetConnectorActionsResponse response = new GetConnectorActionsResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 if (semanticModel.isEmpty()) {
                     return response;
                 }
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(), filePath,
+                response.setActions(agentsGenerator.getActions(request.flowNode(), filePath, project,
                         this.workspaceManager));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
