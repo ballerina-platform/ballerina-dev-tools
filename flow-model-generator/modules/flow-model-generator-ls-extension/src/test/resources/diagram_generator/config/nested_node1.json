@@ -36,7 +36,7 @@
         "flags": 0
       },
       {
-        "id": "38108",
+        "id": "38015",
         "metadata": {
           "label": "Custom Expression",
           "description": "Represents a custom Ballerina expression"
@@ -47,179 +47,16 @@
             "fileName": "nested_node.bal",
             "startLine": {
               "line": 6,
-              "offset": 11
+              "offset": 8
             },
             "endLine": {
               "line": 8,
               "offset": 9
             }
           },
-          "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }"
+          "sourceCode": "do {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }"
         },
         "returning": false,
-        "branches": [
-          {
-            "label": "Body",
-            "kind": "BLOCK",
-            "codedata": {
-              "node": "BODY",
-              "lineRange": {
-                "fileName": "nested_node.bal",
-                "startLine": {
-                  "line": 6,
-                  "offset": 11
-                },
-                "endLine": {
-                  "line": 8,
-                  "offset": 9
-                }
-              },
-              "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }"
-            },
-            "repeatable": "ONE",
-            "children": [
-              {
-                "id": "39123",
-                "metadata": {
-                  "label": "get",
-                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
-                },
-                "codedata": {
-                  "node": "REMOTE_ACTION_CALL",
-                  "org": "ballerina",
-                  "module": "http",
-                  "object": "Client",
-                  "symbol": "get",
-                  "version": "2.13.3",
-                  "lineRange": {
-                    "fileName": "nested_node.bal",
-                    "startLine": {
-                      "line": 7,
-                      "offset": 12
-                    },
-                    "endLine": {
-                      "line": 7,
-                      "offset": 63
-                    }
-                  },
-                  "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
-                },
-                "returning": false,
-                "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "asiri",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
-                  "path": {
-                    "metadata": {
-                      "label": "path",
-                      "description": "Request path"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
-                    "value": "\"/doctors/kandy\"",
-                    "placeholder": "\"\"",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "path"
-                    }
-                  },
-                  "headers": {
-                    "metadata": {
-                      "label": "headers",
-                      "description": "The entity headers"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "map<string|string[]>|()",
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "DEFAULTABLE",
-                      "originalName": "headers"
-                    }
-                  },
-                  "targetType": {
-                    "metadata": {
-                      "label": "targetType",
-                      "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-                    },
-                    "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "json",
-                    "placeholder": "json",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "PARAM_FOR_TYPE_INFER",
-                      "originalName": "targetType"
-                    }
-                  },
-                  "checkError": {
-                    "metadata": {
-                      "label": "Check Error",
-                      "description": "Trigger error flow"
-                    },
-                    "valueType": "FLAG",
-                    "value": true,
-                    "optional": false,
-                    "editable": true,
-                    "advanced": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable Name",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "j",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "nested_node.bal",
-                        "startLine": {
-                          "line": 7,
-                          "offset": 17
-                        },
-                        "endLine": {
-                          "line": 7,
-                          "offset": 18
-                        }
-                      }
-                    }
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Variable Type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "json",
-                    "placeholder": "var",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false
-                  }
-                },
-                "flags": 1
-              }
-            ]
-          }
-        ],
         "properties": {
           "statement": {
             "metadata": {
@@ -227,7 +64,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }",
+            "value": "do {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -281,7 +118,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": true
+              }
+            ]
           },
           "httpVersion": {
             "metadata": {
@@ -297,7 +142,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "http1Settings": {
             "metadata": {
@@ -313,7 +166,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "http2Settings": {
             "metadata": {
@@ -329,7 +190,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "timeout": {
             "metadata": {
@@ -345,7 +214,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "forwarded": {
             "metadata": {
@@ -361,7 +238,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "followRedirects": {
             "metadata": {
@@ -377,7 +262,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "poolConfig": {
             "metadata": {
@@ -393,7 +292,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "cache": {
             "metadata": {
@@ -409,7 +322,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "compression": {
             "metadata": {
@@ -425,7 +346,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "auth": {
             "metadata": {
@@ -441,7 +370,57 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "circuitBreaker": {
             "metadata": {
@@ -457,7 +436,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "retryConfig": {
             "metadata": {
@@ -473,7 +466,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "cookieConfig": {
             "metadata": {
@@ -489,7 +496,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "responseLimits": {
             "metadata": {
@@ -505,7 +526,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "proxy": {
             "metadata": {
@@ -521,7 +550,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "validation": {
             "metadata": {
@@ -537,7 +580,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "socketConfig": {
             "metadata": {
@@ -553,7 +604,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "laxDataBinding": {
             "metadata": {
@@ -569,7 +628,15 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "secureSocket": {
             "metadata": {
@@ -585,7 +652,21 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSecureSocket",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {

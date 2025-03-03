@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "getStatusByCountry",
       "version": "1.5.1",
-      "id": 725
+      "id": 723
     },
     "returning": false,
     "properties": {
@@ -58,7 +58,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "country"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "yesterday": {
         "metadata": {
@@ -74,7 +82,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "yesterday"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "twoDaysAgo": {
         "metadata": {
@@ -90,7 +112,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "twoDaysAgo"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "strict": {
         "metadata": {
@@ -106,7 +142,15 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "strict"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "allowNull": {
         "metadata": {
@@ -122,7 +166,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "allowNull"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

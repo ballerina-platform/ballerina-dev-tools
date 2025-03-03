@@ -26,7 +26,7 @@
       "object": "Client",
       "symbol": "init",
       "version": "3.0.2",
-      "id": 1380
+      "id": 1105
     },
     "returning": false,
     "properties": {
@@ -44,7 +44,21 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "connection"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionParams",
+            "packageInfo": "ballerinax:redis:3.0.2",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionUri",
+            "packageInfo": "ballerinax:redis:3.0.2",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "connectionPooling": {
         "metadata": {
@@ -60,7 +74,15 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "connectionPooling"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "isClusterConnection": {
         "metadata": {
@@ -76,7 +98,15 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "isClusterConnection"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "secureSocket": {
         "metadata": {
@@ -92,7 +122,15 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "secureSocket"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "SecureSocket",
+            "packageInfo": "ballerinax:redis:3.0.2",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

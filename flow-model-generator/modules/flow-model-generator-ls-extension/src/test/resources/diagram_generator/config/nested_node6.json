@@ -1,0 +1,1065 @@
+{
+  "start": {
+    "line": 55,
+    "offset": 4
+  },
+  "end": {
+    "line": 74,
+    "offset": 5
+  },
+  "source": "nested_node.bal",
+  "description": "Tests a diagram flow with nested nodes",
+  "diagram": {
+    "fileName": "nested_node.bal",
+    "nodes": [
+      {
+        "id": "88169",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 55,
+              "offset": 41
+            },
+            "endLine": {
+              "line": 74,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function head queryAction() {\n        int[] nums = [1, 2, 3, 4];\n        int[] numsTimes10 = [];\n\n        // The `from` clause works similar to a `foreach` statement.\n        check from var i in nums\n            // The `do` statement block is evaluated in each iteration.\n            do {\n                numsTimes10.push(i * 10);\n            };\n\n        // Print only the even numbers in the `nums` array.\n        // Intermediate clauses such as `let` clause, `join` clause, `order by` clause,\n        // `where clause`, and `limit` clause can also be used.\n        check from var i in nums\n            where i % 2 == 0\n            do {\n                _ = nums.remove(i);\n            };\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "87578",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 56,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 56,
+              "offset": 34
+            }
+          },
+          "sourceCode": "int[] nums = [1, 2, 3, 4];"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "[1, 2, 3, 4]",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "nums",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 56,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 56,
+                  "offset": 18
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int[]",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "88567",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 57,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 57,
+              "offset": 31
+            }
+          },
+          "sourceCode": "int[] numsTimes10 = [];"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "[]",
+            "optional": true,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "numsTimes10",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 57,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 57,
+                  "offset": 25
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int[]",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "89379",
+        "metadata": {
+          "label": "Comment",
+          "description": "The `from` clause works similar to a `foreach` statement."
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 58,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 59,
+              "offset": 68
+            }
+          },
+          "sourceCode": "The `from` clause works similar to a `foreach` statement."
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "The `from` clause works similar to a `foreach` statement.",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "91835",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 60,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 64,
+              "offset": 13
+            }
+          },
+          "sourceCode": "from var i in nums\n            // The `do` statement block is evaluated in each iteration.\n            do {\n                numsTimes10.push(i * 10);\n            }"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "from var i in nums\n            // The `do` statement block is evaluated in each iteration.\n            do {\n                numsTimes10.push(i * 10);\n            }",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "91650",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 60,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 64,
+              "offset": 14
+            }
+          },
+          "sourceCode": "// The `from` clause works similar to a `foreach` statement.\n        check from var i in nums\n            // The `do` statement block is evaluated in each iteration.\n            do {\n                numsTimes10.push(i * 10);\n            };"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "// The `from` clause works similar to a `foreach` statement.\n        check from var i in nums\n            // The `do` statement block is evaluated in each iteration.\n            do {\n                numsTimes10.push(i * 10);\n            };",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "96380",
+        "metadata": {
+          "label": "Comment",
+          "description": "Print only the even numbers in the `nums` array.\nIntermediate clauses such as `let` clause, `join` clause, `order by` clause,\n`where clause`, and `limit` clause can also be used."
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 65,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 68,
+              "offset": 63
+            }
+          },
+          "sourceCode": "Print only the even numbers in the `nums` array.\nIntermediate clauses such as `let` clause, `join` clause, `order by` clause,\n`where clause`, and `limit` clause can also be used."
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "Print only the even numbers in the `nums` array.\nIntermediate clauses such as `let` clause, `join` clause, `order by` clause,\n`where clause`, and `limit` clause can also be used.",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "100763",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 69,
+              "offset": 14
+            },
+            "endLine": {
+              "line": 73,
+              "offset": 13
+            }
+          },
+          "sourceCode": "from var i in nums\n            where i % 2 == 0\n            do {\n                _ = nums.remove(i);\n            }"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "from var i in nums\n            where i % 2 == 0\n            do {\n                _ = nums.remove(i);\n            }",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "100578",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 69,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 73,
+              "offset": 14
+            }
+          },
+          "sourceCode": "// Print only the even numbers in the `nums` array.\n        // Intermediate clauses such as `let` clause, `join` clause, `order by` clause,\n        // `where clause`, and `limit` clause can also be used.\n        check from var i in nums\n            where i % 2 == 0\n            do {\n                _ = nums.remove(i);\n            };"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "// Print only the even numbers in the `nums` array.\n        // Intermediate clauses such as `let` clause, `join` clause, `order by` clause,\n        // `where clause`, and `limit` clause can also be used.\n        check from var i in nums\n            where i % 2 == 0\n            do {\n                _ = nums.remove(i);\n            };",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "33790",
+        "metadata": {
+          "label": "New Connection",
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 62
+            }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");",
+          "id": 0
+        },
+        "returning": false,
+        "properties": {
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"http://localhost:9090\"",
+            "placeholder": "\"\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "url"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": true
+              }
+            ]
+          },
+          "httpVersion": {
+            "metadata": {
+              "label": "httpVersion",
+              "description": "The HTTP version understood by the client"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": "Configurations related to HTTP/1.x protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http1Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp1Settings",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": "Configurations related to HTTP/2 protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": "Configurations associated with Redirection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": "Configurations associated with request pooling"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "cache": {
+            "metadata": {
+              "label": "cache",
+              "description": "HTTP caching related configurations"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CacheConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cache"
+            },
+            "typeMembers": [
+              {
+                "type": "CacheConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "compression": {
+            "metadata": {
+              "label": "compression",
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "compression"
+            },
+            "typeMembers": [
+              {
+                "type": "Compression",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "auth": {
+            "metadata": {
+              "label": "auth",
+              "description": "Configurations related to client authentication"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CredentialsConfig|http:BearerTokenConfig|http:JwtIssuerConfig|http:OAuth2ClientCredentialsGrantConfig|http:OAuth2PasswordGrantConfig|http:OAuth2RefreshTokenGrantConfig|http:OAuth2JwtBearerGrantConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "auth"
+            },
+            "typeMembers": [
+              {
+                "type": "CredentialsConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "BearerTokenConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "JwtIssuerConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2ClientCredentialsGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2PasswordGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2RefreshTokenGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "OAuth2JwtBearerGrantConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "retryConfig": {
+            "metadata": {
+              "label": "retryConfig",
+              "description": "Configurations associated with retrying"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:RetryConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "retryConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "RetryConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "cookieConfig": {
+            "metadata": {
+              "label": "cookieConfig",
+              "description": "Configurations associated with cookies"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CookieConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "cookieConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "CookieConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "responseLimits": {
+            "metadata": {
+              "label": "responseLimits",
+              "description": "Configurations associated with inbound response size limits"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "responseLimits"
+            },
+            "typeMembers": [
+              {
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": "Proxy server related options"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "validation": {
+            "metadata": {
+              "label": "validation",
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "validation"
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "socketConfig": {
+            "metadata": {
+              "label": "socketConfig",
+              "description": "Provides settings related to client socket configuration"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSocketConfig",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "socketConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSocketConfig",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "laxDataBinding": {
+            "metadata": {
+              "label": "laxDataBinding",
+              "description": "Enables or disables relaxed data binding on the client side. Disabled by default.\nWhen enabled, the JSON data will be projected to the Ballerina record type and\nduring the projection, nil values will be considered as optional fields and\nabsent fields will be considered for nilable types"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "laxDataBinding"
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "secureSocket": {
+            "metadata": {
+              "label": "secureSocket",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientSecureSocket|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "secureSocket"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientSecureSocket",
+                "packageInfo": "ballerina:http:2.13.3",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "asiri",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 23
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

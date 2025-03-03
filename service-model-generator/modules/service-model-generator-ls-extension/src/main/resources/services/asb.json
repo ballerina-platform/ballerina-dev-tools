@@ -1,0 +1,207 @@
+{
+  "id": "14",
+  "name": "Asb Channel",
+  "type": "event",
+  "displayName": "Asb",
+  "description": "",
+  "displayAnnotation": {
+    "label": "Asb",
+    "iconPath": ""
+  },
+  "moduleName": "asb",
+  "orgName": "ballerinax",
+  "version": "3.9.0",
+  "packageName": "asb",
+  "listenerProtocol": "asb",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asb_3.9.0.png",
+  "properties": {
+    "listener": {
+      "metadata": {
+        "label": "Listener",
+        "description": "The Listeners to be bound with the service"
+      },
+      "enabled": true,
+      "editable": false,
+      "value": "",
+      "valueType": "MULTIPLE_SELECT",
+      "valueTypeConstraint": "asb:Listener",
+      "isType": false,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "items": [],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER"
+      },
+      "addNewButton": false
+    },
+    "serviceType": {
+      "metadata": {
+        "label": "Channel",
+        "description": "The channel name"
+      },
+      "enabled": false,
+      "editable": false,
+      "value": "Service",
+      "valueType": "SINGLE_SELECT",
+      "valueTypeConstraint": "asb:Service",
+      "isType": true,
+      "placeholder": "",
+      "optional": false,
+      "advanced": false,
+      "items": [
+        "Service"
+      ],
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "SERVICE_TYPE"
+      },
+      "addNewButton": false
+    }
+  },
+  "functions": [
+    {
+      "metadata": {
+        "label": "onMessage",
+        "description": "Triggers when new message received for the azure service bus"
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onMessage",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "Messages",
+            "description": "The received message"
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": true,
+            "value": "asb:Message",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "asb:Message",
+            "isType": true,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "message",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "Return type",
+          "description": "Return type of the function. The function can return an error or nil"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    },
+    {
+      "metadata": {
+        "label": "onError",
+        "description": "Triggers when error occurred in the azure service bus"
+      },
+      "kind": "REMOTE",
+      "name": {
+        "enabled": true,
+        "editable": false,
+        "value": "onError",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "optional": false,
+        "advanced": false
+      },
+      "enabled": true,
+      "optional": false,
+      "editable": true,
+      "parameters": [
+        {
+          "metadata": {
+            "label": "Messages",
+            "description": "The messages received for the topic"
+          },
+          "kind": "REQUIRED",
+          "type": {
+            "enabled": true,
+            "editable": true,
+            "value": "asb:MessageRetrievalError",
+            "valueType": "TYPE",
+            "valueTypeConstraint": "asb:MessageRetrievalError",
+            "isType": true,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "name": {
+            "enabled": true,
+            "editable": true,
+            "value": "asbErr",
+            "valueType": "IDENTIFIER",
+            "valueTypeConstraint": "string",
+            "isType": false,
+            "placeholder": "",
+            "optional": false,
+            "advanced": false
+          },
+          "enabled": true,
+          "editable": true,
+          "optional": false
+        }
+      ],
+      "returnType": {
+        "metadata": {
+          "label": "Return type",
+          "description": "Return type of the function. The function can return an error or nil"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "error?",
+        "valueType": "TYPE",
+        "valueTypeConstraint": "error?",
+        "isType": true,
+        "placeholder": "error?",
+        "optional": true,
+        "advanced": false
+      }
+    }
+  ]
+}

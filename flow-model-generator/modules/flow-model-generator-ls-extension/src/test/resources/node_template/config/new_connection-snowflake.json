@@ -21,7 +21,7 @@
       "object": "Client",
       "symbol": "init",
       "version": "2.0.0",
-      "id": 636
+      "id": 637
     },
     "returning": false,
     "properties": {
@@ -39,7 +39,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "account_identifier"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "user": {
         "metadata": {
@@ -55,7 +63,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "user"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "password": {
         "metadata": {
@@ -71,7 +87,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "password"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "options": {
         "metadata": {
@@ -87,7 +111,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "options"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "Options",
+            "packageInfo": "ballerinax:snowflake:2.0.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "connectionPool": {
         "metadata": {
@@ -104,7 +142,21 @@
           "kind": "DEFAULTABLE",
           "originalName": "connectionPool",
           "importStatements": "ballerina/sql"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionPool",
+            "packageInfo": "ballerina:sql:1.13.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

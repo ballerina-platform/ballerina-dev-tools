@@ -54,7 +54,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "databaseId"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "containerId": {
         "metadata": {
@@ -70,7 +78,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "containerId"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "documemtId": {
         "metadata": {
@@ -86,7 +102,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "documemtId"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "document": {
         "metadata": {
@@ -102,7 +126,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "document"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "map<json>",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ]
       },
       "partitionKey": {
         "metadata": {
@@ -118,7 +150,33 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "partitionKey"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "float",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "requestOptions": {
         "metadata": {
@@ -134,7 +192,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "requestOptions"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "RequestOptions",
+            "packageInfo": "ballerinax:azure_cosmosdb:4.2.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          },
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

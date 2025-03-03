@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "set",
       "version": "3.1.0",
-      "id": 1453
+      "id": 1166
     },
     "returning": false,
     "properties": {
@@ -58,7 +58,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "key"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "value": {
         "metadata": {
@@ -74,7 +82,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "value"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

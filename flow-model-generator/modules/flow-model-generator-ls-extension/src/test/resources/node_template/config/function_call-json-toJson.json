@@ -25,7 +25,7 @@
       "module": "data.jsondata",
       "symbol": "toJson",
       "version": "0.2.0",
-      "id": 551
+      "id": 558
     },
     "returning": false,
     "properties": {
@@ -43,7 +43,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "v"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "anydata",
+            "packageInfo": "",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

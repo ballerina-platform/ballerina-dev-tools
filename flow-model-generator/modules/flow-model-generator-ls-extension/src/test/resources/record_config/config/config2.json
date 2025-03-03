@@ -13,42 +13,48 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "department",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "salary",
         "typeName": "decimal",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "street",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "city",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "country",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       }
     ],
     "hasRestType": true,
@@ -59,28 +65,32 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
-          "isRestType": false
+          "isRestType": false,
+          "selected": false
         },
         {
           "name": "action",
           "typeName": "string",
           "optional": false,
           "defaultable": false,
-          "isRestType": false
+          "isRestType": false,
+          "selected": false
         },
         {
           "name": "userId",
           "typeName": "string",
           "optional": false,
           "defaultable": false,
-          "isRestType": false
+          "isRestType": false,
+          "selected": false
         },
         {
           "name": "description",
           "typeName": "string",
           "optional": false,
           "defaultable": false,
-          "isRestType": false
+          "isRestType": false,
+          "selected": false
         }
       ],
       "hasRestType": false,
@@ -94,11 +104,13 @@
         "version": "0.3.0"
       },
       "defaultable": false,
-      "isRestType": false
+      "isRestType": false,
+      "selected": false
     },
     "typeName": "record",
     "optional": false,
     "defaultable": false,
-    "isRestType": false
+    "isRestType": false,
+    "selected": false
   }
 }

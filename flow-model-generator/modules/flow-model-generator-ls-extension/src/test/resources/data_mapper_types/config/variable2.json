@@ -65,14 +65,16 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "password",
         "typeName": "string",
         "optional": false,
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "fields": [
@@ -81,14 +83,16 @@
             "typeName": "string",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           },
           {
             "name": "country",
             "typeName": "string",
             "optional": false,
             "defaultable": false,
-            "isRestType": false
+            "isRestType": false,
+            "selected": false
           }
         ],
         "hasRestType": false,
@@ -102,13 +106,15 @@
           "version": "0.0.0"
         },
         "defaultable": false,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       }
     ],
     "hasRestType": false,
     "typeName": "record",
     "optional": false,
     "defaultable": false,
-    "isRestType": false
+    "isRestType": false,
+    "selected": false
   }
 }

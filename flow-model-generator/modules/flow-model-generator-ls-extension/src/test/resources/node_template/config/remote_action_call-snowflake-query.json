@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "query",
       "version": "2.1.0",
-      "id": 637
+      "id": 641
     },
     "returning": false,
     "properties": {
@@ -59,7 +59,15 @@
           "kind": "REQUIRED",
           "originalName": "sqlQuery",
           "importStatements": "ballerina/sql"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "ParameterizedQuery",
+            "packageInfo": "ballerina:sql:1.13.0",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          }
+        ]
       },
       "rowType": {
         "metadata": {
@@ -75,7 +83,15 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "rowType"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "typedesc<record {|anydata...;|}>",
+            "packageInfo": "",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

@@ -83,6 +83,7 @@ import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.QueryActionNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
@@ -362,6 +363,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .stepOut()
                             .value(expr.toSourceCode())
                             .typeConstraint(paramResult.type())
+                            .typeMembers(paramResult.typeMembers())
                             .type(Property.ValueType.EXPRESSION)
                             .editable()
                             .defaultable(paramResult.optional())
@@ -421,6 +423,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
+                    .typeMembers(paramResult.typeMembers())
                     .editable()
                     .defaultable(paramResult.optional());
 
@@ -495,6 +498,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
+                        .typeMembers(paramResult.typeMembers())
                         .editable()
                         .defaultable(paramResult.optional());
 
@@ -543,8 +547,21 @@ class CodeAnalyzer extends NodeVisitor {
                     funcParamMap.remove(parameterSymbol.getName().get());
                     Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                             nodeBuilder.properties().custom();
-                    String value = paramValue != null ? paramValue.toSourceCode() : null;
                     String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                    String value = null;
+                    String selectedType = "";
+                    if (paramValue != null) {
+                        value = paramValue.toSourceCode();
+                        Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                        if (paramType.isPresent()) {
+                            if (paramType.get().getModule().isPresent()) {
+                                ModuleID id = paramType.get().getModule().get().id();
+                                selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                            } else {
+                                selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                            }
+                        }
+                    }
                     customPropBuilder
                             .metadata()
                                 .label(unescapedParamName)
@@ -552,6 +569,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .stepOut()
                             .type(getPropertyTypeFromParamKind(paramResult.kind()))
                             .typeConstraint(paramResult.type())
+                            .typeMembers(paramResult.typeMembers(), selectedType)
                             .value(value)
                             .placeholder(paramResult.defaultValue())
                             .editable()
@@ -581,6 +599,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
+                        .typeMembers(restParamResult.typeMembers())
                         .value(restArgs)
                         .placeholder(restParamResult.defaultValue())
                         .editable()
@@ -631,6 +650,16 @@ class CodeAnalyzer extends NodeVisitor {
                                     nodeBuilder.properties().custom();
                             String value = paramValue != null ? paramValue.toSourceCode() : null;
                             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                            Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                            String selectedType = "";
+                            if (paramType.isPresent()) {
+                                if (paramType.get().getModule().isPresent()) {
+                                    ModuleID id = paramType.get().getModule().get().id();
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                                } else {
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                }
+                            }
                             customPropBuilder
                                     .metadata()
                                         .label(unescapedParamName)
@@ -638,6 +667,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
+                                    .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -659,7 +689,22 @@ class CodeAnalyzer extends NodeVisitor {
                                     paramValue = namedArgValueMap.get(argName);
                                     namedArgValueMap.remove(argName);
                                 }
-                                String value = paramValue != null ? paramValue.toSourceCode() : null;
+                                String value = null;
+                                String selectedType = "";
+                                if (paramValue != null) {
+                                    value = paramValue.toSourceCode();
+                                    Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                                    if (paramType.isPresent()) {
+                                        if (paramType.get().getModule().isPresent()) {
+                                            ModuleID id = paramType.get().getModule().get().id();
+                                            selectedType = CommonUtils.getTypeSignature(
+                                                    paramType.get(), ModuleInfo.from(id));
+                                        } else {
+                                            selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                        }
+                                    }
+                                }
+
                                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                                 customPropBuilder
                                         .metadata()
@@ -668,6 +713,7 @@ class CodeAnalyzer extends NodeVisitor {
                                             .stepOut()
                                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                         .typeConstraint(paramResult.type())
+                                        .typeMembers(paramResult.typeMembers(), selectedType)
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
@@ -691,6 +737,16 @@ class CodeAnalyzer extends NodeVisitor {
                             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                             funcParamMap.remove(escapedParamName);
                             String value = paramValue.toSourceCode();
+                            Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                            String selectedType = "";
+                            if (paramType.isPresent()) {
+                                if (paramType.get().getModule().isPresent()) {
+                                    ModuleID id = paramType.get().getModule().get().id();
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                                } else {
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                }
+                            }
                             customPropBuilder
                                     .metadata()
                                         .label(unescapedParamName)
@@ -698,6 +754,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
+                                    .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -721,8 +778,21 @@ class CodeAnalyzer extends NodeVisitor {
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
                 funcParamMap.remove(escapedParamName);
-                String value = paramValue != null ? paramValue.toSourceCode() : null;
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                String value = null;
+                String selectedType = "";
+                if (paramValue != null) {
+                    value = paramValue.toSourceCode();
+                    Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                    if (paramType.isPresent()) {
+                        if (paramType.get().getModule().isPresent()) {
+                            ModuleID id = paramType.get().getModule().get().id();
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                        } else {
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                        }
+                    }
+                }
                 customPropBuilder
                         .metadata()
                             .label(unescapedParamName)
@@ -730,6 +800,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
                         .typeConstraint(paramResult.type())
+                        .typeMembers(paramResult.typeMembers(), selectedType)
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -760,6 +831,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
+                        .typeMembers(includedRecordRest.typeMembers())
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()
@@ -1053,12 +1125,17 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(CompoundAssignmentStatementNode compoundAssignmentStatementNode) {
-        handleDefaultStatementNode(compoundAssignmentStatementNode, () -> super.visit(compoundAssignmentStatementNode));
+        handleDefaultStatementNode(compoundAssignmentStatementNode);
     }
 
     @Override
     public void visit(BlockStatementNode blockStatementNode) {
-        handleDefaultNodeWithBlock(blockStatementNode);
+        handleDefaultStatementNode(blockStatementNode);
+    }
+
+    @Override
+    public void visit(QueryActionNode queryActionNode) {
+        handleDefaultStatementNode(queryActionNode);
     }
 
     @Override
@@ -1324,8 +1401,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LocalTypeDefinitionStatementNode localTypeDefinitionStatementNode) {
-        handleDefaultStatementNode(localTypeDefinitionStatementNode,
-                () -> super.visit(localTypeDefinitionStatementNode));
+        handleDefaultStatementNode(localTypeDefinitionStatementNode
+        );
     }
 
     @Override
@@ -1569,7 +1646,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<OnFailClauseNode> optOnFailClauseNode = doStatementNode.onFailClause();
         BlockStatementNode blockStatementNode = doStatementNode.blockStatement();
         if (optOnFailClauseNode.isEmpty()) {
-            handleDefaultNodeWithBlock(blockStatementNode);
+            handleDefaultStatementNode(doStatementNode);
             return;
         }
 
@@ -1708,32 +1785,15 @@ class CodeAnalyzer extends NodeVisitor {
      * The default procedure to handle the statement nodes. These nodes should be handled explicitly.
      *
      * @param statementNode the statement node
-     * @param runnable      The runnable to be called to analyze the child nodes.
      */
-    private void handleDefaultStatementNode(NonTerminalNode statementNode,
-                                            Runnable runnable) {
+    private void handleDefaultStatementNode(NonTerminalNode statementNode) {
         handleExpressionNode(statementNode);
-        runnable.run();
         endNode(statementNode);
     }
 
     private void handleExpressionNode(NonTerminalNode statementNode) {
         startNode(NodeKind.EXPRESSION, statementNode)
                 .properties().statement(statementNode);
-    }
-
-    /**
-     * The default procedure to handle the node with a block statement.
-     *
-     * @param bodyNode the block statement node
-     */
-    private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        handleExpressionNode(bodyNode);
-        Branch.Builder branchBuilder =
-                startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        analyzeBlock(bodyNode, branchBuilder);
-        endBranch(branchBuilder, bodyNode);
-        endNode(bodyNode);
     }
 
     private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {

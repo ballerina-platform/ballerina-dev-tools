@@ -1,0 +1,223 @@
+{
+  "id": "14",
+  "name": "Asb Listener",
+  "type": "event",
+  "displayName": "Asb",
+  "description": "",
+  "displayAnnotation": {
+    "label": "Asb",
+    "iconPath": ""
+  },
+  "moduleName": "asb",
+  "orgName": "ballerinax",
+  "version": "3.9.0",
+  "packageName": "asb",
+  "listenerProtocol": "asb",
+  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asb_3.9.0.png",
+  "properties": {
+    "name": {
+      "metadata": {
+        "label": "Name",
+        "description": "The name of the listener"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "IDENTIFIER",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_VAR_NAME"
+      },
+      "addNewButton": false
+    },
+    "autoComplete": {
+      "metadata": {
+        "label": "autoComplete",
+        "description": "Enables auto-complete and auto-abandon of received messages"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "boolean",
+      "isType": false,
+      "placeholder": "true",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "prefetchCount": {
+      "metadata": {
+        "label": "prefetchCount",
+        "description": "The number of messages to prefetch"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "isType": false,
+      "placeholder": "0",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "maxConcurrency": {
+      "metadata": {
+        "label": "maxConcurrency",
+        "description": "Max concurrent messages that this listener should process"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "isType": false,
+      "placeholder": "1",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "connectionString": {
+      "metadata": {
+        "label": "connectionString",
+        "description": "Service bus connection string with Shared Access Signatures"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "string",
+      "isType": false,
+      "placeholder": "\"\"",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "entityConfig": {
+      "metadata": {
+        "label": "entityConfig",
+        "description": "This field holds the configuration details of either a topic or a queue."
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "asb:TopicSubsConfig|asb:QueueConfig",
+      "isType": false,
+      "placeholder": "{topicName: \"\", subscriptionName: \"\"}",
+      "optional": false,
+      "advanced": false,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "receiveMode": {
+      "metadata": {
+        "label": "receiveMode",
+        "description": "This field holds the receive modes(RECEIVE_AND_DELETE/PEEK_LOCK) for the connection."
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "asb:ReceiveMode",
+      "isType": false,
+      "placeholder": "\"PEEK_LOCK\"",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "maxAutoLockRenewDuration": {
+      "metadata": {
+        "label": "maxAutoLockRenewDuration",
+        "description": "Max lock renewal duration under PEEK_LOCK mode in seconds."
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "int",
+      "isType": false,
+      "placeholder": "0",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    },
+    "amqpRetryOptions": {
+      "metadata": {
+        "label": "amqpRetryOptions",
+        "description": "Retry configurations related to underlying AMQP message receiver"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "asb:AmqpRetryOptions",
+      "isType": false,
+      "placeholder": "{}",
+      "optional": true,
+      "advanced": true,
+      "codedata": {
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false,
+        "type": "LISTENER_INIT_PARAM",
+        "argType": "NAMED"
+      },
+      "addNewButton": false
+    }
+  }
+}

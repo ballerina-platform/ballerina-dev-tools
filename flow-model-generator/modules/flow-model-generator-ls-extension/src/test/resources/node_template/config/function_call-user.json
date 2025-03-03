@@ -36,7 +36,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "x"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

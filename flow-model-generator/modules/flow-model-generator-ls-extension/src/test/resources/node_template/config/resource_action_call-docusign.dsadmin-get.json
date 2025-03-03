@@ -27,7 +27,7 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "get",
-      "id": 2382
+      "id": 1686
     },
     "returning": false,
     "properties": {
@@ -71,7 +71,8 @@
         "codedata": {
           "kind": "PATH_PARAM",
           "originalName": "organizationId"
-        }
+        },
+        "typeMembers": []
       },
       "accountId": {
         "metadata": {
@@ -87,7 +88,8 @@
         "codedata": {
           "kind": "PATH_PARAM",
           "originalName": "accountId"
-        }
+        },
+        "typeMembers": []
       },
       "start": {
         "metadata": {
@@ -103,7 +105,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "'start"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "int:Signed32",
+            "packageInfo": "ballerina:lang.int:0.0.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "take": {
         "metadata": {
@@ -119,7 +135,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "take"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "int:Signed32",
+            "packageInfo": "ballerina:lang.int:0.0.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "end": {
         "metadata": {
@@ -135,7 +165,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "end"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "int:Signed32",
+            "packageInfo": "ballerina:lang.int:0.0.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

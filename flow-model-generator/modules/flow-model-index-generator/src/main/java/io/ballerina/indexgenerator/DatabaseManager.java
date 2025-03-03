@@ -100,7 +100,7 @@ class DatabaseManager {
                 returnType, kind, resourcePath, returnError, inferredReturnType ? 1 : 0});
     }
 
-    public static void insertFunctionParameter(int functionId, String paramName, String paramDescription,
+    public static int insertFunctionParameter(int functionId, String paramName, String paramDescription,
                                                String paramType, String defaultValue,
                                                IndexGenerator.FunctionParameterKind parameterKind,
                                                int optional, String importStatements) {
@@ -109,9 +109,15 @@ class DatabaseManager {
                 "INSERT INTO Parameter (function_id, name, description, type, default_value, kind, optional, " +
                         "import_statements) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        insertEntry(sql,
+        return insertEntry(sql,
                 new Object[]{functionId, paramName, paramDescription, paramType, defaultValue,
                         parameterKind.name(), optional, importStatements});
+    }
+
+    public static void insertParameterMemberType(int parameterId, String type, String kind, String packageIdentifier) {
+        String sql = "INSERT INTO ParameterMemberType (parameter_id, type, kind, package) " +
+                "VALUES (?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{parameterId, type, kind, packageIdentifier});
     }
 
     public static void mapConnectorAction(int actionId, int connectorId) {
