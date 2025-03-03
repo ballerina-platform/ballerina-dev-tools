@@ -40,7 +40,9 @@ import org.ballerinalang.langserver.common.utils.PositionUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -54,28 +56,25 @@ public class VisibleVariableTypesGenerator {
     private final Document document;
     private final LinePosition position;
     private final Gson gson;
+    private final Map<String, List<Category.Variable>> categoryMap;
+    private static final List<String> CATEGORY_ORDER = Arrays.asList(
+            Category.LOCAL_CATEGORY,
+            Category.MODULE_CATEGORY,
+            Category.CONFIGURABLE_CATEGORY,
+            Category.PARAMETER_CATEGORY,
+            Category.PATH_PARAMETER_CATEGORY
+    );
 
     public VisibleVariableTypesGenerator(SemanticModel semanticModel, Document document, LinePosition position) {
         this.semanticModel = semanticModel;
         this.document = document;
         this.position = position;
         this.gson = new Gson();
+        this.categoryMap = new HashMap<>();
     }
 
     public JsonArray getVisibleVariableTypes() {
         Optional<LineRange> functionLineRange = findFunctionLineRange();
-        List<Category.Variable> moduleVariables = new ArrayList<>();
-        List<Category.Variable> configurableVariables = new ArrayList<>();
-        List<Category.Variable> localVariables = new ArrayList<>();
-        List<Category.Variable> parameters = new ArrayList<>();
-        List<Category.Variable> pathParameters = new ArrayList<>();
-        List<Category> categories = Arrays.asList(
-                new Category(Category.MODULE_CATEGORY, moduleVariables),
-                new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
-                new Category(Category.LOCAL_CATEGORY, localVariables),
-                new Category(Category.PARAMETER_CATEGORY, parameters),
-                new Category(Category.PATH_PARAMETER_CATEGORY, pathParameters)
-        );
 
         List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
         for (Symbol symbol : symbols) {
@@ -85,28 +84,49 @@ public class VisibleVariableTypesGenerator {
                 Type type = Type.fromSemanticSymbol(variableSymbol);
 
                 if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
-                    configurableVariables.add(new Category.Variable(name, type));
+                    addCategoryValue(Category.CONFIGURABLE_CATEGORY, name, type);
                 } else if (functionLineRange.isPresent() &&
                         isInFunctionRange(variableSymbol, functionLineRange.get())) {
-                    localVariables.add(new Category.Variable(name, type));
+                    addCategoryValue(Category.LOCAL_CATEGORY, name, type);
                 } else {
-                    moduleVariables.add(new Category.Variable(name, type));
+                    addCategoryValue(Category.MODULE_CATEGORY, name, type);
                 }
             } else if (symbol.kind() == SymbolKind.PARAMETER) {
                 String name = symbol.getName().orElse("");
                 Type type = Type.fromSemanticSymbol(symbol);
-                parameters.add(new Category.Variable(name, type));
+                addCategoryValue(Category.PARAMETER_CATEGORY, name, type);
             } else if (symbol.kind() == SymbolKind.PATH_PARAMETER) {
                 String name = symbol.getName().orElse("");
                 PathParameterSymbol pathParameterSymbol = (PathParameterSymbol) symbol;
                 Type type = Type.fromSemanticSymbol(pathParameterSymbol.typeDescriptor());
                 type.isRestType = pathParameterSymbol.pathSegmentKind() == PathSegment.Kind.PATH_REST_PARAMETER;
-                pathParameters.add(new Category.Variable(name, type));
+                addCategoryValue(Category.PATH_PARAMETER_CATEGORY, name, type);
             }
         }
 
-        categories.forEach(category -> Collections.sort(category.types()));
+        // Add categories in the defined order if they exist in the map
+        List<Category> categories = new ArrayList<>();
+        for (String categoryName : CATEGORY_ORDER) {
+            List<Category.Variable> variables = categoryMap.get(categoryName);
+            if (variables != null) {
+                Collections.sort(variables);
+                categories.add(new Category(categoryName, variables));
+            }
+        }
+
         return gson.toJsonTree(categories).getAsJsonArray();
+    }
+
+    /**
+     * Adds a variable to the specified category.
+     *
+     * @param categoryName the name of the category
+     * @param name         the name of the variable
+     * @param type         the type of the variable
+     */
+    private void addCategoryValue(String categoryName, String name, Type type) {
+        categoryMap.computeIfAbsent(categoryName, k -> new ArrayList<>())
+                .add(new Category.Variable(name, type));
     }
 
     private boolean isInFunctionRange(VariableSymbol variableSymbol, LineRange functionLineRange) {
@@ -137,9 +157,9 @@ public class VisibleVariableTypesGenerator {
      */
     private record Category(String name, List<Variable> types) {
 
+        public static final String LOCAL_CATEGORY = "Local Variables";
         public static final String MODULE_CATEGORY = "Module Variables";
         public static final String CONFIGURABLE_CATEGORY = "Configurable Variables";
-        public static final String LOCAL_CATEGORY = "Local Variables";
         public static final String PARAMETER_CATEGORY = "Parameters";
         public static final String PATH_PARAMETER_CATEGORY = "Path Parameters";
 
