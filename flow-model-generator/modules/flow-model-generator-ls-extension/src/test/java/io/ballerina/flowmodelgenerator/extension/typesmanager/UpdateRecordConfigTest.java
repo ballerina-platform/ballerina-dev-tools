@@ -51,7 +51,7 @@ public class UpdateRecordConfigTest extends AbstractLSTest {
         if (!configResponse.equals(testConfig.output())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.description(),
                     testConfig.codedata(), testConfig.typeConstraint(), testConfig.expr(), configResponse);
-             updateConfig(configJsonPath, updateConfig);
+//             updateConfig(configJsonPath, updateConfig);
             compareJsonElements(configResponse, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
