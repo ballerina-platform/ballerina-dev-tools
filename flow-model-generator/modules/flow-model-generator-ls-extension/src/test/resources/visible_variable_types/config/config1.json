@@ -7,6 +7,101 @@
   },
   "visibleTypes": [
     {
+      "name": "Local Variables",
+      "types": [
+        {
+          "name": "address",
+          "type": {
+            "fields": [
+              {
+                "name": "houseNo",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "line1",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "line2",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "city",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "country",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "Address",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "Address",
+              "orgName": "nipunaf",
+              "moduleName": "new_connection1",
+              "version": "0.1.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        },
+        {
+          "name": "w",
+          "type": {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        },
+        {
+          "name": "x",
+          "type": {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        },
+        {
+          "name": "z",
+          "type": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        }
+      ]
+    },
+    {
       "name": "Module Variables",
       "types": [
         {
@@ -247,109 +342,6 @@
           }
         }
       ]
-    },
-    {
-      "name": "Local Variables",
-      "types": [
-        {
-          "name": "address",
-          "type": {
-            "fields": [
-              {
-                "name": "houseNo",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "line1",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "line2",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "city",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "country",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              }
-            ],
-            "hasRestType": false,
-            "name": "Address",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Address",
-              "orgName": "nipunaf",
-              "moduleName": "new_connection1",
-              "version": "0.1.0"
-            },
-            "defaultable": false,
-            "isRestType": false,
-            "selected": false
-          }
-        },
-        {
-          "name": "w",
-          "type": {
-            "typeName": "boolean",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false,
-            "selected": false
-          }
-        },
-        {
-          "name": "x",
-          "type": {
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false,
-            "selected": false
-          }
-        },
-        {
-          "name": "z",
-          "type": {
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false,
-            "selected": false
-          }
-        }
-      ]
-    },
-    {
-      "name": "Parameters",
-      "types": []
-    },
-    {
-      "name": "Path Parameters",
-      "types": []
     }
   ]
 }
