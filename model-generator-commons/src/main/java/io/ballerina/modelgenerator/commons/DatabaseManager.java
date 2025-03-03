@@ -354,7 +354,8 @@ public class DatabaseManager {
                         rs.getString("default_value"),
                         rs.getString("description"),
                         rs.getBoolean("optional"),
-                        rs.getString("import_statements")
+                        rs.getString("import_statements"),
+                        new ArrayList<>()
                 );
                 parameterResults.add(parameterData);
             }
@@ -374,33 +375,97 @@ public class DatabaseManager {
                 "p.optional, " +
                 "p.default_value, " +
                 "p.description, " +
-                "p.import_statements " +
+                "p.import_statements, " +
+                "pmt.type AS member_type, " +
+                "pmt.kind AS member_kind, " +
+                "pmt.package AS member_package " +
                 "FROM Parameter p " +
+                "LEFT JOIN ParameterMemberType pmt ON p.parameter_id = pmt.parameter_id " +
                 "WHERE p.function_id = ?;";
+
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, functionId);
             ResultSet rs = stmt.executeQuery();
-            LinkedHashMap<String, ParameterData> parameterResults = new LinkedHashMap<>();
+
+            // Use a builder to accumulate parameter data and member types
+            LinkedHashMap<String, ParameterDataBuilder> builders = new LinkedHashMap<>();
+
             while (rs.next()) {
                 String paramName = rs.getString("name");
-                ParameterData
-                        parameterData = new ParameterData(
-                        rs.getInt("parameter_id"),
-                        paramName,
-                        rs.getString("type"),
-                        ParameterData.Kind.valueOf(rs.getString("kind")),
-                        rs.getString("default_value"),
-                        rs.getString("description"),
-                        rs.getBoolean("optional"),
-                        rs.getString("import_statements")
-                );
-                parameterResults.put(paramName, parameterData);
+                int parameterId = rs.getInt("parameter_id");
+                String type = rs.getString("type");
+                ParameterData.Kind kind = ParameterData.Kind.valueOf(rs.getString("kind"));
+                String defaultValue = rs.getString("default_value");
+                String description = rs.getString("description");
+                boolean optional = rs.getBoolean("optional");
+                String importStatements = rs.getString("import_statements");
+
+                // Member type data
+                String memberType = rs.getString("member_type");
+                String memberKind = rs.getString("member_kind");
+                String memberPackage = rs.getString("member_package");
+
+                // Get or create the builder for this parameter
+                ParameterDataBuilder builder = builders.get(paramName);
+                if (builder == null) {
+                    builder = new ParameterDataBuilder();
+                    builder.parameterId = parameterId;
+                    builder.name = paramName;
+                    builder.type = type;
+                    builder.kind = kind;
+                    builder.defaultValue = defaultValue;
+                    builder.description = description;
+                    builder.optional = optional;
+                    builder.importStatements = importStatements;
+                    builders.put(paramName, builder);
+                }
+
+                // Add member type if present
+                if (memberType != null) {
+                    ParameterMemberTypeData memberData = new ParameterMemberTypeData(
+                            memberType, memberKind, memberPackage);
+                    builder.typeMembers.add(memberData);
+                }
+            }
+
+            // Convert builders to ParameterData
+            LinkedHashMap<String, ParameterData> parameterResults = new LinkedHashMap<>();
+            for (ParameterDataBuilder builder : builders.values()) {
+                parameterResults.put(builder.name, builder.build());
             }
             return parameterResults;
+
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return new LinkedHashMap<>();
+        }
+    }
+
+    // Helper builder class
+    private static class ParameterDataBuilder {
+        int parameterId;
+        String name;
+        String type;
+        ParameterData.Kind kind;
+        String defaultValue;
+        String description;
+        boolean optional;
+        String importStatements;
+        List<ParameterMemberTypeData> typeMembers = new ArrayList<>();
+
+        ParameterData build() {
+            return new ParameterData(
+                    parameterId,
+                    name,
+                    type,
+                    kind,
+                    defaultValue,
+                    description,
+                    optional,
+                    importStatements,
+                    typeMembers
+            );
         }
     }
 

@@ -427,7 +427,15 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "values"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "Printable",
+                        "packageInfo": "ballerina:io:1.6.1",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -536,7 +544,15 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "values"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "Printable",
+                        "packageInfo": "ballerina:io:1.6.1",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   }
                 },
                 "flags": 0

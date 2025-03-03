@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Parameter;
 DROP TABLE IF EXISTS Function;
 DROP TABLE IF EXISTS Connector;
 DROP TABLE IF EXISTS Package;
+DROP TABLE IF EXISTS ParameterMemberType;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -50,4 +51,14 @@ CREATE TABLE Parameter (
     import_statements TEXT,
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
+);
+
+-- Create Parameter Member Type table
+CREATE TABLE ParameterMemberType (
+    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type JSON, -- JSON type for parameter type information
+    kind TEXT,
+    parameter_id INTEGER,
+    package TEXT, -- format of the package is org:name:version
+    FOREIGN KEY (parameter_id) REFERENCES Parameter(parameter_id) ON DELETE CASCADE
 );

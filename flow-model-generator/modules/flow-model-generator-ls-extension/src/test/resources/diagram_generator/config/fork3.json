@@ -231,7 +231,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -264,17 +272,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
                   "arr": {
                     "metadata": {
                       "label": "arr",
@@ -290,7 +287,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   },
                   "vals": {
                     "metadata": {
@@ -307,7 +312,26 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
+                  },
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -414,7 +438,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -447,17 +479,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
                   "arr": {
                     "metadata": {
                       "label": "arr",
@@ -473,7 +494,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   },
                   "vals": {
                     "metadata": {
@@ -490,7 +519,26 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
+                  },
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0

@@ -157,7 +157,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -301,7 +309,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -445,7 +461,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0

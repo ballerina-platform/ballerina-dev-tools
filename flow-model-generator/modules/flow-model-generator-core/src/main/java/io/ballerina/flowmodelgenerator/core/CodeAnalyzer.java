@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -342,6 +343,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .stepOut()
                             .value(expr.toSourceCode())
                             .typeConstraint(paramResult.type())
+                            .typeMembers(paramResult.typeMembers())
                             .type(Property.ValueType.EXPRESSION)
                             .editable()
                             .defaultable(paramResult.optional())
@@ -401,6 +403,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
+                    .typeMembers(paramResult.typeMembers())
                     .editable()
                     .defaultable(paramResult.optional());
 
@@ -475,6 +478,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
+                        .typeMembers(paramResult.typeMembers())
                         .editable()
                         .defaultable(paramResult.optional());
 
@@ -523,8 +527,21 @@ class CodeAnalyzer extends NodeVisitor {
                     funcParamMap.remove(parameterSymbol.getName().get());
                     Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                             nodeBuilder.properties().custom();
-                    String value = paramValue != null ? paramValue.toSourceCode() : null;
                     String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                    String value = null;
+                    String selectedType = "";
+                    if (paramValue != null) {
+                        value = paramValue.toSourceCode();
+                        Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                        if (paramType.isPresent()) {
+                            if (paramType.get().getModule().isPresent()) {
+                                ModuleID id = paramType.get().getModule().get().id();
+                                selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                            } else {
+                                selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                            }
+                        }
+                    }
                     customPropBuilder
                             .metadata()
                                 .label(unescapedParamName)
@@ -532,6 +549,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .stepOut()
                             .type(getPropertyTypeFromParamKind(paramResult.kind()))
                             .typeConstraint(paramResult.type())
+                            .typeMembers(paramResult.typeMembers(), selectedType)
                             .value(value)
                             .placeholder(paramResult.defaultValue())
                             .editable()
@@ -561,6 +579,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
+                        .typeMembers(restParamResult.typeMembers())
                         .value(restArgs)
                         .placeholder(restParamResult.defaultValue())
                         .editable()
@@ -611,6 +630,16 @@ class CodeAnalyzer extends NodeVisitor {
                                     nodeBuilder.properties().custom();
                             String value = paramValue != null ? paramValue.toSourceCode() : null;
                             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                            Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                            String selectedType = "";
+                            if (paramType.isPresent()) {
+                                if (paramType.get().getModule().isPresent()) {
+                                    ModuleID id = paramType.get().getModule().get().id();
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                                } else {
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                }
+                            }
                             customPropBuilder
                                     .metadata()
                                         .label(unescapedParamName)
@@ -618,6 +647,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
+                                    .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -639,7 +669,22 @@ class CodeAnalyzer extends NodeVisitor {
                                     paramValue = namedArgValueMap.get(argName);
                                     namedArgValueMap.remove(argName);
                                 }
-                                String value = paramValue != null ? paramValue.toSourceCode() : null;
+                                String value = null;
+                                String selectedType = "";
+                                if (paramValue != null) {
+                                    value = paramValue.toSourceCode();
+                                    Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                                    if (paramType.isPresent()) {
+                                        if (paramType.get().getModule().isPresent()) {
+                                            ModuleID id = paramType.get().getModule().get().id();
+                                            selectedType = CommonUtils.getTypeSignature(
+                                                    paramType.get(), ModuleInfo.from(id));
+                                        } else {
+                                            selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                        }
+                                    }
+                                }
+
                                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                                 customPropBuilder
                                         .metadata()
@@ -648,6 +693,7 @@ class CodeAnalyzer extends NodeVisitor {
                                             .stepOut()
                                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                         .typeConstraint(paramResult.type())
+                                        .typeMembers(paramResult.typeMembers(), selectedType)
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
@@ -671,6 +717,16 @@ class CodeAnalyzer extends NodeVisitor {
                             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
                             funcParamMap.remove(escapedParamName);
                             String value = paramValue.toSourceCode();
+                            Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                            String selectedType = "";
+                            if (paramType.isPresent()) {
+                                if (paramType.get().getModule().isPresent()) {
+                                    ModuleID id = paramType.get().getModule().get().id();
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                                } else {
+                                    selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                                }
+                            }
                             customPropBuilder
                                     .metadata()
                                         .label(unescapedParamName)
@@ -678,6 +734,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .stepOut()
                                     .type(getPropertyTypeFromParamKind(paramResult.kind()))
                                     .typeConstraint(paramResult.type())
+                                    .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -701,8 +758,21 @@ class CodeAnalyzer extends NodeVisitor {
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
                         nodeBuilder.properties().custom();
                 funcParamMap.remove(escapedParamName);
-                String value = paramValue != null ? paramValue.toSourceCode() : null;
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                String value = null;
+                String selectedType = "";
+                if (paramValue != null) {
+                    value = paramValue.toSourceCode();
+                    Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                    if (paramType.isPresent()) {
+                        if (paramType.get().getModule().isPresent()) {
+                            ModuleID id = paramType.get().getModule().get().id();
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                        } else {
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                        }
+                    }
+                }
                 customPropBuilder
                         .metadata()
                             .label(unescapedParamName)
@@ -710,6 +780,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(paramResult.kind()))
                         .typeConstraint(paramResult.type())
+                        .typeMembers(paramResult.typeMembers(), selectedType)
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -740,6 +811,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .stepOut()
                         .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
+                        .typeMembers(includedRecordRest.typeMembers())
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()

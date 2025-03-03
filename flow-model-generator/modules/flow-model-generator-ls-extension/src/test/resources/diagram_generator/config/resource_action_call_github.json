@@ -69,7 +69,8 @@
             "codedata": {
               "kind": "PATH_PARAM",
               "originalName": "code"
-            }
+            },
+            "typeMembers": []
           },
           "connection": {
             "metadata": {
@@ -190,7 +191,8 @@
             "codedata": {
               "kind": "PATH_PARAM",
               "originalName": "thread_id"
-            }
+            },
+            "typeMembers": []
           },
           "connection": {
             "metadata": {
@@ -299,7 +301,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "config"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "ConnectionConfig",
+                "packageInfo": "ballerinax:github:5.1.0",
+                "kind": "RECORD_TYPE",
+                "selected": true
+              }
+            ]
           },
           "serviceUrl": {
             "metadata": {
@@ -315,7 +325,15 @@
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "serviceUrl"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "checkError": {
             "metadata": {

@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "get",
       "version": "3.1.0",
-      "id": 1439
+      "id": 1125
     },
     "returning": false,
     "properties": {
@@ -58,7 +58,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "key"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
