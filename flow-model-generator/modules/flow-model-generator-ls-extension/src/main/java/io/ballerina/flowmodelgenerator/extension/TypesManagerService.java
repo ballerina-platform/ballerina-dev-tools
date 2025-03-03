@@ -28,10 +28,10 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.NodeParser;
-import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.flowmodelgenerator.core.type.RecordValueAnalyzer;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
@@ -54,7 +54,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -253,54 +252,20 @@ public class TypesManagerService implements ExtendedLanguageServerService {
 
                 ExpressionNode expressionNode = NodeParser.parseExpression(request.expr());
                 Type type = Type.fromSemanticSymbol(typeSymbol.get());
-                if (!(expressionNode instanceof MappingConstructorExpressionNode mappingConstructor)) {
-                    response.setRecordConfig(type);
-                    return response;
-                } else if (type instanceof RecordType recordType) {
-                    updateTypeConfig(recordType, mappingConstructor);
-                } else if (type instanceof UnionType unionType) {
-                    updateUnionTypeConfig(unionType, mappingConstructor);
+                if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
+                    if (type instanceof RecordType recordType) {
+                        RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
+                    } else if (type instanceof UnionType unionType) {
+                        RecordValueAnalyzer.updateUnionTypeConfig(unionType, mapping);
+                    }
+                } else {
+                    throw new IllegalArgumentException("Invalid expression");
                 }
                 response.setRecordConfig(type);
             } catch (Throwable e) {
                 response.setError(e);
             }
             return response;
-        });
-    }
-
-    public static void updateUnionTypeConfig(UnionType unionType, MappingConstructorExpressionNode mappingConstructor) {
-        for (Type member : unionType.members) {
-            if (member instanceof RecordType recordType) {
-                updateTypeConfig(recordType, mappingConstructor);
-            }
-        }
-    }
-
-    public static void updateTypeConfig(RecordType recordType, MappingConstructorExpressionNode mappingConstructor) {
-        mappingConstructor.fields().forEach(f -> {
-            if (f instanceof SpecificFieldNode specificFieldNode) {
-                String fieldName = specificFieldNode.fieldName().toSourceCode().trim();
-
-                Type matchingType = null;
-                for (Type field : recordType.fields) {
-                    if (field.name.equals(fieldName)) {
-                        matchingType = field;
-                        break;
-                    }
-                }
-
-                ExpressionNode expr;
-                if (specificFieldNode.valueExpr().isPresent()) {
-                    expr = specificFieldNode.valueExpr().get();
-                    if (expr instanceof MappingConstructorExpressionNode mapping
-                            && matchingType instanceof RecordType rt) {
-                        updateTypeConfig(rt, mapping);
-                    } else if (Objects.nonNull(matchingType)){
-                        matchingType.defaultValue = expr.toSourceCode().trim();
-                    }
-                }
-            }
         });
     }
 }
