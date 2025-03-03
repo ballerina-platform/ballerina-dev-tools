@@ -38,11 +38,19 @@ public class RecordValueGenerator {
         if (hasTypeName) {
             String typeName = json.get("typeName").getAsString();
             switch (typeName) {
-                case "record" -> {
-                    generateRecordValue(json, builder);
-                }
-                case "union" -> {
-                    generateUnionValue(json, builder);
+                case "record" -> generateRecordValue(json, builder);
+                case "union" -> generateUnionValue(json, builder);
+                default -> {
+                    if (json.has("value") && !json.get("value").getAsString().isEmpty()) {
+                        builder.append(json.get("value").getAsString());
+                    } else if (json.has("defaultValue") &&
+                            !json.get("defaultValue").getAsString().isEmpty()) {
+                        builder.append(json.get("defaultValue").getAsString());
+                    } else {
+                        StringBuilder sb = new StringBuilder();
+                        generateDefaultValue(json, sb);
+                        builder.append(sb);
+                    }
                 }
             }
         }
