@@ -69,60 +69,6 @@
       "insertText": "Admission"
     },
     {
-      "label": "function",
-      "labelDetails": {
-        "detail": "Behaviour Values",
-        "description": "Function"
-      },
-      "kind": "TypeParameter",
-      "insertText": "function"
-    },
-    {
-      "label": "future",
-      "labelDetails": {
-        "detail": "Behaviour Values",
-        "description": "Future"
-      },
-      "kind": "TypeParameter",
-      "insertText": "future"
-    },
-    {
-      "label": "typedesc",
-      "labelDetails": {
-        "detail": "Behaviour Values",
-        "description": "Typedesc"
-      },
-      "kind": "TypeParameter",
-      "insertText": "typedesc"
-    },
-    {
-      "label": "handle",
-      "labelDetails": {
-        "detail": "Behaviour Values",
-        "description": "Handle"
-      },
-      "kind": "TypeParameter",
-      "insertText": "handle"
-    },
-    {
-      "label": "stream",
-      "labelDetails": {
-        "detail": "Behaviour Values",
-        "description": "Stream"
-      },
-      "kind": "TypeParameter",
-      "insertText": "stream"
-    },
-    {
-      "label": "error",
-      "labelDetails": {
-        "detail": "Errors",
-        "description": "Error"
-      },
-      "kind": "Event",
-      "insertText": "error"
-    },
-    {
       "label": "json",
       "labelDetails": {
         "detail": "Data Types",
@@ -150,9 +96,18 @@
       "insertText": "anydata"
     },
     {
+      "label": "error",
+      "labelDetails": {
+        "detail": "Error Types",
+        "description": "Error"
+      },
+      "kind": "Event",
+      "insertText": "error"
+    },
+    {
       "label": "any",
       "labelDetails": {
-        "detail": "Built-in Unions",
+        "detail": "Built-in Union Types",
         "description": "Any"
       },
       "kind": "TypeParameter",
@@ -161,11 +116,92 @@
     {
       "label": "readonly",
       "labelDetails": {
-        "detail": "Built-in Unions",
+        "detail": "Built-in Union Types",
         "description": "Readonly"
       },
       "kind": "TypeParameter",
       "insertText": "readonly"
+    },
+    {
+      "label": "function",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Function"
+      },
+      "kind": "TypeParameter",
+      "insertText": "function"
+    },
+    {
+      "label": "future",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Future"
+      },
+      "kind": "TypeParameter",
+      "insertText": "future"
+    },
+    {
+      "label": "typedesc",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Typedesc"
+      },
+      "kind": "TypeParameter",
+      "insertText": "typedesc"
+    },
+    {
+      "label": "handle",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Handle"
+      },
+      "kind": "TypeParameter",
+      "insertText": "handle"
+    },
+    {
+      "label": "stream",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Stream"
+      },
+      "kind": "TypeParameter",
+      "insertText": "stream"
+    },
+    {
+      "label": "byte[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "byte[]"
+    },
+    {
+      "label": "map<json>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<json>"
+    },
+    {
+      "label": "map<string>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<string>"
+    },
+    {
+      "label": "json[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "json[]"
     },
     {
       "label": "string",

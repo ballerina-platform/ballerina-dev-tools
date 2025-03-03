@@ -73,6 +73,12 @@ public class TypesGenerator {
     public static final String TYPE_STREAM = TypeKind.STREAM.typeName();
     public static final String TYPE_TYPEDESC = TypeKind.TYPEDESC.typeName();
 
+    // Predefined structural types
+    public static final String TYPE_BYTE_ARRAY = "byte[]";
+    public static final String TYPE_MAP_JSON = "map<json>";
+    public static final String TYPE_MAP_STRING = "map<string>";
+    public static final String TYPE_JSON_ARRAY = "json[]";
+
     // Other
     public static final String TYPE_ANY = TypeKind.ANY.typeName();
     public static final String TYPE_ANYDATA = TypeKind.ANYDATA.typeName();
@@ -86,10 +92,10 @@ public class TypesGenerator {
             "Primitive Types",
             List.of(TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_DECIMAL, TYPE_BOOLEAN, TYPE_NIL, TYPE_BYTE),
             "Data Types", List.of(TYPE_JSON, TYPE_XML, TYPE_ANYDATA),
-            "Structural Values", List.of("byte[]", "json[]", "map<json>", "map<string>"),
-            "Built-in Unions", List.of(TYPE_ANY, TYPE_READONLY),
-            "Errors", List.of(TYPE_ERROR),
-            "Behaviour Values", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM));
+            "Structural Types", List.of(TYPE_BYTE_ARRAY, TYPE_MAP_JSON, TYPE_MAP_STRING, TYPE_JSON_ARRAY),
+            "Built-in Union Types", List.of(TYPE_ANY, TYPE_READONLY),
+            "Error Types", List.of(TYPE_ERROR),
+            "Behaviour Types", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM));
 
     private TypesGenerator() {
         this.typeSymbolMap = new LinkedHashMap<>();
@@ -167,14 +173,16 @@ public class TypesGenerator {
         typeSymbolMap.put(TYPE_STREAM, types.STREAM);
         typeSymbolMap.put(TYPE_READONLY, types.READONLY);
         typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
+        typeSymbolMap.put(TYPE_MAP_JSON, types.builder().MAP_TYPE.withTypeParam(types.JSON).build());
+        typeSymbolMap.put(TYPE_MAP_STRING, types.builder().MAP_TYPE.withTypeParam(types.STRING).build());
+        typeSymbolMap.put(TYPE_JSON_ARRAY, types.builder().ARRAY_TYPE.withType(types.JSON).build());
+        typeSymbolMap.put(TYPE_BYTE_ARRAY, types.builder().ARRAY_TYPE.withType(types.BYTE).build());
 
-        // Build the completion items for the builtin types
+        // Build the completion items for the builtin types.eq
         categoryMap.forEach((category, typeNames) -> {
             typeNames.forEach(typeName -> {
                 TypeSymbol symbol = typeSymbolMap.get(typeName);
-                if (symbol != null) {
-                    completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
-                }
+                completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
             });
         });
 
