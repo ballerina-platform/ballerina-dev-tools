@@ -268,7 +268,7 @@ class CodeAnalyzer extends NodeVisitor {
         String functionName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expressionNode = remoteMethodCallActionNode.expression();
         MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
-        if (isAgentCall(symbol.get())) {
+        if (isAgentCall(classSymbol.get())) {
             startNode(NodeKind.AGENT_CALL, expressionNode.parent());
         } else {
             startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
@@ -296,7 +296,7 @@ class CodeAnalyzer extends NodeVisitor {
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
                 functionData);
 
-        if (isAgentCall(symbol.get())) {
+        if (isAgentCall(classSymbol.get())) {
             SeparatedNodeList<FunctionArgumentNode> arguments = remoteMethodCallActionNode.arguments();
             String modelUrl = getModelIconUrl(arguments.get(0));
             List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
@@ -1289,7 +1289,7 @@ class CodeAnalyzer extends NodeVisitor {
             return false;
         }
         ModuleID id = optModule.get().id();
-        boolean isAIModule = id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
+        boolean isAIModule = id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT);
         if (!isAIModule) {
             return false;
         }
