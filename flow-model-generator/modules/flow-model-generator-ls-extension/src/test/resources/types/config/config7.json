@@ -72,7 +72,7 @@
     {
       "label": "string",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "String"
       },
       "kind": "TypeParameter",
@@ -81,7 +81,7 @@
     {
       "label": "boolean",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "Boolean"
       },
       "kind": "TypeParameter",
@@ -90,16 +90,25 @@
     {
       "label": "int",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "Int"
       },
       "kind": "TypeParameter",
       "insertText": "int"
     },
     {
+      "label": "null",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Nil"
+      },
+      "kind": "TypeParameter",
+      "insertText": "null"
+    },
+    {
       "label": "float",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "Float"
       },
       "kind": "TypeParameter",
@@ -108,7 +117,7 @@
     {
       "label": "decimal",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "Decimal"
       },
       "kind": "TypeParameter",
@@ -117,7 +126,7 @@
     {
       "label": "xml",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Data Types",
         "description": "Xml"
       },
       "kind": "TypeParameter",
@@ -126,7 +135,7 @@
     {
       "label": "byte",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "Byte"
       },
       "kind": "TypeParameter",
@@ -135,7 +144,7 @@
     {
       "label": "json",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Data Types",
         "description": "Json"
       },
       "kind": "TypeParameter",
@@ -144,7 +153,7 @@
     {
       "label": "any",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Built-in Unions",
         "description": "Any"
       },
       "kind": "TypeParameter",
@@ -153,7 +162,7 @@
     {
       "label": "anydata",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Data Types",
         "description": "Anydata"
       },
       "kind": "TypeParameter",
@@ -162,7 +171,7 @@
     {
       "label": "function",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Behaviour Values",
         "description": "Function"
       },
       "kind": "TypeParameter",
@@ -171,7 +180,7 @@
     {
       "label": "future",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Behaviour Values",
         "description": "Future"
       },
       "kind": "TypeParameter",
@@ -180,7 +189,7 @@
     {
       "label": "typedesc",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Behaviour Values",
         "description": "Typedesc"
       },
       "kind": "TypeParameter",
@@ -189,7 +198,7 @@
     {
       "label": "handle",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Behaviour Values",
         "description": "Handle"
       },
       "kind": "TypeParameter",
@@ -198,20 +207,12 @@
     {
       "label": "stream",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Behaviour Values",
         "description": "Stream"
       },
       "kind": "TypeParameter",
       "insertText": "stream"
     },
-    {
-      "label": "record",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "record"
-    }
+    null
   ]
 }

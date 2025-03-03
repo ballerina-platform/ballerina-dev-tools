@@ -69,14 +69,6 @@
       "kind": "Struct",
       "insertText": "Admission"
     },
-    {
-      "label": "record",
-      "labelDetails": {
-        "detail": "Primitive",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "record"
-    }
+    null
   ]
 }

@@ -51,14 +51,15 @@ public class TypesGenerator {
 
     private static final String PRIMITIVE_TYPE = "Primitive";
     private static final String USER_DEFINED_TYPE = "User-Defined";
-    private static final List<SymbolKind> TYPE_SYMBOL_KINDS =
-            List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS, SymbolKind.ENUM);
+    private static final List<SymbolKind> TYPE_SYMBOL_KINDS = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS,
+            SymbolKind.ENUM);
 
     // Basic simple types
     public static final String TYPE_BOOLEAN = TypeKind.BOOLEAN.typeName();
     public static final String TYPE_DECIMAL = TypeKind.DECIMAL.typeName();
     public static final String TYPE_FLOAT = TypeKind.FLOAT.typeName();
     public static final String TYPE_INT = TypeKind.INT.typeName();
+    public static final String TYPE_NIL = TypeKind.NIL.typeName();
 
     // Basic sequence types
     public static final String TYPE_STRING = TypeKind.STRING.typeName();
@@ -79,6 +80,16 @@ public class TypesGenerator {
     public static final String TYPE_JSON = TypeKind.JSON.typeName();
     public static final String TYPE_READONLY = TypeKind.READONLY.typeName();
     public static final String TYPE_RECORD = TypeKind.RECORD.typeName();
+
+    // Categories
+    private static final Map<String, List<String>> categoryMap = Map.of(
+            "Primitive Types",
+            List.of(TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_DECIMAL, TYPE_BOOLEAN, TYPE_NIL, TYPE_BYTE),
+            "Data Types", List.of(TYPE_JSON, TYPE_XML, TYPE_ANYDATA),
+            "Structural Values", List.of("byte[]", "json[]", "map<json>", "map<string>"),
+            "Built-in Unions", List.of(TYPE_ANY, TYPE_READONLY),
+            "Errors", List.of(TYPE_ERROR),
+            "Behaviour Values", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM));
 
     private TypesGenerator() {
         this.typeSymbolMap = new LinkedHashMap<>();
@@ -140,6 +151,7 @@ public class TypesGenerator {
         typeSymbolMap.put(TYPE_STRING, types.STRING);
         typeSymbolMap.put(TYPE_BOOLEAN, types.BOOLEAN);
         typeSymbolMap.put(TYPE_INT, types.INT);
+        typeSymbolMap.put(TYPE_NIL, types.NIL);
         typeSymbolMap.put(TYPE_FLOAT, types.FLOAT);
         typeSymbolMap.put(TYPE_DECIMAL, types.DECIMAL);
         typeSymbolMap.put(TYPE_XML, types.XML);
@@ -157,8 +169,14 @@ public class TypesGenerator {
         typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
 
         // Build the completion items for the builtin types
-        typeSymbolMap.forEach((name, symbol) -> completionItemMap.put(symbol,
-                TypeCompletionItemBuilder.build(symbol, name, PRIMITIVE_TYPE)));
+        categoryMap.forEach((category, typeNames) -> {
+            typeNames.forEach(typeName -> {
+                TypeSymbol symbol = typeSymbolMap.get(typeName);
+                if (symbol != null) {
+                    completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
+                }
+            });
+        });
 
         // Build the subtype items for the builtin types
         typeSymbolMap.forEach((name, symbol) -> {
