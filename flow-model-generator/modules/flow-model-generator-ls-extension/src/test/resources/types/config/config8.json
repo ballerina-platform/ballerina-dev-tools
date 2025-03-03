@@ -6,7 +6,7 @@
     {
       "label": "string",
       "labelDetails": {
-        "detail": "Primitive",
+        "detail": "Primitive Types",
         "description": "String"
       },
       "kind": "TypeParameter",
