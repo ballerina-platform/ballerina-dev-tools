@@ -6,7 +6,7 @@
     "version": "2.13.2"
   },
   "typeConstraint": "ClientAuthConfig",
-  "expr": "{tokenUrl: \"\", username: \"\", password: \"\"}",
+  "expr": "{tokenUrl: \"http://localhost:9090/token\", clientId: \"my-client-id\", clientSecret: \"secret\"}",
   "output": {
     "members": [
       {
@@ -432,8 +432,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "",
-            "selected": false
+            "value": "\"http://localhost:9090/token\"",
+            "selected": true
           },
           {
             "name": "clientId",
@@ -441,8 +441,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "",
-            "selected": false
+            "value": "\"my-client-id\"",
+            "selected": true
           },
           {
             "name": "clientSecret",
@@ -450,8 +450,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "",
-            "selected": false
+            "value": "\"secret\"",
+            "selected": true
           },
           {
             "members": [
@@ -482,7 +482,6 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
-            "value": "",
             "selected": false
           },
           {
@@ -491,7 +490,6 @@
             "optional": false,
             "defaultable": true,
             "isRestType": false,
-            "value": "",
             "selected": false
           },
           {
@@ -500,7 +498,6 @@
             "optional": false,
             "defaultable": true,
             "isRestType": false,
-            "value": "",
             "selected": false
           },
           {
@@ -516,7 +513,6 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
-            "value": "",
             "selected": false
           },
           {
@@ -547,7 +543,6 @@
             },
             "defaultable": true,
             "isRestType": false,
-            "value": "",
             "selected": false
           },
           {
@@ -1394,7 +1389,6 @@
             },
             "defaultable": true,
             "isRestType": false,
-            "value": "",
             "selected": false
           }
         ],
@@ -1410,8 +1404,7 @@
         },
         "defaultable": false,
         "isRestType": false,
-        "value": "",
-        "selected": false
+        "selected": true
       },
       {
         "fields": [
@@ -1421,8 +1414,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "\"\"",
-            "selected": true
+            "value": "",
+            "selected": false
           },
           {
             "name": "username",
@@ -1430,8 +1423,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "\"\"",
-            "selected": true
+            "value": "",
+            "selected": false
           },
           {
             "name": "password",
@@ -1439,8 +1432,8 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false,
-            "value": "\"\"",
-            "selected": true
+            "value": "",
+            "selected": false
           },
           {
             "name": "clientId",
@@ -1448,6 +1441,7 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1456,6 +1450,7 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1487,6 +1482,7 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1618,6 +1614,7 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1626,6 +1623,7 @@
             "optional": false,
             "defaultable": true,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1634,6 +1632,7 @@
             "optional": false,
             "defaultable": true,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1649,6 +1648,7 @@
             "optional": true,
             "defaultable": false,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -1679,6 +1679,7 @@
             },
             "defaultable": true,
             "isRestType": false,
+            "value": "",
             "selected": false
           },
           {
@@ -2525,6 +2526,7 @@
             },
             "defaultable": true,
             "isRestType": false,
+            "value": "",
             "selected": false
           }
         ],
@@ -2540,7 +2542,8 @@
         },
         "defaultable": false,
         "isRestType": false,
-        "selected": true
+        "value": "",
+        "selected": false
       },
       {
         "fields": [

@@ -14,49 +14,56 @@
         "typeName": "decimal",
         "optional": false,
         "defaultable": true,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "receiveBufferSize",
         "typeName": "int",
         "optional": false,
         "defaultable": true,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "sendBufferSize",
         "typeName": "int",
         "optional": false,
         "defaultable": true,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "tcpNoDelay",
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "socketReuse",
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
-        "isRestType": false
+        "isRestType": false,
+        "selected": false
       },
       {
         "name": "keepAlive",
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
-        "defaultValue": "true",
-        "isRestType": false
+        "isRestType": false,
+        "value": "true",
+        "selected": true
       }
     ],
     "hasRestType": false,
     "typeName": "record",
     "optional": false,
     "defaultable": false,
-    "isRestType": false
+    "isRestType": false,
+    "selected": true
   }
 }
