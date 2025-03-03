@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
+import com.google.gson.JsonElement;
 
 /**
  * A request to generate the mapping constructor for a record type.
@@ -27,5 +27,5 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
  * @param type           type of the record
  * @since 2.0.0
  */
-public record RecordValueGenerateRequest(String filePath, Type type) {
+public record RecordValueGenerateRequest(String filePath, JsonElement type) {
 }
