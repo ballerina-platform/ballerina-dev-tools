@@ -406,8 +406,9 @@ class IndexGenerator {
             if (recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue()) {
                 optional = 1;
             }
-            int paramId = DatabaseManager.insertFunctionParameter(functionId, paramName, documentationMap.get(paramName),
-                    paramType, defaultValue, FunctionParameterKind.INCLUDED_FIELD, optional,
+            int paramId = DatabaseManager.insertFunctionParameter(functionId, paramName,
+                    documentationMap.get(paramName), paramType, defaultValue,
+                    FunctionParameterKind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, defaultModuleInfo).orElse(null));
             insertParameterMemberTypes(paramId, typeSymbol, semanticModel);
         }
