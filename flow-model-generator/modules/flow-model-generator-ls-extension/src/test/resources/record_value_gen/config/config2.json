@@ -1,0 +1,118 @@
+{
+  "filePath": "proj",
+  "type": {
+    "fields": [
+      {
+        "name": "employeeId",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      },
+      {
+        "name": "department",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      },
+      {
+        "name": "salary",
+        "typeName": "decimal",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      },
+      {
+        "name": "street",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      },
+      {
+        "name": "city",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      },
+      {
+        "name": "country",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "",
+        "selected": false
+      }
+    ],
+    "hasRestType": true,
+    "restType": {
+      "fields": [
+        {
+          "name": "timestamp",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "action",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "userId",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "description",
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        }
+      ],
+      "hasRestType": false,
+      "name": "EmployeeLog",
+      "typeName": "record",
+      "optional": false,
+      "typeInfo": {
+        "name": "EmployeeLog",
+        "orgName": "org",
+        "moduleName": "source",
+        "version": "0.3.0"
+      },
+      "defaultable": false,
+      "isRestType": false,
+      "selected": false
+    },
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false,
+    "value": "",
+    "selected": false
+  },
+  "output": ""
+}
