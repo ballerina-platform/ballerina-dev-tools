@@ -32,12 +32,15 @@ import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.type.RecordValueAnalyzer;
+import io.ballerina.flowmodelgenerator.core.type.RecordValueGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
+import io.ballerina.flowmodelgenerator.extension.request.RecordValueGenerateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.UpdatedRecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.response.RecordConfigResponse;
+import io.ballerina.flowmodelgenerator.extension.response.RecordValueGenerateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
@@ -262,6 +265,19 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                     throw new IllegalArgumentException("Invalid expression");
                 }
                 response.setRecordConfig(type);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordValueGenerateResponse response = new RecordValueGenerateResponse();
+            try {
+                response.setRecordValue(RecordValueGenerator.generate(request.type()));
             } catch (Throwable e) {
                 response.setError(e);
             }
