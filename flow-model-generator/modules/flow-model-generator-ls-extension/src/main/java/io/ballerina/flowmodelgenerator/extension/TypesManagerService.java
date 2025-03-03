@@ -19,7 +19,12 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -48,7 +53,16 @@ import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
+import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.EnumType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.ErrorType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.InclusionType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.IntersectionType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.MapType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.ObjectType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.StreamType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.TableType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.UnionType;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -277,7 +291,7 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             RecordValueGenerateResponse response = new RecordValueGenerateResponse();
             try {
-                response.setRecordValue(RecordValueGenerator.generate(request.type()));
+                response.setRecordValue(RecordValueGenerator.generate(request.type().getAsJsonObject()));
             } catch (Throwable e) {
                 response.setError(e);
             }
