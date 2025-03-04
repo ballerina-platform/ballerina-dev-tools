@@ -153,7 +153,7 @@
     {
       "label": "any",
       "labelDetails": {
-        "detail": "Built-in Union Types",
+        "detail": "Other Types",
         "description": "Any"
       },
       "kind": "TypeParameter",

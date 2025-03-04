@@ -49,7 +49,6 @@ public class TypesGenerator {
     private final Map<TypeSymbol, CompletionItem> completionItemMap;
     private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
 
-    private static final String PRIMITIVE_TYPE = "Primitive";
     private static final String USER_DEFINED_TYPE = "User-Defined";
     private static final List<SymbolKind> TYPE_SYMBOL_KINDS = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS,
             SymbolKind.ENUM);
@@ -93,9 +92,9 @@ public class TypesGenerator {
             List.of(TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_DECIMAL, TYPE_BOOLEAN, TYPE_NIL, TYPE_BYTE),
             "Data Types", List.of(TYPE_JSON, TYPE_XML, TYPE_ANYDATA),
             "Structural Types", List.of(TYPE_BYTE_ARRAY, TYPE_MAP_JSON, TYPE_MAP_STRING, TYPE_JSON_ARRAY),
-            "Built-in Union Types", List.of(TYPE_ANY, TYPE_READONLY),
             "Error Types", List.of(TYPE_ERROR),
-            "Behaviour Types", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM));
+            "Behaviour Types", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM),
+            "Other Types", List.of(TYPE_ANY, TYPE_READONLY));
 
     private TypesGenerator() {
         this.typeSymbolMap = new LinkedHashMap<>();
