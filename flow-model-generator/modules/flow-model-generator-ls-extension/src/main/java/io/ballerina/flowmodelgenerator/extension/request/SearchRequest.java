@@ -28,9 +28,9 @@ import java.util.Map;
  * @param searchKind the kind of search to perform (corresponds to SearchCommand.Kind)
  * @param filePath the path of the file (may be null for certain search kinds)
  * @param position the line range of the current position (may be null for certain search kinds)
- * @param query the map containing query parameters
+ * @param queryMap the map containing queryMap parameters
  * @since 2.0.0
  */
-public record SearchRequest(String searchKind, String filePath, LineRange position, Map<String, String> query) {
+public record SearchRequest(String searchKind, String filePath, LineRange position, Map<String, String> queryMap) {
 
 }
