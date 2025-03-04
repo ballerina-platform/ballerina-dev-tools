@@ -19,13 +19,23 @@
 package io.ballerina.servicemodelgenerator.extension.util;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NewExpressionNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeFactory;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.ParameterData;
@@ -39,13 +49,11 @@ import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
-import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -54,6 +62,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.removeLeadingSingleQuote;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.upperCaseFirstLetter;
 
 /**
  * Util class for Listener related operations.
@@ -140,51 +151,11 @@ public class ListenerUtil {
         return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
     }
 
-    public static void updateDefaultListenerDetails(Listener listenerModel, ListenerDeclarationNode listenerNode) {
-        Map<String, Value> properties = new LinkedHashMap<>();
-        Value nameProperty = listenerModel.getProperty("name");
-        if (Objects.nonNull(nameProperty)) {
-            nameProperty.setValue(listenerNode.variableName().text().trim());
-            properties.put("name", nameProperty);
-        }
-        properties.put("defaultListener", ListenerUtil.getHttpDefaultListenerValue());
-        listenerModel.setProperties(properties);
-    }
-
-    public static void addCodedataForListenerName(Value value, ListenerDeclarationNode listenerNode) {
-        value.setCodedata(new Codedata(listenerNode.variableName().lineRange()));
-        value.setEditable(false);
-    }
-
-    public static Value getHttpDefaultListenerValue() {
-        Value value = new Value();
-        value.setMetadata(new MetaData("HTTP Default Listener",
-                "The default HTTP listener"));
-        value.setEnabled(true);
-        value.setEditable(false);
-        value.setAdvanced(false);
-        value.setOptional(false);
-        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
-        value.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR);
-        return value;
-    }
-
-    public static Optional<Listener> getListenerByName(ListenerModelRequest request) {
-        ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
-        Optional<FunctionData> optFunctionResult = dbManager.getListener(request.moduleName());
-        if (optFunctionResult.isEmpty()) {
-            return Optional.empty();
-        }
-        FunctionData functionData = optFunctionResult.get();
-        LinkedHashMap<String, ParameterData> parameters = dbManager
-                .getFunctionParametersAsMap(functionData.functionId());
-        functionData.setParameters(parameters);
-
+    public static Listener getListenerModelWithoutParamProps(FunctionData functionData) {
         Map<String, Value> properties = new LinkedHashMap<>();
         String formattedModuleName = upperCaseFirstLetter(functionData.packageName());
         String icon = CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
                 functionData.version());
-
         Listener.ListenerBuilder listenerBuilder = new Listener.ListenerBuilder();
         listenerBuilder
                 .setId(functionData.packageId())
@@ -202,15 +173,54 @@ public class ListenerUtil {
                 .setProperties(properties);
 
         properties.put("name", nameProperty());
-        setParameterProperties(functionData, properties);
-        return Optional.of(listenerBuilder.build());
+        return listenerBuilder.build();
     }
 
-    public static String upperCaseFirstLetter(String value) {
-        return value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1).toLowerCase(Locale.ROOT);
+    public static Optional<Listener> getListenerModelByName(String moduleName) {
+        ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
+        Optional<FunctionData> optFunctionResult = dbManager.getListener(moduleName);
+        if (optFunctionResult.isEmpty()) {
+            return Optional.empty();
+        }
+        FunctionData functionData = optFunctionResult.get();
+        LinkedHashMap<String, ParameterData> parameters = dbManager
+                .getFunctionParametersAsMap(functionData.functionId());
+        functionData.setParameters(parameters);
+
+        Listener listener = getListenerModelWithoutParamProps(functionData);
+        setParameterProperties(functionData, listener.getProperties());
+        return Optional.of(listener);
     }
 
-    protected static void setParameterProperties(FunctionData function, Map<String, Value> properties) {
+    public static Optional<Listener> getDefaultListenerModel() {
+        ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
+        Optional<FunctionData> optFunctionResult = dbManager.getListener("http");
+        if (optFunctionResult.isEmpty()) {
+            return Optional.empty();
+        }
+        FunctionData functionData = optFunctionResult.get();
+        LinkedHashMap<String, ParameterData> parameters = dbManager
+                .getFunctionParametersAsMap(functionData.functionId());
+        functionData.setParameters(parameters);
+        Listener listener = getListenerModelWithoutParamProps(functionData);
+        listener.getProperties().put("defaultListener", getHttpDefaultListenerValue());
+        return Optional.of(listener);
+    }
+
+    private static Value getHttpDefaultListenerValue() {
+        Value value = new Value();
+        value.setMetadata(new MetaData("HTTP Default Listener",
+                "The default HTTP listener"));
+        value.setEnabled(true);
+        value.setEditable(false);
+        value.setAdvanced(false);
+        value.setOptional(false);
+        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
+        value.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR);
+        return value;
+    }
+
+    private static void setParameterProperties(FunctionData function, Map<String, Value> properties) {
         for (ParameterData paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
@@ -240,11 +250,55 @@ public class ListenerUtil {
         }
     }
 
-    public static String removeLeadingSingleQuote(String input) {
-        if (input != null && input.startsWith("'")) {
-            return input.substring(1);
+    public static Optional<Listener> getListenerFromSource(ListenerDeclarationNode listenerDeclarationNode,
+                                                           SemanticModel semanticModel) {
+        Optional<Symbol> symbol = semanticModel.symbol(listenerDeclarationNode.typeDescriptor().get());
+        if (symbol.isEmpty() || !(symbol.get() instanceof TypeSymbol typeSymbol) || typeSymbol.getModule().isEmpty()) {
+            return Optional.empty();
         }
-        return input;
+
+        String moduleName = typeSymbol.getModule().get().id().moduleName();
+        ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
+        Optional<FunctionData> optFunctionResult = dbManager.getListener(moduleName);
+        if (optFunctionResult.isEmpty()) {
+            return Optional.empty();
+        }
+        FunctionData functionData = optFunctionResult.get();
+        LinkedHashMap<String, ParameterData> parameters = dbManager
+                .getFunctionParametersAsMap(functionData.functionId());
+        functionData.setParameters(parameters);
+
+        Listener listener = getListenerModelWithoutParamProps(functionData);
+
+        Node initializer = listenerDeclarationNode.initializer();
+        if (initializer instanceof NewExpressionNode newExpressionNode) {
+            TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
+            if (rawType instanceof ClassSymbol classSymbol) {
+                SeparatedNodeList<FunctionArgumentNode> arguments = getArgList(newExpressionNode);
+                if (classSymbol.initMethod().isEmpty()) {
+                    return Optional.of(listener);
+                }
+                ListenerDeclAnalyzer analyzer = new ListenerDeclAnalyzer(listener.getProperties());
+                analyzer.analyze(arguments, classSymbol.initMethod().get(), functionData);
+            }
+        }
+        return Optional.of(listener);
+    }
+
+    private static SeparatedNodeList<FunctionArgumentNode> getArgList(NewExpressionNode newExpressionNode) {
+        if (newExpressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+            return explicitNewExpressionNode.parenthesizedArgList().arguments();
+        } else {
+            Optional<ParenthesizedArgList> parenthesizedArgList = ((ImplicitNewExpressionNode) newExpressionNode)
+                    .parenthesizedArgList();
+            return parenthesizedArgList.isPresent() ? parenthesizedArgList.get().arguments() :
+                    NodeFactory.createSeparatedNodeList();
+        }
+    }
+
+    public static boolean isHttpDefaultListener(ListenerDeclarationNode listenerNode) {
+        return listenerNode.initializer().toSourceCode().trim().contains(ServiceModelGeneratorConstants
+                .HTTP_DEFAULT_LISTENER_EXPR);
     }
 
     public static Value nameProperty() {

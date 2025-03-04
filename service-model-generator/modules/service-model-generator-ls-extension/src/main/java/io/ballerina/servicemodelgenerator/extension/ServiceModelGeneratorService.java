@@ -24,7 +24,6 @@ import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
@@ -46,17 +45,13 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
-import io.ballerina.modelgenerator.commons.FunctionData;
-import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
@@ -132,7 +127,6 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getService
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateListenerModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
 
@@ -209,7 +203,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ListenerModelResponse> getListenerModel(ListenerModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return ListenerUtil.getListenerByName(request)
+                return ListenerUtil.getListenerModelByName(request.moduleName())
                         .map(ListenerModelResponse::new)
                         .orElseGet(ListenerModelResponse::new);
             } catch (Throwable e) {
@@ -620,26 +614,20 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new ListenerFromSourceResponse();
                 }
                 ListenerDeclarationNode listenerNode = (ListenerDeclarationNode) node;
-                Optional<String> listenerName = getListenerName(listenerNode, semanticModel);
-                if (listenerName.isEmpty()) {
-                    return new ListenerFromSourceResponse();
-                }
-                Optional<Listener> listener = ListenerUtil.getListenerByName(new
-                        ListenerModelRequest("", "", ""));
-                if (listener.isEmpty()) {
-                    return new ListenerFromSourceResponse();
-                }
-                Listener listenerModel = listener.get();
-                if (listenerNode.initializer().toSourceCode().trim().contains(
-                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR)) {
-                    ListenerUtil.updateDefaultListenerDetails(listenerModel, listenerNode);
+                Optional<Listener> listenerModelOp;
+                if (ListenerUtil.isHttpDefaultListener(listenerNode)) {
+                    listenerModelOp = ListenerUtil.getDefaultListenerModel();
                 } else {
-                    updateListenerModel(listenerModel, listenerNode);
+                    listenerModelOp = ListenerUtil.getListenerFromSource(listenerNode, semanticModel);
                 }
+                if (listenerModelOp.isEmpty()) {
+                    return new ListenerFromSourceResponse();
+                }
+                Listener listenerModel = listenerModelOp.get();
                 Value nameProperty = listenerModel.getProperty("name");
-                if (Objects.nonNull(nameProperty)) {
-                    ListenerUtil.addCodedataForListenerName(nameProperty, listenerNode);
-                }
+                nameProperty.setValue(listenerNode.variableName().text().trim());
+                nameProperty.setCodedata(new Codedata(listenerNode.variableName().lineRange()));
+                nameProperty.setEditable(false);
                 return new ListenerFromSourceResponse(listenerModel);
             } catch (Exception e) {
                 return new ListenerFromSourceResponse(e);
@@ -1111,25 +1099,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
         }
         return module.isEmpty() ? Optional.empty() : module.get().getName();
-    }
-
-    public static Optional<String> getListenerName(ListenerDeclarationNode listenerDeclarationNode,
-                                                   SemanticModel semanticModel) {
-        Optional<TypeDescriptorNode> typeDescriptorNode = listenerDeclarationNode.typeDescriptor();
-        if (typeDescriptorNode.isEmpty() ||
-                !typeDescriptorNode.get().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
-            return Optional.empty();
-        }
-        Optional<Symbol> listenerTypeSymbol = semanticModel.symbol(typeDescriptorNode.get());
-        if (listenerTypeSymbol.isEmpty() ||
-                !(listenerTypeSymbol.get() instanceof TypeReferenceTypeSymbol listenerType)) {
-            return Optional.empty();
-        }
-        Optional<ModuleSymbol> module = listenerType.typeDescriptor().getModule();
-        if (module.isEmpty()) {
-            return Optional.empty();
-        }
-        return module.get().getName();
     }
 
     private Optional<TriggerBasicInfo> getTriggerBasicInfoByName(String name) {

@@ -772,15 +772,6 @@ public final class Utils {
         return parameterModel;
     }
 
-    public static void updateListenerModel(Listener listener, ListenerDeclarationNode listenerNode) {
-        Optional<Listener> commonListener = getListenerModel(listenerNode);
-        commonListener.ifPresent(listenerModel -> {
-                listenerModel.getProperties().forEach((key, value) ->
-                        updateValue(listener.getProperty(key), value));
-                listener.setCodedata(new Codedata(listenerNode.lineRange()));
-        });
-    }
-
     public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
                                                   ServiceDeclarationNode serviceDeclaration,
                                                   SemanticModel semanticModel) {
@@ -1282,40 +1273,6 @@ public final class Utils {
         return request.id() == null && request.organization() != null && request.packageName() != null;
     }
 
-    public static Optional<Listener> getListenerModel(ListenerDeclarationNode listenerDeclarationNode) {
-        Optional<TypeDescriptorNode> typeDescriptorNode = listenerDeclarationNode.typeDescriptor();
-        if (typeDescriptorNode.isEmpty() ||
-                !typeDescriptorNode.get().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
-            return Optional.empty();
-        }
-        String listenerProtocol = ((QualifiedNameReferenceNode) typeDescriptorNode.get()).modulePrefix().text().trim();
-        Node initializer = listenerDeclarationNode.initializer();
-        if (!initializer.kind().equals(SyntaxKind.IMPLICIT_NEW_EXPRESSION)) {
-            return Optional.empty();
-        }
-        ImplicitNewExpressionNode newExpressionNode = (ImplicitNewExpressionNode) initializer;
-        Map<String, Value> properties = new HashMap<>();
-        newExpressionNode.parenthesizedArgList().ifPresent(argList ->
-                argList.arguments().forEach(arg -> {
-                    if (arg instanceof NamedArgumentNode namedArgumentNode) {
-                        Value value = new Value();
-                        value.setValue(namedArgumentNode.expression().toString().trim());
-                        value.setEnabled(true);
-                        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
-                        properties.put(namedArgumentNode.argumentName().name().text().trim(), value);
-                    }
-                })
-        );
-        Value nameValue = new Value();
-        nameValue.setEnabled(true);
-        nameValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        nameValue.setValue(listenerDeclarationNode.variableName().text().trim());
-        properties.put(ServiceModelGeneratorConstants.PROPERTY_NAME, nameValue);
-        Codedata codedata = new Codedata(listenerDeclarationNode.lineRange());
-        return Optional.of(new Listener(null, null, null, null, null, null, null, null, null, null, listenerProtocol,
-                null, properties, codedata));
-    }
-
     /**
      * Generates the URI for the given source path.
      *
@@ -1360,4 +1317,16 @@ public final class Utils {
                 .collect(Collectors.toSet());
         return NameUtil.generateTypeName(prefix, names);
     }
+
+    public static String upperCaseFirstLetter(String value) {
+        return value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1).toLowerCase(Locale.ROOT);
+    }
+
+    public static String removeLeadingSingleQuote(String input) {
+        if (input != null && input.startsWith("'")) {
+            return input.substring(1);
+        }
+        return input;
+    }
+
 }
