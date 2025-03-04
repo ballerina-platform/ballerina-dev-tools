@@ -21,10 +21,7 @@ package io.ballerina.servicemodelgenerator.extension;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
-import io.ballerina.servicemodelgenerator.extension.model.Function;
-import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
-import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -88,6 +85,7 @@ public class GetListenerModelTest extends AbstractLSTest {
      * @param orgName   organization name
      * @param pkgName   package name
      * @param moduleName module name
+     * @param response  expected response
      * @since 2.0.0
      */
     private record TestConfig(String description,  String orgName, String pkgName, String moduleName,

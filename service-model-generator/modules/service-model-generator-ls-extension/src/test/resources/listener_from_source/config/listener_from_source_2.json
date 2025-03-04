@@ -357,6 +357,22 @@
           },
           "addNewButton": false
         }
+      },
+      "codedata": {
+        "lineRange": {
+          "fileName": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/service-model-generator/modules/service-model-generator-ls-extension/src/test/resources/listener_from_source/source/sample1/main.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 45
+          }
+        },
+        "inListenerInit": false,
+        "isBasePath": false,
+        "inDisplayAnnotation": false
       }
     }
   }
