@@ -21,16 +21,82 @@
       "listenerProtocol": "http",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
       "properties": {
-        "server": {
+        "port": {
           "metadata": {
-            "label": "server",
+            "label": "port",
+            "description": "Listening port of the HTTP service listener"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "originalName": "port"
+          },
+          "addNewButton": false
+        },
+        "host": {
+          "metadata": {
+            "label": "host",
             "description": ""
           },
           "enabled": false,
           "editable": true,
           "value": "",
           "valueType": "EXPRESSION",
-          "valueTypeConstraint": "string|()",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"0.0.0.0\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "originalName": "host"
+          },
+          "addNewButton": false
+        },
+        "http1Settings": {
+          "metadata": {
+            "label": "http1Settings",
+            "description": ""
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ListenerHttp1Settings",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "originalName": "http1Settings"
+          },
+          "addNewButton": false
+        },
+        "secureSocket": {
+          "metadata": {
+            "label": "secureSocket",
+            "description": ""
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ListenerSecureSocket|()",
           "isType": false,
           "placeholder": "()",
           "optional": true,
@@ -39,29 +105,29 @@
             "inListenerInit": false,
             "isBasePath": false,
             "inDisplayAnnotation": false,
-            "originalName": "server"
+            "originalName": "secureSocket"
           },
           "addNewButton": false
         },
-        "gracefulStopTimeout": {
+        "httpVersion": {
           "metadata": {
-            "label": "gracefulStopTimeout",
+            "label": "httpVersion",
             "description": ""
           },
           "enabled": false,
           "editable": true,
           "value": "",
           "valueType": "EXPRESSION",
-          "valueTypeConstraint": "decimal",
+          "valueTypeConstraint": "http:HttpVersion",
           "isType": false,
-          "placeholder": "http:DEFAULT_GRACEFULSTOP_TIMEOUT",
+          "placeholder": "http:HTTP_2_0",
           "optional": true,
           "advanced": true,
           "codedata": {
             "inListenerInit": false,
             "isBasePath": false,
             "inDisplayAnnotation": false,
-            "originalName": "gracefulStopTimeout"
+            "originalName": "httpVersion"
           },
           "addNewButton": false
         },
@@ -87,6 +153,28 @@
           },
           "addNewButton": false
         },
+        "server": {
+          "metadata": {
+            "label": "server",
+            "description": ""
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string|()",
+          "isType": false,
+          "placeholder": "()",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "originalName": "server"
+          },
+          "addNewButton": false
+        },
         "requestLimits": {
           "metadata": {
             "label": "requestLimits",
@@ -106,6 +194,28 @@
             "isBasePath": false,
             "inDisplayAnnotation": false,
             "originalName": "requestLimits"
+          },
+          "addNewButton": false
+        },
+        "gracefulStopTimeout": {
+          "metadata": {
+            "label": "gracefulStopTimeout",
+            "description": ""
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "http:DEFAULT_GRACEFULSTOP_TIMEOUT",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "originalName": "gracefulStopTimeout"
           },
           "addNewButton": false
         },
@@ -153,28 +263,6 @@
           },
           "addNewButton": false
         },
-        "httpVersion": {
-          "metadata": {
-            "label": "httpVersion",
-            "description": ""
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "http:HttpVersion",
-          "isType": false,
-          "placeholder": "http:HTTP_2_0",
-          "optional": true,
-          "advanced": true,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "originalName": "httpVersion"
-          },
-          "addNewButton": false
-        },
         "minIdleTimeInStaleState": {
           "metadata": {
             "label": "minIdleTimeInStaleState",
@@ -197,72 +285,6 @@
           },
           "addNewButton": false
         },
-        "port": {
-          "metadata": {
-            "label": "port",
-            "description": "Listening port of the HTTP service listener"
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "int",
-          "isType": false,
-          "placeholder": "0",
-          "optional": false,
-          "advanced": false,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "originalName": "port"
-          },
-          "addNewButton": false
-        },
-        "secureSocket": {
-          "metadata": {
-            "label": "secureSocket",
-            "description": ""
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "http:ListenerSecureSocket|()",
-          "isType": false,
-          "placeholder": "()",
-          "optional": true,
-          "advanced": true,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "originalName": "secureSocket"
-          },
-          "addNewButton": false
-        },
-        "host": {
-          "metadata": {
-            "label": "host",
-            "description": ""
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "string",
-          "isType": false,
-          "placeholder": "\"0.0.0.0\"",
-          "optional": true,
-          "advanced": true,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "originalName": "host"
-          },
-          "addNewButton": false
-        },
         "timeBetweenStaleEviction": {
           "metadata": {
             "label": "timeBetweenStaleEviction",
@@ -282,28 +304,6 @@
             "isBasePath": false,
             "inDisplayAnnotation": false,
             "originalName": "timeBetweenStaleEviction"
-          },
-          "addNewButton": false
-        },
-        "http1Settings": {
-          "metadata": {
-            "label": "http1Settings",
-            "description": ""
-          },
-          "enabled": false,
-          "editable": true,
-          "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "http:ListenerHttp1Settings",
-          "isType": false,
-          "placeholder": "{}",
-          "optional": true,
-          "advanced": true,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "originalName": "http1Settings"
           },
           "addNewButton": false
         }

@@ -180,7 +180,7 @@ public class ListenerUtil {
                 .getFunctionParametersAsMap(functionData.functionId());
         functionData.setParameters(parameters);
 
-        Map<String, Value> properties = new HashMap<>();
+        Map<String, Value> properties = new LinkedHashMap<>();
         String formattedModuleName = upperCaseFirstLetter(functionData.packageName());
         String icon = CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
                 functionData.version());
