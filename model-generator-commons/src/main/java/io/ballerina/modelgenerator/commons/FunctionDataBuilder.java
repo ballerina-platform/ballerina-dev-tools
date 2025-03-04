@@ -254,7 +254,7 @@ public class FunctionDataBuilder {
                         String clientName = getFunctionName();
                         FunctionData functionData = new FunctionData(0, clientName, getDescription(classSymbol),
                                 getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.org(),
-                                moduleInfo.version(), "", functionKind, false, false);
+                                moduleInfo.version(), "", functionKind, false, false, null);
                         functionData.setParameters(Map.of());
                         return functionData;
                     }
@@ -308,7 +308,7 @@ public class FunctionDataBuilder {
 
         FunctionData functionData = new FunctionData(0, getFunctionName(), description, returnData.returnType(),
                 moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionKind,
-                returnData.returnError(), paramForTypeInfer != null);
+                returnData.returnError(), paramForTypeInfer != null, returnData.importStatements());
 
         Types types = semanticModel.types();
         TypeBuilder builder = semanticModel.types().builder();
@@ -327,7 +327,8 @@ public class FunctionDataBuilder {
 
     private ReturnData getReturnData(FunctionSymbol symbol) {
         FunctionTypeSymbol functionTypeSymbol = symbol.typeDescriptor();
-        String returnType = functionTypeSymbol.returnTypeDescriptor()
+        Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
+        String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
                     if (functionKind == FunctionData.Kind.CONNECTOR) {
                         return CommonUtils.getClassType(moduleInfo.packageName(),
@@ -344,22 +345,24 @@ public class FunctionDataBuilder {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap =
-                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = allMembers(returnTypeSymbol.orElse(null));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
-                    returnType = "json";
-                    String defaultValue =
-                            DefaultValueGeneratorUtil.getDefaultValueForType(returnTypeMap.get(paramName));
-                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, returnType);
+                    TypeSymbol typeDescriptor = returnTypeMap.get(paramName);
+                    String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeDescriptor);
+                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue,
+                            CommonUtils.getTypeSignature(semanticModel, CommonUtils.getRawType(typeDescriptor), true));
                     break;
                 }
             }
         }
 
-        boolean returnError = functionTypeSymbol.returnTypeDescriptor()
+        String importStatements = returnTypeSymbol.flatMap(
+                typeSymbol -> CommonUtils.getImportStatements(returnTypeSymbol.get(), moduleInfo)).orElse(null);
+
+        boolean returnError = returnTypeSymbol
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
-        return new ReturnData(returnType, paramForTypeInfer, returnError);
+        return new ReturnData(returnType, paramForTypeInfer, returnError, importStatements);
     }
 
     private void setParentSymbol() {
@@ -453,7 +456,8 @@ public class FunctionDataBuilder {
                     methodResourcePath,
                     methodKind,
                     returnData.returnError(),
-                    returnData.paramForTypeInfer() != null);
+                    returnData.paramForTypeInfer() != null,
+                    returnData.importStatements());
             functionDataList.add(functionData);
         }
         return functionDataList;
@@ -696,16 +700,26 @@ public class FunctionDataBuilder {
         Map<String, TypeSymbol> members = new HashMap<>();
         if (typeSymbol == null) {
             return members;
-        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            unionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
-            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-            intersectionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else {
-            members.put(typeSymbol.getName().orElse(""), typeSymbol);
+        }
+
+        switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                unionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                intersectionTypeSymbol.memberTypeDescriptors()
+                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+            }
+            case STREAM -> {
+                StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
+                members.put(streamTypeSymbol.typeParameter().getName().orElse(""), streamTypeSymbol.typeParameter());
+                members.put(streamTypeSymbol.completionValueTypeParameter().getName().orElse(""),
+                        streamTypeSymbol.completionValueTypeParameter());
+            }
+            default -> members.put(typeSymbol.getName().orElse(""), typeSymbol);
         }
         return members;
     }
@@ -795,6 +809,7 @@ public class FunctionDataBuilder {
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
-    private record ReturnData(String returnType, ParamForTypeInfer paramForTypeInfer, boolean returnError) {
+    private record ReturnData(String returnType, ParamForTypeInfer paramForTypeInfer, boolean returnError,
+                              String importStatements) {
     }
 }
