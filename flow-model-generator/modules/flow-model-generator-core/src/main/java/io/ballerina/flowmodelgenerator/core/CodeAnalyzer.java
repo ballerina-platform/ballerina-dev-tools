@@ -1257,7 +1257,7 @@ class CodeAnalyzer extends NodeVisitor {
             }
             String returnType = functionData.returnType();
 
-            // Derive the value of ht inferred type name
+            // Derive the value of the inferred type name
             String inferredTypeName;
             // Check if the value exists in the named arg map
             Node node = namedArgValueMap.get(key);
@@ -1278,6 +1278,7 @@ class CodeAnalyzer extends NodeVisitor {
                 inferredTypeName = deriveInferredType(variableType, returnType, key);
             }
 
+            // Generate the property of the inferred type param
             nodeBuilder.codedata().inferredReturnType(functionData.returnError() ? returnType : null);
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             nodeBuilder.properties().custom()
@@ -1669,7 +1670,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-// Utility methods
+    // Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method

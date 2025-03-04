@@ -86,6 +86,7 @@ public class SourceBuilder {
             return this;
         }
 
+        // Derive the type name form the inferred type
         Property type = optionalType.get();
         String typeName = type.value().toString();
         if (flowNode.codedata().inferredReturnType() != null) {
