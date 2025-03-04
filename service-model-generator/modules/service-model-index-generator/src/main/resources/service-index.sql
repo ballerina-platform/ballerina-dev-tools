@@ -38,7 +38,7 @@ CREATE TABLE Parameter (
     optional INTEGER CHECK(optional IN (0, 1)),
     import_statements TEXT,
     listener_id INTEGER,
-    FOREIGN KEY (listener_id) REFERENCES Function(listener_id) ON DELETE CASCADE
+    FOREIGN KEY (listener_id) REFERENCES Listener(listener_id) ON DELETE CASCADE
 );
 
 -- Create Parameter Member Type table
