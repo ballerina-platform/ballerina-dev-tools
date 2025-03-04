@@ -1,0 +1,467 @@
+{
+  "start": {
+    "line": 15,
+    "offset": 0
+  },
+  "end": {
+    "line": 17,
+    "offset": 1
+  },
+  "source": "mysql.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "mysql.bal",
+    "nodes": [
+      {
+        "id": "47586",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "mysql.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 29
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function fn() returns error? {\n    Row queryRow = check mysqlClient->queryRow(``);\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "47791",
+        "metadata": {
+          "label": "queryRow",
+          "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, `sql:NoRowsError` is returned.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
+        },
+        "codedata": {
+          "node": "REMOTE_ACTION_CALL",
+          "org": "ballerinax",
+          "module": "mysql",
+          "object": "Client",
+          "symbol": "queryRow",
+          "version": "1.14.0",
+          "lineRange": {
+            "fileName": "mysql.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 51
+            }
+          },
+          "sourceCode": "Row queryRow = check mysqlClient->queryRow(``);",
+          "inferredReturnType": "returnType"
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "mysqlClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "returnType": {
+            "metadata": {
+              "label": "returnType",
+              "description": "The `typedesc` of the record to which the result needs to be returned.\nIt can be a basic type if the query result contains only one column"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "anydata",
+            "value": "Row",
+            "placeholder": "anydata",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "returnType"
+            }
+          },
+          "sqlQuery": {
+            "metadata": {
+              "label": "sqlQuery",
+              "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "sql:ParameterizedQuery",
+            "value": "``",
+            "placeholder": "``",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "sqlQuery",
+              "importStatements": "ballerina/sql"
+            },
+            "typeMembers": [
+              {
+                "type": "ParameterizedQuery",
+                "packageInfo": "ballerina:sql:1.14.0",
+                "kind": "OBJECT_TYPE",
+                "selected": true
+              }
+            ]
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "queryRow",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "mysql.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 16
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Row",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "connections": [
+      {
+        "id": "34766",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Represents a MySQL database client.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "mysql",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "mysql.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 46
+            }
+          },
+          "sourceCode": "final mysql:Client mysqlClient = check new ();",
+          "id": 0
+        },
+        "returning": false,
+        "properties": {
+          "host": {
+            "metadata": {
+              "label": "host",
+              "description": "Hostname of the MySQL server"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "host"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "user": {
+            "metadata": {
+              "label": "user",
+              "description": "If the MySQL server is secured, the username"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "user"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "password": {
+            "metadata": {
+              "label": "password",
+              "description": "The password of the MySQL server for the provided username"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "password"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "database": {
+            "metadata": {
+              "label": "database",
+              "description": "The name of the database"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "database"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "port": {
+            "metadata": {
+              "label": "port",
+              "description": "Port number of the MySQL server"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "placeholder": "0",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "port"
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "options": {
+            "metadata": {
+              "label": "options",
+              "description": "MySQL database options"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "mysql:Options|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "options"
+            },
+            "typeMembers": [
+              {
+                "type": "Options",
+                "packageInfo": "ballerinax:mysql:1.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "connectionPool": {
+            "metadata": {
+              "label": "connectionPool",
+              "description": "The `sql:ConnectionPool` to be used for the connection. If there is no\n`connectionPool` provided, the global connection pool (shared by all clients) will be used"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "sql:ConnectionPool|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "connectionPool",
+              "importStatements": "ballerina/sql"
+            },
+            "typeMembers": [
+              {
+                "type": "ConnectionPool",
+                "packageInfo": "ballerina:sql:1.15.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true,
+            "advanced": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Connection Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "mysqlClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "mysql.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 30
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Connection Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "mysql:Client",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}
