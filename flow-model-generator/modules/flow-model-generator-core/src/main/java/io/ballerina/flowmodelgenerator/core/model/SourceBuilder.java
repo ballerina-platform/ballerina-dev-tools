@@ -85,22 +85,8 @@ public class SourceBuilder {
         if (optionalType.isEmpty() || variable.isEmpty()) {
             return this;
         }
+
         Property type = optionalType.get();
-
-        // TODO: There can be cases where the return type and the value type both come from imported modules. We have
-        //  to optimize how we handle the return type, as the current implementation does not allow the user to
-        //  assign the error to a variable and handle it.
-        // Add the import statements if exists in the return type
-        if (type.codedata() != null && type.codedata().importStatements() != null &&
-                flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
-                        .orElse(true)) {
-            // TODO: Improve this logic to process all the imports at once
-            for (String importStatement : type.codedata().importStatements().split(",")) {
-                String[] importParts = importStatement.split("/");
-                acceptImport(importParts[0], importParts[1]);
-            }
-        }
-
         String typeName = type.value().toString();
         if (flowNode.codedata().inferredReturnType() != null) {
             Optional<Property> inferredParam = flowNode.properties().values().stream()
@@ -189,6 +175,30 @@ public class SourceBuilder {
         String org = codedata.org();
         String module = codedata.module();
         return acceptImport(resolvedPath, org, module);
+    }
+
+    public SourceBuilder acceptImportWithVariableType() {
+        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
+        if (optionalType.isPresent()) {
+            Property type = optionalType.get();
+
+            // TODO: There can be cases where the return type and the value type both come from imported modules. We
+            //  have
+            //  to optimize how we handle the return type, as the current implementation does not allow the user to
+            //  assign the error to a variable and handle it.
+            // Add the import statements if exists in the return type
+            if (type.codedata() != null && type.codedata().importStatements() != null &&
+                    flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
+                            .orElse(true)) {
+                // TODO: Improve this logic to process all the imports at once
+                for (String importStatement : type.codedata().importStatements().split(",")) {
+                    String[] importParts = importStatement.split("/");
+                    acceptImport(importParts[0], importParts[1]);
+                }
+            }
+        }
+        acceptImport();
+        return this;
     }
 
     public SourceBuilder acceptImport() {
