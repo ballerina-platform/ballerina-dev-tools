@@ -33,7 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Assert the response returned by the getFunctionModel.
+ * Assert the response returned by the getListenerModel.
  *
  * @since 2.0.0
  */
@@ -55,7 +55,7 @@ public class GetListenerModelTest extends AbstractLSTest {
             GetListenerModelTest.TestConfig updatedConfig =
                     new GetListenerModelTest.TestConfig(testConfig.description(), testConfig.orgName(),
                             testConfig.pkgName(), testConfig.moduleName(), jsonMap);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
