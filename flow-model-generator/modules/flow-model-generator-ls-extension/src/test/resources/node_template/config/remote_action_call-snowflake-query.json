@@ -96,7 +96,7 @@
         "value": "stream<rowType, sql:Error?>",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false,
         "codedata": {
           "importStatements": "ballerina/sql"

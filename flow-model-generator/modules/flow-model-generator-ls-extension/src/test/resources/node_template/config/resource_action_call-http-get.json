@@ -131,7 +131,7 @@
         "value": "targetType",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false,
         "codedata": {}
       },
