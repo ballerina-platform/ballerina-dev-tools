@@ -126,7 +126,7 @@ def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-
 def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
 // TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
+def pullBallerinaModule(String org, String packageName) {
     tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
         doLast {
             def errOutput = new ByteArrayOutputStream()
@@ -134,7 +134,7 @@ def pullBallerinaModule(String packageName) {
                 ignoreExitValue = true
 
                 // Check if the package exists in the ballerina user 
-                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/ballerinax")
+                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/${org}")
                 if (centralRepoDir.exists()) {
                     def pkgDir = new File(centralRepoDir, packageName)
                     if (pkgDir.exists()) {
@@ -143,7 +143,7 @@ def pullBallerinaModule(String packageName) {
                     }
                 }
 
-                def ballPullCommand = "bal pull ballerinax/${packageName}"
+                def ballPullCommand = "bal pull ${org}/${packageName}"
                 if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
                     commandLine 'cmd', '/c', ballPullCommand
                 } else {
