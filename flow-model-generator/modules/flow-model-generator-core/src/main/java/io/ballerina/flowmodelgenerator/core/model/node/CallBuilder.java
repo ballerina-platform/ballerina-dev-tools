@@ -91,7 +91,8 @@ public abstract class CallBuilder extends NodeBuilder {
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
-                .symbol(codedata.symbol());
+                .symbol(codedata.symbol())
+                .inferredReturnType(functionData.returnType());
 
         if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
             properties().custom()
@@ -123,8 +124,7 @@ public abstract class CallBuilder extends NodeBuilder {
     protected void setParameterProperties(FunctionData function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
         for (ParameterData paramResult : function.parameters().values()) {
-            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
+            if (paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -147,6 +147,11 @@ public abstract class CallBuilder extends NodeBuilder {
                     .defaultable(paramResult.optional());
 
             switch (paramResult.kind()) {
+                case PARAM_FOR_TYPE_INFER -> {
+                    customPropBuilder.advanced(false);
+                    customPropBuilder.optional(false);
+                    customPropBuilder.type(Property.ValueType.TYPE);
+                }
                 case INCLUDED_RECORD_REST -> {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);

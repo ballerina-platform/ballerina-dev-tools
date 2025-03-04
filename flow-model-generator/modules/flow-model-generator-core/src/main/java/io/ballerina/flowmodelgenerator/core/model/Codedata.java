@@ -41,7 +41,8 @@ import io.ballerina.tools.text.LineRange;
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
                        String version, LineRange lineRange, String sourceCode, String parentSymbol,
-                       String resourcePath, Integer id, Boolean isNew, Boolean isGenerated) {
+                       String resourcePath, Integer id, Boolean isNew, Boolean isGenerated,
+                       String inferredReturnType) {
 
     @Override
     public String toString() {
@@ -79,6 +80,7 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private Integer id;
         private Boolean isNew;
         private Boolean isGenerated;
+        private String inferredReturnType;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -155,9 +157,14 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> inferredReturnType(String inferredReturnType) {
+            this.inferredReturnType = inferredReturnType;
+            return this;
+        }
+
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol,
-                    resourcePath, id, isNew, isGenerated);
+                    resourcePath, id, isNew, isGenerated, inferredReturnType);
         }
     }
 }
