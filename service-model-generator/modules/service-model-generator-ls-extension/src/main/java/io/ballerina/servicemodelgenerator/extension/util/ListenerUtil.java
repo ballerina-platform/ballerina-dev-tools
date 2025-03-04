@@ -171,7 +171,7 @@ public class ListenerUtil {
 
     public static Optional<Listener> getListenerByName(ListenerModelRequest request) {
         ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
-        Optional<FunctionData> optFunctionResult = dbManager.getListener(request.orgName(), request.moduleName());
+        Optional<FunctionData> optFunctionResult = dbManager.getListener(request.moduleName());
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -201,6 +201,7 @@ public class ListenerUtil {
                 .setDisplayAnnotation(new DisplayAnnotation(formattedModuleName, icon))
                 .setProperties(properties);
 
+        properties.put("name", nameProperty());
         setParameterProperties(functionData, properties);
         return Optional.of(listenerBuilder.build());
     }
@@ -218,7 +219,7 @@ public class ListenerUtil {
 
             String unescapedParamName = removeLeadingSingleQuote(paramResult.name());
 
-            Codedata codedata = new Codedata();
+            Codedata codedata = new Codedata("LISTENER_INIT_PARAM");
             codedata.setOriginalName(paramResult.name());
 
             Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
@@ -231,6 +232,7 @@ public class ListenerUtil {
                     .setValueTypeConstraint(paramResult.type())
                     .setEditable(true)
                     .setType(false)
+                    .setEnabled(true)
                     .setOptional(paramResult.optional())
                     .setAdvanced(paramResult.optional());
 
@@ -245,5 +247,21 @@ public class ListenerUtil {
         return input;
     }
 
+    public static Value nameProperty() {
 
+        Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
+        valueBuilder
+                .setMetadata(new MetaData("Name", "The name of the listener"))
+                .setCodedata(new Codedata("LISTENER_VAR_NAME"))
+                .setValue("")
+                .setValueType("IDENTIFIER")
+                .setValueTypeConstraint("string")
+                .setType(false)
+                .setEditable(true)
+                .setEnabled(true)
+                .setOptional(false)
+                .setAdvanced(false);
+
+        return valueBuilder.build();
+    }
 }

@@ -80,7 +80,7 @@ public class ServiceDatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
-    public Optional<FunctionData> getListener(String org, String module) {
+    public Optional<FunctionData> getListener(String module) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("l.listener_id, ");
         sql.append("l.name AS listener_name, ");
@@ -92,13 +92,11 @@ public class ServiceDatabaseManager {
         sql.append("p.version ");
         sql.append("FROM Listener l ");
         sql.append("JOIN Package p ON l.package_id = p.package_id ");
-        sql.append("WHERE p.org = ? ");
-        sql.append("AND p.name = ? ");
+        sql.append("WHERE p.name = ? ");
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-            stmt.setString(1, org);
-            stmt.setString(2, module);
+            stmt.setString(1, module);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
