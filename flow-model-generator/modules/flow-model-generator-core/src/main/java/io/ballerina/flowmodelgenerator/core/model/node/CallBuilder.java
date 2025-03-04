@@ -111,9 +111,7 @@ public abstract class CallBuilder extends NodeBuilder {
 
         String returnTypeName = functionData.returnType();
         if (CommonUtils.hasReturn(functionData.returnType())) {
-            properties()
-                    .type(returnTypeName, functionData.inferredReturnType())
-                    .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+            setReturnTypeProperties(functionData, context, functionData.inferredReturnType(), Property.VARIABLE_NAME);
         }
 
         if (functionData.returnError()) {
@@ -174,11 +172,11 @@ public abstract class CallBuilder extends NodeBuilder {
         }
     }
 
-    protected void setReturnTypeProperties(String returnTypeName, TemplateContext context, boolean editable,
+    protected void setReturnTypeProperties(FunctionData functionData, TemplateContext context, boolean editable,
                                            String label) {
         properties()
-                .type(returnTypeName, editable)
-                .data(returnTypeName, context.getAllVisibleSymbolNames(), label);
+                .type(functionData.returnType(), editable, functionData.importStatements())
+                .data(functionData.returnType(), context.getAllVisibleSymbolNames(), label);
     }
 
     protected void setExpressionProperty(Codedata codedata) {

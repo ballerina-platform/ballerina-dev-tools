@@ -99,7 +99,10 @@
         "placeholder": "var",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {
