@@ -1258,11 +1258,16 @@ class CodeAnalyzer extends NodeVisitor {
                 return;
             }
 
-            Optional<String> inferredTypeName = getInferredTypeName(functionTypeSymbol, key);
-            nodeBuilder.codedata().inferredReturnType(functionData.returnType());
-            if (inferredTypeName.isEmpty()) {
+            Optional<Symbol> symbol = semanticModel.symbol(typedBindingPatternNode);
+            if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.VARIABLE) {
                 return;
             }
+            String variableType =
+                    CommonUtils.getTypeSignature(((VariableSymbol) symbol.get()).typeDescriptor(), moduleInfo);
+            String returnType = functionData.returnType();
+            String inferredTypeName = deriveInferredType(variableType, returnType, key);
+
+            nodeBuilder.codedata().inferredReturnType(functionData.returnError() ? returnType : null);
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             nodeBuilder.properties().custom()
                     .metadata()
@@ -1271,7 +1276,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .type(Property.ValueType.TYPE)
                     .typeConstraint(paramResult.type())
-                    .value(inferredTypeName.get())
+                    .value(inferredTypeName)
                     .placeholder(paramResult.defaultValue())
                     .editable()
                     .codedata()
@@ -1286,59 +1291,21 @@ class CodeAnalyzer extends NodeVisitor {
         handleCheckFlag(callNode, functionTypeSymbol);
     }
 
-    private Optional<String> getInferredTypeName(FunctionTypeSymbol functionTypeSymbol, String parameterName) {
-        try {
-            TypeSymbol variableTypeSymbol =
-                    ((VariableSymbol) (semanticModel.symbol(typedBindingPatternNode).orElseThrow())).typeDescriptor();
-            TypeSymbol returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor().orElseThrow();
-
-            // Check if the inferred type is the same as the return type
-            if (variableTypeSymbol.kind() != returnTypeSymbol.kind()) {
-                return Optional.empty();
-            }
-
-            return switch (returnTypeSymbol.typeKind()) {
-                case STREAM -> {
-                    StreamTypeSymbol descriptorSymbol = (StreamTypeSymbol) returnTypeSymbol;
-                    StreamTypeSymbol variableSymbol = (StreamTypeSymbol) variableTypeSymbol;
-                    Optional<String> typeParamName = getInferredTypeName(descriptorSymbol.typeParameter(),
-                            variableSymbol.typeParameter(), parameterName);
-                    if (typeParamName.isPresent()) {
-                        yield typeParamName;
-                    }
-                    yield getInferredTypeName(descriptorSymbol.completionValueTypeParameter(),
-                            variableSymbol.completionValueTypeParameter(), parameterName);
-                }
-                case UNION -> getInferredTypeFromMembers(((UnionTypeSymbol) returnTypeSymbol).memberTypeDescriptors(),
-                        ((UnionTypeSymbol) variableTypeSymbol).memberTypeDescriptors(), parameterName);
-                case INTERSECTION ->
-                        getInferredTypeFromMembers(((IntersectionTypeSymbol) returnTypeSymbol).memberTypeDescriptors(),
-                                ((IntersectionTypeSymbol) variableTypeSymbol).memberTypeDescriptors(), parameterName);
-                default -> getInferredTypeName(returnTypeSymbol, variableTypeSymbol, parameterName);
-            };
-        } catch (Throwable e) {
-            return Optional.empty();
+    private static String deriveInferredType(String variableType, String returnType, String key) {
+        int keyIndex = returnType.indexOf(key);
+        if (keyIndex == -1) {
+            // If key is not found, fallback to returning variableType.
+            return variableType;
         }
-    }
+        String prefix = returnType.substring(0, keyIndex);
+        String suffix = returnType.substring(keyIndex + key.length());
 
-    private Optional<String> getInferredTypeFromMembers(List<TypeSymbol> descriptorMembers,
-                                                        List<TypeSymbol> variableSymbols, String parameterName) {
-        for (int i = 0; i < descriptorMembers.size(); i++) {
-            Optional<String> typeParamName =
-                    getInferredTypeName(descriptorMembers.get(i), variableSymbols.get(i), parameterName);
-            if (typeParamName.isPresent()) {
-                return typeParamName;
-            }
+        // Check if variableType has the same structure as returnType.
+        if (variableType.startsWith(prefix) && variableType.endsWith(suffix)) {
+            return variableType.substring(prefix.length(), variableType.length() - suffix.length());
         }
-        return Optional.empty();
-    }
-
-    private Optional<String> getInferredTypeName(TypeSymbol descriptorSymbol, TypeSymbol variableSymbol,
-                                                 String parameterName) {
-        if (CommonUtils.getTypeSignature(descriptorSymbol, moduleInfo).equals(parameterName)) {
-            return Optional.of(CommonUtils.getTypeSignature(variableSymbol, moduleInfo));
-        }
-        return Optional.empty();
+        // If the structure doesn't match, return variableType as fallback.
+        return variableType;
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
