@@ -17,7 +17,7 @@
     "id": "31",
     "metadata": {
       "label": "Agent",
-      "description": "",
+      "description": "Represents an agent.",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.8.png"
     },
     "codedata": {
@@ -31,21 +31,10 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "agent:Agent",
-        "optional": false,
-        "editable": false,
-        "advanced": false
-      },
       "systemPrompt": {
         "metadata": {
           "label": "systemPrompt",
-          "description": ""
+          "description": "The system prompt assigned to the agent."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:SystemPrompt",
@@ -56,12 +45,20 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "systemPrompt"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "agent:SystemPrompt",
+            "packageInfo": "ballerinax:ai.agent:0.7.8",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "model": {
         "metadata": {
           "label": "model",
-          "description": ""
+          "description": "The model used by the agent."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:Model",
@@ -72,12 +69,20 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "model"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "agent:Model",
+            "packageInfo": "ballerinax:ai.agent:0.7.8",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          }
+        ]
       },
       "tools": {
         "metadata": {
           "label": "tools",
-          "description": ""
+          "description": "The tools available for the agent."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
@@ -88,12 +93,20 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "tools"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool",
+            "packageInfo": "",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ]
       },
       "agentType": {
         "metadata": {
           "label": "agentType",
-          "description": ""
+          "description": "Type of the agent"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:AgentType",
@@ -104,12 +117,20 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "agentType"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "agent:AgentType",
+            "packageInfo": "ballerinax:ai.agent:0.7.8",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "maxIter": {
         "metadata": {
           "label": "maxIter",
-          "description": ""
+          "description": "The maximum number of iterations the agent performs to complete the task."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
@@ -120,12 +141,20 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "maxIter"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "verbose": {
         "metadata": {
           "label": "verbose",
-          "description": ""
+          "description": "Specifies whether verbose logging is enabled."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "boolean",
@@ -136,7 +165,15 @@
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "verbose"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

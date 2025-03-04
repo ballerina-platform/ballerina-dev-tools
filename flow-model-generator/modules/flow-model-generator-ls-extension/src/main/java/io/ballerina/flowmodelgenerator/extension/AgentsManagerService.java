@@ -71,7 +71,8 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 io.ballerina.tools.text.TextEdit textEdit =
                         io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
                 io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
-                TextDocument modifiedTextDoc = optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
+                TextDocument modifiedTextDoc =
+                        optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
 
                 Document modifiedDoc =
                         project.duplicate().currentPackage().module(document.module().moduleId())
@@ -106,7 +107,8 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 io.ballerina.tools.text.TextEdit textEdit =
                         io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
                 io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
-                TextDocument modifiedTextDoc = optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
+                TextDocument modifiedTextDoc =
+                        optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
 
                 Document modifiedDoc =
                         project.duplicate().currentPackage().module(document.module().moduleId())
@@ -158,6 +160,27 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 }
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
                 response.setTools(agentsGenerator.getTools(semanticModel.get()));
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<GenToolResponse> genTool(GenToolRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            GenToolResponse response = new GenToolResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+                AgentsGenerator agentsGenerator = new AgentsGenerator();
+                response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(), filePath,
+                        this.workspaceManager));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

@@ -93,19 +93,6 @@ public abstract class CallBuilder extends NodeBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
-            properties().custom()
-                    .metadata()
-                        .label(Property.CONNECTION_LABEL)
-                        .description(Property.CONNECTION_DOC)
-                        .stepOut()
-                    .typeConstraint(isLocalFunction ? codedata.object() :
-                            CommonUtils.getClassType(codedata.module(), codedata.object()))
-                    .value(codedata.parentSymbol())
-                    .type(Property.ValueType.IDENTIFIER)
-                    .stepOut()
-                    .addProperty(Property.CONNECTION_KEY);
-        }
         setParameterProperties(functionData);
 
         String returnTypeName = functionData.returnType();

@@ -17,7 +17,7 @@
     "id": "31",
     "metadata": {
       "label": "run",
-      "description": "",
+      "description": "Executes the agent for a given user query.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.8.png"
     },
     "codedata": {
@@ -31,20 +31,10 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "agent:Agent",
-        "optional": false,
-        "editable": false,
-        "advanced": false
-      },
       "query": {
         "metadata": {
-          "label": "query"
+          "label": "query",
+          "description": "Natural language command for the agent."
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
@@ -55,7 +45,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "query"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
