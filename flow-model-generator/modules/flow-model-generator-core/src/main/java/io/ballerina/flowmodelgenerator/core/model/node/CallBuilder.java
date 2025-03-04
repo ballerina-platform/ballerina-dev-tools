@@ -109,7 +109,6 @@ public abstract class CallBuilder extends NodeBuilder {
         }
         setParameterProperties(functionData);
 
-        String returnTypeName = functionData.returnType();
         if (CommonUtils.hasReturn(functionData.returnType())) {
             setReturnTypeProperties(functionData, context, functionData.inferredReturnType(), Property.VARIABLE_NAME);
         }

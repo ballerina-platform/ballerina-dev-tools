@@ -76,6 +76,23 @@
             "editable": false,
             "advanced": false
           },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
+          },
           "path": {
             "metadata": {
               "label": "path",
@@ -277,6 +294,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "path": {
             "metadata": {

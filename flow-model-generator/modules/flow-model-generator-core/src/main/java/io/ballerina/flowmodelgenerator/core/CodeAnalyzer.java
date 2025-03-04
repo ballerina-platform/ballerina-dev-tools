@@ -23,10 +23,8 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -1257,15 +1255,28 @@ class CodeAnalyzer extends NodeVisitor {
                 funcParamMap.put(key, paramResult);
                 return;
             }
-
-            Optional<Symbol> symbol = semanticModel.symbol(typedBindingPatternNode);
-            if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.VARIABLE) {
-                return;
-            }
-            String variableType =
-                    CommonUtils.getTypeSignature(((VariableSymbol) symbol.get()).typeDescriptor(), moduleInfo);
             String returnType = functionData.returnType();
-            String inferredTypeName = deriveInferredType(variableType, returnType, key);
+
+            // Derive the value of ht inferred type name
+            String inferredTypeName;
+            // Check if the value exists in the named arg map
+            Node node = namedArgValueMap.get(key);
+            if (node != null) {
+                inferredTypeName = node.toSourceCode();
+            } else if (typedBindingPatternNode == null) {
+                // Get the default value if the variable is absent
+                inferredTypeName = paramResult.defaultValue();
+            } else {
+                // Derive the inferred type from the variable type
+                Optional<Symbol> symbol = semanticModel.symbol(typedBindingPatternNode);
+                if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.VARIABLE) {
+                    return;
+                }
+                String variableType =
+                        CommonUtils.getTypeSignature(((VariableSymbol) symbol.get()).typeDescriptor(), moduleInfo);
+
+                inferredTypeName = deriveInferredType(variableType, returnType, key);
+            }
 
             nodeBuilder.codedata().inferredReturnType(functionData.returnError() ? returnType : null);
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
