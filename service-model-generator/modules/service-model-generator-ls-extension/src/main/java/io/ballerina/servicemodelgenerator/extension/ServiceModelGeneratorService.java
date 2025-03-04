@@ -46,6 +46,11 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
@@ -204,7 +209,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ListenerModelResponse> getListenerModel(ListenerModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return getListenerByName(request.moduleName())
+                return ListenerUtil.getListenerByName(request)
                         .map(ListenerModelResponse::new)
                         .orElseGet(ListenerModelResponse::new);
             } catch (Throwable e) {
@@ -619,7 +624,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (listenerName.isEmpty()) {
                     return new ListenerFromSourceResponse();
                 }
-                Optional<Listener> listener = getListenerByName(listenerName.get());
+                Optional<Listener> listener = ListenerUtil.getListenerByName(new
+                        ListenerModelRequest("", "", ""));
                 if (listener.isEmpty()) {
                     return new ListenerFromSourceResponse();
                 }
@@ -1138,26 +1144,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
         try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
             return Optional.of(new Gson().fromJson(reader, TriggerBasicInfo.class));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
-
-    private Optional<Listener> getListenerByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
-                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
-                !name.equals(ServiceModelGeneratorConstants.TCP) &&
-                triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("listeners/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
-
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, Listener.class));
         } catch (IOException e) {
             return Optional.empty();
         }

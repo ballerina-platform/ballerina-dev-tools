@@ -26,22 +26,30 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.ParameterData;
+import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -160,4 +168,82 @@ public class ListenerUtil {
         value.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR);
         return value;
     }
+
+    public static Optional<Listener> getListenerByName(ListenerModelRequest request) {
+        ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
+        Optional<FunctionData> optFunctionResult = dbManager.getListener(request.orgName(), request.moduleName());
+        if (optFunctionResult.isEmpty()) {
+            return Optional.empty();
+        }
+        FunctionData functionData = optFunctionResult.get();
+        LinkedHashMap<String, ParameterData> parameters = dbManager
+                .getFunctionParametersAsMap(functionData.functionId());
+        functionData.setParameters(parameters);
+
+        Map<String, Value> properties = new HashMap<>();
+        String formattedModuleName = upperCaseFirstLetter(functionData.packageName());
+        String icon = CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
+                functionData.version());
+
+        Listener.ListenerBuilder listenerBuilder = new Listener.ListenerBuilder();
+        listenerBuilder
+                .setId(functionData.packageId())
+                .setName(formattedModuleName + " Listener")
+                .setType(functionData.packageName())
+                .setDisplayName(formattedModuleName)
+                .setDescription(functionData.description())
+                .setListenerProtocol(functionData.packageName().toLowerCase(Locale.ROOT))
+                .setModuleName(functionData.packageName())
+                .setOrgName(functionData.org())
+                .setPackageName(functionData.packageName())
+                .setVersion(functionData.version())
+                .setIcon(icon)
+                .setDisplayAnnotation(new DisplayAnnotation(formattedModuleName, icon))
+                .setProperties(properties);
+
+        setParameterProperties(functionData, properties);
+        return Optional.of(listenerBuilder.build());
+    }
+
+    public static String upperCaseFirstLetter(String value) {
+        return value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1).toLowerCase(Locale.ROOT);
+    }
+
+    protected static void setParameterProperties(FunctionData function, Map<String, Value> properties) {
+        for (ParameterData paramResult : function.parameters().values()) {
+            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
+                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
+                continue;
+            }
+
+            String unescapedParamName = removeLeadingSingleQuote(paramResult.name());
+
+            Codedata codedata = new Codedata();
+            codedata.setOriginalName(paramResult.name());
+
+            Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
+            valueBuilder
+                    .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
+                    .setCodedata(codedata)
+                    .setValue("")
+                    .setValueType("EXPRESSION")
+                    .setPlaceholder(paramResult.defaultValue())
+                    .setValueTypeConstraint(paramResult.type())
+                    .setEditable(true)
+                    .setType(false)
+                    .setOptional(paramResult.optional())
+                    .setAdvanced(paramResult.optional());
+
+            properties.put(unescapedParamName, valueBuilder.build());
+        }
+    }
+
+    public static String removeLeadingSingleQuote(String input) {
+        if (input != null && input.startsWith("'")) {
+            return input.substring(1);
+        }
+        return input;
+    }
+
+
 }

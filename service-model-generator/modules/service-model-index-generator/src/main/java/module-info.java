@@ -16,20 +16,18 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.TriggerService {
-    requires io.ballerina.language.server.commons;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires io.ballerina.diagram.util;
-    requires io.ballerina.openapi.core;
-    requires io.ballerina.language.server.core;
-    requires io.ballerina.formatter.core;
-    requires io.swagger.v3.oas.models;
-    requires io.ballerina.model.generator.commons;
+module io.ballerina.flowmodel.indexgenerator {
     requires io.ballerina.lang;
-    requires com.google.gson;
-    requires io.ballerina.parser;
     requires io.ballerina.tools.api;
-    requires java.logging;
-    requires org.xerial.sqlitejdbc;
+    requires io.ballerina.parser;
+    requires io.ballerina.centralconnector;
+    requires com.google.gson;
+    requires io.ballerina.diagram.util;
+    requires java.sql;
+    requires io.ballerina.toml;
+    requires io.ballerina.flow.model.generator;
+    requires io.ballerina.language.server.core;
+    requires io.ballerina.model.generator.commons;
+
+    exports io.ballerina.indexgenerator;
 }

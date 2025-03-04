@@ -60,10 +60,11 @@ public class PackageUtil {
         // Obtain the Ballerina distribution path
         String ballerinaHome = System.getProperty(BALLERINA_HOME_PROPERTY);
         if (ballerinaHome == null || ballerinaHome.isEmpty()) {
-            Path currentPath = getPath(Paths.get(
-                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
-            Path distributionPath = getParentPath(getParentPath(getParentPath(currentPath)));
-            System.setProperty(BALLERINA_HOME_PROPERTY, distributionPath.toString());
+//            Path currentPath = getPath(Paths.get(
+//                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
+//            Path distributionPath = getParentPath(getParentPath(getParentPath(currentPath)));
+//            System.setProperty(BALLERINA_HOME_PROPERTY, distributionPath.toString());
+            System.setProperty(BALLERINA_HOME_PROPERTY, "/Users/lakshanweerasinghe/.ballerina/ballerina-home/distributions/ballerina-2201.12.0");
         }
 
         try {
@@ -80,7 +81,7 @@ public class PackageUtil {
                     "org = \"wso2\"\n" +
                     "name = \"sample\"\n" +
                     "version = \"0.1.0\"\n" +
-                    "distribution = \"2201.11.0\"";
+                    "distribution = \"2201.12.0\"";
             Files.writeString(ballerinaTomlFile, tomlContent, StandardOpenOption.CREATE);
             return BuildProject.load(tempDir);
         } catch (IOException e) {

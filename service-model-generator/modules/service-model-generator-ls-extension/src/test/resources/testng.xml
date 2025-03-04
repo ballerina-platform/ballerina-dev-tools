@@ -32,6 +32,7 @@ under the License.
             <class name="io.ballerina.servicemodelgenerator.extension.AddFieldTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.AddServiceTest"/>
             <class name="io.ballerina.servicemodelgenerator.extension.GetFunctionModelTest"/>
+            <class name="io.ballerina.servicemodelgenerator.extension.GetListenerModelTest"/>
         </classes>
     </test>
 </suite>
