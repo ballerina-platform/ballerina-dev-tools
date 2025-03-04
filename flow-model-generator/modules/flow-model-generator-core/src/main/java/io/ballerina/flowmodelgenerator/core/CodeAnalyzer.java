@@ -23,8 +23,10 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -280,7 +282,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(functionData.description())
                     .stepOut()
                 .codedata()
-                .nodeInfo(remoteMethodCallActionNode)
+                    .nodeInfo(remoteMethodCallActionNode)
                     .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .stepOut()
@@ -607,7 +609,7 @@ class CodeAnalyzer extends NodeVisitor {
                 String escapedParamName = parameterSymbol.getName().get();
                 ParameterData paramResult = funcParamMap.get(escapedParamName);
                 if (paramResult == null) {
-                    escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    continue;
                 }
                 paramResult = funcParamMap.get(escapedParamName);
                 Node paramValue;
@@ -1238,9 +1240,96 @@ class CodeAnalyzer extends NodeVisitor {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionData.parameters(),
-                positionalArgs, namedArgValueMap);
-        handleCheckFlag(callNode, functionSymbol.typeDescriptor());
+
+        Map<String, ParameterData> funcParamMap = new HashMap<>();
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        functionData.parameters().forEach((key, paramResult) -> {
+            if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
+                funcParamMap.put(key, paramResult);
+                return;
+            }
+
+            Optional<String> inferredTypeName = getInferredTypeName(functionTypeSymbol, key);
+            nodeBuilder.codedata().inferredReturnType(functionData.returnType());
+            if (inferredTypeName.isEmpty()) {
+                return;
+            }
+            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            nodeBuilder.properties().custom()
+                    .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                    .type(Property.ValueType.TYPE)
+                    .typeConstraint(paramResult.type())
+                    .value(inferredTypeName.get())
+                    .placeholder(paramResult.defaultValue())
+                    .editable()
+                    .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
+                        .stepOut()
+                    .stepOut()
+                    .addProperty(unescapedParamName);
+        });
+        buildPropsFromFuncCallArgs(arguments, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+        handleCheckFlag(callNode, functionTypeSymbol);
+    }
+
+    private Optional<String> getInferredTypeName(FunctionTypeSymbol functionTypeSymbol, String parameterName) {
+        try {
+            TypeSymbol variableTypeSymbol =
+                    ((VariableSymbol) (semanticModel.symbol(typedBindingPatternNode).orElseThrow())).typeDescriptor();
+            TypeSymbol returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor().orElseThrow();
+
+            // Check if the inferred type is the same as the return type
+            if (variableTypeSymbol.kind() != returnTypeSymbol.kind()) {
+                return Optional.empty();
+            }
+
+            return switch (returnTypeSymbol.typeKind()) {
+                case STREAM -> {
+                    StreamTypeSymbol descriptorSymbol = (StreamTypeSymbol) returnTypeSymbol;
+                    StreamTypeSymbol variableSymbol = (StreamTypeSymbol) variableTypeSymbol;
+                    Optional<String> typeParamName = getInferredTypeName(descriptorSymbol.typeParameter(),
+                            variableSymbol.typeParameter(), parameterName);
+                    if (typeParamName.isPresent()) {
+                        yield typeParamName;
+                    }
+                    yield getInferredTypeName(descriptorSymbol.completionValueTypeParameter(),
+                            variableSymbol.completionValueTypeParameter(), parameterName);
+                }
+                case UNION -> getInferredTypeFromMembers(((UnionTypeSymbol) returnTypeSymbol).memberTypeDescriptors(),
+                        ((UnionTypeSymbol) variableTypeSymbol).memberTypeDescriptors(), parameterName);
+                case INTERSECTION ->
+                        getInferredTypeFromMembers(((IntersectionTypeSymbol) returnTypeSymbol).memberTypeDescriptors(),
+                                ((IntersectionTypeSymbol) variableTypeSymbol).memberTypeDescriptors(), parameterName);
+                default -> getInferredTypeName(returnTypeSymbol, variableTypeSymbol, parameterName);
+            };
+        } catch (Throwable e) {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<String> getInferredTypeFromMembers(List<TypeSymbol> descriptorMembers,
+                                                        List<TypeSymbol> variableSymbols, String parameterName) {
+        for (int i = 0; i < descriptorMembers.size(); i++) {
+            Optional<String> typeParamName =
+                    getInferredTypeName(descriptorMembers.get(i), variableSymbols.get(i), parameterName);
+            if (typeParamName.isPresent()) {
+                return typeParamName;
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> getInferredTypeName(TypeSymbol descriptorSymbol, TypeSymbol variableSymbol,
+                                                 String parameterName) {
+        if (CommonUtils.getTypeSignature(descriptorSymbol, moduleInfo).equals(parameterName)) {
+            return Optional.of(CommonUtils.getTypeSignature(variableSymbol, moduleInfo));
+        }
+        return Optional.empty();
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
@@ -1593,7 +1682,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         }
     }
-    // Utility methods
+// Utility methods
 
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
