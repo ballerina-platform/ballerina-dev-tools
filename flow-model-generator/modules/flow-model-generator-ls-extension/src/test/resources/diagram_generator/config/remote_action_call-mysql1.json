@@ -60,8 +60,7 @@
               "offset": 58
             }
           },
-          "sourceCode": "stream<Row, sql:Error?> res1 = mysqlClient->query(``);",
-          "inferredReturnType": "stream<rowType, sql:Error?>"
+          "sourceCode": "stream<Row, sql:Error?> res1 = mysqlClient->query(``);"
         },
         "returning": false,
         "properties": {
@@ -184,8 +183,7 @@
               "offset": 85
             }
           },
-          "sourceCode": "stream<record {|string id; int val;|}, sql:Error?> res2 = mysqlClient->query(``);",
-          "inferredReturnType": "stream<rowType, sql:Error?>"
+          "sourceCode": "stream<record {|string id; int val;|}, sql:Error?> res2 = mysqlClient->query(``);"
         },
         "returning": false,
         "properties": {
