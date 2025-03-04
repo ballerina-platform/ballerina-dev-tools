@@ -102,7 +102,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder.newVariableWithInferredType();
         FlowNode flowNode = sourceBuilder.flowNode;
 
         if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
@@ -159,7 +159,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .stepOut()
                 .functionParameters(flowNode, ignoredKeys)
                 .textEdit(false)
-                .acceptImport()
+                .acceptImportWithVariableType()
                 .build();
     }
 
