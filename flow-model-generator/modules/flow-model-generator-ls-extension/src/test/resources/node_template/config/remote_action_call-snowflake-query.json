@@ -28,7 +28,8 @@
       "object": "Client",
       "symbol": "query",
       "version": "2.1.0",
-      "id": 641
+      "id": 862,
+      "inferredReturnType": "stream<rowType, sql:Error?>"
     },
     "returning": false,
     "properties": {
@@ -51,7 +52,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "sql:ParameterizedQuery",
-        "placeholder": "object {}",
+        "placeholder": "``",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -74,24 +75,17 @@
           "label": "rowType",
           "description": "The `typedesc` of the record to which the result needs to be returned"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "TYPE",
         "valueTypeConstraint": "record {|anydata...;|}",
-        "placeholder": "<>",
-        "optional": true,
+        "placeholder": "record {|anydata...;|}",
+        "optional": false,
         "editable": true,
-        "advanced": true,
+        "advanced": false,
         "codedata": {
-          "kind": "DEFAULTABLE",
+          "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "rowType"
         },
-        "typeMembers": [
-          {
-            "type": "typedesc<record {|anydata...;|}>",
-            "packageInfo": "",
-            "kind": "OTHER",
-            "selected": false
-          }
-        ]
+        "typeMembers": []
       },
       "type": {
         "metadata": {
@@ -102,8 +96,11 @@
         "value": "stream<rowType, sql:Error?>",
         "placeholder": "var",
         "optional": false,
-        "editable": false,
-        "advanced": false
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {

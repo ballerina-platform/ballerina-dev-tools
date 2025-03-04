@@ -30,7 +30,7 @@
       "object": "Client",
       "symbol": "query",
       "version": "1.14.0",
-      "id": 2,
+      "id": 633,
       "inferredReturnType": "stream<rowType, sql:Error?>"
     },
     "returning": false,
@@ -54,7 +54,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "sql:ParameterizedQuery",
-        "placeholder": "object {}",
+        "placeholder": "``",
         "optional": false,
         "editable": true,
         "advanced": false,
