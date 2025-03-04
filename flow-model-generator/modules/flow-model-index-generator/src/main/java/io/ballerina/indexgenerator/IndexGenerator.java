@@ -115,6 +115,9 @@ class IndexGenerator {
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
+
+        // TODO: Remove this once thw raw parameter property type is introduced
+        DatabaseManager.executeQuery("UPDATE Parameter SET default_value = '``' WHERE type = 'sql:ParameterizedQuery'");
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,

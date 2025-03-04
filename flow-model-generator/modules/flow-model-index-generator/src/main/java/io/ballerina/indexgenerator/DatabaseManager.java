@@ -77,7 +77,7 @@ class DatabaseManager {
         }
     }
 
-    private static void executeQuery(String sql) {
+    public static void executeQuery(String sql) {
         try (Connection conn = DriverManager.getConnection(dbPath);
              Statement stmt = conn.createStatement()) { // Use Statement instead
             stmt.executeUpdate(sql);
