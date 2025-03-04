@@ -628,7 +628,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 nameProperty.setValue(listenerNode.variableName().text().trim());
                 nameProperty.setCodedata(new Codedata(listenerNode.variableName().lineRange()));
                 nameProperty.setEditable(false);
-                listenerModel.setCodedata(new Codedata(lineRange));
+                listenerModel.setCodedata(new Codedata(listenerNode.lineRange()));
                 return new ListenerFromSourceResponse(listenerModel);
             } catch (Exception e) {
                 return new ListenerFromSourceResponse(e);

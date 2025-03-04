@@ -107,14 +107,14 @@
       },
       "codedata": {
         "lineRange": {
-          "fileName": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/service-model-generator/modules/service-model-generator-ls-extension/src/test/resources/listener_from_source/source/sample1/main.bal",
+          "fileName": "main.bal",
           "startLine": {
             "line": 4,
             "offset": 0
           },
           "endLine": {
             "line": 4,
-            "offset": 49
+            "offset": 50
           }
         },
         "inListenerInit": false,

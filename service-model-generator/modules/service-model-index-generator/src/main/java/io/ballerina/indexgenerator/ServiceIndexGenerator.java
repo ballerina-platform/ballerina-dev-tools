@@ -89,7 +89,7 @@ import java.util.logging.Logger;
 class ServiceIndexGenerator {
 
     private static final java.lang.reflect.Type typeToken = new TypeToken<Map<String,
-            List<PackageMetadataInfo>>>() {}.getType();
+            List<PackageMetadataInfo>>>() { }.getType();
     private static final Logger LOGGER = Logger.getLogger(ServiceIndexGenerator.class.getName());
     private static final String PACKAGE_JSON_FILE = "packages.json";
 
