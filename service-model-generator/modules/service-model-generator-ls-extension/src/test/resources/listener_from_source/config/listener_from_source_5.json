@@ -1,0 +1,78 @@
+{
+  "filePath": "sample2/main.bal",
+  "description": "Test listener model getting from source",
+  "start": {
+    "line": 2,
+    "offset": 0
+  },
+  "end": {
+    "line": 2,
+    "offset": 60
+  },
+  "response": {
+    "listener": {
+      "id": "1",
+      "name": "Http Listener",
+      "type": "http",
+      "displayName": "Http",
+      "description": "This is used for creating HTTP server endpoints. An HTTP server endpoint is capable of responding to\nremote callers. The `Listener` is responsible for initializing the endpoint using the provided configurations.",
+      "displayAnnotation": {
+        "label": "Http",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+      },
+      "moduleName": "http",
+      "orgName": "ballerina",
+      "version": "2.12.2",
+      "packageName": "http",
+      "listenerProtocol": "http",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Name",
+            "description": "The name of the listener"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "listener5",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 23
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 32
+              }
+            },
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false
+          },
+          "addNewButton": false
+        },
+        "defaultListener": {
+          "metadata": {
+            "label": "HTTP Default Listener",
+            "description": "The default HTTP listener"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "http:getDefaultListener()",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        }
+      }
+    }
+  }
+}
