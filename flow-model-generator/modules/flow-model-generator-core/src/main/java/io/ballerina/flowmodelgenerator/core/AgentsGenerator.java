@@ -311,7 +311,8 @@ public class AgentsGenerator {
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
 
             if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
-                sourceBuilder.token().expressionWithType(returnType.get(), flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
+                sourceBuilder.token().expressionWithType(returnType.get(),
+                        flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
             }
             if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                 sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
@@ -467,11 +468,13 @@ public class AgentsGenerator {
     private List<ClassSymbol> getModelsForAgent(ClassSymbol agentSymbol, List<ClassSymbol> classSymbols) {
         Optional<MethodSymbol> optInitMethodSymbol = agentSymbol.initMethod();
         if (optInitMethodSymbol.isEmpty()) {
-            throw new IllegalStateException(String.format("Agent %s does not have an init method", agentSymbol.getName()));
+            throw new IllegalStateException(String.format("Agent %s does not have an init method",
+                    agentSymbol.getName()));
         }
         Optional<List<ParameterSymbol>> optParams = optInitMethodSymbol.get().typeDescriptor().params();
         if (optParams.isEmpty()) {
-            throw new IllegalStateException(String.format("Agent %s init method does not have parameters", agentSymbol.getName()));
+            throw new IllegalStateException(String.format("Agent %s init method does not have parameters",
+                    agentSymbol.getName()));
         }
         for (ParameterSymbol paramSymbol : optParams.get()) {
             if (paramSymbol.getName().orElse("").equals(MODEL_PARAM)) {
@@ -485,7 +488,8 @@ public class AgentsGenerator {
                 return models;
             }
         }
-        throw new IllegalStateException(String.format("Agent %s does not have corresponding models", agentSymbol.getName()));
+        throw new IllegalStateException(String.format("Agent %s does not have corresponding models",
+                agentSymbol.getName()));
     }
 
     private boolean isSubType(TypeSymbol typeSymbol, List<TypeSymbol> typeSymbols) {
