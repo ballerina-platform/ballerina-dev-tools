@@ -28,7 +28,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 595
+      "id": 545
     },
     "returning": false,
     "properties": {
@@ -56,6 +56,22 @@
         "advanced": false,
         "codedata": {
           "originalName": "/path/to/subdirectory"
+        }
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
         }
       },
       "headers": {
@@ -111,11 +127,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "targetType",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -123,7 +140,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "var2",
         "optional": false,
         "editable": true,
         "advanced": false

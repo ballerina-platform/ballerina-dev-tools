@@ -6,6 +6,7 @@
     "websocket:Client",
     "tcp:Client",
     "udp:Client",
+    "ftp:Client",
     "websub:Client"
   ],
   "Database": [

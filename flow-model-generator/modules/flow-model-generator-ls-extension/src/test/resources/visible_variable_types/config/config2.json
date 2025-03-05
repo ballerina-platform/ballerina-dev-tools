@@ -7,6 +7,54 @@
   },
   "visibleTypes": [
     {
+      "name": "Local Variables",
+      "types": [
+        {
+          "name": "localInput",
+          "type": {
+            "fields": [
+              {
+                "name": "name",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "age",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "anydata",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "Input",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "Input",
+              "orgName": "nipunaf",
+              "moduleName": "new_connection1",
+              "version": "0.1.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        }
+      ]
+    },
+    {
       "name": "Module Variables",
       "types": [
         {
@@ -262,54 +310,6 @@
           "type": {
             "typeName": "int",
             "optional": false,
-            "defaultable": false,
-            "isRestType": false,
-            "selected": false
-          }
-        }
-      ]
-    },
-    {
-      "name": "Local Variables",
-      "types": [
-        {
-          "name": "localInput",
-          "type": {
-            "fields": [
-              {
-                "name": "name",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "age",
-                "typeName": "int",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              }
-            ],
-            "hasRestType": true,
-            "restType": {
-              "typeName": "anydata",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false,
-              "selected": false
-            },
-            "name": "Input",
-            "typeName": "record",
-            "optional": false,
-            "typeInfo": {
-              "name": "Input",
-              "orgName": "nipunaf",
-              "moduleName": "new_connection1",
-              "version": "0.1.0"
-            },
             "defaultable": false,
             "isRestType": false,
             "selected": false

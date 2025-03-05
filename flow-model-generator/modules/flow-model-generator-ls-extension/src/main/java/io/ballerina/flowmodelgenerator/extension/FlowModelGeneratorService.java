@@ -504,7 +504,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
-                SearchCommand command = SearchCommand.from(searchKind, module, request.position(), request.query());
+                SearchCommand command = SearchCommand.from(searchKind, module, request.position(), request.queryMap());
                 response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);

@@ -251,8 +251,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -349,8 +350,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 2
@@ -447,8 +449,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 5
@@ -545,8 +548,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 6

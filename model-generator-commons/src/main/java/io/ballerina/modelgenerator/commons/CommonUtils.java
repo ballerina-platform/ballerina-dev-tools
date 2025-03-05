@@ -619,6 +619,7 @@ public class CommonUtils {
             case STREAM -> {
                 StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
                 analyzeTypeSymbolForImports(imports, streamTypeSymbol.typeParameter(), moduleInfo);
+                analyzeTypeSymbolForImports(imports, streamTypeSymbol.completionValueTypeParameter(), moduleInfo);
             }
             case FUTURE -> {
                 FutureTypeSymbol futureTypeSymbol = (FutureTypeSymbol) typeSymbol;

@@ -113,12 +113,17 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.AssignBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.CallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ResourceActionCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ReturnBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RollbackBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
@@ -290,7 +295,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(functionData.description())
                     .stepOut()
                 .codedata()
-                .nodeInfo(remoteMethodCallActionNode)
+                    .nodeInfo(remoteMethodCallActionNode)
                     .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .stepOut()
@@ -697,7 +702,7 @@ class CodeAnalyzer extends NodeVisitor {
                 String escapedParamName = parameterSymbol.getName().get();
                 ParameterData paramResult = funcParamMap.get(escapedParamName);
                 if (paramResult == null) {
-                    escapedParamName = CommonUtil.escapeReservedKeyword(parameterSymbol.getName().get());
+                    continue;
                 }
                 paramResult = funcParamMap.get(escapedParamName);
                 Node paramValue;
@@ -1158,6 +1163,11 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties()
                     .dataVariable(this.typedBindingPatternNode, NewConnectionBuilder.CONNECTION_NAME_LABEL,
                             NewConnectionBuilder.CONNECTION_TYPE_LABEL, false, new HashSet<>());
+        } else if (nodeBuilder instanceof RemoteActionCallBuilder || nodeBuilder instanceof ResourceActionCallBuilder ||
+                nodeBuilder instanceof FunctionCall || nodeBuilder instanceof MethodCall) {
+            nodeBuilder.properties()
+                    .dataVariable(this.typedBindingPatternNode, Property.VARIABLE_NAME, Property.TYPE_LABEL, false,
+                            new HashSet<>());
         } else {
             nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit, new HashSet<>());
         }
@@ -1348,9 +1358,60 @@ class CodeAnalyzer extends NodeVisitor {
         final Map<String, Node> namedArgValueMap = new HashMap<>();
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
-        buildPropsFromFuncCallArgs(arguments, functionSymbol.typeDescriptor(), functionData.parameters(),
-                positionalArgs, namedArgValueMap);
-        handleCheckFlag(callNode, functionSymbol.typeDescriptor());
+
+        Map<String, ParameterData> funcParamMap = new HashMap<>();
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        functionData.parameters().forEach((key, paramResult) -> {
+            if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
+                funcParamMap.put(key, paramResult);
+                return;
+            }
+            String returnType = functionData.returnType();
+
+            // Derive the value of the inferred type name
+            String inferredTypeName;
+            // Check if the value exists in the named arg map
+            Node node = namedArgValueMap.get(key);
+            if (node != null) {
+                inferredTypeName = node.toSourceCode();
+            } else if (typedBindingPatternNode == null) {
+                // Get the default value if the variable is absent
+                inferredTypeName = paramResult.defaultValue();
+            } else {
+                // Derive the inferred type from the variable type
+                Optional<Symbol> symbol = semanticModel.symbol(typedBindingPatternNode);
+                if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.VARIABLE) {
+                    return;
+                }
+                String variableType =
+                        CommonUtils.getTypeSignature(((VariableSymbol) symbol.get()).typeDescriptor(), moduleInfo);
+
+                inferredTypeName = deriveInferredType(variableType, returnType, key);
+            }
+
+            // Generate the property of the inferred type param
+            nodeBuilder.codedata().inferredReturnType(functionData.returnError() ? returnType : null);
+            CallBuilder.buildInferredTypeProperty(nodeBuilder, paramResult, inferredTypeName);
+        });
+        buildPropsFromFuncCallArgs(arguments, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
+        handleCheckFlag(callNode, functionTypeSymbol);
+    }
+
+    private static String deriveInferredType(String variableType, String returnType, String key) {
+        int keyIndex = returnType.indexOf(key);
+        if (keyIndex == -1) {
+            // If key is not found, fallback to returning variableType.
+            return variableType;
+        }
+        String prefix = returnType.substring(0, keyIndex);
+        String suffix = returnType.substring(keyIndex + key.length());
+
+        // Check if variableType has the same structure as returnType.
+        if (variableType.startsWith(prefix) && variableType.endsWith(suffix)) {
+            return variableType.substring(prefix.length(), variableType.length() - suffix.length());
+        }
+        // If the structure doesn't match, return variableType as fallback.
+        return variableType;
     }
 
     private boolean isAgentCall(Symbol symbol) {

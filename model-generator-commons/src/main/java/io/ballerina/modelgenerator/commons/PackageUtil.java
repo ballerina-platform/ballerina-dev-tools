@@ -80,7 +80,7 @@ public class PackageUtil {
                     "org = \"wso2\"\n" +
                     "name = \"sample\"\n" +
                     "version = \"0.1.0\"\n" +
-                    "distribution = \"2201.11.0\"";
+                    "distribution = \"2201.12.0\"";
             Files.writeString(ballerinaTomlFile, tomlContent, StandardOpenOption.CREATE);
             return BuildProject.load(tempDir);
         } catch (IOException e) {

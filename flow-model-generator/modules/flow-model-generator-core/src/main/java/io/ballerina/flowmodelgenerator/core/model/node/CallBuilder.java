@@ -38,6 +38,8 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract base class for function-like builders (functions, methods, resource actions).
@@ -91,15 +93,13 @@ public abstract class CallBuilder extends NodeBuilder {
                 .module(codedata.module())
                 .object(codedata.object())
                 .version(codedata.version())
-                .symbol(codedata.symbol());
+                .symbol(codedata.symbol())
+                .inferredReturnType(functionData.inferredReturnType() ? functionData.returnType() : null);
 
         setParameterProperties(functionData);
 
-        String returnTypeName = functionData.returnType();
         if (CommonUtils.hasReturn(functionData.returnType())) {
-            properties()
-                    .type(returnTypeName, functionData.inferredReturnType())
-                    .data(returnTypeName, context.getAllVisibleSymbolNames(), Property.VARIABLE_NAME);
+            setReturnTypeProperties(functionData, context, Property.VARIABLE_NAME);
         }
 
         if (functionData.returnError()) {
@@ -107,11 +107,42 @@ public abstract class CallBuilder extends NodeBuilder {
         }
     }
 
+    public static void buildInferredTypeProperty(NodeBuilder nodeBuilder, ParameterData paramData, String value) {
+        String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramData.name());
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(unescapedParamName)
+                    .description(paramData.description())
+                    .stepOut()
+                .codedata()
+                    .kind(paramData.kind().name())
+                    .originalName(paramData.name())
+                    .importStatements(paramData.importStatements())
+                    .stepOut()
+                .value(value)
+                .placeholder(paramData.defaultValue())
+                .type(Property.ValueType.TYPE)
+                .typeConstraint(paramData.type())
+                .editable()
+                .stepOut()
+                .addProperty(unescapedParamName);
+    }
+
     protected void setParameterProperties(FunctionData function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
-        for (ParameterData paramResult : function.parameters().values()) {
-            if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
-                    || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
+
+        // Build the inferred type property at the top if exists
+        Map<String, ParameterData> paramMap = new HashMap<>();
+        function.parameters().forEach((key, paramData) -> {
+            if (paramData.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
+                paramMap.put(key, paramData);
+                return;
+            }
+            buildInferredTypeProperty(this, paramData, null);
+        });
+
+        for (ParameterData paramResult : paramMap.values()) {
+            if (paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }
 
@@ -134,6 +165,11 @@ public abstract class CallBuilder extends NodeBuilder {
                     .defaultable(paramResult.optional());
 
             switch (paramResult.kind()) {
+                case PARAM_FOR_TYPE_INFER -> {
+                    customPropBuilder.advanced(false);
+                    customPropBuilder.optional(false);
+                    customPropBuilder.type(Property.ValueType.TYPE);
+                }
                 case INCLUDED_RECORD_REST -> {
                     if (hasOnlyRestParams) {
                         customPropBuilder.defaultable(false);
@@ -156,11 +192,10 @@ public abstract class CallBuilder extends NodeBuilder {
         }
     }
 
-    protected void setReturnTypeProperties(String returnTypeName, TemplateContext context, boolean editable,
-                                           String label) {
+    protected void setReturnTypeProperties(FunctionData functionData, TemplateContext context, String label) {
         properties()
-                .type(returnTypeName, editable)
-                .data(returnTypeName, context.getAllVisibleSymbolNames(), label);
+                .type(functionData.returnType(), false, functionData.importStatements())
+                .data(functionData.returnType(), context.getAllVisibleSymbolNames(), label);
     }
 
     protected void setExpressionProperty(Codedata codedata) {

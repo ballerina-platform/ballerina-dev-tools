@@ -307,50 +307,6 @@
       "version": "3.3.0"
     },
     {
-      "name": "microsoft.onedrive",
-      "version": "2.4.0"
-    },
-    {
-      "name": "aws.dynamodb",
-      "version": "2.3.0"
-    },
-    {
-      "name": "aws.dynamodbstreams",
-      "version": "1.0.0"
-    },
-    {
-      "name": "aws.marketplace.mpe",
-      "version": "0.1.0"
-    },
-    {
-      "name": "aws.marketplace.mpm",
-      "version": "0.1.0"
-    },
-    {
-      "name": "aws.redshift",
-      "version": "1.1.0"
-    },
-    {
-      "name": "aws.sns",
-      "version": "3.0.0"
-    },
-    {
-      "name": "asb",
-      "version": "3.8.2"
-    },
-    {
-      "name": "confluent.cavroserdes",
-      "version": "0.2.1"
-    },
-    {
-      "name": "confluent.cregistry",
-      "version": "0.2.1"
-    },
-    {
-      "name": "ibm.ibmmq",
-      "version": "1.2.0"
-    },
-    {
       "name": "java.jdbc",
       "version": "1.12.1"
     },
@@ -407,18 +363,6 @@
       "version": "2.0.0"
     },
     {
-      "name": "asana",
-      "version": "2.0.0"
-    },
-    {
-      "name": "candid",
-      "version": "0.1.1"
-    },
-    {
-      "name": "dayforce",
-      "version": "0.1.0"
-    },
-    {
       "name": "covid19",
       "version": "1.5.1"
     },
@@ -433,22 +377,6 @@
     {
       "name": "docusign.dsclick",
       "version": "2.0.0"
-    },
-    {
-      "name": "docusign.dsesign",
-      "version": "1.0.0"
-    },
-    {
-      "name": "googleapis.calendar",
-      "version": "3.2.0"
-    },
-    {
-      "name": "googleapis.gmail",
-      "version": "4.0.1"
-    },
-    {
-      "name": "guidewire.insnow",
-      "version": "0.1.0"
     },
     {
       "name": "openai.audio",
@@ -481,10 +409,6 @@
     {
       "name": "twitter",
       "version": "4.0.0"
-    },
-    {
-      "name": "zendesk",
-      "version": "2.0.0"
     }
   ]
 }
