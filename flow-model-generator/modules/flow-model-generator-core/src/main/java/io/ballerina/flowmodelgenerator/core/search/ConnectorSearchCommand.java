@@ -66,6 +66,9 @@ public class ConnectorSearchCommand extends SearchCommand {
         put("graphql", "GraphQL");
         put("clouddatastore", "Cloud Datastore");
         put("fhir", "FHIR");
+        put("ftp", "FTP");
+        put("udp", "UDP");
+        put("tcp", "TCP");
     }};
 
     public ConnectorSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {

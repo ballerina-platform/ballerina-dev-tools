@@ -45,7 +45,7 @@
         },
         {
           "metadata": {
-            "label": "Udp Client",
+            "label": "UDP Client",
             "description": "Initializes the UDP connectionless client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.12.1.png"
           },
@@ -93,7 +93,7 @@
         },
         {
           "metadata": {
-            "label": "Tcp Client",
+            "label": "TCP Client",
             "description": "Initializes the TCP connection client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
           },
