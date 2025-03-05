@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "set",
       "version": "3.1.0",
-      "id": 692
+      "id": 842
     },
     "returning": false,
     "properties": {
@@ -44,30 +44,6 @@
         "editable": false,
         "advanced": false
       },
-      "key": {
-        "metadata": {
-          "label": "key",
-          "description": "Key referring to a value"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "key"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "value": {
         "metadata": {
           "label": "value",
@@ -82,6 +58,30 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "value"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
         },
         "typeMembers": [
           {

@@ -31,7 +31,6 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
@@ -59,6 +58,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
@@ -252,7 +252,8 @@ class IndexGenerator {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap = allMembers(returnTypeSymbol.orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = new HashMap<>();
+            returnTypeSymbol.ifPresent(typeSymbol -> FunctionDataBuilder.allMembers(returnTypeMap, typeSymbol));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
                     TypeSymbol typeDescriptor = returnTypeMap.get(paramName);
@@ -299,34 +300,6 @@ class IndexGenerator {
                         resolvedPackage, null,
                         defaultModuleInfo, semanticModel));
         return functionId;
-    }
-
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        }
-
-        switch (typeSymbol.typeKind()) {
-            case UNION -> {
-                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-                unionTypeSymbol.memberTypeDescriptors()
-                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-            }
-            case INTERSECTION -> {
-                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-                intersectionTypeSymbol.memberTypeDescriptors()
-                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-            }
-            case STREAM -> {
-                StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
-                members.put(streamTypeSymbol.typeParameter().getName().orElse(""), streamTypeSymbol.typeParameter());
-                members.put(streamTypeSymbol.completionValueTypeParameter().getName().orElse(""),
-                        streamTypeSymbol.completionValueTypeParameter());
-            }
-            default -> members.put(typeSymbol.getName().orElse(""), typeSymbol);
-        }
-        return members;
     }
 
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
