@@ -22,5 +22,4 @@ function foo() returns error? {
         username: "test",
         password: "22"
     }, retryConfig = {count: 0, interval: 0.0d});
-
 }
