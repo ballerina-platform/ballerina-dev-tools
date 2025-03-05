@@ -45,6 +45,22 @@
         "editable": false,
         "advanced": false
       },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
+        }
+      },
       "path": {
         "metadata": {
           "label": "path",
@@ -65,30 +81,6 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "message": {
-        "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RequestMessage",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "message"
-        },
-        "typeMembers": [
-          {
-            "type": "RequestMessage",
-            "packageInfo": "ballerina:http:2.12.2",
-            "kind": "OTHER",
             "selected": false
           }
         ]
@@ -153,22 +145,29 @@
           }
         ]
       },
-      "targetType": {
+      "message": {
         "metadata": {
-          "label": "targetType",
-          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
         },
-        "valueType": "TYPE",
-        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
-        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RequestMessage",
+        "placeholder": "{}",
         "optional": false,
         "editable": true,
         "advanced": false,
         "codedata": {
-          "kind": "PARAM_FOR_TYPE_INFER",
-          "originalName": "targetType"
+          "kind": "REQUIRED",
+          "originalName": "message"
         },
-        "typeMembers": []
+        "typeMembers": [
+          {
+            "type": "RequestMessage",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {

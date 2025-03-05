@@ -38,6 +38,8 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract base class for function-like builders (functions, methods, resource actions).
@@ -132,10 +134,9 @@ public abstract class CallBuilder extends NodeBuilder {
                     .stepOut()
                 .value(value)
                 .placeholder(paramData.defaultValue())
+                .type(Property.ValueType.TYPE)
                 .typeConstraint(paramData.type())
-                .typeMembers(paramData.typeMembers())
                 .editable()
-                .defaultable(paramData.optional())
                 .stepOut()
                 .addProperty(unescapedParamName);
     }
@@ -144,14 +145,16 @@ public abstract class CallBuilder extends NodeBuilder {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
 
         // Build the inferred type property at the top if exists
-        if (function.inferredReturnType()) {
-            function.parameters().values().stream()
-                    .filter(param -> param.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER))
-                    .findFirst()
-                    .ifPresent(param -> buildInferredTypeProperty(this, param, null));
-        }
+        Map<String, ParameterData> paramMap = new HashMap<>();
+        function.parameters().forEach((key, paramData) -> {
+            if (paramData.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
+                paramMap.put(key, paramData);
+                return;
+            }
+            buildInferredTypeProperty(this, paramData, null);
+        });
 
-        for (ParameterData paramResult : function.parameters().values()) {
+        for (ParameterData paramResult : paramMap.values()) {
             if (paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
             }

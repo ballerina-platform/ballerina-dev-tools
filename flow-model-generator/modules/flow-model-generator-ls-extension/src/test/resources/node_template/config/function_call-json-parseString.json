@@ -30,6 +30,22 @@
     },
     "returning": false,
     "properties": {
+      "t": {
+        "metadata": {
+          "label": "t",
+          "description": "Target type"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "anydata",
+        "placeholder": "anydata",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "t"
+        }
+      },
       "s": {
         "metadata": {
           "label": "s",
@@ -77,23 +93,6 @@
             "selected": false
           }
         ]
-      },
-      "t": {
-        "metadata": {
-          "label": "t",
-          "description": "Target type"
-        },
-        "valueType": "TYPE",
-        "valueTypeConstraint": "anydata",
-        "placeholder": "anydata",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "PARAM_FOR_TYPE_INFER",
-          "originalName": "t"
-        },
-        "typeMembers": []
       },
       "type": {
         "metadata": {

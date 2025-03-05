@@ -61,8 +61,7 @@
         "codedata": {
           "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "rowType"
-        },
-        "typeMembers": []
+        }
       },
       "sqlQuery": {
         "metadata": {
