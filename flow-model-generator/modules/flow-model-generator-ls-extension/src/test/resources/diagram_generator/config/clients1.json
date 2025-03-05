@@ -265,8 +265,7 @@
               "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});",
-          "id": 0
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
         },
         "returning": false,
         "properties": {
@@ -570,8 +569,7 @@
               "offset": 29
             }
           },
-          "sourceCode": "MyClient myLocalCl = new;",
-          "id": 0
+          "sourceCode": "MyClient myLocalCl = new;"
         },
         "returning": false,
         "properties": {
@@ -742,8 +740,7 @@
               "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});",
-          "id": 0
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -883,8 +880,7 @@
               "offset": 45
             }
           },
-          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();",
-          "id": 0
+          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();"
         },
         "returning": false,
         "properties": {
@@ -974,8 +970,7 @@
               "offset": 26
             }
           },
-          "sourceCode": "MyClient myModuleCl = new;",
-          "id": 0
+          "sourceCode": "MyClient myModuleCl = new;"
         },
         "returning": false,
         "properties": {

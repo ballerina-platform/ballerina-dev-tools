@@ -59,8 +59,7 @@
               "offset": 77
             }
           },
-          "sourceCode": "http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");",
-          "id": 0
+          "sourceCode": "http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");"
         },
         "returning": false,
         "properties": {
@@ -715,8 +714,7 @@
               "offset": 57
             }
           },
-          "sourceCode": "redis:Client localRedisCl = check new redis:Client();",
-          "id": 0
+          "sourceCode": "redis:Client localRedisCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {
@@ -910,8 +908,7 @@
               "offset": 67
             }
           },
-          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});",
-          "id": 0
+          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -1051,8 +1048,7 @@
               "offset": 76
             }
           },
-          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -1707,8 +1703,7 @@
               "offset": 39
             }
           },
-          "sourceCode": "redis:Client moduleRedisCl = check new;",
-          "id": 0
+          "sourceCode": "redis:Client moduleRedisCl = check new;"
         },
         "returning": false,
         "properties": {
@@ -1900,8 +1895,7 @@
               "offset": 56
             }
           },
-          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();",
-          "id": 0
+          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {

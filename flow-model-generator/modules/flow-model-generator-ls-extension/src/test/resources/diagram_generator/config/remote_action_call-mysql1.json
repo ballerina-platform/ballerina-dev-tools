@@ -307,8 +307,7 @@
               "offset": 46
             }
           },
-          "sourceCode": "final mysql:Client mysqlClient = check new ();",
-          "id": 0
+          "sourceCode": "final mysql:Client mysqlClient = check new ();"
         },
         "returning": false,
         "properties": {
@@ -499,7 +498,7 @@
             "typeMembers": [
               {
                 "type": "ConnectionPool",
-                "packageInfo": "ballerina:sql:1.14.0",
+                "packageInfo": "ballerina:sql:1.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },

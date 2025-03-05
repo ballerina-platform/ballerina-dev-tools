@@ -80,7 +80,6 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .org(functionData.org())
                 .module(functionData.packageName())
                 .object(codedata.object())
-                .id(functionData.functionId())
                 .symbol(functionData.name());
 
         setExpressionProperty(codedata);
