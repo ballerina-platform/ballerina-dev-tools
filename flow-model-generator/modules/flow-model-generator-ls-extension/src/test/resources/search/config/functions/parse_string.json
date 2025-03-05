@@ -13,8 +13,7 @@
     }
   },
   "queryMap": {
-    "q": "parseString",
-    "includeAvailable": "true"
+    "q": "parseString"
   },
   "categories": [
     {

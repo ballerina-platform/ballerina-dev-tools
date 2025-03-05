@@ -14,7 +14,6 @@
   },
   "queryMap": {
     "q": "write to a file",
-    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

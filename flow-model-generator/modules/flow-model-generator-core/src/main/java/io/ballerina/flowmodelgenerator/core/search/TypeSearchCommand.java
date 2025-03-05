@@ -93,20 +93,11 @@ class TypeSearchCommand extends SearchCommand {
     private void buildLibraryNodes(List<SearchResult> typeSearchList, boolean includeAllResults) {
         // Set the categories based on available flags
         Category.Builder importedTypesBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_TYPES);
-        Category.Builder availableTypesBuilder = null;
-        if (includeAllResults && includeAvailableNodes) {
-            availableTypesBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_TYPES);
-        }
+        Category.Builder availableTypesBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_TYPES);
 
         // Add the library types
         for (SearchResult searchResult : typeSearchList) {
             SearchResult.Package packageInfo = searchResult.packageInfo();
-
-            // Skip if the module is not imported and we're not including all results
-            boolean isImportedModule = moduleNames.contains(packageInfo.name());
-            if (!isImportedModule && !includeAllResults) {
-                continue;
-            }
 
             // Add the type to the respective category
             String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
@@ -122,7 +113,8 @@ class TypeSearchCommand extends SearchCommand {
                     .symbol(searchResult.name())
                     .version(packageInfo.version())
                     .build();
-            Category.Builder builder = isImportedModule ? importedTypesBuilder : availableTypesBuilder;
+            Category.Builder builder =
+                    moduleNames.contains(packageInfo.name()) ? importedTypesBuilder : availableTypesBuilder;
             if (builder != null) {
                 builder.stepIn(packageInfo.name(), "", List.of())
                         .node(new AvailableNode(metadata, codedata, true));

@@ -14,7 +14,6 @@
   },
   "queryMap": {
     "q": "test' UNION SELECT name FROM sqlite_master WHERE type='table';--",
-    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

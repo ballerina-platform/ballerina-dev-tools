@@ -13,8 +13,7 @@
     }
   },
   "queryMap": {
-    "q": "println",
-    "includeAvailable": "true"
+    "q": "println"
   },
   "categories": [
     {
