@@ -345,7 +345,8 @@ public class FunctionDataBuilder {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap = allMembers(returnTypeSymbol.orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = new HashMap<>();
+            returnTypeSymbol.ifPresent(typeSymbol -> allMembers(returnTypeMap, typeSymbol));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
                     TypeSymbol typeDescriptor = returnTypeMap.get(paramName);
@@ -696,32 +697,43 @@ public class FunctionDataBuilder {
         }
     }
 
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        }
+    public static void allMembers(Map<String, TypeSymbol> typeMap, TypeSymbol typeSymbol) {
 
         switch (typeSymbol.typeKind()) {
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-                unionTypeSymbol.memberTypeDescriptors()
-                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+                unionTypeSymbol.memberTypeDescriptors().forEach(memberType -> allMembers(typeMap, memberType));
             }
             case INTERSECTION -> {
                 IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-                intersectionTypeSymbol.memberTypeDescriptors()
-                        .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
+                intersectionTypeSymbol.memberTypeDescriptors().forEach(memberType -> allMembers(typeMap, memberType));
             }
             case STREAM -> {
                 StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
-                members.put(streamTypeSymbol.typeParameter().getName().orElse(""), streamTypeSymbol.typeParameter());
-                members.put(streamTypeSymbol.completionValueTypeParameter().getName().orElse(""),
-                        streamTypeSymbol.completionValueTypeParameter());
+                allMembers(typeMap, streamTypeSymbol.typeParameter());
+                allMembers(typeMap, streamTypeSymbol.completionValueTypeParameter());
             }
-            default -> members.put(typeSymbol.getName().orElse(""), typeSymbol);
+            case ARRAY -> {
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                allMembers(typeMap, arrayTypeSymbol.memberTypeDescriptor());
+            }
+            case MAP -> {
+                MapTypeSymbol mapTypeSymbol = (MapTypeSymbol) typeSymbol;
+                allMembers(typeMap, mapTypeSymbol.typeParam());
+            }
+            case TABLE -> {
+                TableTypeSymbol tableTypeSymbol = (TableTypeSymbol) typeSymbol;
+                allMembers(typeMap, tableTypeSymbol.rowTypeParameter());
+                tableTypeSymbol.keyConstraintTypeParameter().ifPresent(keyType -> allMembers(typeMap, keyType));
+            }
+            case RECORD -> {
+                RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
+                recordTypeSymbol.fieldDescriptors()
+                        .forEach((key, value) -> allMembers(typeMap, value.typeDescriptor()));
+                recordTypeSymbol.restTypeDescriptor().ifPresent(restType -> allMembers(typeMap, restType));
+            }
+            default -> typeMap.put(typeSymbol.getName().orElse(""), typeSymbol);
         }
-        return members;
     }
 
     private ResourcePathTemplate buildResourcePathTemplate(FunctionSymbol functionSymbol) {
