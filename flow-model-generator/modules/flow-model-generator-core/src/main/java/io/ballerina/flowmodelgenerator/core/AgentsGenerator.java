@@ -24,18 +24,13 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Item;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.model.*;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
+import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
@@ -47,12 +42,7 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class is responsible for generating types from the semantic model.
@@ -328,6 +318,112 @@ public class AgentsGenerator {
                     .stepOut()
                     .functionParameters(flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
                             Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
+
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURN_KEYWORD)
+                        .name(flowNode.getProperty(Property.VARIABLE_KEY).get().value().toString())
+                        .endOfStatement();
+            }
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
+            sourceBuilder.textEdit(false, AGENT_FILE, false);
+            return gson.toJsonTree(sourceBuilder.build());
+        } else if (nodeKind == NodeKind.RESOURCE_ACTION_CALL) {
+            String description = flowNode.metadata().description();
+            boolean hasDescription = description != null && !description.isEmpty();
+            if (hasDescription) {
+                sourceBuilder.token().descriptionDoc(description);
+            }
+
+            Map<String, Property> properties = flowNode.properties();
+            Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
+            Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
+                    Property.TYPE_KEY, "targetType", Property.RESOURCE_PATH_KEY, Property.CHECK_ERROR_KEY));
+            keys.removeAll(ignoredKeys);
+            List<String> paramList = new ArrayList<>();
+            for (String key : keys) {
+                Property property = properties.get(key);
+                if (property == null) {
+                    continue;
+                }
+                if (hasDescription) {
+                    sourceBuilder.token().parameterDoc(key, property.metadata().description());
+                }
+                String paramType = property.valueTypeConstraint().toString();
+                paramList.add(paramType + " " + key);
+            }
+
+            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
+            sourceBuilder.token().name("@display {").name("label: \"\",").name("iconPath: \"").name(flowNode.metadata().icon()).name("\"}").name(System.lineSeparator());
+
+            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+            sourceBuilder.token().name(String.join(", ", paramList));
+            sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
+
+            Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value().toString());
+                if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+                    sourceBuilder.token().keyword(SyntaxKind.PIPE_TOKEN).keyword(SyntaxKind.ERROR_KEYWORD);
+                }
+            }
+
+            sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
+
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token().expressionWithType(returnType.get(),
+                        flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
+            }
+            if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+                sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+            }
+
+            String resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY)
+                    .codedata().originalName();
+
+            if (resourcePath.equals(ParamUtils.REST_RESOURCE_PATH)) {
+                resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString();
+            }
+
+            for (String key : keys) {
+                Optional<Property> property = flowNode.getProperty(key);
+                if (property.isEmpty()) {
+                    continue;
+                }
+                PropertyCodedata propCodedata = property.get()
+                        .codedata();
+                if (propCodedata == null) {
+                    continue;
+                }
+                if (propCodedata.kind().equals(ParameterData.Kind.PATH_PARAM.name())) {
+//                    String pathParamSubString = "[" + key + "]";
+//                    String replacement = "[" + property.get().value().toString() + "]";
+//                    resourcePath = resourcePath.replace(pathParamSubString, replacement);
+                    ignoredKeys.add(key);
+                } else if (propCodedata.kind().equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
+                    String replacement = property.get().value().toString();
+                    resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
+                    ignoredKeys.add(key);
+                }
+            }
+
+            Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+            if (connection.isEmpty()) {
+                throw new IllegalStateException("Client must be defined for an action call node");
+            }
+
+            sourceBuilder.token()
+                    .name(connection.get().toSourceCode())
+                    .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
+                    .resourcePath(resourcePath)
+                    .keyword(SyntaxKind.DOT_TOKEN)
+                    .name(sourceBuilder.flowNode.codedata().symbol())
+                    .stepOut()
+                    .functionParameters(flowNode, ignoredKeys);
 
             if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
                 sourceBuilder.token()
