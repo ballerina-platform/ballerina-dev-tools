@@ -52,7 +52,8 @@ public class GenToolsTest extends AbstractLSTest {
     protected Object[] getConfigsList() {
         return new Object[][]{
                 {Path.of("function_tool.json")},
-                {Path.of("remote_action_tool.json")}
+                {Path.of("remote_action_tool.json")},
+                {Path.of("remote_action_tool2.json")}
         };
     }
 

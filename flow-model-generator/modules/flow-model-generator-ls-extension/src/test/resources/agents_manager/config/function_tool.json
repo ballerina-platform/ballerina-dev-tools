@@ -179,7 +179,7 @@
             "character": 0
           }
         },
-        "newText": "function toolFunc(string foo, int...bar) returns string{ string result = foo( foo, bar) ;\n}"
+        "newText": "@agent:Tool\nfunction toolFunc(string foo, int...bar) returns string{ string result = foo( foo, bar) ;\n}"
       }
     ]
   }

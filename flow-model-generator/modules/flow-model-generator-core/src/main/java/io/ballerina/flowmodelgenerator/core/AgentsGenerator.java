@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
@@ -212,6 +213,7 @@ public class AgentsGenerator {
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         List<String> args = new ArrayList<>();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
+            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
             sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
@@ -265,8 +267,11 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE, false);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
-            sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+            String description = flowNode.metadata().description();
+            boolean hasDescription = description != null && !description.isEmpty();
+            if (hasDescription) {
+                sourceBuilder.token().descriptionDoc(description);
+            }
 
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
@@ -278,9 +283,18 @@ public class AgentsGenerator {
                 if (property == null) {
                     continue;
                 }
+                if (hasDescription) {
+                    sourceBuilder.token().parameterDoc(key, property.metadata().description());
+                }
                 String paramType = property.valueTypeConstraint().toString();
                 paramList.add(paramType + " " + key);
             }
+
+            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
+            sourceBuilder.token().name("@display {").name("label: \"\",").name("iconPath: \"").name(flowNode.metadata().icon()).name("\"}").name(System.lineSeparator());
+
+            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
@@ -289,11 +303,31 @@ public class AgentsGenerator {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURNS_KEYWORD)
                         .name(returnType.get().value().toString());
+                if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+                    sourceBuilder.token().keyword(SyntaxKind.PIPE_TOKEN).keyword(SyntaxKind.ERROR_KEYWORD);
+                }
             }
 
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
+
+            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+                sourceBuilder.token().expressionWithType(returnType.get(), flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
+            }
+            if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
+                sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
+            }
+            Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+            if (connection.isEmpty()) {
+                throw new IllegalStateException("Client must be defined for an action call node");
+            }
             sourceBuilder.token()
-                    .name(flowNode.codedata().sourceCode());
+                    .name(connection.get().toSourceCode())
+                    .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
+                    .name(flowNode.metadata().label())
+                    .stepOut()
+                    .functionParameters(flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
+                            Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
+
             if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURN_KEYWORD)
