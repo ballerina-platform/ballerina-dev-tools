@@ -110,6 +110,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.AssignBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.CallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
@@ -1280,24 +1281,7 @@ class CodeAnalyzer extends NodeVisitor {
 
             // Generate the property of the inferred type param
             nodeBuilder.codedata().inferredReturnType(functionData.returnError() ? returnType : null);
-            String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
-            nodeBuilder.properties().custom()
-                    .metadata()
-                        .label(unescapedParamName)
-                        .description(paramResult.description())
-                        .stepOut()
-                    .type(Property.ValueType.TYPE)
-                    .typeConstraint(paramResult.type())
-                    .value(inferredTypeName)
-                    .placeholder(paramResult.defaultValue())
-                    .editable()
-                    .codedata()
-                        .kind(paramResult.kind().name())
-                        .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
-                        .stepOut()
-                    .stepOut()
-                    .addProperty(unescapedParamName);
+            CallBuilder.buildInferredTypeProperty(nodeBuilder, paramResult, inferredTypeName);
         });
         buildPropsFromFuncCallArgs(arguments, functionTypeSymbol, funcParamMap, positionalArgs, namedArgValueMap);
         handleCheckFlag(callNode, functionTypeSymbol);

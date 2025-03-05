@@ -47,6 +47,23 @@
         "editable": false,
         "advanced": false
       },
+      "rowType": {
+        "metadata": {
+          "label": "rowType",
+          "description": "The `typedesc` of the record to which the result needs to be returned"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "record {|anydata...;|}",
+        "placeholder": "record {|anydata...;|}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "rowType"
+        },
+        "typeMembers": []
+      },
       "sqlQuery": {
         "metadata": {
           "label": "sqlQuery",
@@ -71,23 +88,6 @@
             "selected": false
           }
         ]
-      },
-      "rowType": {
-        "metadata": {
-          "label": "rowType",
-          "description": "The `typedesc` of the record to which the result needs to be returned"
-        },
-        "valueType": "TYPE",
-        "valueTypeConstraint": "record {|anydata...;|}",
-        "placeholder": "record {|anydata...;|}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "PARAM_FOR_TYPE_INFER",
-          "originalName": "rowType"
-        },
-        "typeMembers": []
       },
       "type": {
         "metadata": {

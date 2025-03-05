@@ -118,8 +118,39 @@ public abstract class CallBuilder extends NodeBuilder {
         }
     }
 
+    public static void buildInferredTypeProperty(NodeBuilder nodeBuilder, ParameterData paramData, String value) {
+        String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramData.name());
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(unescapedParamName)
+                    .description(paramData.description())
+                    .stepOut()
+                .codedata()
+                    .kind(paramData.kind().name())
+                    .originalName(paramData.name())
+                    .importStatements(paramData.importStatements())
+                    .stepOut()
+                .value(value)
+                .placeholder(paramData.defaultValue())
+                .typeConstraint(paramData.type())
+                .typeMembers(paramData.typeMembers())
+                .editable()
+                .defaultable(paramData.optional())
+                .stepOut()
+                .addProperty(unescapedParamName);
+    }
+
     protected void setParameterProperties(FunctionData function) {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
+
+        // Build the inferred type property at the top if exists
+        if (function.inferredReturnType()) {
+            function.parameters().values().stream()
+                    .filter(param -> param.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER))
+                    .findFirst()
+                    .ifPresent(param -> buildInferredTypeProperty(this, param, null));
+        }
+
         for (ParameterData paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
                 continue;
