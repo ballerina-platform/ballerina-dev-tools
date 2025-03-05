@@ -82,7 +82,6 @@ public class DatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
-    @Deprecated
     public List<FunctionData> getAllFunctions(FunctionData.Kind kind, Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -133,7 +132,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public List<FunctionData> getFunctionsByOrg(String orgName, FunctionData.Kind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -181,7 +179,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public List<FunctionData> searchFunctions(Map<String, String> queryMap, FunctionData.Kind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -296,7 +293,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public Optional<FunctionData> getFunction(int functionId) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -340,7 +336,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public List<ParameterData> getFunctionParameters(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
@@ -483,7 +478,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public List<FunctionData> getConnectorActions(int connectorId) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -526,7 +520,6 @@ public class DatabaseManager {
         }
     }
 
-    @Deprecated
     public List<FunctionData> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
                                                         FunctionData.Kind kind) {
         if (packageNames == null || packageNames.isEmpty()) {

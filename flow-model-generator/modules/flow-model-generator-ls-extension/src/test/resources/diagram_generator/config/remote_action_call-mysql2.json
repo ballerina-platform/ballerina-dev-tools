@@ -387,7 +387,7 @@
             "typeMembers": [
               {
                 "type": "ConnectionPool",
-                "packageInfo": "ballerina:sql:1.14.1",
+                "packageInfo": "ballerina:sql:1.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },

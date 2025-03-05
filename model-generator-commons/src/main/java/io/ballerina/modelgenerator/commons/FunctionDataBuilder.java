@@ -468,7 +468,8 @@ public class FunctionDataBuilder {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionData> optFunctionResult =
                 dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
-                        functionKind, resourcePath);
+                        functionKind,
+                        resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
