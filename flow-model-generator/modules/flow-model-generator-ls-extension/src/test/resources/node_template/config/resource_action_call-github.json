@@ -19,7 +19,7 @@
     "metadata": {
       "label": "post",
       "description": "Create a GitHub App from a manifest\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.0.2.png"
     },
     "codedata": {
       "node": "RESOURCE_ACTION_CALL",
@@ -27,7 +27,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "post",
-      "id": 2114
+      "id": 936
     },
     "returning": false,
     "properties": {
@@ -83,7 +83,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

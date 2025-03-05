@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "filePath": "proj_1/services.bal",
+  "position": {
+    "line": 5,
+    "offset": 24
+  },
+  "findClass": true,
+  "response": {
+    "filePath": "proj_1/services.bal",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "endLine": {
+      "line": 22,
+      "offset": 1
+    }
+  }
+}

@@ -44,7 +44,7 @@ public class RemoteActionCallBuilder extends CallBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder.newVariableWithInferredType();
         FlowNode flowNode = sourceBuilder.flowNode;
 
         if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
@@ -62,10 +62,10 @@ public class RemoteActionCallBuilder extends CallBuilder {
                 .name(flowNode.metadata().label())
                 .stepOut()
                 .functionParameters(flowNode,
-                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE_KEY,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
-                .acceptImport()
+                .acceptImportWithVariableType()
                 .build();
     }
 

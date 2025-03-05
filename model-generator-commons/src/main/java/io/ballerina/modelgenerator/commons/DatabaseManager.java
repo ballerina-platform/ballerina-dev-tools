@@ -92,6 +92,7 @@ public class DatabaseManager {
                 "f.kind, " +
                 "f.return_error, " +
                 "f.inferred_return_type, " +
+                "f.import_statements, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -120,7 +121,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type"));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
                 functionDataList.add(functionData);
             }
             return functionDataList;
@@ -139,6 +141,7 @@ public class DatabaseManager {
                 "f.kind, " +
                 "f.return_error, " +
                 "f.inferred_return_type, " +
+                "f.import_statements, " +
                 "f.resource_path, " +
                 "p.name AS package_name, " +
                 "p.org, " +
@@ -165,7 +168,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type"));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
                 functionDataList.add(functionData);
             }
             return functionDataList;
@@ -185,6 +189,7 @@ public class DatabaseManager {
                 "f.kind, " +
                 "f.return_error, " +
                 "f.inferred_return_type, " +
+                "f.import_statements, " +
                 "p.name AS package_name, " +
                 "p.org, " +
                 "p.version " +
@@ -220,7 +225,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type"));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
                 functionDataList.add(functionData);
             }
             return functionDataList;
@@ -241,6 +247,7 @@ public class DatabaseManager {
         sql.append("f.kind, ");
         sql.append("f.return_error, ");
         sql.append("f.inferred_return_type, ");
+        sql.append("f.import_statements, ");
         sql.append("p.name AS package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
@@ -276,7 +283,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type")));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -318,7 +326,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type")));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -500,7 +509,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type"));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
                 functionDataList.add(functionData);
             }
             return functionDataList;
@@ -525,6 +535,7 @@ public class DatabaseManager {
         sql.append("f.kind, ");
         sql.append("f.return_error, ");
         sql.append("f.inferred_return_type, ");
+        sql.append("f.import_statements, ");
         sql.append("p.name AS package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
@@ -583,7 +594,8 @@ public class DatabaseManager {
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),
-                        rs.getBoolean("inferred_return_type"));
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
                 functionDataList.add(functionData);
             }
             return functionDataList;

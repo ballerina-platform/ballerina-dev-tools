@@ -25,7 +25,7 @@
       "module": "data.jsondata",
       "symbol": "toJson",
       "version": "0.2.0",
-      "id": 558
+      "id": 621
     },
     "returning": false,
     "properties": {
@@ -63,7 +63,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

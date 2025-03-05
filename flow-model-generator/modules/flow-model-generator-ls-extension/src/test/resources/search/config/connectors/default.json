@@ -1,7 +1,7 @@
 {
   "description": "Sample flow model",
-  "source": "empty.bal",
   "kind": "CONNECTOR",
+  "source": "empty.bal",
   "queryMap": {
     "q": ""
   },
@@ -13,7 +13,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Grpc Client",
+            "label": "gRPC Client",
             "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
           },
@@ -29,7 +29,7 @@
         },
         {
           "metadata": {
-            "label": "Http Client",
+            "label": "HTTP Client",
             "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
           },
@@ -45,7 +45,7 @@
         },
         {
           "metadata": {
-            "label": "Udp Client",
+            "label": "UDP Client",
             "description": "Initializes the UDP connectionless client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.12.1.png"
           },
@@ -56,6 +56,22 @@
             "object": "Client",
             "symbol": "init",
             "version": "1.12.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "FTP Client",
+            "description": "Represents an FTP client that intracts with an FTP server",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "ftp",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.12.0"
           },
           "enabled": true
         },
@@ -77,7 +93,7 @@
         },
         {
           "metadata": {
-            "label": "Graphql Client",
+            "label": "GraphQL Client",
             "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
           },
@@ -93,7 +109,7 @@
         },
         {
           "metadata": {
-            "label": "Tcp Client",
+            "label": "TCP Client",
             "description": "Initializes the TCP connection client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
           },
@@ -116,7 +132,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Mssql Client",
+            "label": "MS SQL Client",
             "description": "Represents an MSSQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.14.0.png"
           },
@@ -132,7 +148,7 @@
         },
         {
           "metadata": {
-            "label": "Mongodb Client",
+            "label": "MongoDB Client",
             "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.1.0.png"
           },
@@ -148,7 +164,7 @@
         },
         {
           "metadata": {
-            "label": "Mysql Client",
+            "label": "MySQL Client",
             "description": "Represents a MySQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
           },
@@ -180,7 +196,7 @@
         },
         {
           "metadata": {
-            "label": "Postgresql Client",
+            "label": "PostgreSQL Client",
             "description": "Represents a PostgreSQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png"
           },
@@ -251,7 +267,7 @@
         },
         {
           "metadata": {
-            "label": "Rabbitmq Client",
+            "label": "RabbitMQ Client",
             "description": "The Ballerina interface to provide AMQP Channel related functionality.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png"
           },
@@ -274,7 +290,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Aws.dynamodb Client",
+            "label": "DynamoDB Client",
             "description": "The Ballerina AWS DynamoDB connector provides the capability to access AWS Simple Email Service related operations.\nThis connector lets you to to send email messages to your customers.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodb_2.3.0.png"
           },
@@ -290,7 +306,7 @@
         },
         {
           "metadata": {
-            "label": "Aws.sqs Client",
+            "label": "SQS Client",
             "description": "Ballerina Amazon SQS connector provides the capability to access Amazon SQS API.\nThis connector lets you to perform operations related to manage queues, send and receive messages. \n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sqs_3.1.0.png"
           },
@@ -306,7 +322,7 @@
         },
         {
           "metadata": {
-            "label": "Aws.s3 Client",
+            "label": "S3 Client",
             "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png"
           },
@@ -322,7 +338,7 @@
         },
         {
           "metadata": {
-            "label": "Googleapis.gmail Client",
+            "label": "Gmail Client",
             "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
           },
@@ -338,7 +354,7 @@
         },
         {
           "metadata": {
-            "label": "Googleapis.gcalendar Client",
+            "label": "Gcalendar Client",
             "description": "Manipulates events and other calendar data.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gcalendar_4.0.1.png"
           },

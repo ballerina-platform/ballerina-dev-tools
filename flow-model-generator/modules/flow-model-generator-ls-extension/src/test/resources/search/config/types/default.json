@@ -4,7 +4,6 @@
   "source": "proj/main.bal",
   "queryMap": {
     "q": "",
-    "includeAvailable": "true",
     "limit": "50"
   },
   "categories": [
@@ -797,6 +796,18 @@
           ]
         }
       ]
+    },
+    {
+      "metadata": {
+        "label": "Available Types",
+        "description": "Types available in the library",
+        "keywords": [
+          "Available",
+          "Type",
+          "Library"
+        ]
+      },
+      "items": []
     }
   ]
 }

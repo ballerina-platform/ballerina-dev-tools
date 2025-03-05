@@ -13,8 +13,7 @@
     }
   },
   "queryMap": {
-    "q": "log",
-    "includeAvailable": "true"
+    "q": "log"
   },
   "categories": [
     {

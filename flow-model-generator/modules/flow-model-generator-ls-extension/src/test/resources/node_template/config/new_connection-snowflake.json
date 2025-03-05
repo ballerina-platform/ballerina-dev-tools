@@ -21,58 +21,10 @@
       "object": "Client",
       "symbol": "init",
       "version": "2.0.0",
-      "id": 637
+      "id": 680
     },
     "returning": false,
     "properties": {
-      "account_identifier": {
-        "metadata": {
-          "label": "account_identifier",
-          "description": "The Snowflake account identifier"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "account_identifier"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "user": {
-        "metadata": {
-          "label": "user",
-          "description": "The username of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "user"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "password": {
         "metadata": {
           "label": "password",
@@ -87,6 +39,30 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "password"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "account_identifier": {
+        "metadata": {
+          "label": "account_identifier",
+          "description": "The Snowflake account identifier"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "account_identifier"
         },
         "typeMembers": [
           {
@@ -158,6 +134,30 @@
           }
         ]
       },
+      "user": {
+        "metadata": {
+          "label": "user",
+          "description": "The username of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "user"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -168,7 +168,10 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {

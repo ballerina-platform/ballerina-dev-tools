@@ -38,11 +38,13 @@ public class FunctionData {
     private final Kind kind;
     private final boolean returnError;
     private final boolean inferredReturnType;
+    private final String importStatements;
     private Map<String, ParameterData> parameters;
+    private String packageId;
 
     public FunctionData(int functionId, String name, String description, String returnType,
                         String packageName, String org, String version, String resourcePath,
-                        Kind kind, boolean returnError, boolean inferredReturnType) {
+                        Kind kind, boolean returnError, boolean inferredReturnType, String importStatements) {
         this.functionId = functionId;
         this.name = name;
         this.description = description;
@@ -54,10 +56,15 @@ public class FunctionData {
         this.kind = kind;
         this.returnError = returnError;
         this.inferredReturnType = inferredReturnType;
+        this.importStatements = importStatements;
     }
 
     public void setParameters(Map<String, ParameterData> parameters) {
         this.parameters = parameters;
+    }
+
+    public void setPackageId(String attachmentId) {
+        this.packageId = attachmentId;
     }
 
     // Getters
@@ -105,15 +112,24 @@ public class FunctionData {
         return inferredReturnType;
     }
 
+    public String importStatements() {
+        return importStatements;
+    }
+
     public Map<String, ParameterData> parameters() {
         return parameters;
+    }
+
+    public String packageId() {
+        return packageId;
     }
 
     public enum Kind {
         FUNCTION,
         CONNECTOR,
         REMOTE,
-        RESOURCE
+        RESOURCE,
+        LISTENER_INIT,
     }
 
 }

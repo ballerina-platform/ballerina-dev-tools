@@ -122,7 +122,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
         if (node != null && !assignment) {
             propertyBuilder.codedata()
-                        .lineRange(node.lineRange());
+                    .lineRange(node.lineRange());
         } else {
             propertyBuilder.editable();
         }
@@ -172,15 +172,23 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return type(typeName, label, editable, node == null ? null : node.lineRange());
     }
 
-    public FormBuilder<T> type(String typeName, boolean editable) {
-        return type(typeName, Property.TYPE_LABEL, editable, null);
+    public FormBuilder<T> type(String typeName, boolean editable, String importStatements) {
+        return type(typeName, Property.TYPE_LABEL, editable, null, importStatements);
     }
 
     public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange) {
+        return type(typeName, label, editable, lineRange, null);
+    }
+
+    public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange,
+                               String importStatements) {
         propertyBuilder
                 .metadata()
                     .label(label)
                     .description(Property.TYPE_DOC)
+                    .stepOut()
+                .codedata()
+                    .importStatements(importStatements)
                     .stepOut()
                 .placeholder("var")
                 .value(typeName)
@@ -713,7 +721,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
         if (!functionName.equals(Constants.MAIN_FUNCTION_NAME)) {
             propertyBuilder.codedata()
-                        .lineRange(identifierToken.lineRange());
+                    .lineRange(identifierToken.lineRange());
         }
 
         addProperty(Property.FUNCTION_NAME_KEY);

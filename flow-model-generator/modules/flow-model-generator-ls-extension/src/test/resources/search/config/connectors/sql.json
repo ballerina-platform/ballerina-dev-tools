@@ -1,14 +1,14 @@
 {
   "description": "Sample flow model",
-  "source": "empty.bal",
   "kind": "CONNECTOR",
+  "source": "empty.bal",
   "queryMap": {
     "q": "sql"
   },
   "categories": [
     {
       "metadata": {
-        "label": "Persist.sql SQLClient",
+        "label": "Persist SQLClient",
         "description": "The client used by the generated persist clients to abstract and \nexecute SQL queries that are required to perform CRUD operations.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.sql_1.5.0.png"
       },
@@ -24,7 +24,7 @@
     },
     {
       "metadata": {
-        "label": "Azure.sqldb Client",
+        "label": "SQLDB Client",
         "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
       },
@@ -40,7 +40,7 @@
     },
     {
       "metadata": {
-        "label": "Cdata.connect Client",
+        "label": "Connect Client",
         "description": "The [Ballerina](https://ballerina.io/) connector for [CData Connect](https://cloud.cdata.com/docs/JDBC.html) \nallows you to programmatically access all of the CData Connect applications, databases, APIs, and services\nacross an organization via the Java Database Connectivity (JDBC) API using [Ballerina](https://ballerina.io/). \nFor detailed information on working with each data source, see [Data Sources](https://cloud.cdata.com/docs/Data-Sources.html).\nCData Connect supports a wide range of standard DDL commands, SQL commands, and SQL functions to query data sources. \nFor reference information on all the CData Connect SQL commands (i.e., DDL, DML, and query syntax), \nsee the [SQL Reference](https://cloud.cdata.com/docs/SQL-Reference.html).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cdata.connect_1.2.0.png"
       },

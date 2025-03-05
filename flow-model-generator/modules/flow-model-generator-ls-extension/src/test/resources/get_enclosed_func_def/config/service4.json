@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "filePath": "proj_1/graphql_service.bal",
+  "position": {
+    "line": 43,
+    "offset": 22
+  },
+  "findClass": true,
+  "response": {
+    "filePath": "proj_1/graphql_service.bal",
+    "startLine": {
+      "line": 38,
+      "offset": 0
+    },
+    "endLine": {
+      "line": 58,
+      "offset": 1
+    }
+  }
+}

@@ -25,7 +25,7 @@
       "module": "time",
       "symbol": "utcFromCivil",
       "version": "2.5.0",
-      "id": 624
+      "id": 553
     },
     "returning": false,
     "properties": {
@@ -63,7 +63,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

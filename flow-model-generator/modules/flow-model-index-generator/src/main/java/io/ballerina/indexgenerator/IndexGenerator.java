@@ -31,7 +31,6 @@ import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
@@ -59,6 +58,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
@@ -115,6 +115,9 @@ class IndexGenerator {
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
+
+        // TODO: Remove this once thw raw parameter property type is introduced
+        DatabaseManager.executeQuery("UPDATE Parameter SET default_value = '``' WHERE type = 'sql:ParameterizedQuery'");
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,
@@ -230,10 +233,16 @@ class IndexGenerator {
 
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        String returnType = functionTypeSymbol.returnTypeDescriptor()
+        Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
+        String returnType = returnTypeSymbol
                 .map(returnTypeDesc -> functionSymbol.nameEquals("init") ? getClientType(packageName)
                         : CommonUtils.getTypeSignature(semanticModel, returnTypeDesc, true))
                 .orElse("");
+
+        // Get import statements for the return type
+        ModuleInfo defaultModuleInfo = ModuleInfo.from(resolvedPackage.getDefaultModule().descriptor());
+        String importStatements = returnTypeSymbol.flatMap(
+                typeSymbol -> CommonUtils.getImportStatements(returnTypeSymbol.get(), defaultModuleInfo)).orElse(null);
 
         ParamForTypeInfer paramForTypeInfer = null;
         if (functionSymbol.external()) {
@@ -243,19 +252,20 @@ class IndexGenerator {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap = allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = new HashMap<>();
+            returnTypeSymbol.ifPresent(typeSymbol -> FunctionDataBuilder.allMembers(returnTypeMap, typeSymbol));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
-                    returnType = "json";
-                    String defaultValue = DefaultValueGeneratorUtil
-                            .getDefaultValueForType(returnTypeMap.get(paramName));
-                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, returnType);
+                    TypeSymbol typeDescriptor = returnTypeMap.get(paramName);
+                    String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeDescriptor);
+                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue,
+                            CommonUtils.getTypeSignature(semanticModel, CommonUtils.getRawType(typeDescriptor), true));
                     break;
                 }
             }
         }
 
-        int returnError = functionTypeSymbol.returnTypeDescriptor()
+        int returnError = returnTypeSymbol
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
 
         ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
@@ -266,7 +276,7 @@ class IndexGenerator {
 
         String resourcePath = resourcePathTemplate == null ? "" : resourcePathTemplate.resourcePathTemplate();
         int functionId = DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
-                functionType.name(), resourcePath, returnError, paramForTypeInfer != null);
+                functionType.name(), resourcePath, returnError, paramForTypeInfer != null, importStatements);
 
         // Store the resource path params
         if (resourcePathTemplate != null) {
@@ -281,7 +291,6 @@ class IndexGenerator {
 
         // Handle the parameters of the function
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
-        ModuleInfo defaultModuleInfo = ModuleInfo.from(resolvedPackage.getDefaultModule().descriptor());
         functionTypeSymbol.params()
                 .ifPresent(paramList -> paramList.forEach(paramSymbol -> processParameterSymbol(paramSymbol,
                         documentationMap, functionId, resolvedPackage,
@@ -291,24 +300,6 @@ class IndexGenerator {
                         resolvedPackage, null,
                         defaultModuleInfo, semanticModel));
         return functionId;
-    }
-
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            unionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
-            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-            intersectionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else {
-            members.put(typeSymbol.getName().orElse(""), typeSymbol);
-        }
-        return members;
     }
 
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
