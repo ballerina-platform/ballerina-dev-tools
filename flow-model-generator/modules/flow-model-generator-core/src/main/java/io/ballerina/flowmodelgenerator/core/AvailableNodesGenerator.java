@@ -42,6 +42,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -206,10 +207,15 @@ public class AvailableNodesGenerator {
             }
             String parentSymbolName = symbol.getName().orElseThrow();
             String className = classSymbol.getName().orElseThrow();
+            ModuleInfo moduleInfo = classSymbol.getModule()
+                    .map(moduleSymbol -> ModuleInfo.from(moduleSymbol.id()))
+                    .orElse(null);
 
             // Obtain methods of the connector
             List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
                     .parentSymbol(classSymbol)
+                    .parentSymbolType(className)
+                    .moduleInfo(moduleInfo)
                     .buildChildNodes();
 
             List<Item> methods = new ArrayList<>();
