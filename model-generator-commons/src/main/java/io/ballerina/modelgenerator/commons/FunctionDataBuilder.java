@@ -401,9 +401,12 @@ public class FunctionDataBuilder {
     }
 
     public List<FunctionData> buildChildNodes() {
-        // TODO: If the name and the module info is present, check in the index
-//        if (parentSymbolType != null && moduleInfo != null) {
-//        }
+        if (parentSymbolType != null && moduleInfo != null) {
+            List<FunctionData> fetchedMethods = getMethodsFromIndex();
+            if (!fetchedMethods.isEmpty()) {
+                return fetchedMethods;
+            }
+        }
 
         // The parent symbol must be present
         if (this.parentSymbol == null && this.parentSymbolType == null) {
@@ -468,8 +471,7 @@ public class FunctionDataBuilder {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionData> optFunctionResult =
                 dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
-                        functionKind,
-                        resourcePath);
+                        functionKind, resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -478,6 +480,18 @@ public class FunctionDataBuilder {
                 dbManager.getFunctionParametersAsMap(functionData.functionId());
         functionData.setParameters(parameters);
         return Optional.of(functionData);
+    }
+
+    private List<FunctionData> getMethodsFromIndex() {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(),
+                moduleInfo.packageName(), moduleInfo.version());
+        if (methods.isEmpty()) {
+            return new ArrayList<>();
+        }
+        methods.parallelStream()
+                .forEach(method -> method.setParameters(dbManager.getFunctionParametersAsMap(method.functionId())));
+        return methods;
     }
 
     private Map<String, ParameterData> getParameters(ParameterSymbol paramSymbol,

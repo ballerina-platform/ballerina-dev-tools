@@ -82,6 +82,7 @@ public class DatabaseManager {
         dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
+    @Deprecated
     public List<FunctionData> getAllFunctions(FunctionData.Kind kind, Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -132,6 +133,7 @@ public class DatabaseManager {
         }
     }
 
+    @Deprecated
     public List<FunctionData> getFunctionsByOrg(String orgName, FunctionData.Kind functionKind) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -179,6 +181,7 @@ public class DatabaseManager {
         }
     }
 
+    @Deprecated
     public List<FunctionData> searchFunctions(Map<String, String> queryMap, FunctionData.Kind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -293,6 +296,7 @@ public class DatabaseManager {
         }
     }
 
+    @Deprecated
     public Optional<FunctionData> getFunction(int functionId) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -336,6 +340,7 @@ public class DatabaseManager {
         }
     }
 
+    @Deprecated
     public List<ParameterData> getFunctionParameters(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +
@@ -453,6 +458,7 @@ public class DatabaseManager {
 
     // Helper builder class
     private static class ParameterDataBuilder {
+
         int parameterId;
         String name;
         String type;
@@ -478,6 +484,7 @@ public class DatabaseManager {
         }
     }
 
+    @Deprecated
     public List<FunctionData> getConnectorActions(int connectorId) {
         String sql = "SELECT " +
                 "f.function_id, " +
@@ -520,6 +527,59 @@ public class DatabaseManager {
         }
     }
 
+    public List<FunctionData> getMethods(String connectorName, String org, String packageName, String version) {
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name AS function_name, " +
+                "f.description, " +
+                "f.kind, " +
+                "f.return_type, " +
+                "f.resource_path, " +
+                "f.return_error, " +
+                "f.inferred_return_type, " +
+                "f.import_statements " +
+                "FROM Function f " +
+                "JOIN FunctionConnector fc ON f.function_id = fc.function_id " +
+                "JOIN Function c ON fc.connector_id = c.function_id " +
+                "JOIN Package p ON c.package_id = p.package_id " +
+                "WHERE c.name = ? " +
+                "AND p.org = ? " +
+                "AND p.name = ? " +
+                "AND p.version = ? " +
+                "AND c.kind = 'CONNECTOR';";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, connectorName);
+            stmt.setString(2, org);
+            stmt.setString(3, packageName);
+            stmt.setString(4, version);
+            ResultSet rs = stmt.executeQuery();
+            List<FunctionData> functionDataList = new ArrayList<>();
+            while (rs.next()) {
+                FunctionData functionData = new FunctionData(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("description"),
+                        rs.getString("return_type"),
+                        packageName,
+                        org,
+                        version,
+                        rs.getString("resource_path"),
+                        FunctionData.Kind.valueOf(rs.getString("kind")),
+                        rs.getBoolean("return_error"),
+                        rs.getBoolean("inferred_return_type"),
+                        rs.getString("import_statements"));
+                functionDataList.add(functionData);
+            }
+            return functionDataList;
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    @Deprecated
     public List<FunctionData> searchFunctionsInPackages(List<String> packageNames, Map<String, String> queryMap,
                                                         FunctionData.Kind kind) {
         if (packageNames == null || packageNames.isEmpty()) {
