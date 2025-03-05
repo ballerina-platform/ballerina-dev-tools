@@ -33,7 +33,6 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -48,28 +47,12 @@ public class ConnectorSearchCommand extends SearchCommand {
 
     private static final String CONNECTORS_LANDING_JSON = "connectors_landing.json";
     private static final Type CONNECTION_CATEGORY_LIST_TYPE = new TypeToken<Map<String, List<String>>>() { }.getType();
+
     // TODO: Remove this once the name is retrieved from the library module
-    private static final Map<String, String> CONNECTOR_NAME_MAP = new HashMap<>() {{
-        put("http", "HTTP");
-        put("grpc", "gRPC");
-        put("mysql", "MySQL");
-        put("mssql", "MS SQL");
-        put("mongodb", "MongoDB");
-        put("dynamodb", "DynamoDB");
-        put("oracledb", "OracleDB");
-        put("postgresql", "PostgreSQL");
-        put("sql", "SQL");
-        put("sqldb", "SQLDB");
-        put("sqs", "SQS");
-        put("mqtt", "MQTT");
-        put("rabbitmq", "RabbitMQ");
-        put("graphql", "GraphQL");
-        put("clouddatastore", "Cloud Datastore");
-        put("fhir", "FHIR");
-        put("ftp", "FTP");
-        put("udp", "UDP");
-        put("tcp", "TCP");
-    }};
+    private static final String CONNECTOR_NAME_CORRECTION_JSON = "connector_name_correction.json";
+    private static final Type CONNECTOR_NAME_MAP_TYPE = new TypeToken<Map<String, String>>() { }.getType();
+    private static final Map<String, String> CONNECTOR_NAME_MAP =
+            LocalIndexCentral.getInstance().readJsonResource(CONNECTOR_NAME_CORRECTION_JSON, CONNECTOR_NAME_MAP_TYPE);
 
     public ConnectorSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
         super(module, position, queryMap);
