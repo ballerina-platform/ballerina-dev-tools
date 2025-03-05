@@ -39,6 +39,7 @@ public class FunctionData {
     private final boolean returnError;
     private final boolean inferredReturnType;
     private Map<String, ParameterData> parameters;
+    private String packageId;
 
     public FunctionData(int functionId, String name, String description, String returnType,
                         String packageName, String org, String version, String resourcePath,
@@ -58,6 +59,10 @@ public class FunctionData {
 
     public void setParameters(Map<String, ParameterData> parameters) {
         this.parameters = parameters;
+    }
+
+    public void setPackageId(String attachmentId) {
+        this.packageId = attachmentId;
     }
 
     // Getters
@@ -109,11 +114,16 @@ public class FunctionData {
         return parameters;
     }
 
+    public String packageId() {
+        return packageId;
+    }
+
     public enum Kind {
         FUNCTION,
         CONNECTOR,
         REMOTE,
-        RESOURCE
+        RESOURCE,
+        LISTENER_INIT,
     }
 
 }
