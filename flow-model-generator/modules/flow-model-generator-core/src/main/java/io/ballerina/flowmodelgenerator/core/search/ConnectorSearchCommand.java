@@ -111,10 +111,13 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static String getConnectorName(SearchResult searchResult, SearchResult.Package packageInfo) {
         String connectorName = searchResult.name();
         String rawPackageName = packageInfo.name();
+        String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
+        return packageName + " " + connectorName;
+    }
+
+    private static String getLastPackagePrefix(String rawPackageName) {
         String trimmedPackageName = rawPackageName.contains(".")
                 ? rawPackageName.substring(rawPackageName.lastIndexOf('.') + 1) : rawPackageName;
-        String packageName = CONNECTOR_NAME_MAP.getOrDefault(trimmedPackageName,
-                trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1));
-        return packageName + " " + connectorName;
+        return trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1);
     }
 }

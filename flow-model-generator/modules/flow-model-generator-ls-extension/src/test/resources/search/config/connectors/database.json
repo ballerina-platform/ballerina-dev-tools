@@ -168,7 +168,7 @@
     },
     {
       "metadata": {
-        "label": "Redis RedisClient",
+        "label": "Persist RedisClient",
         "description": "The client used by the generated persist clients to abstract and \nexecute Redis database operations that are required to perform CRUD operations.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.3.0.png"
       },
