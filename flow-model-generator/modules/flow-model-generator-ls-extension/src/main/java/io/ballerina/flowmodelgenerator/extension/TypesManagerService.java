@@ -25,14 +25,22 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.flowmodelgenerator.core.type.RecordValueAnalyzer;
+import io.ballerina.flowmodelgenerator.core.type.RecordValueGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
+import io.ballerina.flowmodelgenerator.extension.request.RecordValueGenerateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.UpdatedRecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.response.RecordConfigResponse;
+import io.ballerina.flowmodelgenerator.extension.response.RecordValueGenerateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
@@ -40,6 +48,8 @@ import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
+import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
+import org.ballerinalang.diagramutil.connector.models.connector.types.UnionType;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -206,4 +216,72 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         });
     }
 
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> updateRecordConfig(UpdatedRecordConfigRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                Codedata codedata = request.codedata();
+                String orgName = codedata.org();
+                String packageName = codedata.module();
+                String versionName = codedata.version();
+                Path filePath = Path.of(request.filePath());
+
+                // Find the semantic model
+                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
+                        filePath, orgName, packageName, versionName);
+                if (semanticModel.isEmpty()) {
+                    semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
+                }
+                if (semanticModel.isEmpty()) {
+                    throw new IllegalArgumentException(
+                            String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
+                }
+
+                // Get the type symbol
+                Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
+                        .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
+                                symbol.nameEquals(request.typeConstraint()))
+                        .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
+                        .findFirst();
+
+                if (typeSymbol.isEmpty()) {
+                    throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
+                            request.typeConstraint(),
+                            orgName,
+                            packageName,
+                            versionName));
+                }
+
+                ExpressionNode expressionNode = NodeParser.parseExpression(request.expr());
+                Type type = Type.fromSemanticSymbol(typeSymbol.get());
+                if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
+                    if (type instanceof RecordType recordType) {
+                        RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
+                    } else if (type instanceof UnionType unionType) {
+                        RecordValueAnalyzer.updateUnionTypeConfig(unionType, mapping);
+                    }
+                } else {
+                    throw new IllegalArgumentException("Invalid expression");
+                }
+                response.setRecordConfig(type);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordValueGenerateResponse response = new RecordValueGenerateResponse();
+            try {
+                response.setRecordValue(RecordValueGenerator.generate(request.type().getAsJsonObject()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
 }
