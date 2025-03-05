@@ -10,5 +10,5 @@ observabilityIncluded = true
 [[dependency]]
 org = "ballerinax"
 name = "ai.agent"
-version = "0.7.8"
+version = "0.7.9"
 repository = "local"

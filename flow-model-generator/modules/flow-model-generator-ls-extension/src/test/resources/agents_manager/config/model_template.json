@@ -9,8 +9,8 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai.agent",
-    "version": "0.7.8",
-    "object": "ChatGptModel",
+    "version": "0.7.9",
+    "object": "OpenAiModel",
     "symbol": "init"
   },
   "output": {
@@ -18,29 +18,42 @@
     "metadata": {
       "label": "Class",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.8.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai.agent",
-      "object": "ChatGptModel",
+      "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.8",
+      "version": "0.7.9",
       "id": 0
     },
     "returning": false,
     "properties": {
-      "connection": {
+      "modelConfig": {
         "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
+          "label": "modelConfig",
+          "description": "Model Configuration for OpenAI chat client"
         },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "agent:ChatGptModel",
-        "optional": false,
-        "editable": false,
-        "advanced": false
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:ChatModelConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "modelConfig"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:ChatModelConfig",
+            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "connectionConfig": {
         "metadata": {
@@ -57,23 +70,15 @@
           "kind": "REQUIRED",
           "originalName": "connectionConfig",
           "importStatements": "ballerinax/openai.chat"
-        }
-      },
-      "modelConfig": {
-        "metadata": {
-          "label": "modelConfig",
-          "description": "Model Configuration for OpenAI chat client"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:ChatModelConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "modelConfig"
-        }
+        "typeMembers": [
+          {
+            "type": "chat:ConnectionConfig",
+            "packageInfo": "ballerinax:openai.chat:3.0.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -81,11 +86,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "agent:ChatGptModel",
+        "value": "agent:OpenAiModel",
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -93,7 +99,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentChatgptmodel",
+        "value": "agentOpenaimodel",
         "optional": false,
         "editable": true,
         "advanced": false

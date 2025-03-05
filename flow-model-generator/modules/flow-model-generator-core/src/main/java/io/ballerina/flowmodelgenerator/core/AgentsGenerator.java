@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -81,12 +82,17 @@ public class AgentsGenerator {
     public JsonArray getAllAgents() {
         List<Codedata> agents = new ArrayList<>();
         ModuleSymbol agentModule = getAgentModule();
+        Optional<ModuleSymbol> optModule = agentModule.getModule();
+        if (optModule.isEmpty()) {
+            throw new IllegalStateException("Agent module id not found");
+        }
+        ModuleID id = optModule.get().id();
         for (ClassSymbol classSymbol : agentModule.classes()) {
             if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
                 agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
-                        .org(BALLERINAX) // TODO: Get org from the module
-                        .module(AI_AGENT)
-                        .version("0.7.8")
+                        .org(id.orgName())
+                        .module(id.packageName())
+                        .version(id.version())
                         .object(classSymbol.getName().orElse(AGENT))
                         .symbol(INIT)
                         .build());

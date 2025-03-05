@@ -4,10 +4,11 @@
   "agents": [
     {
       "node": "AGENT",
-      "org": "wso2",
+      "org": "ballerinax",
       "module": "ai.agent",
       "object": "Agent",
-      "symbol": "init"
+      "symbol": "init",
+      "version": "0.7.9"
     }
   ]
 }

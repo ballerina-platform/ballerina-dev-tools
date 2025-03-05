@@ -7,15 +7,17 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai.agent",
-      "object": "ChatGptModel",
-      "symbol": "init"
+      "object": "OpenAiModel",
+      "symbol": "init",
+      "version": "0.7.8"
     },
     {
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai.agent",
-      "object": "AzureChatGptModel",
-      "symbol": "init"
+      "object": "AzureOpenAiModel",
+      "symbol": "init",
+      "version": "0.7.8"
     }
   ]
 }
