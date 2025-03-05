@@ -1843,8 +1843,7 @@
               "offset": 94
             }
           },
-          "sourceCode": "// new connection\nfinal http:Client currencyClient = check new (url = \"https://api.exchangeratesapi.io/latest\");",
-          "id": 0
+          "sourceCode": "// new connection\nfinal http:Client currencyClient = check new (url = \"https://api.exchangeratesapi.io/latest\");"
         },
         "returning": false,
         "properties": {
@@ -2499,8 +2498,7 @@
               "offset": 3
             }
           },
-          "sourceCode": "// new connection\nfinal redis:Client redisClient = check new (connection = {\n    host: \"localhost\",\n    port: 6379\n});",
-          "id": 0
+          "sourceCode": "// new connection\nfinal redis:Client redisClient = check new (connection = {\n    host: \"localhost\",\n    port: 6379\n});"
         },
         "returning": false,
         "properties": {

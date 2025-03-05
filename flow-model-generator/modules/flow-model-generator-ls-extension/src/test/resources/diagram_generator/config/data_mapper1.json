@@ -839,8 +839,7 @@
               "offset": 53
             }
           },
-          "sourceCode": "http:Client cl = check new (\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "http:Client cl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

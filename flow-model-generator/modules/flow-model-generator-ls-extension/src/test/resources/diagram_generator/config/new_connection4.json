@@ -59,8 +59,7 @@
               "offset": 64
             }
           },
-          "sourceCode": "final http:Client cl1 = check new (\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "final http:Client cl1 = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -715,8 +714,7 @@
               "offset": 7
             }
           },
-          "sourceCode": "final http:Client cl2 = check new (\"http://localhost:9090\", {\n        timeout: 5000\n    });",
-          "id": 0
+          "sourceCode": "final http:Client cl2 = check new (\"http://localhost:9090\", {\n        timeout: 5000\n    });"
         },
         "returning": false,
         "properties": {
@@ -856,8 +854,7 @@
               "offset": 89
             }
           },
-          "sourceCode": "final http:Client cl3 = check new (\"http://localhost:9090\", auth = clientAuthConfig);",
-          "id": 0
+          "sourceCode": "final http:Client cl3 = check new (\"http://localhost:9090\", auth = clientAuthConfig);"
         },
         "returning": false,
         "properties": {
@@ -1513,8 +1510,7 @@
               "offset": 101
             }
           },
-          "sourceCode": "final http:Client cl4 = check new (\"http://localhost:9090\", auth = {username: \"\", password: \"\"});",
-          "id": 0
+          "sourceCode": "final http:Client cl4 = check new (\"http://localhost:9090\", auth = {username: \"\", password: \"\"});"
         },
         "returning": false,
         "properties": {

@@ -59,8 +59,7 @@
               "offset": 25
             }
           },
-          "sourceCode": "Foo1 f1 = new(\"foo\");",
-          "id": 0
+          "sourceCode": "Foo1 f1 = new(\"foo\");"
         },
         "returning": false,
         "properties": {

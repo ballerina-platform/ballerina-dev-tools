@@ -61,8 +61,7 @@
               "offset": 67
             }
           },
-          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});",
-          "id": 0
+          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -202,8 +201,7 @@
               "offset": 76
             }
           },
-          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -858,8 +856,7 @@
               "offset": 39
             }
           },
-          "sourceCode": "redis:Client moduleRedisCl = check new;",
-          "id": 0
+          "sourceCode": "redis:Client moduleRedisCl = check new;"
         },
         "returning": false,
         "properties": {
@@ -1051,8 +1048,7 @@
               "offset": 56
             }
           },
-          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();",
-          "id": 0
+          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {
@@ -1244,8 +1240,7 @@
               "offset": 68
             }
           },
-          "sourceCode": "http:Client serviceHttpCl = check new (\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "http:Client serviceHttpCl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -1900,8 +1895,7 @@
               "offset": 44
             }
           },
-          "sourceCode": "redis:Client serviceRedisCl = check new;",
-          "id": 0
+          "sourceCode": "redis:Client serviceRedisCl = check new;"
         },
         "returning": false,
         "properties": {

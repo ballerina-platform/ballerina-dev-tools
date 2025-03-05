@@ -87,7 +87,6 @@ public abstract class CallBuilder extends NodeBuilder {
                         functionData.version()))
                 .description(functionData.description());
         codedata()
-                .id(functionData.functionId())
                 .node(getFunctionNodeKind())
                 .org(codedata.org())
                 .module(codedata.module())

@@ -621,8 +621,7 @@
                       "offset": 85
                     }
                   },
-                  "sourceCode": "http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");",
-                  "id": 0
+                  "sourceCode": "http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");"
                 },
                 "returning": false,
                 "properties": {
@@ -1848,8 +1847,7 @@
               "offset": 61
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");",
-          "id": 0
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

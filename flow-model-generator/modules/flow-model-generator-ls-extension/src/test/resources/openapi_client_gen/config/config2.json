@@ -29,11 +29,34 @@
       "module": "mod1",
       "object": "Client",
       "symbol": "init",
-      "id": 0,
       "isGenerated": true
     },
     "returning": false,
     "properties": {
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "config": {
         "metadata": {
           "label": "config",
@@ -55,30 +78,6 @@
             "type": "mod1:ConnectionConfig",
             "packageInfo": "oas:client1.mod1:0.1.0",
             "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "serviceUrl": {
-        "metadata": {
-          "label": "serviceUrl",
-          "description": "URL of the target service "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]

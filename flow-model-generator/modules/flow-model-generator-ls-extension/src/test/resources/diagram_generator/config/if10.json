@@ -365,8 +365,7 @@
               "offset": 45
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"/food\");",
-          "id": 0
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {

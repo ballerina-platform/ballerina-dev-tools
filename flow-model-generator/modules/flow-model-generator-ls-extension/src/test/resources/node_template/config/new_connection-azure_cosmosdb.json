@@ -26,8 +26,7 @@
       "module": "azure_cosmosdb",
       "object": "DataPlaneClient",
       "symbol": "init",
-      "version": "4.2.0",
-      "id": 0
+      "version": "4.2.0"
     },
     "returning": false,
     "properties": {

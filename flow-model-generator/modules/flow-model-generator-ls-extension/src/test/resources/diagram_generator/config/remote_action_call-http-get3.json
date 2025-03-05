@@ -59,8 +59,7 @@
               "offset": 55
             }
           },
-          "sourceCode": "http:Client drinkClient = check new (\"/drink\");",
-          "id": 0
+          "sourceCode": "http:Client drinkClient = check new (\"/drink\");"
         },
         "returning": false,
         "properties": {
@@ -754,8 +753,7 @@
               "offset": 45
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"/food\");",
-          "id": 0
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
