@@ -445,7 +445,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 if (document.isEmpty()) {
                     return response;
                 }
-                EnclosedNodeFinder enclosedNodeFinder = new EnclosedNodeFinder(document.get(), request.position(), request.findClass());
+                EnclosedNodeFinder enclosedNodeFinder =
+                        new EnclosedNodeFinder(document.get(), request.position(), request.findClass());
                 LineRange enclosedRange = enclosedNodeFinder.findEnclosedNode();
                 response.setFilePath(project.sourceRoot().resolve(enclosedRange.fileName()).toString());
                 response.setStartLine(enclosedRange.startLine());
