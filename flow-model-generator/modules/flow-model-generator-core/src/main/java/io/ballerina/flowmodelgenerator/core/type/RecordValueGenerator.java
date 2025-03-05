@@ -171,14 +171,16 @@ public class RecordValueGenerator {
             case "table" -> builder.append("table []");
             default -> {
                 switch (typeName) {
+                    case "any", "anydata" -> builder.append("()");
                     case "json" -> builder.append("{}");
                     case "xml" -> builder.append("xml ``");
                     case "string" -> builder.append("\"\"");
-                    case "int" -> builder.append("0");
+                    case "string:Char" -> builder.append("\"a\"");
+                    case "int", "byte" -> builder.append("0");
                     case "float" -> builder.append("0.0");
                     case "decimal" -> builder.append("0.0d");
                     case "boolean" -> builder.append("false");
-                    default -> builder.append("()");
+                    default -> builder.append("\"%s\"".formatted(typeName));
                 }
             }
         }
