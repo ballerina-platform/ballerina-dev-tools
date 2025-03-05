@@ -28,7 +28,6 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -130,25 +129,6 @@ public abstract class SearchCommand {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Parses a string value into a boolean.
-     *
-     * @param value        the string value to be parsed as a boolean
-     * @param defaultValue Default value to use if parsing fails
-     * @return The parsed boolean value or the default value
-     */
-    private static boolean parseBooleanParam(String value, boolean defaultValue) {
-        if (value == null) {
-            return defaultValue;
-        }
-
-        try {
-            return Boolean.parseBoolean(value.trim().toLowerCase(Locale.ROOT));
-        } catch (Exception e) {
             return defaultValue;
         }
     }
