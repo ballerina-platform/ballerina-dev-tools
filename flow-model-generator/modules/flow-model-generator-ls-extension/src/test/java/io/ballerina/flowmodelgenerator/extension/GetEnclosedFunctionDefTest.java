@@ -44,7 +44,8 @@ public class GetEnclosedFunctionDefTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         String filePath = getSourcePath(testConfig.filePath());
-        EnclosedFuncDefRequest request = new EnclosedFuncDefRequest(filePath, testConfig.position());
+        EnclosedFuncDefRequest request =
+                new EnclosedFuncDefRequest(filePath, testConfig.position(), testConfig.findClass());
         JsonObject response = getResponse(request);
         JsonObject acutalJsonObj = testConfig.response();
         acutalJsonObj.add("filePath", new JsonPrimitive(
@@ -54,7 +55,7 @@ public class GetEnclosedFunctionDefTest extends AbstractLSTest {
                     .replace(sourceDir.toString() + "/", "");
             response.addProperty("filePath", pathToReplace);
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.position(), response);
+                    testConfig.position(), testConfig.findClass(), response);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -81,8 +82,11 @@ public class GetEnclosedFunctionDefTest extends AbstractLSTest {
      * @param description The description of the test.
      * @param filePath    The path to the source file that contains the nodes to be deleted.
      * @param position    The position of the node to be deleted.
+     * @param findClass   Flag to determine whether to search for class definition instead of function definition.
      * @param response    The expected response.
      */
-    private record TestConfig(String description, String filePath, LinePosition position, JsonObject response) {
+    private record TestConfig(String description, String filePath, LinePosition position, boolean findClass,
+                              JsonObject response) {
+
     }
 }

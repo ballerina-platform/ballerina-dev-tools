@@ -25,8 +25,9 @@ import io.ballerina.tools.text.LinePosition;
  *
  * @param filePath The file path of the source file.
  * @param position The position of the source.
+ * @param findClass Flag to determine whether to search for class definition instead of function definition.
  *
  * @since 2.0.0
  */
-public record EnclosedFuncDefRequest(String filePath, LinePosition position) {
+public record EnclosedFuncDefRequest(String filePath, LinePosition position, boolean findClass) {
 }
