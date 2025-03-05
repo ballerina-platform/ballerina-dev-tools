@@ -61,6 +61,22 @@
         },
         {
           "metadata": {
+            "label": "FTP Client",
+            "description": "Represents an FTP client that intracts with an FTP server",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "ftp",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.12.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Websocket Client",
             "description": "Represents a WebSocket synchronous client endpoint.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.13.1.png"
