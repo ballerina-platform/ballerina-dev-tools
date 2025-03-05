@@ -30,7 +30,7 @@
       "object": "Client",
       "symbol": "query",
       "version": "1.14.0",
-      "id": 633,
+      "id": 663,
       "inferredReturnType": "stream<rowType, sql:Error?>"
     },
     "returning": false,
