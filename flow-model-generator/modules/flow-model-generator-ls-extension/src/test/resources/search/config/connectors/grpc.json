@@ -1,14 +1,14 @@
 {
   "description": "Sample flow model",
-  "source": "empty.bal",
   "kind": "CONNECTOR",
+  "source": "empty.bal",
   "queryMap": {
     "q": "grpc"
   },
   "categories": [
     {
       "metadata": {
-        "label": "Grpc StreamingClient",
+        "label": "gRPC StreamingClient",
         "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
       },
@@ -24,7 +24,7 @@
     },
     {
       "metadata": {
-        "label": "Grpc Client",
+        "label": "gRPC Client",
         "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
       },
@@ -40,7 +40,7 @@
     },
     {
       "metadata": {
-        "label": "Grpc Caller",
+        "label": "gRPC Caller",
         "description": "The base client used in the generated client code to provide remote functions for interacting with the caller.\n",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
       },

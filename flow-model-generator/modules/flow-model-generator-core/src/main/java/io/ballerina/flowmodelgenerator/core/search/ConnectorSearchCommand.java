@@ -33,6 +33,7 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +48,24 @@ public class ConnectorSearchCommand extends SearchCommand {
 
     private static final String CONNECTORS_LANDING_JSON = "connectors_landing.json";
     private static final Type CONNECTION_CATEGORY_LIST_TYPE = new TypeToken<Map<String, List<String>>>() { }.getType();
+    // TODO: Remove this once the name is retrieved from the library module
+    private static final Map<String, String> CONNECTOR_NAME_MAP = new HashMap<>() {{
+        put("http", "HTTP");
+        put("grpc", "gRPC");
+        put("mysql", "MySQL");
+        put("mssql", "MS SQL");
+        put("mongodb", "MongoDB");
+        put("dynamodb", "DynamoDB");
+        put("oracledb", "OracleDB");
+        put("postgresql", "PostgreSQL");
+        put("sql", "SQL");
+        put("sqldb", "SQLDB");
+        put("sqs", "SQS");
+        put("mqtt", "MQTT");
+        put("rabbitmq", "RabbitMQ");
+        put("graphql", "GraphQL");
+        put("clouddatastore", "Cloud Datastore");
+    }};
 
     public ConnectorSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
         super(module, position, queryMap);
@@ -85,9 +104,7 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static AvailableNode generateAvailableNode(SearchResult searchResult) {
         SearchResult.Package packageInfo = searchResult.packageInfo();
         Metadata metadata = new Metadata.Builder<>(null)
-                .label(packageInfo.name().substring(0, 1).toUpperCase(Locale.ROOT) + packageInfo.name().substring(1) +
-                        " " +
-                        searchResult.name())
+                .label(getConnectorName(searchResult, packageInfo))
                 .description(searchResult.description())
                 .icon(CommonUtils.generateIcon(packageInfo.org(),
                         packageInfo.name(),
@@ -104,4 +121,13 @@ public class ConnectorSearchCommand extends SearchCommand {
         return new AvailableNode(metadata, codedata, true);
     }
 
+    private static String getConnectorName(SearchResult searchResult, SearchResult.Package packageInfo) {
+        String connectorName = searchResult.name();
+        String rawPackageName = packageInfo.name();
+        String trimmedPackageName = rawPackageName.contains(".")
+                ? rawPackageName.substring(rawPackageName.lastIndexOf('.') + 1) : rawPackageName;
+        String packageName = CONNECTOR_NAME_MAP.getOrDefault(trimmedPackageName,
+                trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1));
+        return packageName + " " + connectorName;
+    }
 }
