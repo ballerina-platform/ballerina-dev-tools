@@ -42,7 +42,7 @@ public class FunctionCall extends CallBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder.newVariableWithInferredType();
         FlowNode flowNode = sourceBuilder.flowNode;
 
         if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
@@ -70,7 +70,7 @@ public class FunctionCall extends CallBuilder {
                 .stepOut()
                 .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
                 .textEdit(false)
-                .acceptImport(sourceBuilder.filePath)
+                .acceptImportWithVariableType()
                 .build();
     }
 

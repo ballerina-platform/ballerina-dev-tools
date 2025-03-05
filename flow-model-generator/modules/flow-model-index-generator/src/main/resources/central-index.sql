@@ -25,7 +25,8 @@ CREATE TABLE Function (
     return_type JSON, -- JSON type for return type information
     resource_path TEXT NOT NULL,
     return_error INTEGER CHECK(return_error IN (0, 1)),
-    inferred_return_type INTEGER CHECK(return_error IN (0, 1)), -- Whether the return type is inferred 
+    inferred_return_type INTEGER CHECK(return_error IN (0, 1)), -- Whether the return type is inferred
+    import_statements TEXT, -- Import statements for the return type
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 

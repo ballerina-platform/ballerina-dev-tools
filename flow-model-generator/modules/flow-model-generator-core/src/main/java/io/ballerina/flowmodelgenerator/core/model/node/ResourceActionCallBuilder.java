@@ -92,8 +92,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
 
         String returnTypeName = functionData.returnType();
         if (CommonUtils.hasReturn(returnTypeName)) {
-            setReturnTypeProperties(returnTypeName, context, functionData.inferredReturnType(),
-                    Property.VARIABLE_NAME);
+            setReturnTypeProperties(functionData, context, Property.VARIABLE_NAME);
         }
 
         if (functionData.returnError()) {
@@ -103,7 +102,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        sourceBuilder.newVariableWithInferredType();
         FlowNode flowNode = sourceBuilder.flowNode;
 
         if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
@@ -160,7 +159,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .stepOut()
                 .functionParameters(flowNode, ignoredKeys)
                 .textEdit(false)
-                .acceptImport()
+                .acceptImportWithVariableType()
                 .build();
     }
 

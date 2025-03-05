@@ -1,0 +1,135 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "data.jsondata",
+    "symbol": "parseString",
+    "version": "0.2.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "parseString",
+      "description": "Converts JSON string to subtype of anydata.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "data.jsondata",
+      "symbol": "parseString",
+      "version": "0.2.0",
+      "id": 597,
+      "inferredReturnType": "t"
+    },
+    "returning": false,
+    "properties": {
+      "t": {
+        "metadata": {
+          "label": "t",
+          "description": "Target type"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "anydata",
+        "placeholder": "anydata",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "t"
+        }
+      },
+      "s": {
+        "metadata": {
+          "label": "s",
+          "description": "Source JSON string value or byte[] or byte-block-stream"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "s"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "options": {
+        "metadata": {
+          "label": "options",
+          "description": "Options to be used for filtering in the projection"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "jsondata:Options",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "options"
+        },
+        "typeMembers": [
+          {
+            "type": "jsondata:Options",
+            "packageInfo": "ballerina:data.jsondata:0.2.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "t",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "t",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

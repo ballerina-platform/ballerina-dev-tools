@@ -127,8 +127,9 @@
             "value": "github:ManifestConversions",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -249,8 +250,9 @@
             "value": "$CompilationError$",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -391,7 +393,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1

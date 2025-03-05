@@ -21,7 +21,7 @@
       "object": "Client",
       "symbol": "init",
       "version": "2.0.0",
-      "id": 1523
+      "id": 915
     },
     "returning": false,
     "properties": {
@@ -436,7 +436,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

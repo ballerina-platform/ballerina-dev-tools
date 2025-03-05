@@ -21,7 +21,7 @@
       "object": "Client",
       "symbol": "init",
       "version": "2.0.0",
-      "id": 637
+      "id": 861
     },
     "returning": false,
     "properties": {
@@ -168,7 +168,10 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {

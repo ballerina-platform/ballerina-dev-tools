@@ -457,7 +457,8 @@ public class TypesManager {
                 codedata.resourcePath(),
                 codedata.id(),
                 codedata.isNew(),
-                codedata.isGenerated()
+                codedata.isGenerated(),
+                codedata.inferredReturnType()
         );
     }
 

@@ -60,7 +60,8 @@
               "offset": 51
             }
           },
-          "sourceCode": "json moduleVal = check moduleCl->get(\"/hello\");"
+          "sourceCode": "json moduleVal = check moduleCl->get(\"/hello\");",
+          "inferredReturnType": "targetType"
         },
         "returning": false,
         "properties": {
@@ -74,6 +75,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "path": {
             "metadata": {
@@ -130,23 +148,6 @@
               }
             ]
           },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            },
-            "typeMembers": []
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -191,8 +192,9 @@
             "value": "json",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -374,7 +376,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -404,7 +407,8 @@
               "offset": 49
             }
           },
-          "sourceCode": "json localVal = check localCl->get(\"/hello\");"
+          "sourceCode": "json localVal = check localCl->get(\"/hello\");",
+          "inferredReturnType": "targetType"
         },
         "returning": false,
         "properties": {
@@ -418,6 +422,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "path": {
             "metadata": {
@@ -474,23 +495,6 @@
               }
             ]
           },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            },
-            "typeMembers": []
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -535,8 +539,9 @@
             "value": "json",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -626,7 +631,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -847,7 +853,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -937,7 +944,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -1027,7 +1035,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

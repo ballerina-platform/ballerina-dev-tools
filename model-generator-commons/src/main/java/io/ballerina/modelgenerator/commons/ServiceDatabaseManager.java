@@ -45,6 +45,7 @@ public class ServiceDatabaseManager {
     private final String dbPath;
 
     private static class Holder {
+
         private static final ServiceDatabaseManager INSTANCE = new ServiceDatabaseManager();
     }
 
@@ -111,7 +112,8 @@ public class ServiceDatabaseManager {
                         null,
                         null,
                         rs.getBoolean("return_error"),
-                        false);
+                        false,
+                        null);
                 functionData.setPackageId(rs.getString("package_id"));
                 return Optional.of(functionData);
             }
@@ -200,6 +202,7 @@ public class ServiceDatabaseManager {
 
     // Helper builder class
     private static class ParameterDataBuilder {
+
         int parameterId;
         String name;
         String type;

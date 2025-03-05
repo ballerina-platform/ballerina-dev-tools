@@ -28,7 +28,8 @@
       "object": "Client",
       "symbol": "get",
       "version": "2.12.0",
-      "id": 596
+      "id": 546,
+      "inferredReturnType": "targetType"
     },
     "returning": false,
     "properties": {
@@ -43,6 +44,22 @@
         "optional": false,
         "editable": false,
         "advanced": false
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
+        }
       },
       "path": {
         "metadata": {
@@ -104,11 +121,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "targetType",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -116,7 +134,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "var2",
         "optional": false,
         "editable": true,
         "advanced": false
