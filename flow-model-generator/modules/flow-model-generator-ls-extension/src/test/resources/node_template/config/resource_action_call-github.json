@@ -26,8 +26,7 @@
       "org": "ballerinax",
       "module": "github",
       "object": "Client",
-      "symbol": "post",
-      "id": 936
+      "symbol": "post"
     },
     "returning": false,
     "properties": {
