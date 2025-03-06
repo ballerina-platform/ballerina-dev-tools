@@ -121,4 +121,22 @@ class DatabaseManager {
         insertEntry(sql, new Object[]{parameterId, type, kind, packageIdentifier});
     }
 
+    public static void insertServiceDeclaration(int packageId,
+                                                ServiceIndexGenerator.ServiceDeclaration serviceDeclaration) {
+        String sql = "INSERT INTO ServiceDeclaration (package_id, optional_type_descriptor, type_descriptor_label, " +
+                "type_descriptor_description, type_descriptor_default_value, add_default_type_descriptor, " +
+                "optional_absolute_resource_path, absolute_resource_path_label, absolute_resource_path_description, " +
+                "absolute_resource_path_default_value, optional_string_literal, string_literal_label, " +
+                "string_literal_description, string_literal_default_value, listener_kind) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{packageId, serviceDeclaration.optionalTypeDescriptor(),
+                serviceDeclaration.typeDescriptorLabel(), serviceDeclaration.typeDescriptorDescription(),
+                serviceDeclaration.typeDescriptorDefaultValue(), serviceDeclaration.addDefaultTypeDescriptor(),
+                serviceDeclaration.optionalAbsoluteResourcePath(), serviceDeclaration.absoluteResourcePathLabel(),
+                serviceDeclaration.absoluteResourcePathDescription(),
+                serviceDeclaration.absoluteResourcePathDefaultValue(),
+                serviceDeclaration.optionalStringLiteral(), serviceDeclaration.stringLiteralLabel(),
+                serviceDeclaration.stringLiteralDescription(), serviceDeclaration.stringLiteralDefaultValue(),
+                serviceDeclaration.listenerKind()});
+    }
 }

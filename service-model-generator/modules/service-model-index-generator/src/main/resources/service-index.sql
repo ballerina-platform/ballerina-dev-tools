@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS ParameterMemberType;
 DROP TABLE IF EXISTS Annotation;
 DROP TABLE IF EXISTS AnnotationField;
 DROP TABLE IF EXISTS AnnotationFieldMemberType;
+DROP TABLE IF EXISTS ServiceDeclaration;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -14,6 +15,26 @@ CREATE TABLE Package (
     org TEXT NOT NULL,
     version TEXT,
     keywords TEXT
+);
+
+-- Create ServiceDeclaration table
+CREATE TABLE ServiceDeclaration (
+    package_id PRIMARY KEY,
+    optional_type_descriptor INTEGER CHECK(optional_type_descriptor IN (0, 1)),
+    type_descriptor_label TEXT,
+    type_descriptor_description TEXT,
+    type_descriptor_default_value TEXT,
+    add_default_type_descriptor INTEGER CHECK(add_default_type_descriptor IN (0, 1)),
+    optional_absolute_resource_path INTEGER CHECK(optional_absolute_resource_path IN (0, 1)),
+    absolute_resource_path_label TEXT,
+    absolute_resource_path_description TEXT,
+    absolute_resource_path_default_value TEXT,
+    optional_string_literal INTEGER CHECK(optional_string_literal IN (0, 1)),
+    string_literal_label TEXT,
+    string_literal_description TEXT,
+    string_literal_default_value TEXT,
+    listener_kind TEXT CHECK(listener_kind IN ('MULTIPLE_SELECT', 'SINGLE_SELECT')),
+    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 
 -- Create Function table

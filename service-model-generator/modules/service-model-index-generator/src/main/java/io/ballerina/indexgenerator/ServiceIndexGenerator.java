@@ -139,6 +139,8 @@ class ServiceIndexGenerator {
             return;
         }
 
+        DatabaseManager.insertServiceDeclaration(packageId, packageMetadataInfo.serviceDeclaration());
+
         TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
 
         for (Symbol symbol : semanticModel.moduleSymbols()) {
@@ -473,5 +475,15 @@ class ServiceIndexGenerator {
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
-    private record PackageMetadataInfo(String name, String version, List<String> serviceTypeSkipList) { }
+    private record PackageMetadataInfo(String name, String version, List<String> serviceTypeSkipList,
+                                       ServiceDeclaration serviceDeclaration) { }
+
+    record ServiceDeclaration(int optionalTypeDescriptor, String typeDescriptorLabel,
+                              String typeDescriptorDescription, String typeDescriptorDefaultValue,
+                              int addDefaultTypeDescriptor, int optionalAbsoluteResourcePath,
+                              String absoluteResourcePathLabel, String absoluteResourcePathDescription,
+                              String absoluteResourcePathDefaultValue, int optionalStringLiteral,
+                              String stringLiteralLabel, String stringLiteralDescription,
+                              String stringLiteralDefaultValue, String listenerKind) {}
+
 }
