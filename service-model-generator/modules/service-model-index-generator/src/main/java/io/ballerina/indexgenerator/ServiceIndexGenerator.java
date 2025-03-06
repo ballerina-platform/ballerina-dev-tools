@@ -635,6 +635,7 @@ class ServiceIndexGenerator {
                 }
             }
             case DOT_RESOURCE_PATH -> paths.add(".");
+            default -> paths.add("");
         }
         return String.join("/", paths);
     }
