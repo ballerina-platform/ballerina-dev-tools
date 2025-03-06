@@ -88,6 +88,7 @@ import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
 import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -257,38 +258,23 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ServiceModelResponse> getServiceModel(ServiceModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Optional<Service> service = getServiceByName(request.moduleName());
+                Optional<Service> service = ServiceModelUtils.getEmptyServiceModel(request.moduleName());
                 if (service.isEmpty()) {
                     return new ServiceModelResponse();
                 }
                 Service serviceModel = service.get();
-                Value listener = serviceModel.getListener();
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-                ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new ServiceModelResponse();
                 }
-                SyntaxTree syntaxTree = document.get().syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                Set<String> listenersList = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel,
-                        project);
-                if (Objects.nonNull(request.listenerName())) {
-                    listener.addValue(request.listenerName());
-                    removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
-                }
-                if (!listenersList.isEmpty()) {
-                    if (request.moduleName().equals(ServiceModelGeneratorConstants.KAFKA)) {
-                        listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
-                    } else {
-                        listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
-                    }
-                    listener.setItems(listenersList.stream().toList());
-                }
+                Set<String> listenersList = ListenerUtil.getCompatibleListeners(
+                        request.moduleName(), semanticModel, project);
+                serviceModel.getListener().setItems(listenersList.stream().toList());
                 return new ServiceModelResponse(serviceModel);
             } catch (Throwable e) {
                 return new ServiceModelResponse(e);

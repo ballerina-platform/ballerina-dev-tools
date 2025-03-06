@@ -80,6 +80,28 @@ public class Value {
         this.codedata = codedata;
     }
 
+    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
+                 String valueType,
+                 String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
+                 boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
+                 boolean addNewButton) {
+        this.metadata = metadata;
+        this.enabled = enabled;
+        this.editable = editable;
+        this.value = value;
+        this.values = values;
+        this.valueType = valueType;
+        this.valueTypeConstraint = valueTypeConstraint;
+        this.isType = isType;
+        this.placeholder = placeholder;
+        this.optional = optional;
+        this.advanced = advanced;
+        this.properties = properties;
+        this.items = items;
+        this.codedata = codedata;
+        this.addNewButton = addNewButton;
+    }
+
     public MetaData getMetadata() {
         return metadata;
     }
@@ -257,6 +279,7 @@ public class Value {
         private boolean enabled;
         private boolean editable;
         private String value;
+        private List<String> values;
         private String valueType;
         private String valueTypeConstraint;
         private boolean isType;
@@ -266,6 +289,7 @@ public class Value {
         private Map<String, Value> properties;
         private List<String> items;
         private Codedata codedata;
+        private boolean addNewButton = false;
 
         public ValueBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
@@ -332,9 +356,19 @@ public class Value {
             return this;
         }
 
+        public ValueBuilder setValues(List<String> values) {
+            this.values = values;
+            return this;
+        }
+
+        public ValueBuilder setAddNewButton(boolean addNewButton) {
+            this.addNewButton = addNewButton;
+            return this;
+        }
+
         public Value build() {
-            return new Value(metadata, enabled, editable, value, valueType, valueTypeConstraint, isType, placeholder,
-                    optional, advanced, properties, items, codedata);
+            return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType, placeholder,
+                    optional, advanced, properties, items, codedata, addNewButton);
         }
     }
 }

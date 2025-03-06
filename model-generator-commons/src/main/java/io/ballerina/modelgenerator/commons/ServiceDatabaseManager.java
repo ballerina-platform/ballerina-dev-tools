@@ -200,6 +200,70 @@ public class ServiceDatabaseManager {
         }
     }
 
+    public Optional<ServiceDeclaration> getServiceDeclaration(String moduleName) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append("s.optional_type_descriptor, ");
+        sql.append("s.type_descriptor_label, ");
+        sql.append("s.type_descriptor_description, ");
+        sql.append("s.type_descriptor_default_value, ");
+        sql.append("s.add_default_type_descriptor, ");
+        sql.append("s.optional_absolute_resource_path, ");
+        sql.append("s.absolute_resource_path_label, ");
+        sql.append("s.absolute_resource_path_description, ");
+        sql.append("s.absolute_resource_path_default_value, ");
+        sql.append("s.optional_string_literal, ");
+        sql.append("s.string_literal_label, ");
+        sql.append("s.string_literal_description, ");
+        sql.append("s.string_literal_default_value, ");
+        sql.append("s.listener_kind, ");
+        sql.append("p.package_id, ");
+        sql.append("p.org, ");
+        sql.append("p.name AS package_name, ");
+        sql.append("p.version ");
+        sql.append("FROM ServiceDeclaration s ");
+        sql.append("JOIN Package p ON s.package_id = p.package_id ");
+        sql.append("WHERE p.name = ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            stmt.setString(1, moduleName);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                ServiceDeclaration.Package packageInfo = new ServiceDeclaration.Package(
+                        rs.getInt("package_id"),
+                        rs.getString("org"),
+                        rs.getString("package_name"),
+                        rs.getString("version")
+                );
+
+                ServiceDeclaration serviceDeclaration = new ServiceDeclaration(
+                        packageInfo,
+                        rs.getInt("optional_type_descriptor"),
+                        rs.getString("type_descriptor_label"),
+                        rs.getString("type_descriptor_description"),
+                        rs.getString("type_descriptor_default_value"),
+                        rs.getInt("add_default_type_descriptor"),
+                        rs.getInt("optional_absolute_resource_path"),
+                        rs.getString("absolute_resource_path_label"),
+                        rs.getString("absolute_resource_path_description"),
+                        rs.getString("absolute_resource_path_default_value"),
+                        rs.getInt("optional_string_literal"),
+                        rs.getString("string_literal_label"),
+                        rs.getString("string_literal_description"),
+                        rs.getString("string_literal_default_value"),
+                        rs.getString("listener_kind")
+                );
+
+                return Optional.of(serviceDeclaration);
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     // Helper builder class
     private static class ParameterDataBuilder {
 
