@@ -7,7 +7,10 @@ import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
+import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
+import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 
@@ -17,6 +20,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -59,7 +63,7 @@ public class ServiceModelUtils {
                 .setListenerProtocol(protocol)
                 .setIcon(icon)
                 .setProperties(properties)
-                .setFunctions(new ArrayList<>());
+                .setFunctions(List.of(getInitFunction()));
 
         Service service = serviceBuilder.build();
         properties.put("listener", getListenersProperty(protocol, serviceTemplate.listenerKind()));
@@ -80,6 +84,47 @@ public class ServiceModelUtils {
         }
 
         return Optional.of(service);
+    }
+
+    public static Function getInitFunction() {
+        Value.ValueBuilder functionName = new Value.ValueBuilder();
+        functionName
+                .setMetadata(new MetaData("Init Function", "The init function"))
+                .setCodedata(new Codedata("FUNCTION_NAME"))
+                .setValue("init")
+                .setValueType("IDENTIFIER")
+                .setValueTypeConstraint("string")
+                .setPlaceholder("init")
+                .setEnabled(true)
+                .setEditable(false)
+                .setType(false)
+                .setOptional(false)
+                .setAdvanced(false);
+
+        Value.ValueBuilder functionReturnType = new Value.ValueBuilder();
+        functionReturnType
+                .setMetadata(new MetaData("Return Type", "The return type of the function"))
+                .setValue("error?")
+                .setValueType("TYPE")
+                .setValueTypeConstraint("string")
+                .setPlaceholder("error?")
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(true)
+                .setOptional(true)
+                .setAdvanced(false);
+
+        Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
+        functionBuilder
+                .setMetadata(new MetaData("Init", "The Init function of the service"))
+                .setKind("DEFAULT")
+                .setEnabled(true)
+                .setOptional(false)
+                .setEditable(true)
+                .setName(functionName.build())
+                .setReturnType(new FunctionReturnType(functionReturnType.build()));
+
+        return functionBuilder.build();
     }
 
     private static Value getTypeDescriptorProperty(ServiceDeclaration template) {
