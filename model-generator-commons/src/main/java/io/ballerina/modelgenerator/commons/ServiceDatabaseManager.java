@@ -270,7 +270,7 @@ public class ServiceDatabaseManager {
         String sql = "SELECT DISTINCT name FROM ServiceType WHERE package_id = ?";
         List<String> serviceTypes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(dbPath);
-             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, packageId);
 
             ResultSet rs = stmt.executeQuery();
