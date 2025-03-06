@@ -114,8 +114,7 @@
               "offset": 43
             }
           },
-          "sourceCode": "final redis:Client redisClient = check new;",
-          "id": 0
+          "sourceCode": "final redis:Client redisClient = check new;"
         },
         "returning": false,
         "properties": {
