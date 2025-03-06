@@ -264,6 +264,24 @@ public class ServiceDatabaseManager {
         }
     }
 
+    public List<String> getServiceTypes(int packageId) {
+        String sql = "SELECT DISTINCT name FROM ServiceType WHERE package_id = ?";
+        List<String> serviceTypes = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            stmt.setInt(1, packageId);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                serviceTypes.add(rs.getString("name"));
+            }
+            return serviceTypes;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
     // Helper builder class
     private static class ParameterDataBuilder {
 

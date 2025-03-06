@@ -3,6 +3,7 @@ package io.ballerina.servicemodelgenerator.extension.util;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
@@ -67,9 +68,7 @@ public class ServiceModelUtils {
         properties.put("listener", getListenersProperty(protocol, serviceTemplate.listenerKind()));
 
         // type descriptor
-        if (serviceTemplate.optionalTypeDescriptor() == 0 || serviceTemplate.addDefaultTypeDescriptor() == 1) {
-            properties.put("serviceType", getTypeDescriptorProperty(serviceTemplate));
-        }
+        properties.put("serviceType", getTypeDescriptorProperty(serviceTemplate, pkg.packageId()));
 
         // base path
         if (serviceTemplate.optionalAbsoluteResourcePath() == 0) {
@@ -80,6 +79,7 @@ public class ServiceModelUtils {
         if (serviceTemplate.optionalStringLiteral() == 0) {
             properties.put("stringLiteral", getStringLiteral(serviceTemplate));
         }
+
 
         return Optional.of(service);
     }
@@ -125,19 +125,28 @@ public class ServiceModelUtils {
         return functionBuilder.build();
     }
 
-    private static Value getTypeDescriptorProperty(ServiceDeclaration template) {
+    private static Value getTypeDescriptorProperty(ServiceDeclaration template, int packageId) {
+        List<String> serviceTypes = ServiceDatabaseManager.getInstance().getServiceTypes(packageId);
+        String value = "";
+        if (serviceTypes.size() == 1) {
+            value = serviceTypes.getFirst();
+        }
+        List<String> items = new ArrayList<>();
+        items.add("");
+        items.addAll(serviceTypes);
+
         Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
         valueBuilder
                 .setMetadata(new MetaData(template.typeDescriptorLabel(), template.typeDescriptorDescription()))
                 .setCodedata(new Codedata("SERVICE_TYPE"))
-                .setValue(template.typeDescriptorDefaultValue())
-                .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION")
+                .setValue(value)
+                .setItems(items)
+                .setValueType("SINGLE_SELECT")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.typeDescriptorDefaultValue())
                 .setOptional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
+                .setEnabled(template.optionalTypeDescriptor() == 0)
                 .setEditable(true)
                 .setType(false)
                 .setAddNewButton(false);
