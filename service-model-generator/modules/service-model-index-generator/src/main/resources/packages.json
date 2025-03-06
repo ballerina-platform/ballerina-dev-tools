@@ -89,6 +89,7 @@
               "kind": "REMOTE",
               "returnType": "tcp:ConnectionService",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "caller",
@@ -137,6 +138,7 @@
               "kind": "REMOTE",
               "returnType": "",
               "returnTypeEditable": 0,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "event",
@@ -156,6 +158,7 @@
               "kind": "REMOTE",
               "returnType": "",
               "returnTypeEditable": 0,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "event",
@@ -175,6 +178,7 @@
               "kind": "REMOTE",
               "returnType": "",
               "returnTypeEditable": 0,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "event",
@@ -224,6 +228,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "event",
@@ -281,6 +286,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -332,6 +338,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -351,6 +358,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "asbErr",
@@ -400,6 +408,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -428,6 +437,7 @@
               "kind": "REMOTE",
               "returnType": "anydata|error",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -456,6 +466,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -514,6 +525,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "records",
@@ -542,6 +554,7 @@
               "kind": "REMOTE",
               "returnType": "error?",
               "returnTypeEditable": 1,
+              "enable": 0,
               "parameters": [
                 {
                   "name": "kafkaError",

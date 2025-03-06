@@ -11,6 +11,7 @@ public record ServiceTypeFunction(
         String returnType,
         int returnTypeEditable,
         String importStatements,
+        int enable,
         List<ServiceTypeFunctionParameter> parameters
 ) {
 

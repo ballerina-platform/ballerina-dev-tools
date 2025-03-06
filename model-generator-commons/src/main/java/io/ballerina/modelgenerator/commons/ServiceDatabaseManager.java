@@ -314,6 +314,7 @@ public class ServiceDatabaseManager {
                 "f.return_type, " +
                 "f.return_type_editable, " +
                 "f.import_statements, " +
+                "f.enable, " +
                 "p.parameter_id, " +
                 "p.name AS parameter_name, " +
                 "p.label, " +
@@ -354,6 +355,7 @@ public class ServiceDatabaseManager {
                         rs.getString("return_type"),
                         rs.getInt("return_type_editable"),
                         rs.getString("import_statements"),
+                        rs.getInt("enable"),
                         parameters
                 ));
             }

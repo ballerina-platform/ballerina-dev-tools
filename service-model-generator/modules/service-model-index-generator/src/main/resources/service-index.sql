@@ -127,6 +127,7 @@ CREATE TABLE ServiceTypeFunction (
     return_type JSON, -- JSON type for return type information
     return_type_editable INTEGER CHECK(return_type_editable IN (0, 1)),
     import_statements TEXT, -- Import statements for the return type
+    enable INT CHECK(enable IN (0, 1)),
     service_type_id INTEGER,
     FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id) ON DELETE CASCADE
 );

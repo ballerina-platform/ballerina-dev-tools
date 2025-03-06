@@ -202,7 +202,7 @@ public class ServiceModelUtils {
                 .setValueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(function.name())
-                .setEnabled(true)
+                .setEnabled(function.enable() == 1)
                 .setEditable(false)
                 .setType(false)
                 .setOptional(false)
