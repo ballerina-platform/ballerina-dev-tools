@@ -11,12 +11,12 @@
   },
   "response": {
     "id": "3",
-    "name": "tcp Service",
+    "name": "TCP Service",
     "type": "tcp",
-    "displayName": "tcp Service",
+    "displayName": "TCP Service",
     "description": "Add the service documentation",
     "displayAnnotation": {
-      "label": "tcp Service",
+      "label": "TCP Service",
       "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
     },
     "moduleName": "tcp",
@@ -33,7 +33,7 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "",
+        "value": "tcpListener",
         "values": [],
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": "tcp:Listener",

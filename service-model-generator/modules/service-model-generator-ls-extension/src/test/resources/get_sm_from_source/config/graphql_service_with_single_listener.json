@@ -10,19 +10,21 @@
     "offset": 0
   },
   "response": {
-    "id": "0",
+    "id": "2",
     "name": "GraphQL Service",
     "type": "graphql",
+    "displayName": "GraphQL Service",
+    "description": "Add the service documentation",
     "displayAnnotation": {
       "label": "GraphQL Service",
-      "iconPath": "http://localhost:8080/icons/graphql.png"
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
     },
     "moduleName": "graphql",
     "orgName": "ballerina",
     "version": "1.15.0",
     "packageName": "graphql",
     "listenerProtocol": "graphql",
-    "icon": "http://localhost:8080/icons/graphql.png",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
     "properties": {
       "listener": {
         "metadata": {
@@ -30,7 +32,7 @@
           "description": "The Listeners to be bound with the service"
         },
         "enabled": true,
-        "editable": false,
+        "editable": true,
         "value": "graphQLListener",
         "values": [],
         "valueType": "MULTIPLE_SELECT",
@@ -50,25 +52,52 @@
         },
         "addNewButton": true
       },
+      "serviceType": {
+        "metadata": {
+          "label": "GraphQL Service Type",
+          "description": "The name of the service contract type"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "Service",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "Service",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "",
+          "Service"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false
+      },
       "basePath": {
         "metadata": {
           "label": "Service Base Path",
-          "description": "The base path for the service"
+          "description": "The base path of the service"
         },
         "enabled": true,
         "editable": true,
         "value": "/graphql",
+        "values": [],
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "",
+        "placeholder": "/graphql",
         "optional": false,
         "advanced": false,
         "codedata": {
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false,
-          "type": "SERVICE_BASEPATH"
+          "type": "SERVICE_BASE_PATH"
         },
         "addNewButton": false
       }

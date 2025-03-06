@@ -818,6 +818,20 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         edits.add(basePathEdit);
                     }
                 }
+
+                Value stringLiteral = service.getStringLiteralProperty();
+                if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
+                    String stringLiteralValue = stringLiteral.getValue();
+                    NodeList<Node> nodes = serviceNode.absoluteResourcePath();
+                    if (!nodes.isEmpty()) {
+                        LinePosition startPos = nodes.get(0).lineRange().startLine();
+                        LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
+                        LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
+                        TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), stringLiteralValue);
+                        edits.add(basePathEdit);
+                    }
+                }
+
                 Value listener = service.getListener();
                 boolean isDefaultListenerCreationRequired = false;
                 if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
@@ -1116,26 +1130,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
         try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
             return Optional.of(new Gson().fromJson(reader, TriggerBasicInfo.class));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
-
-    private Optional<Service> getServiceByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
-                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
-                !name.equals(ServiceModelGeneratorConstants.TCP) &&
-                triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("services/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
-
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, Service.class));
         } catch (IOException e) {
             return Optional.empty();
         }
