@@ -67,7 +67,7 @@ public class GenToolsTest extends AbstractLSTest {
         String filePath =
                 testConfig.source() == null ? "" : sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
         GenToolRequest request =
-                new GenToolRequest(filePath, testConfig.diagram(), testConfig.name());
+                new GenToolRequest(filePath, testConfig.diagram(), testConfig.name(), testConfig.connection());
         JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
@@ -97,8 +97,8 @@ public class GenToolsTest extends AbstractLSTest {
 
         if (assertFailure) {
             TestConfig updatedConfig =
-                    new TestConfig(testConfig.source(), testConfig.name(), testConfig.description(),
-                            testConfig.diagram(), newMap);
+                    new TestConfig(testConfig.source(), testConfig.name(), testConfig.connection(),
+                            testConfig.description(), testConfig.diagram(), newMap);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -129,11 +129,12 @@ public class GenToolsTest extends AbstractLSTest {
      *
      * @param source      The source file path
      * @param name        The name of the tool
+     * @param connection  The name of the connection
      * @param description The description of the test
      * @param diagram     The flow node diagram
      * @param output      The expected output
      */
-    private record TestConfig(String source, String name, String description, JsonElement diagram,
+    private record TestConfig(String source, String name, String connection, String description, JsonElement diagram,
                               Map<String, List<TextEdit>> output) {
 
         public String description() {

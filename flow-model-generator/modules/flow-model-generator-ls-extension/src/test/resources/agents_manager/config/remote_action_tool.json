@@ -1,6 +1,7 @@
 {
   "source": "agent_1/agents.bal",
   "name": "toolFunc",
+  "connection": "currencyClient",
   "description": "Sample diagram node",
   "diagram": {
     "id": "65073",

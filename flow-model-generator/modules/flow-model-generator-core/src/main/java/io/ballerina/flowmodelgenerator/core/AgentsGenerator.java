@@ -103,6 +103,32 @@ public class AgentsGenerator {
         return gson.toJsonTree(agents).getAsJsonArray();
     }
 
+    public JsonArray getAllAgents(SemanticModel agentSymbol) {
+        List<Codedata> agents = new ArrayList<>();
+        for (Symbol symbol : agentSymbol.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.CLASS) {
+                continue;
+            }
+            ClassSymbol classSymbol = (ClassSymbol) symbol;
+            if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
+                Optional<ModuleSymbol> optModule = classSymbol.getModule();
+                if (optModule.isEmpty()) {
+                    throw new IllegalStateException("Agent module id not found");
+                }
+                ModuleID id = optModule.get().id();
+
+                agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
+                        .org(id.orgName())
+                        .module(id.packageName())
+                        .version(id.version())
+                        .object(classSymbol.getName().orElse(AGENT))
+                        .symbol(INIT)
+                        .build());
+            }
+        }
+        return gson.toJsonTree(agents).getAsJsonArray();
+    }
+
     private ModuleSymbol getAgentModule() {
         assert semanticModel != null;
         for (Symbol symbol : semanticModel.moduleSymbols()) {
@@ -132,14 +158,56 @@ public class AgentsGenerator {
             }
         }
 
+        Optional<ModuleSymbol> optModule = agentModule.getModule();
+        if (optModule.isEmpty()) {
+            throw new IllegalStateException("Agent module id not found");
+        }
+        ModuleID id = optModule.get().id();
         List<Codedata> models = new ArrayList<>();
         for (ClassSymbol model : modelSymbols) {
             models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
-                    .org(BALLERINAX)
-                    .module(AI_AGENT)
+                    .org(id.orgName())
+                    .module(id.packageName())
+                    .version(id.version())
                     .object(model.getName().orElse(MODEL))
                     .symbol(INIT)
-                    .version("0.7.8")
+                    .build());
+        }
+        return gson.toJsonTree(models).getAsJsonArray();
+    }
+
+    public JsonArray getAllModels(SemanticModel agentSymbol) {
+        List<ClassSymbol> modelSymbols = new ArrayList<>();
+        for (Symbol symbol : agentSymbol.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.CLASS) {
+                continue;
+            }
+            ClassSymbol classSymbol = (ClassSymbol) symbol;
+            if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                continue;
+            }
+            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
+            for (TypeSymbol typeSymbol : inclusionsTypes) {
+                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MODEL)) {
+                    modelSymbols.add(classSymbol);
+                    break;
+                }
+            }
+        }
+
+        List<Codedata> models = new ArrayList<>();
+        for (ClassSymbol model : modelSymbols) {
+            Optional<ModuleSymbol> optModule = model.getModule();
+            if (optModule.isEmpty()) {
+                throw new IllegalStateException("Agent module id not found");
+            }
+            ModuleID id = optModule.get().id();
+            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
+                    .org(id.orgName())
+                    .module(id.packageName())
+                    .version(id.version())
+                    .object(model.getName().orElse(MODEL))
+                    .symbol(INIT)
                     .build());
         }
         return gson.toJsonTree(models).getAsJsonArray();
@@ -203,7 +271,8 @@ public class AgentsGenerator {
         return gson.toJsonTree(functionNames).getAsJsonArray();
     }
 
-    public JsonElement genTool(JsonElement node, String toolName, Path filePath, WorkspaceManager workspaceManager) {
+    public JsonElement genTool(JsonElement node, String toolName, String connectionName, Path filePath,
+                               WorkspaceManager workspaceManager) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         NodeKind nodeKind = flowNode.codedata().node();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
@@ -313,12 +382,13 @@ public class AgentsGenerator {
             if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                 sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
             }
-            Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
-            if (connection.isEmpty()) {
-                throw new IllegalStateException("Client must be defined for an action call node");
+            Optional<Property> connectionProperty = flowNode.getProperty(Property.CONNECTION_KEY);
+            String connection = connectionName;
+            if (connectionProperty.isPresent()) {
+                connection = connectionProperty.get().toSourceCode();
             }
             sourceBuilder.token()
-                    .name(connection.get().toSourceCode())
+                    .name(connection)
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .name(flowNode.metadata().label())
                     .stepOut()

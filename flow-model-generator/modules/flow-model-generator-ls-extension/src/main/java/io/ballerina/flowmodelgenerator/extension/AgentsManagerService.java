@@ -19,9 +19,13 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.core.AgentsGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.*;
 import io.ballerina.flowmodelgenerator.extension.response.*;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextDocument;
@@ -42,7 +46,9 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("agentManager")
 public class AgentsManagerService implements ExtendedLanguageServerService {
     private WorkspaceManager workspaceManager;
-    private static final String IMPORT_STATEMENT = "import ballerinax/ai.agent;\n";
+    private static final String IMPORT_STATEMENT = "import ballerinax/ai.agent;" + System.lineSeparator();
+    private static final String BALLERINAX = "ballerinax";
+    private static final String AI_AGENT = "ai.agent";
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
@@ -59,31 +65,41 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             GetAgentsResponse response = new GetAgentsResponse();
             try {
-                Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
-                Optional<Document> optDocument = this.workspaceManager.document(filePath);
-                if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
+//                Path filePath = Path.of(request.filePath());
+//                Project project = this.workspaceManager.loadProject(filePath);
+//                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
+//                Optional<Document> optDocument = this.workspaceManager.document(filePath);
+//                if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
+//                    return response;
+//                }
+//                AgentsGenerator agentsGenerator;
+//                if (isAgentModuleAvailable(optSemanticModel.get())) {
+//                    agentsGenerator = new AgentsGenerator(optSemanticModel.get());
+//                } else {
+//                    Document document = optDocument.get();
+//                    // TODO: Add the import statement when it is not available
+//                    io.ballerina.tools.text.TextEdit textEdit =
+//                            io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
+//                    io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
+//                    TextDocument modifiedTextDoc =
+//                            optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
+//
+//                    Document modifiedDoc =
+//                            project.duplicate().currentPackage().module(document.module().moduleId())
+//                                    .document(document.documentId()).modify().withContent(
+//                                            String.join(System.lineSeparator(), modifiedTextDoc.textLines())).apply();
+//
+//                    SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
+//                            .getSemanticModel(modifiedDoc.module().moduleId());
+//                    agentsGenerator = new AgentsGenerator(semanticModel);
+//                }
+                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModel(BALLERINAX, AI_AGENT);
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
-                Document document = optDocument.get();
-                // TODO: Add the import statement when it is not available
-                io.ballerina.tools.text.TextEdit textEdit =
-                        io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
-                io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
-                TextDocument modifiedTextDoc =
-                        optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
 
-                Document modifiedDoc =
-                        project.duplicate().currentPackage().module(document.module().moduleId())
-                                .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                        modifiedTextDoc.textLines())).apply();
-
-                SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                        .getSemanticModel(modifiedDoc.module().moduleId());
-
-                AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel);
-                response.setAgents(agentsGenerator.getAllAgents());
+                AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel.get());
+                response.setAgents(agentsGenerator.getAllAgents(semanticModel.get()));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -96,29 +112,40 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             GetModelsResponse response = new GetModelsResponse();
             try {
-                Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
-                Optional<Document> optDocument = this.workspaceManager.document(filePath);
-                if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
+//                Path filePath = Path.of(request.filePath());
+//                Project project = this.workspaceManager.loadProject(filePath);
+//                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(filePath);
+//                Optional<Document> optDocument = this.workspaceManager.document(filePath);
+//                if (optSemanticModel.isEmpty() || optDocument.isEmpty()) {
+//                    return response;
+//                }
+//                AgentsGenerator agentsGenerator;
+//                if (isAgentModuleAvailable(optSemanticModel.get())) {
+//                    agentsGenerator = new AgentsGenerator(optSemanticModel.get());
+//                } else {
+//                    Document document = optDocument.get();
+//                    io.ballerina.tools.text.TextEdit textEdit =
+//                            io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
+//                    io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
+//                    TextDocument modifiedTextDoc =
+//                            optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
+//
+//                    Document modifiedDoc =
+//                            project.duplicate().currentPackage().module(document.module().moduleId())
+//                                    .document(document.documentId()).modify().withContent(
+//                                            String.join(System.lineSeparator(), modifiedTextDoc.textLines())).apply();
+//
+//                    SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
+//                            .getSemanticModel(modifiedDoc.module().moduleId());
+//                    agentsGenerator = new AgentsGenerator(semanticModel);
+//                }
+                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModel(BALLERINAX, AI_AGENT);
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
-                Document document = optDocument.get();
-                io.ballerina.tools.text.TextEdit textEdit =
-                        io.ballerina.tools.text.TextEdit.from(TextRange.from(0, 0), IMPORT_STATEMENT);
-                io.ballerina.tools.text.TextEdit[] textEdits = {textEdit};
-                TextDocument modifiedTextDoc =
-                        optDocument.get().textDocument().apply(TextDocumentChange.from(textEdits));
 
-                Document modifiedDoc =
-                        project.duplicate().currentPackage().module(document.module().moduleId())
-                                .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                        modifiedTextDoc.textLines())).apply();
-
-                SemanticModel semanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                        .getSemanticModel(modifiedDoc.module().moduleId());
-                AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel);
-                response.setModels(agentsGenerator.getAllModels());
+                AgentsGenerator agentsGenerator  = new AgentsGenerator(semanticModel.get());
+                response.setModels(agentsGenerator.getAllModels(semanticModel.get()));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -179,8 +206,8 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                     return response;
                 }
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(), filePath,
-                        this.workspaceManager));
+                response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(),
+                        request.connection(), filePath, this.workspaceManager));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -207,5 +234,17 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
             }
             return response;
         });
+    }
+
+    private boolean isAgentModuleAvailable(SemanticModel semanticModel) {
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() == SymbolKind.MODULE) {
+                ModuleSymbol modSymbol = (ModuleSymbol) symbol;
+                if (modSymbol.id().orgName().equals(BALLERINAX) && modSymbol.id().packageName().equals(AI_AGENT)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
