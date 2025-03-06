@@ -475,7 +475,7 @@ public class ServiceModelAPITests {
         service = response.service();
         Assert.assertTrue(Objects.nonNull(response.service()));
         serviceType = service.getServiceType();
-        Assert.assertEquals(serviceType.getItems().size(), 9);
+        Assert.assertEquals(serviceType.getItems().size(), 11);
     }
 
     @Test(enabled = false)
