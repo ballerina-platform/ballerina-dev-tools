@@ -23,6 +23,7 @@ CREATE TABLE Package (
 -- Create ServiceDeclaration table
 CREATE TABLE ServiceDeclaration (
     package_id PRIMARY KEY,
+    display_name TEXT NOT NULL,
     optional_type_descriptor INTEGER CHECK(optional_type_descriptor IN (0, 1)),
     type_descriptor_label TEXT,
     type_descriptor_description TEXT,

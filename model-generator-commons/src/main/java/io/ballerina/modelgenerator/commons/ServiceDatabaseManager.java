@@ -202,6 +202,7 @@ public class ServiceDatabaseManager {
 
     public Optional<ServiceDeclaration> getServiceDeclaration(String moduleName) {
         StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append("s.display_name, ");
         sql.append("s.optional_type_descriptor, ");
         sql.append("s.type_descriptor_label, ");
         sql.append("s.type_descriptor_description, ");
@@ -239,6 +240,7 @@ public class ServiceDatabaseManager {
 
                 ServiceDeclaration serviceDeclaration = new ServiceDeclaration(
                         packageInfo,
+                        rs.getString("display_name"),
                         rs.getInt("optional_type_descriptor"),
                         rs.getString("type_descriptor_label"),
                         rs.getString("type_descriptor_description"),

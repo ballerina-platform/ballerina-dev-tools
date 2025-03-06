@@ -86,7 +86,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 /**
@@ -578,7 +577,7 @@ class ServiceIndexGenerator {
                                        Map<String, ServiceType> serviceTypes) {
     }
 
-    record ServiceDeclaration(int optionalTypeDescriptor, String typeDescriptorLabel,
+    record ServiceDeclaration(int optionalTypeDescriptor, String displayName, String typeDescriptorLabel,
                               String typeDescriptorDescription, String typeDescriptorDefaultValue,
                               int addDefaultTypeDescriptor, int optionalAbsoluteResourcePath,
                               String absoluteResourcePathLabel, String absoluteResourcePathDescription,

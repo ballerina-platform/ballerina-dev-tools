@@ -34,6 +34,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctio
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunctionInfo;
 
@@ -77,6 +78,7 @@ public class ServiceModelUtils {
 
         updateServiceInfoNew(serviceModel, functionsInSource);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
+        populateListenerInfo(serviceModel, serviceNode);
     }
 
     private static void updateServiceInfoNew(Service serviceModel, List<Function> functionsInSource) {
@@ -131,8 +133,7 @@ public class ServiceModelUtils {
 
         String protocol = getProtocol(moduleName);
 
-        // TODO: introduce a new label field
-        String label = protocol + " Service";
+        String label = serviceTemplate.displayName();
         String documentation = "Add the service documentation";
         String icon = CommonUtils.generateIcon(pkg.org(), pkg.name(), pkg.version());
 
@@ -409,7 +410,7 @@ public class ServiceModelUtils {
                 .setCodedata(new Codedata("SERVICE_BASE_PATH"))
                 .setValue(value)
                 .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION")
+                .setValueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder("/")
                 .setOptional(false)
@@ -428,9 +429,9 @@ public class ServiceModelUtils {
                 .setMetadata(new MetaData(template.absoluteResourcePathLabel(),
                         template.absoluteResourcePathDescription()))
                 .setCodedata(new Codedata("SERVICE_BASE_PATH"))
-                .setValue("")
+                .setValue(template.absoluteResourcePathDefaultValue())
                 .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION") // introduce a new type for validation purposes
+                .setValueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.absoluteResourcePathDefaultValue())
                 .setOptional(false)

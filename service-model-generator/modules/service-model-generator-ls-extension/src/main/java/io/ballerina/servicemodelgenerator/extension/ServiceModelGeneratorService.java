@@ -524,8 +524,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 } else {
                     updateServiceModel(serviceModel, serviceNode, semanticModel);
                 }
-                Set<String> listenersList = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
-                serviceModel.getListener().setItems(listenersList.stream().toList());
+                updateListenerInfo(moduleName, semanticModel, project, serviceModel);
                 return new ServiceFromSourceResponse(serviceModel);
             }
             String serviceType = serviceTypeWithoutPrefix(moduleAndServiceType);
@@ -535,10 +534,25 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
             Service serviceModel = service.get();
             updateGenericServiceModel(serviceModel, serviceNode, semanticModel);
-            Set<String> listenersList = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
-            serviceModel.getListener().setItems(listenersList.stream().toList());
+
+            updateListenerInfo(moduleName, semanticModel, project, serviceModel);
             return new ServiceFromSourceResponse(serviceModel);
         });
+    }
+
+    private static void updateListenerInfo(String moduleName, SemanticModel semanticModel, Project project,
+                                           Service serviceModel) {
+        Set<String> listeners = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
+        List<String> allValues = serviceModel.getListener().getValues();
+        if (Objects.isNull(allValues) || allValues.isEmpty()) {
+            listeners.add(serviceModel.getListener().getValue());
+        } else {
+            listeners.addAll(allValues);
+        }
+        Value listener = serviceModel.getListener();
+        if (!listeners.isEmpty()) {
+            listener.setItems(listeners.stream().toList());
+        }
     }
 
     private static String serviceTypeWithoutPrefix(ModuleAndServiceType moduleAndServiceType) {

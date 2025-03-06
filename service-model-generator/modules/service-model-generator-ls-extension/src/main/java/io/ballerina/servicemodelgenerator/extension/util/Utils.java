@@ -785,7 +785,6 @@ public final class Utils {
                                                   SemanticModel semanticModel) {
         Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
 
-        // TODO: improve handling service type
         if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
             serviceModel.updateServiceType(commonSvcModel.getServiceType());
         }
@@ -796,6 +795,14 @@ public final class Utils {
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
+        String moduleName = serviceModel.getModuleName();
+        boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
+        boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
+        updateServiceInfo(serviceModel, commonSvcModel);
+        serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
+        populateListenerInfo(serviceModel, serviceNode);
+
         // handle base path and string literal
         String attachPoint = getPath(serviceNode.absoluteResourcePath());
         if (!attachPoint.isEmpty()) {
@@ -816,14 +823,6 @@ public final class Utils {
                 }
             }
         }
-
-        String moduleName = serviceModel.getModuleName();
-        boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
-        boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
-        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
-        updateServiceInfo(serviceModel, commonSvcModel);
-        serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
-        populateListenerInfo(serviceModel, serviceNode);
     }
 
     private static void updateServiceInfo(Service serviceModel, Service commonSvcModel) {
@@ -832,13 +831,6 @@ public final class Utils {
             enableContractFirstApproach(serviceModel);
         }
         populateRequiredFuncsDesignApproachAndServiceType(serviceModel);
-        if (Objects.nonNull(commonSvcModel.getBasePath())) {
-            if (Objects.nonNull(commonSvcModel.getBasePath())) {
-                updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
-            } else {
-                serviceModel.setBasePath(commonSvcModel.getBasePath());
-            }
-        }
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
 
         // mark the enabled functions as true if they present in the source
@@ -920,7 +912,7 @@ public final class Utils {
         commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
-    private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
+    public static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
         int size = expressions.size();
         if (size == 1) {
