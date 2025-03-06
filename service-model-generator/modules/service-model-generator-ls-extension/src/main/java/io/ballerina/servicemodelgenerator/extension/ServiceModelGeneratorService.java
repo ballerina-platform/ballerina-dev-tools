@@ -282,34 +282,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
-    private void removeAlreadyDefinedServiceTypes(Service serviceModel, String listenerName,
-                                                  ModulePartNode modulePartNode) {
-        Value serviceTypeValue = serviceModel.getServiceType();
-        if (Objects.isNull(serviceTypeValue) || Objects.isNull(serviceTypeValue.getItems())) {
-            return;
-        }
-        List<ServiceDeclarationNode> services = modulePartNode.members().stream()
-                .filter(member -> member.kind().equals(SyntaxKind.SERVICE_DECLARATION))
-                .map(member -> (ServiceDeclarationNode) member)
-                .toList();
-        services.forEach(service -> {
-            Optional<TypeDescriptorNode> serviceType = service.typeDescriptor();
-            if (serviceType.isEmpty() ||
-                    !serviceType.get().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
-                return;
-            }
-            String serviceTypeName = ((QualifiedNameReferenceNode) serviceType.get()).identifier().text().trim();
-            Optional<ExpressionNode> listenerExpression = getListenerExpression(service);
-            if (listenerExpression.isEmpty() ||
-                    !(listenerExpression.get() instanceof SimpleNameReferenceNode listener)) {
-                return;
-            }
-            if (listener.name().text().trim().equals(listenerName)) {
-                serviceTypeValue.getItems().remove(serviceTypeName);
-            }
-        });
-    }
-
     /**
      * Get the list of text edits to add a service to the given module.
      *
