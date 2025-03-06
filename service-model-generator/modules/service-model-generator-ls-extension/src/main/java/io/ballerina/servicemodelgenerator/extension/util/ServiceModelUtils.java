@@ -457,7 +457,7 @@ public class ServiceModelUtils {
                 .setValue("")
                 .setValues(new ArrayList<>())
                 .setValueType(valueType)
-                .setValueTypeConstraint(protocol+ ":" + "Listener")
+                .setValueTypeConstraint(protocol + ":" + "Listener")
                 .setPlaceholder("")
                 .setOptional(false)
                 .setAdvanced(false)

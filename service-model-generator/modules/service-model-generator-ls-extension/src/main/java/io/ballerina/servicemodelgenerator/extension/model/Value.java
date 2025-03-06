@@ -367,8 +367,8 @@ public class Value {
         }
 
         public Value build() {
-            return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType, placeholder,
-                    optional, advanced, properties, items, codedata, addNewButton);
+            return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
+                    placeholder, optional, advanced, properties, items, codedata, addNewButton);
         }
     }
 }
