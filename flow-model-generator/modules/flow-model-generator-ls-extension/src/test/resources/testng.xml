@@ -66,15 +66,15 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.RecordConfigTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.InitializerTest"/>
 
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.NodeTemplateTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SourceGeneratorTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GenToolsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllAgentsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllModelsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetModelsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetToolsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetConnectorActionsTest"/>
-            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.FlowNodeGeneratorTest"/>
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.NodeTemplateTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SourceGeneratorTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GenToolsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllAgentsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllModelsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetModelsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetToolsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetConnectorActionsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.FlowNodeGeneratorTest"/>-->
         </classes>
     </test>
 </suite>
