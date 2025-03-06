@@ -62,7 +62,7 @@
         "typeMembers": [
           {
             "type": "ParameterizedQuery",
-            "packageInfo": "ballerina:sql:1.14.0",
+            "packageInfo": "ballerina:sql:1.15.0",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
