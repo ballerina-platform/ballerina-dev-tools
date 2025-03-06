@@ -60,6 +60,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("typesManager")
@@ -278,65 +280,96 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             RecordConfigResponse response = new RecordConfigResponse();
             try {
-                for (TypeConstrainDetails details : request.details()) {
-                    try {
-                        Type type = getType(details.codedata(), request.filePath(), details.typeConstraint(),
-                                request.expr());
-                        if (type.selected) {
-                            response.setRecordConfig(type);
-                            break;
-                        }
-                    } catch (Throwable e) {
-                    }
-                }
+                // Process each detail in parallel, find the first selected type
+                request.details().parallelStream()
+                        .flatMap(detail -> {
+                            try {
+                                Type type = getType(
+                                        detail.codedata(),
+                                        request.filePath(),
+                                        detail.typeConstraint(),
+                                        request.expr()
+                                );
+                                return type.selected ? Stream.of(type) : Stream.empty();
+                            } catch (Throwable e) {
+                                return Stream.empty();
+                            }
+                        })
+                        .findAny()
+                        .ifPresent(response::setRecordConfig);
             } catch (Throwable e) {
                 response.setError(e);
             }
+            semanticModelCache.clear();
             return response;
         });
     }
 
-    record Request(String filePath, String expr, List<TypeConstrainDetails> details) {
+    // Cache key for SemanticModel
+    private record CacheKey(String org, String packageName, String version) {}
+
+    // Cache for SemanticModel instances
+    private static final ConcurrentHashMap<CacheKey, SemanticModel> semanticModelCache = new ConcurrentHashMap<>();
+
+    private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String version,
+                                                           Path filePath) {
+        // Check cache with filePath
+        CacheKey keyWithPath = new CacheKey(org, packageName, version);
+        SemanticModel cachedModel = semanticModelCache.get(keyWithPath);
+        if (cachedModel != null) {
+            return Optional.of(cachedModel);
+        }
+
+        // Try to load via filePath-specific method
+        Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(
+                workspaceManager, filePath, org, packageName, version
+        );
+        if (model.isPresent()) {
+            semanticModelCache.put(keyWithPath, model.get());
+            return model;
+        }
+
+        // Fallback to general package lookup
+        CacheKey keyWithoutPath = new CacheKey(org, packageName, version);
+        cachedModel = semanticModelCache.get(keyWithoutPath);
+        if (cachedModel != null) {
+            return Optional.of(cachedModel);
+        }
+
+        model = PackageUtil.getSemanticModel(org, packageName, version);
+        model.ifPresent(m -> semanticModelCache.put(keyWithoutPath, m));
+        return model;
     }
 
-    record CData(String org, String module, String version) {}
-
-    record TypeConstrainDetails(CData codedata, String typeConstraint) {}
-
-    private Type getType(CData codedata, String path, String typeConstrain, String expr) {
+    private Type getType(CData codedata, String path, String typeConstraint, String expr) {
         String orgName = codedata.org();
         String packageName = codedata.module();
         String versionName = codedata.version();
         Path filePath = Path.of(path);
 
-        // Find the semantic model
-        Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
-                filePath, orgName, packageName, versionName);
-        if (semanticModel.isEmpty()) {
-            semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
-        }
+        // Retrieve cached or load new semantic model
+        Optional<SemanticModel> semanticModel = getCachedSemanticModel(orgName, packageName, versionName, filePath);
         if (semanticModel.isEmpty()) {
             throw new IllegalArgumentException(
-                    String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
+                    String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName)
+            );
         }
 
-        // Get the type symbol
+        // Existing type resolution logic
         Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
-                        symbol.nameEquals(typeConstrain))
+                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(typeConstraint))
                 .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                 .findFirst();
 
         if (typeSymbol.isEmpty()) {
             throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
-                    typeConstrain,
-                    orgName,
-                    packageName,
-                    versionName));
+                    typeConstraint, orgName, packageName, versionName));
         }
 
+        // Rest of your existing type processing logic
         ExpressionNode expressionNode = NodeParser.parseExpression(expr);
         Type type = Type.fromSemanticSymbol(typeSymbol.get());
+
         if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
             if (type instanceof RecordType recordType) {
                 RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
@@ -346,8 +379,16 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         } else {
             throw new IllegalArgumentException("Invalid expression");
         }
+
         return type;
     }
+
+    record Request(String filePath, String expr, List<TypeConstrainDetails> details) {
+    }
+
+    record CData(String org, String module, String version) {}
+
+    record TypeConstrainDetails(CData codedata, String typeConstraint) {}
 
     @JsonRequest
     public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
