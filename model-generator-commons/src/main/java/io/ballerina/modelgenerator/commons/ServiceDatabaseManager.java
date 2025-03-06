@@ -316,17 +316,8 @@ public class ServiceDatabaseManager {
                 "f.return_type, " +
                 "f.return_type_editable, " +
                 "f.import_statements, " +
-                "f.enable, " +
-                "p.parameter_id, " +
-                "p.name AS parameter_name, " +
-                "p.label, " +
-                "p.description AS parameter_description, " +
-                "p.kind AS parameter_kind, " +
-                "p.type AS parameter_type, " +
-                "p.default_value AS parameter_default_value, " +
-                "p.import_statements AS parameter_import_statements " +
+                "f.enable " +
                 "FROM ServiceTypeFunction f " +
-                "JOIN ServiceTypeFunctionParameter p ON f.function_id = p.function_id " +
                 "WHERE f.service_type_id = ?";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
@@ -336,18 +327,8 @@ public class ServiceDatabaseManager {
             ResultSet rs = stmt.executeQuery();
             List<ServiceTypeFunction> functions = new ArrayList<>();
             while (rs.next()) {
-                List<ServiceTypeFunction.ServiceTypeFunctionParameter> parameters = new ArrayList<>();
-                parameters.add(new ServiceTypeFunction.ServiceTypeFunctionParameter(
-                        rs.getInt("parameter_id"),
-                        rs.getString("parameter_name"),
-                        rs.getString("label"),
-                        rs.getString("parameter_description"),
-                        rs.getString("parameter_kind"),
-                        rs.getString("parameter_type"),
-                        rs.getString("parameter_default_value"),
-                        rs.getString("parameter_import_statements")
-                ));
-
+                int functionId = rs.getInt("function_id");
+                List<ServiceTypeFunction.ServiceTypeFunctionParameter> params = getServiceFunctionParams(functionId);
                 functions.add(new ServiceTypeFunction(
                         rs.getInt("function_id"),
                         rs.getString("name"),
@@ -358,10 +339,48 @@ public class ServiceDatabaseManager {
                         rs.getInt("return_type_editable"),
                         rs.getString("import_statements"),
                         rs.getInt("enable"),
-                        parameters
+                        params
                 ));
             }
             return functions;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    private List<ServiceTypeFunction.ServiceTypeFunctionParameter> getServiceFunctionParams(int functionId) {
+        String sql = "SELECT " +
+                "parameter_id, " +
+                "name, " +
+                "label, " +
+                "description, " +
+                "kind, " +
+                "type, " +
+                "default_value, " +
+                "import_statements " +
+                "FROM ServiceTypeFunctionParameter " +
+                "WHERE function_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, functionId);
+
+            ResultSet rs = stmt.executeQuery();
+            List<ServiceTypeFunction.ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+            while (rs.next()) {
+                parameters.add(new ServiceTypeFunction.ServiceTypeFunctionParameter(
+                        rs.getInt("parameter_id"),
+                        rs.getString("name"),
+                        rs.getString("label"),
+                        rs.getString("description"),
+                        rs.getString("kind"),
+                        rs.getString("type"),
+                        rs.getString("default_value"),
+                        rs.getString("import_statements")
+                ));
+            }
+            return parameters;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();

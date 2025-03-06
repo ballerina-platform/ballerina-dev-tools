@@ -212,73 +212,7 @@
             "editable": true,
             "optional": true,
             "advanced": false
-          }
-        ],
-        "returnType": {
-          "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
           },
-          "enabled": true,
-          "editable": true,
-          "value": "error?",
-          "valueType": "TYPE",
-          "valueTypeConstraint": "string",
-          "isType": true,
-          "placeholder": "error?",
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "enabled": true,
-        "optional": false,
-        "editable": true,
-        "codedata": {
-          "lineRange": {
-            "fileName": "main.bal",
-            "startLine": {
-              "line": 5,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 10,
-              "offset": 5
-            }
-          },
-          "inListenerInit": false,
-          "isBasePath": false,
-          "inDisplayAnnotation": false
-        }
-      },
-      {
-        "metadata": {
-          "label": "onMessage",
-          "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue"
-        },
-        "kind": "REMOTE",
-        "name": {
-          "metadata": {
-            "label": "onMessage",
-            "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue"
-          },
-          "enabled": true,
-          "editable": false,
-          "value": "onMessage",
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
-          "isType": false,
-          "placeholder": "onMessage",
-          "optional": false,
-          "advanced": false,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "type": "FUNCTION_NAME"
-          },
-          "addNewButton": false
-        },
-        "parameters": [
           {
             "metadata": {
               "label": "caller",
@@ -392,7 +326,7 @@
             "label": "onRequest",
             "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": false,
           "value": "onRequest",
           "valueType": "IDENTIFIER",
@@ -474,57 +408,7 @@
             "editable": true,
             "optional": true,
             "advanced": false
-          }
-        ],
-        "returnType": {
-          "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
           },
-          "enabled": true,
-          "editable": true,
-          "value": "anydata|error",
-          "valueType": "TYPE",
-          "valueTypeConstraint": "string",
-          "isType": true,
-          "placeholder": "anydata|error",
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "enabled": false,
-        "optional": false,
-        "editable": true
-      },
-      {
-        "metadata": {
-          "label": "onRequest",
-          "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected"
-        },
-        "kind": "REMOTE",
-        "name": {
-          "metadata": {
-            "label": "onRequest",
-            "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected"
-          },
-          "enabled": false,
-          "editable": false,
-          "value": "onRequest",
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
-          "isType": false,
-          "placeholder": "onRequest",
-          "optional": false,
-          "advanced": false,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "type": "FUNCTION_NAME"
-          },
-          "addNewButton": false
-        },
-        "parameters": [
           {
             "metadata": {
               "label": "caller",
@@ -622,7 +506,7 @@
             "label": "onError",
             "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": false,
           "value": "onError",
           "valueType": "IDENTIFIER",
@@ -704,57 +588,7 @@
             "editable": true,
             "optional": true,
             "advanced": false
-          }
-        ],
-        "returnType": {
-          "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
           },
-          "enabled": true,
-          "editable": true,
-          "value": "error?",
-          "valueType": "TYPE",
-          "valueTypeConstraint": "string",
-          "isType": true,
-          "placeholder": "error?",
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "enabled": false,
-        "optional": false,
-        "editable": true
-      },
-      {
-        "metadata": {
-          "label": "onError",
-          "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
-        },
-        "kind": "REMOTE",
-        "name": {
-          "metadata": {
-            "label": "onError",
-            "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
-          },
-          "enabled": false,
-          "editable": false,
-          "value": "onError",
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
-          "isType": false,
-          "placeholder": "onError",
-          "optional": false,
-          "advanced": false,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "type": "FUNCTION_NAME"
-          },
-          "addNewButton": false
-        },
-        "parameters": [
           {
             "metadata": {
               "label": "rabbitmqError",

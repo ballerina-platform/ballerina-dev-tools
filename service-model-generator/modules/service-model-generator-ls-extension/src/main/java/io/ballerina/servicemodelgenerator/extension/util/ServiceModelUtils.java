@@ -203,7 +203,7 @@ public class ServiceModelUtils {
                 .setValueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(function.name())
-                .setEnabled(function.enable() == 1)
+                .setEnabled(true)
                 .setEditable(false)
                 .setType(false)
                 .setOptional(false)
@@ -226,7 +226,7 @@ public class ServiceModelUtils {
         functionBuilder
                 .setMetadata(new MetaData(function.name(), function.description()))
                 .setKind(function.kind())
-                .setEnabled(true)
+                .setEnabled(function.enable() == 1)
                 .setOptional(false)
                 .setEditable(true)
                 .setName(functionName.build())

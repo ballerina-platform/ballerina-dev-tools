@@ -189,73 +189,7 @@
             "editable": true,
             "optional": true,
             "advanced": false
-          }
-        ],
-        "returnType": {
-          "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
           },
-          "enabled": true,
-          "editable": true,
-          "value": "error?",
-          "valueType": "TYPE",
-          "valueTypeConstraint": "string",
-          "isType": true,
-          "placeholder": "error?",
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false
-        },
-        "enabled": true,
-        "optional": false,
-        "editable": true,
-        "codedata": {
-          "lineRange": {
-            "fileName": "main.bal",
-            "startLine": {
-              "line": 5,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 10,
-              "offset": 5
-            }
-          },
-          "inListenerInit": false,
-          "isBasePath": false,
-          "inDisplayAnnotation": false
-        }
-      },
-      {
-        "metadata": {
-          "label": "onConsumerRecord",
-          "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)"
-        },
-        "kind": "REMOTE",
-        "name": {
-          "metadata": {
-            "label": "onConsumerRecord",
-            "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)"
-          },
-          "enabled": true,
-          "editable": false,
-          "value": "onConsumerRecord",
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
-          "isType": false,
-          "placeholder": "onConsumerRecord",
-          "optional": false,
-          "advanced": false,
-          "codedata": {
-            "inListenerInit": false,
-            "isBasePath": false,
-            "inDisplayAnnotation": false,
-            "type": "FUNCTION_NAME"
-          },
-          "addNewButton": false
-        },
-        "parameters": [
           {
             "metadata": {
               "label": "caller",
@@ -369,7 +303,7 @@
             "label": "onError",
             "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": false,
           "value": "onError",
           "valueType": "IDENTIFIER",
