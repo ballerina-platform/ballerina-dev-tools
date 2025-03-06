@@ -20,17 +20,13 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -43,7 +39,6 @@ import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +56,7 @@ public class ExpressionEditorContext {
     // State variables
     private int expressionOffset;
     private LineRange statementLineRange;
+    private LinePosition startLine;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
@@ -98,6 +94,13 @@ public class ExpressionEditorContext {
 
     public Info info() {
         return info;
+    }
+
+    public LinePosition startLine() {
+        if (startLine == null) {
+            startLine = CommonUtils.getPosition(info.startLine(), documentContext.document());
+        }
+        return startLine;
     }
 
     // TODO: Check how we can use SourceBuilder in place of this method
@@ -184,7 +187,7 @@ public class ExpressionEditorContext {
 
         // Get the text position of the start line
         TextDocument textDocument = documentContext.document().textDocument();
-        LinePosition cursorStartLine = info.startLine();
+        LinePosition cursorStartLine = startLine();
         int textPosition = textDocument.textPositionFrom(cursorStartLine);
 
         // Generate the statement and apply the text edits
@@ -392,131 +395,5 @@ public class ExpressionEditorContext {
      */
     public record Info(String expression, LinePosition startLine, int offset, JsonObject codedata,
                        JsonObject property) {
-    }
-
-    /**
-     * Encapsulates document and import related context with lazy loading capabilities.
-     *
-     * @since 2.0.0
-     */
-    private static class DocumentContext {
-
-        private final WorkspaceManagerProxy workspaceManagerProxy;
-        private final String inputFileUri;
-        private final Path inputFilePath;
-
-        private String fileUri;
-        private Path filePath;
-        private Document document;
-        private Module module;
-        private List<ImportDeclarationNode> imports;
-        private WorkspaceManager workspaceManager;
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, Path filePath) {
-            this(workspaceManagerProxy, null, filePath, null);
-        }
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
-            this(workspaceManagerProxy, fileUri, filePath, null);
-        }
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
-                               Document document) {
-            this.workspaceManagerProxy = workspaceManagerProxy;
-            this.inputFileUri = fileUri;
-            this.inputFilePath = filePath;
-            this.document = document;
-        }
-
-        public WorkspaceManager workspaceManager() {
-            if (workspaceManager == null) {
-                workspaceManager = workspaceManagerProxy.get(inputFileUri);
-            }
-            return workspaceManager;
-        }
-
-        public Optional<Project> project() {
-            try {
-                return Optional.of(workspaceManager().loadProject(inputFilePath));
-            } catch (Exception ignored) {
-                return Optional.empty();
-            }
-        }
-
-        public Optional<Module> module() {
-            if (module != null) {
-                return Optional.of(module);
-            }
-            return workspaceManager().module(inputFilePath);
-        }
-
-        public String fileUri() {
-            if (fileUri == null) {
-                // Check if the document exists
-                Optional<Document> inputDoc = CommonUtils.getDocument(workspaceManager(), inputFilePath);
-                if (inputDoc.isPresent()) {
-                    document = inputDoc.get();
-                    filePath = inputFilePath;
-                    fileUri = fileUri == null ? CommonUtils.getExprUri(filePath.toString()) : inputFileUri;
-                    return fileUri;
-                }
-
-                // Generate the reserved file if not exists
-                Optional<Module> optModule = workspaceManager().module(inputFilePath);
-                if (optModule.isPresent()) {
-                    module = optModule.get();
-                } else {
-                    // Get the default module if not exists
-                    Optional<Project> project = workspaceManager().project(inputFilePath);
-                    if (project.isEmpty()) {
-                        throw new IllegalStateException("Project not found for the file: " + inputFilePath);
-                    }
-                    module = project.get().currentPackage().getDefaultModule();
-                }
-
-                // If the file is not found, it defaults to the end of a random file. Although we can create a
-                // private document using the project API, this approach is not feasible because the
-                // BallerinaWorkspaceManager is tightly coupled with the file system.
-                // Get the first document ID from the module
-                Collection<DocumentId> documentIds = module.documentIds();
-                if (documentIds.isEmpty()) {
-                    throw new IllegalStateException("No documents found in the module: " + module.moduleName());
-                }
-                DocumentId documentId = documentIds.iterator().next();
-                document = module.document(documentId);
-                filePath = inputFilePath.resolve(document.name());
-                fileUri = CommonUtils.getExprUri(filePath.toString());
-                return fileUri;
-            }
-            return fileUri;
-        }
-
-        public Document document() {
-            if (document == null) {
-                fileUri();
-            }
-            return document;
-        }
-
-        public Path filePath() {
-            if (filePath == null) {
-                fileUri();
-            }
-            return filePath;
-        }
-
-        public List<ImportDeclarationNode> imports() {
-            if (imports == null) {
-                if (document == null) {
-                    document();
-                }
-                SyntaxTree syntaxTree = document.syntaxTree();
-                imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
-                        ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
-                        : List.of();
-
-            }
-            return imports;
-        }
     }
 }

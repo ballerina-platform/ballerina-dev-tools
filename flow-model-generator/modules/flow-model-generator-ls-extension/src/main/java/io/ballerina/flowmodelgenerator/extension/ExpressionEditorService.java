@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.Debouncer;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.DocumentContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.CompletionRequest;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DiagnosticsRequest;
@@ -85,14 +86,15 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManagerProxy.get().loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath);
-                Optional<Document> document = this.workspaceManagerProxy.get().document(filePath);
-                if (semanticModel.isEmpty() || document.isEmpty()) {
+                DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
+                Optional<SemanticModel> semanticModel = documentContext.semanticModel();
+                Document document = documentContext.document();
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
 
                 VisibleVariableTypesGenerator visibleVariableTypesGenerator = new VisibleVariableTypesGenerator(
-                        semanticModel.get(), document.get(), request.position());
+                        semanticModel.get(), document, CommonUtils.getPosition(request.position(), document));
                 JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
                 response.setCategories(visibleVariableTypes);
             } catch (Throwable e) {

@@ -56,6 +56,7 @@ import io.ballerina.tools.diagnostics.DiagnosticInfo;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -777,5 +778,23 @@ public class CommonUtils {
     public static String getClassType(String packageName, String clientName) {
         String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
         return String.format("%s:%s", importPrefix, clientName);
+    }
+
+    /**
+     * Returns the specified position if not null, or the end of the document otherwise.
+     *
+     * @param position The line position to check; if not null, it is returned as is
+     * @param document The document to get the end position from if the position parameter is null
+     * @return The original position if not null, or the line position at the end of the document
+     */
+    public static LinePosition getPosition(LinePosition position, Document document) {
+        if (position != null) {
+            return position;
+        }
+
+        // Get the end of the document
+        TextDocument textDocument = document.textDocument();
+        int textPosition = textDocument.toCharArray().length;
+        return textDocument.linePositionFrom(textPosition);
     }
 }
