@@ -6,11 +6,13 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
+import io.ballerina.modelgenerator.commons.ServiceTypeFunction;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
+import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 
@@ -62,7 +64,7 @@ public class ServiceModelUtils {
                 .setListenerProtocol(protocol)
                 .setIcon(icon)
                 .setProperties(properties)
-                .setFunctions(List.of(getInitFunction()));
+                .setFunctions(new ArrayList<>());
 
         Service service = serviceBuilder.build();
         properties.put("listener", getListenersProperty(protocol, serviceTemplate.listenerKind()));
@@ -80,8 +82,125 @@ public class ServiceModelUtils {
             properties.put("stringLiteral", getStringLiteral(serviceTemplate));
         }
 
-
         return Optional.of(service);
+    }
+
+    public static Optional<Service> getServiceModelWithFunctions(String moduleName, String serviceType) {
+        Optional<Service> serviceOptional = getEmptyServiceModel(moduleName);
+        if (serviceOptional.isEmpty() || serviceOptional.get().getPackageName().equals("http")) {
+            return serviceOptional;
+        }
+        Service service = serviceOptional.get();
+        int packageId = Integer.parseInt(service.getId());
+        ServiceDatabaseManager.getInstance().getMatchingServiceTypeFunctions(packageId, serviceType)
+                .forEach(function -> service.getFunctions().add(getFunction(function)));
+        service.getServiceType().setValue(serviceType);
+        return Optional.of(service);
+    }
+
+    public static Function getFunction(ServiceTypeFunction function) {
+
+        List<Parameter> parameters = new ArrayList<>();
+        for (ServiceTypeFunction.ServiceTypeFunctionParameter parameter : function.parameters()) {
+            parameters.add(getParameter(parameter));
+        }
+
+        Value.ValueBuilder functionName = new Value.ValueBuilder();
+        functionName
+                .setMetadata(new MetaData(function.name(), function.description()))
+                .setCodedata(new Codedata("FUNCTION_NAME"))
+                .setValue(function.name())
+                .setValueType("IDENTIFIER")
+                .setValueTypeConstraint("string")
+                .setPlaceholder(function.name())
+                .setEnabled(true)
+                .setEditable(false)
+                .setType(false)
+                .setOptional(false)
+                .setAdvanced(false);
+
+        Value.ValueBuilder functionReturnType = new Value.ValueBuilder();
+        functionReturnType
+                .setMetadata(new MetaData("Return Type", "The return type of the function"))
+                .setValue(function.returnType())
+                .setValueType("TYPE")
+                .setValueTypeConstraint("string")
+                .setPlaceholder(function.returnType())
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(true)
+                .setOptional(true)
+                .setAdvanced(false);
+
+        Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
+        functionBuilder
+                .setMetadata(new MetaData(function.name(), function.description()))
+                .setKind(function.kind())
+                .setEnabled(true)
+                .setOptional(false)
+                .setEditable(true)
+                .setName(functionName.build())
+                .setReturnType(new FunctionReturnType(functionReturnType.build()))
+                .setParameters(parameters);
+
+        return functionBuilder.build();
+    }
+
+    public static Parameter getParameter(ServiceTypeFunction.ServiceTypeFunctionParameter parameter) {
+        Value.ValueBuilder parameterName = new Value.ValueBuilder();
+        parameterName
+                .setMetadata(new MetaData(parameter.name(), parameter.description()))
+                .setCodedata(new Codedata("PARAMETER_NAME"))
+                .setValue(parameter.name())
+                .setValueType("IDENTIFIER")
+                .setValueTypeConstraint("string")
+                .setPlaceholder(parameter.name())
+                .setEnabled(true)
+                .setEditable(false)
+                .setType(false)
+                .setOptional(false)
+                .setAdvanced(false);
+
+        Value.ValueBuilder parameterType = new Value.ValueBuilder();
+        parameterType
+                .setMetadata(new MetaData("Type", "The type of the parameter"))
+                .setValue(parameter.type())
+                .setValueType("TYPE")
+                .setValueTypeConstraint("string")
+                .setPlaceholder(parameter.type())
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(true)
+                .setOptional(true)
+                .setAdvanced(false);
+
+        Value.ValueBuilder parameterDefaultValue = new Value.ValueBuilder();
+        parameterDefaultValue
+                .setMetadata(new MetaData("Default Value", "The default value of the parameter"))
+                .setValue(parameter.defaultValue())
+                .setValueType("EXPRESSION")
+                .setValueTypeConstraint("string")
+                .setPlaceholder(parameter.defaultValue())
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(true)
+                .setOptional(true)
+                .setAdvanced(false);
+
+        Parameter.Builder parameterBuilder = new Parameter.Builder();
+        parameterBuilder
+                .metadata(new MetaData(parameter.name(), parameter.description()))
+                .kind(parameter.kind())
+                .type(parameterType.build())
+                .name(parameterName.build())
+                .defaultValue(parameterDefaultValue.build())
+                .enabled(true)
+                .editable(true)
+                .optional(true)
+                .advanced(false)
+                .httpParamType(null);
+
+        return parameterBuilder.build();
     }
 
     public static Function getInitFunction() {
@@ -154,6 +273,26 @@ public class ServiceModelUtils {
         return valueBuilder.build();
     }
 
+    public static Value getStringLiteralProperty(String value) {
+        Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
+        valueBuilder
+                .setMetadata(new MetaData("String Literal", "The string literal of the service"))
+                .setCodedata(new Codedata("STRING_LITERAL"))
+                .setValue(value)
+                .setValues(new ArrayList<>())
+                .setValueType("EXPRESSION")
+                .setValueTypeConstraint("string")
+                .setPlaceholder("\"/path\"")
+                .setOptional(false)
+                .setAdvanced(false)
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(false)
+                .setAddNewButton(false);
+
+        return valueBuilder.build();
+    }
+
     private static Value getStringLiteral(ServiceDeclaration template) {
         Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
         valueBuilder
@@ -164,6 +303,26 @@ public class ServiceModelUtils {
                 .setValueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.stringLiteralDefaultValue())
+                .setOptional(false)
+                .setAdvanced(false)
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(false)
+                .setAddNewButton(false);
+
+        return valueBuilder.build();
+    }
+
+    public static Value getBasePathProperty(String value) {
+        Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
+        valueBuilder
+                .setMetadata(new MetaData("Base Path", "The base path of the service"))
+                .setCodedata(new Codedata("SERVICE_BASE_PATH"))
+                .setValue(value)
+                .setValues(new ArrayList<>())
+                .setValueType("EXPRESSION")
+                .setValueTypeConstraint("string")
+                .setPlaceholder("/")
                 .setOptional(false)
                 .setAdvanced(false)
                 .setEnabled(true)

@@ -136,8 +136,16 @@ public class Service {
         return properties.get("basePath");
     }
 
-    public Value setBasePath(Value basePath) {
-        return properties.put("basePath", basePath);
+    public Value getStringLiteralProperty() {
+        return properties.get("stringLiteral");
+    }
+
+    public void setBasePath(Value basePath) {
+        properties.put("basePath", basePath);
+    }
+
+    public void setStringLiteral(Value basePath) {
+        properties.put("stringLiteral", basePath);
     }
 
     public Value getOpenAPISpec() {

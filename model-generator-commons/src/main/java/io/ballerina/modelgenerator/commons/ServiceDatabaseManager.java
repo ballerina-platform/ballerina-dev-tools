@@ -282,6 +282,88 @@ public class ServiceDatabaseManager {
         }
     }
 
+    private int getServiceTypeId(int packageId, String serviceType) {
+        String sql = "SELECT service_type_id FROM ServiceType WHERE package_id = ? AND name = ?";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, packageId);
+            stmt.setString(2, serviceType);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("service_type_id");
+            }
+            return -1;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public List<ServiceTypeFunction> getMatchingServiceTypeFunctions(int packageId, String serviceType) {
+        int serviceTypeId = getServiceTypeId(packageId, serviceType);
+        if (serviceTypeId == -1) {
+            return List.of();
+        }
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name, " +
+                "f.description, " +
+                "f.accessor, " +
+                "f.kind, " +
+                "f.return_type, " +
+                "f.return_type_editable, " +
+                "f.import_statements, " +
+                "p.parameter_id, " +
+                "p.name AS parameter_name, " +
+                "p.label, " +
+                "p.description AS parameter_description, " +
+                "p.kind AS parameter_kind, " +
+                "p.type AS parameter_type, " +
+                "p.default_value AS parameter_default_value, " +
+                "p.import_statements AS parameter_import_statements " +
+                "FROM ServiceTypeFunction f " +
+                "JOIN ServiceTypeFunctionParameter p ON f.function_id = p.function_id " +
+                "WHERE f.service_type_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, serviceTypeId);
+
+            ResultSet rs = stmt.executeQuery();
+            List<ServiceTypeFunction> functions = new ArrayList<>();
+            while (rs.next()) {
+                List<ServiceTypeFunction.ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+                parameters.add(new ServiceTypeFunction.ServiceTypeFunctionParameter(
+                        rs.getInt("parameter_id"),
+                        rs.getString("parameter_name"),
+                        rs.getString("label"),
+                        rs.getString("parameter_description"),
+                        rs.getString("parameter_kind"),
+                        rs.getString("parameter_type"),
+                        rs.getString("parameter_default_value"),
+                        rs.getString("parameter_import_statements")
+                ));
+
+                functions.add(new ServiceTypeFunction(
+                        rs.getInt("function_id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("accessor"),
+                        rs.getString("kind"),
+                        rs.getString("return_type"),
+                        rs.getInt("return_type_editable"),
+                        rs.getString("import_statements"),
+                        parameters
+                ));
+            }
+            return functions;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
     // Helper builder class
     private static class ParameterDataBuilder {
 

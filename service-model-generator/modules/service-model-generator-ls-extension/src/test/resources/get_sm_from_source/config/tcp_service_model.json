@@ -10,14 +10,14 @@
     "offset": 0
   },
   "response": {
-    "id": "20",
-    "name": "Tcp Channel",
-    "type": "event",
-    "displayName": "Tcp",
-    "description": "",
+    "id": "3",
+    "name": "tcp Service",
+    "type": "tcp",
+    "displayName": "tcp Service",
+    "description": "Add the service documentation",
     "displayAnnotation": {
-      "label": "Tcp",
-      "iconPath": ""
+      "label": "tcp Service",
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
     },
     "moduleName": "tcp",
     "orgName": "ballerina",
@@ -28,12 +28,13 @@
     "properties": {
       "listener": {
         "metadata": {
-          "label": "Listener",
+          "label": "Listeners",
           "description": "The Listeners to be bound with the service"
         },
         "enabled": true,
-        "editable": false,
+        "editable": true,
         "value": "tcpListener",
+        "values": [],
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": "tcp:Listener",
         "isType": false,
@@ -49,22 +50,26 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": false
+        "addNewButton": true
       },
       "serviceType": {
         "metadata": {
           "label": "TCP Service Type",
-          "description": ""
+          "description": "The name of the service contract type"
         },
-        "enabled": true,
-        "editable": false,
+        "enabled": false,
+        "editable": true,
         "value": "Service",
-        "valueType": "TYPE",
-        "valueTypeConstraint": "tcp:Service",
-        "isType": true,
-        "placeholder": "",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "Service",
         "optional": false,
         "advanced": false,
+        "items": [
+          "",
+          "Service"
+        ],
         "codedata": {
           "inListenerInit": false,
           "isBasePath": false,
@@ -99,8 +104,8 @@
         "kind": "REMOTE",
         "name": {
           "metadata": {
-            "label": "",
-            "description": ""
+            "label": "onConnect",
+            "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client"
           },
           "enabled": true,
           "editable": false,
@@ -108,65 +113,94 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
+          "placeholder": "onConnect",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
           "addNewButton": false
         },
         "parameters": [
           {
             "metadata": {
-              "label": "Caller Object",
+              "label": "caller",
               "description": "The new client connection"
             },
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "Type",
+                "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "tcp:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "tcp:Caller",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "tcp:Caller",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "caller",
+                "description": "The new client connection"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "caller",
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "",
+              "placeholder": "caller",
               "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           }
         ],
         "returnType": {
           "metadata": {
-            "label": "Return type",
-            "description": "Return type of the function. The function can return an error or nil"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
           "value": "tcp:ConnectionService",
           "valueType": "TYPE",
-          "valueTypeConstraint": "tcp:ConnectionService|error",
+          "valueTypeConstraint": "string",
           "isType": true,
           "placeholder": "tcp:ConnectionService",
           "optional": true,

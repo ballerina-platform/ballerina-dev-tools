@@ -375,26 +375,6 @@ public final class Utils {
     public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel,
                                           boolean isHttp, boolean isGraphQL) {
         Service serviceModel = Service.getNewService();
-        String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
-        if (!basePath.isEmpty()) {
-            Value basePathValue = new Value();
-            basePathValue.setValue(basePath);
-            basePathValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            basePathValue.setEnabled(true);
-            serviceModel.setBasePath(basePathValue);
-        }
-        Optional<TypeDescriptorNode> serviceTypeDesc = serviceDeclarationNode.typeDescriptor();
-        if (serviceTypeDesc.isPresent()) {
-            Value serviceType = new Value();
-            serviceType.setValue(serviceTypeDesc.get().toString().trim());
-            serviceType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-            serviceType.setEnabled(true);
-            if (isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
-                serviceModel.setServiceContractTypeName(serviceType);
-            } else {
-                serviceModel.setServiceType(serviceType);
-            }
-        }
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
@@ -767,16 +747,6 @@ public final class Utils {
         return parameterModel;
     }
 
-    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
-                                                  ServiceDeclarationNode serviceDeclaration,
-                                                  SemanticModel semanticModel) {
-        serviceModel.setFunctions(new ArrayList<>());
-        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
-        updateServiceInfo(serviceModel, commonSvcModel);
-        serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
-        populateListenerInfo(serviceModel, serviceDeclaration);
-    }
-
     public static Optional<String> getPath(TypeDefinitionNode serviceTypeNode) {
         Optional<MetadataNode> metadata = serviceTypeNode.metadata();
         if (metadata.isEmpty()) {
@@ -810,14 +780,47 @@ public final class Utils {
         return Optional.empty();
     }
 
+    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
+                                                  ServiceDeclarationNode serviceDeclaration,
+                                                  SemanticModel semanticModel) {
+        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
+
+        // TODO: improve handling service type
+        if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
+            serviceModel.updateServiceType(commonSvcModel.getServiceType());
+        }
+        updateServiceInfo(serviceModel, commonSvcModel);
+        serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
+        populateListenerInfo(serviceModel, serviceDeclaration);
+    }
+
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
+        // handle base path and string literal
+        String attachPoint = getPath(serviceNode.absoluteResourcePath());
+        if (!attachPoint.isEmpty()) {
+            boolean isStringLiteral = attachPoint.startsWith("\"") && attachPoint.endsWith("\"");
+            if (isStringLiteral) {
+                Value stringLiteralProperty = serviceModel.getStringLiteralProperty();
+                if (Objects.nonNull(stringLiteralProperty)) {
+                    stringLiteralProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setStringLiteral(ServiceModelUtils.getStringLiteralProperty(attachPoint));
+                }
+            } else {
+                Value basePathProperty = serviceModel.getBasePath();
+                if (Objects.nonNull(basePathProperty)) {
+                    basePathProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setBasePath(ServiceModelUtils.getBasePathProperty(attachPoint));
+                }
+            }
+        }
+
+
         String moduleName = serviceModel.getModuleName();
         boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
         boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
-        if (isHttp || isGraphql) {
-            serviceModel.setFunctions(new ArrayList<>());
-        }
         Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
@@ -830,9 +833,6 @@ public final class Utils {
             enableContractFirstApproach(serviceModel);
         }
         populateDesignApproach(serviceModel);
-        if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
-            serviceModel.updateServiceType(commonSvcModel.getServiceType());
-        }
         populateProperties(serviceModel);
         if (Objects.nonNull(commonSvcModel.getBasePath())) {
             if (Objects.nonNull(commonSvcModel.getBasePath())) {
@@ -842,6 +842,8 @@ public final class Utils {
             }
         }
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
+
+        // mark the enabled functions as true if they present in the source
         serviceModel.getFunctions().forEach(functionModel -> {
             Optional<Function> function = commonSvcModel.getFunctions().stream()
                     .filter(newFunction -> isPresent(functionModel, newFunction)
@@ -852,6 +854,8 @@ public final class Utils {
                     () -> functionModel.setEnabled(false)
             );
         });
+
+        // functions contains in source but not enforced using the service contract type
         commonSvcModel.getFunctions().forEach(functionModel -> {
             if (serviceModel.getFunctions().stream()
                     .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
@@ -927,18 +931,6 @@ public final class Utils {
             for (int i = 0; i < size; i++) {
                 ExpressionNode expressionNode = expressions.get(i);
                 serviceModel.getListener().addValue(getListenerExprName(expressionNode));
-            }
-        }
-        NodeList<Node> paths = serviceNode.absoluteResourcePath();
-        if (!paths.isEmpty()) {
-            String path = getPath(paths);
-            if (serviceModel.getPackageName().equals("rabbitmq")) {
-                Value queueName = serviceModel.getProperty("queueName");
-                if (Objects.nonNull(queueName)) {
-                    queueName.setValue(path);
-                }
-            } else {
-                serviceModel.getBasePath().setValue(path);
             }
         }
     }
