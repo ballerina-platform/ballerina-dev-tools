@@ -7,6 +7,9 @@ DROP TABLE IF EXISTS Annotation;
 DROP TABLE IF EXISTS AnnotationField;
 DROP TABLE IF EXISTS AnnotationFieldMemberType;
 DROP TABLE IF EXISTS ServiceDeclaration;
+DROP TABLE IF EXISTS ServiceType;
+DROP TABLE IF EXISTS ServiceTypeFunction;
+DROP TABLE IF EXISTS ServiceTypeFunctionParameter;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -103,4 +106,40 @@ CREATE TABLE AnnotationFieldMemberType (
     annotation_field_id INTEGER,
     package TEXT, -- format of the package is org:name:version
     FOREIGN KEY (annotation_field_id) REFERENCES AnnotationField(annotation_field_id) ON DELETE CASCADE
+);
+
+-- Create ServiceDeclaration table
+CREATE TABLE ServiceType (
+    service_type_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    package_id INTEGER,
+    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
+);
+
+-- Create ServiceTypeFunction table
+CREATE TABLE ServiceTypeFunction (
+    function_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    accessor TEXT CHECK(accessor IN ('get', 'post', 'put', 'delete', 'options', 'head', 'patch')),
+    kind TEXT CHECK(kind IN ('FUNCTION', 'REMOTE', 'RESOURCE')),
+    return_type JSON, -- JSON type for return type information
+    return_type_editable INTEGER CHECK(return_type_editable IN (0, 1)),
+    import_statements TEXT, -- Import statements for the return type
+    service_type_id INTEGER,
+    FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id) ON DELETE CASCADE
+);
+
+-- Create ServiceTypeFunctionParameter table
+CREATE TABLE ServiceTypeFunctionParameter (
+    parameter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    label TEXT NOT NULL,
+    description TEXT,
+    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST_PARAMETER')),
+    type JSON, -- JSON type for parameter type information
+    default_value TEXT,
+    import_statements TEXT,
+    function_id INTEGER,
+    FOREIGN KEY (function_id) REFERENCES ServiceTypeFunction(function_id) ON DELETE CASCADE
 );

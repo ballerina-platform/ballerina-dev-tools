@@ -10,7 +10,6 @@ import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
-import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 
@@ -25,7 +24,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class ServiceModelUtils {
-
 
     public static Optional<Service> getEmptyServiceModel(String moduleName) {
         if (moduleName.equals("http")) {
@@ -131,7 +129,7 @@ public class ServiceModelUtils {
         Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
         valueBuilder
                 .setMetadata(new MetaData(template.typeDescriptorLabel(), template.typeDescriptorDescription()))
-                .setCodedata(new Codedata("SERVICE_TYPE_DESCRIPTOR"))
+                .setCodedata(new Codedata("SERVICE_TYPE"))
                 .setValue(template.typeDescriptorDefaultValue())
                 .setValues(new ArrayList<>())
                 .setValueType("EXPRESSION")
