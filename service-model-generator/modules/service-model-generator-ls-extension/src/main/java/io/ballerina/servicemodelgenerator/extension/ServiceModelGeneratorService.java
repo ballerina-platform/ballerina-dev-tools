@@ -116,6 +116,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
@@ -126,7 +127,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
 
@@ -301,7 +302,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 ModulePartNode node = document.get().syntaxTree().rootNode();
                 LineRange lineRange = node.lineRange();
                 Service service = request.service();
-                populateProperties(service);
+                populateRequiredFuncsDesignApproachAndServiceType(service);
 
                 boolean isDefaultListenerCreationRequired =
                         ListenerUtil.checkForDefaultListenerExistence(service.getListener());
@@ -533,7 +534,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new ServiceFromSourceResponse();
             }
             Service serviceModel = service.get();
-            updateServiceModel(serviceModel, serviceNode, semanticModel);
+            updateGenericServiceModel(serviceModel, serviceNode, semanticModel);
             Set<String> listenersList = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
             serviceModel.getListener().setItems(listenersList.stream().toList());
             return new ServiceFromSourceResponse(serviceModel);

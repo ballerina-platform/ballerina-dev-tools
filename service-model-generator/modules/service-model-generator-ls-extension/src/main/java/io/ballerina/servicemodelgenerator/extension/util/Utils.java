@@ -265,13 +265,13 @@ public final class Utils {
         return new Position(linePosition.line(), linePosition.offset());
     }
 
-    public static void populateProperties(Service service) {
+    public static void populateRequiredFuncsDesignApproachAndServiceType(Service service) {
         populateRequiredFunctions(service);
         populateServiceType(service);
         populateDesignApproach(service);
     }
 
-    private static void populateRequiredFunctions(Service service) {
+    public static void populateRequiredFunctions(Service service) {
         Value value = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
         if (Objects.nonNull(value) && value.isEnabledWithValue()) {
             String requiredFunction = value.getValue();
@@ -817,7 +817,6 @@ public final class Utils {
             }
         }
 
-
         String moduleName = serviceModel.getModuleName();
         boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
         boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
@@ -832,8 +831,7 @@ public final class Utils {
         if (Objects.nonNull(serviceContractTypeNameValue)) {
             enableContractFirstApproach(serviceModel);
         }
-        populateDesignApproach(serviceModel);
-        populateProperties(serviceModel);
+        populateRequiredFuncsDesignApproachAndServiceType(serviceModel);
         if (Objects.nonNull(commonSvcModel.getBasePath())) {
             if (Objects.nonNull(commonSvcModel.getBasePath())) {
                 updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
@@ -908,7 +906,7 @@ public final class Utils {
         }
     }
 
-    private static void updateFunctionInfo(Function functionModel, Function commonFunction) {
+    public static void updateFunctionInfo(Function functionModel, Function commonFunction) {
         functionModel.setEnabled(true);
         functionModel.setKind(commonFunction.getKind());
         functionModel.setCodedata(commonFunction.getCodedata());
@@ -944,7 +942,7 @@ public final class Utils {
         return "";
     }
 
-    private static boolean isPresent(Function functionModel, Function newFunction) {
+    public static boolean isPresent(Function functionModel, Function newFunction) {
         return newFunction.getName().getValue().equals(functionModel.getName().getValue()) &&
                 (Objects.isNull(newFunction.getAccessor()) || Objects.isNull(functionModel.getAccessor()) ||
                         newFunction.getAccessor().getValue().equals(functionModel.getAccessor().getValue()));

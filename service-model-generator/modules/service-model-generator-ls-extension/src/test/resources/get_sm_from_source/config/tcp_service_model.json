@@ -33,7 +33,7 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "tcpListener",
+        "value": "",
         "values": [],
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": "tcp:Listener",

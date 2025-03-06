@@ -46,8 +46,7 @@
         "items": [
           "httpListener",
           "githubListener",
-          "(+) Create and use the default HTTP listener",
-          "new http:Listener(port = 8080)"
+          "(+) Create and use the default HTTP listener"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -64,8 +63,8 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "/api/test",
-        "valueType": "IDENTIFIER",
+        "value": "/",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "isType": false,
         "placeholder": "",

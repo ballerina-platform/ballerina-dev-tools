@@ -2,11 +2,14 @@ package io.ballerina.servicemodelgenerator.extension.util;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.DatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.modelgenerator.commons.ServiceTypeFunction;
+import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
@@ -24,9 +27,95 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunctionInfo;
+
 public class ServiceModelUtils {
+
+    /**
+     * Update the service model of services other than http.
+     *
+     * @param serviceModel service model initially populated using the database
+     * @param serviceNode service declaration node
+     * @param semanticModel semantic model of the source
+     */
+    public static void updateGenericServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
+                                                 SemanticModel semanticModel) {
+        // handle base path and string literal
+        String attachPoint = getPath(serviceNode.absoluteResourcePath());
+        if (!attachPoint.isEmpty()) {
+            boolean isStringLiteral = attachPoint.startsWith("\"") && attachPoint.endsWith("\"");
+            if (isStringLiteral) {
+                Value stringLiteralProperty = serviceModel.getStringLiteralProperty();
+                if (Objects.nonNull(stringLiteralProperty)) {
+                    stringLiteralProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setStringLiteral(ServiceModelUtils.getStringLiteralProperty(attachPoint));
+                }
+            } else {
+                Value basePathProperty = serviceModel.getBasePath();
+                if (Objects.nonNull(basePathProperty)) {
+                    basePathProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setBasePath(ServiceModelUtils.getBasePathProperty(attachPoint));
+                }
+            }
+        }
+
+        boolean isGraphql = serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL);
+        List<Function> functionsInSource = serviceNode.members().stream()
+                .filter(member -> member instanceof FunctionDefinitionNode functionDefinitionNode)
+                .map(member -> getFunctionModel((FunctionDefinitionNode) member, semanticModel, false, isGraphql))
+                .toList();
+
+        updateServiceInfoNew(serviceModel, functionsInSource);
+        serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
+    }
+
+    private static void updateServiceInfoNew(Service serviceModel, List<Function> functionsInSource) {
+        Utils.populateRequiredFunctions(serviceModel);
+
+        // mark the enabled functions as true if they present in the source
+        serviceModel.getFunctions().forEach(functionModel -> {
+            Optional<Function> function = functionsInSource.stream()
+                    .filter(newFunction -> isPresent(functionModel, newFunction)
+                            && newFunction.getKind().equals(functionModel.getKind()))
+                    .findFirst();
+            function.ifPresentOrElse(
+                    func -> updateFunction(functionModel, func, serviceModel),
+                    () -> functionModel.setEnabled(false)
+            );
+        });
+
+        // functions contains in source but not enforced using the service contract type
+        functionsInSource.forEach(funcInSource -> {
+            if (serviceModel.getFunctions().stream().noneMatch(newFunction -> isPresent(funcInSource, newFunction))) {
+                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP) &&
+                        funcInSource.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
+                    getResourceFunctionModel().ifPresentOrElse(
+                            resourceFunction -> {
+                                updateFunctionInfo(resourceFunction, funcInSource);
+                                serviceModel.addFunction(resourceFunction);
+                            },
+                            () -> serviceModel.addFunction(funcInSource)
+                    );
+                } else if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
+                    GraphqlUtil.updateGraphqlFunctionMetaData(funcInSource);
+                    serviceModel.addFunction(funcInSource);
+                } else {
+                    serviceModel.addFunction(funcInSource);
+                }
+            }
+        });
+    }
+
 
     public static Optional<Service> getEmptyServiceModel(String moduleName) {
         if (moduleName.equals("http")) {
