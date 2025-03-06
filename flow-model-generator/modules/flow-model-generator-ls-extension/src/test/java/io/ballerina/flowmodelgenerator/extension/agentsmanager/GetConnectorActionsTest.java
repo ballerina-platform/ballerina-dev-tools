@@ -69,7 +69,7 @@ public class GetConnectorActionsTest extends AbstractLSTest {
         if (!actions.equals(testConfig.actions())) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(), actions);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

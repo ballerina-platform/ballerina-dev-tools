@@ -115,15 +115,8 @@ public class PackageUtil {
      */
     public static Optional<Package> getModulePackage(BuildProject buildProject, String org, String name,
                                                      String version) {
-        ResolutionRequest resolutionRequest;
-        // TODO: Remove this once the agent module is released
-        if (org.equals("ballerinax") && name.equals("ai.agent")) {
-            resolutionRequest = ResolutionRequest.from(
-                    PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version), "local"));
-        } else {
-            resolutionRequest = ResolutionRequest.from(
+        ResolutionRequest resolutionRequest = ResolutionRequest.from(
                     PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
-        }
 
         Collection<ResolutionResponse> resolutionResponses =
                 buildProject.projectEnvironmentContext().getService(PackageResolver.class)
