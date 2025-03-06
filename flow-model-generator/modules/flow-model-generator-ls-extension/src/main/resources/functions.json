@@ -74,6 +74,23 @@
           "enabled": true
         }
       ]
+    },
+    {
+      "metadata": {
+        "label": "Prompt as code"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Prompt as code",
+            "description": "Prompt as code functions"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION"
+          },
+          "enabled": true
+        }
+      ]
     }
   ]
 }
