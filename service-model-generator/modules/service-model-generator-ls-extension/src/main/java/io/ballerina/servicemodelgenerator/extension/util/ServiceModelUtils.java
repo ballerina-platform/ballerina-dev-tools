@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.servicemodelgenerator.extension.util;
 
 import com.google.gson.Gson;
@@ -9,6 +27,7 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.modelgenerator.commons.ServiceTypeFunction;
+import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.DisplayAnnotation;
@@ -29,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
@@ -119,6 +139,12 @@ public class ServiceModelUtils {
     }
 
 
+    /**
+     * Get the service model of the given module without the function list.
+     *
+     * @param moduleName module name
+     * @return {@link Optional<Service>} service model
+     */
     public static Optional<Service> getEmptyServiceModel(String moduleName) {
         if (moduleName.equals("http")) {
             return getHttpService();
@@ -175,6 +201,13 @@ public class ServiceModelUtils {
         return Optional.of(service);
     }
 
+    /**
+     * Get the service model for a give service type including its functions.
+     *
+     * @param moduleName module name
+     * @param serviceType service type
+     * @return {@link Optional<Service>} service model
+     */
     public static Optional<Service> getServiceModelWithFunctions(String moduleName, String serviceType) {
         Optional<Service> serviceOptional = getEmptyServiceModel(moduleName);
         if (serviceOptional.isEmpty() || serviceOptional.get().getPackageName().equals("http")) {
@@ -188,7 +221,7 @@ public class ServiceModelUtils {
         return Optional.of(service);
     }
 
-    public static Function getFunction(ServiceTypeFunction function) {
+    private static Function getFunction(ServiceTypeFunction function) {
 
         List<Parameter> parameters = new ArrayList<>();
         for (ServiceTypeFunction.ServiceTypeFunctionParameter parameter : function.parameters()) {
@@ -236,7 +269,7 @@ public class ServiceModelUtils {
         return functionBuilder.build();
     }
 
-    public static Parameter getParameter(ServiceTypeFunction.ServiceTypeFunctionParameter parameter) {
+    private static Parameter getParameter(ServiceTypeFunction.ServiceTypeFunctionParameter parameter) {
         Value.ValueBuilder parameterName = new Value.ValueBuilder();
         parameterName
                 .setMetadata(new MetaData(parameter.name(), parameter.description()))
@@ -291,47 +324,6 @@ public class ServiceModelUtils {
                 .httpParamType(null);
 
         return parameterBuilder.build();
-    }
-
-    public static Function getInitFunction() {
-        Value.ValueBuilder functionName = new Value.ValueBuilder();
-        functionName
-                .setMetadata(new MetaData("Init Function", "The init function"))
-                .setCodedata(new Codedata("FUNCTION_NAME"))
-                .setValue("init")
-                .setValueType("IDENTIFIER")
-                .setValueTypeConstraint("string")
-                .setPlaceholder("init")
-                .setEnabled(true)
-                .setEditable(false)
-                .setType(false)
-                .setOptional(false)
-                .setAdvanced(false);
-
-        Value.ValueBuilder functionReturnType = new Value.ValueBuilder();
-        functionReturnType
-                .setMetadata(new MetaData("Return Type", "The return type of the function"))
-                .setValue("error?")
-                .setValueType("TYPE")
-                .setValueTypeConstraint("string")
-                .setPlaceholder("error?")
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(true)
-                .setOptional(true)
-                .setAdvanced(false);
-
-        Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
-        functionBuilder
-                .setMetadata(new MetaData("Init", "The Init function of the service"))
-                .setKind("DEFAULT")
-                .setEnabled(true)
-                .setOptional(false)
-                .setEditable(true)
-                .setName(functionName.build())
-                .setReturnType(new FunctionReturnType(functionReturnType.build()));
-
-        return functionBuilder.build();
     }
 
     private static Value getTypeDescriptorProperty(ServiceDeclaration template, int packageId) {
@@ -486,6 +478,21 @@ public class ServiceModelUtils {
             return Optional.of(new Gson().fromJson(reader, Service.class));
         } catch (IOException e) {
             return Optional.empty();
+        }
+    }
+
+    public static void updateListenerItems(String moduleName, SemanticModel semanticModel, Project project,
+                                           Service serviceModel) {
+        Set<String> listeners = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
+        List<String> allValues = serviceModel.getListener().getValues();
+        if (Objects.isNull(allValues) || allValues.isEmpty()) {
+            listeners.add(serviceModel.getListener().getValue());
+        } else {
+            listeners.addAll(allValues);
+        }
+        Value listener = serviceModel.getListener();
+        if (!listeners.isEmpty()) {
+            listener.setItems(listeners.stream().toList());
         }
     }
 }

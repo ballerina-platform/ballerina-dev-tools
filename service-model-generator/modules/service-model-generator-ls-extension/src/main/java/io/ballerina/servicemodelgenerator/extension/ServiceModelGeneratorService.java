@@ -117,6 +117,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
@@ -524,7 +525,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 } else {
                     updateServiceModel(serviceModel, serviceNode, semanticModel);
                 }
-                updateListenerInfo(moduleName, semanticModel, project, serviceModel);
+                updateListenerItems(moduleName, semanticModel, project, serviceModel);
                 return new ServiceFromSourceResponse(serviceModel);
             }
             String serviceType = serviceTypeWithoutPrefix(moduleAndServiceType);
@@ -534,25 +535,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             }
             Service serviceModel = service.get();
             updateGenericServiceModel(serviceModel, serviceNode, semanticModel);
-
-            updateListenerInfo(moduleName, semanticModel, project, serviceModel);
+            updateListenerItems(moduleName, semanticModel, project, serviceModel);
             return new ServiceFromSourceResponse(serviceModel);
         });
-    }
-
-    private static void updateListenerInfo(String moduleName, SemanticModel semanticModel, Project project,
-                                           Service serviceModel) {
-        Set<String> listeners = ListenerUtil.getCompatibleListeners(moduleName, semanticModel, project);
-        List<String> allValues = serviceModel.getListener().getValues();
-        if (Objects.isNull(allValues) || allValues.isEmpty()) {
-            listeners.add(serviceModel.getListener().getValue());
-        } else {
-            listeners.addAll(allValues);
-        }
-        Value listener = serviceModel.getListener();
-        if (!listeners.isEmpty()) {
-            listener.setItems(listeners.stream().toList());
-        }
     }
 
     private static String serviceTypeWithoutPrefix(ModuleAndServiceType moduleAndServiceType) {
