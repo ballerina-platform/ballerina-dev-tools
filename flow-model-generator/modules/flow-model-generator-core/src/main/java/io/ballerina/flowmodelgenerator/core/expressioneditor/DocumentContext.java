@@ -157,6 +157,7 @@ public class DocumentContext {
             document = inputDoc.get();
             filePath = inputFilePath;
             fileUri = fileUri == null ? CommonUtils.getExprUri(filePath.toString()) : inputFileUri;
+            return;
         }
 
         // Generate the reserved file if not exists

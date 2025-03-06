@@ -67,14 +67,6 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
         }
     }
 
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[] {
-                Path.of("proj1.json")
-        };
-    }
-
     @Test
     public void testMultipleRequests() throws IOException {
         Path configJsonPath = configDir.resolve("config.json");

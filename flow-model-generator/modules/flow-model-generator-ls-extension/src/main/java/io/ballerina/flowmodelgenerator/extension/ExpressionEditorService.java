@@ -41,7 +41,6 @@ import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -109,10 +108,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManagerProxy.get().loadProject(filePath);
-                SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
-                        () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
-                return TypesGenerator.getInstance().getTypes(semanticModel, request.typeConstraint());
+                DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
+                return TypesGenerator.getInstance()
+                        .getTypes(documentContext.semanticModel().orElseThrow(), request.typeConstraint());
             } catch (Throwable e) {
                 return Either.forRight(new CompletionList());
             }
@@ -168,35 +166,26 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Codedata codedata = request.codedata();
                 String template;
                 switch (request.kind()) {
-                    case CURRENT:
-                        template = codedata.symbol();
-                        break;
-                    case IMPORTED:
-                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                        break;
-                    case AVAILABLE:
+                    case CURRENT -> template = codedata.symbol();
+                    case IMPORTED -> template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                    case AVAILABLE -> {
                         String fileUri = CommonUtils.getExprUri(request.filePath());
-                        Optional<Document> document =
-                                workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
-
-                        if (document.isPresent()) {
-                            String importStatement = codedata.getImportSignature();
-                            Document doc = document.get();
-                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                                    workspaceManagerProxy,
-                                    fileUri,
-                                    Path.of(request.filePath()),
-                                    doc);
-                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                            importTextEdit.ifPresent(
-                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                        }
+                        String importStatement = codedata.getImportSignature();
+                        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                                workspaceManagerProxy,
+                                fileUri,
+                                Path.of(request.filePath()),
+                                null);
+                        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                        importTextEdit.ifPresent(
+                                textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                        break;
-                    default:
+                    }
+                    default -> {
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
                                 ". Expected kinds are: CURRENT, IMPORTED, AVAILABLE."));
                         return response;
+                    }
                 }
                 response.setTemplate(template + "(${1})");
             } catch (Exception e) {
@@ -212,21 +201,17 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             SuccessResponse response = new SuccessResponse();
             try {
                 String fileUri = CommonUtils.getExprUri(request.filePath());
-                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
-                if (document.isPresent()) {
-                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                            workspaceManagerProxy,
-                            fileUri,
-                            Path.of(request.filePath()),
-                            document.get());
-                    String importStatement = request.importStatement()
-                            .replaceFirst("^import\\s+", "")
-                            .replaceAll(";\\n$", "");
-                    Optional<TextEdit> importTextEdit = expressionEditorContext
-                            .getImport(importStatement);
-                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                    response.setSuccess(true);
-                }
+                ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                        workspaceManagerProxy,
+                        fileUri,
+                        Path.of(request.filePath()),
+                        null);
+                String importStatement = request.importStatement()
+                        .replaceFirst("^import\\s+", "")
+                        .replaceAll(";\\n$", "");
+                Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                response.setSuccess(true);
             } catch (Exception e) {
                 response.setError(e);
                 response.setSuccess(false);
