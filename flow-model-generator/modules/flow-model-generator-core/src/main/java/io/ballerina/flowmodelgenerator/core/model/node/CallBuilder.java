@@ -67,7 +67,8 @@ public abstract class CallBuilder extends NodeBuilder {
                 .functionResultKind(getFunctionResultKind())
                 .userModuleInfo(moduleInfo);
 
-        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
+        NodeKind functionNodeKind = getFunctionNodeKind();
+        if (functionNodeKind != NodeKind.FUNCTION_CALL) {
             functionDataBuilder.parentSymbolType(codedata.object());
         }
 
@@ -88,7 +89,7 @@ public abstract class CallBuilder extends NodeBuilder {
                 .description(functionData.description());
         codedata()
                 .id(functionData.functionId())
-                .node(getFunctionNodeKind())
+                .node(functionNodeKind)
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
@@ -96,6 +97,20 @@ public abstract class CallBuilder extends NodeBuilder {
                 .symbol(codedata.symbol())
                 .inferredReturnType(functionData.inferredReturnType() ? functionData.returnType() : null);
 
+        if (functionNodeKind != NodeKind.FUNCTION_CALL && functionNodeKind != NodeKind.AGENT &&
+                functionNodeKind != NodeKind.AGENT_CALL && functionNodeKind != NodeKind.CLASS_INIT) {
+            properties().custom()
+                    .metadata()
+                    .label(Property.CONNECTION_LABEL)
+                    .description(Property.CONNECTION_DOC)
+                    .stepOut()
+                    .typeConstraint(isLocalFunction ? codedata.object() :
+                            CommonUtils.getClassType(codedata.module(), codedata.object()))
+                    .value(codedata.parentSymbol())
+                    .type(Property.ValueType.IDENTIFIER)
+                    .stepOut()
+                    .addProperty(Property.CONNECTION_KEY);
+        }
         setParameterProperties(functionData);
 
         if (CommonUtils.hasReturn(functionData.returnType())) {

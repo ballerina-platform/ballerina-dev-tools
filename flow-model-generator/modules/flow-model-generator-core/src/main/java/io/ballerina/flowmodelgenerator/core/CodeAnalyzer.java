@@ -338,11 +338,7 @@ class CodeAnalyzer extends NodeVisitor {
                 ExpressionNode toolsArg = null;
                 ExpressionNode modelArg = null;
                 for (FunctionArgumentNode arg : argList.get().arguments()) {
-                    SyntaxKind kind = arg.kind();
-                    // TODO: Check this
-                    if (kind == SyntaxKind.POSITIONAL_ARG) {
-                        PositionalArgumentNode positionalArgumentNode = (PositionalArgumentNode) arg;
-                    } else if (kind == SyntaxKind.NAMED_ARG) {
+                    if (arg.kind() == SyntaxKind.NAMED_ARG) {
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
                         if (namedArgumentNode.argumentName().name().text().equals("tools")) {
                             toolsArg = namedArgumentNode.expression();
@@ -1998,19 +1994,6 @@ class CodeAnalyzer extends NodeVisitor {
             return (ImplicitNewExpressionNode) expr;
         }
         throw new IllegalStateException("Implicit new expression not found");
-    }
-
-    private void checkAgentTool(RemoteMethodCallActionNode actionNode) {
-        NonTerminalNode parent = actionNode.parent();
-        while (parent.kind() != SyntaxKind.FUNCTION_DEFINITION) {
-            parent = parent.parent();
-        }
-        FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) parent;
-        Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
-        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
-            return;
-        }
-        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
     }
 
     public List<FlowNode> getFlowNodes() {

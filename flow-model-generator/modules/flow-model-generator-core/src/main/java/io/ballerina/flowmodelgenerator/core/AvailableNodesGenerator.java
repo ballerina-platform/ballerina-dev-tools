@@ -21,7 +21,13 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -60,11 +66,6 @@ public class AvailableNodesGenerator {
     private static final String HTTP_MODULE = "http";
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
-    private static final String WSO2 = "wso2";
-    private static final String AI_AGENT = "ai.agent";
-    private static final String AI_VERSION = "1.0.0";
-
-    private static final List<String> agents = List.of("FunctionCallAgent", "ReActAgent", "Agent");
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -84,7 +85,6 @@ public class AvailableNodesGenerator {
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
         items.addAll(LocalIndexCentral.getInstance().getFunctions());
-//        genAvailableAgents(items);
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -111,45 +111,6 @@ public class AvailableNodesGenerator {
         setDefaultNodes();
         return this.rootBuilder.build().items();
     }
-
-//    private void genAvailableAgents(List<Item> items) {
-//        List<Symbol> symbols = semanticModel.moduleSymbols();
-//        List<Item> agentItems = new ArrayList<>();
-//        for (Symbol symbol : symbols) {
-//            if (symbol.kind() != SymbolKind.VARIABLE) {
-//                continue;
-//            }
-//            VariableSymbol variableSymbol = (VariableSymbol) symbol;
-//            String typeName = variableSymbol.typeDescriptor().getName().orElse("");
-//            if (agents.contains(typeName)) {
-//                Metadata metadata = new Metadata.Builder<>(null)
-//                        .label(variableSymbol.getName().orElse(""))
-//                        .build();
-//                FunctionData functionResult = new FunctionData(-1, "run", "Run agent", "error?", AI_AGENT, WSO2,
-//                        AI_VERSION, "",
-//                        FunctionData.Kind.FUNCTION, true, false);
-//                NodeBuilder methodCallBuilder = NodeBuilder.getNodeFromKind(NodeKind.AGENT_CALL);
-//                methodCallBuilder
-//                        .metadata()
-//                            .label(functionResult.name())
-//                            .icon(CommonUtils.generateIcon(WSO2, AI_AGENT, AI_VERSION))
-//                            .description(functionResult.description())
-//                            .stepOut()
-//                        .codedata()
-//                            .node(NodeKind.AGENT_CALL)
-//                            .org(WSO2)
-//                            .module(AI_AGENT)
-//                            .version(AI_VERSION)
-//                            .symbol(functionResult.name())
-//                            .id(functionResult.functionId());
-//                agentItems.add(new Category(metadata, List.of(methodCallBuilder.buildAvailableNode())));
-//            }
-//        }
-//
-//        if (!agentItems.isEmpty()) {
-//            items.add(this.rootBuilder.stepIn(Category.Name.AGENTS).items(agentItems).build());
-//        }
-//    }
 
     private void setAvailableDefaultNodes(NonTerminalNode node, SemanticModel semanticModel) {
         setDefaultNodes();

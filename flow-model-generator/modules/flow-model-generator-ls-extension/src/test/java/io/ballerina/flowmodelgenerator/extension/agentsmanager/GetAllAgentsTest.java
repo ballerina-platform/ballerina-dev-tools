@@ -29,6 +29,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Tests for get all agents.
+ *
+ * @since 2.0.0
+ */
 public class GetAllAgentsTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")

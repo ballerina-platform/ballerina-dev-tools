@@ -38,6 +38,7 @@ import java.util.Set;
 public class AgentBuilder extends CallBuilder {
 
     private static final String AGENT_LABEL = "Agent";
+    private static final String AGENT_FILE = "agents.bal";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -68,6 +69,6 @@ public class AgentBuilder extends CallBuilder {
                 .functionParameters(sourceBuilder.flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
                         Property.SCOPE_KEY, Property.CHECK_ERROR_KEY));
 
-        return sourceBuilder.textEdit(false, "agents.bal", true).build();
+        return sourceBuilder.textEdit(false, AGENT_FILE, true).build();
     }
 }

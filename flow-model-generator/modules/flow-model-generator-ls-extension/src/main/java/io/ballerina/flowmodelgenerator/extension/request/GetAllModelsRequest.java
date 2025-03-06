@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension.request;
 
 /**
- * A request to retrieve all models initiated that corresponds with the given agent.
+ * A request to retrieve initialized models.
  *
  * @param agent name of the agent
  * @param filePath a file path of the project

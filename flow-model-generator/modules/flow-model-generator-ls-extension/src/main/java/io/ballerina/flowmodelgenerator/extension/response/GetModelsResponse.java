@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.extension.response;
 import com.google.gson.JsonArray;
 
 /**
- * Represents the response for available agents.
+ * Represents the response for available models.
  *
  * @since 2.0.0
  */

@@ -21,7 +21,7 @@ package io.ballerina.flowmodelgenerator.extension.response;
 import com.google.gson.JsonElement;
 
 /**
- * Represents the response for the flow model getFlowDesignModel API.
+ * Represents the response for tools generation.
  *
  * @since 2.0.0
  */

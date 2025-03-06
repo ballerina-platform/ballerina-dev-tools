@@ -23,9 +23,27 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.*;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Item;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
@@ -43,10 +61,16 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
- * This class is responsible for generating types from the semantic model.
+ * This class is responsible for managing agents.
  *
  * @since 2.0.0
  */
@@ -56,8 +80,6 @@ public class AgentsGenerator {
     public static final String MODEL = "Model";
     private final Gson gson;
     private final SemanticModel semanticModel;
-    private static final Map<String, Set<String>> modelsForAgent = Map.of("FunctionCallAgent", Set.of("ChatGptModel",
-            "AzureChatGptModel"), "ReActAgent", Set.of("ChatGptModel", "AzureChatGptModel"));
     private static final String BALLERINAX = "ballerinax";
     private static final String AI_AGENT = "ai.agent";
     private static final String INIT = "init";
@@ -355,8 +377,16 @@ public class AgentsGenerator {
                 paramList.add(paramType + " " + key);
             }
 
-            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
-            sourceBuilder.token().name("@display {").name("label: \"\",").name("iconPath: \"").name(flowNode.metadata().icon()).name("\"}").name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@agent:Tool").
+                    name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@display {")
+                    .name("label: \"\",")
+                    .name("iconPath: \"")
+                    .name(flowNode.metadata().icon())
+                    .name("\"}")
+                    .name(System.lineSeparator());
 
             sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
@@ -430,8 +460,16 @@ public class AgentsGenerator {
                 paramList.add(paramType + " " + key);
             }
 
-            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
-            sourceBuilder.token().name("@display {").name("label: \"\",").name("iconPath: \"").name(flowNode.metadata().icon()).name("\"}").name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@agent:Tool")
+                    .name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@display {")
+                    .name("label: \"\",")
+                    .name("iconPath: \"")
+                    .name(flowNode.metadata().icon())
+                    .name("\"}")
+                    .name(System.lineSeparator());
 
             sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
@@ -476,9 +514,6 @@ public class AgentsGenerator {
                     continue;
                 }
                 if (propCodedata.kind().equals(ParameterData.Kind.PATH_PARAM.name())) {
-//                    String pathParamSubString = "[" + key + "]";
-//                    String replacement = "[" + property.get().value().toString() + "]";
-//                    resourcePath = resourcePath.replace(pathParamSubString, replacement);
                     ignoredKeys.add(key);
                 } else if (propCodedata.kind().equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
                     String replacement = property.get().value().toString();
@@ -520,8 +555,9 @@ public class AgentsGenerator {
         Document document = workspaceManager.document(filePath).orElseThrow();
         TextDocument textDocument = document.textDocument();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
+        Path connectionPath = workspaceManager.projectRoot(filePath).resolve("connections.bal");
         List<TextEdit> connectionTextEdits = NodeBuilder.getNodeFromKind(flowNode.codedata().node())
-                .toSource(sourceBuilder).get(filePath.getParent().resolve("connections.bal"));
+                .toSource(sourceBuilder).get(connectionPath);
         io.ballerina.tools.text.TextEdit[] textEdits = new io.ballerina.tools.text.TextEdit[connectionTextEdits.size()];
         for (int i = 0; i < connectionTextEdits.size(); i++) {
             TextEdit connectionTextEdit = connectionTextEdits.get(i);
@@ -621,55 +657,5 @@ public class AgentsGenerator {
             methods.add(item);
         }
         return gson.toJsonTree(methods).getAsJsonArray();
-    }
-
-    private List<ClassSymbol> getAgentSymbols(ModuleSymbol agentModule) {
-        List<ClassSymbol> agentSymbols = new ArrayList<>();
-        for (ClassSymbol classSymbol : agentModule.classes()) {
-            List<TypeSymbol> typeInclusions = classSymbol.typeInclusions();
-            for (TypeSymbol typeInclusion : typeInclusions) {
-                if (typeInclusion.getName().isPresent() && typeInclusion.getName().get().equals(BASE_AGENT)) {
-                    agentSymbols.add(classSymbol);
-                    break;
-                }
-            }
-        }
-        return agentSymbols;
-    }
-
-    private List<ClassSymbol> getModelsForAgent(ClassSymbol agentSymbol, List<ClassSymbol> classSymbols) {
-        Optional<MethodSymbol> optInitMethodSymbol = agentSymbol.initMethod();
-        if (optInitMethodSymbol.isEmpty()) {
-            throw new IllegalStateException(String.format("Agent %s does not have an init method",
-                    agentSymbol.getName()));
-        }
-        Optional<List<ParameterSymbol>> optParams = optInitMethodSymbol.get().typeDescriptor().params();
-        if (optParams.isEmpty()) {
-            throw new IllegalStateException(String.format("Agent %s init method does not have parameters",
-                    agentSymbol.getName()));
-        }
-        for (ParameterSymbol paramSymbol : optParams.get()) {
-            if (paramSymbol.getName().orElse("").equals(MODEL_PARAM)) {
-                List<ClassSymbol> models = new ArrayList<>();
-                TypeSymbol paramType = paramSymbol.typeDescriptor();
-                for (ClassSymbol classSymbol : classSymbols) {
-                    if (isSubType(paramType, classSymbol.typeInclusions())) {
-                        models.add(classSymbol);
-                    }
-                }
-                return models;
-            }
-        }
-        throw new IllegalStateException(String.format("Agent %s does not have corresponding models",
-                agentSymbol.getName()));
-    }
-
-    private boolean isSubType(TypeSymbol typeSymbol, List<TypeSymbol> typeSymbols) {
-        for (TypeSymbol type : typeSymbols) {
-            if (CommonUtils.subTypeOf(type, typeSymbol)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
