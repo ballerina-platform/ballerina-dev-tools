@@ -112,6 +112,7 @@ CREATE TABLE AnnotationFieldMemberType (
 CREATE TABLE ServiceType (
     service_type_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
+    description TEXT,
     package_id INTEGER,
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );

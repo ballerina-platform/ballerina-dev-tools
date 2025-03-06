@@ -20,6 +20,13 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "\"/\"",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": []
+        }
       }
     },
     {
@@ -41,6 +48,13 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "\"/graphql\"",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": []
+        }
       }
     },
     {
@@ -62,6 +76,33 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onConnect",
+              "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "tcp:ConnectionService",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "caller",
+                  "label": "Caller Object",
+                  "description": "The new client connection",
+                  "kind": "REQUIRED",
+                  "type": "tcp:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -83,6 +124,72 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onCreate",
+              "description": "The `onCreate` remote method will be triggered when a file is created in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onDelete",
+              "description": "The `onDelete` remote method will be triggered when a file is deleted in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onModify",
+              "description": "The `onModify` remote method will be triggered when a file is modified in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+
+          ]
+        }
       }
     },
     {
@@ -104,6 +211,42 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onFileChange",
+              "description": "The `onFileChange` remote method will be triggered when a file change event occurs",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File watch event",
+                  "description": "The File watch event",
+                  "kind": "REQUIRED",
+                  "type": "ftp:WatchEvent & readonly|ftp:WatchEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The FTP caller object to execute file operations",
+                  "kind": "REQUIRED",
+                  "type": "ftp:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -125,6 +268,34 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "The `onMessage` remote method will be triggered when a message is received from a subscribed topic.",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "Messages",
+                  "description": "The messages received for the topic",
+                  "kind": "REQUIRED",
+                  "type": "mqtt:Message",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+
+          ]
+        }
       }
     }
   ],
@@ -148,6 +319,53 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "Triggers when new message received for the azure service bus",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "Messages",
+                  "description": "The received message",
+                  "kind": "REQUIRED",
+                  "type": "asb:Message",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "Triggers when error occurred in the azure service bus",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "asbErr",
+                  "label": "Messages",
+                  "description": "The messages received for the topic",
+                  "kind": "REQUIRED",
+                  "type": "asb:MessageRetrievalError",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+
+        }
       }
     },
     {
@@ -169,6 +387,99 @@
         "stringLiteralDescription": "The name of the queue",
         "stringLiteralDefaultValue": "\"\"",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The RabbitMQ caller object to acknowledge the message",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onRequest",
+              "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "anydata|error",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The RabbitMQ caller object to acknowledge the message",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "The `onError` remote method will be triggered when an error occurs during the message processing",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "rabbitmqError",
+                  "label": "RabbitMQ Error",
+                  "description": "The error occurred during the message processing",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Error",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+
+        }
       }
     },
     {
@@ -190,6 +501,61 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "SINGLE_SELECT"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onConsumerRecord",
+              "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "records",
+                  "label": "Consumer records",
+                  "description": "The records received for Kafka topic(s)",
+                  "kind": "REQUIRED",
+                  "type": "kafka:AnydataConsumerRecord[]",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The Kafka caller object to commit the offsets",
+                  "kind": "REQUIRED",
+                  "type": "kafka:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "The `onError` remote method will be triggered when an error occurs during the message processing",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "parameters": [
+                {
+                  "name": "kafkaError",
+                  "label": "Kafka Error",
+                  "description": "The error occurred during the message processing",
+                  "kind": "REQUIRED",
+                  "type": "kafka:Error",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -211,6 +577,8 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
       }
     },
     {
@@ -232,6 +600,8 @@
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
         "listenerKind": "MULTIPLE_SELECT"
+      },
+      "serviceTypes": {
       }
     }
   ]
